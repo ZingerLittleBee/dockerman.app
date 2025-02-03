@@ -39,8 +39,7 @@ export default function Cta() {
               </h3>
               <p className="mx-auto mt-4 max-w-2xl text-gray-600 sm:text-lg dark:text-gray-400">
                 <Balancer>
-                  Launch a new cluster or migrate to Database with zero
-                  downtime.
+                  Start managing your Docker containers with a lightweight, powerful desktop experience.
                 </Balancer>
               </p>
             </div>
