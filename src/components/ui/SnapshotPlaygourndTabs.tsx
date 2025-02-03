@@ -20,13 +20,13 @@ export default function SnapshotPlaygourndTabs({
       orientation="vertical"
     >
       <Tabs.List
-        className="h-fit col-span-full flex w-full flex-col gap-4 md:order-2 md:col-span-3"
+        className="grid grid-cols-2 h-fit col-span-full md:flex w-full flex-col gap-4 md:order-2 md:col-span-3"
         aria-label="Select view"
       >
         {tabs.map((tab) => (
           <Tabs.Trigger
             key={tab.label}
-            className="group relative flex justify-center p-4 flex-1 flex-col items-start rounded-xl text-left shadow-lg ring-1 ring-gray-200 data-[state=active]:ring-indigo-400  dark:ring-white/5 dark:data-[state=active]:shadow-indigo-900/30"
+            className="group relative flex justify-center p-2 md:p-4 flex-1 flex-col items-start rounded-xl text-left shadow-lg ring-1 ring-gray-200 data-[state=active]:ring-indigo-400  dark:ring-white/5 dark:data-[state=active]:shadow-indigo-900/30"
             value={tab.label}
           >
             <div className="flex items-center gap-4">

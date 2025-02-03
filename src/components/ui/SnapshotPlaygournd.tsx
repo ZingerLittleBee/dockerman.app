@@ -14,7 +14,7 @@ import {
 } from "@remixicon/react"
 import Image from "next/image"
 import { Badge } from "../Badge"
-import CodeExampleTabs from "./SnapshotPlaygourndTabs"
+import SnapshotPlaygourndTabs from "./SnapshotPlaygourndTabs"
 
 const screenshots = [
   {
@@ -98,7 +98,7 @@ export default function SnapshotPlaygournd() {
       </p>
 
       <div className="mt-8">
-        <CodeExampleTabs
+        <SnapshotPlaygourndTabs
           tabs={screenshots.map((screenshot) => ({
             label: screenshot.label,
             icon: screenshot.icon,
