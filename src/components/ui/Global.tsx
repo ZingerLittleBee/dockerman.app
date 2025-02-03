@@ -2,7 +2,7 @@
 import createGlobe from "cobe"
 import { FunctionComponent, useEffect, useRef } from "react"
 
-export const GlobalDatabase: FunctionComponent = () => {
+export const Global: FunctionComponent = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
@@ -41,17 +41,16 @@ export const GlobalDatabase: FunctionComponent = () => {
 
   const features = [
     {
-      name: "Global Clusters",
-      description: "Enable low-latency global access, enhancing performance.",
+      name: "Powerful Performance",
+      description: "Built with Tauri and Rust for lightning-fast powerful desktop experience.",
     },
     {
-      name: "Serverless Triggers",
-      description: "Trigger functions automatically for dynamic app behavior.",
+      name: "Real-time Monitoring",
+      description: "Monitor container stats, logs, and resource usage in real-time.",
     },
     {
-      name: "Monitoring & Alerts",
-      description:
-        "Monitor health with key metrics or integrate third-party tools.",
+      name: "Container Management",
+      description: "Easily manage containers with detailed inspection and terminal access.",
     },
   ]
 
@@ -64,14 +63,14 @@ export const GlobalDatabase: FunctionComponent = () => {
         <div className="absolute top-[17rem] size-[40rem] rounded-full bg-indigo-800 blur-3xl md:top-[20rem]" />
         <div className="z-10 inline-block rounded-lg border border-indigo-400/20 bg-indigo-800/20 px-3 py-1.5 font-semibold uppercase leading-4 tracking-tight sm:text-sm">
           <span className="bg-gradient-to-b from-indigo-200 to-indigo-400 bg-clip-text text-transparent">
-            Made for the cloud
+            Modern Docker Management
           </span>
         </div>
         <h2
           id="global-database-title"
           className="z-10 mt-6 inline-block bg-gradient-to-b from-white to-indigo-100 bg-clip-text px-2 text-center text-5xl font-bold tracking-tighter text-transparent md:text-8xl"
         >
-          The global <br /> cloud database
+          Lightweight <br /> Docker Management
         </h2>
         <canvas
           className="absolute top-[7.1rem] z-20 aspect-square size-full max-w-fit md:top-[12rem]"

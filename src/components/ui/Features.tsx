@@ -3,16 +3,16 @@ import { Badge } from "../Badge"
 
 const stats = [
   {
-    name: "Bandwith increase",
-    value: "+162%",
+    name: "Performance",
+    value: "~0ms",
   },
   {
-    name: "Better storage efficiency",
-    value: "2-3x",
+    name: "Bundle Size",
+    value: "<10MB",
   },
   {
-    name: "Rows ingested / second",
-    value: "Up to 9M",
+    name: "Memory Usage",
+    value: "<30MB",
   },
 ]
 
@@ -22,18 +22,17 @@ export default function Features() {
       aria-labelledby="features-title"
       className="mx-auto mt-44 w-full max-w-6xl px-3"
     >
-      <Badge>Security at Scale</Badge>
+      <Badge>Desktop App</Badge>
       <h2
         id="features-title"
         className="mt-2 inline-block bg-gradient-to-br from-gray-900 to-gray-800 bg-clip-text py-2 text-4xl font-bold tracking-tighter text-transparent sm:text-6xl md:text-6xl dark:from-gray-50 dark:to-gray-300"
       >
-        Architected for speed and reliability
+        Lightweight Docker Management
       </h2>
       <p className="mt-6 max-w-3xl text-lg leading-7 text-gray-600 dark:text-gray-400">
-        Database&rsquo; innovative architecture avoids the central bottlenecks
-        of traditional systems, enhancing system reliability. This design
-        ensures high productivity and security, minimizing the risk of service
-        disruptions and outages.
+        Experience Docker management reimagined - ultra-lightweight and blazing fast. Built with Tauri
+        and Rust, Dockerman uses minimal system resources while delivering instant response times.
+        Streamlined interface with essential features for efficient container management.
       </p>
       <dl className="mt-12 grid grid-cols-1 gap-y-8 md:grid-cols-3 md:border-y md:border-gray-200 md:py-14 dark:border-gray-800">
         {stats.map((stat, index) => (

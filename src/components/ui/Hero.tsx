@@ -2,7 +2,6 @@ import { RiPlayCircleFill } from "@remixicon/react"
 import Link from "next/link"
 import { Button } from "../Button"
 import HeroImage from "./HeroImage"
-
 export default function Hero() {
   return (
     <section
@@ -14,21 +13,20 @@ export default function Hero() {
         className="inline-block animate-slide-up-fade bg-gradient-to-br from-gray-900 to-gray-800 bg-clip-text p-2 text-4xl font-bold tracking-tighter text-transparent sm:text-6xl md:text-7xl dark:from-gray-50 dark:to-gray-300"
         style={{ animationDuration: "700ms" }}
       >
-        The database for <br /> modern applications
+        Modern Docker <br /> management simplified
       </h1>
       <p
         className="mt-6 max-w-lg animate-slide-up-fade text-lg text-gray-700 dark:text-gray-400"
         style={{ animationDuration: "900ms" }}
       >
-        Database is a general purpose, relational database built for modern
-        application developers and for the cloud era.
+        A lightweight, powerful Docker management UI focused on simplicity and performance.
       </p>
       <div
         className="mt-8 flex w-full animate-slide-up-fade flex-col justify-center gap-3 px-3 sm:flex-row"
         style={{ animationDuration: "1100ms" }}
       >
         <Button className="h-10 font-semibold">
-          <Link href="#">Start 14-day trial</Link>
+          <Link href="#">Download</Link>
         </Button>
         <Button
           asChild
@@ -36,7 +34,7 @@ export default function Hero() {
           className="group gap-x-2 bg-transparent font-semibold hover:bg-transparent dark:bg-transparent hover:dark:bg-transparent"
         >
           <Link
-            href="https://www.youtube.com/watch?v=QRZ_l7cVzzU"
+            href=""
             className="ring-1 ring-gray-200 sm:ring-0 dark:ring-gray-900"
             target="_blank"
           >

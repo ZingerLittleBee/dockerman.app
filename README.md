@@ -9,12 +9,12 @@ Focus on simplicity and performance for Docker container management.
 - 📊 Real-time container monitoring
 - 🔒 Local-only operation
 
-![Dashboard Screenshot](screenshots/dashboard.png)
-![Terminal Screenshot](screenshots/terminal.png)
-![Process List Screenshot](screenshots/process.png)
-![inspect Screenshot](screenshots/inspect.png)
-![stats Screenshot](screenshots/stats.png)
-![logs Screenshot](screenshots/logs.png)
+![Dashboard Screenshot](public/screenshots/dashboard.png)
+![Terminal Screenshot](public/screenshots/terminal.png)
+![Process List Screenshot](public/screenshots/process.png)
+![inspect Screenshot](public/screenshots/inspect.png)
+![stats Screenshot](public/screenshots/stats.png)
+![logs Screenshot](public/screenshots/logs.png)
 
 ## Features
 
