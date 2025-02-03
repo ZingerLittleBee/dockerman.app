@@ -1,5 +1,5 @@
 export const siteConfig = {
-  name: "Database",
+  name: "Dockerman",
   url: "https://dockerman.app",
   description:
     "Focus on simplicity and performance for Docker container management.",
