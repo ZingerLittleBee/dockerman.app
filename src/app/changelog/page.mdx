@@ -1,0 +1,74 @@
+<ChangelogEntry version="v3.17.0" date="Apr 27, 2024">
+## Safe migrations on development branches
+
+After months of development, Safe migrations can now be activated on development
+branches. Activating this feature ensures zero-downtime schema migrations, the
+ability to revert schemas, and safeguards against unintended schema
+modifications.
+
+<ChangelogImage src="/changelog/v317.webp" />
+
+### New & Improved:
+
+- <Bold>Filters:</Bold> [AI Filters](#) will now enhance your existing
+  compatible filters rather than replacing them.
+- <Bold>Comments:</Bold> When you open a notification about a comment, the reply
+  input field will now automatically appear.
+- <Bold>Editor:</Bold> It's now possible to browse through multiple images in
+  the editor without needing to zoom out.
+- <Bold>Templates:</Bold> When using an existing document to [create a
+  template](#), users can now choose which team to create it in, rather than it
+  defaulting to the first available team.
+
+### Fixes:
+
+- <Bold>Dashboard:</Bold> Now, when you move database projects in a list or
+  board layout grouped by date within the [dashboard](#), the start and end
+  dates will update automatically.
+- <Bold>Dashboard:</Bold> The sequence of columns on dashboards organized by
+  [database milestones](#) will now match the order of milestones displayed in
+  the sidebar.
+- <Bold>Desktop Application:</Bold> Fixed a glitch that allowed PDF printing
+  even in the absence of connected printers.
+- <Bold>Help Center:</Bold> Enhanced the capability for accessing documentation
+  links directly from the in-app help center.
+- <Bold>Editor:</Bold> The user mention feature in the SQL editor now respects
+  the 'Display full names' setting.
+- <Bold>Filters:</Bold> Resolved an inconsistency where filter queries with
+  'includes any' settings sometimes delivered incorrect results.
+
+For more information, refer to our [the documentation](#).
+
+</ChangelogEntry>
+
+<ChangelogEntry version="v3.16.0" date="Apr 10, 2024">
+## New Regions and Replicas
+
+Database introduces the capability to set up same-region read replicas. These
+replicas are separate, read-only compute units designed to conduct read
+operations on the same dataset as their corresponding read-write compute
+instances.
+
+<ChangelogImage src="/changelog/v316.webp" />
+
+### Use Regions to advance:
+
+- <Bold>Enhanced Throughput:</Bold> Spread read operations across several
+  replicas to improve throughput for all types of workloads, both read-write and
+  read-only.
+- <Bold>Dedicated Read-only Workloads:</Bold> Assign analytical and reporting
+  tasks to a read replica to preserve the performance of your main application
+  workload.
+- <Bold>Controlled Data Access:</Bold> Grant read-only access to specific
+  applications or users who don't require write permissions.
+- <Bold>Resource Customization:</Bold> Tailor the CPU and memory resources for
+  each read replica according to the specific requirements of different
+  applications or users.
+- <Bold>Customization Features:</Bold> Instantly create and tailor the resources
+  of one or more read replicas for any project branch, adjusting the allocated
+  vCPU and memory as needed.
+
+For more information, refer to our docs post on read replicas or the read
+replicas section in [the documentation](#).
+
+</ChangelogEntry>

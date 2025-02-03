@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "NanumPenScript";
+  font-weight: 400;
+  font-display: block;
+  font-style: normal;
+  font-named-instance: "Regular";
+  src: url("/fonts/NanumPenScript.woff2") format("woff2");
+}
+
+.backdrop-blur {
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+}
+
+.backdrop-blur-nav {
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+code {
+  counter-reset: step;
+  counter-increment: step 0;
+}
+
+code .line::before {
+  content: counter(step);
+  counter-increment: step;
+  @apply mr-8 inline-block w-4 text-right text-gray-600;
+}
+.mask {
+  mask-image: radial-gradient(rgba(0, 0, 0, 1) 0%, transparent 80%);
+}
+
+a {
+  @apply scroll-my-24 decoration-gray-400 transition-all;
+}
+
+.anchor-link {
+  @apply invisible absolute -ml-4 w-3/4 max-w-2xl cursor-pointer pr-2 no-underline;
+}
+
+.anchor-link:hover {
+  @apply visible;
+}
+
+.anchor-link:after {
+  @apply text-gray-400 dark:text-gray-600;
+  content: "#";
+}
+
+*:hover > .anchor-link {
+  @apply visible;
+}
