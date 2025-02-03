@@ -1,10 +1,12 @@
 import Footer from "@/components/ui/Footer"
 import { Navigation } from "@/components/ui/Navbar"
+import { Analytics } from '@vercel/analytics/next'
 import type { Metadata } from "next"
 import { ThemeProvider } from "next-themes"
 import { Inter } from "next/font/google"
 import "./globals.css"
 import { siteConfig } from "./siteConfig"
+
 
 const inter = Inter({
   subsets: ["latin"],
@@ -13,17 +15,17 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://yoururl.com"),
+  metadataBase: new URL("https://dockerman.app"),
   title: siteConfig.name,
   description: siteConfig.description,
-  keywords: ["Marketing", "Database", "Software"],
+  keywords: ["Docker", "UI", "Management", "Tauri", "Rust", "Desktop", "App"],
   authors: [
     {
-      name: "yourname",
-      url: "",
+      name: "ZingerBee",
+      url: "https://github.com/ZingerLittleBee",
     },
   ],
-  creator: "yourname",
+  creator: "ZingerBee",
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -36,7 +38,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteConfig.name,
     description: siteConfig.description,
-    creator: "@yourname",
+    creator: "@zinger_bee",
   },
   icons: {
     icon: "/favicon.ico",
@@ -62,6 +64,7 @@ export default function RootLayout({
           {children}
           <Footer />
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   )
