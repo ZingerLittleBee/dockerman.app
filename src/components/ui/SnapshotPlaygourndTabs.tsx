@@ -45,7 +45,7 @@ export default function SnapshotPlaygourndTabs({
           {tabs.map((tab) => (
             <Tabs.Content key={tab.label} value={tab.label} asChild>
               <motion.div
-                className="absolute w-full outline-none"
+                className="relative w-full outline-none"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
