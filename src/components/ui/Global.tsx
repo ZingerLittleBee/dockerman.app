@@ -57,7 +57,7 @@ export const Global: FunctionComponent = () => {
   return (
     <div className="px-3">
       <section
-        aria-labelledby="global-database-title"
+        aria-labelledby="global-title"
         className="relative mx-auto mt-28 flex w-full max-w-6xl flex-col items-center justify-center overflow-hidden rounded-3xl bg-gray-950 pt-24 shadow-xl shadow-black/30 md:mt-40"
       >
         <div className="absolute top-[17rem] size-[40rem] rounded-full bg-indigo-800 blur-3xl md:top-[20rem]" />
@@ -67,7 +67,7 @@ export const Global: FunctionComponent = () => {
           </span>
         </div>
         <h2
-          id="global-database-title"
+          id="global-title"
           className="z-10 mt-6 inline-block bg-gradient-to-b from-white to-indigo-100 bg-clip-text px-2 text-center text-5xl font-bold tracking-tighter text-transparent md:text-8xl"
         >
           Lightweight <br /> Docker Management

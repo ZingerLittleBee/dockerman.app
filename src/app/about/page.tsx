@@ -3,6 +3,7 @@
 import { Badge } from "@/components/Badge"
 import { Button } from "@/components/Button"
 import { RiGithubFill, RiTwitterXFill } from "@remixicon/react"
+import Image from "next/image"
 import Balancer from "react-wrap-balancer"
 
 const TEAM_MEMBERS = [
@@ -39,7 +40,7 @@ export default function About() {
           </Balancer>
         </h1>
         <p className="mt-6 max-w-2xl text-lg text-gray-700 dark:text-gray-400">
-          We're a team of developers and designers who believe that managing Docker containers should be simple, intuitive, and efficient.
+          We&apos;re a team of developers and designers who believe that managing Docker containers should be simple, intuitive, and efficient.
         </p>
       </section>
 
@@ -70,10 +71,12 @@ export default function About() {
               className="rounded-xl bg-white p-6 shadow-lg shadow-gray-200/50 ring-1 ring-gray-200/50 dark:bg-gray-900 dark:shadow-none dark:ring-gray-800"
             >
               <div className="flex items-center gap-4">
-                <img
+                <Image
                   src={member.avatar}
                   alt={member.name}
-                  className="h-16 w-16 rounded-full object-cover"
+                  className="rounded-full object-cover"
+                  width={64}
+                  height={64}
                 />
                 <div>
                   <h3 className="font-semibold text-gray-900 dark:text-gray-100">{member.name}</h3>
@@ -142,7 +145,7 @@ export default function About() {
             Stay Connected
           </h2>
           <p className="mt-4 text-lg text-gray-600 dark:text-gray-400">
-            Follow Dockerman's development and be the first to know about new features and updates.
+            Follow Dockerman&apos;s development and be the first to know about new features and updates.
           </p>
           <div className="mt-6 flex gap-4">
             <a href="https://github.com/ZingerLittleBee" target="_blank" rel="noopener noreferrer">

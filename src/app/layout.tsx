@@ -16,9 +16,30 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://dockerman.app"),
-  title: siteConfig.name,
+  title: 'Dockerman - Modern Docker Management UI',
   description: siteConfig.description,
-  keywords: ["Docker", "UI", "Management", "Tauri", "Rust", "Desktop", "App"],
+  keywords: [
+    "Docker",
+    "UI",
+    "Management",
+    "Tauri",
+    "Rust",
+    "Desktop",
+    "App",
+    "Container",
+    "Image",
+    "Monitoring",
+    "Terminal",
+    "Dashboard",
+    "Cross-platform",
+    "Resource Usage",
+    "Logs",
+    "Process",
+    "Statistics",
+    "Docker Management",
+    "Container Management",
+    "DevOps"
+  ],
   authors: [
     {
       name: "ZingerBee",
@@ -30,15 +51,22 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: siteConfig.url,
-    title: siteConfig.name,
+    title: siteConfig.title,
     description: siteConfig.description,
     siteName: siteConfig.name,
+    images: [{
+      url: '/opengraph-image.png',
+      width: 1200,
+      height: 630,
+      alt: 'Dockerman - Modern Docker Management UI'
+    }],
   },
   twitter: {
     card: "summary_large_image",
-    title: siteConfig.name,
+    title: siteConfig.title,
     description: siteConfig.description,
     creator: "@zinger_bee",
+    images: ['/opengraph-image.png'],
   },
   icons: {
     icon: "/favicon.ico",

@@ -22,7 +22,7 @@ export default function Privacy() {
           </Balancer>
         </h1>
         <p className="mt-6 max-w-2xl text-lg text-gray-700 dark:text-gray-400">
-          We take your privacy seriously. Here's how we handle your data.
+          We take your privacy seriously. Here&apos;s how we handle your data.
         </p>
       </section>
 
