@@ -80,7 +80,7 @@ export function Navigation() {
           </nav>
           <a href={siteConfig.baseLinks.download}>
             <Button className="hidden h-10 font-semibold md:flex">
-              Download for free
+              Download
             </Button>
           </a>
 

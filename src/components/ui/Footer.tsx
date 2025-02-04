@@ -37,8 +37,8 @@ export default function Footer() {
           <div className="space-y-8">
             <Logo className="w-32 sm:w-40" />
             <p className="text-sm leading-6 text-gray-600 dark:text-gray-400">
-              Redefining the way databases are built and managed. Built in
-              Switzerland, made for the world.
+              A modern, lightweight Docker management UI. Built with ❤️ for developers
+              around the world.
             </p>
             <div className="flex space-x-6">
               <ThemeSwitch />

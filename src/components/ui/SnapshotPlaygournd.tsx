@@ -59,7 +59,7 @@ const screenshots = [
 const features = [
   {
     name: "Real-time Monitoring",
-    description: "Monitor container CPU, memory, network, and I/O metrics in real-time with native performance.",
+    description: "Monitor container CPU, memory, network, and I/O metrics in real-time with powerful performance.",
     icon: RiStackLine,
   },
   {
@@ -73,7 +73,7 @@ const features = [
     icon: RiLinksLine,
   },
   {
-    name: "Native Performance",
+    name: "Powerful Performance",
     description: "Built with Tauri for lightning-fast startup and minimal resource usage while managing your Docker environment.",
     icon: RiShieldKeyholeLine,
   },

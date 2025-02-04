@@ -4,7 +4,7 @@ A modern, lightweight Docker management UI built with Tauri and React.
 Focus on simplicity and performance for Docker container management.
 
 - 🚀 Fast startup and minimal resource usage
-- 💻 Native performance with Tauri
+- 💻 Powerful performance with Tauri
 - 🎯 Clean, focused interface
 - 📊 Real-time container monitoring
 - 🔒 Local-only operation

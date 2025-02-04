@@ -113,7 +113,7 @@ export default function About() {
           {[
             {
               title: "Performance First",
-              description: "Built with Rust and Tauri for native performance and minimal resource usage."
+              description: "Built with Rust and Tauri for powerful performance and minimal resource usage."
             },
             {
               title: "Developer Experience",
