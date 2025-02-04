@@ -66,10 +66,10 @@ export function Navigation() {
             </div>
           </nav>
           <Button className="hidden h-10 font-semibold md:flex">
-            Book a demo
+            Download for free
           </Button>
           <div className="flex gap-x-2 md:hidden">
-            <Button>Book demo</Button>
+            <Button>Download</Button>
             <Button
               onClick={() => setOpen(!open)}
               variant="light"
