@@ -103,12 +103,12 @@ export default function SnapshotPlaygournd() {
             label: screenshot.label,
             icon: screenshot.icon,
             content: (
-              <div className="overflow-hidden shadow-2xl rounded-2xl bg-slate-50/40 p-2 ring-1 ring-inset ring-slate-200/50 dark:bg-gray-900/70 dark:ring-white/10">
-                <div className="rounded-xl bg-white ring-1 ring-slate-900/5 dark:bg-slate-950 dark:ring-white/15">
+              <div className="overflow-hidden shadow-2xl rounded-xl md:rounded-2xl bg-slate-50/40 p-2 ring-1 ring-inset ring-slate-200/50 dark:bg-gray-900/70 dark:ring-white/10">
+                <div className="rounded md:rounded-xl bg-white ring-1 ring-slate-900/5 dark:bg-slate-950 dark:ring-white/15">
                   <Image
                     src={screenshot.src}
                     alt={screenshot.alt}
-                    className="object-contain rounded-xl shadow dark:shadow-indigo-600/10"
+                    className="object-contain rounded md:rounded-xl shadow dark:shadow-indigo-600/10"
                     quality={70}
                     width={1200}
                     height={900}

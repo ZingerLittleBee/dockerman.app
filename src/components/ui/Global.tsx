@@ -70,7 +70,8 @@ export const Global: FunctionComponent = () => {
           id="global-title"
           className="z-10 mt-6 inline-block bg-gradient-to-b from-white to-indigo-100 bg-clip-text px-2 text-center text-5xl font-bold tracking-tighter text-transparent md:text-8xl"
         >
-          Lightweight <br /> Docker Management
+          <p className="hidden md:block">Lightweight <br /> Docker Management</p>
+          <p className="block md:hidden">Powerful Lightweight</p>
         </h2>
         <canvas
           className="absolute top-[7.1rem] z-20 aspect-square size-full max-w-fit md:top-[12rem]"
