@@ -21,10 +21,10 @@ export default function Hero() {
         A lightweight, powerful Docker management UI focused on simplicity and performance.
       </p>
       <div
-        className="mt-8 flex w-full animate-slide-up-fade flex-col justify-center gap-3 px-3 sm:flex-row"
+        className="mt-8 flex w-full animate-slide-up-fade justify-center gap-3 px-3 sm:flex-row"
         style={{ animationDuration: "1100ms" }}
       >
-        <Button className="h-10 w-full max-w-[200px] font-semibold">
+        <Button className="px-8 h-10 max-w-[200px] font-semibold">
           <Link href="/download">Download for free</Link>
         </Button>
       </div>
