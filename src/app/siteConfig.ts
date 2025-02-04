@@ -1,8 +1,9 @@
 export const siteConfig = {
   name: "Dockerman",
+  title: "Dockerman - Modern Docker Management UI",
   url: "https://dockerman.app",
   description:
-    "Focus on simplicity and performance for Docker container management.",
+    "A modern, lightweight Docker management UI built with Tauri and Rust. Focus on simplicity and performance for Docker container management.",
   baseLinks: {
     home: "/",
     about: "/about",

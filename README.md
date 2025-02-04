@@ -1,6 +1,6 @@
 # Dockerman
 
-A modern, lightweight Docker management UI built with Tauri and React.
+A modern, lightweight Docker management UI built with Tauri and Rust.
 Focus on simplicity and performance for Docker container management.
 
 - 🚀 Fast startup and minimal resource usage
