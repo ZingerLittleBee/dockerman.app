@@ -135,7 +135,7 @@ export const ChangelogImage = ({
     alt={alt}
     width={width}
     height={height}
-    className="mb-10 overflow-hidden rounded-xl shadow-md shadow-black/15 ring-1 ring-gray-200/50 dark:ring-gray-800"
+    className="mb-10 overflow-hidden rounded shadow-md shadow-black/15 ring-1 ring-gray-200/50 dark:ring-gray-800"
     {...props}
   />
 )
