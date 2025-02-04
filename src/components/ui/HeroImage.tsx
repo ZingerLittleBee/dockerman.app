@@ -13,7 +13,7 @@ export default function HeroImage() {
             alt="dockerman dashboard"
             width={2400}
             height={1600}
-            className="object-contain rounded-xl shadow-2xl dark:shadow-indigo-600/10"
+            className="object-contain rounded md:rounded-xl shadow-2xl dark:shadow-indigo-600/10"
           />
         </div>
       </div>
