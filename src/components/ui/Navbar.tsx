@@ -47,6 +47,19 @@ export function Navigation() {
             <div className="flex items-center gap-10 font-medium">
               <Link
                 className="px-2 py-1 text-gray-900 dark:text-gray-50"
+                href={siteConfig.baseLinks.home}
+              >
+                Home
+              </Link>
+              <Link
+                className="px-2 py-1 text-gray-900 dark:text-gray-50"
+                href={siteConfig.baseLinks.download}
+              >
+                Download
+              </Link>
+
+              {/* <Link
+                className="px-2 py-1 text-gray-900 dark:text-gray-50"
                 href={siteConfig.baseLinks.about}
               >
                 About
@@ -56,7 +69,7 @@ export function Navigation() {
                 href={siteConfig.baseLinks.pricing}
               >
                 Pricing
-              </Link>
+              </Link> */}
               <Link
                 className="px-2 py-1 text-gray-900 dark:text-gray-50"
                 href={siteConfig.baseLinks.changelog}
@@ -65,11 +78,16 @@ export function Navigation() {
               </Link>
             </div>
           </nav>
-          <Button className="hidden h-10 font-semibold md:flex">
-            Download for free
-          </Button>
+          <a href={siteConfig.baseLinks.download}>
+            <Button className="hidden h-10 font-semibold md:flex">
+              Download for free
+            </Button>
+          </a>
+
           <div className="flex gap-x-2 md:hidden">
-            <Button>Download</Button>
+            <a href={siteConfig.baseLinks.download}>
+              <Button>Download</Button>
+            </a>
             <Button
               onClick={() => setOpen(!open)}
               variant="light"
@@ -90,12 +108,21 @@ export function Navigation() {
           )}
         >
           <ul className="space-y-4 font-medium">
-            <li onClick={() => setOpen(false)}>
+            {/* <li onClick={() => setOpen(false)}>
               <Link href={siteConfig.baseLinks.about}>About</Link>
             </li>
             <li onClick={() => setOpen(false)}>
               <Link href={siteConfig.baseLinks.pricing}>Pricing</Link>
+            </li> */}
+
+            <li onClick={() => setOpen(false)}>
+              <a href={siteConfig.baseLinks.home}>Home</a>
             </li>
+
+            <li onClick={() => setOpen(false)}>
+              <a href={siteConfig.baseLinks.download}>Download</a>
+            </li>
+
             <li onClick={() => setOpen(false)}>
               <Link href={siteConfig.baseLinks.changelog}>Changelog</Link>
             </li>

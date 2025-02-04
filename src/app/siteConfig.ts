@@ -6,6 +6,7 @@ export const siteConfig = {
   baseLinks: {
     home: "/",
     about: "/about",
+    download: "/download",
     changelog: "/changelog",
     pricing: "/pricing",
     imprint: "/imprint",
