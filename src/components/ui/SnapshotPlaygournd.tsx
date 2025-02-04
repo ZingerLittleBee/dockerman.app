@@ -94,7 +94,7 @@ export default function SnapshotPlaygournd() {
       </h2>
       <p className="mt-6 max-w-2xl text-lg text-gray-600 dark:text-gray-400">
         A modern, lightweight Docker management UI that focuses on simplicity and performance.
-        Monitor and manage your containers with native desktop integration.
+        Monitor and manage your containers with cross-platform desktop integration.
       </p>
 
       <div className="mt-8">

@@ -56,4 +56,4 @@ Focus on simplicity and performance for Docker container management.
 
 - 🔌 Native Docker daemon connection
 - 🚀 Lightweight and fast performance
-- 💻 Native desktop integration
+- 💻 Cross-platform desktop application

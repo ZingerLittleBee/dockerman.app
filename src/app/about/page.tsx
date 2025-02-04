@@ -50,7 +50,7 @@ export default function About() {
         </h2>
         <div className="mt-6 max-w-prose space-y-6 text-lg text-gray-600 dark:text-gray-400">
           <p>
-            Dockerman was born from our own frustrations with existing Docker management tools. We wanted something that was fast, native, and focused on developer productivity.
+            Dockerman was born from our own frustrations with existing Docker management tools. We wanted something that was fast, cross-platform, and focused on developer productivity.
           </p>
           <p>
             Our mission is to make container management accessible to everyone, from individual developers to large teams, while maintaining the power and flexibility that Docker provides.
