@@ -1,7 +1,7 @@
 "use client"
+import { siteConfig } from "@/app/siteConfig"
 import Balancer from "react-wrap-balancer"
 import { Button } from "../Button"
-import { Input } from "../Input"
 
 export default function Cta() {
   return (
@@ -43,42 +43,27 @@ export default function Cta() {
                 </Balancer>
               </p>
             </div>
-            <div className="mt-14 w-full rounded-[16px] bg-gray-300/5 p-1.5 ring-1 ring-black/[3%] backdrop-blur dark:bg-gray-900/10 dark:ring-white/[3%]">
+            <div className="mt-14 rounded-[16px] bg-gray-300/5 p-1.5 ring-1 ring-black/[3%] backdrop-blur dark:bg-gray-900/10 dark:ring-white/[3%]">
               <div className="rounded-xl bg-white p-4 shadow-lg shadow-indigo-500/10 ring-1 ring-black/5 dark:bg-gray-950 dark:shadow-indigo-500/10 dark:ring-white/5">
-                <form
-                  className="flex flex-col items-center gap-3 sm:flex-row"
-                  onSubmit={(e) => e.preventDefault()}
-                >
-                  <label htmlFor="email" className="sr-only">
-                    Email address
-                  </label>
-                  <Input
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    required
-                    id="email"
-                    className="h-10 w-full min-w-0 flex-auto"
-                    inputClassName="h-full"
-                    placeholder="Your Work Email "
-                  />
-                  <Button
-                    className="h-10 w-full sm:w-fit sm:flex-none"
-                    type="submit"
-                    variant="primary"
-                  >
-                    Get started
-                  </Button>
-                </form>
+                <div className="flex flex-col justify-center items-center gap-3 sm:flex-row">
+                  <a href={siteConfig.baseLinks.download}>
+                    <Button
+                      className="h-10 w-full sm:w-fit sm:flex-none"
+                      variant="primary"
+                    >
+                      Download for Desktop
+                    </Button>
+                  </a>
+                </div>
               </div>
             </div>
             <p className="mt-4 text-xs text-gray-600 sm:text-sm dark:text-gray-400">
-              Not sure where to start?{" "}
+              Want to learn more?{" "}
               <a
-                href="#"
+                href={siteConfig.baseLinks.changelog}
                 className="font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
               >
-                Talk to sales
+                View the Changelog
               </a>
             </p>
           </div>

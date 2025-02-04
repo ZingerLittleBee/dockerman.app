@@ -59,7 +59,7 @@ const screenshots = [
 const features = [
   {
     name: "Real-time Monitoring",
-    description: "Monitor container CPU, memory, network, and I/O metrics in real-time with native performance.",
+    description: "Monitor container CPU, memory, network, and I/O metrics in real-time with powerful performance.",
     icon: RiStackLine,
   },
   {
@@ -73,7 +73,7 @@ const features = [
     icon: RiLinksLine,
   },
   {
-    name: "Native Performance",
+    name: "Powerful Performance",
     description: "Built with Tauri for lightning-fast startup and minimal resource usage while managing your Docker environment.",
     icon: RiShieldKeyholeLine,
   },
@@ -94,7 +94,7 @@ export default function SnapshotPlaygournd() {
       </h2>
       <p className="mt-6 max-w-2xl text-lg text-gray-600 dark:text-gray-400">
         A modern, lightweight Docker management UI that focuses on simplicity and performance.
-        Monitor and manage your containers with native desktop integration.
+        Monitor and manage your containers with cross-platform desktop integration.
       </p>
 
       <div className="mt-8">

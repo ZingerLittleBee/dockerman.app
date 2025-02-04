@@ -1,5 +1,5 @@
 {
-  "name": "tremor-database-template",
+  "name": "dockerman",
   "version": "0.1.0",
   "private": true,
   "scripts": {

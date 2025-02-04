@@ -20,7 +20,7 @@ export default function Layout({
         <p className="mt-4 text-lg text-gray-600 dark:text-gray-400">
           <Balancer>
             Keep yourself informed about the most recent additions and
-            improvements we&rsquo;ve made to Database.
+            improvements we&rsquo;ve made to Dockerman.
           </Balancer>
         </p>
       </div>

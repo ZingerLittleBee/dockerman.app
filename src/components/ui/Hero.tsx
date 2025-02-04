@@ -1,4 +1,3 @@
-import { RiPlayCircleFill } from "@remixicon/react"
 import Link from "next/link"
 import { Button } from "../Button"
 import HeroImage from "./HeroImage"
@@ -22,30 +21,11 @@ export default function Hero() {
         A lightweight, powerful Docker management UI focused on simplicity and performance.
       </p>
       <div
-        className="mt-8 flex w-full animate-slide-up-fade flex-col justify-center gap-3 px-3 sm:flex-row"
+        className="mt-8 flex w-full animate-slide-up-fade justify-center gap-3 px-3 sm:flex-row"
         style={{ animationDuration: "1100ms" }}
       >
-        <Button className="h-10 font-semibold">
-          <Link href="#">Download</Link>
-        </Button>
-        <Button
-          asChild
-          variant="light"
-          className="group gap-x-2 bg-transparent font-semibold hover:bg-transparent dark:bg-transparent hover:dark:bg-transparent"
-        >
-          <Link
-            href=""
-            className="ring-1 ring-gray-200 sm:ring-0 dark:ring-gray-900"
-            target="_blank"
-          >
-            <span className="mr-1 flex size-6 items-center justify-center rounded-full bg-gray-50 transition-all group-hover:bg-gray-200 dark:bg-gray-800 dark:group-hover:bg-gray-700">
-              <RiPlayCircleFill
-                aria-hidden="true"
-                className="size-5 shrink-0 text-gray-900 dark:text-gray-50"
-              />
-            </span>
-            Watch video
-          </Link>
+        <Button className="px-8 h-10 max-w-[200px] font-semibold">
+          <Link href="/download">Download for free</Link>
         </Button>
       </div>
       <div
