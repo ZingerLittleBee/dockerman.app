@@ -112,7 +112,8 @@ export default function SnapshotPlaygournd() {
                     quality={70}
                     width={1200}
                     height={900}
-                    priority
+                    priority={screenshot.label === 'Dashboard'}
+                    loading={screenshot.label === 'Dashboard' ? 'eager' : 'lazy'}
                   />
                 </div>
               </div>
