@@ -41,7 +41,7 @@ export default function SnapshotPlaygourndTabs({
         ))}
       </Tabs.List>
       <div className="relative col-span-full md:col-span-9 md:min-h-[564px]">
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="sync">
           {tabs.map((tab) => (
             <Tabs.Content key={tab.label} value={tab.label} asChild>
               <motion.div
