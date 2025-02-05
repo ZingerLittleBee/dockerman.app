@@ -109,11 +109,9 @@ export default function SnapshotPlaygournd() {
                     src={screenshot.src}
                     alt={screenshot.alt}
                     className="object-contain rounded md:rounded-xl shadow dark:shadow-indigo-600/10"
-                    quality={70}
+                    quality={50}
                     width={1200}
                     height={900}
-                    priority={screenshot.label === 'Dashboard'}
-                    loading={screenshot.label === 'Dashboard' ? 'eager' : 'lazy'}
                   />
                 </div>
               </div>
