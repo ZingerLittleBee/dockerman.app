@@ -1,16 +1,17 @@
-'use client'
+"use client"
 
 import {
   RiDashboardLine,
   RiInformation2Line,
   RiLineChartFill,
-  RiLinksLine,
   RiNewsLine,
   RiPlugLine,
+  RiRemoteControlLine,
   RiShieldKeyholeLine,
   RiStackLine,
   RiTerminalBoxLine,
-  RiWindowLine
+  RiTerminalLine,
+  RiWindowLine,
 } from "@remixicon/react"
 import Image from "next/image"
 import { Badge } from "../Badge"
@@ -34,7 +35,6 @@ const screenshots = [
     alt: "Process List Screenshot",
     label: "Processes",
     icon: RiWindowLine,
-
   },
   {
     src: "/screenshots/inspect.png",
@@ -53,28 +53,38 @@ const screenshots = [
     alt: "Logs Screenshot",
     label: "Logs",
     icon: RiNewsLine,
-  }
+  },
+  {
+    src: "/screenshots/ssh.png",
+    alt: "SSH Screenshot",
+    label: "SSH",
+    icon: RiTerminalLine,
+  },
 ]
 
 const features = [
   {
     name: "Real-time Monitoring",
-    description: "Monitor container CPU, memory, network, and I/O metrics in real-time with powerful performance.",
+    description:
+      "Monitor container CPU, memory, network, and I/O metrics in real-time with powerful performance.",
     icon: RiStackLine,
   },
   {
     name: "Container Management",
-    description: "Start, stop, inspect, and manage containers with an intuitive interface. Access integrated terminal and process list.",
+    description:
+      "Start, stop, inspect, and manage containers with an intuitive interface. Access integrated terminal and process list.",
     icon: RiPlugLine,
   },
   {
-    name: "Image Analytics",
-    description: "Track image sizes, tags, and usage statistics. Inspect image details and manage storage efficiently.",
-    icon: RiLinksLine,
+    name: "Remote Connectivity",
+    description:
+      "Connect to remote Docker instances securely via SSH. Manage containers across multiple hosts from a single interface.",
+    icon: RiRemoteControlLine,
   },
   {
     name: "Powerful Performance",
-    description: "Built with Tauri for lightning-fast startup and minimal resource usage while managing your Docker environment.",
+    description:
+      "Built with Tauri for lightning-fast startup and minimal resource usage while managing your Docker environment.",
     icon: RiShieldKeyholeLine,
   },
 ]
@@ -93,8 +103,9 @@ export default function SnapshotPlaygournd() {
         Docker Management, <br /> Simplified
       </h2>
       <p className="mt-6 max-w-2xl text-lg text-gray-600 dark:text-gray-400">
-        A modern, lightweight Docker management UI that focuses on simplicity and performance.
-        Monitor and manage your containers with cross-platform desktop integration.
+        A modern, lightweight Docker management UI that focuses on simplicity
+        and performance. Monitor and manage your containers with cross-platform
+        desktop integration.
       </p>
 
       <div className="mt-8">
@@ -103,19 +114,19 @@ export default function SnapshotPlaygournd() {
             label: screenshot.label,
             icon: screenshot.icon,
             content: (
-              <div className="overflow-hidden shadow-2xl rounded-xl md:rounded-2xl bg-slate-50/40 p-2 ring-1 ring-inset ring-slate-200/50 dark:bg-gray-900/70 dark:ring-white/10">
-                <div className="rounded md:rounded-xl bg-white ring-1 ring-slate-900/5 dark:bg-slate-950 dark:ring-white/15">
+              <div className="overflow-hidden rounded-xl bg-slate-50/40 p-2 shadow-2xl ring-1 ring-inset ring-slate-200/50 md:rounded-2xl dark:bg-gray-900/70 dark:ring-white/10">
+                <div className="rounded bg-white ring-1 ring-slate-900/5 md:rounded-xl dark:bg-slate-950 dark:ring-white/15">
                   <Image
                     src={screenshot.src}
                     alt={screenshot.alt}
-                    className="object-contain rounded md:rounded-xl shadow dark:shadow-indigo-600/10"
+                    className="rounded object-contain shadow md:rounded-xl dark:shadow-indigo-600/10"
                     quality={50}
                     width={1200}
                     height={900}
                   />
                 </div>
               </div>
-            )
+            ),
           }))}
         />
       </div>

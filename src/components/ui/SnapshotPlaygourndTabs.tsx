@@ -8,11 +8,7 @@ interface Tab {
   content: React.ReactNode
 }
 
-export default function SnapshotPlaygourndTabs({
-  tabs
-}: {
-  tabs: Tab[]
-}) {
+export default function SnapshotPlaygourndTabs({ tabs }: { tabs: Tab[] }) {
   return (
     <Tabs.Root
       className="mt-14 grid grid-cols-12 gap-8"
@@ -20,13 +16,13 @@ export default function SnapshotPlaygourndTabs({
       orientation="vertical"
     >
       <Tabs.List
-        className="grid grid-cols-2 h-fit col-span-full md:flex w-full flex-col gap-4 md:order-2 md:col-span-3"
+        className="col-span-full grid h-fit w-full grid-cols-2 flex-col gap-4 md:order-2 md:col-span-3 md:flex"
         aria-label="Select view"
       >
         {tabs.map((tab) => (
           <Tabs.Trigger
             key={tab.label}
-            className="group relative flex justify-center p-2 md:p-4 flex-1 flex-col items-start rounded-xl text-left shadow-lg ring-1 ring-gray-200 data-[state=active]:ring-indigo-400  dark:ring-white/5 dark:data-[state=active]:shadow-indigo-900/30"
+            className="group relative flex flex-1 flex-col items-start justify-center rounded-xl p-2 text-left shadow-lg ring-1 ring-gray-200 data-[state=active]:ring-indigo-400 md:p-4 dark:ring-white/5 dark:data-[state=active]:shadow-indigo-900/30"
             value={tab.label}
           >
             <div className="flex items-center gap-4">
