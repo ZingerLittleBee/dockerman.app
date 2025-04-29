@@ -15,12 +15,12 @@ const DOWNLOAD_OPTIONS = [
     options: [
       {
         name: "Apple Silicon (M1/M2)",
-        filename: `dockerman_${CURRENT_VERSION}_aarch64.dmg`,
+        filename: `Dockerman_${CURRENT_VERSION}_aarch64.dmg`,
         ext: "dmg",
       },
       {
         name: "Intel",
-        filename: `dockerman_${CURRENT_VERSION}_x64.dmg`,
+        filename: `Dockerman_${CURRENT_VERSION}_x64.dmg`,
         ext: "dmg",
       },
     ],
@@ -31,7 +31,7 @@ const DOWNLOAD_OPTIONS = [
     options: [
       {
         name: "Windows (64-bit)",
-        filename: `dockerman_${CURRENT_VERSION}_x64_en-US.msi`,
+        filename: `Dockerman_${CURRENT_VERSION}_x64_en-US.msi`,
         ext: "msi",
         preview: true,
       },
@@ -40,22 +40,23 @@ const DOWNLOAD_OPTIONS = [
   {
     title: "Linux",
     icon: RiUbuntuFill,
+    disabled: true,
     options: [
       {
         name: "AppImage (64-bit)",
-        filename: `dockerman_${CURRENT_VERSION}_amd64.AppImage`,
+        filename: `Dockerman_${CURRENT_VERSION}_amd64.AppImage`,
         ext: "AppImage",
         preview: true,
       },
       {
         name: "Debian / Ubuntu",
-        filename: `dockerman_${CURRENT_VERSION}_amd64.deb`,
+        filename: `Dockerman_${CURRENT_VERSION}_amd64.deb`,
         ext: "deb",
         preview: true,
       },
       {
         name: "Red Hat / Fedora",
-        filename: `dockerman-${CURRENT_VERSION}-1.x86_64.rpm`,
+        filename: `Dockerman-${CURRENT_VERSION}-1.x86_64.rpm`,
         ext: "rpm",
         preview: true,
       },
@@ -104,8 +105,17 @@ export default function Download() {
         {DOWNLOAD_OPTIONS.map((platform) => (
           <div
             key={platform.title}
-            className="rounded-xl bg-white p-6 shadow-lg shadow-gray-200/50 ring-1 ring-gray-200/50 dark:bg-gray-900 dark:shadow-none dark:ring-gray-800"
+            className="relative rounded-xl bg-white p-6 shadow-lg shadow-gray-200/50 ring-1 ring-gray-200/50 dark:bg-gray-900 dark:shadow-none dark:ring-gray-800"
           >
+            {platform.disabled && (
+              <>
+                <div className="absolute inset-0 z-10 rounded-xl bg-gray-200/60 dark:bg-gray-800/70 [&>div]:w-full">
+                  <div className="flex justify-end pr-2 pt-2">
+                    <Badge>Coming Soon</Badge>
+                  </div>
+                </div>
+              </>
+            )}
             <h2 className="flex items-center gap-2 text-xl font-semibold text-gray-900 dark:text-gray-100">
               <platform.icon className="size-8" />
               {platform.title}
