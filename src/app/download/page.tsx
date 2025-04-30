@@ -2,7 +2,15 @@
 
 import { Badge } from "@/components/Badge"
 import { Button } from "@/components/Button"
-import { RiAppleFill, RiUbuntuFill, RiWindowsFill } from "@remixicon/react"
+import {
+  RiAppleFill,
+  RiBeerFill,
+  RiCheckLine,
+  RiFileCopy2Line,
+  RiUbuntuFill,
+  RiWindowsFill,
+} from "@remixicon/react"
+import { useEffect, useState } from "react"
 import Balancer from "react-wrap-balancer"
 import { siteConfig } from "../siteConfig"
 
@@ -65,6 +73,18 @@ const DOWNLOAD_OPTIONS = [
 ]
 
 export default function Download() {
+  const [copied, setCopied] = useState(false)
+
+  useEffect(() => {
+    if (copied) {
+      const timer = setTimeout(() => {
+        setCopied(false)
+      }, 3000)
+
+      return () => clearTimeout(timer)
+    }
+  }, [copied])
+
   const getDownloadUrl = (filename: string) => {
     return `https://assets.dockerman.app/${CURRENT_VERSION}/${filename}`
   }
@@ -101,7 +121,51 @@ export default function Download() {
         </p>
       </section>
 
-      <section className="my-16 grid gap-12 md:grid-cols-3">
+      {/* Homebrew 部分 */}
+      <section
+        className="mt-10 animate-slide-up-fade"
+        style={{
+          animationDuration: "600ms",
+          animationFillMode: "backwards",
+        }}
+      >
+        <div className="max-w-3xl rounded-xl bg-indigo-50 p-6 shadow-md dark:bg-indigo-950/30">
+          <h2 className="flex items-center gap-3 text-xl font-semibold text-indigo-800 dark:text-indigo-400">
+            <RiBeerFill className="size-8" />
+            Install with Homebrew
+          </h2>
+          <div className="group relative mt-4">
+            <div className="flex items-center rounded-lg bg-white p-4 shadow-sm dark:bg-gray-900">
+              <code className="flex-grow overflow-auto whitespace-nowrap font-mono text-indigo-700 dark:text-indigo-400">
+                brew install --cask zingerlittlebee/tap/dockerman
+              </code>
+              <button
+                className="flex items-center rounded-md bg-indigo-100 p-2 text-sm font-medium text-indigo-700 transition-all duration-300 hover:bg-indigo-200 dark:bg-indigo-900/50 dark:text-indigo-400 dark:hover:bg-indigo-800"
+                onClick={() => {
+                  navigator.clipboard.writeText(
+                    "brew install --cask zingerlittlebee/tap/dockerman",
+                  )
+                  setCopied(true)
+                }}
+              >
+                {copied ? (
+                  <RiCheckLine className="size-4 transition-all duration-300" />
+                ) : (
+                  <RiFileCopy2Line className="size-4 transition-all duration-300" />
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        className="my-16 grid animate-slide-up-fade gap-12 md:grid-cols-3"
+        style={{
+          animationDuration: "600ms",
+          animationFillMode: "backwards",
+        }}
+      >
         {DOWNLOAD_OPTIONS.map((platform) => (
           <div
             key={platform.title}
