@@ -129,18 +129,18 @@ export default function Download() {
           animationFillMode: "backwards",
         }}
       >
-        <div className="max-w-3xl rounded-xl bg-indigo-50 p-6 shadow-md dark:bg-indigo-950/30">
-          <h2 className="flex items-center gap-3 text-xl font-semibold text-indigo-800 dark:text-indigo-400">
+        <div className="max-w-3xl rounded-xl bg-white p-6 shadow-md shadow-gray-200/50 ring-1 ring-gray-200/50 dark:bg-gray-900 dark:shadow-none dark:ring-gray-800">
+          <h2 className="flex items-center gap-3 text-xl font-semibold text-gray-900 dark:text-gray-100">
             <RiBeerFill className="size-8" />
             Install with Homebrew
           </h2>
           <div className="group relative mt-4">
-            <div className="flex items-center rounded-lg bg-white p-4 shadow-sm dark:bg-gray-900">
-              <code className="flex-grow overflow-auto whitespace-nowrap font-mono text-indigo-700 dark:text-indigo-400">
+            <div className="flex items-center rounded-lg bg-gray-100 p-4 shadow-sm dark:bg-black">
+              <code className="flex-grow overflow-auto whitespace-nowrap font-mono text-gray-900 dark:text-gray-100">
                 brew install --cask zingerlittlebee/tap/dockerman
               </code>
               <button
-                className="flex items-center rounded-md bg-indigo-100 p-2 text-sm font-medium text-indigo-700 transition-all duration-300 hover:bg-indigo-200 dark:bg-indigo-900/50 dark:text-indigo-400 dark:hover:bg-indigo-800"
+                className="flex items-center rounded-md bg-gray-200 p-2 text-sm font-medium text-gray-700 transition-all duration-300 hover:bg-gray-300 dark:bg-gray-900/50 dark:text-gray-400 dark:hover:bg-gray-800"
                 onClick={() => {
                   navigator.clipboard.writeText(
                     "brew install --cask zingerlittlebee/tap/dockerman",
