@@ -14,7 +14,7 @@ export const siteConfig = {
     privacy: "/privacy",
     terms: "/terms",
   },
-  latestVersion: "2.1.0",
+  latestVersion: "2.1.1",
 }
 
 export type siteConfig = typeof siteConfig
