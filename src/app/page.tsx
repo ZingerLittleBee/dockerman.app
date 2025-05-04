@@ -1,4 +1,5 @@
 import Cta from "@/components/ui/Cta"
+import { Faqs } from "@/components/ui/Faqs"
 import Features from "@/components/ui/Features"
 import { Global } from "@/components/ui/Global"
 import Hero from "@/components/ui/Hero"
@@ -13,6 +14,9 @@ export default function Home() {
       <Global />
       <SnapshotPlaygournd />
       <Features />
+      <div className="mx-auto mt-36 max-w-6xl">
+        <Faqs />
+      </div>
       <Cta />
     </main>
   )

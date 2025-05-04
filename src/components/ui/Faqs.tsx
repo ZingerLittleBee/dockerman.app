@@ -1,4 +1,4 @@
-"use client"
+import { siteConfig } from "@/app/siteConfig"
 import {
   Accordion,
   AccordionContent,
@@ -8,33 +8,25 @@ import {
 
 const faqs = [
   {
-    question:
-      "How secure is the database software in terms of protecting sensitive data?",
+    question: "Which operating systems does Dockerman support?",
     answer:
-      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat",
+      "Dockerman supports macOS, Windows, and major Linux distributions. Built with Tauri and Rust, it provides consistent performance and experience across various operating systems.",
   },
   {
-    question: "Can the database be self-hosted?",
+    question: "Does Dockerman require an internet connection?",
     answer:
-      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat",
+      "Dockerman is a local application that doesn't require an internet connection. It runs entirely on your device, ensuring your data security and privacy.",
   },
   {
-    question:
-      "Does the software support integration with other systems and applications?",
+    question: "Where is SSH data stored?",
     answer:
-      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat",
-  },
-  {
-    question:
-      "How easy is it to back up and restore data using the database software?",
-    answer:
-      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat",
+      "SSH data is stored on your device and is never uploaded to any server.",
   },
   {
     question:
-      "What level of technical support and maintenance is provided for the software?",
+      "What makes Dockerman different from other Docker management tools?",
     answer:
-      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat",
+      "Dockerman stands out with its focus on speed and efficiency. It features fast startup times, minimal resource usage (<30MB memory), real-time container monitoring, and a clean, focused interface that prioritizes the most common Docker tasks.",
   },
 ]
 
@@ -51,14 +43,14 @@ export function Faqs() {
           </h2>
           <p className="mt-4 text-base leading-7 text-gray-600 dark:text-gray-400">
             Can&rsquo;t find the answer you&rsquo;re looking for? Don&rsquo;t
-            hesitate to get in touch with our{" "}
+            hesitate to get in touch with{" "}
             <a
-              href="#"
+              href={siteConfig.issuesLink}
               className="font-medium text-indigo-600 hover:text-indigo-300 dark:text-indigo-400"
             >
-              customer support
+              open issues
             </a>{" "}
-            team.
+            on GitHub.
           </p>
         </div>
         <div className="col-span-full mt-6 lg:col-span-7 lg:mt-0">
