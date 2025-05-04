@@ -15,7 +15,7 @@ export default function Home() {
       <Global />
       <SnapshotPlaygournd />
       <Features />
-      <div className="mx-auto mt-36 max-w-6xl">
+      <div className="mx-auto mt-36 max-w-6xl px-3">
         <Faqs />
       </div>
       <BackgroundBeamsWithCollision>
