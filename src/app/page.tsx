@@ -1,3 +1,4 @@
+import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision"
 import Cta from "@/components/ui/Cta"
 import { Faqs } from "@/components/ui/Faqs"
 import Features from "@/components/ui/Features"
@@ -17,7 +18,9 @@ export default function Home() {
       <div className="mx-auto mt-36 max-w-6xl">
         <Faqs />
       </div>
-      <Cta />
+      <BackgroundBeamsWithCollision>
+        <Cta />
+      </BackgroundBeamsWithCollision>
     </main>
   )
 }
