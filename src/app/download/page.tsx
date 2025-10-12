@@ -22,15 +22,10 @@ const DOWNLOAD_OPTIONS = [
     icon: RiAppleFill,
     options: [
       {
-        name: "Apple Silicon (M1/M2)",
-        filename: `Dockerman_${CURRENT_VERSION}_aarch64.dmg`,
+        name: "Universal (M1/Intel)",
+        filename: `Dockerman_${CURRENT_VERSION}_universal.dmg`,
         ext: "dmg",
-      },
-      {
-        name: "Intel",
-        filename: `Dockerman_${CURRENT_VERSION}_x64.dmg`,
-        ext: "dmg",
-      },
+      }
     ],
   },
   {
