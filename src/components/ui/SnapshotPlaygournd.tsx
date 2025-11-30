@@ -55,7 +55,7 @@ const screenshots = [
     icon: RiNewsLine,
   },
   {
-    src: "/screenshots/ssh.png",
+    src: "/screenshots/2.4.0/ssh.png",
     alt: "SSH Screenshot",
     label: "SSH",
     icon: RiTerminalLine,
