@@ -106,8 +106,6 @@ export default function SnapshotPlaygournd() {
                 quality={50}
                 width={1200}
                 height={900}
-                placeholder="blur"
-                blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
               />
             </div>
           </div>
