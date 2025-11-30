@@ -1,5 +1,8 @@
 # Dockerman
 
+[![Version](https://img.shields.io/badge/version-v2.4.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v2.4.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Dec%201%2C%202025-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v2.4.0)
+
 A modern, lightweight Docker management UI built with Tauri and Rust.
 Focus on simplicity and performance for Docker container management.
 
@@ -48,6 +51,11 @@ Focus on simplicity and performance for Docker container management.
 ### Image Management
 
 - 📦 Image list with size and tag information
+- 🏗️ Image Build
+  - Build from Dockerfile
+  - Support for build args and tags
+  - Real-time build log streaming
+  - Historical log playback
 - 🕒 Creation time tracking
 - 🔍 Detailed image inspection
 - 📊 Usage statistics
