@@ -14,6 +14,7 @@ import {
   RiWindowLine,
 } from "@remixicon/react"
 import Image from "next/image"
+import { useMemo } from "react"
 import { Badge } from "../Badge"
 import SnapshotPlaygourndTabs from "./SnapshotPlaygourndTabs"
 
@@ -90,6 +91,31 @@ const features = [
 ]
 
 export default function SnapshotPlaygournd() {
+  const tabs = useMemo(
+    () =>
+      screenshots.map((screenshot) => ({
+        label: screenshot.label,
+        icon: screenshot.icon,
+        content: (
+          <div className="overflow-hidden rounded-xl bg-slate-50/40 p-2 shadow-2xl ring-1 ring-inset ring-slate-200/50 md:rounded-2xl dark:bg-gray-900/70 dark:ring-white/10">
+            <div className="rounded bg-white ring-1 ring-slate-900/5 md:rounded-xl dark:bg-slate-950 dark:ring-white/15">
+              <Image
+                src={screenshot.src}
+                alt={screenshot.alt}
+                className="rounded object-contain shadow md:rounded-xl dark:shadow-indigo-600/10"
+                quality={50}
+                width={1200}
+                height={900}
+                placeholder="blur"
+                blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
+              />
+            </div>
+          </div>
+        ),
+      })),
+    [],
+  )
+
   return (
     <section
       aria-labelledby="code-example-title"
@@ -109,26 +135,7 @@ export default function SnapshotPlaygournd() {
       </p>
 
       <div className="mt-8">
-        <SnapshotPlaygourndTabs
-          tabs={screenshots.map((screenshot) => ({
-            label: screenshot.label,
-            icon: screenshot.icon,
-            content: (
-              <div className="overflow-hidden rounded-xl bg-slate-50/40 p-2 shadow-2xl ring-1 ring-inset ring-slate-200/50 md:rounded-2xl dark:bg-gray-900/70 dark:ring-white/10">
-                <div className="rounded bg-white ring-1 ring-slate-900/5 md:rounded-xl dark:bg-slate-950 dark:ring-white/15">
-                  <Image
-                    src={screenshot.src}
-                    alt={screenshot.alt}
-                    className="rounded object-contain shadow md:rounded-xl dark:shadow-indigo-600/10"
-                    quality={50}
-                    width={1200}
-                    height={900}
-                  />
-                </div>
-              </div>
-            ),
-          }))}
-        />
+        <SnapshotPlaygourndTabs tabs={tabs} />
       </div>
 
       <dl className="mt-24 grid grid-cols-4 gap-10">

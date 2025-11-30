@@ -2,13 +2,15 @@
 import * as Tabs from "@radix-ui/react-tabs"
 import { RemixiconComponentType } from "@remixicon/react"
 import { AnimatePresence, motion } from "motion/react"
+import { memo } from "react"
+
 interface Tab {
   label: string
   icon: RemixiconComponentType
   content: React.ReactNode
 }
 
-export default function SnapshotPlaygourndTabs({ tabs }: { tabs: Tab[] }) {
+function SnapshotPlaygourndTabs({ tabs }: { tabs: Tab[] }) {
   return (
     <Tabs.Root
       className="mt-14 grid grid-cols-12 gap-8"
@@ -37,16 +39,15 @@ export default function SnapshotPlaygourndTabs({ tabs }: { tabs: Tab[] }) {
         ))}
       </Tabs.List>
       <div className="relative col-span-full md:col-span-9 md:min-h-[564px]">
-        <AnimatePresence mode="sync">
+        <AnimatePresence mode="wait">
           {tabs.map((tab) => (
             <Tabs.Content key={tab.label} value={tab.label} asChild>
               <motion.div
                 className="relative w-full outline-none"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5 }}
-                layout
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
               >
                 {tab.content}
               </motion.div>
@@ -57,3 +58,5 @@ export default function SnapshotPlaygourndTabs({ tabs }: { tabs: Tab[] }) {
     </Tabs.Root>
   )
 }
+
+export default memo(SnapshotPlaygourndTabs)
