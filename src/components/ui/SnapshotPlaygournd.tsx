@@ -19,37 +19,37 @@ import SnapshotPlaygourndTabs from "./SnapshotPlaygourndTabs"
 
 const screenshots = [
   {
-    src: "/screenshots/dashboard.png",
+    src: "/screenshots/2.4.0/dashboard.png",
     alt: "Dashboard Screenshot",
     label: "Dashboard",
     icon: RiDashboardLine,
   },
   {
-    src: "/screenshots/terminal.png",
+    src: "/screenshots/2.4.0/terminal.png",
     alt: "Terminal Screenshot",
     label: "Terminal",
     icon: RiTerminalBoxLine,
   },
   {
-    src: "/screenshots/process.png",
+    src: "/screenshots/2.4.0/process.png",
     alt: "Process List Screenshot",
     label: "Processes",
     icon: RiWindowLine,
   },
   {
-    src: "/screenshots/inspect.png",
+    src: "/screenshots/2.4.0/inspect.png",
     alt: "Inspect Screenshot",
     label: "Inspect",
     icon: RiInformation2Line,
   },
   {
-    src: "/screenshots/stats.png",
+    src: "/screenshots/2.4.0/stat.png",
     alt: "Stats Screenshot",
     label: "Stats",
     icon: RiLineChartFill,
   },
   {
-    src: "/screenshots/logs.png",
+    src: "/screenshots/2.4.0/log.png",
     alt: "Logs Screenshot",
     label: "Logs",
     icon: RiNewsLine,
