@@ -14,7 +14,7 @@ export default function HeroImage() {
             className="object-contain rounded md:rounded-xl shadow-2xl dark:shadow-indigo-600/10"
           /> */}
           <Image
-            src="/screenshots/2.4.0/hero.png"
+            src="/screenshots/3.0.0/dashboard.png"
             alt="dockerman dashboard"
             width={2400}
             height={1600}
