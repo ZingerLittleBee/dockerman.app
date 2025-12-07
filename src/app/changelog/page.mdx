@@ -1,3 +1,33 @@
+<ChangelogEntry version="v3.0.0" date="Dec 8, 2025">
+## Docker Events & Container File Browser
+
+This release introduces real-time Docker event monitoring and a comprehensive file browser for Docker containers.
+
+### ✨ Features
+
+- <Bold>Docker Events Monitoring:</Bold> Added real-time Docker event listening with comprehensive event filtering, search, and JSON details dialog for inspecting event data
+- <Bold>Container File Browser:</Bold> Implemented file system explorer for Docker containers with:
+  - 🌳 File tree navigation with dynamic loading
+  - 📂 Folder upload and download support (tar-based)
+  - 📄 Single file upload and download with mode preservation
+  - 🔗 Symlink support for file listings
+  - 📄 Pagination for large directories
+  - 📋 Context menus for file/folder operations (Download, Copy Path, View Properties)
+
+### 🐛 Bug Fixes
+
+- <Bold>Build Log Host Switch:</Bold> Fixed build records to properly associate with SSH connections, enabling correct host switching for build logs
+
+### 🎨 Improvements
+
+- <Bold>SSH Docker Socket Forwarding:</Bold> Enhanced Docker socket forwarding with improved connection status tracking
+- <Bold>Events Table UI:</Bold> Improved event filtering, table layout, column sizing, and action badge styling
+- <Bold>Code Block Selection:</Bold> Enhanced code block selection and styling for better readability
+
+<ChangelogImage src="/screenshots/3.0.0/file.png" alt="Container File Browser" />
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v2.4.0" date="Dec 1, 2025">
 ## Docker Image Build & Logs
 
