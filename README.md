@@ -48,6 +48,19 @@ Focus on simplicity and performance for Docker container management.
 - 💻 Integrated terminal access
 - 📝 Process list viewing
 - 📜 Log viewer with real-time updates
+- 📂 Container File Browser
+  - File tree navigation with dynamic loading
+  - Folder upload and download support
+  - Single file upload and download with mode preservation
+  - Symlink support and pagination for large directories
+  - Context menus for file/folder operations
+
+### Docker Events
+
+- 🔔 Real-time Docker event listening
+- 🔍 Comprehensive event filtering and search
+- 📋 JSON details dialog for inspecting event data
+- ⚡ Action buttons with Copy JSON and Remove options
 
 ### Image Management
 
