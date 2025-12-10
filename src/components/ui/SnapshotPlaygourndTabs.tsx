@@ -45,7 +45,7 @@ function SnapshotPlaygourndTabs({ screenshots }: { screenshots: Screenshot[] }) 
       orientation="vertical"
     >
       <Tabs.List
-        className="col-span-full flex flex-row flex-wrap gap-2 md:col-span-3 md:flex-col md:gap-3"
+        className="col-span-full grid grid-cols-2 gap-2 md:col-span-3 md:flex md:flex-col md:gap-3"
         aria-label="Select view"
       >
         {screenshots.map((screenshot, index) => {
@@ -53,7 +53,7 @@ function SnapshotPlaygourndTabs({ screenshots }: { screenshots: Screenshot[] }) 
           return (
             <Tabs.Trigger
               key={screenshot.label}
-              className="group relative flex flex-1 items-center justify-start gap-4 rounded-xl px-4 py-3 text-left transition-colors md:flex-none"
+              className="group relative flex items-center justify-start gap-4 rounded-xl px-4 py-3 text-left transition-colors"
               value={screenshot.label}
               style={{
                 WebkitTapHighlightColor: "transparent",
