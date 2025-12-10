@@ -1,6 +1,6 @@
 "use client"
 import * as Tabs from "@radix-ui/react-tabs"
-import { RemixiconComponentType } from "@remixicon/react"
+import type { RemixiconComponentType } from "@remixicon/react"
 import clsx from "clsx"
 import { motion } from "motion/react"
 import Image from "next/image"
