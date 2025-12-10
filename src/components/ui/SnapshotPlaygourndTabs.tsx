@@ -13,8 +13,9 @@ interface Screenshot {
   icon: RemixiconComponentType
 }
 
-// 固定的宽高比，防止布局偏移
-const IMAGE_ASPECT_RATIO = 1200 / 900 // 4:3
+// 图片的原始尺寸比例
+const IMAGE_WIDTH = 2560
+const IMAGE_HEIGHT = 1760
 
 function SnapshotPlaygourndTabs({ screenshots }: { screenshots: Screenshot[] }) {
   const [activeIndex, setActiveIndex] = useState(0)
@@ -96,13 +97,9 @@ function SnapshotPlaygourndTabs({ screenshots }: { screenshots: Screenshot[] }) 
         })}
       </Tabs.List>
 
-      {/* 使用固定宽高比的容器，防止布局偏移 */}
+      {/* 图片容器 - 使用 grid 堆叠所有图片，让第一张图片撑开容器高度 */}
       <div className="relative col-span-full md:col-span-9">
-        <div
-          className="relative w-full"
-          style={{ paddingBottom: `${(1 / IMAGE_ASPECT_RATIO) * 100}%` }}
-        >
-          {/* 所有图片都预先渲染，通过 opacity 和 pointer-events 控制显示 */}
+        <div className="grid">
           {screenshots.map((screenshot, index) => {
             const isActive = activeIndex === index
             const isLoaded = loadedImages.has(index)
@@ -113,17 +110,23 @@ function SnapshotPlaygourndTabs({ screenshots }: { screenshots: Screenshot[] }) 
                 value={screenshot.label}
                 forceMount
                 className={clsx(
-                  "absolute inset-0 transition-all duration-300 ease-out",
+                  // 使用 grid 区域堆叠，第一张图片设定容器大小
+                  "col-start-1 row-start-1 transition-all duration-300 ease-out",
                   isActive
                     ? "pointer-events-auto z-10 opacity-100"
                     : "pointer-events-none z-0 opacity-0",
                 )}
               >
-                <div className="absolute inset-0 overflow-hidden rounded-xl bg-slate-50/40 p-2 shadow-2xl ring-1 ring-inset ring-slate-200/50 md:rounded-2xl dark:bg-gray-900/70 dark:ring-white/10">
-                  <div className="relative h-full w-full rounded bg-white ring-1 ring-slate-900/5 md:rounded-xl dark:bg-slate-950 dark:ring-white/15">
+                <div className="overflow-hidden rounded-xl bg-slate-50/40 p-2 shadow-2xl ring-1 ring-inset ring-slate-200/50 md:rounded-2xl dark:bg-gray-900/70 dark:ring-white/10">
+                  <div className="relative rounded bg-white ring-1 ring-slate-900/5 md:rounded-xl dark:bg-slate-950 dark:ring-white/15">
                     {/* 骨架加载占位符 */}
                     {!isLoaded && (
-                      <div className="absolute inset-0 flex animate-pulse items-center justify-center rounded bg-gray-100 md:rounded-xl dark:bg-gray-800">
+                      <div
+                        className="absolute inset-0 flex animate-pulse items-center justify-center rounded bg-gray-100 md:rounded-xl dark:bg-gray-800"
+                        style={{
+                          aspectRatio: `${IMAGE_WIDTH} / ${IMAGE_HEIGHT}`,
+                        }}
+                      >
                         <div className="flex flex-col items-center gap-3">
                           <div className="size-12 rounded-lg bg-gray-200 dark:bg-gray-700" />
                           <div className="h-3 w-24 rounded bg-gray-200 dark:bg-gray-700" />
@@ -134,12 +137,12 @@ function SnapshotPlaygourndTabs({ screenshots }: { screenshots: Screenshot[] }) 
                     <Image
                       src={screenshot.src}
                       alt={screenshot.alt}
+                      width={IMAGE_WIDTH}
+                      height={IMAGE_HEIGHT}
                       className={clsx(
-                        "rounded object-contain shadow transition-opacity duration-300 md:rounded-xl dark:shadow-indigo-600/10",
+                        "block w-full rounded shadow transition-opacity duration-300 md:rounded-xl dark:shadow-indigo-600/10",
                         isLoaded ? "opacity-100" : "opacity-0",
                       )}
-                      width={2560}
-                      height={1760}
                       priority={index < 2}
                       quality={70}
                       onLoad={() => handleImageLoad(index)}
@@ -152,7 +155,10 @@ function SnapshotPlaygourndTabs({ screenshots }: { screenshots: Screenshot[] }) 
 
           {/* 全局加载指示器（仅在初始加载时显示） */}
           {isInitialLoad && (
-            <div className="absolute inset-0 z-20 flex items-center justify-center rounded-xl bg-slate-50/80 backdrop-blur-sm dark:bg-gray-900/80">
+            <div
+              className="col-start-1 row-start-1 z-20 flex items-center justify-center rounded-xl bg-slate-50/80 backdrop-blur-sm dark:bg-gray-900/80"
+              style={{ aspectRatio: `${IMAGE_WIDTH} / ${IMAGE_HEIGHT}` }}
+            >
               <div className="flex flex-col items-center gap-4">
                 <div className="size-8 animate-spin rounded-full border-4 border-indigo-200 border-t-indigo-600 dark:border-indigo-800 dark:border-t-indigo-400" />
                 <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
