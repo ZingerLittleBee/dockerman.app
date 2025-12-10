@@ -2,37 +2,58 @@
 import * as Tabs from "@radix-ui/react-tabs"
 import { RemixiconComponentType } from "@remixicon/react"
 import clsx from "clsx"
-import { AnimatePresence, motion } from "motion/react"
-import { memo, useState } from "react"
+import { motion } from "motion/react"
+import Image from "next/image"
+import { memo, useCallback, useEffect, useState } from "react"
 
-interface Tab {
+interface Screenshot {
+  src: string
+  alt: string
   label: string
   icon: RemixiconComponentType
-  content: React.ReactNode
 }
 
+// 固定的宽高比，防止布局偏移
+const IMAGE_ASPECT_RATIO = 1200 / 900 // 4:3
 
-function SnapshotPlaygourndTabs({ tabs }: { tabs: Tab[] }) {
-  const [activeTab, setActiveTab] = useState(tabs[0]?.label)
+function SnapshotPlaygourndTabs({ screenshots }: { screenshots: Screenshot[] }) {
+  const [activeIndex, setActiveIndex] = useState(0)
+  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set())
+  const [isInitialLoad, setIsInitialLoad] = useState(true)
+
+  // 标记图片已加载
+  const handleImageLoad = useCallback((index: number) => {
+    setLoadedImages((prev) => new Set(prev).add(index))
+  }, [])
+
+  // 初始加载完成后关闭加载状态
+  useEffect(() => {
+    if (loadedImages.has(0)) {
+      setIsInitialLoad(false)
+    }
+  }, [loadedImages])
 
   return (
     <Tabs.Root
       className="mt-14 grid grid-cols-12 gap-8 md:gap-12"
-      value={activeTab}
-      onValueChange={setActiveTab}
+      value={screenshots[activeIndex]?.label}
+      onValueChange={(value) => {
+        const index = screenshots.findIndex((s) => s.label === value)
+        if (index !== -1) setActiveIndex(index)
+      }}
       orientation="vertical"
     >
       <Tabs.List
         className="col-span-full flex flex-row flex-wrap gap-2 md:col-span-3 md:flex-col md:gap-3"
         aria-label="Select view"
       >
-        {tabs.map((tab) => {
-          const isActive = activeTab === tab.label
+        {screenshots.map((screenshot, index) => {
+          const isActive = activeIndex === index
           return (
             <Tabs.Trigger
-              key={tab.label}
+              key={screenshot.label}
               className="group relative flex flex-1 items-center justify-start gap-4 rounded-xl px-4 py-3 text-left transition-colors md:flex-none"
-              value={tab.label}
+              value={screenshot.label}
               style={{
                 WebkitTapHighlightColor: "transparent",
               }}
@@ -57,7 +78,7 @@ function SnapshotPlaygourndTabs({ tabs }: { tabs: Tab[] }) {
                       : "border-transparent bg-transparent text-gray-500 group-hover:text-gray-900 dark:text-gray-500 dark:group-hover:text-gray-300",
                   )}
                 >
-                  <tab.icon className="size-5" />
+                  <screenshot.icon className="size-5" />
                 </span>
                 <span
                   className={clsx(
@@ -67,40 +88,83 @@ function SnapshotPlaygourndTabs({ tabs }: { tabs: Tab[] }) {
                       : "text-gray-500 group-hover:text-gray-900 dark:text-gray-500 dark:group-hover:text-gray-300",
                   )}
                 >
-                  {tab.label}
+                  {screenshot.label}
                 </span>
               </span>
             </Tabs.Trigger>
           )
         })}
       </Tabs.List>
-      <div className="relative col-span-full min-h-[500px] md:col-span-9">
-        <AnimatePresence mode="wait">
-          {tabs.map((tab) =>
-            tab.label === activeTab ? (
-              <Tabs.Content key={tab.label} value={tab.label} asChild forceMount>
-                <motion.div
-                  className="relative w-full outline-none"
-                  initial={{ opacity: 0, scale: 0.98, x: 10 }}
-                  animate={{ opacity: 1, scale: 1, x: 0 }}
-                  exit={{ opacity: 0, scale: 1.02, x: -10 }}
-                  transition={{
-                    duration: 0.3,
-                    ease: "easeOut",
-                  }}
-                >
-                  {tab.content}
-                </motion.div>
+
+      {/* 使用固定宽高比的容器，防止布局偏移 */}
+      <div className="relative col-span-full md:col-span-9">
+        <div
+          className="relative w-full"
+          style={{ paddingBottom: `${(1 / IMAGE_ASPECT_RATIO) * 100}%` }}
+        >
+          {/* 所有图片都预先渲染，通过 opacity 和 pointer-events 控制显示 */}
+          {screenshots.map((screenshot, index) => {
+            const isActive = activeIndex === index
+            const isLoaded = loadedImages.has(index)
+
+            return (
+              <Tabs.Content
+                key={screenshot.label}
+                value={screenshot.label}
+                forceMount
+                className={clsx(
+                  "absolute inset-0 transition-all duration-300 ease-out",
+                  isActive
+                    ? "pointer-events-auto z-10 opacity-100"
+                    : "pointer-events-none z-0 opacity-0",
+                )}
+              >
+                <div className="absolute inset-0 overflow-hidden rounded-xl bg-slate-50/40 p-2 shadow-2xl ring-1 ring-inset ring-slate-200/50 md:rounded-2xl dark:bg-gray-900/70 dark:ring-white/10">
+                  <div className="relative h-full w-full rounded bg-white ring-1 ring-slate-900/5 md:rounded-xl dark:bg-slate-950 dark:ring-white/15">
+                    {/* 骨架加载占位符 */}
+                    {!isLoaded && (
+                      <div className="absolute inset-0 flex animate-pulse items-center justify-center rounded bg-gray-100 md:rounded-xl dark:bg-gray-800">
+                        <div className="flex flex-col items-center gap-3">
+                          <div className="size-12 rounded-lg bg-gray-200 dark:bg-gray-700" />
+                          <div className="h-3 w-24 rounded bg-gray-200 dark:bg-gray-700" />
+                        </div>
+                      </div>
+                    )}
+
+                    <Image
+                      src={screenshot.src}
+                      alt={screenshot.alt}
+                      className={clsx(
+                        "rounded object-contain shadow transition-opacity duration-300 md:rounded-xl dark:shadow-indigo-600/10",
+                        isLoaded ? "opacity-100" : "opacity-0",
+                      )}
+                      width={2560}
+                      height={1760}
+                      priority={index < 2}
+                      quality={70}
+                      onLoad={() => handleImageLoad(index)}
+                    />
+                  </div>
+                </div>
               </Tabs.Content>
-            ) : null,
+            )
+          })}
+
+          {/* 全局加载指示器（仅在初始加载时显示） */}
+          {isInitialLoad && (
+            <div className="absolute inset-0 z-20 flex items-center justify-center rounded-xl bg-slate-50/80 backdrop-blur-sm dark:bg-gray-900/80">
+              <div className="flex flex-col items-center gap-4">
+                <div className="size-8 animate-spin rounded-full border-4 border-indigo-200 border-t-indigo-600 dark:border-indigo-800 dark:border-t-indigo-400" />
+                <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                  Loading...
+                </span>
+              </div>
+            </div>
           )}
-        </AnimatePresence>
+        </div>
       </div>
     </Tabs.Root>
   )
 }
-
-
-
 
 export default memo(SnapshotPlaygourndTabs)
