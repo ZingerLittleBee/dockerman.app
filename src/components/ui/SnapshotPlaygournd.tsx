@@ -3,6 +3,7 @@
 import {
   RiDashboardLine,
   RiFileLine,
+  RiFileList2Line,
   RiHammerLine,
   RiInformation2Line,
   RiLineChartFill,
@@ -66,6 +67,12 @@ const screenshots = [
     alt: "Build History Screenshot",
     label: "Build",
     icon: RiHammerLine,
+  },
+  {
+    src: "/screenshots/3.0.0/event.png",
+    alt: "Events Screenshot",
+    label: "Events",
+    icon: RiFileList2Line,
   },
   {
     src: "/screenshots/3.0.0/file.png",
