@@ -3,6 +3,7 @@
 import {
   RiDashboardLine,
   RiFileLine,
+  RiHammerLine,
   RiInformation2Line,
   RiLineChartFill,
   RiNewsLine,
@@ -59,6 +60,12 @@ const screenshots = [
     alt: "SSH Screenshot",
     label: "SSH",
     icon: RiTerminalLine,
+  },
+  {
+    src: "/screenshots/2.4.0/build-log-history.png",
+    alt: "Build History Screenshot",
+    label: "Build",
+    icon: RiHammerLine,
   },
   {
     src: "/screenshots/3.0.0/file.png",
