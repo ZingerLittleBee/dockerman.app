@@ -21,7 +21,7 @@ import SnapshotPlaygourndTabs from "./SnapshotPlaygourndTabs"
 
 const screenshots = [
   {
-    src: "/screenshots/2.4.0/dashboard.png",
+    src: "/screenshots/3.1.0/dashboard.png",
     alt: "Dashboard Screenshot",
     label: "Dashboard",
     icon: RiDashboardLine,

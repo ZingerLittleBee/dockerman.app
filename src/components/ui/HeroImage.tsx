@@ -14,11 +14,11 @@ export default function HeroImage() {
             className="object-contain rounded md:rounded-xl shadow-2xl dark:shadow-indigo-600/10"
           /> */}
           <Image
-            src="/screenshots/3.0.0/dashboard.png"
+            src="/screenshots/dashboard.png"
             alt="dockerman dashboard"
             width={2400}
             height={1600}
-            quality={50}
+            quality={100}
             className="object-contain rounded md:rounded-xl shadow-2xl dark:shadow-indigo-600/10"
             priority={true}  // 确保首屏加载
           />

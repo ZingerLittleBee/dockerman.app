@@ -1,7 +1,7 @@
 # Dockerman
 
-[![Version](https://img.shields.io/badge/version-v3.0.1-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.0.1)
-[![Release Date](https://img.shields.io/badge/release%20date-Dec%2010%2C%202025-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.0.1)
+[![Version](https://img.shields.io/badge/version-v3.1.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.1.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Dec%2030%2C%202025-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.1.0)
 
 A modern, lightweight Docker management UI built with Tauri and Rust.
 Focus on simplicity and performance for Docker container management.
@@ -12,7 +12,7 @@ Focus on simplicity and performance for Docker container management.
 - 📊 Real-time container monitoring
 - 🔒 Local-only operation
 
-![Dashboard Screenshot](public/screenshots/2.4.0/dashboard.png)
+![Dashboard Screenshot](public/screenshots/3.1.0/dashboard.png)
 ![Terminal Screenshot](public/screenshots/2.4.0/terminal.png)
 ![Process List Screenshot](public/screenshots/2.4.0/process.png)
 ![inspect Screenshot](public/screenshots/2.4.0/inspect.png)
@@ -31,10 +31,14 @@ Focus on simplicity and performance for Docker container management.
 - 💾 Total image size monitoring
 - 🔄 Real-time container status updates
 - 📈 Resource usage visualization
+- 🖥️ System information display (Docker version, OS, architecture, resource limits)
 
 ### Container Management
 
 - 📋 Detailed container list with status indicators
+- 🐳 Container creation dialog with dual input modes
+  - Form-based configuration for guided setup
+  - Docker command input mode with parsing support
 - 🔍 Container inspection with detailed information
   - Port mappings
   - Network settings
@@ -70,6 +74,7 @@ Focus on simplicity and performance for Docker container management.
   - Support for build args and tags
   - Real-time build log streaming
   - Historical log playback
+  - Docker build command generation and parsing functionality
 - 🕒 Creation time tracking
 - 🔍 Detailed image inspection
 - 📊 Usage statistics
@@ -80,5 +85,6 @@ Focus on simplicity and performance for Docker container management.
 ### System Integration
 
 - 🔌 Native Docker daemon connection
+- 📁 Sidebar collapsible sections with container count badges
 - 🚀 Lightweight and fast performance
 - 💻 Cross-platform desktop application

@@ -1,3 +1,60 @@
+<ChangelogEntry version="v3.1.0" date="Dec 30, 2025">
+## Container Creation & UI Enhancements
+
+This release introduces comprehensive container creation capabilities and significant UI improvements across the application.
+
+### ✨ Features
+
+- <Bold>Container Creation:</Bold> Added comprehensive container creation dialog
+  with dual input modes: - 📝 Form-based configuration for guided container
+  setup - 💻 Docker command input mode with parsing and generation support
+- <Bold>Dashboard System Info:</Bold> Added system information component
+  displaying Docker version, OS, architecture, and resource limits
+- <Bold>Sidebar Collapsible Sections:</Bold> Implemented collapsible navigation
+  sections with: - 🔢 Container count badges with transition animations - 🎬
+  Smooth expand/collapse animations using Motion - 📌 Selected items remain
+  visible when collapsed
+- <Bold>Docker Build Command:</Bold> Added Docker build command generation and
+  parsing functionality
+- <Bold>Container Refresh:</Bold> Added dedicated refresh button to container
+  list header
+
+### 🎨 Improvements
+
+- <Bold>Table Scrolling & Sticky Headers:</Bold> Improved table layouts across
+  all pages (Image, Container, Network, Volume, Events) with: - 📌 Fixed sticky
+  table headers during scroll - 📏 Proper height calculations to prevent
+  page-level scrolling - 🎯 Consistent border rendering
+- <Bold>Sidebar Navigation:</Bold> Enhanced sidebar styling with Motion
+  animations for item transitions
+- <Bold>Resource Charts:</Bold> Refactored CPU usage and resource charts with
+  improved component structure
+- <Bold>Dashboard Layout:</Bold> Improved card layout and number formatting
+- <Bold>Build Dialog:</Bold> Enhanced form layout with better padding and
+  spacing
+- <Bold>Network Mode:</Bold> Replaced text input with select component for
+  network mode selection
+- <Bold>Docker Command UX:</Bold> Improved docker command input styling and user
+  experience
+
+### 🐛 Bug Fixes
+
+- <Bold>Stats Data Handling:</Bold> Fixed NaN and undefined values in Network
+  and Disk widgets to display as 0
+- <Bold>Volume Dialog:</Bold> Fixed volume name overflow in removal confirmation
+  dialog
+- <Bold>Events Row Expand:</Bold> Fixed expanded row jumping to new data when
+  events update by using stable row IDs
+- <Bold>Events Monitor Cleanup:</Bold> Fixed stale pending events and timeout
+  not being cleared when stopping event monitor
+
+### ⚡ Performance
+
+- <Bold>Events Page:</Bold> Optimized event updates with batched throttling
+  (200ms) and reduced max events from 5000 to 500
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v3.0.1" date="Dec 10, 2025">
 ## Event Table Enhancements
 
@@ -5,12 +62,15 @@ This release improves the Docker events table with new action buttons and better
 
 ### ✨ Features
 
-- <Bold>Event Table Actions:</Bold> Added action buttons to event table with Copy JSON and Remove event options
+- <Bold>Event Table Actions:</Bold> Added action buttons to event table with
+  Copy JSON and Remove event options
 
 ### 🎨 Improvements
 
-- <Bold>Badge Truncation:</Bold> Improved Badge component display - text inside Badge now truncates with ellipsis instead of Badge being clipped
-- <Bold>Event Table UI:</Bold> Refactored event table structure with pinned action column for consistent layout
+- <Bold>Badge Truncation:</Bold> Improved Badge component display - text inside
+  Badge now truncates with ellipsis instead of Badge being clipped
+- <Bold>Event Table UI:</Bold> Refactored event table structure with pinned
+  action column for consistent layout
 
 </ChangelogEntry>
 
@@ -21,26 +81,34 @@ This release introduces real-time Docker event monitoring and a comprehensive fi
 
 ### ✨ Features
 
-- <Bold>Docker Events Monitoring:</Bold> Added real-time Docker event listening with comprehensive event filtering, search, and JSON details dialog for inspecting event data
-- <Bold>Container File Browser:</Bold> Implemented file system explorer for Docker containers with:
-  - 🌳 File tree navigation with dynamic loading
-  - 📂 Folder upload and download support (tar-based)
-  - 📄 Single file upload and download with mode preservation
-  - 🔗 Symlink support for file listings
-  - 📄 Pagination for large directories
-  - 📋 Context menus for file/folder operations (Download, Copy Path, View Properties)
+- <Bold>Docker Events Monitoring:</Bold> Added real-time Docker event listening
+  with comprehensive event filtering, search, and JSON details dialog for
+  inspecting event data
+- <Bold>Container File Browser:</Bold> Implemented file system explorer for
+  Docker containers with: - 🌳 File tree navigation with dynamic loading - 📂
+  Folder upload and download support (tar-based) - 📄 Single file upload and
+  download with mode preservation - 🔗 Symlink support for file listings - 📄
+  Pagination for large directories - 📋 Context menus for file/folder operations
+  (Download, Copy Path, View Properties)
 
 ### 🐛 Bug Fixes
 
-- <Bold>Build Log Host Switch:</Bold> Fixed build records to properly associate with SSH connections, enabling correct host switching for build logs
+- <Bold>Build Log Host Switch:</Bold> Fixed build records to properly associate
+  with SSH connections, enabling correct host switching for build logs
 
 ### 🎨 Improvements
 
-- <Bold>SSH Docker Socket Forwarding:</Bold> Enhanced Docker socket forwarding with improved connection status tracking
-- <Bold>Events Table UI:</Bold> Improved event filtering, table layout, column sizing, and action badge styling
-- <Bold>Code Block Selection:</Bold> Enhanced code block selection and styling for better readability
+- <Bold>SSH Docker Socket Forwarding:</Bold> Enhanced Docker socket forwarding
+  with improved connection status tracking
+- <Bold>Events Table UI:</Bold> Improved event filtering, table layout, column
+  sizing, and action badge styling
+- <Bold>Code Block Selection:</Bold> Enhanced code block selection and styling
+  for better readability
 
-<ChangelogImage src="/screenshots/3.0.0/file.png" alt="Container File Browser" />
+<ChangelogImage
+  src="/screenshots/3.0.0/file.png"
+  alt="Container File Browser"
+/>
 
 </ChangelogEntry>
 
@@ -55,7 +123,10 @@ This release introduces Docker image building capabilities and detailed build lo
 - <Bold>Build Logs:</Bold> Implemented build logs playback functionality
 
 <ChangelogImage src="/screenshots/2.4.0/build-log.png" alt="Build Log" />
-<ChangelogImage src="/screenshots/2.4.0/build-log-history.png" alt="Build Log History" />
+<ChangelogImage
+  src="/screenshots/2.4.0/build-log-history.png"
+  alt="Build Log History"
+/>
 
 </ChangelogEntry>
 
@@ -66,25 +137,41 @@ This release introduces comprehensive Docker network and volume management capab
 
 ### ✨ Features:
 
-- <Bold>Docker Network Management:</Bold> Added comprehensive Docker network management functionality, including list, inspect, create, remove, and connect networks
-- <Bold>Docker Volume Management:</Bold> Implemented complete Docker volume lifecycle management with support for list, inspect, create, remove, and prune operations
-- <Bold>Docker Image Management:</Bold> Added comprehensive image management functionality including delete, inspect, search, build, and prune operations
-- <Bold>Image Tag Management:</Bold> Support for adding, removing, and importing image tags to enhance image management flexibility
-- <Bold>Image Import and Export:</Bold> Implemented image file import and export functionality with file dialog support
-- <Bold>Image Registry Links:</Bold> Support for opening Docker Hub, GHCR, GCR, and Quay registry links directly
+- <Bold>Docker Network Management:</Bold> Added comprehensive Docker network
+  management functionality, including list, inspect, create, remove, and connect
+  networks
+- <Bold>Docker Volume Management:</Bold> Implemented complete Docker volume
+  lifecycle management with support for list, inspect, create, remove, and prune
+  operations
+- <Bold>Docker Image Management:</Bold> Added comprehensive image management
+  functionality including delete, inspect, search, build, and prune operations
+- <Bold>Image Tag Management:</Bold> Support for adding, removing, and importing
+  image tags to enhance image management flexibility
+- <Bold>Image Import and Export:</Bold> Implemented image file import and export
+  functionality with file dialog support
+- <Bold>Image Registry Links:</Bold> Support for opening Docker Hub, GHCR, GCR,
+  and Quay registry links directly
 
 ### 🎨 Improvements:
 
-- <Bold>Enhanced Table Features:</Bold> Added column sorting, column resizing, and column pinning for network and volume tables
-- <Bold>Table Performance Optimization:</Bold> Optimized network table rendering performance through column memoization to reduce unnecessary re-renders
-- <Bold>UI Style Improvements:</Bold> Improved container status badge styling with enhanced visual differentiation, optimized table cell vertical spacing for better readability, enhanced pinned column styles and hover states, and improved table header background color for better visual hierarchy
-- <Bold>Enhanced Search Input:</Bold> Added loading state indicator for image search input with improved user feedback
-- <Bold>Image Actions Menu:</Bold> Added loading state to image actions menu button for better async operation UX
-- <Bold>Navigation Improvements:</Bold> Updated navigation icons and breadcrumb route configuration
-- <Bold>Table Column Layout:</Bold> Improved network and volume table column layouts for better usability and visual consistency
+- <Bold>Enhanced Table Features:</Bold> Added column sorting, column resizing,
+  and column pinning for network and volume tables
+- <Bold>Table Performance Optimization:</Bold> Optimized network table rendering
+  performance through column memoization to reduce unnecessary re-renders
+- <Bold>UI Style Improvements:</Bold> Improved container status badge styling
+  with enhanced visual differentiation, optimized table cell vertical spacing
+  for better readability, enhanced pinned column styles and hover states, and
+  improved table header background color for better visual hierarchy
+- <Bold>Enhanced Search Input:</Bold> Added loading state indicator for image
+  search input with improved user feedback
+- <Bold>Image Actions Menu:</Bold> Added loading state to image actions menu
+  button for better async operation UX
+- <Bold>Navigation Improvements:</Bold> Updated navigation icons and breadcrumb
+  route configuration
+- <Bold>Table Column Layout:</Bold> Improved network and volume table column
+  layouts for better usability and visual consistency
 
 </ChangelogEntry>
-
 
 <ChangelogEntry version="v2.2.0" date="Oct 12, 2025">
 ## Auto-Update & Code Signing
@@ -93,11 +180,13 @@ This update introduces automatic update functionality and enhances security with
 
 ### New Features:
 
-- <Bold>Auto-Update:</Bold> Added automatic update functionality to keep Dockerman up-to-date with the latest features and improvements.
+- <Bold>Auto-Update:</Bold> Added automatic update functionality to keep
+  Dockerman up-to-date with the latest features and improvements.
 
 ### Improvements:
 
-- <Bold>macOS Code Signing:</Bold> macOS installation packages are now code-signed for enhanced security and trust.
+- <Bold>macOS Code Signing:</Bold> macOS installation packages are now
+  code-signed for enhanced security and trust.
 
 </ChangelogEntry>
 
@@ -124,13 +213,14 @@ This release introduces SSH functionality for managing remote Docker instances a
 
 ### New Features:
 
-- <Bold>SSH Remote Management:</Bold> Added the ability to connect and manage remote Docker instances via SSH.
-- <Bold>Host Management Page:</Bold> Introduced a host management page allowing users to add, modify, and delete remote host connection details.
+- <Bold>SSH Remote Management:</Bold> Added the ability to connect and manage
+  remote Docker instances via SSH.
+- <Bold>Host Management Page:</Bold> Introduced a host management page allowing
+  users to add, modify, and delete remote host connection details.
 
 <ChangelogImage src="/changelog/2.0.0.png" alt="Dockerman 2.0.0" />
 
 </ChangelogEntry>
-
 
 <ChangelogEntry version="v1.0.2" date="Feb 8, 2025">
 ## Container Management Enhancement
@@ -139,8 +229,8 @@ This update introduces a new manual refresh capability for container management:
 
 ### Updates:
 
-- <Bold>Manual Refresh:</Bold> Added a refresh button for Containers section that
-  appears on hover, allowing users to manually update container status
+- <Bold>Manual Refresh:</Bold> Added a refresh button for Containers section
+  that appears on hover, allowing users to manually update container status
 
 </ChangelogEntry>
 
