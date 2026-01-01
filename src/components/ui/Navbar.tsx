@@ -3,11 +3,41 @@
 import { siteConfig } from "@/app/siteConfig"
 import useScroll from "@/lib/use-scroll"
 import { cx } from "@/lib/utils"
-import { RiCloseLine, RiMenuLine } from "@remixicon/react"
+import { RiCloseLine, RiMenuLine, RiMoonLine, RiSunLine } from "@remixicon/react"
+import { useTheme } from "next-themes"
 import Link from "next/link"
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { Logo } from "../../../public/logo"
 import { Button } from "../Button"
+
+function ThemeToggleButton() {
+  const [mounted, setMounted] = useState(false)
+  const { resolvedTheme, setTheme } = useTheme()
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return <div className="size-10" />
+  }
+
+  const isDark = resolvedTheme === "dark"
+
+  return (
+    <button
+      onClick={() => setTheme(isDark ? "light" : "dark")}
+      className="flex size-10 items-center justify-center rounded-lg text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+    >
+      {isDark ? (
+        <RiSunLine className="size-5" />
+      ) : (
+        <RiMoonLine className="size-5" />
+      )}
+    </button>
+  )
+}
 
 export function Navigation() {
   const scrolled = useScroll(15)
@@ -78,13 +108,17 @@ export function Navigation() {
               </Link>
             </div>
           </nav>
-          <a href={siteConfig.baseLinks.download}>
-            <Button className="hidden h-10 font-semibold md:flex">
-              Download
-            </Button>
-          </a>
+          <div className="hidden items-center gap-2 md:flex">
+            <ThemeToggleButton />
+            <a href={siteConfig.baseLinks.download}>
+              <Button className="h-10 font-semibold">
+                Download
+              </Button>
+            </a>
+          </div>
 
           <div className="flex gap-x-2 md:hidden">
+            <ThemeToggleButton />
             <a href={siteConfig.baseLinks.download}>
               <Button>Download</Button>
             </a>
