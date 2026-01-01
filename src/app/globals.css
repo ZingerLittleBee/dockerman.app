@@ -55,17 +55,49 @@ a {
   @apply visible;
 }
 
-/* View Transition styles for theme toggle animation */
+::view-transition-group(root) {
+  animation-timing-function: var(--expo-in);
+}
+
+::view-transition-new(root) {
+  mask: url('/images/i-love-you-love.gif') center / 0 no-repeat;
+  animation: scale 1.5s;
+  animation-fill-mode: both;
+}
+
 ::view-transition-old(root),
-::view-transition-new(root) {
-  animation: none;
-  mix-blend-mode: normal;
+.dark::view-transition-old(root) {
+  animation: scale 1.5s;
+  animation-fill-mode: both;
 }
 
-::view-transition-old(root) {
-  z-index: 1;
+@keyframes scale {
+  0% {
+    mask-size: 0;
+  }
+  10% {
+    mask-size: 50vmax;
+  }
+  90% {
+    mask-size: 50vmax;
+  }
+  100% {
+    mask-size: 2000vmax;
+  }
 }
 
-::view-transition-new(root) {
-  z-index: 9999;
-}
+
+/* View Transition styles for theme toggle animation */
+/*::view-transition-old(root),*/
+/*::view-transition-new(root) {*/
+/*  animation: none;*/
+/*  mix-blend-mode: normal;*/
+/*}*/
+
+/*::view-transition-old(root) {*/
+/*  z-index: 1;*/
+/*}*/
+
+/*::view-transition-new(root) {*/
+/*  z-index: 9999;*/
+/*}*/
