@@ -1,5 +1,7 @@
 # Dockerman
 
+Language: 🇺🇸 English | [🇨🇳 简体中文](./README.zh-CN.md)
+
 [![Version](https://img.shields.io/badge/version-v3.2.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.2.0)
 [![Release Date](https://img.shields.io/badge/release%20date-Jan%201%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.2.0)
 
