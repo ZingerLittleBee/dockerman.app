@@ -34,7 +34,7 @@ export default function Hero() {
       >
         <HeroImage />
         <div
-          className="absolute inset-x-0 -bottom-20 -mx-10 h-2/4 bg-gradient-to-t from-white via-white to-transparent lg:h-1/4 dark:from-gray-950 dark:via-gray-950"
+          className="absolute inset-x-0 -bottom-24 -mx-10 h-2/4 bg-gradient-to-t from-white via-white to-transparent lg:h-1/4 dark:from-gray-950 dark:via-gray-950"
           aria-hidden="true"
         />
       </div>
