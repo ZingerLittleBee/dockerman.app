@@ -1,7 +1,7 @@
 # Dockerman
 
-[![Version](https://img.shields.io/badge/version-v3.1.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.1.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Dec%2030%2C%202025-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.1.0)
+[![Version](https://img.shields.io/badge/version-v3.2.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.2.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Jan%201%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.2.0)
 
 A modern, lightweight Docker management UI built with Tauri and Rust.
 Focus on simplicity and performance for Docker container management.
@@ -11,6 +11,8 @@ Focus on simplicity and performance for Docker container management.
 - 🎯 Clean, focused interface
 - 📊 Real-time container monitoring
 - 🔒 Local-only operation
+- 🌙 Comprehensive dark mode support
+- 🌐 Internationalization (i18n) support
 
 ![Dashboard Screenshot](public/screenshots/3.2.0/dashboard.png)
 ![Dashboard Dark Screenshot](public/screenshots/3.2.0/dark.png)
@@ -52,6 +54,7 @@ Focus on simplicity and performance for Docker container management.
   - Network statistics
   - Block I/O statistics
 - 💻 Integrated terminal access
+  - Terminal theme picker with color theme customization
 - 📝 Process list viewing
 - 📜 Log viewer with real-time updates
 - 📂 Container File Browser
