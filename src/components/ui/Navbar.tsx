@@ -24,9 +24,55 @@ function ThemeToggleButton() {
 
   const isDark = resolvedTheme === "dark"
 
+  const handleThemeToggle = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const newTheme = isDark ? "light" : "dark"
+
+    // Check if View Transitions API is supported
+    if (!document.startViewTransition) {
+      setTheme(newTheme)
+      return
+    }
+
+    // Get the click position for the animation origin
+    const x = event.clientX
+    const y = event.clientY
+    // Calculate the maximum radius needed to cover the entire screen
+    const endRadius = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y)
+    )
+
+    // Set CSS custom properties for the animation
+    document.documentElement.style.setProperty("--x", `${x}px`)
+    document.documentElement.style.setProperty("--y", `${y}px`)
+    document.documentElement.style.setProperty("--r", `${endRadius}px`)
+
+    // Start the view transition
+    const transition = document.startViewTransition(() => {
+      setTheme(newTheme)
+    })
+
+    // Apply circular expand animation on the new view
+    transition.ready.then(() => {
+      document.documentElement.animate(
+        {
+          clipPath: [
+            `circle(0px at ${x}px ${y}px)`,
+            `circle(${endRadius}px at ${x}px ${y}px)`,
+          ],
+        },
+        {
+          duration: 400,
+          easing: "ease-out",
+          pseudoElement: "::view-transition-new(root)",
+        }
+      )
+    })
+  }
+
   return (
     <button
-      onClick={() => setTheme(isDark ? "light" : "dark")}
+      onClick={handleThemeToggle}
       className="flex size-10 items-center justify-center rounded-lg text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
     >
