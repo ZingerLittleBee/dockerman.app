@@ -60,7 +60,7 @@ a {
 }
 
 ::view-transition-new(root) {
-  mask: url('/images/i-love-you-love.gif') center / 0 no-repeat;
+  mask: var(--transition-mask, url('/images/i-love-you-love.gif')) center / 0 no-repeat;
   animation: scale 1.5s;
   animation-fill-mode: both;
 }

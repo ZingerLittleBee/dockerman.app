@@ -46,6 +46,11 @@ function ThemeToggleButton() {
     document.documentElement.style.setProperty("--x", `${x}px`)
     document.documentElement.style.setProperty("--y", `${y}px`)
     document.documentElement.style.setProperty("--r", `${endRadius}px`)
+    // Add timestamp to force GIF to restart from beginning
+    document.documentElement.style.setProperty(
+      "--transition-mask",
+      `url('/images/i-love-you-love.gif?t=${Date.now()}')`
+    )
 
     // Start the view transition
     const transition = document.startViewTransition(() => {
