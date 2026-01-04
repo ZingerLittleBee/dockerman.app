@@ -29,6 +29,7 @@ Focus on simplicity and performance for Docker container management.
 ![file system](public/screenshots/3.0.0/file.png)
 ![Termin Settings](public/screenshots/3.2.0/terminal-settings.png)
 ![Image Analysis](public/screenshots/3.3.0/image-analysis.png)
+![Compose](public/screenshots/3.4.0/compose.png)
 
 ## Features
 

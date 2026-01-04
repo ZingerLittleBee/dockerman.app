@@ -29,6 +29,7 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 ![file system](public/screenshots/3.0.0/file.png)
 ![Termin Settings](public/screenshots/3.2.0/terminal-settings.png)
 ![Image Analysis](public/screenshots/3.3.0/image-analysis.png)
+![Compose](public/screenshots/3.4.0/compose.png)
 
 ## 功能特性
 
