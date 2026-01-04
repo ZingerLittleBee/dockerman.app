@@ -87,6 +87,12 @@ const screenshots = [
     label: "Image Analysis",
     icon: RiPieChartLine,
   },
+  {
+    src: "/screenshots/3.4.0/compose.png",
+    alt: "Docker Compose Screenshot",
+    label: "Compose",
+    icon: RiStackLine,
+  },
 ]
 
 const features = [
