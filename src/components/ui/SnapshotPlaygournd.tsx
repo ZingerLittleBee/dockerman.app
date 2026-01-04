@@ -8,6 +8,7 @@ import {
   RiInformation2Line,
   RiLineChartFill,
   RiNewsLine,
+  RiPieChartLine,
   RiPlugLine,
   RiRemoteControlLine,
   RiShieldKeyholeLine,
@@ -79,6 +80,12 @@ const screenshots = [
     alt: "File Screenshot",
     label: "File",
     icon: RiFileLine,
+  },
+  {
+    src: "/screenshots/3.3.0/image-analysis.png",
+    alt: "Image Analysis Screenshot",
+    label: "Image Analysis",
+    icon: RiPieChartLine,
   },
 ]
 
