@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 
-[![Version](https://img.shields.io/badge/version-v3.2.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.2.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Jan%201%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.2.0)
+[![Version](https://img.shields.io/badge/version-v3.3.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.3.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Jan%204%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.3.0)
 
 一个现代、轻量级的 Docker 管理界面，使用 Tauri 和 Rust 构建。
 专注于简洁性和性能的 Docker 容器管理工具。
@@ -28,6 +28,7 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 ![build History Screenshot](public/screenshots/2.4.0/build-log-history.png)
 ![file system](public/screenshots/3.0.0/file.png)
 ![Termin Settings](public/screenshots/3.2.0/terminal-settings.png)
+![Image Analysis](public/screenshots/3.3.0/image-analysis.png)
 
 ## 功能特性
 
