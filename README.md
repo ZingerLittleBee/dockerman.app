@@ -2,8 +2,8 @@
 
 Language: 🇺🇸 English | [🇨🇳 简体中文](./README.zh-CN.md)
 
-[![Version](https://img.shields.io/badge/version-v3.3.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.3.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Jan%204%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.3.0)
+[![Version](https://img.shields.io/badge/version-v3.4.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.4.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Jan%205%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.4.0)
 
 A modern, lightweight Docker management UI built with Tauri and Rust.
 Focus on simplicity and performance for Docker container management.
@@ -43,6 +43,12 @@ Focus on simplicity and performance for Docker container management.
 ### Container Management
 
 - 📋 Detailed container list with status indicators
+- 🐳 Docker Compose View
+  - Toggle between flat list and grouped view by Compose projects
+  - Compose project cards with status indicators and running container counts
+  - Collapsible Standalone Containers section for non-Compose containers
+  - Full Compose lifecycle management (Up, Stop, Restart, Pull, Remove)
+  - Support for all Docker Compose CLI options (file, env-file, profile, progress, dry-run)
 - 🐳 Container creation dialog with dual input modes
   - Form-based configuration for guided setup
   - Docker command input mode with parsing support

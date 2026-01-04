@@ -1,3 +1,44 @@
+<ChangelogEntry version="v3.4.0" date="Jan 5, 2026">
+## Docker Compose View
+
+This release introduces comprehensive Docker Compose project management with grouped container views and full lifecycle control.
+
+### ✨ Features
+
+- <Bold>Docker Compose View:</Bold> Added grouped container view with Docker
+  Compose project support
+  - 📦 Toggle between flat list view and grouped view by Compose projects
+  - 🎯 Compose project cards with status indicators and running container counts
+  - 📂 Collapsible Standalone Containers section for non-Compose containers
+- <Bold>Compose Project Actions:</Bold> Full Docker Compose lifecycle management
+  - ▶️ Up: Start Compose projects with detached mode
+  - ⏹️ Stop: Stop running Compose projects
+  - 🔄 Restart: Restart Compose projects
+  - 📥 Pull: Pull latest images for Compose projects
+  - 🗑️ Remove: Remove Compose projects with confirmation dialog
+- <Bold>Compose Global Options:</Bold> Support for all Docker Compose CLI
+  options
+  - `-f, --file`: Custom compose configuration files
+  - `--env-file`: Environment variable files
+  - `--profile`: Compose profiles
+  - `--progress`: Progress output type (auto/tty/plain/json/quiet)
+  - `--dry-run`: Dry run mode
+- <Bold>Compose Remove Dialog:</Bold> Confirmation dialog with severity warnings
+  - ⚠️ Warning display for irreversible operations
+  - 📊 Container count indicator
+  - 🗃️ Option to remove associated volumes
+
+### 🎨 Improvements
+
+- <Bold>Refresh Button:</Bold> Fixed refresh to update both containers and
+  Compose projects
+- <Bold>Loading States:</Bold> Added loading indicators for all Compose
+  operations with toast notifications
+- <Bold>Orphaned Compose Projects:</Bold> Support for removing Compose projects
+  even when compose file is deleted
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v3.3.0" date="Jan 4, 2026">
 ## Image Size Analysis
 

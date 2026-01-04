@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 
-[![Version](https://img.shields.io/badge/version-v3.3.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.3.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Jan%204%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.3.0)
+[![Version](https://img.shields.io/badge/version-v3.4.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.4.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Jan%205%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.4.0)
 
 一个现代、轻量级的 Docker 管理界面，使用 Tauri 和 Rust 构建。
 专注于简洁性和性能的 Docker 容器管理工具。
@@ -43,6 +43,12 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 ### 容器管理
 
 - 📋 详细的容器列表，带状态指示器
+- 🐳 Docker Compose 视图
+  - 支持平铺列表和按 Compose 项目分组视图切换
+  - Compose 项目卡片，显示状态指示器和运行中的容器数量
+  - 可折叠的独立容器区域，用于非 Compose 容器
+  - 完整的 Compose 生命周期管理（启动、停止、重启、拉取、删除）
+  - 支持所有 Docker Compose CLI 选项（file、env-file、profile、progress、dry-run）
 - 🐳 容器创建对话框，支持双输入模式
   - 表单配置，引导式设置
   - Docker 命令输入模式，支持解析
