@@ -2,8 +2,8 @@
 
 Language: 🇺🇸 English | [🇨🇳 简体中文](./README.zh-CN.md)
 
-[![Version](https://img.shields.io/badge/version-v3.2.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.2.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Jan%201%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.2.0)
+[![Version](https://img.shields.io/badge/version-v3.3.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.3.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Jan%204%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.3.0)
 
 A modern, lightweight Docker management UI built with Tauri and Rust.
 Focus on simplicity and performance for Docker container management.
@@ -28,6 +28,7 @@ Focus on simplicity and performance for Docker container management.
 ![build History Screenshot](public/screenshots/2.4.0/build-log-history.png)
 ![file system](public/screenshots/3.0.0/file.png)
 ![Termin Settings](public/screenshots/3.2.0/terminal-settings.png)
+![Image Analysis](public/screenshots/3.3.0/image-analysis.png)
 
 ## Features
 
@@ -82,6 +83,11 @@ Focus on simplicity and performance for Docker container management.
   - Real-time build log streaming
   - Historical log playback
   - Docker build command generation and parsing functionality
+- 📉 Image Size Analysis
+  - Detailed breakdown of layer sizes
+  - Interactive size distribution bar with color-coded blocks
+  - Layer details table with expand/collapse for Dockerfile commands
+  - Collapsible distribution panel with compact view support
 - 🕒 Creation time tracking
 - 🔍 Detailed image inspection
 - 📊 Usage statistics
