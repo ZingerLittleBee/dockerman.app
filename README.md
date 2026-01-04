@@ -83,6 +83,11 @@ Focus on simplicity and performance for Docker container management.
   - Real-time build log streaming
   - Historical log playback
   - Docker build command generation and parsing functionality
+- 📉 Image Size Analysis
+  - Detailed breakdown of layer sizes
+  - Interactive size distribution bar with color-coded blocks
+  - Layer details table with expand/collapse for Dockerfile commands
+  - Collapsible distribution panel with compact view support
 - 🕒 Creation time tracking
 - 🔍 Detailed image inspection
 - 📊 Usage statistics
