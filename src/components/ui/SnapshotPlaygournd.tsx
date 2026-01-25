@@ -52,7 +52,7 @@ const screenshots = [
     icon: RiLineChartFill,
   },
   {
-    src: "/screenshots/2.4.0/log.png",
+    src: "/screenshots/logs.png",
     alt: "Logs Screenshot",
     label: "Logs",
     icon: RiNewsLine,
