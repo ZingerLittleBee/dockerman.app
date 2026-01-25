@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 
-[![Version](https://img.shields.io/badge/version-v3.5.1-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.5.1)
-[![Release Date](https://img.shields.io/badge/release%20date-Jan%2018%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.5.1)
+[![Version](https://img.shields.io/badge/version-v3.6.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.6.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Jan%2026%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.6.0)
 
 一个现代、轻量级的 Docker 管理界面，使用 Tauri 和 Rust 构建。
 专注于简洁性和性能的 Docker 容器管理工具。
@@ -53,6 +53,7 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 - 🐳 容器创建对话框，支持双输入模式
   - 表单配置，引导式设置
   - Docker 命令输入模式，支持解析
+  - Docker Run 命令导入和解析，增强 UI 集成
 - 🔍 容器详情检查
   - 端口映射
   - 网络设置
@@ -67,6 +68,9 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
   - 终端主题选择器，支持颜色主题自定义
 - 📝 进程列表查看
 - 📜 实时日志查看器
+  - 虚拟化日志列表，支持跟踪/暂停和加载更多历史
+  - 关键字/正则过滤，支持高亮和快捷操作
+  - 导出日志为 TXT/JSON，复制过滤结果
 - 📂 容器文件浏览器
   - 动态加载的文件树导航
   - 文件夹上传和下载支持
@@ -81,9 +85,14 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 - 📋 JSON 详情对话框，用于检查事件数据
 - ⚡ 操作按钮，支持复制 JSON 和删除选项
 
+### 模板管理
+
+- 🧩 Stack 模板支持，包含迁移、UI 和 API 集成
+
 ### 镜像管理
 
 - 📦 镜像列表，包含大小和标签信息
+- 🗑️ 批量操作：镜像、网络、卷的多选批量删除
 - 🏗️ 镜像构建
   - 从 Dockerfile 构建
   - 支持构建参数和标签

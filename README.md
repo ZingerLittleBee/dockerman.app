@@ -2,8 +2,8 @@
 
 Language: 🇺🇸 English | [🇨🇳 简体中文](./README.zh-CN.md)
 
-[![Version](https://img.shields.io/badge/version-v3.5.1-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.5.1)
-[![Release Date](https://img.shields.io/badge/release%20date-Jan%2018%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.5.1)
+[![Version](https://img.shields.io/badge/version-v3.6.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.6.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Jan%2026%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.6.0)
 
 A modern, lightweight Docker management UI built with Tauri and Rust.
 Focus on simplicity and performance for Docker container management.
@@ -53,6 +53,7 @@ Focus on simplicity and performance for Docker container management.
 - 🐳 Container creation dialog with dual input modes
   - Form-based configuration for guided setup
   - Docker command input mode with parsing support
+  - Docker Run command import and parsing with enhanced UI
 - 🔍 Container inspection with detailed information
   - Port mappings
   - Network settings
@@ -67,6 +68,9 @@ Focus on simplicity and performance for Docker container management.
   - Terminal theme picker with color theme customization
 - 📝 Process list viewing
 - 📜 Log viewer with real-time updates
+  - Virtualized log list with follow/pause and load-more history
+  - Keyword/regex filtering with highlight and quick shortcuts
+  - Export logs as TXT/JSON and copy filtered results
 - 📂 Container File Browser
   - File tree navigation with dynamic loading
   - Folder upload and download support
@@ -81,9 +85,14 @@ Focus on simplicity and performance for Docker container management.
 - 📋 JSON details dialog for inspecting event data
 - ⚡ Action buttons with Copy JSON and Remove options
 
+### Template Management
+
+- 🧩 Stack templates support with migrations, UI, and API integration
+
 ### Image Management
 
 - 📦 Image list with size and tag information
+- 🗑️ Batch Operations: Multi-select batch delete for Images, Networks, and Volumes
 - 🏗️ Image Build
   - Build from Dockerfile
   - Support for build args and tags
