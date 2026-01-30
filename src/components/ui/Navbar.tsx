@@ -2,14 +2,17 @@
 
 import { RiCloseLine, RiMenuLine, RiMoonLine, RiSunLine } from '@remixicon/react'
 import Link from 'next/link'
+import { useParams } from 'next/navigation'
 import { useTheme } from 'next-themes'
 import posthog from 'posthog-js'
 import React, { useEffect, useState } from 'react'
-import { siteConfig } from '@/app/siteConfig'
 import useScroll from '@/lib/use-scroll'
 import { cx } from '@/lib/utils'
+import { useTranslation } from '@/lib/i18n/client'
+import { type Locale } from '@/lib/i18n'
 import { Logo } from '../../../public/logo'
 import { Button } from '../Button'
+import { LanguageSwitcher } from './LanguageSwitcher'
 
 function ThemeToggleButton() {
   const [mounted, setMounted] = useState(false)
@@ -94,6 +97,9 @@ function ThemeToggleButton() {
 export function Navigation() {
   const scrolled = useScroll(15)
   const [open, setOpen] = React.useState(false)
+  const params = useParams()
+  const locale = (params.locale as Locale) || 'en'
+  const { t } = useTranslation(locale)
 
   React.useEffect(() => {
     const mediaQuery: MediaQueryList = window.matchMedia('(min-width: 768px)')
@@ -121,7 +127,7 @@ export function Navigation() {
     >
       <div className="w-full md:my-auto">
         <div className="relative flex items-center justify-between">
-          <Link aria-label="Home" href={siteConfig.baseLinks.home}>
+          <Link aria-label="Home" href={`/${locale}`}>
             <span className="sr-only">Dockerman</span>
             <Logo />
           </Link>
@@ -129,41 +135,29 @@ export function Navigation() {
             <div className="flex items-center gap-10 font-medium">
               <Link
                 className="px-2 py-1 text-gray-900 dark:text-gray-50"
-                href={siteConfig.baseLinks.home}
+                href={`/${locale}`}
               >
-                Home
+                {t('nav.home')}
               </Link>
               <Link
                 className="px-2 py-1 text-gray-900 dark:text-gray-50"
-                href={siteConfig.baseLinks.download}
+                href={`/${locale}/download`}
               >
-                Download
-              </Link>
-
-              {/* <Link
-                className="px-2 py-1 text-gray-900 dark:text-gray-50"
-                href={siteConfig.baseLinks.about}
-              >
-                About
+                {t('nav.download')}
               </Link>
               <Link
                 className="px-2 py-1 text-gray-900 dark:text-gray-50"
-                href={siteConfig.baseLinks.pricing}
+                href={`/${locale}/changelog`}
               >
-                Pricing
-              </Link> */}
-              <Link
-                className="px-2 py-1 text-gray-900 dark:text-gray-50"
-                href={siteConfig.baseLinks.changelog}
-              >
-                Changelog
+                {t('nav.changelog')}
               </Link>
             </div>
           </nav>
           <div className="hidden items-center gap-2 md:flex">
+            <LanguageSwitcher currentLocale={locale} />
             <ThemeToggleButton />
             <a
-              href={siteConfig.baseLinks.download}
+              href={`/${locale}/download`}
               onClick={() => {
                 posthog.capture('navbar_download_clicked', {
                   button_text: 'Download',
@@ -171,14 +165,15 @@ export function Navigation() {
                 })
               }}
             >
-              <Button className="h-10 font-semibold">Download</Button>
+              <Button className="h-10 font-semibold">{t('common.download')}</Button>
             </a>
           </div>
 
           <div className="flex gap-x-2 md:hidden">
+            <LanguageSwitcher currentLocale={locale} />
             <ThemeToggleButton />
             <a
-              href={siteConfig.baseLinks.download}
+              href={`/${locale}/download`}
               onClick={() => {
                 posthog.capture('navbar_download_clicked', {
                   button_text: 'Download',
@@ -186,7 +181,7 @@ export function Navigation() {
                 })
               }}
             >
-              <Button>Download</Button>
+              <Button>{t('common.download')}</Button>
             </a>
             <Button className="aspect-square p-2" onClick={() => setOpen(!open)} variant="light">
               {open ? (
@@ -204,23 +199,16 @@ export function Navigation() {
           )}
         >
           <ul className="space-y-4 font-medium">
-            {/* <li onClick={() => setOpen(false)}>
-              <Link href={siteConfig.baseLinks.about}>About</Link>
-            </li>
             <li onClick={() => setOpen(false)}>
-              <Link href={siteConfig.baseLinks.pricing}>Pricing</Link>
-            </li> */}
-
-            <li onClick={() => setOpen(false)}>
-              <a href={siteConfig.baseLinks.home}>Home</a>
+              <a href={`/${locale}`}>{t('nav.home')}</a>
             </li>
 
             <li onClick={() => setOpen(false)}>
-              <a href={siteConfig.baseLinks.download}>Download</a>
+              <a href={`/${locale}/download`}>{t('nav.download')}</a>
             </li>
 
             <li onClick={() => setOpen(false)}>
-              <Link href={siteConfig.baseLinks.changelog}>Changelog</Link>
+              <Link href={`/${locale}/changelog`}>{t('nav.changelog')}</Link>
             </li>
           </ul>
         </nav>
