@@ -1,26 +1,19 @@
-import { BackgroundBeamsWithCollision } from '@/components/ui/background-beams-with-collision'
-import Cta from '@/components/ui/Cta'
-import { Faqs } from '@/components/ui/Faqs'
-import Features from '@/components/ui/Features'
-import { Global } from '@/components/ui/Global'
-import Hero from '@/components/ui/Hero'
-import LogoCloud from '@/components/ui/LogoCloud'
-import SnapshotPlaygournd from '@/components/ui/SnapshotPlaygournd'
+import { redirect } from 'next/navigation'
+import { cookies, headers } from 'next/headers'
+import { cookieName, defaultLocale, locales, type Locale } from '@/lib/i18n'
 
-export default function Home() {
-  return (
-    <main className="flex flex-col overflow-hidden">
-      <Hero />
-      <LogoCloud />
-      <Global />
-      <SnapshotPlaygournd />
-      <Features />
-      <div className="mx-auto mt-36 max-w-6xl px-3">
-        <Faqs />
-      </div>
-      <BackgroundBeamsWithCollision>
-        <Cta />
-      </BackgroundBeamsWithCollision>
-    </main>
-  )
+export default async function RootPage() {
+  const cookieStore = await cookies()
+  const headerStore = await headers()
+
+  const cookieLocale = cookieStore.get(cookieName)?.value as Locale | undefined
+
+  if (cookieLocale && locales.includes(cookieLocale)) {
+    redirect(`/${cookieLocale}`)
+  }
+
+  const acceptLanguage = headerStore.get('accept-language') || ''
+  const locale = acceptLanguage.toLowerCase().includes('zh') ? 'zh' : defaultLocale
+
+  redirect(`/${locale}`)
 }
