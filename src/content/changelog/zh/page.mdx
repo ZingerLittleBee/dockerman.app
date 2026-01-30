@@ -1,0 +1,378 @@
+<ChangelogEntry version="v3.7.0" date="2026年1月30日">
+## 事件历史与虚拟化
+
+本版本引入了持久化事件历史、统一工具栏，以及事件页面的性能改进。
+
+### ✨ 新功能
+
+- <Bold>事件历史持久化：</Bold>Docker 事件现在会自动保存到本地文件，并在应用重启后保留
+- <Bold>统一事件工具栏：</Bold>所有过滤器整合到单一工具栏，包含搜索、自定义类型/操作过滤器和时间范围选择
+- <Bold>增强导出：</Bold>支持将事件导出为 TXT 或 JSON 格式，提供专用下拉菜单
+
+### 🎨 改进
+
+- <Bold>虚拟化事件列表：</Bold>使用虚拟化技术重构事件页面，支持无限滚动流畅处理数千条事件
+- <Bold>连接状态：</Bold>实时显示 Docker 事件流连接指示器，支持暂停/恢复
+- <Bold>动画侧边栏：</Bold>侧边栏导航项目的展开/折叠动画更加流畅
+
+</ChangelogEntry>
+
+<ChangelogEntry version="v3.6.0" date="2026年1月26日">
+## 模板、Docker Run 与批量操作
+
+本版本引入了堆栈模板、Docker Run 命令解析，以及全面的资源批量操作功能。
+
+### ✨ 新功能
+
+- <Bold>模板管理：</Bold>新增堆栈模板支持，包含迁移、UI 和 API 集成
+- <Bold>Docker Run 解析：</Bold>支持导入和解析 Docker Run 命令，增强 UI 集成
+- <Bold>远程主机支持：</Bold>动态 `DOCKER_HOST` 管理和 Compose 功能的 Docker CLI 可用性检查
+- <Bold>批量操作：</Bold>镜像、网络和卷的多选批量删除，统一批量工具栏
+
+### 🎨 改进
+
+- <Bold>日志查看器重构：</Bold>虚拟化日志列表，支持跟随/暂停、加载更多历史、新日志指示器和状态栏
+- <Bold>日志过滤：</Bold>关键词/正则表达式过滤，支持高亮和快捷清除/重置
+- <Bold>日志导出与复制：</Bold>支持导出日志为 TXT/JSON，复制过滤结果时提供大量选择确认
+
+</ChangelogEntry>
+
+<ChangelogEntry version="v3.5.1" date="2026年1月18日">
+## 远程 Docker 连接
+
+本版本增强了远程 Docker 连接功能，支持 TCP 和改进的连接配置。
+
+### ✨ 新功能
+
+- <Bold>自定义 Docker Socket 路径：</Bold>支持自定义 Docker socket 路径（可选）和通过 SSH socket 转发的远程连接
+- <Bold>TCP 连接支持：</Bold>通过 TCP 地址连接 Docker 守护进程
+
+### 🎨 改进
+
+- <Bold>连接与设置体验：</Bold>改进连接相关配置和持久化，优化国际化文案
+- <Bold>UI 与性能：</Bold>优化容器、仪表盘和事件页面的渲染和交互
+
+</ChangelogEntry>
+
+<ChangelogEntry version="v3.5.0" date="2026年1月13日">
+## 设置与远程主机改进
+
+本版本引入了专用的 Docker 配置设置页面，并增强了远程主机管理。
+
+### ✨ 新功能
+
+- <Bold>设置页面：</Bold>Docker socket 路径配置，支持浏览、验证和重置选项
+- <Bold>侧边栏增强：</Bold>折叠侧边栏下拉菜单，可访问主题、语言和设置
+- <Bold>远程主机支持：</Bold>为远程连接隐藏不支持的 compose 命令（Up、Stop、Restart、Pull）
+
+### 🎨 改进
+
+- <Bold>连接失败对话框：</Bold>专用的本地主机连接错误对话框
+- <Bold>侧边栏容器：</Bold>导航中仅显示运行中的容器
+- <Bold>连接验证：</Bold>连接失败时清除缓存的客户端
+
+### 🐛 修复
+
+- <Bold>镜像操作：</Bold>遵循自定义 socket 路径
+- <Bold>导航：</Bold>修复运行容器计数的禁用状态逻辑
+
+</ChangelogEntry>
+
+<ChangelogEntry version="v3.4.0" date="2026年1月5日">
+## Docker Compose 视图
+
+本版本引入了全面的 Docker Compose 项目管理，支持分组容器视图和完整的生命周期控制。
+
+### ✨ 新功能
+
+- <Bold>Docker Compose 视图：</Bold>新增分组容器视图，支持 Docker Compose 项目
+  - 📦 在平铺列表视图和按 Compose 项目分组视图之间切换
+  - 🎯 Compose 项目卡片，显示状态指示器和运行容器计数
+  - 📂 可折叠的独立容器部分，用于非 Compose 容器
+- <Bold>Compose 项目操作：</Bold>完整的 Docker Compose 生命周期管理
+  - ▶️ Up：以分离模式启动 Compose 项目
+  - ⏹️ Stop：停止运行中的 Compose 项目
+  - 🔄 Restart：重启 Compose 项目
+  - 📥 Pull：拉取 Compose 项目的最新镜像
+  - 🗑️ Remove：带确认对话框删除 Compose 项目
+- <Bold>Compose 全局选项：</Bold>支持所有 Docker Compose CLI 选项
+  - `-f, --file`：自定义 compose 配置文件
+  - `--env-file`：环境变量文件
+  - `--profile`：Compose 配置文件
+  - `--progress`：进度输出类型（auto/tty/plain/json/quiet）
+  - `--dry-run`：演练模式
+- <Bold>Compose 删除对话框：</Bold>带严重性警告的确认对话框
+  - ⚠️ 不可逆操作警告显示
+  - 📊 容器计数指示器
+  - 🗃️ 删除关联卷选项
+
+### 🎨 改进
+
+- <Bold>刷新按钮：</Bold>修复刷新以同时更新容器和 Compose 项目
+- <Bold>加载状态：</Bold>为所有 Compose 操作添加加载指示器和 toast 通知
+- <Bold>孤立 Compose 项目：</Bold>支持删除 compose 文件已删除的 Compose 项目
+
+</ChangelogEntry>
+
+<ChangelogEntry version="v3.3.0" date="2026年1月4日">
+## 镜像大小分析
+
+本版本引入了全面的镜像层大小分析功能，用于更深入的 Docker 镜像检查。
+
+### ✨ 新功能
+
+- <Bold>镜像大小分析：</Bold>新增镜像层大小分析页面，详细分解层大小
+- <Bold>可视化大小分布：</Bold>交互式大小分布条，用彩色块显示层比例，便于可视化
+- <Bold>层详情表：</Bold>详细的层表格，支持展开/折叠以查看完整的 Dockerfile 命令
+- <Bold>可折叠分布面板：</Bold>折叠时分布面板转换为垂直条，提供紧凑视图
+
+</ChangelogEntry>
+
+<ChangelogEntry version="v3.2.0" date="2026年1月1日">
+## 终端、深色模式与国际化增强
+
+本版本引入了终端自定义、全面的深色模式支持和国际化改进。
+
+### ✨ 新功能
+
+- <Bold>终端主题选择器：</Bold>增强的终端设置对话框，布局有序，包含颜色主题部分标题，主题预览中隐藏光标
+
+### 🎨 改进
+
+- <Bold>深色模式支持：</Bold>整个应用程序全面支持深色模式，提供更好的视觉舒适度
+
+### 🌐 国际化
+
+- <Bold>i18n 支持：</Bold>为镜像构建、主机管理、连接状态消息和所有表格列实现全面的国际化
+
+</ChangelogEntry>
+
+<ChangelogEntry version="v3.1.0" date="2025年12月30日">
+## 容器创建与 UI 增强
+
+本版本引入了全面的容器创建功能和整个应用程序的重大 UI 改进。
+
+### ✨ 新功能
+
+- <Bold>容器创建：</Bold>新增全面的容器创建对话框，支持双输入模式：
+  - 📝 基于表单的配置，引导式容器设置
+  - 💻 Docker 命令输入模式，支持解析和生成
+- <Bold>仪表盘系统信息：</Bold>新增系统信息组件，显示 Docker 版本、操作系统、架构和资源限制
+- <Bold>侧边栏可折叠部分：</Bold>实现可折叠导航部分：
+  - 🔢 带过渡动画的容器计数徽章
+  - 🎬 使用 Motion 的流畅展开/折叠动画
+  - 📌 折叠时选中项目保持可见
+- <Bold>Docker 构建命令：</Bold>新增 Docker 构建命令生成和解析功能
+- <Bold>容器刷新：</Bold>在容器列表标题添加专用刷新按钮
+
+### 🎨 改进
+
+- <Bold>表格滚动与固定表头：</Bold>改进所有页面（镜像、容器、网络、卷、事件）的表格布局：
+  - 📌 滚动时固定表头
+  - 📏 正确的高度计算，防止页面级滚动
+  - 🎯 一致的边框渲染
+- <Bold>侧边栏导航：</Bold>使用 Motion 动画增强侧边栏样式
+- <Bold>资源图表：</Bold>重构 CPU 使用率和资源图表，改进组件结构
+- <Bold>仪表盘布局：</Bold>改进卡片布局和数字格式化
+- <Bold>构建对话框：</Bold>增强表单布局，更好的内边距和间距
+- <Bold>网络模式：</Bold>用选择组件替换网络模式文本输入
+- <Bold>Docker 命令体验：</Bold>改进 Docker 命令输入样式和用户体验
+
+### 🐛 修复
+
+- <Bold>统计数据处理：</Bold>修复网络和磁盘小部件中的 NaN 和 undefined 值，显示为 0
+- <Bold>卷对话框：</Bold>修复删除确认对话框中卷名称溢出问题
+- <Bold>事件行展开：</Bold>使用稳定的行 ID，修复事件更新时展开行跳转到新数据的问题
+- <Bold>事件监控清理：</Bold>修复停止事件监控时未清除待处理事件和超时的问题
+
+### ⚡ 性能
+
+- <Bold>事件页面：</Bold>使用批量节流（200ms）优化事件更新，最大事件数从 5000 减少到 500
+
+</ChangelogEntry>
+
+<ChangelogEntry version="v3.0.1" date="2025年12月10日">
+## 事件表增强
+
+本版本改进了 Docker 事件表，新增操作按钮和更好的 UI 一致性。
+
+### ✨ 新功能
+
+- <Bold>事件表操作：</Bold>事件表新增操作按钮，包含复制 JSON 和删除事件选项
+
+### 🎨 改进
+
+- <Bold>徽章截断：</Bold>改进徽章组件显示 - 徽章内文本现在用省略号截断，而不是徽章被裁剪
+- <Bold>事件表 UI：</Bold>重构事件表结构，固定操作列以保持一致的布局
+
+</ChangelogEntry>
+
+<ChangelogEntry version="v3.0.0" date="2025年12月8日">
+## Docker 事件与容器文件浏览器
+
+本版本引入了实时 Docker 事件监控和全面的 Docker 容器文件浏览器。
+
+### ✨ 新功能
+
+- <Bold>Docker 事件监控：</Bold>新增实时 Docker 事件监听，支持全面的事件过滤、搜索和 JSON 详情对话框用于检查事件数据
+- <Bold>容器文件浏览器：</Bold>为 Docker 容器实现文件系统浏览器：
+  - 🌳 文件树导航，支持动态加载
+  - 📂 文件夹上传和下载支持（基于 tar）
+  - 📄 单文件上传和下载，保留模式
+  - 🔗 文件列表的符号链接支持
+  - 📄 大目录分页
+  - 📋 文件/文件夹操作的上下文菜单（下载、复制路径、查看属性）
+
+### 🐛 修复
+
+- <Bold>构建日志主机切换：</Bold>修复构建记录正确关联 SSH 连接，启用构建日志的正确主机切换
+
+### 🎨 改进
+
+- <Bold>SSH Docker Socket 转发：</Bold>增强 Docker socket 转发，改进连接状态跟踪
+- <Bold>事件表 UI：</Bold>改进事件过滤、表格布局、列大小和操作徽章样式
+- <Bold>代码块选择：</Bold>增强代码块选择和样式，提高可读性
+
+<ChangelogImage
+  src="/screenshots/3.0.0/file.png"
+  alt="容器文件浏览器"
+/>
+
+</ChangelogEntry>
+
+<ChangelogEntry version="v2.4.0" date="2025年12月1日">
+## Docker 镜像构建与日志
+
+本版本引入了 Docker 镜像构建功能和详细的构建日志回放。
+
+### ✨ 新功能
+
+- <Bold>镜像构建：</Bold>新增 Docker 镜像构建功能
+- <Bold>构建日志：</Bold>实现构建日志回放功能
+
+<ChangelogImage src="/screenshots/2.4.0/build-log.png" alt="构建日志" />
+<ChangelogImage
+  src="/screenshots/2.4.0/build-log-history.png"
+  alt="构建日志历史"
+/>
+
+</ChangelogEntry>
+
+<ChangelogEntry version="v2.3.0" date="2025年11月9日">
+## Docker 网络与卷管理
+
+本版本引入了全面的 Docker 网络和卷管理功能，以及增强的镜像管理特性。
+
+### ✨ 新功能
+
+- <Bold>Docker 网络管理：</Bold>新增全面的 Docker 网络管理功能，包括列表、检查、创建、删除和连接网络
+- <Bold>Docker 卷管理：</Bold>实现完整的 Docker 卷生命周期管理，支持列表、检查、创建、删除和清理操作
+- <Bold>Docker 镜像管理：</Bold>新增全面的镜像管理功能，包括删除、检查、搜索、构建和清理操作
+- <Bold>镜像标签管理：</Bold>支持添加、删除和导入镜像标签，增强镜像管理灵活性
+- <Bold>镜像导入导出：</Bold>实现镜像文件导入和导出功能，支持文件对话框
+- <Bold>镜像仓库链接：</Bold>支持直接打开 Docker Hub、GHCR、GCR 和 Quay 仓库链接
+
+### 🎨 改进
+
+- <Bold>增强表格功能：</Bold>为网络和卷表格添加列排序、列调整大小和列固定
+- <Bold>表格性能优化：</Bold>通过列记忆化优化网络表格渲染性能，减少不必要的重新渲染
+- <Bold>UI 样式改进：</Bold>改进容器状态徽章样式，增强视觉区分度，优化表格单元格垂直间距以提高可读性，增强固定列样式和悬停状态，改进表头背景色以获得更好的视觉层次
+- <Bold>增强搜索输入：</Bold>为镜像搜索输入添加加载状态指示器，改进用户反馈
+- <Bold>镜像操作菜单：</Bold>为镜像操作菜单按钮添加加载状态，改善异步操作用户体验
+- <Bold>导航改进：</Bold>更新导航图标和面包屑路由配置
+- <Bold>表格列布局：</Bold>改进网络和卷表格列布局，提高可用性和视觉一致性
+
+</ChangelogEntry>
+
+<ChangelogEntry version="v2.2.0" date="2025年10月12日">
+## 自动更新与代码签名
+
+本次更新引入了自动更新功能，并通过 macOS 代码签名增强安全性。
+
+### 新功能
+
+- <Bold>自动更新：</Bold>新增自动更新功能，让 Dockerman 保持最新功能和改进。
+
+### 改进
+
+- <Bold>macOS 代码签名：</Bold>macOS 安装包现已进行代码签名，增强安全性和信任度。
+
+</ChangelogEntry>
+
+<ChangelogEntry version="v2.1.1" date="2025年5月5日">
+## 容器动画增强
+
+- <Bold>过渡优化：</Bold>改进容器展开/折叠过渡动画，使 UI 交互更流畅，视觉反馈更好。
+</ChangelogEntry>
+
+<ChangelogEntry version="v2.0.1" date="2025年4月19日">
+## 性能监控改进
+
+本次更新解决了监控界面中 CPU 使用率显示的问题。
+
+### 修复
+
+- <Bold>CPU 监控修复：</Bold>解决了性能监控仪表盘中 CPU 使用百分比显示异常的问题。
+</ChangelogEntry>
+
+<ChangelogEntry version="v2.0.0" date="2025年4月13日">
+## 远程管理与主机支持
+
+本版本引入了 SSH 功能，用于管理远程 Docker 实例，并添加了主机管理页面。
+
+### 新功能
+
+- <Bold>SSH 远程管理：</Bold>新增通过 SSH 连接和管理远程 Docker 实例的功能。
+- <Bold>主机管理页面：</Bold>引入主机管理页面，允许用户添加、修改和删除远程主机连接详情。
+
+<ChangelogImage src="/changelog/2.0.0.png" alt="Dockerman 2.0.0" />
+
+</ChangelogEntry>
+
+<ChangelogEntry version="v1.0.2" date="2025年2月8日">
+## 容器管理增强
+
+本次更新引入了容器管理的手动刷新功能：
+
+### 更新
+
+- <Bold>手动刷新：</Bold>为容器部分添加刷新按钮，悬停时显示，允许用户手动更新容器状态
+
+</ChangelogEntry>
+
+<ChangelogEntry version="v1.0.1" date="2025年2月5日">
+## Windows 平台改进
+
+本次更新专注于 Windows 平台的多项优化和修复：
+
+### 更新
+
+- <Bold>显示修复：</Bold>解决了 Windows 系统上应用程序窗口不显示的问题
+- <Bold>界面增强：</Bold>为 Windows 版本添加了控制栏功能
+- <Bold>视觉更新：</Bold>刷新 Windows 应用程序图标，提供更好的视觉体验
+
+</ChangelogEntry>
+
+<ChangelogEntry version="v1.0.0" date="2025年2月4日">
+## 首个正式版本
+
+我们很高兴宣布 Dockerman 的首个正式版本发布 - 一个现代、轻量的 Docker 管理 UI，为容器管理带来强大的性能和简洁体验。
+
+<ChangelogImage src="/changelog/1.0.0.png" alt="Dockerman 1.0.0" />
+
+### 核心功能
+
+- <Bold>仪表盘概览：</Bold>即时访问容器和镜像统计，实时监控资源使用和容器状态更新。
+- <Bold>容器管理：</Bold>全面的容器控制，详细的检查功能、集成终端访问和实时资源监控。
+- <Bold>镜像管理：</Bold>高效的镜像处理，详细的大小分析、标签信息和使用跟踪。
+- <Bold>资源监控：</Bold>CPU 使用率、内存消耗、网络统计和块 I/O 性能的实时可视化。
+- <Bold>系统集成：</Bold>与 Docker 守护进程原生集成，提供卓越的性能和可靠性。
+
+### 主要亮点
+
+- <Bold>强大性能：</Bold>基于 Tauri 构建，速度极快，资源占用极小。
+- <Bold>终端集成：</Bold>内置终端访问，可直接与容器交互。
+- <Bold>进程管理：</Bold>实时进程列表查看和监控。
+- <Bold>日志查看器：</Bold>高级日志查看功能，支持实时更新。
+- <Bold>安全至上：</Bold>仅本地运行，确保您的容器数据安全。
+</ChangelogEntry>

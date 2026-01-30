@@ -2,11 +2,19 @@
 
 import Balancer from 'react-wrap-balancer'
 import { Badge } from '@/components/Badge'
-import { useTranslation } from '@/lib/i18n/client'
-import ChangelogContent from '@/content/changelog/page.mdx'
+import { useTranslation, useLocale } from '@/lib/i18n/client'
+import ChangelogContentEn from '@/content/changelog/en/page.mdx'
+import ChangelogContentZh from '@/content/changelog/zh/page.mdx'
+
+const changelogContent = {
+  en: ChangelogContentEn,
+  zh: ChangelogContentZh
+}
 
 export default function ChangelogPage() {
   const { t } = useTranslation()
+  const locale = useLocale()
+  const ChangelogContent = changelogContent[locale]
 
   return (
     <div className="mt-36 flex flex-col overflow-hidden px-3">
