@@ -1,40 +1,38 @@
+'use client'
+
 import { RiArrowRightUpLine } from '@remixicon/react'
 import Link from 'next/link'
 import { Logo } from '../../../public/logo'
 import ThemeSwitch from '../ThemeSwitch'
 import { TrackedExternalLink } from './TrackedFooterLinks'
-
-const navigation = {
-  product: [
-    { name: 'Download', href: '/download', external: false },
-    // { name: "Pricing", href: "/pricing", external: false },
-    // { name: "Docs", href: "#", external: false },
-    { name: 'Changelog', href: '/changelog', external: false }
-  ],
-  resources: [
-    // { name: "FAQs", href: "/pricing#faq-title", external: false },
-    {
-      name: 'GitHub',
-      href: 'https://github.com/ZingerLittleBee/dockerman.app',
-      external: true
-    }
-    // { name: "Discord", href: "#", external: true },
-    // { name: "YouTube", href: "#", external: true },
-  ],
-  company: [
-    { name: 'About', href: '/about', external: false }
-    // { name: "Careers", href: "#", external: true },
-    // { name: "Contact", href: "#", external: false },
-    // { name: "Status", href: "#", external: false },
-  ],
-  legal: [
-    { name: 'Privacy', href: '/privacy', external: false },
-    { name: 'Terms', href: '/terms', external: false },
-    { name: 'DPA', href: '/dpa', external: false }
-  ]
-}
+import { useTranslation, useLocale } from '@/lib/i18n/client'
 
 export default function Footer() {
+  const locale = useLocale()
+  const { t } = useTranslation()
+
+  const navigation = {
+    product: [
+      { name: t('footer.links.download'), href: `/${locale}/download`, external: false },
+      { name: t('footer.links.changelog'), href: `/${locale}/changelog`, external: false }
+    ],
+    resources: [
+      {
+        name: t('footer.links.github'),
+        href: 'https://github.com/ZingerLittleBee/dockerman.app',
+        external: true
+      }
+    ],
+    company: [
+      { name: t('footer.links.about'), href: `/${locale}/about`, external: false }
+    ],
+    legal: [
+      { name: t('footer.links.privacy'), href: `/${locale}/privacy`, external: false },
+      { name: t('footer.links.terms'), href: `/${locale}/terms`, external: false },
+      { name: t('footer.links.dpa'), href: `/${locale}/dpa`, external: false }
+    ]
+  }
+
   return (
     <footer id="footer">
       <div className="mx-auto max-w-6xl px-3 pt-16 pb-8 sm:pt-24 lg:pt-32">
@@ -42,8 +40,7 @@ export default function Footer() {
           <div className="space-y-8">
             <Logo className="w-32 sm:w-40" />
             <p className="text-gray-600 text-sm leading-6 dark:text-gray-400">
-              A modern, lightweight Docker management UI. Built with ❤️ for developers around the
-              world.
+              {t('footer.description')}
             </p>
             <div className="flex space-x-6">
               <ThemeSwitch />
@@ -54,7 +51,7 @@ export default function Footer() {
             <div className="grid grid-cols-2 gap-8">
               <div>
                 <h3 className="font-semibold text-gray-900 text-sm leading-6 dark:text-gray-50">
-                  Product
+                  {t('footer.product')}
                 </h3>
                 <ul aria-label="Quick links Product" className="mt-6 space-y-4">
                   {navigation.product.map((item) => (
@@ -81,7 +78,7 @@ export default function Footer() {
               </div>
               <div>
                 <h3 className="font-semibold text-gray-900 text-sm leading-6 dark:text-gray-50">
-                  Resources
+                  {t('footer.resources')}
                 </h3>
                 <ul aria-label="Quick links Resources" className="mt-6 space-y-4">
                   {navigation.resources.map((item) => (
@@ -108,7 +105,7 @@ export default function Footer() {
             <div className="grid grid-cols-2 gap-8">
               <div>
                 <h3 className="font-semibold text-gray-900 text-sm leading-6 dark:text-gray-50">
-                  Company
+                  {t('footer.company')}
                 </h3>
                 <ul aria-label="Quick links Company" className="mt-6 space-y-4">
                   {navigation.company.map((item) => (
@@ -135,7 +132,7 @@ export default function Footer() {
               </div>
               <div>
                 <h3 className="font-semibold text-gray-900 text-sm leading-6 dark:text-gray-50">
-                  Legal
+                  {t('footer.legal')}
                 </h3>
                 <ul aria-label="Quick links Legal" className="mt-6 space-y-4">
                   {navigation.legal.map((item) => (
@@ -165,7 +162,7 @@ export default function Footer() {
         </div>
         <div className="mt-16 flex flex-col items-center justify-between gap-4 border-gray-200 border-t pt-8 sm:mt-20 sm:flex-row lg:mt-24 dark:border-gray-800">
           <p className="text-gray-500 text-sm leading-5 dark:text-gray-400">
-            &copy; {new Date().getFullYear()} Dockerman. All rights reserved.
+            &copy; {new Date().getFullYear()} {t('footer.copyright')}
           </p>
           <div className="rounded-full border border-gray-200 py-1 pr-2 pl-1 dark:border-gray-800">
             <div className="flex items-center gap-1.5">
@@ -174,7 +171,7 @@ export default function Footer() {
                 <div className="absolute inset-1 rounded-full bg-emerald-600 dark:bg-emerald-500" />
               </div>
               <span className="text-gray-700 text-xs dark:text-gray-50">
-                All systems operational
+                {t('footer.status')}
               </span>
             </div>
           </div>

@@ -1,6 +1,7 @@
 'use client'
 import createGlobe, { type Marker } from 'cobe'
 import { type FunctionComponent, useCallback, useEffect, useRef } from 'react'
+import { useTranslation } from '@/lib/i18n/client'
 
 const GLOBE_CONFIG = {
   dark: 1,
@@ -18,12 +19,12 @@ const GLOBE_CONFIG = {
 const CANVAS_SIZE = 800
 
 export const Global: FunctionComponent = () => {
+  const { t } = useTranslation()
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const phiRef = useRef(4.7)
   const isVisibleRef = useRef(true)
 
   const onRender = useCallback((state: { phi?: number }) => {
-    // 只在可见时更新动画
     if (isVisibleRef.current) {
       state.phi = phiRef.current
       phiRef.current += 0.0003
@@ -34,7 +35,6 @@ export const Global: FunctionComponent = () => {
     const canvas = canvasRef.current
     if (!canvas) return
 
-    // 获取实际的 devicePixelRatio，但限制最大值避免过度渲染
     const dpr = Math.min(window.devicePixelRatio || 1, 2)
     const size = CANVAS_SIZE * dpr
 
@@ -47,7 +47,6 @@ export const Global: FunctionComponent = () => {
       onRender
     })
 
-    // 不可见时暂停渲染
     const observer = new IntersectionObserver(
       (entries) => {
         isVisibleRef.current = entries[0]?.isIntersecting ?? true
@@ -63,20 +62,12 @@ export const Global: FunctionComponent = () => {
     }
   }, [onRender])
 
-  const features = [
-    {
-      name: 'Powerful Performance',
-      description: 'Built with Tauri and Rust for lightning-fast powerful desktop experience.'
-    },
-    {
-      name: 'Real-time Monitoring',
-      description: 'Monitor container stats, logs, and resource usage in real-time.'
-    },
-    {
-      name: 'Container Management',
-      description: 'Easily manage containers with detailed inspection and terminal access.'
-    }
-  ]
+  const featureKeys = ['powerfulPerformance', 'realTimeMonitoring', 'containerManagement']
+
+  const features = featureKeys.map((key) => ({
+    name: t(`global.features.${key}.name`),
+    description: t(`global.features.${key}.description`)
+  }))
 
   return (
     <div className="px-3">
@@ -87,7 +78,7 @@ export const Global: FunctionComponent = () => {
         <div className="absolute top-[17rem] size-[40rem] rounded-full bg-indigo-800 blur-3xl md:top-[20rem]" />
         <div className="z-10 inline-block rounded-lg border border-indigo-400/20 bg-indigo-800/20 px-3 py-1.5 font-semibold uppercase leading-4 tracking-tight sm:text-sm">
           <span className="bg-gradient-to-b from-indigo-200 to-indigo-400 bg-clip-text text-transparent">
-            Modern Docker Management
+            {t('global.badge')}
           </span>
         </div>
         <h2
@@ -95,9 +86,9 @@ export const Global: FunctionComponent = () => {
           id="global-title"
         >
           <p className="hidden md:block">
-            Lightweight <br /> Docker Management
+            {t('global.title')} <br /> {t('global.titleBreak')}
           </p>
-          <p className="block md:hidden">Powerful Lightweight</p>
+          <p className="block md:hidden">{t('global.titleMobile')}</p>
         </h2>
         <canvas
           className="absolute top-[7.1rem] z-20 aspect-square size-full max-w-fit md:top-[12rem]"

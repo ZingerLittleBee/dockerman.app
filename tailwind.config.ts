@@ -11,6 +11,14 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
+        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        'sans-zh': [
+          'PingFang SC',
+          'Hiragino Sans GB',
+          'Microsoft YaHei',
+          'WenQuanYi Micro Hei',
+          'sans-serif'
+        ],
         handwriting: ['NanumPenScript']
       },
       keyframes: {
