@@ -1,4 +1,7 @@
+"use client"
+
 import { siteConfig } from "@/app/siteConfig"
+import posthog from "posthog-js"
 import {
   Accordion,
   AccordionContent,
@@ -54,7 +57,23 @@ export function Faqs() {
           </p>
         </div>
         <div className="col-span-full mt-6 lg:col-span-7 lg:mt-0">
-          <Accordion type="multiple" className="mx-auto">
+          <Accordion
+            type="multiple"
+            className="mx-auto"
+            onValueChange={(value) => {
+              // Track when FAQ items are expanded
+              if (value.length > 0) {
+                const lastExpandedQuestion = value[value.length - 1]
+                const faqIndex = faqs.findIndex(
+                  (faq) => faq.question === lastExpandedQuestion,
+                )
+                posthog.capture("faq_item_expanded", {
+                  question: lastExpandedQuestion,
+                  faq_index: faqIndex,
+                })
+              }
+            }}
+          >
             {faqs.map((item) => (
               <AccordionItem
                 value={item.question}

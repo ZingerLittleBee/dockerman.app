@@ -17,7 +17,11 @@ interface Screenshot {
 const IMAGE_WIDTH = 2560
 const IMAGE_HEIGHT = 1760
 
-function SnapshotPlaygourndTabs({ screenshots }: { screenshots: Screenshot[] }) {
+function SnapshotPlaygourndTabs({
+  screenshots,
+}: {
+  screenshots: Screenshot[]
+}) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set())
   const [isInitialLoad, setIsInitialLoad] = useState(true)
@@ -156,7 +160,7 @@ function SnapshotPlaygourndTabs({ screenshots }: { screenshots: Screenshot[] }) 
           {/* 全局加载指示器（仅在初始加载时显示） */}
           {isInitialLoad && (
             <div
-              className="col-start-1 row-start-1 z-20 flex items-center justify-center rounded-xl bg-slate-50/80 backdrop-blur-sm dark:bg-gray-900/80"
+              className="z-20 col-start-1 row-start-1 flex items-center justify-center rounded-xl bg-slate-50/80 backdrop-blur-sm dark:bg-gray-900/80"
               style={{ aspectRatio: `${IMAGE_WIDTH} / ${IMAGE_HEIGHT}` }}
             >
               <div className="flex flex-col items-center gap-4">

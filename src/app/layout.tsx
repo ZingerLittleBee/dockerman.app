@@ -1,6 +1,6 @@
 import Footer from "@/components/ui/Footer"
 import { Navigation } from "@/components/ui/Navbar"
-import { Analytics } from '@vercel/analytics/next'
+import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import type { Metadata } from "next"
 import { ThemeProvider } from "next-themes"
@@ -16,7 +16,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://dockerman.app"),
-  title: 'Dockerman - Modern Docker Management UI',
+  title: "Dockerman - Modern Docker Management UI",
   description: siteConfig.description,
   keywords: [
     "Docker",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     "Statistics",
     "Docker Management",
     "Container Management",
-    "DevOps"
+    "DevOps",
   ],
   authors: [
     {
@@ -54,19 +54,21 @@ export const metadata: Metadata = {
     title: siteConfig.title,
     description: siteConfig.description,
     siteName: siteConfig.name,
-    images: [{
-      url: '/opengraph-image.png',
-      width: 1200,
-      height: 630,
-      alt: 'Dockerman - Modern Docker Management UI'
-    }],
+    images: [
+      {
+        url: "/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Dockerman - Modern Docker Management UI",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: siteConfig.title,
     description: siteConfig.description,
     creator: "@zinger_bee",
-    images: ['/opengraph-image.png'],
+    images: ["/opengraph-image.png"],
   },
   icons: {
     icon: "/favicon.ico",

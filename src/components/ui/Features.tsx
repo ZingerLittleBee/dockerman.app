@@ -20,7 +20,7 @@ export default function Features() {
   return (
     <section
       aria-labelledby="features-title"
-      className="mx-auto mt-32 md:mt-44 w-full max-w-6xl px-3"
+      className="mx-auto mt-32 w-full max-w-6xl px-3 md:mt-44"
     >
       <Badge>Desktop App</Badge>
       <h2
@@ -30,9 +30,10 @@ export default function Features() {
         Lightweight Docker Management
       </h2>
       <p className="mt-6 max-w-3xl text-lg leading-7 text-gray-600 dark:text-gray-400">
-        Experience Docker management reimagined - ultra-lightweight and blazing fast. Built with Tauri
-        and Rust, Dockerman uses minimal system resources while delivering instant response times.
-        Streamlined interface with essential features for efficient container management.
+        Experience Docker management reimagined - ultra-lightweight and blazing
+        fast. Built with Tauri and Rust, Dockerman uses minimal system resources
+        while delivering instant response times. Streamlined interface with
+        essential features for efficient container management.
       </p>
       <dl className="mt-12 grid grid-cols-1 gap-y-8 md:grid-cols-3 md:border-y md:border-gray-200 md:py-14 dark:border-gray-800">
         {stats.map((stat, index) => (

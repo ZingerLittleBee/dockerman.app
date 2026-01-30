@@ -10,6 +10,7 @@ import {
   RiUbuntuFill,
   RiWindowsFill,
 } from "@remixicon/react"
+import posthog from "posthog-js"
 import { useEffect, useState } from "react"
 import Balancer from "react-wrap-balancer"
 import { siteConfig } from "../siteConfig"
@@ -25,7 +26,7 @@ const DOWNLOAD_OPTIONS = [
         name: "Universal (M1/Intel)",
         filename: `Dockerman_${CURRENT_VERSION}_universal.dmg`,
         ext: "dmg",
-      }
+      },
     ],
   },
   {
@@ -109,6 +110,13 @@ export default function Download() {
             className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-400"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => {
+              posthog.capture("external_link_clicked", {
+                link_url: "https://assets.dockerman.app",
+                link_text: "Releases Page",
+                location: "download_page",
+              })
+            }}
           >
             Releases Page
           </a>
@@ -141,6 +149,11 @@ export default function Download() {
                     "brew install --cask zingerlittlebee/tap/dockerman",
                   )
                   setCopied(true)
+                  posthog.capture("homebrew_command_copied", {
+                    command:
+                      "brew install --cask zingerlittlebee/tap/dockerman",
+                    version: CURRENT_VERSION,
+                  })
                 }}
               >
                 {copied ? (
@@ -186,6 +199,16 @@ export default function Download() {
                   href={getDownloadUrl(option.filename)}
                   download
                   className="no-underline"
+                  onClick={() => {
+                    posthog.capture("download_button_clicked", {
+                      platform: platform.title,
+                      option_name: option.name,
+                      file_extension: option.ext,
+                      filename: option.filename,
+                      version: CURRENT_VERSION,
+                      is_preview: "preview" in option,
+                    })
+                  }}
                 >
                   <Button
                     className="h-auto w-full justify-start py-3 text-left"

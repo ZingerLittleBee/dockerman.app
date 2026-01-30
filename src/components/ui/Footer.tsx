@@ -2,6 +2,7 @@ import { RiArrowRightUpLine } from "@remixicon/react"
 import Link from "next/link"
 import { Logo } from "../../../public/logo"
 import ThemeSwitch from "../ThemeSwitch"
+import { TrackedExternalLink } from "./TrackedFooterLinks"
 
 const navigation = {
   product: [
@@ -12,7 +13,11 @@ const navigation = {
   ],
   resources: [
     // { name: "FAQs", href: "/pricing#faq-title", external: false },
-    { name: "GitHub", href: "https://github.com/ZingerLittleBee/dockerman.app", external: true },
+    {
+      name: "GitHub",
+      href: "https://github.com/ZingerLittleBee/dockerman.app",
+      external: true,
+    },
     // { name: "Discord", href: "#", external: true },
     // { name: "YouTube", href: "#", external: true },
   ],
@@ -37,8 +42,8 @@ export default function Footer() {
           <div className="space-y-8">
             <Logo className="w-32 sm:w-40" />
             <p className="text-sm leading-6 text-gray-600 dark:text-gray-400">
-              A modern, lightweight Docker management UI. Built with ❤️ for developers
-              around the world.
+              A modern, lightweight Docker management UI. Built with ❤️ for
+              developers around the world.
             </p>
             <div className="flex space-x-6">
               <ThemeSwitch />
@@ -89,22 +94,20 @@ export default function Footer() {
                 >
                   {navigation.resources.map((item) => (
                     <li key={item.name} className="w-fit">
-                      <Link
-                        className="flex rounded-md text-sm text-gray-500 transition hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                        href={item.href}
-                        target={item.external ? "_blank" : undefined}
-                        rel={item.external ? "noopener noreferrer" : undefined}
-                      >
-                        <span>{item.name}</span>
-                        {item.external && (
-                          <div className="ml-0.5 aspect-square size-3 rounded-full bg-gray-100 p-px dark:bg-gray-500/20">
-                            <RiArrowRightUpLine
-                              aria-hidden="true"
-                              className="size-full shrink-0 text-gray-900 dark:text-gray-300"
-                            />
-                          </div>
-                        )}
-                      </Link>
+                      {item.external ? (
+                        <TrackedExternalLink
+                          href={item.href}
+                          name={item.name}
+                          section="resources"
+                        />
+                      ) : (
+                        <Link
+                          className="flex rounded-md text-sm text-gray-500 transition hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+                          href={item.href}
+                        >
+                          <span>{item.name}</span>
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>
@@ -178,8 +181,7 @@ export default function Footer() {
         </div>
         <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-gray-200 pt-8 sm:mt-20 sm:flex-row lg:mt-24 dark:border-gray-800">
           <p className="text-sm leading-5 text-gray-500 dark:text-gray-400">
-            &copy; {new Date().getFullYear()} Dockerman. All rights
-            reserved.
+            &copy; {new Date().getFullYear()} Dockerman. All rights reserved.
           </p>
           <div className="rounded-full border border-gray-200 py-1 pl-1 pr-2 dark:border-gray-800">
             <div className="flex items-center gap-1.5">

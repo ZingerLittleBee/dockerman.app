@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import { Badge } from "@/components/Badge"
 import { Button } from "@/components/Button"
@@ -14,9 +14,9 @@ const TEAM_MEMBERS = [
     bio: "Coding in Rust, TypeScript & Flutter | Turning coffee into software magic | Building to bridge the gap between technology & humanity.",
     social: {
       github: "https://github.com/ZingerLittleBee",
-      twitter: "https://twitter.com/zinger_bee"
-    }
-  }
+      twitter: "https://twitter.com/zinger_bee",
+    },
+  },
 ]
 
 export default function About() {
@@ -40,7 +40,8 @@ export default function About() {
           </Balancer>
         </h1>
         <p className="mt-6 max-w-2xl text-lg text-gray-700 dark:text-gray-400">
-          We&apos;re a team of developers and designers who believe that managing Docker containers should be simple, intuitive, and efficient.
+          We&apos;re a team of developers and designers who believe that
+          managing Docker containers should be simple, intuitive, and efficient.
         </p>
       </section>
 
@@ -51,10 +52,14 @@ export default function About() {
         </h2>
         <div className="mt-6 max-w-prose space-y-6 text-lg text-gray-600 dark:text-gray-400">
           <p>
-            Dockerman was born from our own frustrations with existing Docker management tools. We wanted something that was fast, cross-platform, and focused on developer productivity.
+            Dockerman was born from our own frustrations with existing Docker
+            management tools. We wanted something that was fast, cross-platform,
+            and focused on developer productivity.
           </p>
           <p>
-            Our mission is to make container management accessible to everyone, from individual developers to large teams, while maintaining the power and flexibility that Docker provides.
+            Our mission is to make container management accessible to everyone,
+            from individual developers to large teams, while maintaining the
+            power and flexibility that Docker provides.
           </p>
         </div>
       </section>
@@ -79,11 +84,17 @@ export default function About() {
                   height={64}
                 />
                 <div>
-                  <h3 className="font-semibold text-gray-900 dark:text-gray-100">{member.name}</h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">{member.role}</p>
+                  <h3 className="font-semibold text-gray-900 dark:text-gray-100">
+                    {member.name}
+                  </h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    {member.role}
+                  </p>
                 </div>
               </div>
-              <p className="mt-4 text-gray-600 dark:text-gray-400">{member.bio}</p>
+              <p className="mt-4 text-gray-600 dark:text-gray-400">
+                {member.bio}
+              </p>
               <div className="mt-4 flex gap-3">
                 <a
                   href={member.social.github}
@@ -116,23 +127,30 @@ export default function About() {
           {[
             {
               title: "Performance First",
-              description: "Built with Rust and Tauri for powerful performance and minimal resource usage."
+              description:
+                "Built with Rust and Tauri for powerful performance and minimal resource usage.",
             },
             {
               title: "Developer Experience",
-              description: "Intuitive interface designed for developers, by developers."
+              description:
+                "Intuitive interface designed for developers, by developers.",
             },
             {
               title: "Privacy Focused",
-              description: "Your data stays local. We believe in transparency and user privacy."
-            }
+              description:
+                "Your data stays local. We believe in transparency and user privacy.",
+            },
           ].map((value) => (
             <div
               key={value.title}
               className="rounded-xl bg-white p-6 shadow-lg shadow-gray-200/50 ring-1 ring-gray-200/50 dark:bg-gray-900 dark:shadow-none dark:ring-gray-800"
             >
-              <h3 className="font-semibold text-gray-900 dark:text-gray-100">{value.title}</h3>
-              <p className="mt-2 text-gray-600 dark:text-gray-400">{value.description}</p>
+              <h3 className="font-semibold text-gray-900 dark:text-gray-100">
+                {value.title}
+              </h3>
+              <p className="mt-2 text-gray-600 dark:text-gray-400">
+                {value.description}
+              </p>
             </div>
           ))}
         </div>
@@ -145,22 +163,26 @@ export default function About() {
             Stay Connected
           </h2>
           <p className="mt-4 text-lg text-gray-600 dark:text-gray-400">
-            Follow Dockerman&apos;s development and be the first to know about new features and updates.
+            Follow Dockerman&apos;s development and be the first to know about
+            new features and updates.
           </p>
           <div className="mt-6 flex gap-4">
-            <a href="https://github.com/ZingerLittleBee" target="_blank" rel="noopener noreferrer">
-              <Button
-                className="bg-indigo-600 text-white hover:bg-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-400"
-              >
+            <a
+              href="https://github.com/ZingerLittleBee"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button className="bg-indigo-600 text-white hover:bg-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-400">
                 <RiGithubFill className="h-5 w-5" />
                 <span className="ml-2">Follow on GitHub</span>
               </Button>
             </a>
-            <a href="https://twitter.com/zinger_bee" target="_blank" rel="noopener noreferrer">
-              <Button
-                rel="noopener noreferrer"
-                variant="secondary"
-              >
+            <a
+              href="https://twitter.com/zinger_bee"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button rel="noopener noreferrer" variant="secondary">
                 <RiTwitterXFill className="h-5 w-5" />
                 <span className="ml-2">Follow on X</span>
               </Button>

@@ -3,9 +3,15 @@
 import { siteConfig } from "@/app/siteConfig"
 import useScroll from "@/lib/use-scroll"
 import { cx } from "@/lib/utils"
-import { RiCloseLine, RiMenuLine, RiMoonLine, RiSunLine } from "@remixicon/react"
+import {
+  RiCloseLine,
+  RiMenuLine,
+  RiMoonLine,
+  RiSunLine,
+} from "@remixicon/react"
 import { useTheme } from "next-themes"
 import Link from "next/link"
+import posthog from "posthog-js"
 import React, { useEffect, useState } from "react"
 import { Logo } from "../../../public/logo"
 import { Button } from "../Button"
@@ -27,6 +33,13 @@ function ThemeToggleButton() {
   const handleThemeToggle = (event: React.MouseEvent<HTMLButtonElement>) => {
     const newTheme = isDark ? "light" : "dark"
 
+    // Track theme change
+    posthog.capture("theme_changed", {
+      from_theme: resolvedTheme,
+      to_theme: newTheme,
+      location: "navbar",
+    })
+
     // Check if View Transitions API is supported
     if (!document.startViewTransition) {
       setTheme(newTheme)
@@ -39,7 +52,7 @@ function ThemeToggleButton() {
     // Calculate the maximum radius needed to cover the entire screen
     const endRadius = Math.hypot(
       Math.max(x, window.innerWidth - x),
-      Math.max(y, window.innerHeight - y)
+      Math.max(y, window.innerHeight - y),
     )
 
     // Set CSS custom properties for the animation
@@ -49,7 +62,7 @@ function ThemeToggleButton() {
     // Add timestamp to force GIF to restart from beginning
     document.documentElement.style.setProperty(
       "--transition-mask",
-      `url('/images/i-love-you-love.gif?t=${Date.now()}')`
+      `url('/images/i-love-you-love.gif?t=${Date.now()}')`,
     )
 
     // Start the view transition
@@ -70,7 +83,7 @@ function ThemeToggleButton() {
           duration: 400,
           easing: "ease-out",
           pseudoElement: "::view-transition-new(root)",
-        }
+        },
       )
     })
   }
@@ -161,16 +174,30 @@ export function Navigation() {
           </nav>
           <div className="hidden items-center gap-2 md:flex">
             <ThemeToggleButton />
-            <a href={siteConfig.baseLinks.download}>
-              <Button className="h-10 font-semibold">
-                Download
-              </Button>
+            <a
+              href={siteConfig.baseLinks.download}
+              onClick={() => {
+                posthog.capture("navbar_download_clicked", {
+                  button_text: "Download",
+                  location: "navbar_desktop",
+                })
+              }}
+            >
+              <Button className="h-10 font-semibold">Download</Button>
             </a>
           </div>
 
           <div className="flex gap-x-2 md:hidden">
             <ThemeToggleButton />
-            <a href={siteConfig.baseLinks.download}>
+            <a
+              href={siteConfig.baseLinks.download}
+              onClick={() => {
+                posthog.capture("navbar_download_clicked", {
+                  button_text: "Download",
+                  location: "navbar_mobile",
+                })
+              }}
+            >
               <Button>Download</Button>
             </a>
             <Button
