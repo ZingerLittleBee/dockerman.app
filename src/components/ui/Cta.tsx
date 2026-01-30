@@ -1,7 +1,16 @@
+'use client'
+
+import { useParams } from 'next/navigation'
 import Balancer from 'react-wrap-balancer'
+import { useTranslation } from '@/lib/i18n/client'
+import { type Locale } from '@/lib/i18n'
 import { TrackedChangelogLink, TrackedCtaDownloadButton } from './TrackedCtaButtons'
 
 export default function Cta() {
+  const params = useParams()
+  const locale = (params.locale as Locale) || 'en'
+  const { t } = useTranslation(locale)
+
   return (
     <section
       aria-labelledby="cta-title"
@@ -15,12 +24,11 @@ export default function Cta() {
                 className="inline-block bg-gradient-to-t from-gray-900 to-gray-800 bg-clip-text p-2 font-bold text-4xl text-transparent tracking-tighter md:text-6xl dark:from-gray-50 dark:to-gray-300"
                 id="cta-title"
               >
-                Ready to get started?
+                {t('cta.title')}
               </h3>
               <p className="mx-auto mt-4 max-w-2xl text-gray-600 sm:text-lg dark:text-gray-400">
                 <Balancer>
-                  Start managing your Docker containers with a lightweight, powerful desktop
-                  experience.
+                  {t('cta.description')}
                 </Balancer>
               </p>
             </div>
@@ -32,7 +40,7 @@ export default function Cta() {
               </div>
             </div>
             <p className="mt-4 text-gray-600 text-xs sm:text-sm dark:text-gray-400">
-              Want to learn more? <TrackedChangelogLink />
+              {t('cta.learnMore')} <TrackedChangelogLink />
             </p>
           </div>
         </div>
