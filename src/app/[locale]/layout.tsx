@@ -1,5 +1,7 @@
 import { type Locale, locales } from '@/lib/i18n'
 import { I18nProvider } from '@/components/I18nProvider'
+import { Navigation } from '@/components/ui/Navbar'
+import Footer from '@/components/ui/Footer'
 import { siteConfig } from '@/app/siteConfig'
 
 export async function generateStaticParams() {
@@ -41,7 +43,9 @@ export default async function LocaleLayout({
 
   return (
     <I18nProvider locale={locale}>
+      <Navigation />
       {children}
+      <Footer />
     </I18nProvider>
   )
 }
