@@ -114,6 +114,9 @@ importers:
       postcss:
         specifier: ^8.4.49
         version: 8.4.49
+      react-grab:
+        specifier: ^0.0.98
+        version: 0.0.98(@types/react@19.2.10)(react@19.2.4)
       shiki:
         specifier: ^1.26.1
         version: 1.26.1
@@ -998,6 +1001,11 @@ packages:
     peerDependencies:
       '@types/react': ^19.2.0
 
+  '@types/react-reconciler@0.28.9':
+    resolution: {integrity: sha512-HHM3nxyUZ3zAylX8ZEyrDNd2XZOnQ0D5XfunJF5FLQnZbHHYq4UWvW1QfelQNXv1ICNkwYhfxjwfnqivYB6bFg==}
+    peerDependencies:
+      '@types/react': '*'
+
   '@types/react@19.2.10':
     resolution: {integrity: sha512-WPigyYuGhgZ/cTPRXB2EwUw+XvsRA3GqHlsP4qteqrnnjDrApbS7MxcGr/hke5iUoeB7E/gQtrs9I37zAJ0Vjw==}
 
@@ -1201,6 +1209,11 @@ packages:
   binary-extensions@2.3.0:
     resolution: {integrity: sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==}
     engines: {node: '>=8'}
+
+  bippy@0.5.28:
+    resolution: {integrity: sha512-n3UosYu2KoCQDeAw/zSyjoJksT2viBwGhmEgIdCcGXUQgQsmSJc1Hr7s9eneawAlTI2rbKV4gNFUOaotpLfdgA==}
+    peerDependencies:
+      react: '>=17.0.1'
 
   brace-expansion@2.0.1:
     resolution: {integrity: sha512-XnAIvQ8eM+kC6aULx6wuQiwVsnzsi9d3WxzV3FpWTGA19F621kwdbsAcFKXgKUHZWsy+mY6iL1sHTxWEFCytDA==}
@@ -1964,6 +1977,10 @@ packages:
     peerDependencies:
       react: ^19.2.4
 
+  react-grab@0.0.98:
+    resolution: {integrity: sha512-PChqv7DWRpsUw+eBqMFNwzhG0vlMv/RXbAuEGrFD3R53k+tKM6B0zgnN4jgIPvDSYEUmni3ApN1IerHOWCIuRQ==}
+    hasBin: true
+
   react-i18next@16.5.4:
     resolution: {integrity: sha512-6yj+dcfMncEC21QPhOTsW8mOSO+pzFmT6uvU7XXdvM/Cp38zJkmTeMeKmTrmCMD5ToT79FmiE/mRWiYWcJYW4g==}
     peerDependencies:
@@ -2067,6 +2084,16 @@ packages:
   serialize-javascript@6.0.2:
     resolution: {integrity: sha512-Saa1xPByTTq2gdeFZYLLo+RFE35NHZkAbqZeWNd3BpzppeVisAqpDjcp8dyf6uIvEqJRd46jemmyA4iFIeVk8g==}
 
+  seroval-plugins@1.5.0:
+    resolution: {integrity: sha512-EAHqADIQondwRZIdeW2I636zgsODzoBDwb3PT/+7TLDWyw1Dy/Xv7iGUIEXXav7usHDE9HVhOU61irI3EnyyHA==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      seroval: ^1.0
+
+  seroval@1.5.0:
+    resolution: {integrity: sha512-OE4cvmJ1uSPrKorFIH9/w/Qwuvi/IMcGbv5RKgcJ/zjA/IohDLU6SVaxFN9FwajbP7nsX0dQqMDes1whk3y+yw==}
+    engines: {node: '>=10'}
+
   sharp@0.34.5:
     resolution: {integrity: sha512-Ou9I5Ft9WNcCbXrU9cMgPBcCK8LiwLqcbywW3t4oDV37n1pzpuNLsYiAV8eODnjbtQlSDwZ2cUEeQz4E54Hltg==}
     engines: {node: ^18.17.0 || ^20.3.0 || >=21.0.0}
@@ -2088,6 +2115,9 @@ packages:
 
   sisteransi@1.0.5:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
+
+  solid-js@1.9.11:
+    resolution: {integrity: sha512-WEJtcc5mkh/BnHA6Yrg4whlF8g6QwpmXXRg4P2ztPmcKeHHlH4+djYecBLhSpecZY2RRECXYUwIc/C2r3yzQ4Q==}
 
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
@@ -3152,6 +3182,10 @@ snapshots:
     dependencies:
       '@types/react': 19.2.10
 
+  '@types/react-reconciler@0.28.9(@types/react@19.2.10)':
+    dependencies:
+      '@types/react': 19.2.10
+
   '@types/react@19.2.10':
     dependencies:
       csstype: 3.2.3
@@ -3346,6 +3380,13 @@ snapshots:
   baseline-browser-mapping@2.9.19: {}
 
   binary-extensions@2.3.0: {}
+
+  bippy@0.5.28(@types/react@19.2.10)(react@19.2.4):
+    dependencies:
+      '@types/react-reconciler': 0.28.9(@types/react@19.2.10)
+      react: 19.2.4
+    transitivePeerDependencies:
+      - '@types/react'
 
   brace-expansion@2.0.1:
     dependencies:
@@ -4336,6 +4377,14 @@ snapshots:
       react: 19.2.4
       scheduler: 0.27.0
 
+  react-grab@0.0.98(@types/react@19.2.10)(react@19.2.4):
+    dependencies:
+      bippy: 0.5.28(@types/react@19.2.10)(react@19.2.4)
+      solid-js: 1.9.11
+    transitivePeerDependencies:
+      - '@types/react'
+      - react
+
   react-i18next@16.5.4(i18next@25.8.0(typescript@5.7.3))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.7.3):
     dependencies:
       '@babel/runtime': 7.28.6
@@ -4477,6 +4526,12 @@ snapshots:
       randombytes: 2.1.0
     optional: true
 
+  seroval-plugins@1.5.0(seroval@1.5.0):
+    dependencies:
+      seroval: 1.5.0
+
+  seroval@1.5.0: {}
+
   sharp@0.34.5:
     dependencies:
       '@img/colour': 1.0.0
@@ -4529,6 +4584,12 @@ snapshots:
   signal-exit@4.1.0: {}
 
   sisteransi@1.0.5: {}
+
+  solid-js@1.9.11:
+    dependencies:
+      csstype: 3.2.3
+      seroval: 1.5.0
+      seroval-plugins: 1.5.0(seroval@1.5.0)
 
   source-map-js@1.2.1: {}
 

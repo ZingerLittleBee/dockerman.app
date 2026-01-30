@@ -1,10 +1,11 @@
+import Footer from '@/components/ui/Footer'
+import { Navigation } from '@/components/ui/Navbar'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import { ThemeProvider } from 'next-themes'
-import Footer from '@/components/ui/Footer'
-import { Navigation } from '@/components/ui/Navbar'
+import { Inter } from 'next/font/google'
+import Script from 'next/script'
 import './globals.css'
 import { siteConfig } from './siteConfig'
 
@@ -82,6 +83,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {process.env.NODE_ENV === 'development' && (
+          <Script
+            crossOrigin="anonymous"
+            src="//unpkg.com/react-grab/dist/index.global.js"
+            strategy="beforeInteractive"
+          />
+        )}
+      </head>
       <body
         className={`${inter.className} min-h-screen scroll-auto antialiased selection:bg-indigo-100 selection:text-indigo-700 dark:bg-gray-950`}
       >
