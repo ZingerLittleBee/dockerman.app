@@ -1,0 +1,72 @@
+{
+  "nav": {
+    "home": "首页",
+    "download": "下载",
+    "changelog": "更新日志"
+  },
+  "hero": {
+    "title": "现代化 Docker",
+    "titleBreak": "管理更简单",
+    "description": "轻量、强大的 Docker 管理界面，专注于简洁和性能。"
+  },
+  "features": {
+    "badge": "桌面应用",
+    "title": "轻量级 Docker 管理",
+    "description": "重新定义 Docker 管理体验 - 超轻量且极速响应。基于 Tauri 和 Rust 构建，Dockerman 占用极少的系统资源，同时提供即时响应。精简的界面包含高效容器管理所需的核心功能。",
+    "stats": {
+      "performance": "性能",
+      "bundleSize": "安装包大小",
+      "memoryUsage": "内存占用"
+    }
+  },
+  "faqs": {
+    "title": "常见问题",
+    "description": "找不到您需要的答案？欢迎在 GitHub 上",
+    "openIssues": "提交 Issue",
+    "descriptionSuffix": "与我们联系。",
+    "items": [
+      {
+        "question": "Dockerman 支持哪些操作系统？",
+        "answer": "Dockerman 支持 macOS、Windows 和主流 Linux 发行版。基于 Tauri 和 Rust 构建，在各种操作系统上提供一致的性能和体验。"
+      },
+      {
+        "question": "Dockerman 需要联网吗？",
+        "answer": "Dockerman 是一个本地应用程序，不需要联网。它完全在您的设备上运行，确保您的数据安全和隐私。"
+      },
+      {
+        "question": "SSH 数据存储在哪里？",
+        "answer": "SSH 数据存储在您的设备上，不会上传到任何服务器。"
+      },
+      {
+        "question": "Dockerman 与其他 Docker 管理工具有什么不同？",
+        "answer": "Dockerman 以速度和效率为核心。它具有快速启动、极低资源占用（<30MB 内存）、实时容器监控，以及专注于最常用 Docker 任务的简洁界面。"
+      }
+    ]
+  },
+  "cta": {
+    "title": "准备好开始了吗？",
+    "description": "使用轻量、强大的桌面应用开始管理您的 Docker 容器。",
+    "learnMore": "想了解更多？"
+  },
+  "footer": {
+    "description": "现代、轻量的 Docker 管理界面。用爱为全球开发者打造。",
+    "product": "产品",
+    "resources": "资源",
+    "company": "公司",
+    "legal": "法律",
+    "copyright": "Dockerman. 保留所有权利。",
+    "status": "所有系统正常运行",
+    "links": {
+      "download": "下载",
+      "changelog": "更新日志",
+      "github": "GitHub",
+      "about": "关于",
+      "privacy": "隐私政策",
+      "terms": "服务条款",
+      "dpa": "DPA"
+    }
+  },
+  "common": {
+    "download": "下载"
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "nav": {
+    "home": "Home",
+    "download": "Download",
+    "changelog": "Changelog"
+  },
+  "hero": {
+    "title": "Modern Docker",
+    "titleBreak": "management simplified",
+    "description": "A lightweight, powerful Docker management UI focused on simplicity and performance."
+  },
+  "features": {
+    "badge": "Desktop App",
+    "title": "Lightweight Docker Management",
+    "description": "Experience Docker management reimagined - ultra-lightweight and blazing fast. Built with Tauri and Rust, Dockerman uses minimal system resources while delivering instant response times. Streamlined interface with essential features for efficient container management.",
+    "stats": {
+      "performance": "Performance",
+      "bundleSize": "Bundle Size",
+      "memoryUsage": "Memory Usage"
+    }
+  },
+  "faqs": {
+    "title": "Frequently Asked Questions",
+    "description": "Can't find the answer you're looking for? Don't hesitate to get in touch with",
+    "openIssues": "open issues",
+    "descriptionSuffix": "on GitHub.",
+    "items": [
+      {
+        "question": "Which operating systems does Dockerman support?",
+        "answer": "Dockerman supports macOS, Windows, and major Linux distributions. Built with Tauri and Rust, it provides consistent performance and experience across various operating systems."
+      },
+      {
+        "question": "Does Dockerman require an internet connection?",
+        "answer": "Dockerman is a local application that doesn't require an internet connection. It runs entirely on your device, ensuring your data security and privacy."
+      },
+      {
+        "question": "Where is SSH data stored?",
+        "answer": "SSH data is stored on your device and is never uploaded to any server."
+      },
+      {
+        "question": "What makes Dockerman different from other Docker management tools?",
+        "answer": "Dockerman stands out with its focus on speed and efficiency. It features fast startup times, minimal resource usage (<30MB memory), real-time container monitoring, and a clean, focused interface that prioritizes the most common Docker tasks."
+      }
+    ]
+  },
+  "cta": {
+    "title": "Ready to get started?",
+    "description": "Start managing your Docker containers with a lightweight, powerful desktop experience.",
+    "learnMore": "Want to learn more?"
+  },
+  "footer": {
+    "description": "A modern, lightweight Docker management UI. Built with love for developers around the world.",
+    "product": "Product",
+    "resources": "Resources",
+    "company": "Company",
+    "legal": "Legal",
+    "copyright": "Dockerman. All rights reserved.",
+    "status": "All systems operational",
+    "links": {
+      "download": "Download",
+      "changelog": "Changelog",
+      "github": "GitHub",
+      "about": "About",
+      "privacy": "Privacy",
+      "terms": "Terms",
+      "dpa": "DPA"
+    }
+  },
+  "common": {
+    "download": "Download"
+  }
+}
