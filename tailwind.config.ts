@@ -11,6 +11,16 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
+        sans: [
+          'var(--font-inter)',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          'PingFang SC',
+          'Hiragino Sans GB',
+          'Microsoft YaHei',
+          'Helvetica Neue',
+          'sans-serif'
+        ],
         handwriting: ['NanumPenScript']
       },
       keyframes: {
