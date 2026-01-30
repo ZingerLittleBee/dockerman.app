@@ -14,7 +14,7 @@ export default function slugify(str: string) {
     .replace(/--+/g, '-') // Replace multiple - with single -
 }
 
-function CustomHeading(props: any) {
+function CustomHeading(props: { children: string; level: number; className?: string }) {
   const slug = slugify(props.children)
   return React.createElement(
     `h${props.level}`,
@@ -75,7 +75,9 @@ export const Bold = (props: React.HTMLAttributes<HTMLSpanElement>) => (
   <span className="font-semibold text-gray-900 dark:text-gray-50" {...props} />
 )
 
-export function CustomLink(props: any) {
+export function CustomLink(
+  props: React.AnchorHTMLAttributes<HTMLAnchorElement> & { href: string }
+) {
   const href = props.href
   const style =
     'text-indigo-600 font-medium hover:text-indigo-500 dark:text-indigo-500 hover:dark:text-indigo-400'
@@ -101,7 +103,7 @@ export const ChangelogEntry = ({
 }: {
   version: string
   date: string
-  children: any
+  children: React.ReactNode
 }) => (
   <div className="relative my-20 flex flex-col justify-center gap-x-14 border-gray-200 border-b md:flex-row dark:border-gray-800">
     <div className="mb-4 md:mb-10 md:w-1/3">

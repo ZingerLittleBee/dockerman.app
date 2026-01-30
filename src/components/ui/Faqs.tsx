@@ -55,7 +55,7 @@ export function Faqs() {
             onValueChange={(value) => {
               // Track when FAQ items are expanded
               if (value.length > 0) {
-                const lastExpandedQuestion = value[value.length - 1]
+                const lastExpandedQuestion = value.at(-1)
                 const faqIndex = faqs.findIndex((faq) => faq.question === lastExpandedQuestion)
                 posthog.capture('faq_item_expanded', {
                   question: lastExpandedQuestion,

@@ -18,7 +18,7 @@ const ThemedImage = ({
   className?: string
 }) => {
   const { resolvedTheme } = useTheme()
-  let src
+  let src: string
 
   switch (resolvedTheme) {
     case 'light':

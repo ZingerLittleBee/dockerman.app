@@ -56,7 +56,7 @@ export default function Footer() {
                 <h3 className="font-semibold text-gray-900 text-sm leading-6 dark:text-gray-50">
                   Product
                 </h3>
-                <ul aria-label="Quick links Product" className="mt-6 space-y-4" role="list">
+                <ul aria-label="Quick links Product" className="mt-6 space-y-4">
                   {navigation.product.map((item) => (
                     <li className="w-fit" key={item.name}>
                       <Link
@@ -83,7 +83,7 @@ export default function Footer() {
                 <h3 className="font-semibold text-gray-900 text-sm leading-6 dark:text-gray-50">
                   Resources
                 </h3>
-                <ul aria-label="Quick links Resources" className="mt-6 space-y-4" role="list">
+                <ul aria-label="Quick links Resources" className="mt-6 space-y-4">
                   {navigation.resources.map((item) => (
                     <li className="w-fit" key={item.name}>
                       {item.external ? (
@@ -110,7 +110,7 @@ export default function Footer() {
                 <h3 className="font-semibold text-gray-900 text-sm leading-6 dark:text-gray-50">
                   Company
                 </h3>
-                <ul aria-label="Quick links Company" className="mt-6 space-y-4" role="list">
+                <ul aria-label="Quick links Company" className="mt-6 space-y-4">
                   {navigation.company.map((item) => (
                     <li className="w-fit" key={item.name}>
                       <Link
@@ -137,7 +137,7 @@ export default function Footer() {
                 <h3 className="font-semibold text-gray-900 text-sm leading-6 dark:text-gray-50">
                   Legal
                 </h3>
-                <ul aria-label="Quick links Legal" className="mt-6 space-y-4" role="list">
+                <ul aria-label="Quick links Legal" className="mt-6 space-y-4">
                   {navigation.legal.map((item) => (
                     <li className="w-fit" key={item.name}>
                       <Link

@@ -176,13 +176,11 @@ export default function Download() {
             key={platform.title}
           >
             {platform.disabled && (
-              <>
-                <div className="absolute inset-0 z-10 rounded-xl bg-gray-200/60 dark:bg-gray-800/70 [&>div]:w-full">
-                  <div className="flex justify-end pt-2 pr-2">
-                    <Badge>Coming Soon</Badge>
-                  </div>
+              <div className="absolute inset-0 z-10 rounded-xl bg-gray-200/60 dark:bg-gray-800/70 [&>div]:w-full">
+                <div className="flex justify-end pt-2 pr-2">
+                  <Badge>Coming Soon</Badge>
                 </div>
-              </>
+              </div>
             )}
             <h2 className="flex items-center gap-2 font-semibold text-gray-900 text-xl dark:text-gray-100">
               <platform.icon className="size-8" />
