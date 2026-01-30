@@ -11,7 +11,7 @@
   "dependencies": {
     "@mdx-js/loader": "^3.1.0",
     "@mdx-js/react": "^3.1.0",
-    "@next/mdx": "15.1.4",
+    "@next/mdx": "16.1.6",
     "@radix-ui/react-accordion": "^1.2.2",
     "@radix-ui/react-label": "^2.1.1",
     "@radix-ui/react-radio-group": "^1.2.2",
@@ -27,10 +27,10 @@
     "clsx": "^2.1.1",
     "cobe": "^0.6.3",
     "motion": "^12.0.11",
-    "next": "15.1.11",
+    "next": "16.1.6",
     "next-themes": "^0.4.4",
-    "react": "19.0.1",
-    "react-dom": "19.0.1",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
     "react-wrap-balancer": "^1.1.1",
     "tailwind-merge": "^2.6.0",
     "tailwind-variants": "^0.3.0"
@@ -38,22 +38,16 @@
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.10",
     "@types/node": "^22.10.5",
-    "@types/react": "19.0.4",
-    "@types/react-dom": "19.0.2",
-    "eslint": "^8.57.1",
-    "eslint-config-next": "15.1.4",
+    "@types/react": "19.2.10",
+    "@types/react-dom": "19.2.3",
+    "eslint": "^9.39.2",
+    "eslint-config-next": "16.1.6",
     "postcss": "^8.4.49",
     "prettier": "^3.4.2",
     "prettier-plugin-tailwindcss": "^0.6.9",
     "shiki": "^1.26.1",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.7.3"
-  },
-  "pnpm": {
-    "overrides": {
-      "@types/react": "19.0.4",
-      "@types/react-dom": "19.0.2"
-    }
   },
   "packageManager": "pnpm@9.15.2+sha512.93e57b0126f0df74ce6bff29680394c0ba54ec47246b9cf321f0121d8d9bb03f750a705f24edc3c1180853afd7c2c3b94196d0a3d53d3e069d9e2793ef11f321"
 }
