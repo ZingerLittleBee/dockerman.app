@@ -72,6 +72,11 @@
   "common": {
     "download": "Download"
   },
+  "changelog": {
+    "badge": "changelog",
+    "title": "What's New",
+    "description": "Keep track of the latest updates, features, and improvements to Dockerman."
+  },
   "about": {
     "badge": "about",
     "title": "Building the Docker management tool we always wanted",

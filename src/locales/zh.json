@@ -72,6 +72,11 @@
   "common": {
     "download": "下载"
   },
+  "changelog": {
+    "badge": "更新日志",
+    "title": "最新动态",
+    "description": "了解 Dockerman 的最新更新、功能和改进。"
+  },
   "about": {
     "badge": "关于",
     "title": "打造我们一直想要的 Docker 管理工具",
