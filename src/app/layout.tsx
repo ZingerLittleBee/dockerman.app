@@ -93,7 +93,7 @@ export default function RootLayout({
         )}
       </head>
       <body
-        className={`${inter.variable} font-sans min-h-screen scroll-auto antialiased selection:bg-indigo-100 selection:text-indigo-700 dark:bg-gray-950`}
+        className={`${inter.variable} min-h-screen scroll-auto antialiased selection:bg-indigo-100 selection:text-indigo-700 dark:bg-gray-950`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" disableTransitionOnChange>
           <Navigation />

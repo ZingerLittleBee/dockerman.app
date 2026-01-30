@@ -16,6 +16,8 @@ export function I18nProvider({ children, locale }: I18nProviderProps) {
     if (i18next.resolvedLanguage !== locale) {
       i18next.changeLanguage(locale)
     }
+    // Set the html lang attribute for font styling
+    document.documentElement.lang = locale
   }, [locale])
 
   return <I18nextProvider i18n={i18next}>{children}</I18nextProvider>
