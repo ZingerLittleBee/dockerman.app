@@ -7,7 +7,8 @@
   "hero": {
     "title": "Modern Docker",
     "titleBreak": "management simplified",
-    "description": "A lightweight, powerful Docker management UI focused on simplicity and performance."
+    "description": "A lightweight, powerful Docker management UI focused on simplicity and performance.",
+    "cta": "Download for free"
   },
   "features": {
     "badge": "Desktop App",
@@ -46,7 +47,9 @@
   "cta": {
     "title": "Ready to get started?",
     "description": "Start managing your Docker containers with a lightweight, powerful desktop experience.",
-    "learnMore": "Want to learn more?"
+    "downloadButton": "Download for Desktop",
+    "learnMore": "Want to learn more?",
+    "viewChangelog": "View the Changelog"
   },
   "footer": {
     "description": "A modern, lightweight Docker management UI. Built with love for developers around the world.",

@@ -2,7 +2,6 @@
 
 import Balancer from 'react-wrap-balancer'
 import { useParams } from 'next/navigation'
-import { useTranslation } from '@/lib/i18n/client'
 import { type Locale } from '@/lib/i18n'
 
 export default function Layout({
@@ -12,7 +11,6 @@ export default function Layout({
 }>) {
   const params = useParams()
   const locale = (params.locale as Locale) || 'en'
-  const { t } = useTranslation(locale)
 
   const titles: Record<Locale, string> = {
     en: 'Changelog',

@@ -7,7 +7,8 @@
   "hero": {
     "title": "现代化 Docker",
     "titleBreak": "管理更简单",
-    "description": "轻量、强大的 Docker 管理界面，专注于简洁和性能。"
+    "description": "轻量、强大的 Docker 管理界面，专注于简洁和性能。",
+    "cta": "免费下载"
   },
   "features": {
     "badge": "桌面应用",
@@ -46,7 +47,9 @@
   "cta": {
     "title": "准备好开始了吗？",
     "description": "使用轻量、强大的桌面应用开始管理您的 Docker 容器。",
-    "learnMore": "想了解更多？"
+    "downloadButton": "下载桌面应用",
+    "learnMore": "想了解更多？",
+    "viewChangelog": "查看更新日志"
   },
   "footer": {
     "description": "现代、轻量的 Docker 管理界面。用爱为全球开发者打造。",
