@@ -14,8 +14,9 @@ export default function slugify(str: string) {
     .replace(/--+/g, '-') // Replace multiple - with single -
 }
 
-function CustomHeading(props: { children: string; level: number; className?: string }) {
-  const slug = slugify(props.children)
+function CustomHeading(props: { children: React.ReactNode; level: number; className?: string }) {
+  const childrenString = typeof props.children === 'string' ? props.children : String(props.children ?? '')
+  const slug = slugify(childrenString)
   return React.createElement(
     `h${props.level}`,
     {
@@ -75,25 +76,26 @@ export const Bold = (props: React.HTMLAttributes<HTMLSpanElement>) => (
   <span className="font-semibold text-gray-900 dark:text-gray-50" {...props} />
 )
 
-export function CustomLink(
-  props: React.AnchorHTMLAttributes<HTMLAnchorElement> & { href: string }
-) {
-  const href = props.href
+export function CustomLink({
+  href,
+  children,
+  ...rest
+}: React.AnchorHTMLAttributes<HTMLAnchorElement> & { href: string }) {
   const style =
     'text-indigo-600 font-medium hover:text-indigo-500 dark:text-indigo-500 hover:dark:text-indigo-400'
   if (href.startsWith('/')) {
     return (
-      <Link className={style} href={href} {...props}>
-        {props.children}
+      <Link className={style} href={href} {...rest}>
+        {children}
       </Link>
     )
   }
 
   if (href.startsWith('#')) {
-    return <a {...props} className={style} />
+    return <a href={href} className={style} {...rest}>{children}</a>
   }
 
-  return <a className={style} rel="noopener noreferrer" target="_blank" {...props} />
+  return <a href={href} className={style} rel="noopener noreferrer" target="_blank" {...rest}>{children}</a>
 }
 
 export const ChangelogEntry = ({
