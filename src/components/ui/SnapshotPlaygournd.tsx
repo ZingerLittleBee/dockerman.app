@@ -70,7 +70,7 @@ const screenshots = [
     icon: RiHammerLine,
   },
   {
-    src: "/screenshots/3.0.0/event.png",
+    src: "/screenshots/event.png",
     alt: "Events Screenshot",
     label: "Events",
     icon: RiFileList2Line,
