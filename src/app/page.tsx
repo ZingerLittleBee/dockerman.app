@@ -1,11 +1,11 @@
-import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision"
-import Cta from "@/components/ui/Cta"
-import { Faqs } from "@/components/ui/Faqs"
-import Features from "@/components/ui/Features"
-import { Global } from "@/components/ui/Global"
-import Hero from "@/components/ui/Hero"
-import LogoCloud from "@/components/ui/LogoCloud"
-import SnapshotPlaygournd from "@/components/ui/SnapshotPlaygournd"
+import { BackgroundBeamsWithCollision } from '@/components/ui/background-beams-with-collision'
+import Cta from '@/components/ui/Cta'
+import { Faqs } from '@/components/ui/Faqs'
+import Features from '@/components/ui/Features'
+import { Global } from '@/components/ui/Global'
+import Hero from '@/components/ui/Hero'
+import LogoCloud from '@/components/ui/LogoCloud'
+import SnapshotPlaygournd from '@/components/ui/SnapshotPlaygournd'
 
 export default function Home() {
   return (

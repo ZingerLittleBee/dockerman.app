@@ -1,29 +1,26 @@
 // Tremor Tooltip [v0.0.2]
 
-"use client"
+'use client'
 
-import * as TooltipPrimitives from "@radix-ui/react-tooltip"
-import React from "react"
+import * as TooltipPrimitives from '@radix-ui/react-tooltip'
+import React from 'react'
 
-import { cx } from "@/lib/utils"
+import { cx } from '@/lib/utils'
 
 interface TooltipProps
-  extends Omit<TooltipPrimitives.TooltipContentProps, "content" | "onClick">,
+  extends Omit<TooltipPrimitives.TooltipContentProps, 'content' | 'onClick'>,
     Pick<
       TooltipPrimitives.TooltipProps,
-      "open" | "defaultOpen" | "onOpenChange" | "delayDuration"
+      'open' | 'defaultOpen' | 'onOpenChange' | 'delayDuration'
     > {
   content: React.ReactNode
   onClick?: React.MouseEventHandler<HTMLButtonElement>
-  side?: "bottom" | "left" | "top" | "right"
+  side?: 'bottom' | 'left' | 'top' | 'right'
   showArrow?: boolean
   triggerAsChild?: boolean
 }
 
-const Tooltip = React.forwardRef<
-  React.ElementRef<typeof TooltipPrimitives.Content>,
-  TooltipProps
->(
+const Tooltip = React.forwardRef<React.ElementRef<typeof TooltipPrimitives.Content>, TooltipProps>(
   (
     {
       children,
@@ -40,47 +37,47 @@ const Tooltip = React.forwardRef<
       triggerAsChild = false,
       ...props
     }: TooltipProps,
-    forwardedRef,
+    forwardedRef
   ) => {
     return (
       <TooltipPrimitives.Provider delayDuration={150}>
         <TooltipPrimitives.Root
-          open={open}
           defaultOpen={defaultOpen}
-          onOpenChange={onOpenChange}
           delayDuration={delayDuration}
+          onOpenChange={onOpenChange}
+          open={open}
           tremor-id="tremor-raw"
         >
-          <TooltipPrimitives.Trigger onClick={onClick} asChild={triggerAsChild}>
+          <TooltipPrimitives.Trigger asChild={triggerAsChild} onClick={onClick}>
             {children}
           </TooltipPrimitives.Trigger>
           <TooltipPrimitives.Portal>
             <TooltipPrimitives.Content
-              ref={forwardedRef}
-              side={side}
-              sideOffset={sideOffset}
               align="center"
               className={cx(
                 // base
-                "max-w-60 select-none rounded-md px-2.5 py-1.5 text-sm leading-5 shadow-md",
+                'max-w-60 select-none rounded-md px-2.5 py-1.5 text-sm leading-5 shadow-md',
                 // text color
-                "text-gray-50 dark:text-gray-900",
+                'text-gray-50 dark:text-gray-900',
                 // background color
-                "bg-gray-900 dark:bg-gray-50",
+                'bg-gray-900 dark:bg-gray-50',
                 // transition
-                "will-change-[transform,opacity]",
-                "data-[side=bottom]:animate-slideDownAndFade data-[side=left]:animate-slideLeftAndFade data-[side=right]:animate-slideRightAndFade data-[side=top]:animate-slideUpAndFade data-[state=closed]:animate-hide",
-                className,
+                'will-change-[transform,opacity]',
+                'data-[side=bottom]:animate-slideDownAndFade data-[side=left]:animate-slideLeftAndFade data-[side=right]:animate-slideRightAndFade data-[side=top]:animate-slideUpAndFade data-[state=closed]:animate-hide',
+                className
               )}
+              ref={forwardedRef}
+              side={side}
+              sideOffset={sideOffset}
               {...props}
             >
               {content}
               {showArrow ? (
                 <TooltipPrimitives.Arrow
-                  className="border-none fill-gray-900 dark:fill-gray-50"
-                  width={12}
-                  height={7}
                   aria-hidden="true"
+                  className="border-none fill-gray-900 dark:fill-gray-50"
+                  height={7}
+                  width={12}
                 />
               ) : null}
             </TooltipPrimitives.Content>
@@ -88,9 +85,9 @@ const Tooltip = React.forwardRef<
         </TooltipPrimitives.Root>
       </TooltipPrimitives.Provider>
     )
-  },
+  }
 )
 
-Tooltip.displayName = "Tooltip"
+Tooltip.displayName = 'Tooltip'
 
 export { Tooltip, type TooltipProps }

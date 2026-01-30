@@ -1,6 +1,6 @@
-"use client"
-import { useTheme } from "next-themes"
-import Image from "next/image"
+'use client'
+import Image from 'next/image'
+import { useTheme } from 'next-themes'
 
 const ThemedImage = ({
   lightSrc,
@@ -8,7 +8,7 @@ const ThemedImage = ({
   alt,
   width,
   height,
-  className,
+  className
 }: {
   lightSrc: string
   darkSrc: string
@@ -21,10 +21,10 @@ const ThemedImage = ({
   let src
 
   switch (resolvedTheme) {
-    case "light":
+    case 'light':
       src = lightSrc
       break
-    case "dark":
+    case 'dark':
       src = darkSrc
       break
     default:
@@ -32,16 +32,7 @@ const ThemedImage = ({
       break
   }
 
-  return (
-    <Image
-      src={src}
-      alt={alt}
-      width={width}
-      height={height}
-      className={className}
-      priority
-    />
-  )
+  return <Image alt={alt} className={className} height={height} priority src={src} width={width} />
 }
 
 export default ThemedImage

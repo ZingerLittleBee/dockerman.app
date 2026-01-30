@@ -1,10 +1,10 @@
-"use client"
-import * as Tabs from "@radix-ui/react-tabs"
-import type { RemixiconComponentType } from "@remixicon/react"
-import clsx from "clsx"
-import { motion } from "motion/react"
-import Image from "next/image"
-import { memo, useCallback, useEffect, useState } from "react"
+'use client'
+import * as Tabs from '@radix-ui/react-tabs'
+import type { RemixiconComponentType } from '@remixicon/react'
+import clsx from 'clsx'
+import { motion } from 'motion/react'
+import Image from 'next/image'
+import { memo, useCallback, useEffect, useState } from 'react'
 
 interface Screenshot {
   src: string
@@ -17,11 +17,7 @@ interface Screenshot {
 const IMAGE_WIDTH = 2560
 const IMAGE_HEIGHT = 1760
 
-function SnapshotPlaygourndTabs({
-  screenshots,
-}: {
-  screenshots: Screenshot[]
-}) {
+function SnapshotPlaygourndTabs({ screenshots }: { screenshots: Screenshot[] }) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set())
   const [isInitialLoad, setIsInitialLoad] = useState(true)
@@ -41,56 +37,56 @@ function SnapshotPlaygourndTabs({
   return (
     <Tabs.Root
       className="mt-14 grid grid-cols-12 gap-8 md:gap-12"
-      value={screenshots[activeIndex]?.label}
       onValueChange={(value) => {
         const index = screenshots.findIndex((s) => s.label === value)
         if (index !== -1) setActiveIndex(index)
       }}
       orientation="vertical"
+      value={screenshots[activeIndex]?.label}
     >
       <Tabs.List
-        className="col-span-full grid grid-cols-2 gap-2 md:col-span-3 md:flex md:flex-col md:gap-3"
         aria-label="Select view"
+        className="col-span-full grid grid-cols-2 gap-2 md:col-span-3 md:flex md:flex-col md:gap-3"
       >
         {screenshots.map((screenshot, index) => {
           const isActive = activeIndex === index
           return (
             <Tabs.Trigger
-              key={screenshot.label}
               className="group relative flex items-center justify-start gap-4 rounded-xl px-4 py-3 text-left transition-colors"
-              value={screenshot.label}
+              key={screenshot.label}
               style={{
-                WebkitTapHighlightColor: "transparent",
+                WebkitTapHighlightColor: 'transparent'
               }}
+              value={screenshot.label}
             >
               {isActive && (
                 <motion.div
-                  layoutId="active-tab-indicator"
                   className="absolute inset-0 rounded-xl bg-gray-100 shadow-sm dark:bg-white/5 dark:shadow-indigo-900/10"
+                  layoutId="active-tab-indicator"
                   transition={{
-                    type: "spring",
+                    type: 'spring',
                     bounce: 0.2,
-                    duration: 0.6,
+                    duration: 0.6
                   }}
                 />
               )}
               <span className="relative z-10 flex w-full items-center gap-3">
                 <span
                   className={clsx(
-                    "flex size-9 items-center justify-center rounded-lg border transition-colors duration-300",
+                    'flex size-9 items-center justify-center rounded-lg border transition-colors duration-300',
                     isActive
-                      ? "border-gray-200 bg-white text-indigo-600 dark:border-white/10 dark:bg-gray-800 dark:text-indigo-400"
-                      : "border-transparent bg-transparent text-gray-500 group-hover:text-gray-900 dark:text-gray-500 dark:group-hover:text-gray-300",
+                      ? 'border-gray-200 bg-white text-indigo-600 dark:border-white/10 dark:bg-gray-800 dark:text-indigo-400'
+                      : 'border-transparent bg-transparent text-gray-500 group-hover:text-gray-900 dark:text-gray-500 dark:group-hover:text-gray-300'
                   )}
                 >
                   <screenshot.icon className="size-5" />
                 </span>
                 <span
                   className={clsx(
-                    "font-medium transition-colors duration-300",
+                    'font-medium transition-colors duration-300',
                     isActive
-                      ? "text-gray-900 dark:text-white"
-                      : "text-gray-500 group-hover:text-gray-900 dark:text-gray-500 dark:group-hover:text-gray-300",
+                      ? 'text-gray-900 dark:text-white'
+                      : 'text-gray-500 group-hover:text-gray-900 dark:text-gray-500 dark:group-hover:text-gray-300'
                   )}
                 >
                   {screenshot.label}
@@ -110,25 +106,25 @@ function SnapshotPlaygourndTabs({
 
             return (
               <Tabs.Content
-                key={screenshot.label}
-                value={screenshot.label}
-                forceMount
                 className={clsx(
                   // 使用 grid 区域堆叠，第一张图片设定容器大小
-                  "col-start-1 row-start-1 transition-all duration-300 ease-out",
+                  'col-start-1 row-start-1 transition-all duration-300 ease-out',
                   isActive
-                    ? "pointer-events-auto z-10 opacity-100"
-                    : "pointer-events-none z-0 opacity-0",
+                    ? 'pointer-events-auto z-10 opacity-100'
+                    : 'pointer-events-none z-0 opacity-0'
                 )}
+                forceMount
+                key={screenshot.label}
+                value={screenshot.label}
               >
-                <div className="overflow-hidden rounded-xl bg-slate-50/40 p-2 shadow-2xl ring-1 ring-inset ring-slate-200/50 md:rounded-2xl dark:bg-gray-900/70 dark:ring-white/10">
+                <div className="overflow-hidden rounded-xl bg-slate-50/40 p-2 shadow-2xl ring-1 ring-slate-200/50 ring-inset md:rounded-2xl dark:bg-gray-900/70 dark:ring-white/10">
                   <div className="relative rounded bg-white ring-1 ring-slate-900/5 md:rounded-xl dark:bg-slate-950 dark:ring-white/15">
                     {/* 骨架加载占位符 */}
                     {!isLoaded && (
                       <div
                         className="absolute inset-0 flex animate-pulse items-center justify-center rounded bg-gray-100 md:rounded-xl dark:bg-gray-800"
                         style={{
-                          aspectRatio: `${IMAGE_WIDTH} / ${IMAGE_HEIGHT}`,
+                          aspectRatio: `${IMAGE_WIDTH} / ${IMAGE_HEIGHT}`
                         }}
                       >
                         <div className="flex flex-col items-center gap-3">
@@ -139,17 +135,17 @@ function SnapshotPlaygourndTabs({
                     )}
 
                     <Image
-                      src={screenshot.src}
                       alt={screenshot.alt}
-                      width={IMAGE_WIDTH}
-                      height={IMAGE_HEIGHT}
                       className={clsx(
-                        "block w-full rounded shadow transition-opacity duration-300 md:rounded-xl dark:shadow-indigo-600/10",
-                        isLoaded ? "opacity-100" : "opacity-0",
+                        'block w-full rounded shadow transition-opacity duration-300 md:rounded-xl dark:shadow-indigo-600/10',
+                        isLoaded ? 'opacity-100' : 'opacity-0'
                       )}
+                      height={IMAGE_HEIGHT}
+                      onLoad={() => handleImageLoad(index)}
                       priority={index < 2}
                       quality={70}
-                      onLoad={() => handleImageLoad(index)}
+                      src={screenshot.src}
+                      width={IMAGE_WIDTH}
                     />
                   </div>
                 </div>
@@ -165,7 +161,7 @@ function SnapshotPlaygourndTabs({
             >
               <div className="flex flex-col items-center gap-4">
                 <div className="size-8 animate-spin rounded-full border-4 border-indigo-200 border-t-indigo-600 dark:border-indigo-800 dark:border-t-indigo-400" />
-                <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                <span className="font-medium text-gray-600 text-sm dark:text-gray-400">
                   Loading...
                 </span>
               </div>

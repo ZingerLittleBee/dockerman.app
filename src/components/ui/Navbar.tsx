@@ -1,20 +1,15 @@
-"use client"
+'use client'
 
-import { siteConfig } from "@/app/siteConfig"
-import useScroll from "@/lib/use-scroll"
-import { cx } from "@/lib/utils"
-import {
-  RiCloseLine,
-  RiMenuLine,
-  RiMoonLine,
-  RiSunLine,
-} from "@remixicon/react"
-import { useTheme } from "next-themes"
-import Link from "next/link"
-import posthog from "posthog-js"
-import React, { useEffect, useState } from "react"
-import { Logo } from "../../../public/logo"
-import { Button } from "../Button"
+import { RiCloseLine, RiMenuLine, RiMoonLine, RiSunLine } from '@remixicon/react'
+import Link from 'next/link'
+import { useTheme } from 'next-themes'
+import posthog from 'posthog-js'
+import React, { useEffect, useState } from 'react'
+import { siteConfig } from '@/app/siteConfig'
+import useScroll from '@/lib/use-scroll'
+import { cx } from '@/lib/utils'
+import { Logo } from '../../../public/logo'
+import { Button } from '../Button'
 
 function ThemeToggleButton() {
   const [mounted, setMounted] = useState(false)
@@ -28,16 +23,16 @@ function ThemeToggleButton() {
     return <div className="size-10" />
   }
 
-  const isDark = resolvedTheme === "dark"
+  const isDark = resolvedTheme === 'dark'
 
   const handleThemeToggle = (event: React.MouseEvent<HTMLButtonElement>) => {
-    const newTheme = isDark ? "light" : "dark"
+    const newTheme = isDark ? 'light' : 'dark'
 
     // Track theme change
-    posthog.capture("theme_changed", {
+    posthog.capture('theme_changed', {
       from_theme: resolvedTheme,
       to_theme: newTheme,
-      location: "navbar",
+      location: 'navbar'
     })
 
     // Check if View Transitions API is supported
@@ -52,17 +47,17 @@ function ThemeToggleButton() {
     // Calculate the maximum radius needed to cover the entire screen
     const endRadius = Math.hypot(
       Math.max(x, window.innerWidth - x),
-      Math.max(y, window.innerHeight - y),
+      Math.max(y, window.innerHeight - y)
     )
 
     // Set CSS custom properties for the animation
-    document.documentElement.style.setProperty("--x", `${x}px`)
-    document.documentElement.style.setProperty("--y", `${y}px`)
-    document.documentElement.style.setProperty("--r", `${endRadius}px`)
+    document.documentElement.style.setProperty('--x', `${x}px`)
+    document.documentElement.style.setProperty('--y', `${y}px`)
+    document.documentElement.style.setProperty('--r', `${endRadius}px`)
     // Add timestamp to force GIF to restart from beginning
     document.documentElement.style.setProperty(
-      "--transition-mask",
-      `url('/images/i-love-you-love.gif?t=${Date.now()}')`,
+      '--transition-mask',
+      `url('/images/i-love-you-love.gif?t=${Date.now()}')`
     )
 
     // Start the view transition
@@ -74,31 +69,24 @@ function ThemeToggleButton() {
     transition.ready.then(() => {
       document.documentElement.animate(
         {
-          clipPath: [
-            `circle(0px at ${x}px ${y}px)`,
-            `circle(${endRadius}px at ${x}px ${y}px)`,
-          ],
+          clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${endRadius}px at ${x}px ${y}px)`]
         },
         {
           duration: 400,
-          easing: "ease-out",
-          pseudoElement: "::view-transition-new(root)",
-        },
+          easing: 'ease-out',
+          pseudoElement: '::view-transition-new(root)'
+        }
       )
     })
   }
 
   return (
     <button
-      onClick={handleThemeToggle}
+      aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
       className="flex size-10 items-center justify-center rounded-lg text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
-      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+      onClick={handleThemeToggle}
     >
-      {isDark ? (
-        <RiSunLine className="size-5" />
-      ) : (
-        <RiMoonLine className="size-5" />
-      )}
+      {isDark ? <RiSunLine className="size-5" /> : <RiMoonLine className="size-5" />}
     </button>
   )
 }
@@ -108,36 +96,36 @@ export function Navigation() {
   const [open, setOpen] = React.useState(false)
 
   React.useEffect(() => {
-    const mediaQuery: MediaQueryList = window.matchMedia("(min-width: 768px)")
+    const mediaQuery: MediaQueryList = window.matchMedia('(min-width: 768px)')
     const handleMediaQueryChange = () => {
       setOpen(false)
     }
 
-    mediaQuery.addEventListener("change", handleMediaQueryChange)
+    mediaQuery.addEventListener('change', handleMediaQueryChange)
     handleMediaQueryChange()
 
     return () => {
-      mediaQuery.removeEventListener("change", handleMediaQueryChange)
+      mediaQuery.removeEventListener('change', handleMediaQueryChange)
     }
   }, [])
 
   return (
     <header
       className={cx(
-        "fixed inset-x-3 top-4 z-50 mx-auto flex max-w-6xl transform-gpu animate-slide-down-fade justify-center overflow-hidden rounded-xl border border-transparent px-3 py-3 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1.03)] will-change-transform",
-        open === true ? "h-52" : "h-16",
+        'fixed inset-x-3 top-4 z-50 mx-auto flex max-w-6xl transform-gpu animate-slide-down-fade justify-center overflow-hidden rounded-xl border border-transparent px-3 py-3 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1.03)] will-change-transform',
+        open === true ? 'h-52' : 'h-16',
         scrolled || open === true
-          ? "backdrop-blur-nav max-w-3xl border-gray-100 bg-white/80 shadow-xl shadow-black/5 dark:border-white/15 dark:bg-black/70"
-          : "bg-white/0 dark:bg-gray-950/0",
+          ? 'max-w-3xl border-gray-100 bg-white/80 shadow-black/5 shadow-xl backdrop-blur-nav dark:border-white/15 dark:bg-black/70'
+          : 'bg-white/0 dark:bg-gray-950/0'
       )}
     >
       <div className="w-full md:my-auto">
         <div className="relative flex items-center justify-between">
-          <Link href={siteConfig.baseLinks.home} aria-label="Home">
+          <Link aria-label="Home" href={siteConfig.baseLinks.home}>
             <span className="sr-only">Dockerman</span>
             <Logo />
           </Link>
-          <nav className="hidden md:absolute md:left-1/2 md:top-1/2 md:block md:-translate-x-1/2 md:-translate-y-1/2 md:transform">
+          <nav className="hidden md:absolute md:top-1/2 md:left-1/2 md:block md:-translate-x-1/2 md:-translate-y-1/2 md:transform">
             <div className="flex items-center gap-10 font-medium">
               <Link
                 className="px-2 py-1 text-gray-900 dark:text-gray-50"
@@ -177,9 +165,9 @@ export function Navigation() {
             <a
               href={siteConfig.baseLinks.download}
               onClick={() => {
-                posthog.capture("navbar_download_clicked", {
-                  button_text: "Download",
-                  location: "navbar_desktop",
+                posthog.capture('navbar_download_clicked', {
+                  button_text: 'Download',
+                  location: 'navbar_desktop'
                 })
               }}
             >
@@ -192,19 +180,15 @@ export function Navigation() {
             <a
               href={siteConfig.baseLinks.download}
               onClick={() => {
-                posthog.capture("navbar_download_clicked", {
-                  button_text: "Download",
-                  location: "navbar_mobile",
+                posthog.capture('navbar_download_clicked', {
+                  button_text: 'Download',
+                  location: 'navbar_mobile'
                 })
               }}
             >
               <Button>Download</Button>
             </a>
-            <Button
-              onClick={() => setOpen(!open)}
-              variant="light"
-              className="aspect-square p-2"
-            >
+            <Button className="aspect-square p-2" onClick={() => setOpen(!open)} variant="light">
               {open ? (
                 <RiCloseLine aria-hidden="true" className="size-5" />
               ) : (
@@ -215,8 +199,8 @@ export function Navigation() {
         </div>
         <nav
           className={cx(
-            "my-6 flex text-lg ease-in-out will-change-transform md:hidden",
-            open ? "" : "hidden",
+            'my-6 flex text-lg ease-in-out will-change-transform md:hidden',
+            open ? '' : 'hidden'
           )}
         >
           <ul className="space-y-4 font-medium">

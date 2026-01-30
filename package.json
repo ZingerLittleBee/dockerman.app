@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "check": "ultracite check",
+    "fix": "ultracite fix"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.0",
@@ -37,6 +39,7 @@
     "tailwind-variants": "^0.3.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.3.12",
     "@tailwindcss/forms": "^0.5.10",
     "@types/node": "^22.10.5",
     "@types/react": "19.2.10",
@@ -48,7 +51,8 @@
     "prettier-plugin-tailwindcss": "^0.6.9",
     "shiki": "^1.26.1",
     "tailwindcss": "^3.4.17",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "ultracite": "7.1.1"
   },
   "packageManager": "pnpm@9.15.2+sha512.93e57b0126f0df74ce6bff29680394c0ba54ec47246b9cf321f0121d8d9bb03f750a705f24edc3c1180853afd7c2c3b94196d0a3d53d3e069d9e2793ef11f321"
 }

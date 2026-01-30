@@ -1,82 +1,82 @@
-import Footer from "@/components/ui/Footer"
-import { Navigation } from "@/components/ui/Navbar"
-import { Analytics } from "@vercel/analytics/next"
-import { SpeedInsights } from "@vercel/speed-insights/next"
-import type { Metadata } from "next"
-import { ThemeProvider } from "next-themes"
-import { Inter } from "next/font/google"
-import "./globals.css"
-import { siteConfig } from "./siteConfig"
+import { Analytics } from '@vercel/analytics/next'
+import { SpeedInsights } from '@vercel/speed-insights/next'
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import { ThemeProvider } from 'next-themes'
+import Footer from '@/components/ui/Footer'
+import { Navigation } from '@/components/ui/Navbar'
+import './globals.css'
+import { siteConfig } from './siteConfig'
 
 const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-inter",
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter'
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://dockerman.app"),
-  title: "Dockerman - Modern Docker Management UI",
+  metadataBase: new URL('https://dockerman.app'),
+  title: 'Dockerman - Modern Docker Management UI',
   description: siteConfig.description,
   keywords: [
-    "Docker",
-    "UI",
-    "Management",
-    "Tauri",
-    "Rust",
-    "Desktop",
-    "App",
-    "Container",
-    "Image",
-    "Monitoring",
-    "Terminal",
-    "Dashboard",
-    "Cross-platform",
-    "Resource Usage",
-    "Logs",
-    "Process",
-    "Statistics",
-    "Docker Management",
-    "Container Management",
-    "DevOps",
+    'Docker',
+    'UI',
+    'Management',
+    'Tauri',
+    'Rust',
+    'Desktop',
+    'App',
+    'Container',
+    'Image',
+    'Monitoring',
+    'Terminal',
+    'Dashboard',
+    'Cross-platform',
+    'Resource Usage',
+    'Logs',
+    'Process',
+    'Statistics',
+    'Docker Management',
+    'Container Management',
+    'DevOps'
   ],
   authors: [
     {
-      name: "ZingerBee",
-      url: "https://github.com/ZingerLittleBee",
-    },
+      name: 'ZingerBee',
+      url: 'https://github.com/ZingerLittleBee'
+    }
   ],
-  creator: "ZingerBee",
+  creator: 'ZingerBee',
   openGraph: {
-    type: "website",
-    locale: "en_US",
+    type: 'website',
+    locale: 'en_US',
     url: siteConfig.url,
     title: siteConfig.title,
     description: siteConfig.description,
     siteName: siteConfig.name,
     images: [
       {
-        url: "/opengraph-image.png",
+        url: '/opengraph-image.png',
         width: 1200,
         height: 630,
-        alt: "Dockerman - Modern Docker Management UI",
-      },
-    ],
+        alt: 'Dockerman - Modern Docker Management UI'
+      }
+    ]
   },
   twitter: {
-    card: "summary_large_image",
+    card: 'summary_large_image',
     title: siteConfig.title,
     description: siteConfig.description,
-    creator: "@zinger_bee",
-    images: ["/opengraph-image.png"],
+    creator: '@zinger_bee',
+    images: ['/opengraph-image.png']
   },
   icons: {
-    icon: "/favicon.ico",
-  },
+    icon: '/favicon.ico'
+  }
 }
 
 export default function RootLayout({
-  children,
+  children
 }: Readonly<{
   children: React.ReactNode
 }>) {
@@ -85,11 +85,7 @@ export default function RootLayout({
       <body
         className={`${inter.className} min-h-screen scroll-auto antialiased selection:bg-indigo-100 selection:text-indigo-700 dark:bg-gray-950`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          disableTransitionOnChange
-        >
+        <ThemeProvider attribute="class" defaultTheme="system" disableTransitionOnChange>
           <Navigation />
           {children}
           <Footer />

@@ -1,7 +1,7 @@
-"use client"
+'use client'
 
-import { RiArrowRightUpLine } from "@remixicon/react"
-import posthog from "posthog-js"
+import { RiArrowRightUpLine } from '@remixicon/react'
+import posthog from 'posthog-js'
 
 interface TrackedExternalLinkProps {
   href: string
@@ -9,25 +9,21 @@ interface TrackedExternalLinkProps {
   section: string
 }
 
-export function TrackedExternalLink({
-  href,
-  name,
-  section,
-}: TrackedExternalLinkProps) {
+export function TrackedExternalLink({ href, name, section }: TrackedExternalLinkProps) {
   return (
     <a
-      className="flex rounded-md text-sm text-gray-500 transition hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+      className="flex rounded-md text-gray-500 text-sm transition hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
       href={href}
-      target="_blank"
-      rel="noopener noreferrer"
       onClick={() => {
-        posthog.capture("github_link_clicked", {
+        posthog.capture('github_link_clicked', {
           link_url: href,
           link_text: name,
-          section: section,
-          location: "footer",
+          section,
+          location: 'footer'
         })
       }}
+      rel="noopener noreferrer"
+      target="_blank"
     >
       <span>{name}</span>
       <div className="ml-0.5 aspect-square size-3 rounded-full bg-gray-100 p-px dark:bg-gray-500/20">
