@@ -199,15 +199,34 @@
     "sections": {
       "dataCollection": {
         "title": "Data Collection",
-        "content": "Dockerman is a desktop application that runs locally on your machine. We do not collect, store, or transmit any personal information or usage data. All container and image data is processed locally through your Docker daemon."
+        "content": "Dockerman is a desktop application that runs locally on your machine. All container and image data is processed locally through your Docker daemon. We collect minimal, anonymous usage analytics to improve the product (see Analytics section below)."
+      },
+      "analytics": {
+        "title": "Anonymous Analytics",
+        "content": "To understand how users interact with Dockerman and improve the product, we collect anonymous usage data via PostHog. This data is completely anonymous and cannot be used to identify you.",
+        "collected": "What we collect:",
+        "collectedItems": [
+          "App launch events (app version, operating system)",
+          "Page navigation (which pages are visited)",
+          "Feature usage (container, image, compose, network, volume operations)",
+          "Docker host connection types (local socket, TCP, SSH)"
+        ],
+        "notCollected": "What we do NOT collect:",
+        "notCollectedItems": [
+          "Personal identity information",
+          "Container or image names/content",
+          "IP addresses or location data",
+          "Docker configurations or environment variables",
+          "Any sensitive files or credentials"
+        ]
+      },
+      "optOut": {
+        "title": "Opting Out",
+        "content": "You can disable analytics at any time in Settings → Privacy. When disabled, no data is collected or transmitted, and any existing session data is cleared immediately."
       },
       "localStorage": {
         "title": "Local Storage",
-        "content": "Any application settings or preferences are stored locally on your device. These settings are never transmitted to external servers and remain under your control."
-      },
-      "thirdParty": {
-        "title": "Third-Party Services",
-        "content": "Dockerman interacts only with your local Docker daemon. We do not integrate with any third-party services or analytics platforms. Your container data and usage patterns remain private and local to your system."
+        "content": "Application settings and preferences are stored locally on your device. These settings are never transmitted to external servers and remain under your control."
       },
       "updates": {
         "title": "Updates",
@@ -276,63 +295,64 @@
         "intro": "Dockerman processes data in two main categories:",
         "items": [
           "Local data: processed exclusively on your device",
-          "Account data: processed on our secure servers for user authentication and subscription management"
+          "Anonymous analytics: collected to improve the product (opt-out available)"
         ]
       },
       "categories": {
         "title": "Data Categories",
-        "localData": "Local Data:",
+        "localData": "Local Data (never transmitted):",
         "localItems": [
           "Docker container configurations and settings",
           "Container logs and metrics",
           "Local application preferences",
+          "SSH connection credentials",
           "System resource statistics"
         ],
-        "accountData": "Account Data:",
-        "accountItems": [
-          "Email address and account credentials",
-          "Subscription status and payment information",
-          "Usage analytics for subscription features",
-          "Account preferences and settings"
+        "analyticsData": "Anonymous Analytics (opt-out available):",
+        "analyticsItems": [
+          "App version and operating system type",
+          "Page navigation patterns",
+          "Feature usage counts (not content)",
+          "Docker host connection types"
         ]
       },
       "security": {
         "title": "Data Storage and Security",
-        "intro": "We implement industry-standard security measures to protect your data:",
+        "intro": "We implement security measures to protect your data:",
         "items": [
-          "Encryption of all data in transit and at rest",
-          "Secure authentication and authorization protocols",
-          "Regular security audits and updates",
-          "Compliance with data protection regulations"
+          "All analytics data is completely anonymized",
+          "No personal identifiers are ever collected",
+          "Analytics can be disabled at any time",
+          "Local data remains encrypted on your device"
         ]
       },
       "purposes": {
         "title": "Data Processing Purposes",
-        "intro": "We process your data for the following purposes:",
+        "intro": "We process anonymous analytics data for the following purposes:",
         "items": [
-          "User authentication and account management",
-          "Subscription and payment processing",
-          "Providing and improving our services",
-          "Technical support and communication"
+          "Understanding which features are most used",
+          "Identifying areas for improvement",
+          "Tracking adoption of new features",
+          "Discovering usability issues"
         ]
       },
       "retention": {
         "title": "Data Retention",
-        "content": "We retain account data for as long as your account is active or as needed to provide services. You can request data deletion by contacting our support team. Local data remains under your control and is stored only on your device."
+        "content": "Anonymous analytics data is retained for product improvement purposes. Since data is anonymous, it cannot be associated with any individual. Local data remains under your control and is stored only on your device."
       },
       "rights": {
         "title": "Your Rights",
         "intro": "You have the right to:",
         "items": [
-          "Access your personal data",
-          "Request correction of inaccurate data",
-          "Request deletion of your account data",
-          "Export your account information"
+          "Opt out of analytics collection at any time",
+          "Use Dockerman without any data collection",
+          "Request information about our data practices",
+          "Contact us with privacy concerns"
         ]
       },
       "contact": {
         "title": "Contact",
-        "content": "For any questions about data processing or to exercise your rights, please contact our Data Protection Officer at"
+        "content": "For any questions about data processing or to exercise your rights, please contact us at"
       }
     }
   }

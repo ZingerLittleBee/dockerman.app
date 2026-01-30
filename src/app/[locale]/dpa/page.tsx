@@ -9,7 +9,7 @@ export default function DPA() {
 
   const overviewItems = t('dpa.sections.overview.items', { returnObjects: true }) as string[]
   const localItems = t('dpa.sections.categories.localItems', { returnObjects: true }) as string[]
-  const accountItems = t('dpa.sections.categories.accountItems', { returnObjects: true }) as string[]
+  const analyticsItems = t('dpa.sections.categories.analyticsItems', { returnObjects: true }) as string[]
   const securityItems = t('dpa.sections.security.items', { returnObjects: true }) as string[]
   const purposeItems = t('dpa.sections.purposes.items', { returnObjects: true }) as string[]
   const rightsItems = t('dpa.sections.rights.items', { returnObjects: true }) as string[]
@@ -86,10 +86,10 @@ export default function DPA() {
                 ))}
               </ul>
               <h3 className="mt-6 font-medium text-gray-900 dark:text-gray-100">
-                {t('dpa.sections.categories.accountData')}
+                {t('dpa.sections.categories.analyticsData')}
               </h3>
               <ul className="list-inside space-y-2 text-gray-600 dark:text-gray-400">
-                {accountItems.map((item, index) => (
+                {analyticsItems.map((item, index) => (
                   <li className="flex items-center gap-2" key={index}>
                     <span className="inline-block h-1.5 w-1.5 rounded-full bg-indigo-500" />
                     {item}
