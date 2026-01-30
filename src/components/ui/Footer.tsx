@@ -2,17 +2,14 @@
 
 import { RiArrowRightUpLine } from '@remixicon/react'
 import Link from 'next/link'
-import { useParams } from 'next/navigation'
 import { Logo } from '../../../public/logo'
 import ThemeSwitch from '../ThemeSwitch'
 import { TrackedExternalLink } from './TrackedFooterLinks'
-import { useTranslation } from '@/lib/i18n/client'
-import { type Locale } from '@/lib/i18n'
+import { useTranslation, useLocale } from '@/lib/i18n/client'
 
 export default function Footer() {
-  const params = useParams()
-  const locale = (params.locale as Locale) || 'en'
-  const { t } = useTranslation(locale)
+  const locale = useLocale()
+  const { t } = useTranslation()
 
   const navigation = {
     product: [

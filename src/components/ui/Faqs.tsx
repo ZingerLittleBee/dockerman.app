@@ -1,16 +1,12 @@
 'use client'
 
-import { useParams } from 'next/navigation'
 import posthog from 'posthog-js'
 import { siteConfig } from '@/app/siteConfig'
 import { useTranslation } from '@/lib/i18n/client'
-import { type Locale } from '@/lib/i18n'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../Accordion'
 
 export function Faqs() {
-  const params = useParams()
-  const locale = (params.locale as Locale) || 'en'
-  const { t } = useTranslation(locale)
+  const { t } = useTranslation()
 
   const faqs = t('faqs.items', { returnObjects: true }) as Array<{
     question: string

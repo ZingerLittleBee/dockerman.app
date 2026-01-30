@@ -1,9 +1,7 @@
 'use client'
 
 import React from 'react'
-import { useParams } from 'next/navigation'
 import { useTranslation } from '@/lib/i18n/client'
-import { type Locale } from '@/lib/i18n'
 import { Badge } from '../Badge'
 
 const stats = [
@@ -13,9 +11,7 @@ const stats = [
 ]
 
 export default function Features() {
-  const params = useParams()
-  const locale = (params.locale as Locale) || 'en'
-  const { t } = useTranslation(locale)
+  const { t } = useTranslation()
 
   return (
     <section

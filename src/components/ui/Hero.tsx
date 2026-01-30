@@ -1,15 +1,11 @@
 'use client'
 
-import { useParams } from 'next/navigation'
 import { useTranslation } from '@/lib/i18n/client'
-import { type Locale } from '@/lib/i18n'
 import HeroImage from './HeroImage'
 import TrackedHeroButton from './TrackedHeroButton'
 
 export default function Hero() {
-  const params = useParams()
-  const locale = (params.locale as Locale) || 'en'
-  const { t } = useTranslation(locale)
+  const { t } = useTranslation()
 
   return (
     <section

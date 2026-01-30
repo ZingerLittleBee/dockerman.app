@@ -1,16 +1,13 @@
 'use client'
 
 import Link from 'next/link'
-import { useParams } from 'next/navigation'
 import posthog from 'posthog-js'
-import { useTranslation } from '@/lib/i18n/client'
-import { type Locale } from '@/lib/i18n'
+import { useTranslation, useLocale } from '@/lib/i18n/client'
 import { Button } from '../Button'
 
 export default function TrackedHeroButton() {
-  const params = useParams()
-  const locale = (params.locale as Locale) || 'en'
-  const { t } = useTranslation(locale)
+  const locale = useLocale()
+  const { t } = useTranslation()
 
   return (
     <Button

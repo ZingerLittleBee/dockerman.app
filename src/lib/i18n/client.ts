@@ -1,9 +1,10 @@
 'use client'
 
 import i18next from 'i18next'
+import { usePathname } from 'next/navigation'
 import { initReactI18next, useTranslation as useTranslationOrg } from 'react-i18next'
 import resourcesToBackend from 'i18next-resources-to-backend'
-import { type Locale, getOptions, locales } from './settings'
+import { type Locale, getOptions, locales, defaultLocale } from './settings'
 
 const runsOnServerSide = typeof window === 'undefined'
 
@@ -19,12 +20,24 @@ i18next
     preload: runsOnServerSide ? locales : [],
   })
 
-export function useTranslation(lng: Locale) {
+export function useLocale(): Locale {
+  const pathname = usePathname()
+  const segments = pathname.split('/')
+  const potentialLocale = segments[1]
+  if (locales.includes(potentialLocale as Locale)) {
+    return potentialLocale as Locale
+  }
+  return defaultLocale
+}
+
+export function useTranslation(lng?: Locale) {
+  const pathLocale = useLocale()
+  const locale = lng ?? pathLocale
   const ret = useTranslationOrg()
   const { i18n } = ret
 
-  if (runsOnServerSide && lng && i18n.resolvedLanguage !== lng) {
-    i18n.changeLanguage(lng)
+  if (runsOnServerSide && locale && i18n.resolvedLanguage !== locale) {
+    i18n.changeLanguage(locale)
   }
 
   return ret

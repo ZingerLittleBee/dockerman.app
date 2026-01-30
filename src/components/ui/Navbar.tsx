@@ -2,14 +2,12 @@
 
 import { RiCloseLine, RiMenuLine, RiMoonLine, RiSunLine } from '@remixicon/react'
 import Link from 'next/link'
-import { useParams } from 'next/navigation'
 import { useTheme } from 'next-themes'
 import posthog from 'posthog-js'
 import React, { useEffect, useState } from 'react'
 import useScroll from '@/lib/use-scroll'
 import { cx } from '@/lib/utils'
-import { useTranslation } from '@/lib/i18n/client'
-import { type Locale } from '@/lib/i18n'
+import { useTranslation, useLocale } from '@/lib/i18n/client'
 import { Logo } from '../../../public/logo'
 import { Button } from '../Button'
 import { LanguageSwitcher } from './LanguageSwitcher'
@@ -97,9 +95,8 @@ function ThemeToggleButton() {
 export function Navigation() {
   const scrolled = useScroll(15)
   const [open, setOpen] = React.useState(false)
-  const params = useParams()
-  const locale = (params.locale as Locale) || 'en'
-  const { t } = useTranslation(locale)
+  const locale = useLocale()
+  const { t } = useTranslation()
 
   React.useEffect(() => {
     const mediaQuery: MediaQueryList = window.matchMedia('(min-width: 768px)')

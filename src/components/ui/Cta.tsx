@@ -1,15 +1,11 @@
 'use client'
 
-import { useParams } from 'next/navigation'
 import Balancer from 'react-wrap-balancer'
 import { useTranslation } from '@/lib/i18n/client'
-import { type Locale } from '@/lib/i18n'
 import { TrackedChangelogLink, TrackedCtaDownloadButton } from './TrackedCtaButtons'
 
 export default function Cta() {
-  const params = useParams()
-  const locale = (params.locale as Locale) || 'en'
-  const { t } = useTranslation(locale)
+  const { t } = useTranslation()
 
   return (
     <section
