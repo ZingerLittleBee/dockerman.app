@@ -22,14 +22,15 @@ Focus on simplicity and performance for Docker container management.
 ![Process List Screenshot](public/screenshots/2.4.0/process.png)
 ![inspect Screenshot](public/screenshots/2.4.0/inspect.png)
 ![stats Screenshot](public/screenshots/2.4.0/stat.png)
-![logs Screenshot](public/screenshots/2.4.0/log.png)
+![logs Screenshot](public/screenshots/logs.png)
 ![ssh Screenshot](public/screenshots/2.4.0/ssh.png)
 ![build Screenshot](public/screenshots/2.4.0/build-log.png)
 ![build History Screenshot](public/screenshots/2.4.0/build-log-history.png)
 ![file system](public/screenshots/3.0.0/file.png)
 ![Termin Settings](public/screenshots/3.2.0/terminal-settings.png)
 ![Image Analysis](public/screenshots/3.3.0/image-analysis.png)
-![Compose](public/screenshots/3.4.0/compose.png)
+![Compose Screenshot](public/screenshots/3.4.0/compose.png)
+![Event Screenshot](public/screenshots/event.png)
 
 ## Features
 

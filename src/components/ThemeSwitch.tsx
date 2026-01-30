@@ -1,9 +1,9 @@
-"use client"
-import { cx, focusRing } from "@/lib/utils"
-import * as RadioGroupPrimitives from "@radix-ui/react-radio-group"
-import { RiComputerLine, RiMoonLine, RiSunLine } from "@remixicon/react"
-import { useTheme } from "next-themes"
-import React, { useEffect, useState } from "react"
+'use client'
+import * as RadioGroupPrimitives from '@radix-ui/react-radio-group'
+import { RiComputerLine, RiMoonLine, RiSunLine } from '@remixicon/react'
+import { useTheme } from 'next-themes'
+import React, { useEffect, useState } from 'react'
+import { cx, focusRing } from '@/lib/utils'
 
 // Based on Tremor Raw RadioGroup [v0.0.0]
 
@@ -13,13 +13,13 @@ const RadioGroup = React.forwardRef<
 >(({ className, ...props }, forwardedRef) => {
   return (
     <RadioGroupPrimitives.Root
+      className={cx('grid gap-2', className)}
       ref={forwardedRef}
-      className={cx("grid gap-2", className)}
       {...props}
     />
   )
 })
-RadioGroup.displayName = "RadioGroup"
+RadioGroup.displayName = 'RadioGroup'
 
 const RadioGroupItem = React.forwardRef<
   React.ElementRef<typeof RadioGroupPrimitives.Item>,
@@ -30,23 +30,23 @@ const RadioGroupItem = React.forwardRef<
   const Icon = icon
   return (
     <RadioGroupPrimitives.Item
-      ref={forwardedRef}
       className={cx(
-        "group relative flex size-8 appearance-none items-center justify-center outline-none",
-        className,
+        'group relative flex size-8 appearance-none items-center justify-center outline-none',
+        className
       )}
+      ref={forwardedRef}
       {...props}
     >
       <div
         className={cx(
           // base
-          "flex size-full shrink-0 items-center justify-center rounded-lg text-gray-700 dark:text-gray-400",
+          'flex size-full shrink-0 items-center justify-center rounded-lg text-gray-700 dark:text-gray-400',
           // background color
-          "bg-transparent",
+          'bg-transparent',
           // checked
-          "group-data-[state=checked]:bg-indigo-50 group-data-[state=checked]:text-indigo-600 dark:group-data-[state=checked]:bg-indigo-500/20 dark:group-data-[state=checked]:text-indigo-300",
+          'group-data-[state=checked]:bg-indigo-50 group-data-[state=checked]:text-indigo-600 dark:group-data-[state=checked]:bg-indigo-500/20 dark:group-data-[state=checked]:text-indigo-300',
           // focus
-          focusRing,
+          focusRing
         )}
       >
         <Icon className="size-4 text-inherit" />
@@ -54,7 +54,7 @@ const RadioGroupItem = React.forwardRef<
     </RadioGroupPrimitives.Item>
   )
 })
-RadioGroupItem.displayName = "RadioGroupItem"
+RadioGroupItem.displayName = 'RadioGroupItem'
 
 export { RadioGroup, RadioGroupItem }
 
@@ -72,32 +72,22 @@ const ThemeSwitch = () => {
 
   return (
     <RadioGroup
-      value={theme}
+      className="flex gap-1"
       onValueChange={(value) => {
         setTheme(value)
       }}
-      className="flex gap-1"
+      value={theme}
     >
       <RadioGroupItem
         aria-label="Switch to System Mode"
         icon={RiComputerLine}
-        value="system"
         id="system"
+        value="system"
       />
 
-      <RadioGroupItem
-        aria-label="Switch to Light Mode"
-        icon={RiSunLine}
-        value="light"
-        id="light"
-      />
+      <RadioGroupItem aria-label="Switch to Light Mode" icon={RiSunLine} id="light" value="light" />
 
-      <RadioGroupItem
-        aria-label="Switch to Dark Mode"
-        icon={RiMoonLine}
-        value="dark"
-        id="dark"
-      />
+      <RadioGroupItem aria-label="Switch to Dark Mode" icon={RiMoonLine} id="dark" value="dark" />
     </RadioGroup>
   )
 }

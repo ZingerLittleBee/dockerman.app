@@ -1,4 +1,4 @@
-import { InstaxImage } from "./InstaxImage"
+import { InstaxImage } from './InstaxImage'
 
 export default function TeamGallery() {
   return (
@@ -6,74 +6,74 @@ export default function TeamGallery() {
       aria-labelledby="teamwork-title"
       className="mx-auto mt-5 max-w-4xl animate-slide-up-fade"
       style={{
-        animationDuration: "600ms",
-        animationDelay: "200ms",
-        animationFillMode: "backwards",
+        animationDuration: '600ms',
+        animationDelay: '200ms',
+        animationFillMode: 'backwards'
       }}
     >
       <div className="mt-20">
         <div className="flex w-full flex-col items-center justify-between md:flex-row">
           <InstaxImage
-            className="w-[25rem] -rotate-6 sm:-ml-10"
-            src="/images/working.webp"
             alt="Two employees working with computers"
-            width={640}
-            height={427}
             caption="At Database we use computers"
+            className="w-[25rem] -rotate-6 sm:-ml-10"
+            height={427}
+            src="/images/working.webp"
+            width={640}
           />
           <InstaxImage
-            className="w-[15rem] rotate-3"
-            src="/images/workplace.webp"
             alt="Office with a phone booth"
-            width={640}
-            height={853}
             caption="Our phone booths are nuts"
+            className="w-[15rem] rotate-3"
+            height={853}
+            src="/images/workplace.webp"
+            width={640}
           />
           <InstaxImage
-            className="-mr-10 w-[15rem] rotate-1"
-            src="/images/home.webp"
             alt="Picture of the Fraumunster Zurich"
-            width={640}
-            height={960}
             caption="Home sweet home"
+            className="-mr-10 w-[15rem] rotate-1"
+            height={960}
+            src="/images/home.webp"
+            width={640}
           />
         </div>
         <div className="mt-8 hidden w-full justify-between gap-4 md:flex">
           <InstaxImage
-            className="-ml-16 w-[25rem] rotate-1"
-            src="/images/break.webp"
             alt="Team having a break in the lunch room"
-            width={640}
-            height={360}
             caption="Sometimes we take a break"
-          />
-          <InstaxImage
-            className="-mt-10 w-[15rem] -rotate-3"
-            src="/images/cool.webp"
-            alt="Personw with headphones"
+            className="-ml-16 w-[25rem] rotate-1"
+            height={360}
+            src="/images/break.webp"
             width={640}
-            height={965}
-            caption="Robin handels the playlist"
           />
           <InstaxImage
-            className="-mr-20 -mt-2 w-[30rem] rotate-[8deg]"
-            src="/images/release.webp"
+            alt="Personw with headphones"
+            caption="Robin handels the playlist"
+            className="-mt-10 w-[15rem] -rotate-3"
+            height={965}
+            src="/images/cool.webp"
+            width={640}
+          />
+          <InstaxImage
             alt="Picture of a party with confetti"
-            width={1920}
-            height={1281}
             caption="v1.0 Release party. Our US intern, Mike, had his first alcohol-free beer"
+            className="-mt-2 -mr-20 w-[30rem] rotate-[8deg]"
+            height={1281}
+            src="/images/release.webp"
+            width={1920}
           />
         </div>
       </div>
       <div className="mt-28">
         <div className="flex w-full flex-col items-center justify-between md:flex-row">
           <InstaxImage
-            className="w-full rotate-1"
-            src="/images/founders.webp"
             alt=" Join Database, be yourself."
-            width={1819}
-            height={998}
             caption=" Join Database, be yourself."
+            className="w-full rotate-1"
+            height={998}
+            src="/images/founders.webp"
+            width={1819}
           />
         </div>
       </div>
