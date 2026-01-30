@@ -1,6 +1,16 @@
+'use client'
+
+import { useParams } from 'next/navigation'
+import { useTranslation } from '@/lib/i18n/client'
+import { type Locale } from '@/lib/i18n'
 import HeroImage from './HeroImage'
 import TrackedHeroButton from './TrackedHeroButton'
+
 export default function Hero() {
+  const params = useParams()
+  const locale = (params.locale as Locale) || 'en'
+  const { t } = useTranslation(locale)
+
   return (
     <section
       aria-labelledby="hero-title"
@@ -11,13 +21,14 @@ export default function Hero() {
         id="hero-title"
         style={{ animationDuration: '700ms' }}
       >
-        Modern Docker <br /> management simplified
+        {t('hero.title')} <br />
+        {t('hero.titleBreak')}
       </h1>
       <p
         className="mt-6 max-w-lg animate-slide-up-fade text-gray-700 text-lg dark:text-gray-400"
         style={{ animationDuration: '900ms' }}
       >
-        A lightweight, powerful Docker management UI focused on simplicity and performance.
+        {t('hero.description')}
       </p>
       <div
         className="mt-8 flex w-full animate-slide-up-fade justify-center gap-3 px-3 sm:flex-row"
