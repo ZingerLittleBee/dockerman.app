@@ -71,5 +71,264 @@
   },
   "common": {
     "download": "Download"
+  },
+  "about": {
+    "badge": "about",
+    "title": "Building the Docker management tool we always wanted",
+    "description": "We're a team of developers and designers who believe that managing Docker containers should be simple, intuitive, and efficient.",
+    "mission": {
+      "title": "Our Mission",
+      "p1": "Dockerman was born from our own frustrations with existing Docker management tools. We wanted something that was fast, cross-platform, and focused on developer productivity.",
+      "p2": "Our mission is to make container management accessible to everyone, from individual developers to large teams, while maintaining the power and flexibility that Docker provides."
+    },
+    "team": {
+      "title": "Meet the Team",
+      "role": "Full Stack Developer",
+      "bio": "Coding in Rust, TypeScript & Flutter | Turning coffee into software magic | Building to bridge the gap between technology & humanity."
+    },
+    "values": {
+      "title": "Our Values",
+      "performanceFirst": {
+        "title": "Performance First",
+        "description": "Built with Rust and Tauri for powerful performance and minimal resource usage."
+      },
+      "developerExperience": {
+        "title": "Developer Experience",
+        "description": "Intuitive interface designed for developers, by developers."
+      },
+      "privacyFocused": {
+        "title": "Privacy Focused",
+        "description": "Your data stays local. We believe in transparency and user privacy."
+      }
+    },
+    "connect": {
+      "title": "Stay Connected",
+      "description": "Follow Dockerman's development and be the first to know about new features and updates.",
+      "followGithub": "Follow on GitHub",
+      "followX": "Follow on X"
+    }
+  },
+  "download": {
+    "badge": "download",
+    "title": "Download for your platform",
+    "description": "Choose the version that matches your system. All downloads are available on",
+    "releasesPage": "Releases Page",
+    "homebrew": "Install with Homebrew",
+    "comingSoon": "Coming Soon",
+    "preview": "Preview",
+    "platforms": {
+      "macos": "macOS",
+      "windows": "Windows",
+      "linux": "Linux"
+    },
+    "options": {
+      "universal": "Universal (M1/Intel)",
+      "windows64": "Windows (64-bit)",
+      "appimage": "AppImage (64-bit)",
+      "deb": "Debian / Ubuntu",
+      "rpm": "Red Hat / Fedora"
+    }
+  },
+  "snapshot": {
+    "badge": "POWERFUL",
+    "title": "Docker Management,",
+    "titleBreak": "Simplified",
+    "description": "A modern, lightweight Docker management UI that focuses on simplicity and performance. Monitor and manage your containers with cross-platform desktop integration.",
+    "tabs": {
+      "dashboard": "Dashboard",
+      "terminal": "Terminal",
+      "processes": "Processes",
+      "inspect": "Inspect",
+      "stats": "Stats",
+      "logs": "Logs",
+      "ssh": "SSH",
+      "build": "Build",
+      "events": "Events",
+      "file": "File",
+      "imageAnalysis": "Image Analysis",
+      "compose": "Compose"
+    },
+    "features": {
+      "realTimeMonitoring": {
+        "name": "Real-time Monitoring",
+        "description": "Monitor container CPU, memory, network, and I/O metrics in real-time with powerful performance."
+      },
+      "containerManagement": {
+        "name": "Container Management",
+        "description": "Start, stop, inspect, and manage containers with an intuitive interface. Access integrated terminal and process list."
+      },
+      "remoteConnectivity": {
+        "name": "Remote Connectivity",
+        "description": "Connect to remote Docker instances securely via SSH. Manage containers across multiple hosts from a single interface."
+      },
+      "powerfulPerformance": {
+        "name": "Powerful Performance",
+        "description": "Built with Tauri for lightning-fast startup and minimal resource usage while managing your Docker environment."
+      }
+    }
+  },
+  "global": {
+    "badge": "Modern Docker Management",
+    "title": "Lightweight",
+    "titleBreak": "Docker Management",
+    "titleMobile": "Powerful Lightweight",
+    "features": {
+      "powerfulPerformance": {
+        "name": "Powerful Performance",
+        "description": "Built with Tauri and Rust for lightning-fast powerful desktop experience."
+      },
+      "realTimeMonitoring": {
+        "name": "Real-time Monitoring",
+        "description": "Monitor container stats, logs, and resource usage in real-time."
+      },
+      "containerManagement": {
+        "name": "Container Management",
+        "description": "Easily manage containers with detailed inspection and terminal access."
+      }
+    }
+  },
+  "privacy": {
+    "badge": "privacy",
+    "title": "Privacy Policy",
+    "description": "We take your privacy seriously. Here's how we handle your data.",
+    "sections": {
+      "dataCollection": {
+        "title": "Data Collection",
+        "content": "Dockerman is a desktop application that runs locally on your machine. We do not collect, store, or transmit any personal information or usage data. All container and image data is processed locally through your Docker daemon."
+      },
+      "localStorage": {
+        "title": "Local Storage",
+        "content": "Any application settings or preferences are stored locally on your device. These settings are never transmitted to external servers and remain under your control."
+      },
+      "thirdParty": {
+        "title": "Third-Party Services",
+        "content": "Dockerman interacts only with your local Docker daemon. We do not integrate with any third-party services or analytics platforms. Your container data and usage patterns remain private and local to your system."
+      },
+      "updates": {
+        "title": "Updates",
+        "content": "When checking for application updates, Dockerman only connects to our release repository to verify the latest version. No personal information is transmitted during this process."
+      },
+      "contact": {
+        "title": "Contact",
+        "content": "If you have any questions about our privacy practices, please feel free to reach out through our support channels."
+      }
+    }
+  },
+  "terms": {
+    "badge": "terms",
+    "title": "Terms of Use",
+    "description": "Please read these terms carefully before using Dockerman. By using Dockerman, you agree to these terms.",
+    "sections": {
+      "acceptance": {
+        "title": "Acceptance of Terms",
+        "content": "By downloading, installing, or using Dockerman, you acknowledge that you have read, understood, and agree to be bound by these Terms of Use. If you do not agree to these terms, do not use the software."
+      },
+      "license": {
+        "title": "License Grant",
+        "intro": "Subject to your compliance with these Terms, we grant you a limited, non-exclusive, non-transferable, non-sublicensable license to:",
+        "items": [
+          "Download and install Dockerman on your devices",
+          "Use Dockerman for personal or business purposes",
+          "Receive software updates when available"
+        ]
+      },
+      "restrictions": {
+        "title": "Restrictions",
+        "intro": "You may not:",
+        "items": [
+          "Copy, modify, or create derivative works of the software",
+          "Reverse engineer, decompile, or disassemble the software",
+          "Remove or alter any proprietary notices in the software",
+          "Redistribute, sell, rent, lease, or sublicense the software",
+          "Use the software for any unlawful purpose"
+        ]
+      },
+      "intellectualProperty": {
+        "title": "Intellectual Property",
+        "content": "Dockerman and all related intellectual property rights are and shall remain the exclusive property of us and our licensors. All rights not expressly granted in these Terms are reserved."
+      },
+      "disclaimer": {
+        "title": "Disclaimer",
+        "content": "THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND. TO THE MAXIMUM EXTENT PERMITTED BY LAW, WE DISCLAIM ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT."
+      },
+      "updatesToTerms": {
+        "title": "Updates to Terms",
+        "content": "We reserve the right to modify these Terms at any time. We will notify you of any material changes by posting the updated Terms on our website. Your continued use of Dockerman after such modifications constitutes your acceptance of the updated Terms."
+      },
+      "contact": {
+        "title": "Contact",
+        "content": "If you have any questions about these Terms, please contact us at"
+      }
+    }
+  },
+  "dpa": {
+    "badge": "DPA",
+    "title": "Data Processing Agreement",
+    "description": "This agreement outlines how Dockerman processes and protects your data.",
+    "sections": {
+      "overview": {
+        "title": "Data Processing Overview",
+        "intro": "Dockerman processes data in two main categories:",
+        "items": [
+          "Local data: processed exclusively on your device",
+          "Account data: processed on our secure servers for user authentication and subscription management"
+        ]
+      },
+      "categories": {
+        "title": "Data Categories",
+        "localData": "Local Data:",
+        "localItems": [
+          "Docker container configurations and settings",
+          "Container logs and metrics",
+          "Local application preferences",
+          "System resource statistics"
+        ],
+        "accountData": "Account Data:",
+        "accountItems": [
+          "Email address and account credentials",
+          "Subscription status and payment information",
+          "Usage analytics for subscription features",
+          "Account preferences and settings"
+        ]
+      },
+      "security": {
+        "title": "Data Storage and Security",
+        "intro": "We implement industry-standard security measures to protect your data:",
+        "items": [
+          "Encryption of all data in transit and at rest",
+          "Secure authentication and authorization protocols",
+          "Regular security audits and updates",
+          "Compliance with data protection regulations"
+        ]
+      },
+      "purposes": {
+        "title": "Data Processing Purposes",
+        "intro": "We process your data for the following purposes:",
+        "items": [
+          "User authentication and account management",
+          "Subscription and payment processing",
+          "Providing and improving our services",
+          "Technical support and communication"
+        ]
+      },
+      "retention": {
+        "title": "Data Retention",
+        "content": "We retain account data for as long as your account is active or as needed to provide services. You can request data deletion by contacting our support team. Local data remains under your control and is stored only on your device."
+      },
+      "rights": {
+        "title": "Your Rights",
+        "intro": "You have the right to:",
+        "items": [
+          "Access your personal data",
+          "Request correction of inaccurate data",
+          "Request deletion of your account data",
+          "Export your account information"
+        ]
+      },
+      "contact": {
+        "title": "Contact",
+        "content": "For any questions about data processing or to exercise your rights, please contact our Data Protection Officer at"
+      }
+    }
   }
 }
