@@ -102,8 +102,9 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
       // 计算滚动速度 (px/ms)
       const scrollSpeed = timeDelta > 0 ? scrollDelta / timeDelta : 0
 
-      // 快速滚动阈值：大于 2 px/ms (即 2000px/s)
-      const FAST_SCROLL_SPEED_THRESHOLD = 2
+      // 快速滚动阈值：大于 8 px/ms (即 8000px/s)
+      // 正常滚动约 3 px/ms，快速滑动/滚轮可达 10+ px/ms
+      const FAST_SCROLL_SPEED_THRESHOLD = 8
 
       if (scrollSpeed > FAST_SCROLL_SPEED_THRESHOLD) {
         if (isMounted) setIsFastScrolling(true)
