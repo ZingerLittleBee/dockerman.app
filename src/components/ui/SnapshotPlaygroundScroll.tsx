@@ -113,16 +113,20 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
       })
 
       // 为每张图片添加动画
+      // 每张图片有3个阶段：进入(80%)、中间放大(80%→100%)、离开(100%→80%)
       imageElements.forEach((el, index) => {
         if (index === 0) {
-          // 第一张：从中间滑到左边，同时缩小
-          tl.fromTo(el, { xPercent: 0, scale: 1 }, { xPercent: -100, scale: 0.8, ease: 'none' }, 0)
+          // 第一张：先放大，再滑到左边并缩小
+          tl.fromTo(el, { scale: 0.8 }, { scale: 1, ease: 'none' }, 0)
+          tl.to(el, { xPercent: -100, scale: 0.8, ease: 'none' }, 0.5)
         } else if (index === screenshots.length - 1) {
-          // 最后一张：从右边滑到中间，同时放大
-          tl.fromTo(el, { xPercent: 100, scale: 0.8 }, { xPercent: 0, scale: 1, ease: 'none' }, index - 0.5)
+          // 最后一张：从右边滑到中间(80%)，然后放大到100%
+          tl.fromTo(el, { xPercent: 100, scale: 0.8 }, { xPercent: 0, scale: 0.8, ease: 'none' }, index - 0.5)
+          tl.to(el, { scale: 1, ease: 'none' }, index)
         } else {
-          // 中间的：从右边滑入并放大，再滑到左边并缩小
-          tl.fromTo(el, { xPercent: 100, scale: 0.8 }, { xPercent: 0, scale: 1, ease: 'none' }, index - 0.5)
+          // 中间的：进入(80%)、放大(100%)、离开(80%)
+          tl.fromTo(el, { xPercent: 100, scale: 0.8 }, { xPercent: 0, scale: 0.8, ease: 'none' }, index - 0.5)
+          tl.to(el, { scale: 1, ease: 'none' }, index)
           tl.to(el, { xPercent: -100, scale: 0.8, ease: 'none' }, index + 0.5)
         }
       })
