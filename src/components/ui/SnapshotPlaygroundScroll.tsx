@@ -113,33 +113,18 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
       })
 
       // 为每张图片添加动画
-      // 图片固定 85% scale，新图片从右侧滑入覆盖旧图片，旧图片淡出
+      // 所有图片堆叠在一起，新图片从右边逐渐揭示覆盖旧图片
       imageElements.forEach((el, index) => {
+        // 所有图片固定在中间，使用 clipPath 实现揭示效果
+        gsap.set(el, { scale: 0.85, xPercent: 0 })
+
         if (index === 0) {
-          // 第一张：始终保持 85% scale，当下一张进入时淡出
-          gsap.set(el, { scale: 0.85, xPercent: 0, opacity: 1 })
-          // 当第二张图片进入时，第一张淡出
-          if (screenshots.length > 1) {
-            tl.to(el, { opacity: 0, ease: 'none' }, 0)
-          }
-        } else if (index === screenshots.length - 1) {
-          // 最后一张：从右边滑入，不需要淡出
-          tl.fromTo(
-            el,
-            { xPercent: 100, scale: 0.85, opacity: 1 },
-            { xPercent: 0, scale: 0.85, opacity: 1, ease: 'none' },
-            index - 1
-          )
+          // 第一张图片：初始完全显示
+          gsap.set(el, { clipPath: 'inset(0 0% 0 0)' })
         } else {
-          // 中间图片：从右边滑入，下一张进入时淡出
-          tl.fromTo(
-            el,
-            { xPercent: 100, scale: 0.85, opacity: 1 },
-            { xPercent: 0, scale: 0.85, opacity: 1, ease: 'none' },
-            index - 1
-          )
-          // 当下一张图片进入时，当前图片淡出
-          tl.to(el, { opacity: 0, ease: 'none' }, index)
+          // 其他图片：初始完全隐藏，滚动时从左向右揭示
+          gsap.set(el, { clipPath: 'inset(0 0 0 100%)' })
+          tl.to(el, { clipPath: 'inset(0 0 0 0%)', ease: 'none' }, index - 1)
         }
       })
 
