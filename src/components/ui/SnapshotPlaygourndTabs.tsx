@@ -4,6 +4,7 @@ import type { RemixiconComponentType } from '@remixicon/react'
 import clsx from 'clsx'
 import { motion } from 'motion/react'
 import Image from 'next/image'
+import posthog from 'posthog-js'
 import { memo, useCallback, useEffect, useState } from 'react'
 
 interface Screenshot {
@@ -39,7 +40,16 @@ function SnapshotPlaygourndTabs({ screenshots }: { screenshots: Screenshot[] }) 
       className="mt-14 grid grid-cols-12 gap-8 md:gap-12"
       onValueChange={(value) => {
         const index = screenshots.findIndex((s) => s.label === value)
-        if (index !== -1) setActiveIndex(index)
+        if (index !== -1) {
+          // Track feature tab switch
+          posthog.capture('feature_tab_switched', {
+            from_tab: screenshots[activeIndex]?.label,
+            to_tab: value,
+            to_tab_index: index,
+            location: 'snapshot_playground'
+          })
+          setActiveIndex(index)
+        }
       }}
       orientation="vertical"
       value={screenshots[activeIndex]?.label}

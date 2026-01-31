@@ -133,18 +133,39 @@ export function Navigation() {
               <Link
                 className="px-2 py-1 text-gray-900 dark:text-gray-50"
                 href={`/${locale}`}
+                onClick={() => {
+                  posthog.capture('nav_link_clicked', {
+                    link_text: t('nav.home'),
+                    link_url: `/${locale}`,
+                    location: 'navbar_desktop'
+                  })
+                }}
               >
                 {t('nav.home')}
               </Link>
               <Link
                 className="px-2 py-1 text-gray-900 dark:text-gray-50"
                 href={`/${locale}/download`}
+                onClick={() => {
+                  posthog.capture('nav_link_clicked', {
+                    link_text: t('nav.download'),
+                    link_url: `/${locale}/download`,
+                    location: 'navbar_desktop'
+                  })
+                }}
               >
                 {t('nav.download')}
               </Link>
               <Link
                 className="px-2 py-1 text-gray-900 dark:text-gray-50"
                 href={`/${locale}/changelog`}
+                onClick={() => {
+                  posthog.capture('nav_link_clicked', {
+                    link_text: t('nav.changelog'),
+                    link_url: `/${locale}/changelog`,
+                    location: 'navbar_desktop'
+                  })
+                }}
               >
                 {t('nav.changelog')}
               </Link>
@@ -197,15 +218,48 @@ export function Navigation() {
         >
           <ul className="space-y-4 font-medium">
             <li onClick={() => setOpen(false)}>
-              <a href={`/${locale}`}>{t('nav.home')}</a>
+              <a
+                href={`/${locale}`}
+                onClick={() => {
+                  posthog.capture('nav_link_clicked', {
+                    link_text: t('nav.home'),
+                    link_url: `/${locale}`,
+                    location: 'navbar_mobile'
+                  })
+                }}
+              >
+                {t('nav.home')}
+              </a>
             </li>
 
             <li onClick={() => setOpen(false)}>
-              <a href={`/${locale}/download`}>{t('nav.download')}</a>
+              <a
+                href={`/${locale}/download`}
+                onClick={() => {
+                  posthog.capture('nav_link_clicked', {
+                    link_text: t('nav.download'),
+                    link_url: `/${locale}/download`,
+                    location: 'navbar_mobile'
+                  })
+                }}
+              >
+                {t('nav.download')}
+              </a>
             </li>
 
             <li onClick={() => setOpen(false)}>
-              <Link href={`/${locale}/changelog`}>{t('nav.changelog')}</Link>
+              <Link
+                href={`/${locale}/changelog`}
+                onClick={() => {
+                  posthog.capture('nav_link_clicked', {
+                    link_text: t('nav.changelog'),
+                    link_url: `/${locale}/changelog`,
+                    location: 'navbar_mobile'
+                  })
+                }}
+              >
+                {t('nav.changelog')}
+              </Link>
             </li>
           </ul>
         </nav>
