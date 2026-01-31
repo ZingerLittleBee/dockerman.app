@@ -141,7 +141,7 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
       <div className="relative flex min-h-[calc(100vh-100px)] flex-col pt-8" ref={containerRef}>
         {/* 图片区域 */}
         <div className="flex w-full flex-1 items-center justify-center overflow-hidden" ref={imageAreaRef}>
-          <div className="relative w-full">
+          <div className="relative w-full" style={{ aspectRatio: `${IMAGE_WIDTH} / ${IMAGE_HEIGHT}` }}>
             {screenshots.map((screenshot, index) => {
               const isLoaded = loadedImages.has(index)
 
@@ -153,46 +153,36 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
                   )}
                   key={screenshot.label}
                 >
-                  <div className="overflow-hidden">
-                    <div className="relative">
-                      {!isLoaded && (
-                        <div
-                          className="absolute inset-0 flex animate-pulse items-center justify-center bg-gray-100 dark:bg-gray-800"
-                          style={{
-                            aspectRatio: `${IMAGE_WIDTH} / ${IMAGE_HEIGHT}`
-                          }}
-                        >
-                          <div className="flex flex-col items-center gap-3">
-                            <div className="size-12 rounded-lg bg-gray-200 dark:bg-gray-700" />
-                            <div className="h-3 w-24 rounded bg-gray-200 dark:bg-gray-700" />
-                          </div>
+                  <div className="relative h-full w-full">
+                    {!isLoaded && (
+                      <div className="absolute inset-0 flex animate-pulse items-center justify-center bg-gray-100 dark:bg-gray-800">
+                        <div className="flex flex-col items-center gap-3">
+                          <div className="size-12 rounded-lg bg-gray-200 dark:bg-gray-700" />
+                          <div className="h-3 w-24 rounded bg-gray-200 dark:bg-gray-700" />
                         </div>
-                      )}
+                      </div>
+                    )}
 
-                      <Image
-                        alt={screenshot.alt}
-                        className={clsx(
-                          'block w-full dark:shadow-indigo-600/10',
-                          isLoaded ? 'opacity-100' : 'opacity-0'
-                        )}
-                        height={IMAGE_HEIGHT}
-                        onLoad={() => handleImageLoad(index)}
-                        priority={index < 2}
-                        quality={70}
-                        src={screenshot.src}
-                        width={IMAGE_WIDTH}
-                      />
-                    </div>
+                    <Image
+                      alt={screenshot.alt}
+                      className={clsx(
+                        'block h-full w-full object-cover',
+                        isLoaded ? 'opacity-100' : 'opacity-0'
+                      )}
+                      height={IMAGE_HEIGHT}
+                      onLoad={() => handleImageLoad(index)}
+                      priority={index < 2}
+                      quality={70}
+                      src={screenshot.src}
+                      width={IMAGE_WIDTH}
+                    />
                   </div>
                 </div>
               )
             })}
 
             {isInitialLoad && (
-              <div
-                className="absolute inset-0 z-20 flex items-center justify-center bg-slate-50/80 backdrop-blur-sm dark:bg-gray-900/80"
-                style={{ aspectRatio: `${IMAGE_WIDTH} / ${IMAGE_HEIGHT}` }}
-              >
+              <div className="absolute inset-0 z-20 flex items-center justify-center bg-slate-50/80 backdrop-blur-sm dark:bg-gray-900/80">
                 <div className="flex flex-col items-center gap-4">
                   <div className="size-8 animate-spin rounded-full border-4 border-indigo-200 border-t-indigo-600 dark:border-indigo-800 dark:border-t-indigo-400" />
                   <span className="font-medium text-gray-600 text-sm dark:text-gray-400">
