@@ -5,7 +5,6 @@ import type { RemixiconComponentType } from '@remixicon/react'
 import clsx from 'clsx'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { useLenis } from 'lenis/react'
 import Image from 'next/image'
 import posthog from 'posthog-js'
 import { memo, useCallback, useEffect, useRef, useState } from 'react'
@@ -19,7 +18,7 @@ interface Screenshot {
 
 const IMAGE_WIDTH = 2560
 const IMAGE_HEIGHT = 1760
-const SCROLL_HEIGHT_PER_ITEM = 60 // vh - reduced from 80 for smoother experience
+const SCROLL_HEIGHT_PER_ITEM = 60 // vh
 const HEADER_OFFSET = 100 // px
 
 gsap.registerPlugin(ScrollTrigger)
@@ -27,16 +26,11 @@ gsap.registerPlugin(ScrollTrigger)
 function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }) {
   const wrapperRef = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
-  const tabListRef = useRef<HTMLDivElement>(null)
   const imageAreaRef = useRef<HTMLDivElement>(null)
 
-  const [activeIndex, setActiveIndex] = useState(0)
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set())
   const [isInitialLoad, setIsInitialLoad] = useState(true)
   const lastIndexRef = useRef(0)
-  const isNavigatingRef = useRef(false) // Track if navigating via tab click
-
-  const lenis = useLenis()
 
   // 监听导航链接点击 - 修复同页面导航时的白屏问题
   // 当用户在 SnapshotPlayground 滚动区域点击 Home/Logo 时，需要重置 ScrollTrigger 状态
@@ -81,72 +75,55 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
     })
   }, [])
 
-  const handleTabClick = useCallback(
-    (index: number) => {
-      if (!(wrapperRef.current && lenis)) return
+  useGSAP(
+    () => {
+      if (!(wrapperRef.current && containerRef.current && imageAreaRef.current)) return
 
-      isNavigatingRef.current = true
-      setActiveIndex(index)
-      lastIndexRef.current = index
+      const totalHeight = screenshots.length * window.innerHeight * (SCROLL_HEIGHT_PER_ITEM / 100)
+      const imageElements = imageAreaRef.current.querySelectorAll('.image-slide')
 
-      const wrapperTop = wrapperRef.current.offsetTop
-      const totalScrollHeight =
-        screenshots.length * window.innerHeight * (SCROLL_HEIGHT_PER_ITEM / 100)
-      const targetScroll = wrapperTop + (index / screenshots.length) * totalScrollHeight
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: wrapperRef.current,
+          start: `top ${HEADER_OFFSET}px`,
+          end: `+=${totalHeight}`,
+          pin: containerRef.current,
+          pinSpacing: true,
+          scrub: true,
+          onUpdate: (self) => {
+            const newIndex = Math.min(
+              Math.floor(self.progress * screenshots.length),
+              screenshots.length - 1
+            )
 
-      // 使用 Lenis 的 scrollTo 实现平滑滚动
-      lenis.scrollTo(targetScroll, {
-        duration: 1.2,
-        easing: (t: number) => 1 - (1 - t) ** 3, // easeOutCubic
-        onComplete: () => {
-          isNavigatingRef.current = false
+            if (lastIndexRef.current !== newIndex) {
+              const fromLabel = screenshots[lastIndexRef.current]?.label
+              lastIndexRef.current = newIndex
+
+              posthog.capture('feature_tab_switched', {
+                from_tab: fromLabel,
+                to_tab: screenshots[newIndex]?.label,
+                to_tab_index: newIndex,
+                trigger: 'scroll',
+                location: 'snapshot_playground'
+              })
+            }
+          }
         }
       })
 
-      posthog.capture('feature_tab_switched', {
-        from_tab: screenshots[lastIndexRef.current]?.label,
-        to_tab: screenshots[index]?.label,
-        to_tab_index: index,
-        trigger: 'click',
-        location: 'snapshot_playground'
-      })
-    },
-    [screenshots, lenis]
-  )
-
-  useGSAP(
-    () => {
-      if (!(wrapperRef.current && containerRef.current)) return
-
-      const totalHeight = screenshots.length * window.innerHeight * (SCROLL_HEIGHT_PER_ITEM / 100)
-
-      ScrollTrigger.create({
-        trigger: wrapperRef.current,
-        start: `top ${HEADER_OFFSET}px`,
-        end: `+=${totalHeight}`,
-        pin: containerRef.current,
-        pinSpacing: true,
-        onUpdate: (self) => {
-          if (isNavigatingRef.current) return
-
-          const newIndex = Math.min(
-            Math.floor(self.progress * screenshots.length),
-            screenshots.length - 1
-          )
-
-          if (lastIndexRef.current !== newIndex) {
-            const fromLabel = screenshots[lastIndexRef.current]?.label
-            lastIndexRef.current = newIndex
-            setActiveIndex(newIndex)
-
-            posthog.capture('feature_tab_switched', {
-              from_tab: fromLabel,
-              to_tab: screenshots[newIndex]?.label,
-              to_tab_index: newIndex,
-              trigger: 'scroll',
-              location: 'snapshot_playground'
-            })
-          }
+      // 为每张图片添加动画
+      imageElements.forEach((el, index) => {
+        if (index === 0) {
+          // 第一张：从中间滑到左边
+          tl.fromTo(el, { xPercent: 0 }, { xPercent: -100, ease: 'none' }, 0)
+        } else if (index === screenshots.length - 1) {
+          // 最后一张：从右边滑到中间
+          tl.fromTo(el, { xPercent: 100 }, { xPercent: 0, ease: 'none' }, index - 0.5)
+        } else {
+          // 中间的：从右边滑入，再滑到左边
+          tl.fromTo(el, { xPercent: 100 }, { xPercent: 0, ease: 'none' }, index - 0.5)
+          tl.to(el, { xPercent: -100, ease: 'none' }, index + 0.5)
         }
       })
 
@@ -162,46 +139,17 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
   return (
     <div ref={wrapperRef}>
       <div className="relative flex min-h-[calc(100vh-100px)] flex-col pt-8" ref={containerRef}>
-        {/* 顶部水平 Tab 栏 */}
-        <div className="mb-6 flex justify-center overflow-x-auto px-4" ref={tabListRef}>
-          <div className="flex gap-2 rounded-xl bg-gray-100/80 p-1.5 dark:bg-white/5">
-            {screenshots.map((screenshot, index) => {
-              const isActive = activeIndex === index
-
-              return (
-                <button
-                  className={clsx(
-                    'relative flex items-center gap-2 whitespace-nowrap rounded-lg px-4 py-2.5 font-medium text-sm',
-                    isActive
-                      ? 'bg-white text-gray-900 shadow-sm dark:bg-gray-800 dark:text-white'
-                      : 'text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white'
-                  )}
-                  key={screenshot.label}
-                  onClick={() => handleTabClick(index)}
-                  type="button"
-                >
-                  <screenshot.icon className="size-4" />
-                  <span>{screenshot.label}</span>
-                </button>
-              )
-            })}
-          </div>
-        </div>
-
         {/* 图片区域 */}
-        <div className="flex w-full items-center justify-center px-4" ref={imageAreaRef}>
-          <div className="grid w-full max-w-6xl">
+        <div className="flex w-full flex-1 items-center justify-center overflow-hidden px-4" ref={imageAreaRef}>
+          <div className="relative w-full max-w-6xl">
             {screenshots.map((screenshot, index) => {
-              const isActive = activeIndex === index
               const isLoaded = loadedImages.has(index)
 
               return (
                 <div
                   className={clsx(
-                    'col-start-1 row-start-1',
-                    isActive
-                      ? 'pointer-events-auto z-10 opacity-100'
-                      : 'pointer-events-none z-0 opacity-0'
+                    'image-slide',
+                    index === 0 ? 'relative' : 'absolute inset-0'
                   )}
                   key={screenshot.label}
                 >
@@ -242,7 +190,7 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
 
             {isInitialLoad && (
               <div
-                className="z-20 col-start-1 row-start-1 flex items-center justify-center rounded-xl bg-slate-50/80 backdrop-blur-sm dark:bg-gray-900/80"
+                className="absolute inset-0 z-20 flex items-center justify-center rounded-xl bg-slate-50/80 backdrop-blur-sm dark:bg-gray-900/80"
                 style={{ aspectRatio: `${IMAGE_WIDTH} / ${IMAGE_HEIGHT}` }}
               >
                 <div className="flex flex-col items-center gap-4">
