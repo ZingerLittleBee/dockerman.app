@@ -2,25 +2,22 @@
 
 import i18next from 'i18next'
 import { usePathname } from 'next/navigation'
-import { initReactI18next, useTranslation as useTranslationOrg } from 'react-i18next'
 import { useEffect } from 'react'
-import { type Locale, getOptions, locales, defaultLocale } from './settings'
-
+import { initReactI18next, useTranslation as useTranslationOrg } from 'react-i18next'
 // Import translations synchronously to avoid hydration mismatch
 import en from '@/locales/en.json'
 import zh from '@/locales/zh.json'
+import { defaultLocale, getOptions, type Locale, locales } from './settings'
 
 const resources = {
   en: { translation: en },
-  zh: { translation: zh },
+  zh: { translation: zh }
 }
 
-i18next
-  .use(initReactI18next)
-  .init({
-    ...getOptions(),
-    resources,
-  })
+i18next.use(initReactI18next).init({
+  ...getOptions(),
+  resources
+})
 
 export function useLocale(): Locale {
   const pathname = usePathname()

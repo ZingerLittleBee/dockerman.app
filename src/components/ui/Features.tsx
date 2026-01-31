@@ -7,7 +7,7 @@ import { Badge } from '../Badge'
 const stats = [
   { key: 'performance', value: '~0ms' },
   { key: 'bundleSize', value: '<10MB' },
-  { key: 'memoryUsage', value: '<30MB' },
+  { key: 'memoryUsage', value: '<30MB' }
 ]
 
 export default function Features() {

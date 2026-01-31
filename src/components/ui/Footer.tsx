@@ -1,9 +1,9 @@
 'use client'
 
+import { useLocale, useTranslation } from '@/lib/i18n/client'
 import { Logo } from '../../../public/logo'
 import ThemeSwitch from '../ThemeSwitch'
 import { TrackedFooterLink } from './TrackedFooterLinks'
-import { useTranslation, useLocale } from '@/lib/i18n/client'
 
 export default function Footer() {
   const locale = useLocale()
@@ -21,9 +21,7 @@ export default function Footer() {
         external: true
       }
     ],
-    company: [
-      { name: t('footer.links.about'), href: `/${locale}/about`, external: false }
-    ],
+    company: [{ name: t('footer.links.about'), href: `/${locale}/about`, external: false }],
     legal: [
       { name: t('footer.links.privacy'), href: `/${locale}/privacy`, external: false },
       { name: t('footer.links.terms'), href: `/${locale}/terms`, external: false },
@@ -55,10 +53,10 @@ export default function Footer() {
                   {navigation.product.map((item) => (
                     <li className="w-fit" key={item.name}>
                       <TrackedFooterLink
+                        external={item.external}
                         href={item.href}
                         name={item.name}
                         section="product"
-                        external={item.external}
                       />
                     </li>
                   ))}
@@ -72,10 +70,10 @@ export default function Footer() {
                   {navigation.resources.map((item) => (
                     <li className="w-fit" key={item.name}>
                       <TrackedFooterLink
+                        external={item.external}
                         href={item.href}
                         name={item.name}
                         section="resources"
-                        external={item.external}
                       />
                     </li>
                   ))}
@@ -91,10 +89,10 @@ export default function Footer() {
                   {navigation.company.map((item) => (
                     <li className="w-fit" key={item.name}>
                       <TrackedFooterLink
+                        external={item.external}
                         href={item.href}
                         name={item.name}
                         section="company"
-                        external={item.external}
                       />
                     </li>
                   ))}
@@ -108,10 +106,10 @@ export default function Footer() {
                   {navigation.legal.map((item) => (
                     <li className="w-fit" key={item.name}>
                       <TrackedFooterLink
+                        external={item.external}
                         href={item.href}
                         name={item.name}
                         section="legal"
-                        external={item.external}
                       />
                     </li>
                   ))}
@@ -130,9 +128,7 @@ export default function Footer() {
                 <div className="absolute inset-[1px] rounded-full bg-emerald-500/20 dark:bg-emerald-600/20" />
                 <div className="absolute inset-1 rounded-full bg-emerald-600 dark:bg-emerald-500" />
               </div>
-              <span className="text-gray-700 text-xs dark:text-gray-50">
-                {t('footer.status')}
-              </span>
+              <span className="text-gray-700 text-xs dark:text-gray-50">{t('footer.status')}</span>
             </div>
           </div>
         </div>

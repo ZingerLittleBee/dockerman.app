@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslation } from '@/lib/i18n/client'
 import {
   RiDashboardLine,
   RiFileLine,
@@ -18,22 +19,21 @@ import {
   RiWindowLine
 } from '@remixicon/react'
 import { Badge } from '../Badge'
-import { useTranslation } from '@/lib/i18n/client'
-import SnapshotPlaygourndTabs from './SnapshotPlaygourndTabs'
+import SnapshotPlaygroundScroll from './SnapshotPlaygroundScroll'
 
 const screenshotConfigs = [
-  { src: '/screenshots/3.2.0/dashboard.png', labelKey: 'dashboard', icon: RiDashboardLine },
-  { src: '/screenshots/2.4.0/terminal.png', labelKey: 'terminal', icon: RiTerminalBoxLine },
-  { src: '/screenshots/2.4.0/process.png', labelKey: 'processes', icon: RiWindowLine },
-  { src: '/screenshots/2.4.0/inspect.png', labelKey: 'inspect', icon: RiInformation2Line },
-  { src: '/screenshots/2.4.0/stat.png', labelKey: 'stats', icon: RiLineChartFill },
+  { src: '/screenshots/dashboard.png', labelKey: 'dashboard', icon: RiDashboardLine },
+  { src: '/screenshots/terminal.png', labelKey: 'terminal', icon: RiTerminalBoxLine },
+  { src: '/screenshots/process.png', labelKey: 'processes', icon: RiWindowLine },
+  { src: '/screenshots/inspect.png', labelKey: 'inspect', icon: RiInformation2Line },
+  { src: '/screenshots/stats.png', labelKey: 'stats', icon: RiLineChartFill },
   { src: '/screenshots/logs.png', labelKey: 'logs', icon: RiNewsLine },
-  { src: '/screenshots/2.4.0/ssh.png', labelKey: 'ssh', icon: RiTerminalLine },
-  { src: '/screenshots/2.4.0/build-log-history.png', labelKey: 'build', icon: RiHammerLine },
+  { src: '/screenshots/ssh.png', labelKey: 'ssh', icon: RiTerminalLine },
+  { src: '/screenshots/build-history.png', labelKey: 'build', icon: RiHammerLine },
   { src: '/screenshots/event.png', labelKey: 'events', icon: RiFileList2Line },
-  { src: '/screenshots/3.0.0/file.png', labelKey: 'file', icon: RiFileLine },
-  { src: '/screenshots/3.3.0/image-analysis.png', labelKey: 'imageAnalysis', icon: RiPieChartLine },
-  { src: '/screenshots/3.4.0/compose.png', labelKey: 'compose', icon: RiStackLine }
+  { src: '/screenshots/file.png', labelKey: 'file', icon: RiFileLine },
+  { src: '/screenshots/image-analysis.png', labelKey: 'imageAnalysis', icon: RiPieChartLine },
+  { src: '/screenshots/container-compose.png', labelKey: 'compose', icon: RiStackLine }
 ]
 
 const featureConfigs = [
@@ -46,12 +46,15 @@ const featureConfigs = [
 export default function SnapshotPlaygournd() {
   const { t } = useTranslation()
 
-  const screenshots = screenshotConfigs.map((config) => ({
-    src: config.src,
-    alt: t(`snapshot.tabs.${config.labelKey}`),
-    label: t(`snapshot.tabs.${config.labelKey}`),
-    icon: config.icon
-  }))
+  const screenshots = screenshotConfigs.map((config) => {
+    const label = t(`snapshot.tabs.${config.labelKey}`)
+    return {
+      src: config.src,
+      alt: label,
+      label,
+      icon: config.icon
+    }
+  })
 
   const features = featureConfigs.map((config) => ({
     name: t(`snapshot.features.${config.key}.name`),
@@ -72,9 +75,7 @@ export default function SnapshotPlaygournd() {
         {t('snapshot.description')}
       </p>
 
-      <div className="mt-8">
-        <SnapshotPlaygourndTabs screenshots={screenshots} />
-      </div>
+      <SnapshotPlaygroundScroll screenshots={screenshots} />
 
       <dl className="mt-24 grid grid-cols-4 gap-10">
         {features.map((item) => (

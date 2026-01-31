@@ -8,7 +8,9 @@ export default function Terms() {
   const { t } = useTranslation()
 
   const licenseItems = t('terms.sections.license.items', { returnObjects: true }) as string[]
-  const restrictionItems = t('terms.sections.restrictions.items', { returnObjects: true }) as string[]
+  const restrictionItems = t('terms.sections.restrictions.items', {
+    returnObjects: true
+  }) as string[]
 
   return (
     <div className="mt-36 flex flex-col overflow-hidden px-3 pb-16">
@@ -38,7 +40,9 @@ export default function Terms() {
           <div className="space-y-6">
             <div className="flex items-center gap-3">
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-100 dark:bg-indigo-900">
-                <span className="font-semibold text-indigo-600 text-sm dark:text-indigo-300">1</span>
+                <span className="font-semibold text-indigo-600 text-sm dark:text-indigo-300">
+                  1
+                </span>
               </div>
               <h2 className="font-semibold text-gray-900 text-xl dark:text-gray-100">
                 {t('terms.sections.acceptance.title')}
@@ -53,7 +57,9 @@ export default function Terms() {
           <div className="space-y-6">
             <div className="flex items-center gap-3">
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-100 dark:bg-indigo-900">
-                <span className="font-semibold text-indigo-600 text-sm dark:text-indigo-300">2</span>
+                <span className="font-semibold text-indigo-600 text-sm dark:text-indigo-300">
+                  2
+                </span>
               </div>
               <h2 className="font-semibold text-gray-900 text-xl dark:text-gray-100">
                 {t('terms.sections.license.title')}
@@ -78,14 +84,18 @@ export default function Terms() {
           <div className="space-y-6">
             <div className="flex items-center gap-3">
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-100 dark:bg-indigo-900">
-                <span className="font-semibold text-indigo-600 text-sm dark:text-indigo-300">3</span>
+                <span className="font-semibold text-indigo-600 text-sm dark:text-indigo-300">
+                  3
+                </span>
               </div>
               <h2 className="font-semibold text-gray-900 text-xl dark:text-gray-100">
                 {t('terms.sections.restrictions.title')}
               </h2>
             </div>
             <div className="ml-11 space-y-4">
-              <p className="text-gray-600 dark:text-gray-400">{t('terms.sections.restrictions.intro')}</p>
+              <p className="text-gray-600 dark:text-gray-400">
+                {t('terms.sections.restrictions.intro')}
+              </p>
               <ul className="list-inside space-y-2 text-gray-600 dark:text-gray-400">
                 {restrictionItems.map((item, index) => (
                   <li className="flex items-center gap-2" key={index}>
@@ -101,7 +111,9 @@ export default function Terms() {
           <div className="space-y-6">
             <div className="flex items-center gap-3">
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-100 dark:bg-indigo-900">
-                <span className="font-semibold text-indigo-600 text-sm dark:text-indigo-300">4</span>
+                <span className="font-semibold text-indigo-600 text-sm dark:text-indigo-300">
+                  4
+                </span>
               </div>
               <h2 className="font-semibold text-gray-900 text-xl dark:text-gray-100">
                 {t('terms.sections.intellectualProperty.title')}
@@ -116,7 +128,9 @@ export default function Terms() {
           <div className="space-y-6">
             <div className="flex items-center gap-3">
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-100 dark:bg-indigo-900">
-                <span className="font-semibold text-indigo-600 text-sm dark:text-indigo-300">5</span>
+                <span className="font-semibold text-indigo-600 text-sm dark:text-indigo-300">
+                  5
+                </span>
               </div>
               <h2 className="font-semibold text-gray-900 text-xl dark:text-gray-100">
                 {t('terms.sections.disclaimer.title')}
@@ -133,7 +147,9 @@ export default function Terms() {
           <div className="space-y-6">
             <div className="flex items-center gap-3">
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-100 dark:bg-indigo-900">
-                <span className="font-semibold text-indigo-600 text-sm dark:text-indigo-300">6</span>
+                <span className="font-semibold text-indigo-600 text-sm dark:text-indigo-300">
+                  6
+                </span>
               </div>
               <h2 className="font-semibold text-gray-900 text-xl dark:text-gray-100">
                 {t('terms.sections.updatesToTerms.title')}
@@ -148,7 +164,9 @@ export default function Terms() {
           <div className="space-y-6">
             <div className="flex items-center gap-3">
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-100 dark:bg-indigo-900">
-                <span className="font-semibold text-indigo-600 text-sm dark:text-indigo-300">7</span>
+                <span className="font-semibold text-indigo-600 text-sm dark:text-indigo-300">
+                  7
+                </span>
               </div>
               <h2 className="font-semibold text-gray-900 text-xl dark:text-gray-100">
                 {t('terms.sections.contact.title')}

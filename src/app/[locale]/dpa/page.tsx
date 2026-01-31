@@ -9,7 +9,9 @@ export default function DPA() {
 
   const overviewItems = t('dpa.sections.overview.items', { returnObjects: true }) as string[]
   const localItems = t('dpa.sections.categories.localItems', { returnObjects: true }) as string[]
-  const analyticsItems = t('dpa.sections.categories.analyticsItems', { returnObjects: true }) as string[]
+  const analyticsItems = t('dpa.sections.categories.analyticsItems', {
+    returnObjects: true
+  }) as string[]
   const securityItems = t('dpa.sections.security.items', { returnObjects: true }) as string[]
   const purposeItems = t('dpa.sections.purposes.items', { returnObjects: true }) as string[]
   const rightsItems = t('dpa.sections.rights.items', { returnObjects: true }) as string[]
@@ -42,16 +44,16 @@ export default function DPA() {
           <div className="space-y-6">
             <div className="flex items-center gap-3">
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-100 dark:bg-indigo-900">
-                <span className="font-semibold text-indigo-600 text-sm dark:text-indigo-300">1</span>
+                <span className="font-semibold text-indigo-600 text-sm dark:text-indigo-300">
+                  1
+                </span>
               </div>
               <h2 className="font-semibold text-gray-900 text-xl dark:text-gray-100">
                 {t('dpa.sections.overview.title')}
               </h2>
             </div>
             <div className="ml-11 space-y-4">
-              <p className="text-gray-600 dark:text-gray-400">
-                {t('dpa.sections.overview.intro')}
-              </p>
+              <p className="text-gray-600 dark:text-gray-400">{t('dpa.sections.overview.intro')}</p>
               <ul className="list-inside space-y-2 text-gray-600 dark:text-gray-400">
                 {overviewItems.map((item, index) => (
                   <li className="flex items-center gap-2" key={index}>
@@ -67,7 +69,9 @@ export default function DPA() {
           <div className="space-y-6">
             <div className="flex items-center gap-3">
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-100 dark:bg-indigo-900">
-                <span className="font-semibold text-indigo-600 text-sm dark:text-indigo-300">2</span>
+                <span className="font-semibold text-indigo-600 text-sm dark:text-indigo-300">
+                  2
+                </span>
               </div>
               <h2 className="font-semibold text-gray-900 text-xl dark:text-gray-100">
                 {t('dpa.sections.categories.title')}
@@ -103,7 +107,9 @@ export default function DPA() {
           <div className="space-y-6">
             <div className="flex items-center gap-3">
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-100 dark:bg-indigo-900">
-                <span className="font-semibold text-indigo-600 text-sm dark:text-indigo-300">3</span>
+                <span className="font-semibold text-indigo-600 text-sm dark:text-indigo-300">
+                  3
+                </span>
               </div>
               <h2 className="font-semibold text-gray-900 text-xl dark:text-gray-100">
                 {t('dpa.sections.security.title')}
@@ -128,16 +134,16 @@ export default function DPA() {
           <div className="space-y-6">
             <div className="flex items-center gap-3">
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-100 dark:bg-indigo-900">
-                <span className="font-semibold text-indigo-600 text-sm dark:text-indigo-300">4</span>
+                <span className="font-semibold text-indigo-600 text-sm dark:text-indigo-300">
+                  4
+                </span>
               </div>
               <h2 className="font-semibold text-gray-900 text-xl dark:text-gray-100">
                 {t('dpa.sections.purposes.title')}
               </h2>
             </div>
             <div className="ml-11 space-y-4">
-              <p className="text-gray-600 dark:text-gray-400">
-                {t('dpa.sections.purposes.intro')}
-              </p>
+              <p className="text-gray-600 dark:text-gray-400">{t('dpa.sections.purposes.intro')}</p>
               <ul className="list-inside space-y-2 text-gray-600 dark:text-gray-400">
                 {purposeItems.map((item, index) => (
                   <li className="flex items-center gap-2" key={index}>
@@ -153,7 +159,9 @@ export default function DPA() {
           <div className="space-y-6">
             <div className="flex items-center gap-3">
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-100 dark:bg-indigo-900">
-                <span className="font-semibold text-indigo-600 text-sm dark:text-indigo-300">5</span>
+                <span className="font-semibold text-indigo-600 text-sm dark:text-indigo-300">
+                  5
+                </span>
               </div>
               <h2 className="font-semibold text-gray-900 text-xl dark:text-gray-100">
                 {t('dpa.sections.retention.title')}
@@ -168,7 +176,9 @@ export default function DPA() {
           <div className="space-y-6">
             <div className="flex items-center gap-3">
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-100 dark:bg-indigo-900">
-                <span className="font-semibold text-indigo-600 text-sm dark:text-indigo-300">6</span>
+                <span className="font-semibold text-indigo-600 text-sm dark:text-indigo-300">
+                  6
+                </span>
               </div>
               <h2 className="font-semibold text-gray-900 text-xl dark:text-gray-100">
                 {t('dpa.sections.rights.title')}
@@ -191,7 +201,9 @@ export default function DPA() {
           <div className="space-y-6">
             <div className="flex items-center gap-3">
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-100 dark:bg-indigo-900">
-                <span className="font-semibold text-indigo-600 text-sm dark:text-indigo-300">7</span>
+                <span className="font-semibold text-indigo-600 text-sm dark:text-indigo-300">
+                  7
+                </span>
               </div>
               <h2 className="font-semibold text-gray-900 text-xl dark:text-gray-100">
                 {t('dpa.sections.contact.title')}
