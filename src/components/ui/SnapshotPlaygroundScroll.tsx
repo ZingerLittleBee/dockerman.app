@@ -138,10 +138,10 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
 
   return (
     <div ref={wrapperRef} className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen">
-      <div className="relative flex min-h-[calc(100vh-100px)] flex-col pt-8" ref={containerRef}>
+      <div className="relative flex h-[calc(100vh-100px)] flex-col" ref={containerRef}>
         {/* 图片区域 */}
-        <div className="flex w-full flex-1 items-center justify-center overflow-hidden" ref={imageAreaRef}>
-          <div className="relative flex h-[calc(100vh-150px)] w-full items-center justify-center">
+        <div className="flex h-full w-full items-center justify-center overflow-hidden" ref={imageAreaRef}>
+          <div className="relative flex h-full w-full items-center justify-center">
             {screenshots.map((screenshot, index) => {
               const isLoaded = loadedImages.has(index)
 
@@ -153,7 +153,7 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
                   )}
                   key={screenshot.label}
                 >
-                  <div className="relative h-full" style={{ aspectRatio: `${IMAGE_WIDTH} / ${IMAGE_HEIGHT}` }}>
+                  <div className="relative h-full max-h-full" style={{ aspectRatio: `${IMAGE_WIDTH} / ${IMAGE_HEIGHT}` }}>
                     {!isLoaded && (
                       <div className="absolute inset-0 flex animate-pulse items-center justify-center bg-gray-100 dark:bg-gray-800">
                         <div className="flex flex-col items-center gap-3">
