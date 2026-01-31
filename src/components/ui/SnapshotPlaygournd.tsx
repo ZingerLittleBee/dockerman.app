@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslation } from '@/lib/i18n/client'
 import {
   RiDashboardLine,
   RiFileLine,
@@ -17,7 +18,6 @@ import {
   RiTerminalLine,
   RiWindowLine
 } from '@remixicon/react'
-import { useTranslation } from '@/lib/i18n/client'
 import { Badge } from '../Badge'
 import SnapshotPlaygroundScroll from './SnapshotPlaygroundScroll'
 
@@ -72,9 +72,7 @@ export default function SnapshotPlaygournd() {
         {t('snapshot.description')}
       </p>
 
-      <div className="mt-8">
-        <SnapshotPlaygroundScroll screenshots={screenshots} />
-      </div>
+      <SnapshotPlaygroundScroll screenshots={screenshots} />
 
       <dl className="mt-24 grid grid-cols-4 gap-10">
         {features.map((item) => (

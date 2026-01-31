@@ -150,6 +150,9 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
           // Image scales up in place (no movement)
           introTl.fromTo(imageAreaRef.current, { scale: 0.92 }, { scale: 1, ease: 'power2.out' }, 0)
 
+          // Image area transitions from offset to centered
+          introTl.fromTo(imageAreaRef.current, { x: '5rem' }, { x: '0rem', ease: 'power2.out' }, 0)
+
           // Tab list slides in from left
           introTl.fromTo(
             tabListRef.current,
@@ -236,10 +239,11 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
           </div>
         </div>
 
-        {/* 图片区域 - 屏幕正中间 */}
+        {/* 图片区域 - 初始在 tab 旁边，滚动后居中 */}
         <div
           className="flex min-h-[calc(100vh-100px)] w-screen items-center justify-center px-4 md:px-0"
           ref={imageAreaRef}
+          style={{ transform: 'translateX(5rem)' }}
         >
           <div className="grid w-full max-w-[min(calc(100vw-280px),calc((100vh-220px)*2560/1760))]">
             {screenshots.map((screenshot, index) => {
