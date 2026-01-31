@@ -83,6 +83,7 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set())
   const [isInitialLoad, setIsInitialLoad] = useState(true)
   const [lightboxImage, setLightboxImage] = useState<Screenshot | null>(null)
+  const [activeIndex, setActiveIndex] = useState(0)
   const lastIndexRef = useRef(0)
 
   // 监听导航链接点击 - 修复同页面导航时的白屏问题
@@ -157,6 +158,7 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
             if (lastIndexRef.current !== newIndex) {
               const fromLabel = screenshots[lastIndexRef.current]?.label
               lastIndexRef.current = newIndex
+              setActiveIndex(newIndex)
 
               posthog.capture('feature_tab_switched', {
                 from_tab: fromLabel,
@@ -250,6 +252,21 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
         ref={wrapperRef}
       >
         <div className="relative flex h-[calc(100vh-100px)] flex-col" ref={containerRef}>
+          {/* 模块标签 Badge */}
+          <div className="absolute top-4 left-1/2 z-10 -translate-x-1/2">
+            <div className="flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 shadow-lg ring-1 ring-slate-200/50 backdrop-blur-sm dark:bg-gray-900/90 dark:ring-white/10">
+              {(() => {
+                const Icon = screenshots[activeIndex]?.icon
+                return Icon ? (
+                  <Icon className="size-5 text-indigo-600 dark:text-indigo-400" />
+                ) : null
+              })()}
+              <span className="font-medium text-gray-900 text-sm dark:text-white">
+                {screenshots[activeIndex]?.label}
+              </span>
+            </div>
+          </div>
+
           {/* 图片区域 */}
           <div
             className="flex h-full w-full items-center justify-center overflow-hidden"
