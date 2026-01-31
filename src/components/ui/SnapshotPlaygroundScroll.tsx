@@ -128,7 +128,7 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
   )
 
   return (
-    <div className="grid min-h-screen grid-cols-12 gap-6 md:gap-8" ref={containerRef}>
+    <div className="grid min-h-screen w-screen grid-cols-12 gap-6 px-5 md:gap-8" ref={containerRef}>
       {/* 左侧标签列表 - 桌面端 */}
       <div className="col-span-full md:col-span-2">
         <div className="flex flex-col gap-2 md:gap-3">
