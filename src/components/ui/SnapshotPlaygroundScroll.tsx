@@ -16,8 +16,8 @@ interface Screenshot {
   icon: RemixiconComponentType
 }
 
-const IMAGE_WIDTH = 2560
-const IMAGE_HEIGHT = 1760
+const IMAGE_WIDTH = 2400
+const IMAGE_HEIGHT = 1600
 const SCROLL_HEIGHT_PER_ITEM = 65 // vh - 增加高度让滚动速度变慢
 const HEADER_OFFSET = 100 // px
 
@@ -157,33 +157,35 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
                   )}
                   key={screenshot.label}
                 >
-                  <div
-                    className="relative h-full max-h-full"
-                    style={{ aspectRatio: `${IMAGE_WIDTH} / ${IMAGE_HEIGHT}` }}
-                  >
-                    {!isLoaded && (
-                      <div className="absolute inset-0 flex animate-pulse items-center justify-center bg-gray-100 dark:bg-gray-800">
-                        <div className="flex flex-col items-center gap-3">
-                          <div className="size-12 rounded-lg bg-gray-200 dark:bg-gray-700" />
-                          <div className="h-3 w-24 rounded bg-gray-200 dark:bg-gray-700" />
+                  <div className="relative h-full max-h-full w-auto rounded-xl bg-slate-50/40 p-2 ring-1 ring-slate-200/50 ring-inset dark:bg-gray-900/70 dark:ring-white/10">
+                    <div
+                      className="h-full overflow-hidden rounded-lg bg-white ring-1 ring-slate-900/5 dark:bg-slate-950 dark:ring-white/15"
+                      style={{ aspectRatio: `${IMAGE_WIDTH} / ${IMAGE_HEIGHT}` }}
+                    >
+                      {!isLoaded && (
+                        <div className="absolute inset-0 flex animate-pulse items-center justify-center bg-gray-100 dark:bg-gray-800">
+                          <div className="flex flex-col items-center gap-3">
+                            <div className="size-12 rounded-lg bg-gray-200 dark:bg-gray-700" />
+                            <div className="h-3 w-24 rounded bg-gray-200 dark:bg-gray-700" />
+                          </div>
                         </div>
-                      </div>
-                    )}
-
-                    <Image
-                      alt={screenshot.alt}
-                      className={clsx(
-                        'block h-full w-full object-contain',
-                        isLoaded ? 'opacity-100' : 'opacity-0'
                       )}
-                      height={IMAGE_HEIGHT}
-                      loading={index >= 3 ? 'eager' : undefined}
-                      onLoad={() => handleImageLoad(index)}
-                      priority={index < 3}
-                      quality={70}
-                      src={screenshot.src}
-                      width={IMAGE_WIDTH}
-                    />
+
+                      <Image
+                        alt={screenshot.alt}
+                        className={clsx(
+                          'block h-full w-full rounded-lg object-cover',
+                          isLoaded ? 'opacity-100' : 'opacity-0'
+                        )}
+                        height={IMAGE_HEIGHT}
+                        loading={index >= 3 ? 'eager' : undefined}
+                        onLoad={() => handleImageLoad(index)}
+                        priority={index < 3}
+                        quality={70}
+                        src={screenshot.src}
+                        width={IMAGE_WIDTH}
+                      />
+                    </div>
                   </div>
                 </div>
               )
