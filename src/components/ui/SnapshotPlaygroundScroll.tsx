@@ -258,10 +258,16 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
               {(() => {
                 const Icon = screenshots[activeIndex]?.icon
                 return Icon ? (
-                  <Icon className="size-5 text-indigo-600 dark:text-indigo-400" />
+                  <Icon
+                    className="size-5 text-indigo-600 transition-opacity duration-300 dark:text-indigo-400"
+                    key={`icon-${activeIndex}`}
+                  />
                 ) : null
               })()}
-              <span className="font-medium text-gray-900 text-sm dark:text-white">
+              <span
+                className="animate-fade-in font-medium text-gray-900 text-sm dark:text-white"
+                key={`label-${activeIndex}`}
+              >
                 {screenshots[activeIndex]?.label}
               </span>
             </div>
