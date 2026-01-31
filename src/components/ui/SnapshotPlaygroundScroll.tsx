@@ -8,7 +8,7 @@ import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Image from 'next/image'
 import posthog from 'posthog-js'
-import { memo, useCallback, useRef, useState } from 'react'
+import { memo, useCallback, useEffect, useRef, useState } from 'react'
 
 interface Screenshot {
   src: string
@@ -22,6 +22,7 @@ const IMAGE_HEIGHT = 1760
 const SCROLL_HEIGHT_PER_ITEM = 80 // vh
 const HEADER_OFFSET = 100 // px - header height + top offset + padding
 const INTRO_ANIMATION_SCROLL = 300 // px - scroll distance for intro animation
+const MAX_SCROLL_DELTA = 80 // px - max scroll distance per wheel event to limit speed
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
 
@@ -34,6 +35,7 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set())
   const [isInitialLoad, setIsInitialLoad] = useState(true)
   const lastIndexRef = useRef(0)
+  const isNavigatingRef = useRef(false) // Track if navigating via tab click
 
   const handleImageLoad = useCallback((index: number) => {
     setLoadedImages((prev) => {
@@ -49,6 +51,13 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
     (index: number) => {
       if (!wrapperRef.current) return
 
+      // Set navigating flag to skip intermediate index updates
+      isNavigatingRef.current = true
+
+      // Immediately show target image
+      setActiveIndex(index)
+      lastIndexRef.current = index
+
       const wrapperTop = wrapperRef.current.offsetTop
       const totalScrollHeight =
         screenshots.length * window.innerHeight * (SCROLL_HEIGHT_PER_ITEM / 100)
@@ -59,11 +68,73 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
       gsap.to(window, {
         scrollTo: { y: targetScroll },
         duration: 0.8,
-        ease: 'power2.inOut'
+        ease: 'power2.inOut',
+        onComplete: () => {
+          // Reset flag after navigation completes
+          isNavigatingRef.current = false
+        }
+      })
+
+      posthog.capture('feature_tab_switched', {
+        from_tab: screenshots[lastIndexRef.current]?.label,
+        to_tab: screenshots[index]?.label,
+        to_tab_index: index,
+        trigger: 'click',
+        location: 'snapshot_playground'
       })
     },
-    [screenshots.length]
+    [screenshots]
   )
+
+  // Limit scroll speed within the pinned area
+  useEffect(() => {
+    const wrapper = wrapperRef.current
+    if (!wrapper) return
+
+    let isInPinArea = false
+    let ticking = false
+
+    const handleWheel = (e: WheelEvent) => {
+      if (!isInPinArea) return
+
+      const delta = Math.abs(e.deltaY)
+      if (delta > MAX_SCROLL_DELTA) {
+        e.preventDefault()
+
+        if (!ticking) {
+          ticking = true
+          const clampedDelta = Math.sign(e.deltaY) * MAX_SCROLL_DELTA
+
+          gsap.to(window, {
+            scrollTo: { y: window.scrollY + clampedDelta },
+            duration: 0.15,
+            ease: 'power1.out',
+            onComplete: () => {
+              ticking = false
+            }
+          })
+        }
+      }
+    }
+
+    const checkPinArea = () => {
+      if (!wrapper) return
+      const rect = wrapper.getBoundingClientRect()
+      const totalScrollHeight =
+        screenshots.length * window.innerHeight * (SCROLL_HEIGHT_PER_ITEM / 100)
+      isInPinArea =
+        rect.top <= HEADER_OFFSET && rect.top > -(INTRO_ANIMATION_SCROLL + totalScrollHeight)
+    }
+
+    window.addEventListener('scroll', checkPinArea, { passive: true })
+    window.addEventListener('wheel', handleWheel, { passive: false })
+    checkPinArea()
+
+    return () => {
+      window.removeEventListener('scroll', checkPinArea)
+      window.removeEventListener('wheel', handleWheel)
+    }
+  }, [screenshots.length])
 
   useGSAP(
     () => {
@@ -75,6 +146,9 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
       const totalHeight = screenshots.length * window.innerHeight * (SCROLL_HEIGHT_PER_ITEM / 100)
 
       const handleIndexChange = (newIndex: number) => {
+        // Skip if navigating via tab click (prevents loading intermediate images)
+        if (isNavigatingRef.current) return
+
         if (lastIndexRef.current !== newIndex) {
           posthog.capture('feature_tab_switched', {
             from_tab: screenshots[lastIndexRef.current]?.label,
@@ -124,7 +198,7 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
               trigger: wrapperRef.current,
               start: `top ${HEADER_OFFSET}px`,
               end: `+=${INTRO_ANIMATION_SCROLL}`,
-              scrub: 0.5
+              scrub: 1.5 // Higher value = smoother animation, less jittery on fast scroll
             }
           })
 
@@ -142,22 +216,25 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
               width: viewportWidth,
               paddingLeft: '1.5rem',
               paddingRight: '2rem',
-              ease: 'power2.out'
+              ease: 'power2.out',
+              force3D: true
             },
             0
           )
 
-          // Image scales up in place (no movement)
-          introTl.fromTo(imageAreaRef.current, { scale: 0.92 }, { scale: 1, ease: 'power2.out' }, 0)
-
-          // Image area transitions from offset to centered
-          introTl.fromTo(imageAreaRef.current, { x: '5rem' }, { x: '0rem', ease: 'power2.out' }, 0)
+          // Image scales up and moves to center
+          introTl.fromTo(
+            imageAreaRef.current,
+            { scale: 0.92, x: '5rem' },
+            { scale: 1, x: '0rem', ease: 'power2.out', force3D: true },
+            0
+          )
 
           // Tab list slides in from left
           introTl.fromTo(
             tabListRef.current,
             { left: '0rem' },
-            { left: '10rem', ease: 'power2.out' },
+            { left: '10rem', ease: 'power2.out', force3D: true },
             0
           )
         },
@@ -243,7 +320,7 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
         <div
           className="flex min-h-[calc(100vh-100px)] w-screen items-center justify-center px-4 md:px-0"
           ref={imageAreaRef}
-          style={{ transform: 'translateX(5rem)' }}
+          style={{ transform: 'translateX(5rem)', willChange: 'transform' }}
         >
           <div className="grid w-full max-w-[min(calc(100vw-280px),calc((100vh-220px)*2560/1760))]">
             {screenshots.map((screenshot, index) => {
