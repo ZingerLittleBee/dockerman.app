@@ -93,7 +93,29 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
           const viewportWidth = window.innerWidth
           const offsetX = (viewportWidth - parentWidth) / 2
 
-          // Intro animation - container expands to full width, tab slides to left edge
+          // Pin the container first - this keeps tabs visible while scrolling
+          ScrollTrigger.create({
+            trigger: wrapperRef.current,
+            start: `top ${HEADER_OFFSET}px`,
+            end: `+=${INTRO_ANIMATION_SCROLL + totalHeight}`,
+            pin: containerRef.current,
+            pinSpacing: true,
+            onUpdate: (self) => {
+              // Skip intro animation phase for index calculation
+              const introProgress = INTRO_ANIMATION_SCROLL / (INTRO_ANIMATION_SCROLL + totalHeight)
+              if (self.progress <= introProgress) return
+
+              // Calculate progress within the main scrolling phase
+              const mainProgress = (self.progress - introProgress) / (1 - introProgress)
+              const newIndex = Math.min(
+                Math.floor(mainProgress * screenshots.length),
+                screenshots.length - 1
+              )
+              handleIndexChange(newIndex)
+            }
+          })
+
+          // Intro animation - container expands to full width, image scales up
           const introTl = gsap.timeline({
             scrollTrigger: {
               trigger: wrapperRef.current,
@@ -122,29 +144,14 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
               },
               0
             )
-            .fromTo(
-              imageAreaRef.current,
-              { scale: 0.95, transformOrigin: 'right center' },
-              { scale: 1, ease: 'power2.out' },
-              0
-            )
 
-          // Main pin and image switching
-          ScrollTrigger.create({
-            trigger: wrapperRef.current,
-            start: `top+=${INTRO_ANIMATION_SCROLL} ${HEADER_OFFSET}px`,
-            end: `+=${totalHeight}`,
-            pin: containerRef.current,
-            pinSpacing: true,
-            onUpdate: (self) => {
-              const progress = self.progress
-              const newIndex = Math.min(
-                Math.floor(progress * screenshots.length),
-                screenshots.length - 1
-              )
-              handleIndexChange(newIndex)
-            }
-          })
+          // Image scales up in place (no movement)
+          introTl.fromTo(
+            imageAreaRef.current,
+            { scale: 0.92 },
+            { scale: 1, ease: 'power2.out' },
+            0
+          )
         },
         // Mobile - simpler animation
         '(max-width: 767px)': () => {
