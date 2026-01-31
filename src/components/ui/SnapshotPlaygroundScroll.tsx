@@ -8,7 +8,7 @@ import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Image from 'next/image'
 import posthog from 'posthog-js'
-import { memo, useCallback, useRef, useState } from 'react'
+import { memo, useCallback, useEffect, useRef, useState } from 'react'
 
 interface Screenshot {
   src: string
@@ -22,8 +22,6 @@ const IMAGE_HEIGHT = 1760
 const SCROLL_HEIGHT_PER_ITEM = 80 // vh
 const HEADER_OFFSET = 100 // px - header height + top offset + padding
 const INTRO_ANIMATION_SCROLL = 300 // px - scroll distance for intro animation
-const SCROLL_THROTTLE_MS = 50 // 节流间隔，避免过于频繁的状态更新
-const FAST_SCROLL_THRESHOLD = 3 // 快速滚动判定：连续跳过 N 个 index
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
 
@@ -43,8 +41,114 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
   const lastUpdateTimeRef = useRef(0) // 节流时间戳
   const pendingIndexRef = useRef<number | null>(null) // 待处理的 index
   const rafIdRef = useRef<number | null>(null) // requestAnimationFrame ID
-  const fastScrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const scrollTweenRef = useRef<gsap.core.Tween | null>(null) // 当前的滚动动画
+
+  // 监听导航链接点击 - 修复同页面导航时的白屏问题
+  // 当用户在 SnapshotPlayground 滚动区域点击 Home/Logo 时，需要重置 ScrollTrigger 状态
+  useEffect(() => {
+    const handleNavClick = (event: MouseEvent) => {
+      const target = event.target as HTMLElement
+      const link = target.closest('a')
+
+      // 只处理内部导航链接（不是新窗口打开的）
+      if (link?.href && !link.target && link.origin === window.location.origin) {
+        // 在导航前杀掉所有正在进行的 GSAP 动画
+        if (scrollTweenRef.current) {
+          scrollTweenRef.current.kill()
+          scrollTweenRef.current = null
+        }
+
+        // 重置 ScrollTrigger 状态
+        for (const trigger of ScrollTrigger.getAll()) {
+          trigger.kill()
+        }
+        ScrollTrigger.clearScrollMemory()
+
+        // 确保滚动到顶部
+        window.scrollTo(0, 0)
+
+        // 刷新 ScrollTrigger（下一帧执行，给 DOM 时间更新）
+        requestAnimationFrame(() => {
+          ScrollTrigger.refresh(true)
+        })
+      }
+    }
+
+    // 用捕获阶段确保在导航发生前执行
+    document.addEventListener('click', handleNavClick, { capture: true })
+
+    return () => {
+      document.removeEventListener('click', handleNavClick, { capture: true })
+    }
+  }, [])
+
+  // 独立的滚动速度监听器 - 不依赖 ScrollTrigger 回调
+  useEffect(() => {
+    let isMounted = true // 跟踪组件是否已挂载
+    let lastScrollY = window.scrollY
+    let lastScrollTime = performance.now()
+    let scrollRafId: number | null = null
+    let localTimeoutId: ReturnType<typeof setTimeout> | null = null
+
+    const handleScroll = () => {
+      // 如果组件已卸载或正在通过 tab 点击导航，跳过检测
+      if (!isMounted || isNavigatingRef.current) return
+
+      const now = performance.now()
+      const currentScrollY = window.scrollY
+      const scrollDelta = Math.abs(currentScrollY - lastScrollY)
+      const timeDelta = now - lastScrollTime
+
+      // 计算滚动速度 (px/ms)
+      const scrollSpeed = timeDelta > 0 ? scrollDelta / timeDelta : 0
+
+      // 快速滚动阈值：大于 2 px/ms (即 2000px/s)
+      const FAST_SCROLL_SPEED_THRESHOLD = 2
+
+      if (scrollSpeed > FAST_SCROLL_SPEED_THRESHOLD) {
+        if (isMounted) setIsFastScrolling(true)
+
+        // 清除之前的恢复定时器
+        if (localTimeoutId) {
+          clearTimeout(localTimeoutId)
+        }
+
+        // 延迟恢复 transition
+        localTimeoutId = setTimeout(() => {
+          if (isMounted) setIsFastScrolling(false)
+          localTimeoutId = null
+        }, 150)
+      }
+
+      lastScrollY = currentScrollY
+      lastScrollTime = now
+    }
+
+    const throttledScroll = () => {
+      if (scrollRafId || !isMounted) return
+      scrollRafId = requestAnimationFrame(() => {
+        if (isMounted) handleScroll()
+        scrollRafId = null
+      })
+    }
+
+    window.addEventListener('scroll', throttledScroll, { passive: true })
+
+    return () => {
+      isMounted = false // 标记组件已卸载
+      window.removeEventListener('scroll', throttledScroll)
+      if (scrollRafId) cancelAnimationFrame(scrollRafId)
+      if (localTimeoutId) clearTimeout(localTimeoutId)
+
+      // 清理 ScrollTrigger，防止 Next.js 导航后状态不一致
+      for (const trigger of ScrollTrigger.getAll()) {
+        trigger.kill()
+      }
+      ScrollTrigger.clearScrollMemory()
+      // 重置 pinned 元素的内联样式
+      ScrollTrigger.refresh(true)
+    }
+  }, [])
 
   const handleImageLoad = useCallback((index: number) => {
     setLoadedImages((prev) => {
@@ -119,36 +223,12 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
 
       const totalHeight = screenshots.length * window.innerHeight * (SCROLL_HEIGHT_PER_ITEM / 100)
 
-      // 节流版本的 index 更新
       const handleIndexChange = (newIndex: number) => {
         // Skip if navigating via tab click (prevents loading intermediate images)
         if (isNavigatingRef.current) return
 
         // 如果 index 没变，直接返回
         if (lastIndexRef.current === newIndex) return
-
-        const now = performance.now()
-        const timeDelta = now - lastUpdateTimeRef.current
-        const indexDelta = Math.abs(newIndex - lastIndexRef.current)
-
-        // 检测是否快速滚动（跳过多个 index 或更新过于频繁）
-        const isCurrentlyFastScrolling =
-          indexDelta >= FAST_SCROLL_THRESHOLD || timeDelta < SCROLL_THROTTLE_MS
-
-        if (isCurrentlyFastScrolling) {
-          // 快速滚动时：禁用 transition，立即更新
-          setIsFastScrolling(true)
-
-          // 清除之前的恢复定时器
-          if (fastScrollTimeoutRef.current) {
-            clearTimeout(fastScrollTimeoutRef.current)
-          }
-
-          // 延迟恢复 transition（滚动停止后）
-          fastScrollTimeoutRef.current = setTimeout(() => {
-            setIsFastScrolling(false)
-          }, 150)
-        }
 
         // 使用 requestAnimationFrame 批量更新，避免阻塞滚动
         if (rafIdRef.current) {
