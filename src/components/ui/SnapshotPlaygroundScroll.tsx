@@ -2,12 +2,14 @@
 
 import { useGSAP } from '@gsap/react'
 import type { RemixiconComponentType } from '@remixicon/react'
+import { RiCloseLine, RiRefreshLine, RiZoomInLine, RiZoomOutLine } from '@remixicon/react'
 import clsx from 'clsx'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Image from 'next/image'
 import posthog from 'posthog-js'
 import { memo, useCallback, useEffect, useRef, useState } from 'react'
+import { TransformComponent, TransformWrapper, useControls } from 'react-zoom-pan-pinch'
 
 interface Screenshot {
   src: string
@@ -21,6 +23,56 @@ const IMAGE_HEIGHT = 1600
 const SCROLL_HEIGHT_PER_ITEM = 65 // vh - 增加高度让滚动速度变慢
 const HEADER_OFFSET = 100 // px
 
+// Lightbox 控制按钮组件
+function LightboxControls({ onClose }: { onClose: () => void }) {
+  const { zoomIn, zoomOut, resetTransform } = useControls()
+
+  return (
+    <div className="absolute top-4 right-4 z-10 flex gap-2">
+      <button
+        className="rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20"
+        onClick={(e) => {
+          e.stopPropagation()
+          zoomIn()
+        }}
+        type="button"
+      >
+        <RiZoomInLine className="size-6" />
+      </button>
+      <button
+        className="rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20"
+        onClick={(e) => {
+          e.stopPropagation()
+          zoomOut()
+        }}
+        type="button"
+      >
+        <RiZoomOutLine className="size-6" />
+      </button>
+      <button
+        className="rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20"
+        onClick={(e) => {
+          e.stopPropagation()
+          resetTransform()
+        }}
+        type="button"
+      >
+        <RiRefreshLine className="size-6" />
+      </button>
+      <button
+        className="rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20"
+        onClick={(e) => {
+          e.stopPropagation()
+          onClose()
+        }}
+        type="button"
+      >
+        <RiCloseLine className="size-6" />
+      </button>
+    </div>
+  )
+}
+
 gsap.registerPlugin(ScrollTrigger)
 
 function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }) {
@@ -30,6 +82,7 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
 
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set())
   const [isInitialLoad, setIsInitialLoad] = useState(true)
+  const [lightboxImage, setLightboxImage] = useState<Screenshot | null>(null)
   const lastIndexRef = useRef(0)
 
   // 监听导航链接点击 - 修复同页面导航时的白屏问题
@@ -75,8 +128,13 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
     })
   }, [])
 
+  // 桌面端滚动动画 - 使用 matchMedia 检测
   useGSAP(
     () => {
+      // 只在桌面端启用动画
+      const mediaQuery = window.matchMedia('(min-width: 768px)')
+      if (!mediaQuery.matches) return
+
       if (!(wrapperRef.current && containerRef.current && imageAreaRef.current)) return
 
       const totalHeight = screenshots.length * window.innerHeight * (SCROLL_HEIGHT_PER_ITEM / 100)
@@ -138,73 +196,158 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
   )
 
   return (
-    <div className="relative right-1/2 left-1/2 -mr-[50vw] -ml-[50vw] w-screen" ref={wrapperRef}>
-      <div className="relative flex h-[calc(100vh-100px)] flex-col" ref={containerRef}>
-        {/* 图片区域 */}
-        <div
-          className="flex h-full w-full items-center justify-center overflow-hidden"
-          ref={imageAreaRef}
-        >
-          <div className="relative flex h-full w-full items-center justify-center">
-            {screenshots.map((screenshot, index) => {
-              const isLoaded = loadedImages.has(index)
+    <>
+      {/* 移动端：垂直平铺布局 */}
+      <div className="mt-8 flex flex-col gap-6 px-4 md:hidden">
+        {screenshots.map((screenshot, index) => {
+          const isLoaded = loadedImages.has(index)
 
-              return (
-                <div
-                  className={clsx(
-                    'image-slide flex h-full w-full items-center justify-center',
-                    index === 0 ? 'relative' : 'absolute inset-0'
-                  )}
-                  key={screenshot.label}
-                >
-                  <div className="relative h-full max-h-full w-auto rounded-xl bg-slate-50/40 p-2 ring-1 ring-slate-200/50 ring-inset dark:bg-gray-900/70 dark:ring-white/10">
-                    <div
-                      className="h-full overflow-hidden rounded-lg bg-white ring-1 ring-slate-900/5 dark:bg-slate-950 dark:ring-white/15"
-                      style={{ aspectRatio: `${IMAGE_WIDTH} / ${IMAGE_HEIGHT}` }}
-                    >
-                      {!isLoaded && (
-                        <div className="absolute inset-0 flex animate-pulse items-center justify-center bg-gray-100 dark:bg-gray-800">
-                          <div className="flex flex-col items-center gap-3">
-                            <div className="size-12 rounded-lg bg-gray-200 dark:bg-gray-700" />
-                            <div className="h-3 w-24 rounded bg-gray-200 dark:bg-gray-700" />
-                          </div>
-                        </div>
-                      )}
-
-                      <Image
-                        alt={screenshot.alt}
-                        className={clsx(
-                          'block h-full w-full rounded-lg object-cover',
-                          isLoaded ? 'opacity-100' : 'opacity-0'
-                        )}
-                        height={IMAGE_HEIGHT}
-                        loading={index >= 3 ? 'eager' : undefined}
-                        onLoad={() => handleImageLoad(index)}
-                        priority={index < 3}
-                        quality={70}
-                        src={screenshot.src}
-                        width={IMAGE_WIDTH}
-                      />
+          return (
+            <button
+              className="w-full rounded-xl bg-slate-50/40 p-2 ring-1 ring-slate-200/50 ring-inset transition-transform active:scale-[0.98] dark:bg-gray-900/70 dark:ring-white/10"
+              key={screenshot.label}
+              onClick={() => setLightboxImage(screenshot)}
+              type="button"
+            >
+              <div className="overflow-hidden rounded-lg bg-white ring-1 ring-slate-900/5 dark:bg-slate-950 dark:ring-white/15">
+                {!isLoaded && (
+                  <div
+                    className="flex animate-pulse items-center justify-center bg-gray-100 dark:bg-gray-800"
+                    style={{ aspectRatio: `${IMAGE_WIDTH} / ${IMAGE_HEIGHT}` }}
+                  >
+                    <div className="flex flex-col items-center gap-3">
+                      <div className="size-12 rounded-lg bg-gray-200 dark:bg-gray-700" />
+                      <div className="h-3 w-24 rounded bg-gray-200 dark:bg-gray-700" />
                     </div>
                   </div>
-                </div>
-              )
-            })}
+                )}
 
-            {isInitialLoad && (
-              <div className="absolute inset-0 z-20 flex items-center justify-center bg-slate-50/80 backdrop-blur-sm dark:bg-gray-900/80">
-                <div className="flex flex-col items-center gap-4">
-                  <div className="size-8 animate-spin rounded-full border-4 border-indigo-200 border-t-indigo-600 dark:border-indigo-800 dark:border-t-indigo-400" />
-                  <span className="font-medium text-gray-600 text-sm dark:text-gray-400">
-                    Loading...
-                  </span>
-                </div>
+                <Image
+                  alt={screenshot.alt}
+                  className={clsx(
+                    'block w-full rounded-lg object-cover',
+                    isLoaded ? 'opacity-100' : 'opacity-0'
+                  )}
+                  height={IMAGE_HEIGHT}
+                  onLoad={() => handleImageLoad(index)}
+                  priority={index < 3}
+                  quality={70}
+                  src={screenshot.src}
+                  width={IMAGE_WIDTH}
+                />
               </div>
-            )}
+              <p className="mt-2 text-center font-medium text-gray-700 text-sm dark:text-gray-300">
+                {screenshot.label}
+              </p>
+            </button>
+          )
+        })}
+      </div>
+
+      {/* 桌面端：滚动动画效果 */}
+      <div
+        className="relative right-1/2 left-1/2 -mr-[50vw] -ml-[50vw] hidden w-screen md:block"
+        ref={wrapperRef}
+      >
+        <div className="relative flex h-[calc(100vh-100px)] flex-col" ref={containerRef}>
+          {/* 图片区域 */}
+          <div
+            className="flex h-full w-full items-center justify-center overflow-hidden"
+            ref={imageAreaRef}
+          >
+            <div className="relative flex h-full w-full items-center justify-center">
+              {screenshots.map((screenshot, index) => {
+                const isLoaded = loadedImages.has(index)
+
+                return (
+                  <div
+                    className={clsx(
+                      'image-slide flex h-full w-full items-center justify-center',
+                      index === 0 ? 'relative' : 'absolute inset-0'
+                    )}
+                    key={screenshot.label}
+                  >
+                    <div className="relative h-full max-h-full w-auto rounded-xl bg-slate-50/40 p-2 ring-1 ring-slate-200/50 ring-inset dark:bg-gray-900/70 dark:ring-white/10">
+                      <div
+                        className="h-full overflow-hidden rounded-lg bg-white ring-1 ring-slate-900/5 dark:bg-slate-950 dark:ring-white/15"
+                        style={{ aspectRatio: `${IMAGE_WIDTH} / ${IMAGE_HEIGHT}` }}
+                      >
+                        {!isLoaded && (
+                          <div className="absolute inset-0 flex animate-pulse items-center justify-center bg-gray-100 dark:bg-gray-800">
+                            <div className="flex flex-col items-center gap-3">
+                              <div className="size-12 rounded-lg bg-gray-200 dark:bg-gray-700" />
+                              <div className="h-3 w-24 rounded bg-gray-200 dark:bg-gray-700" />
+                            </div>
+                          </div>
+                        )}
+
+                        <Image
+                          alt={screenshot.alt}
+                          className={clsx(
+                            'block h-full w-full rounded-lg object-cover',
+                            isLoaded ? 'opacity-100' : 'opacity-0'
+                          )}
+                          height={IMAGE_HEIGHT}
+                          loading={index >= 3 ? 'eager' : undefined}
+                          onLoad={() => handleImageLoad(index)}
+                          priority={index < 3}
+                          quality={70}
+                          src={screenshot.src}
+                          width={IMAGE_WIDTH}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
+
+              {isInitialLoad && (
+                <div className="absolute inset-0 z-20 flex items-center justify-center bg-slate-50/80 backdrop-blur-sm dark:bg-gray-900/80">
+                  <div className="flex flex-col items-center gap-4">
+                    <div className="size-8 animate-spin rounded-full border-4 border-indigo-200 border-t-indigo-600 dark:border-indigo-800 dark:border-t-indigo-400" />
+                    <span className="font-medium text-gray-600 text-sm dark:text-gray-400">
+                      Loading...
+                    </span>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+
+      {/* Lightbox 大图预览 - 支持手势缩放 */}
+      {lightboxImage && (
+        <div className="fixed inset-0 z-50 bg-black/90" onClick={() => setLightboxImage(null)}>
+          <TransformWrapper centerOnInit={true} initialScale={1} maxScale={4} minScale={0.5}>
+            <LightboxControls onClose={() => setLightboxImage(null)} />
+            <TransformComponent
+              contentStyle={{
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+              wrapperStyle={{
+                width: '100%',
+                height: '100%'
+              }}
+            >
+              <Image
+                alt={lightboxImage.alt}
+                className="max-h-[90vh] max-w-[90vw] rounded-lg object-contain"
+                height={IMAGE_HEIGHT}
+                onClick={(e) => e.stopPropagation()}
+                quality={90}
+                src={lightboxImage.src}
+                width={IMAGE_WIDTH}
+              />
+            </TransformComponent>
+          </TransformWrapper>
+        </div>
+      )}
+    </>
   )
 }
 
