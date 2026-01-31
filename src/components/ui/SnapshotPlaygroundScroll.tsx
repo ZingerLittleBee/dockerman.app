@@ -20,6 +20,7 @@ interface Screenshot {
 const IMAGE_WIDTH = 2560
 const IMAGE_HEIGHT = 1760
 const SCROLL_HEIGHT_PER_ITEM = 80 // vh
+const HEADER_OFFSET = 100 // px - header height + top offset + padding
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
 
@@ -28,6 +29,7 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
   const [activeIndex, setActiveIndex] = useState(0)
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set())
   const [isInitialLoad, setIsInitialLoad] = useState(true)
+  const lastIndexRef = useRef(0)
 
   const handleImageLoad = useCallback((index: number) => {
     setLoadedImages((prev) => {
@@ -63,32 +65,36 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
 
       const totalHeight = screenshots.length * window.innerHeight * (SCROLL_HEIGHT_PER_ITEM / 100)
 
+      const handleIndexChange = (newIndex: number) => {
+        if (lastIndexRef.current !== newIndex) {
+          posthog.capture('feature_tab_switched', {
+            from_tab: screenshots[lastIndexRef.current]?.label,
+            to_tab: screenshots[newIndex]?.label,
+            to_tab_index: newIndex,
+            trigger: 'scroll',
+            location: 'snapshot_playground'
+          })
+          lastIndexRef.current = newIndex
+          setActiveIndex(newIndex)
+        }
+      }
+
       ScrollTrigger.matchMedia({
         // Desktop
         '(min-width: 768px)': () => {
           ScrollTrigger.create({
             trigger: containerRef.current,
-            start: 'top top',
+            start: `top ${HEADER_OFFSET}px`,
             end: `+=${totalHeight}`,
             pin: true,
+            pinSpacing: true,
             onUpdate: (self) => {
               const progress = self.progress
               const newIndex = Math.min(
                 Math.floor(progress * screenshots.length),
                 screenshots.length - 1
               )
-              setActiveIndex((prev) => {
-                if (prev !== newIndex) {
-                  posthog.capture('feature_tab_switched', {
-                    from_tab: screenshots[prev]?.label,
-                    to_tab: screenshots[newIndex]?.label,
-                    to_tab_index: newIndex,
-                    trigger: 'scroll',
-                    location: 'snapshot_playground'
-                  })
-                }
-                return newIndex
-              })
+              handleIndexChange(newIndex)
             }
           })
         },
@@ -96,27 +102,17 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
         '(max-width: 767px)': () => {
           ScrollTrigger.create({
             trigger: containerRef.current,
-            start: 'top top',
+            start: `top ${HEADER_OFFSET}px`,
             end: `+=${totalHeight}`,
             pin: true,
+            pinSpacing: true,
             onUpdate: (self) => {
               const progress = self.progress
               const newIndex = Math.min(
                 Math.floor(progress * screenshots.length),
                 screenshots.length - 1
               )
-              setActiveIndex((prev) => {
-                if (prev !== newIndex) {
-                  posthog.capture('feature_tab_switched', {
-                    from_tab: screenshots[prev]?.label,
-                    to_tab: screenshots[newIndex]?.label,
-                    to_tab_index: newIndex,
-                    trigger: 'scroll',
-                    location: 'snapshot_playground'
-                  })
-                }
-                return newIndex
-              })
+              handleIndexChange(newIndex)
             }
           })
         }
@@ -132,9 +128,9 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
   )
 
   return (
-    <div className="grid min-h-screen grid-cols-12 gap-8 md:gap-12" ref={containerRef}>
+    <div className="grid min-h-screen grid-cols-12 gap-6 md:gap-8" ref={containerRef}>
       {/* 左侧标签列表 - 桌面端 */}
-      <div className="col-span-full md:col-span-3">
+      <div className="col-span-full md:col-span-2">
         <div className="flex flex-col gap-2 md:gap-3">
           {screenshots.map((screenshot, index) => {
             const isActive = activeIndex === index
@@ -177,7 +173,7 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
       </div>
 
       {/* 右侧图片区域 */}
-      <div className="col-span-full md:col-span-9">
+      <div className="col-span-full md:col-span-10">
         <div className="grid">
           {screenshots.map((screenshot, index) => {
             const isActive = activeIndex === index
