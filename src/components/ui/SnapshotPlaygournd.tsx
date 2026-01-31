@@ -17,8 +17,8 @@ import {
   RiTerminalLine,
   RiWindowLine
 } from '@remixicon/react'
-import { Badge } from '../Badge'
 import { useTranslation } from '@/lib/i18n/client'
+import { Badge } from '../Badge'
 import SnapshotPlaygourndTabs from './SnapshotPlaygourndTabs'
 
 const screenshotConfigs = [

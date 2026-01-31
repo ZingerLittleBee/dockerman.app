@@ -44,7 +44,12 @@ interface TrackedFooterLinkProps {
   external?: boolean
 }
 
-export function TrackedFooterLink({ href, name, section, external = false }: TrackedFooterLinkProps) {
+export function TrackedFooterLink({
+  href,
+  name,
+  section,
+  external = false
+}: TrackedFooterLinkProps) {
   const handleClick = () => {
     posthog.capture('footer_link_clicked', {
       link_url: href,

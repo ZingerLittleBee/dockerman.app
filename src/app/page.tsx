@@ -1,6 +1,6 @@
-import { redirect } from 'next/navigation'
 import { cookies, headers } from 'next/headers'
-import { cookieName, defaultLocale, locales, type Locale } from '@/lib/i18n'
+import { redirect } from 'next/navigation'
+import { cookieName, defaultLocale, type Locale, locales } from '@/lib/i18n'
 
 export default async function RootPage() {
   const cookieStore = await cookies()

@@ -1,9 +1,9 @@
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import type { Metadata } from 'next'
-import { ThemeProvider } from 'next-themes'
 import { Inter } from 'next/font/google'
 import Script from 'next/script'
+import { ThemeProvider } from 'next-themes'
 import './globals.css'
 import { siteConfig } from './siteConfig'
 

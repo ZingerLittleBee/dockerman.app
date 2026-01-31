@@ -23,9 +23,7 @@ export default function Cta() {
                 {t('cta.title')}
               </h3>
               <p className="mx-auto mt-4 max-w-2xl text-gray-600 sm:text-lg dark:text-gray-400">
-                <Balancer>
-                  {t('cta.description')}
-                </Balancer>
+                <Balancer>{t('cta.description')}</Balancer>
               </p>
             </div>
             <div className="mt-14 rounded-[16px] bg-gray-300/5 p-1.5 ring-1 ring-black/[3%] backdrop-blur dark:bg-gray-900/10 dark:ring-white/[3%]">

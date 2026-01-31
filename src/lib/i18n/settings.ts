@@ -8,6 +8,6 @@ export function getOptions(lng: Locale = defaultLocale) {
   return {
     supportedLngs: locales,
     fallbackLng: defaultLocale,
-    lng,
+    lng
   }
 }

@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import posthog from 'posthog-js'
-import { useTranslation, useLocale } from '@/lib/i18n/client'
+import { useLocale, useTranslation } from '@/lib/i18n/client'
 import { Button } from '../Button'
 
 export function TrackedCtaDownloadButton() {

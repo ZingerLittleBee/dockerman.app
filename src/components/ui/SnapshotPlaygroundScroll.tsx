@@ -39,91 +39,100 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
     })
   }, [])
 
-  const handleTabClick = useCallback((index: number) => {
-    if (!containerRef.current) return
+  const handleTabClick = useCallback(
+    (index: number) => {
+      if (!containerRef.current) return
 
-    const containerTop = containerRef.current.offsetTop
-    const totalScrollHeight = screenshots.length * window.innerHeight * (SCROLL_HEIGHT_PER_ITEM / 100)
-    const targetScroll = containerTop + (index / screenshots.length) * totalScrollHeight
+      const containerTop = containerRef.current.offsetTop
+      const totalScrollHeight =
+        screenshots.length * window.innerHeight * (SCROLL_HEIGHT_PER_ITEM / 100)
+      const targetScroll = containerTop + (index / screenshots.length) * totalScrollHeight
 
-    gsap.to(window, {
-      scrollTo: { y: targetScroll },
-      duration: 0.8,
-      ease: 'power2.inOut'
-    })
-  }, [screenshots.length])
+      gsap.to(window, {
+        scrollTo: { y: targetScroll },
+        duration: 0.8,
+        ease: 'power2.inOut'
+      })
+    },
+    [screenshots.length]
+  )
 
-  useGSAP(() => {
-    if (!containerRef.current) return
+  useGSAP(
+    () => {
+      if (!containerRef.current) return
 
-    const totalHeight = screenshots.length * window.innerHeight * (SCROLL_HEIGHT_PER_ITEM / 100)
+      const totalHeight = screenshots.length * window.innerHeight * (SCROLL_HEIGHT_PER_ITEM / 100)
 
-    ScrollTrigger.matchMedia({
-      // Desktop
-      '(min-width: 768px)': () => {
-        ScrollTrigger.create({
-          trigger: containerRef.current,
-          start: 'top top',
-          end: `+=${totalHeight}`,
-          pin: true,
-          onUpdate: (self) => {
-            const progress = self.progress
-            const newIndex = Math.min(
-              Math.floor(progress * screenshots.length),
-              screenshots.length - 1
-            )
-            setActiveIndex((prev) => {
-              if (prev !== newIndex) {
-                posthog.capture('feature_tab_switched', {
-                  from_tab: screenshots[prev]?.label,
-                  to_tab: screenshots[newIndex]?.label,
-                  to_tab_index: newIndex,
-                  trigger: 'scroll',
-                  location: 'snapshot_playground'
-                })
-              }
-              return newIndex
-            })
-          }
-        })
-      },
-      // Mobile
-      '(max-width: 767px)': () => {
-        ScrollTrigger.create({
-          trigger: containerRef.current,
-          start: 'top top',
-          end: `+=${totalHeight}`,
-          pin: true,
-          onUpdate: (self) => {
-            const progress = self.progress
-            const newIndex = Math.min(
-              Math.floor(progress * screenshots.length),
-              screenshots.length - 1
-            )
-            setActiveIndex((prev) => {
-              if (prev !== newIndex) {
-                posthog.capture('feature_tab_switched', {
-                  from_tab: screenshots[prev]?.label,
-                  to_tab: screenshots[newIndex]?.label,
-                  to_tab_index: newIndex,
-                  trigger: 'scroll',
-                  location: 'snapshot_playground'
-                })
-              }
-              return newIndex
-            })
-          }
-        })
+      ScrollTrigger.matchMedia({
+        // Desktop
+        '(min-width: 768px)': () => {
+          ScrollTrigger.create({
+            trigger: containerRef.current,
+            start: 'top top',
+            end: `+=${totalHeight}`,
+            pin: true,
+            onUpdate: (self) => {
+              const progress = self.progress
+              const newIndex = Math.min(
+                Math.floor(progress * screenshots.length),
+                screenshots.length - 1
+              )
+              setActiveIndex((prev) => {
+                if (prev !== newIndex) {
+                  posthog.capture('feature_tab_switched', {
+                    from_tab: screenshots[prev]?.label,
+                    to_tab: screenshots[newIndex]?.label,
+                    to_tab_index: newIndex,
+                    trigger: 'scroll',
+                    location: 'snapshot_playground'
+                  })
+                }
+                return newIndex
+              })
+            }
+          })
+        },
+        // Mobile
+        '(max-width: 767px)': () => {
+          ScrollTrigger.create({
+            trigger: containerRef.current,
+            start: 'top top',
+            end: `+=${totalHeight}`,
+            pin: true,
+            onUpdate: (self) => {
+              const progress = self.progress
+              const newIndex = Math.min(
+                Math.floor(progress * screenshots.length),
+                screenshots.length - 1
+              )
+              setActiveIndex((prev) => {
+                if (prev !== newIndex) {
+                  posthog.capture('feature_tab_switched', {
+                    from_tab: screenshots[prev]?.label,
+                    to_tab: screenshots[newIndex]?.label,
+                    to_tab_index: newIndex,
+                    trigger: 'scroll',
+                    location: 'snapshot_playground'
+                  })
+                }
+                return newIndex
+              })
+            }
+          })
+        }
+      })
+
+      return () => {
+        for (const trigger of ScrollTrigger.getAll()) {
+          trigger.kill()
+        }
       }
-    })
-
-    return () => {
-      ScrollTrigger.getAll().forEach((t) => t.kill())
-    }
-  }, { scope: containerRef, dependencies: [screenshots] })
+    },
+    { scope: containerRef, dependencies: [screenshots] }
+  )
 
   return (
-    <div ref={containerRef} className="grid min-h-screen grid-cols-12 gap-8 md:gap-12">
+    <div className="grid min-h-screen grid-cols-12 gap-8 md:gap-12" ref={containerRef}>
       {/* 左侧标签列表 - 桌面端 */}
       <div className="col-span-full md:col-span-3">
         <div className="flex flex-col gap-2 md:gap-3">

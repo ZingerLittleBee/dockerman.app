@@ -1,9 +1,9 @@
 'use client'
 
-import { useEffect } from 'react'
 import i18next from 'i18next'
+import { useEffect } from 'react'
 import { I18nextProvider } from 'react-i18next'
-import { type Locale } from '@/lib/i18n'
+import type { Locale } from '@/lib/i18n'
 import '@/lib/i18n/client'
 
 interface I18nProviderProps {

@@ -7,8 +7,12 @@ import { useTranslation } from '@/lib/i18n/client'
 export default function Privacy() {
   const { t } = useTranslation()
 
-  const collectedItems = t('privacy.sections.analytics.collectedItems', { returnObjects: true }) as string[]
-  const notCollectedItems = t('privacy.sections.analytics.notCollectedItems', { returnObjects: true }) as string[]
+  const collectedItems = t('privacy.sections.analytics.collectedItems', {
+    returnObjects: true
+  }) as string[]
+  const notCollectedItems = t('privacy.sections.analytics.notCollectedItems', {
+    returnObjects: true
+  }) as string[]
 
   const sections = [
     { key: 'dataCollection' },

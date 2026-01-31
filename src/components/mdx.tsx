@@ -15,7 +15,8 @@ export default function slugify(str: string) {
 }
 
 function CustomHeading(props: { children: React.ReactNode; level: number; className?: string }) {
-  const childrenString = typeof props.children === 'string' ? props.children : String(props.children ?? '')
+  const childrenString =
+    typeof props.children === 'string' ? props.children : String(props.children ?? '')
   const slug = slugify(childrenString)
   return React.createElement(
     `h${props.level}`,
@@ -92,10 +93,18 @@ export function CustomLink({
   }
 
   if (href.startsWith('#')) {
-    return <a href={href} className={style} {...rest}>{children}</a>
+    return (
+      <a className={style} href={href} {...rest}>
+        {children}
+      </a>
+    )
   }
 
-  return <a href={href} className={style} rel="noopener noreferrer" target="_blank" {...rest}>{children}</a>
+  return (
+    <a className={style} href={href} rel="noopener noreferrer" target="_blank" {...rest}>
+      {children}
+    </a>
+  )
 }
 
 export const ChangelogEntry = ({
