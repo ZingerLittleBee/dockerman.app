@@ -4,6 +4,7 @@ import { useGSAP } from '@gsap/react'
 import type { RemixiconComponentType } from '@remixicon/react'
 import clsx from 'clsx'
 import gsap from 'gsap'
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Image from 'next/image'
 import posthog from 'posthog-js'
@@ -20,7 +21,7 @@ const IMAGE_WIDTH = 2560
 const IMAGE_HEIGHT = 1760
 const SCROLL_HEIGHT_PER_ITEM = 80 // vh
 
-gsap.registerPlugin(ScrollTrigger)
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
 
 function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }) {
   const containerRef = useRef<HTMLDivElement>(null)
