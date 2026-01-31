@@ -1,10 +1,8 @@
 'use client'
 
-import { RiArrowRightUpLine } from '@remixicon/react'
-import Link from 'next/link'
 import { Logo } from '../../../public/logo'
 import ThemeSwitch from '../ThemeSwitch'
-import { TrackedExternalLink } from './TrackedFooterLinks'
+import { TrackedFooterLink } from './TrackedFooterLinks'
 import { useTranslation, useLocale } from '@/lib/i18n/client'
 
 export default function Footer() {
@@ -56,22 +54,12 @@ export default function Footer() {
                 <ul aria-label="Quick links Product" className="mt-6 space-y-4">
                   {navigation.product.map((item) => (
                     <li className="w-fit" key={item.name}>
-                      <Link
-                        className="flex rounded-md text-gray-500 text-sm transition hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+                      <TrackedFooterLink
                         href={item.href}
-                        rel={item.external ? 'noopener noreferrer' : undefined}
-                        target={item.external ? '_blank' : undefined}
-                      >
-                        <span>{item.name}</span>
-                        {item.external && (
-                          <div className="ml-1 aspect-square size-3 rounded-full bg-gray-100 p-px dark:bg-gray-500/20">
-                            <RiArrowRightUpLine
-                              aria-hidden="true"
-                              className="size-full shrink-0 text-gray-900 dark:text-gray-300"
-                            />
-                          </div>
-                        )}
-                      </Link>
+                        name={item.name}
+                        section="product"
+                        external={item.external}
+                      />
                     </li>
                   ))}
                 </ul>
@@ -83,20 +71,12 @@ export default function Footer() {
                 <ul aria-label="Quick links Resources" className="mt-6 space-y-4">
                   {navigation.resources.map((item) => (
                     <li className="w-fit" key={item.name}>
-                      {item.external ? (
-                        <TrackedExternalLink
-                          href={item.href}
-                          name={item.name}
-                          section="resources"
-                        />
-                      ) : (
-                        <Link
-                          className="flex rounded-md text-gray-500 text-sm transition hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                          href={item.href}
-                        >
-                          <span>{item.name}</span>
-                        </Link>
-                      )}
+                      <TrackedFooterLink
+                        href={item.href}
+                        name={item.name}
+                        section="resources"
+                        external={item.external}
+                      />
                     </li>
                   ))}
                 </ul>
@@ -110,22 +90,12 @@ export default function Footer() {
                 <ul aria-label="Quick links Company" className="mt-6 space-y-4">
                   {navigation.company.map((item) => (
                     <li className="w-fit" key={item.name}>
-                      <Link
-                        className="flex rounded-md text-gray-500 text-sm transition hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+                      <TrackedFooterLink
                         href={item.href}
-                        rel={item.external ? 'noopener noreferrer' : undefined}
-                        target={item.external ? '_blank' : undefined}
-                      >
-                        <span>{item.name}</span>
-                        {item.external && (
-                          <div className="ml-1 aspect-square size-3 rounded-full bg-gray-100 p-px dark:bg-gray-500/20">
-                            <RiArrowRightUpLine
-                              aria-hidden="true"
-                              className="size-full shrink-0 text-gray-900 dark:text-gray-300"
-                            />
-                          </div>
-                        )}
-                      </Link>
+                        name={item.name}
+                        section="company"
+                        external={item.external}
+                      />
                     </li>
                   ))}
                 </ul>
@@ -137,22 +107,12 @@ export default function Footer() {
                 <ul aria-label="Quick links Legal" className="mt-6 space-y-4">
                   {navigation.legal.map((item) => (
                     <li className="w-fit" key={item.name}>
-                      <Link
-                        className="flex rounded-md text-gray-500 text-sm transition hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+                      <TrackedFooterLink
                         href={item.href}
-                        rel={item.external ? 'noopener noreferrer' : undefined}
-                        target={item.external ? '_blank' : undefined}
-                      >
-                        <span>{item.name}</span>
-                        {item.external && (
-                          <div className="ml-1 aspect-square size-3 rounded-full bg-gray-100 p-px dark:bg-gray-500/20">
-                            <RiArrowRightUpLine
-                              aria-hidden="true"
-                              className="size-full shrink-0 text-gray-900 dark:text-gray-300"
-                            />
-                          </div>
-                        )}
-                      </Link>
+                        name={item.name}
+                        section="legal"
+                        external={item.external}
+                      />
                     </li>
                   ))}
                 </ul>

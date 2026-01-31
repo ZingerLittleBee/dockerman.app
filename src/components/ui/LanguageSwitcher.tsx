@@ -1,6 +1,7 @@
 'use client'
 
 import { usePathname, useRouter } from 'next/navigation'
+import posthog from 'posthog-js'
 import { useState, useRef, useEffect } from 'react'
 import { type Locale, locales, cookieName } from '@/lib/i18n'
 
@@ -31,6 +32,13 @@ export function LanguageSwitcher({ currentLocale }: { currentLocale: Locale }) {
   }, [])
 
   const switchLocale = (newLocale: Locale) => {
+    // Track locale change
+    posthog.capture('locale_changed', {
+      from_locale: currentLocale,
+      to_locale: newLocale,
+      location: 'navbar'
+    })
+
     // Set cookie
     document.cookie = `${cookieName}=${newLocale};path=/;max-age=${60 * 60 * 24 * 365}`
 
