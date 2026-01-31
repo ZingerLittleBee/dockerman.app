@@ -141,19 +141,19 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
       <div className="relative flex min-h-[calc(100vh-100px)] flex-col pt-8" ref={containerRef}>
         {/* 图片区域 */}
         <div className="flex w-full flex-1 items-center justify-center overflow-hidden" ref={imageAreaRef}>
-          <div className="relative w-full" style={{ aspectRatio: `${IMAGE_WIDTH} / ${IMAGE_HEIGHT}` }}>
+          <div className="relative flex h-[calc(100vh-150px)] w-full items-center justify-center">
             {screenshots.map((screenshot, index) => {
               const isLoaded = loadedImages.has(index)
 
               return (
                 <div
                   className={clsx(
-                    'image-slide',
+                    'image-slide flex h-full w-full items-center justify-center',
                     index === 0 ? 'relative' : 'absolute inset-0'
                   )}
                   key={screenshot.label}
                 >
-                  <div className="relative h-full w-full">
+                  <div className="relative h-full" style={{ aspectRatio: `${IMAGE_WIDTH} / ${IMAGE_HEIGHT}` }}>
                     {!isLoaded && (
                       <div className="absolute inset-0 flex animate-pulse items-center justify-center bg-gray-100 dark:bg-gray-800">
                         <div className="flex flex-col items-center gap-3">
@@ -166,7 +166,7 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
                     <Image
                       alt={screenshot.alt}
                       className={clsx(
-                        'block h-full w-full object-cover',
+                        'block h-full w-full object-contain',
                         isLoaded ? 'opacity-100' : 'opacity-0'
                       )}
                       height={IMAGE_HEIGHT}
