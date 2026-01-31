@@ -4,8 +4,8 @@ import { useGSAP } from '@gsap/react'
 import type { RemixiconComponentType } from '@remixicon/react'
 import clsx from 'clsx'
 import gsap from 'gsap'
-import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useLenis } from 'lenis/react'
 import Image from 'next/image'
 import posthog from 'posthog-js'
 import { memo, useCallback, useEffect, useRef, useState } from 'react'
@@ -19,29 +19,24 @@ interface Screenshot {
 
 const IMAGE_WIDTH = 2560
 const IMAGE_HEIGHT = 1760
-const SCROLL_HEIGHT_PER_ITEM = 80 // vh
-const HEADER_OFFSET = 100 // px - header height + top offset + padding
-const INTRO_ANIMATION_SCROLL = 300 // px - scroll distance for intro animation
+const SCROLL_HEIGHT_PER_ITEM = 60 // vh - reduced from 80 for smoother experience
+const HEADER_OFFSET = 100 // px
 
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
+gsap.registerPlugin(ScrollTrigger)
 
 function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }) {
   const wrapperRef = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const tabListRef = useRef<HTMLDivElement>(null)
-  const tabInnerRef = useRef<HTMLDivElement>(null)
   const imageAreaRef = useRef<HTMLDivElement>(null)
 
   const [activeIndex, setActiveIndex] = useState(0)
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set())
   const [isInitialLoad, setIsInitialLoad] = useState(true)
-  const [isFastScrolling, setIsFastScrolling] = useState(false)
   const lastIndexRef = useRef(0)
   const isNavigatingRef = useRef(false) // Track if navigating via tab click
-  const lastUpdateTimeRef = useRef(0) // 节流时间戳
-  const pendingIndexRef = useRef<number | null>(null) // 待处理的 index
-  const rafIdRef = useRef<number | null>(null) // requestAnimationFrame ID
-  const scrollTweenRef = useRef<gsap.core.Tween | null>(null) // 当前的滚动动画
+
+  const lenis = useLenis()
 
   // 监听导航链接点击 - 修复同页面导航时的白屏问题
   // 当用户在 SnapshotPlayground 滚动区域点击 Home/Logo 时，需要重置 ScrollTrigger 状态
@@ -52,12 +47,6 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
 
       // 只处理内部导航链接（不是新窗口打开的）
       if (link?.href && !link.target && link.origin === window.location.origin) {
-        // 在导航前杀掉所有正在进行的 GSAP 动画
-        if (scrollTweenRef.current) {
-          scrollTweenRef.current.kill()
-          scrollTweenRef.current = null
-        }
-
         // 重置 ScrollTrigger 状态
         for (const trigger of ScrollTrigger.getAll()) {
           trigger.kill()
@@ -82,75 +71,6 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
     }
   }, [])
 
-  // 独立的滚动速度监听器 - 不依赖 ScrollTrigger 回调
-  useEffect(() => {
-    let isMounted = true // 跟踪组件是否已挂载
-    let lastScrollY = window.scrollY
-    let lastScrollTime = performance.now()
-    let scrollRafId: number | null = null
-    let localTimeoutId: ReturnType<typeof setTimeout> | null = null
-
-    const handleScroll = () => {
-      // 如果组件已卸载或正在通过 tab 点击导航，跳过检测
-      if (!isMounted || isNavigatingRef.current) return
-
-      const now = performance.now()
-      const currentScrollY = window.scrollY
-      const scrollDelta = Math.abs(currentScrollY - lastScrollY)
-      const timeDelta = now - lastScrollTime
-
-      // 计算滚动速度 (px/ms)
-      const scrollSpeed = timeDelta > 0 ? scrollDelta / timeDelta : 0
-
-      // 快速滚动阈值：大于 8 px/ms (即 8000px/s)
-      // 正常滚动约 3 px/ms，快速滑动/滚轮可达 10+ px/ms
-      const FAST_SCROLL_SPEED_THRESHOLD = 8
-
-      if (scrollSpeed > FAST_SCROLL_SPEED_THRESHOLD) {
-        if (isMounted) setIsFastScrolling(true)
-
-        // 清除之前的恢复定时器
-        if (localTimeoutId) {
-          clearTimeout(localTimeoutId)
-        }
-
-        // 延迟恢复 transition
-        localTimeoutId = setTimeout(() => {
-          if (isMounted) setIsFastScrolling(false)
-          localTimeoutId = null
-        }, 150)
-      }
-
-      lastScrollY = currentScrollY
-      lastScrollTime = now
-    }
-
-    const throttledScroll = () => {
-      if (scrollRafId || !isMounted) return
-      scrollRafId = requestAnimationFrame(() => {
-        if (isMounted) handleScroll()
-        scrollRafId = null
-      })
-    }
-
-    window.addEventListener('scroll', throttledScroll, { passive: true })
-
-    return () => {
-      isMounted = false // 标记组件已卸载
-      window.removeEventListener('scroll', throttledScroll)
-      if (scrollRafId) cancelAnimationFrame(scrollRafId)
-      if (localTimeoutId) clearTimeout(localTimeoutId)
-
-      // 清理 ScrollTrigger，防止 Next.js 导航后状态不一致
-      for (const trigger of ScrollTrigger.getAll()) {
-        trigger.kill()
-      }
-      ScrollTrigger.clearScrollMemory()
-      // 重置 pinned 元素的内联样式
-      ScrollTrigger.refresh(true)
-    }
-  }, [])
-
   const handleImageLoad = useCallback((index: number) => {
     setLoadedImages((prev) => {
       const next = new Set(prev).add(index)
@@ -163,43 +83,22 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
 
   const handleTabClick = useCallback(
     (index: number) => {
-      if (!wrapperRef.current) return
+      if (!(wrapperRef.current && lenis)) return
 
-      // 取消任何待执行的滚动更新，防止竞争条件
-      if (rafIdRef.current) {
-        cancelAnimationFrame(rafIdRef.current)
-        rafIdRef.current = null
-      }
-      pendingIndexRef.current = null
-
-      // Set navigating flag to skip intermediate index updates
       isNavigatingRef.current = true
-
-      // Immediately show target image
       setActiveIndex(index)
       lastIndexRef.current = index
 
       const wrapperTop = wrapperRef.current.offsetTop
       const totalScrollHeight =
         screenshots.length * window.innerHeight * (SCROLL_HEIGHT_PER_ITEM / 100)
-      // Add intro animation scroll to account for the entrance animation
-      const targetScroll =
-        wrapperTop + INTRO_ANIMATION_SCROLL + (index / screenshots.length) * totalScrollHeight
+      const targetScroll = wrapperTop + (index / screenshots.length) * totalScrollHeight
 
-      // Kill 旧的滚动动画，防止其 onComplete 干扰状态
-      if (scrollTweenRef.current) {
-        scrollTweenRef.current.kill()
-        scrollTweenRef.current = null
-      }
-
-      scrollTweenRef.current = gsap.to(window, {
-        scrollTo: { y: targetScroll },
-        duration: 0.8,
-        ease: 'power2.inOut',
+      // 使用 Lenis 的 scrollTo 实现平滑滚动
+      lenis.scrollTo(targetScroll, {
+        duration: 1.2,
+        easing: (t: number) => 1 - (1 - t) ** 3, // easeOutCubic
         onComplete: () => {
-          // 只有当这是当前活动的动画时才重置标志
-          scrollTweenRef.current = null
-          // Reset flag after navigation completes
           isNavigatingRef.current = false
         }
       })
@@ -212,157 +111,42 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
         location: 'snapshot_playground'
       })
     },
-    [screenshots]
+    [screenshots, lenis]
   )
 
   useGSAP(
     () => {
-      if (
-        !(wrapperRef.current && containerRef.current && tabListRef.current && imageAreaRef.current)
-      )
-        return
+      if (!(wrapperRef.current && containerRef.current)) return
 
       const totalHeight = screenshots.length * window.innerHeight * (SCROLL_HEIGHT_PER_ITEM / 100)
 
-      const handleIndexChange = (newIndex: number) => {
-        // Skip if navigating via tab click (prevents loading intermediate images)
-        if (isNavigatingRef.current) return
+      ScrollTrigger.create({
+        trigger: wrapperRef.current,
+        start: `top ${HEADER_OFFSET}px`,
+        end: `+=${totalHeight}`,
+        pin: containerRef.current,
+        pinSpacing: true,
+        onUpdate: (self) => {
+          if (isNavigatingRef.current) return
 
-        // 如果 index 没变，直接返回
-        if (lastIndexRef.current === newIndex) return
+          const newIndex = Math.min(
+            Math.floor(self.progress * screenshots.length),
+            screenshots.length - 1
+          )
 
-        // 使用 requestAnimationFrame 批量更新，避免阻塞滚动
-        if (rafIdRef.current) {
-          cancelAnimationFrame(rafIdRef.current)
-        }
-
-        pendingIndexRef.current = newIndex
-        rafIdRef.current = requestAnimationFrame(() => {
-          // 再次检查是否正在导航，防止覆盖用户点击的目标位置
-          if (isNavigatingRef.current) {
-            rafIdRef.current = null
-            pendingIndexRef.current = null
-            return
-          }
-
-          const pendingIndex = pendingIndexRef.current
-          if (pendingIndex !== null && pendingIndex !== lastIndexRef.current) {
+          if (lastIndexRef.current !== newIndex) {
             const fromLabel = screenshots[lastIndexRef.current]?.label
-            const toLabel = screenshots[pendingIndex]?.label
+            lastIndexRef.current = newIndex
+            setActiveIndex(newIndex)
 
-            lastIndexRef.current = pendingIndex
-            lastUpdateTimeRef.current = performance.now()
-            setActiveIndex(pendingIndex)
-
-            // 延迟 posthog 调用，不阻塞主线程
-            setTimeout(() => {
-              posthog.capture('feature_tab_switched', {
-                from_tab: fromLabel,
-                to_tab: toLabel,
-                to_tab_index: pendingIndex,
-                trigger: 'scroll',
-                location: 'snapshot_playground'
-              })
-            }, 0)
+            posthog.capture('feature_tab_switched', {
+              from_tab: fromLabel,
+              to_tab: screenshots[newIndex]?.label,
+              to_tab_index: newIndex,
+              trigger: 'scroll',
+              location: 'snapshot_playground'
+            })
           }
-          rafIdRef.current = null
-          pendingIndexRef.current = null
-        })
-      }
-
-      ScrollTrigger.matchMedia({
-        // Desktop
-        '(min-width: 768px)': () => {
-          // Calculate how much to offset to break out of parent container
-          const parentWidth = wrapperRef.current?.parentElement?.offsetWidth || 0
-          const viewportWidth = window.innerWidth
-          const offsetX = (viewportWidth - parentWidth) / 2
-
-          // Pin the container first - this keeps tabs visible while scrolling
-          ScrollTrigger.create({
-            trigger: wrapperRef.current,
-            start: `top ${HEADER_OFFSET}px`,
-            end: `+=${INTRO_ANIMATION_SCROLL + totalHeight}`,
-            pin: containerRef.current,
-            pinSpacing: true,
-            onUpdate: (self) => {
-              // Skip intro animation phase for index calculation
-              const introProgress = INTRO_ANIMATION_SCROLL / (INTRO_ANIMATION_SCROLL + totalHeight)
-              if (self.progress <= introProgress) return
-
-              // Calculate progress within the main scrolling phase
-              const mainProgress = (self.progress - introProgress) / (1 - introProgress)
-              const newIndex = Math.min(
-                Math.floor(mainProgress * screenshots.length),
-                screenshots.length - 1
-              )
-              handleIndexChange(newIndex)
-            }
-          })
-
-          // Intro animation - container expands to full width, image scales up
-          const introTl = gsap.timeline({
-            scrollTrigger: {
-              trigger: wrapperRef.current,
-              start: `top ${HEADER_OFFSET}px`,
-              end: `+=${INTRO_ANIMATION_SCROLL}`,
-              scrub: 1.5 // Higher value = smoother animation, less jittery on fast scroll
-            }
-          })
-
-          // Animate container to full viewport width
-          introTl.fromTo(
-            containerRef.current,
-            {
-              x: 0,
-              width: '100%',
-              paddingLeft: '0',
-              paddingRight: '0'
-            },
-            {
-              x: -offsetX,
-              width: viewportWidth,
-              paddingLeft: '1.5rem',
-              paddingRight: '2rem',
-              ease: 'power2.out',
-              force3D: true
-            },
-            0
-          )
-
-          // Image scales up and moves to center
-          introTl.fromTo(
-            imageAreaRef.current,
-            { scale: 0.92, x: '5rem' },
-            { scale: 1, x: '0rem', ease: 'power2.out', force3D: true },
-            0
-          )
-
-          // Tab list slides in from left
-          introTl.fromTo(
-            tabListRef.current,
-            { left: '0rem' },
-            { left: '10rem', ease: 'power2.out', force3D: true },
-            0
-          )
-        },
-        // Mobile - simpler animation
-        '(max-width: 767px)': () => {
-          ScrollTrigger.create({
-            trigger: containerRef.current,
-            start: `top ${HEADER_OFFSET}px`,
-            end: `+=${totalHeight}`,
-            pin: true,
-            pinSpacing: true,
-            onUpdate: (self) => {
-              const progress = self.progress
-              const newIndex = Math.min(
-                Math.floor(progress * screenshots.length),
-                screenshots.length - 1
-              )
-              handleIndexChange(newIndex)
-            }
-          })
         }
       })
 
@@ -377,141 +161,36 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
 
   return (
     <div ref={wrapperRef}>
-      <div className="relative mt-14 min-h-[calc(100vh-100px)]" ref={containerRef}>
-        {/* 左侧标签列表 - 只显示选中项及前后各一项 */}
-        <div
-          className="absolute top-0 left-0 z-20 hidden h-full md:flex md:flex-col md:justify-center"
-          ref={tabListRef}
-        >
-          <div className="flex flex-col items-center gap-2">
-            {/* 到顶部按钮 */}
-            <button
-              aria-label="Go to first"
-              className={clsx(
-                'flex h-10 w-48 items-center justify-center rounded-lg transition-all duration-300',
-                activeIndex === 0
-                  ? 'cursor-not-allowed text-gray-300 dark:text-gray-600'
-                  : 'text-gray-400 hover:bg-gray-100 hover:text-gray-600 dark:text-gray-500 dark:hover:bg-white/5 dark:hover:text-gray-300'
-              )}
-              disabled={activeIndex === 0}
-              onClick={() => handleTabClick(0)}
-              type="button"
-            >
-              <svg className="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  d="M5 15l7-7 7 7"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                />
-                <path d="M5 9h14" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
-              </svg>
-            </button>
+      <div className="relative flex min-h-[calc(100vh-100px)] flex-col pt-8" ref={containerRef}>
+        {/* 顶部水平 Tab 栏 */}
+        <div className="mb-6 flex justify-center overflow-x-auto px-4" ref={tabListRef}>
+          <div className="flex gap-2 rounded-xl bg-gray-100/80 p-1.5 dark:bg-white/5">
+            {screenshots.map((screenshot, index) => {
+              const isActive = activeIndex === index
 
-            {/* Tab 列表区域 - 使用 translateY 实现平移滚动 */}
-            <div
-              className="relative w-48 overflow-hidden"
-              ref={tabInnerRef}
-              style={{ height: `${5 * 68}px` }}
-            >
-              {/* 上方渐变遮罩 */}
-              {activeIndex > 0 && (
-                <div className="pointer-events-none absolute top-0 right-0 left-0 z-10 h-16 bg-gradient-to-b from-white to-transparent dark:from-gray-950" />
-              )}
-
-              {/* 滚动内容 */}
-              <div
-                className={clsx(
-                  'flex flex-col gap-2 ease-out',
-                  !isFastScrolling && 'transition-transform duration-300'
-                )}
-                style={{ transform: `translateY(${(2 - activeIndex) * 68}px)` }}
-              >
-                {screenshots.map((screenshot, index) => {
-                  const isActive = activeIndex === index
-                  const distance = Math.abs(index - activeIndex)
-                  const opacity = distance === 0 ? 1 : distance === 1 ? 0.5 : 0.3
-
-                  return (
-                    <button
-                      className={clsx(
-                        'group relative flex h-[60px] w-full items-center justify-start gap-4 rounded-xl px-4 py-3 text-left',
-                        !isFastScrolling && 'transition-all duration-300',
-                        isActive && 'bg-gray-100 shadow-sm dark:bg-white/5'
-                      )}
-                      key={screenshot.label}
-                      onClick={() => handleTabClick(index)}
-                      style={{ opacity }}
-                      type="button"
-                    >
-                      <span className="relative z-10 flex w-full items-center gap-3">
-                        <span
-                          className={clsx(
-                            'flex size-9 shrink-0 items-center justify-center rounded-lg border',
-                            !isFastScrolling && 'transition-colors duration-300',
-                            isActive
-                              ? 'border-gray-200 bg-white text-indigo-600 dark:border-white/10 dark:bg-gray-800 dark:text-indigo-400'
-                              : 'border-transparent bg-transparent text-gray-500 group-hover:text-gray-900 dark:text-gray-500 dark:group-hover:text-gray-300'
-                          )}
-                        >
-                          <screenshot.icon className="size-5" />
-                        </span>
-                        <span
-                          className={clsx(
-                            'truncate font-medium',
-                            !isFastScrolling && 'transition-colors duration-300',
-                            isActive
-                              ? 'text-gray-900 dark:text-white'
-                              : 'text-gray-500 group-hover:text-gray-900 dark:text-gray-500 dark:group-hover:text-gray-300'
-                          )}
-                        >
-                          {screenshot.label}
-                        </span>
-                      </span>
-                    </button>
-                  )
-                })}
-              </div>
-
-              {/* 下方渐变遮罩 */}
-              {activeIndex < screenshots.length - 1 && (
-                <div className="pointer-events-none absolute right-0 bottom-0 left-0 z-10 h-16 bg-gradient-to-t from-white to-transparent dark:from-gray-950" />
-              )}
-            </div>
-
-            {/* 到底部按钮 */}
-            <button
-              aria-label="Go to last"
-              className={clsx(
-                'flex h-10 w-48 items-center justify-center rounded-lg transition-all duration-300',
-                activeIndex === screenshots.length - 1
-                  ? 'cursor-not-allowed text-gray-300 dark:text-gray-600'
-                  : 'text-gray-400 hover:bg-gray-100 hover:text-gray-600 dark:text-gray-500 dark:hover:bg-white/5 dark:hover:text-gray-300'
-              )}
-              disabled={activeIndex === screenshots.length - 1}
-              onClick={() => handleTabClick(screenshots.length - 1)}
-              type="button"
-            >
-              <svg className="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  d="M19 9l-7 7-7-7"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                />
-                <path d="M5 15h14" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
-              </svg>
-            </button>
+              return (
+                <button
+                  className={clsx(
+                    'relative flex items-center gap-2 whitespace-nowrap rounded-lg px-4 py-2.5 font-medium text-sm',
+                    isActive
+                      ? 'bg-white text-gray-900 shadow-sm dark:bg-gray-800 dark:text-white'
+                      : 'text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white'
+                  )}
+                  key={screenshot.label}
+                  onClick={() => handleTabClick(index)}
+                  type="button"
+                >
+                  <screenshot.icon className="size-4" />
+                  <span>{screenshot.label}</span>
+                </button>
+              )
+            })}
           </div>
         </div>
 
-        {/* 图片区域 - 初始在 tab 旁边，滚动后居中 */}
-        <div
-          className="flex min-h-[calc(100vh-100px)] w-screen items-center justify-center px-4 md:px-0"
-          ref={imageAreaRef}
-          style={{ transform: 'translateX(5rem)', willChange: 'transform' }}
-        >
-          <div className="grid w-full max-w-[min(calc(100vw-280px),calc((100vh-220px)*2560/1760))]">
+        {/* 图片区域 */}
+        <div className="flex w-full items-center justify-center px-4" ref={imageAreaRef}>
+          <div className="grid w-full max-w-6xl">
             {screenshots.map((screenshot, index) => {
               const isActive = activeIndex === index
               const isLoaded = loadedImages.has(index)
@@ -519,8 +198,7 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
               return (
                 <div
                   className={clsx(
-                    'col-start-1 row-start-1 ease-out will-change-[opacity]',
-                    !isFastScrolling && 'transition-opacity duration-300',
+                    'col-start-1 row-start-1',
                     isActive
                       ? 'pointer-events-auto z-10 opacity-100'
                       : 'pointer-events-none z-0 opacity-0'
@@ -546,7 +224,7 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
                       <Image
                         alt={screenshot.alt}
                         className={clsx(
-                          'block w-full rounded shadow transition-opacity duration-300 md:rounded-xl dark:shadow-indigo-600/10',
+                          'block w-full rounded shadow md:rounded-xl dark:shadow-indigo-600/10',
                           isLoaded ? 'opacity-100' : 'opacity-0'
                         )}
                         height={IMAGE_HEIGHT}
