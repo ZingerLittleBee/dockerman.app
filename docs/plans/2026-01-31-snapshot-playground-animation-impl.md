@@ -2,15 +2,127 @@
 
 > **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
-**Goal:** 优化 SnapshotPlaygroundScroll 组件的动画流畅度，将左侧 tab 改为顶部水平布局
+**Goal:** 优化 SnapshotPlaygroundScroll 组件的动画流畅度，将左侧 tab 改为顶部水平布局，使用 Lenis 实现丝滑滚动
 
-**Architecture:** 重构组件布局为顶部 tab + 全宽图片区域，移除 intro 动画和快速滚动检测，简化 ScrollTrigger 配置
+**Architecture:** 集成 Lenis 平滑滚动库与 GSAP ScrollTrigger，重构组件布局为顶部 tab + 全宽图片区域，移除 intro 动画和快速滚动检测
 
-**Tech Stack:** React, GSAP (ScrollTrigger, ScrollToPlugin), Tailwind CSS, Next.js Image
+**Tech Stack:** React, GSAP (ScrollTrigger, ScrollToPlugin), Lenis (smooth scroll), Tailwind CSS, Next.js Image
 
 ---
 
-### Task 1: 清理无用状态和 refs
+### Task 0: 安装 Lenis 库
+
+**Step 1: 安装依赖**
+
+Run: `cd /Users/zingerbee/.superset/worktrees/dockerman.app1/astronomy && npm install lenis`
+
+Expected: 安装成功
+
+**Step 2: 验证安装**
+
+Run: `cat package.json | grep lenis`
+
+Expected: 显示 lenis 版本
+
+---
+
+### Task 1: 创建全局 Lenis Provider
+
+**Files:**
+- Create: `src/components/providers/LenisProvider.tsx`
+
+**Step 1: 创建 LenisProvider 组件**
+
+```tsx
+'use client'
+
+import { ReactLenis } from 'lenis/react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useEffect, useRef } from 'react'
+
+gsap.registerPlugin(ScrollTrigger)
+
+export function LenisProvider({ children }: { children: React.ReactNode }) {
+  const lenisRef = useRef<any>(null)
+
+  useEffect(() => {
+    function update(time: number) {
+      lenisRef.current?.lenis?.raf(time * 1000)
+    }
+
+    // 将 Lenis 的 raf 添加到 GSAP ticker
+    gsap.ticker.add(update)
+    // 禁用 lag smoothing 以获得即时响应
+    gsap.ticker.lagSmoothing(0)
+
+    return () => {
+      gsap.ticker.remove(update)
+    }
+  }, [])
+
+  useEffect(() => {
+    // 当 Lenis 滚动时更新 ScrollTrigger
+    const lenis = lenisRef.current?.lenis
+    if (lenis) {
+      lenis.on('scroll', ScrollTrigger.update)
+    }
+
+    return () => {
+      lenis?.off('scroll', ScrollTrigger.update)
+    }
+  }, [])
+
+  return (
+    <ReactLenis
+      root
+      options={{
+        autoRaf: false,
+        lerp: 0.1,
+        duration: 1.2,
+        smoothWheel: true
+      }}
+      ref={lenisRef}
+    >
+      {children}
+    </ReactLenis>
+  )
+}
+```
+
+**Step 2: 验证文件创建**
+
+Run: `ls -la src/components/providers/LenisProvider.tsx`
+
+Expected: 文件存在
+
+---
+
+### Task 2: 集成 LenisProvider 到布局
+
+**Files:**
+- Modify: `src/app/layout.tsx` 或项目的根布局文件
+
+**Step 1: 查找根布局文件**
+
+Run: `ls src/app/layout.tsx src/app/providers.tsx 2>/dev/null || ls src/components/providers/*.tsx`
+
+**Step 2: 在根布局中包裹 LenisProvider**
+
+在根布局的最外层包裹 `<LenisProvider>`:
+
+```tsx
+import { LenisProvider } from '@/components/providers/LenisProvider'
+
+// 在 body 内部包裹
+<LenisProvider>
+  {children}
+</LenisProvider>
+```
+
+---
+
+### Task 3: 清理无用状态和 refs
 
 **Files:**
 - Modify: `src/components/ui/SnapshotPlaygroundScroll.tsx:35-44`
@@ -44,15 +156,9 @@ const isNavigatingRef = useRef(false)
 const scrollTweenRef = useRef<gsap.core.Tween | null>(null)
 ```
 
-**Step 2: 验证没有语法错误**
-
-Run: `cd /Users/zingerbee/.superset/worktrees/dockerman.app1/astronomy && npx tsc --noEmit src/components/ui/SnapshotPlaygroundScroll.tsx 2>&1 | head -20`
-
-Expected: 会有引用错误（因为删除了被使用的变量），这是预期的
-
 ---
 
-### Task 2: 删除独立滚动速度监听器
+### Task 4: 删除独立滚动速度监听器
 
 **Files:**
 - Modify: `src/components/ui/SnapshotPlaygroundScroll.tsx:85-152`
@@ -67,19 +173,29 @@ Expected: 会有引用错误（因为删除了被使用的变量），这是预�
 
 ---
 
-### Task 3: 简化 handleTabClick
+### Task 5: 更新 handleTabClick 使用 Lenis
 
 **Files:**
 - Modify: `src/components/ui/SnapshotPlaygroundScroll.tsx:164-216`
 
-**Step 1: 简化 handleTabClick 函数**
+**Step 1: 添加 useLenis hook 导入**
 
-替换为：
+```tsx
+import { useLenis } from 'lenis/react'
+```
+
+**Step 2: 在组件内添加 lenis hook**
+
+```tsx
+const lenis = useLenis()
+```
+
+**Step 3: 替换 handleTabClick 函数**
 
 ```tsx
 const handleTabClick = useCallback(
   (index: number) => {
-    if (!wrapperRef.current) return
+    if (!wrapperRef.current || !lenis) return
 
     isNavigatingRef.current = true
     setActiveIndex(index)
@@ -91,17 +207,11 @@ const handleTabClick = useCallback(
     const targetScroll =
       wrapperTop + (index / screenshots.length) * totalScrollHeight
 
-    if (scrollTweenRef.current) {
-      scrollTweenRef.current.kill()
-      scrollTweenRef.current = null
-    }
-
-    scrollTweenRef.current = gsap.to(window, {
-      scrollTo: { y: targetScroll },
-      duration: 0.5,
-      ease: 'power3.out',
+    // 使用 Lenis 的 scrollTo 实现平滑滚动
+    lenis.scrollTo(targetScroll, {
+      duration: 1.2,
+      easing: (t: number) => 1 - Math.pow(1 - t, 3), // easeOutCubic
       onComplete: () => {
-        scrollTweenRef.current = null
         isNavigatingRef.current = false
       }
     })
@@ -114,13 +224,13 @@ const handleTabClick = useCallback(
       location: 'snapshot_playground'
     })
   },
-  [screenshots]
+  [screenshots, lenis]
 )
 ```
 
 ---
 
-### Task 4: 简化 ScrollTrigger 配置
+### Task 6: 简化 ScrollTrigger 配置
 
 **Files:**
 - Modify: `src/components/ui/SnapshotPlaygroundScroll.tsx:20-25`
@@ -151,7 +261,6 @@ useGSAP(
       end: `+=${totalHeight}`,
       pin: containerRef.current,
       pinSpacing: true,
-      scrub: 0.5,
       onUpdate: (self) => {
         if (isNavigatingRef.current) return
 
@@ -188,7 +297,7 @@ useGSAP(
 
 ---
 
-### Task 5: 重构 JSX - 水平 Tab 栏
+### Task 7: 重构 JSX - 水平 Tab 栏
 
 **Files:**
 - Modify: `src/components/ui/SnapshotPlaygroundScroll.tsx:378-506`
@@ -230,7 +339,7 @@ useGSAP(
 
 ---
 
-### Task 6: 简化图片区域
+### Task 8: 简化图片区域
 
 **Files:**
 - Modify: `src/components/ui/SnapshotPlaygroundScroll.tsx:508-580`
@@ -314,7 +423,7 @@ useGSAP(
 
 ---
 
-### Task 7: 更新容器样式
+### Task 9: 更新容器样式
 
 **Files:**
 - Modify: `src/components/ui/SnapshotPlaygroundScroll.tsx`
@@ -337,7 +446,7 @@ useGSAP(
 
 ---
 
-### Task 8: 验证和测试
+### Task 10: 验证和测试
 
 **Step 1: 类型检查**
 
@@ -350,20 +459,23 @@ Expected: 无错误
 Run: `cd /Users/zingerbee/.superset/worktrees/dockerman.app1/astronomy && npm run dev`
 
 手动测试：
-1. 滚动时 tab 和图片切换是否流畅
-2. 点击 tab 是否平滑跳转
-3. 快速滚动是否无卡顿
-4. 移动端布局是否正常
+1. 页面滚动是否丝滑（Lenis 效果）
+2. 滚动时 tab 和图片切换是否流畅
+3. 点击 tab 是否平滑跳转
+4. 快速滚动是否无卡顿
+5. 移动端布局是否正常
 
 **Step 3: 提交**
 
 ```bash
-git add src/components/ui/SnapshotPlaygroundScroll.tsx
-git commit -m "refactor: optimize SnapshotPlaygroundScroll animation and layout
+git add -A
+git commit -m "refactor: optimize SnapshotPlaygroundScroll with Lenis smooth scroll
 
+- Integrate Lenis library for silky smooth scrolling
+- Add LenisProvider with GSAP ticker integration
 - Change left sidebar tabs to horizontal top tabs
 - Remove intro animation and fast scroll detection
-- Simplify ScrollTrigger config (60vh per item, scrub 0.5)
-- Reduce animation duration from 0.8s to 0.5s
+- Simplify ScrollTrigger config (60vh per item)
+- Use Lenis scrollTo for tab click navigation
 - Remove ~200 lines of unused code"
 ```
