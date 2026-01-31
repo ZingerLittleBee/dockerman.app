@@ -18,7 +18,7 @@ interface Screenshot {
 
 const IMAGE_WIDTH = 2560
 const IMAGE_HEIGHT = 1760
-const SCROLL_HEIGHT_PER_ITEM = 60 // vh
+const SCROLL_HEIGHT_PER_ITEM = 45 // vh
 const HEADER_OFFSET = 100 // px
 
 gsap.registerPlugin(ScrollTrigger)
@@ -113,20 +113,30 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
       })
 
       // 为每张图片添加动画
-      // 每张图片有3个阶段：进入(80%)、中间放大(80%→100%)、离开(100%→80%)
+      // 每张图片有3个阶段：进入(80%)、中间放大(80%→85%)、离开(85%→80%)
       imageElements.forEach((el, index) => {
         if (index === 0) {
           // 第一张：先放大，再滑到左边并缩小
-          tl.fromTo(el, { scale: 0.8 }, { scale: 1, ease: 'none' }, 0)
+          tl.fromTo(el, { scale: 0.8 }, { scale: 0.85, ease: 'none' }, 0)
           tl.to(el, { xPercent: -100, scale: 0.8, ease: 'none' }, 0.5)
         } else if (index === screenshots.length - 1) {
-          // 最后一张：从右边滑到中间(80%)，然后放大到100%
-          tl.fromTo(el, { xPercent: 100, scale: 0.8 }, { xPercent: 0, scale: 0.8, ease: 'none' }, index - 0.5)
-          tl.to(el, { scale: 1, ease: 'none' }, index)
+          // 最后一张：从右边滑到中间(80%)，然后放大到85%
+          tl.fromTo(
+            el,
+            { xPercent: 100, scale: 0.8 },
+            { xPercent: 0, scale: 0.8, ease: 'none' },
+            index - 0.5
+          )
+          tl.to(el, { scale: 0.85, ease: 'none' }, index)
         } else {
-          // 中间的：进入(80%)、放大(100%)、离开(80%)
-          tl.fromTo(el, { xPercent: 100, scale: 0.8 }, { xPercent: 0, scale: 0.8, ease: 'none' }, index - 0.5)
-          tl.to(el, { scale: 1, ease: 'none' }, index)
+          // 中间的：进入(80%)、放大(85%)、离开(80%)
+          tl.fromTo(
+            el,
+            { xPercent: 100, scale: 0.8 },
+            { xPercent: 0, scale: 0.8, ease: 'none' },
+            index - 0.5
+          )
+          tl.to(el, { scale: 0.85, ease: 'none' }, index)
           tl.to(el, { xPercent: -100, scale: 0.8, ease: 'none' }, index + 0.5)
         }
       })
@@ -141,10 +151,13 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
   )
 
   return (
-    <div ref={wrapperRef} className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen">
+    <div className="relative right-1/2 left-1/2 -mr-[50vw] -ml-[50vw] w-screen" ref={wrapperRef}>
       <div className="relative flex h-[calc(100vh-100px)] flex-col" ref={containerRef}>
         {/* 图片区域 */}
-        <div className="flex h-full w-full items-center justify-center overflow-hidden" ref={imageAreaRef}>
+        <div
+          className="flex h-full w-full items-center justify-center overflow-hidden"
+          ref={imageAreaRef}
+        >
           <div className="relative flex h-full w-full items-center justify-center">
             {screenshots.map((screenshot, index) => {
               const isLoaded = loadedImages.has(index)
@@ -157,7 +170,10 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
                   )}
                   key={screenshot.label}
                 >
-                  <div className="relative h-full max-h-full" style={{ aspectRatio: `${IMAGE_WIDTH} / ${IMAGE_HEIGHT}` }}>
+                  <div
+                    className="relative h-full max-h-full"
+                    style={{ aspectRatio: `${IMAGE_WIDTH} / ${IMAGE_HEIGHT}` }}
+                  >
                     {!isLoaded && (
                       <div className="absolute inset-0 flex animate-pulse items-center justify-center bg-gray-100 dark:bg-gray-800">
                         <div className="flex flex-col items-center gap-3">
