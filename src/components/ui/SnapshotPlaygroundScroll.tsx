@@ -47,14 +47,14 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
 
   const handleTabClick = useCallback(
     (index: number) => {
-      if (!containerRef.current) return
+      if (!wrapperRef.current) return
 
-      const containerTop = containerRef.current.offsetTop
+      const wrapperTop = wrapperRef.current.offsetTop
       const totalScrollHeight =
         screenshots.length * window.innerHeight * (SCROLL_HEIGHT_PER_ITEM / 100)
       // Add intro animation scroll to account for the entrance animation
       const targetScroll =
-        containerTop + INTRO_ANIMATION_SCROLL + (index / screenshots.length) * totalScrollHeight
+        wrapperTop + INTRO_ANIMATION_SCROLL + (index / screenshots.length) * totalScrollHeight
 
       gsap.to(window, {
         scrollTo: { y: targetScroll },
@@ -88,7 +88,7 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
       ScrollTrigger.matchMedia({
         // Desktop
         '(min-width: 768px)': () => {
-          // Intro animation - tab slides left, image scales up
+          // Intro animation - container expands, tab slides left, image scales up
           const introTl = gsap.timeline({
             scrollTrigger: {
               trigger: wrapperRef.current,
@@ -98,26 +98,40 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
             }
           })
 
+          // Animate container to full width
           introTl
             .fromTo(
-              tabListRef.current,
-              { x: 0 },
-              { x: -60, ease: 'power2.out' },
+              containerRef.current,
+              {
+                maxWidth: '72rem', // max-w-6xl
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                paddingLeft: '0.75rem',
+                paddingRight: '0.75rem'
+              },
+              {
+                maxWidth: '100%',
+                marginLeft: '0',
+                marginRight: '0',
+                paddingLeft: '2rem',
+                paddingRight: '2rem',
+                ease: 'power2.out'
+              },
               0
             )
             .fromTo(
               imageAreaRef.current,
-              { scale: 0.9, transformOrigin: 'center center' },
+              { scale: 0.92, transformOrigin: 'center center' },
               { scale: 1, ease: 'power2.out' },
               0
             )
 
           // Main pin and image switching
           ScrollTrigger.create({
-            trigger: containerRef.current,
+            trigger: wrapperRef.current,
             start: `top+=${INTRO_ANIMATION_SCROLL} ${HEADER_OFFSET}px`,
             end: `+=${totalHeight}`,
-            pin: true,
+            pin: containerRef.current,
             pinSpacing: true,
             onUpdate: (self) => {
               const progress = self.progress
@@ -161,13 +175,12 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
   return (
     <div ref={wrapperRef}>
       <div
-        className="grid min-h-screen w-screen grid-cols-12 gap-6 md:gap-8"
+        className="mx-auto grid min-h-screen max-w-6xl grid-cols-12 gap-6 px-3 md:gap-8"
         ref={containerRef}
-        style={{ marginLeft: 'calc(-50vw + 50%)' }}
       >
         {/* 左侧标签列表 */}
         <div
-          className="col-span-full pl-4 md:col-span-2 md:pl-8"
+          className="col-span-full md:col-span-3"
           ref={tabListRef}
         >
           <div className="flex flex-col gap-2 md:gap-3">
@@ -213,7 +226,7 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
 
         {/* 右侧图片区域 */}
         <div
-          className="col-span-full pr-4 md:col-span-10 md:pr-8"
+          className="col-span-full md:col-span-9"
           ref={imageAreaRef}
         >
           <div className="grid">
