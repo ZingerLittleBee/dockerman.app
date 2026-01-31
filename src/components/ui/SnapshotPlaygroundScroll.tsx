@@ -140,8 +140,8 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
     <div ref={wrapperRef}>
       <div className="relative flex min-h-[calc(100vh-100px)] flex-col pt-8" ref={containerRef}>
         {/* 图片区域 */}
-        <div className="flex w-full flex-1 items-center justify-center overflow-hidden px-4" ref={imageAreaRef}>
-          <div className="relative w-full max-w-6xl">
+        <div className="flex w-screen flex-1 items-center justify-center overflow-hidden" ref={imageAreaRef}>
+          <div className="relative w-full">
             {screenshots.map((screenshot, index) => {
               const isLoaded = loadedImages.has(index)
 
@@ -153,11 +153,11 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
                   )}
                   key={screenshot.label}
                 >
-                  <div className="overflow-hidden rounded-xl bg-slate-50/40 p-2 shadow-2xl ring-1 ring-slate-200/50 ring-inset md:rounded-2xl dark:bg-gray-900/70 dark:ring-white/10">
-                    <div className="relative rounded bg-white ring-1 ring-slate-900/5 md:rounded-xl dark:bg-slate-950 dark:ring-white/15">
+                  <div className="overflow-hidden">
+                    <div className="relative">
                       {!isLoaded && (
                         <div
-                          className="absolute inset-0 flex animate-pulse items-center justify-center rounded bg-gray-100 md:rounded-xl dark:bg-gray-800"
+                          className="absolute inset-0 flex animate-pulse items-center justify-center bg-gray-100 dark:bg-gray-800"
                           style={{
                             aspectRatio: `${IMAGE_WIDTH} / ${IMAGE_HEIGHT}`
                           }}
@@ -172,7 +172,7 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
                       <Image
                         alt={screenshot.alt}
                         className={clsx(
-                          'block w-full rounded shadow md:rounded-xl dark:shadow-indigo-600/10',
+                          'block w-full dark:shadow-indigo-600/10',
                           isLoaded ? 'opacity-100' : 'opacity-0'
                         )}
                         height={IMAGE_HEIGHT}
@@ -190,7 +190,7 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
 
             {isInitialLoad && (
               <div
-                className="absolute inset-0 z-20 flex items-center justify-center rounded-xl bg-slate-50/80 backdrop-blur-sm dark:bg-gray-900/80"
+                className="absolute inset-0 z-20 flex items-center justify-center bg-slate-50/80 backdrop-blur-sm dark:bg-gray-900/80"
                 style={{ aspectRatio: `${IMAGE_WIDTH} / ${IMAGE_HEIGHT}` }}
               >
                 <div className="flex flex-col items-center gap-4">
