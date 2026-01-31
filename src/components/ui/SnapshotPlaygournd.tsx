@@ -46,12 +46,15 @@ const featureConfigs = [
 export default function SnapshotPlaygournd() {
   const { t } = useTranslation()
 
-  const screenshots = screenshotConfigs.map((config) => ({
-    src: config.src,
-    alt: t(`snapshot.tabs.${config.labelKey}`),
-    label: t(`snapshot.tabs.${config.labelKey}`),
-    icon: config.icon
-  }))
+  const screenshots = screenshotConfigs.map((config) => {
+    const label = t(`snapshot.tabs.${config.labelKey}`)
+    return {
+      src: config.src,
+      alt: label,
+      label,
+      icon: config.icon
+    }
+  })
 
   const features = featureConfigs.map((config) => ({
     name: t(`snapshot.features.${config.key}.name`),

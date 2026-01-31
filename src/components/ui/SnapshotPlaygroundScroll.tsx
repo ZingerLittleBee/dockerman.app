@@ -7,7 +7,6 @@ import clsx from 'clsx'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Image from 'next/image'
-import posthog from 'posthog-js'
 import { memo, useCallback, useEffect, useRef, useState } from 'react'
 import { TransformComponent, TransformWrapper, useControls } from 'react-zoom-pan-pinch'
 
@@ -23,52 +22,64 @@ const IMAGE_HEIGHT = 1600
 const SCROLL_HEIGHT_PER_ITEM = 65 // vh - 增加高度让滚动速度变慢
 const HEADER_OFFSET = 100 // px
 
+// Hoisted style objects to prevent re-renders
+const LIGHTBOX_CONTENT_STYLE = {
+  width: '100%',
+  height: '100%',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center'
+} as const
+
+const LIGHTBOX_WRAPPER_STYLE = {
+  width: '100%',
+  height: '100%'
+} as const
+
+// 加载骨架屏组件
+function LoadingSkeleton({ absolute = false }: { absolute?: boolean }) {
+  return (
+    <div
+      className={clsx(
+        'flex animate-pulse items-center justify-center bg-gray-100 dark:bg-gray-800',
+        absolute && 'absolute inset-0'
+      )}
+      style={absolute ? undefined : { aspectRatio: `${IMAGE_WIDTH} / ${IMAGE_HEIGHT}` }}
+    >
+      <div className="flex flex-col items-center gap-3">
+        <div className="size-12 rounded-lg bg-gray-200 dark:bg-gray-700" />
+        <div className="h-3 w-24 rounded bg-gray-200 dark:bg-gray-700" />
+      </div>
+    </div>
+  )
+}
+
 // Lightbox 控制按钮组件
 function LightboxControls({ onClose }: { onClose: () => void }) {
   const { zoomIn, zoomOut, resetTransform } = useControls()
 
+  const buttons = [
+    { icon: RiZoomInLine, action: zoomIn },
+    { icon: RiZoomOutLine, action: zoomOut },
+    { icon: RiRefreshLine, action: resetTransform },
+    { icon: RiCloseLine, action: onClose }
+  ]
+
   return (
     <div className="absolute top-4 right-4 z-10 flex gap-2">
-      <button
-        className="rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20"
-        onClick={(e) => {
-          e.stopPropagation()
-          zoomIn()
-        }}
-        type="button"
-      >
-        <RiZoomInLine className="size-6" />
-      </button>
-      <button
-        className="rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20"
-        onClick={(e) => {
-          e.stopPropagation()
-          zoomOut()
-        }}
-        type="button"
-      >
-        <RiZoomOutLine className="size-6" />
-      </button>
-      <button
-        className="rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20"
-        onClick={(e) => {
-          e.stopPropagation()
-          resetTransform()
-        }}
-        type="button"
-      >
-        <RiRefreshLine className="size-6" />
-      </button>
-      <button
-        className="rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20"
-        onClick={(e) => {
-          e.stopPropagation()
-          onClose()
-        }}
-        type="button"
-      >
-        <RiCloseLine className="size-6" />
-      </button>
+      {buttons.map(({ icon: Icon, action }) => (
+        <button
+          className="rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20"
+          key={Icon.displayName}
+          onClick={(e) => {
+            e.stopPropagation()
+            action()
+          }}
+          type="button"
+        >
+          <Icon className="size-6" />
+        </button>
+      ))}
     </div>
   )
 }
@@ -79,6 +90,12 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
   const wrapperRef = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const imageAreaRef = useRef<HTMLDivElement>(null)
+  const screenshotsRef = useRef(screenshots)
+
+  // Keep ref in sync with latest screenshots (for labels after language change)
+  useEffect(() => {
+    screenshotsRef.current = screenshots
+  }, [screenshots])
 
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set())
   const [isInitialLoad, setIsInitialLoad] = useState(true)
@@ -156,16 +173,21 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
             )
 
             if (lastIndexRef.current !== newIndex) {
-              const fromLabel = screenshots[lastIndexRef.current]?.label
+              // Use ref to get current labels (handles language changes without recreating animation)
+              const currentScreenshots = screenshotsRef.current
+              const fromLabel = currentScreenshots[lastIndexRef.current]?.label
               lastIndexRef.current = newIndex
               setActiveIndex(newIndex)
 
-              posthog.capture('feature_tab_switched', {
-                from_tab: fromLabel,
-                to_tab: screenshots[newIndex]?.label,
-                to_tab_index: newIndex,
-                trigger: 'scroll',
-                location: 'snapshot_playground'
+              // Defer PostHog import to reduce initial bundle size
+              import('posthog-js').then(({ default: posthog }) => {
+                posthog.capture('feature_tab_switched', {
+                  from_tab: fromLabel,
+                  to_tab: currentScreenshots[newIndex]?.label,
+                  to_tab_index: newIndex,
+                  trigger: 'scroll',
+                  location: 'snapshot_playground'
+                })
               })
             }
           }
@@ -194,7 +216,7 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
         }
       }
     },
-    { scope: wrapperRef, dependencies: [screenshots] }
+    { scope: wrapperRef, dependencies: [screenshots.length] }
   )
 
   return (
@@ -212,17 +234,7 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
               type="button"
             >
               <div className="overflow-hidden rounded-lg bg-white ring-1 ring-slate-900/5 dark:bg-slate-950 dark:ring-white/15">
-                {!isLoaded && (
-                  <div
-                    className="flex animate-pulse items-center justify-center bg-gray-100 dark:bg-gray-800"
-                    style={{ aspectRatio: `${IMAGE_WIDTH} / ${IMAGE_HEIGHT}` }}
-                  >
-                    <div className="flex flex-col items-center gap-3">
-                      <div className="size-12 rounded-lg bg-gray-200 dark:bg-gray-700" />
-                      <div className="h-3 w-24 rounded bg-gray-200 dark:bg-gray-700" />
-                    </div>
-                  </div>
-                )}
+                {!isLoaded && <LoadingSkeleton />}
 
                 <Image
                   alt={screenshot.alt}
@@ -253,25 +265,28 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
       >
         <div className="relative flex h-[calc(100vh-100px)] flex-col" ref={containerRef}>
           {/* 模块标签 Badge */}
-          <div className="absolute top-4 left-1/2 z-10 -translate-x-1/2">
-            <div className="flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 shadow-lg ring-1 ring-slate-200/50 backdrop-blur-sm dark:bg-gray-900/90 dark:ring-white/10">
-              {(() => {
-                const Icon = screenshots[activeIndex]?.icon
-                return Icon ? (
-                  <Icon
-                    className="size-5 text-indigo-600 transition-opacity duration-300 dark:text-indigo-400"
-                    key={`icon-${activeIndex}`}
-                  />
-                ) : null
-              })()}
-              <span
-                className="animate-fade-in font-medium text-gray-900 text-sm dark:text-white"
-                key={`label-${activeIndex}`}
-              >
-                {screenshots[activeIndex]?.label}
-              </span>
-            </div>
-          </div>
+          {(() => {
+            const activeScreenshot = screenshots[activeIndex]
+            const Icon = activeScreenshot?.icon
+            return (
+              <div className="absolute top-4 left-1/2 z-10 -translate-x-1/2">
+                <div className="flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 shadow-lg ring-1 ring-slate-200/50 backdrop-blur-sm dark:bg-gray-900/90 dark:ring-white/10">
+                  {Icon && (
+                    <Icon
+                      className="size-5 text-indigo-600 transition-opacity duration-300 dark:text-indigo-400"
+                      key={`icon-${activeIndex}`}
+                    />
+                  )}
+                  <span
+                    className="animate-fade-in font-medium text-gray-900 text-sm dark:text-white"
+                    key={`label-${activeIndex}`}
+                  >
+                    {activeScreenshot?.label}
+                  </span>
+                </div>
+              </div>
+            )
+          })()}
 
           {/* 图片区域 */}
           <div
@@ -295,14 +310,7 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
                         className="h-full overflow-hidden rounded-lg bg-white ring-1 ring-slate-900/5 dark:bg-slate-950 dark:ring-white/15"
                         style={{ aspectRatio: `${IMAGE_WIDTH} / ${IMAGE_HEIGHT}` }}
                       >
-                        {!isLoaded && (
-                          <div className="absolute inset-0 flex animate-pulse items-center justify-center bg-gray-100 dark:bg-gray-800">
-                            <div className="flex flex-col items-center gap-3">
-                              <div className="size-12 rounded-lg bg-gray-200 dark:bg-gray-700" />
-                              <div className="h-3 w-24 rounded bg-gray-200 dark:bg-gray-700" />
-                            </div>
-                          </div>
-                        )}
+                        {!isLoaded && <LoadingSkeleton absolute />}
 
                         <Image
                           alt={screenshot.alt}
@@ -345,17 +353,8 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
           <TransformWrapper centerOnInit={true} initialScale={1} maxScale={4} minScale={0.5}>
             <LightboxControls onClose={() => setLightboxImage(null)} />
             <TransformComponent
-              contentStyle={{
-                width: '100%',
-                height: '100%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-              wrapperStyle={{
-                width: '100%',
-                height: '100%'
-              }}
+              contentStyle={LIGHTBOX_CONTENT_STYLE}
+              wrapperStyle={LIGHTBOX_WRAPPER_STYLE}
             >
               <Image
                 alt={lightboxImage.alt}
