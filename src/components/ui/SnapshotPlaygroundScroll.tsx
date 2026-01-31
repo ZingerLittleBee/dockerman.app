@@ -88,7 +88,12 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
       ScrollTrigger.matchMedia({
         // Desktop
         '(min-width: 768px)': () => {
-          // Intro animation - container expands, tab slides left, image scales up
+          // Calculate how much to offset to break out of parent container
+          const parentWidth = wrapperRef.current?.parentElement?.offsetWidth || 0
+          const viewportWidth = window.innerWidth
+          const offsetX = (viewportWidth - parentWidth) / 2
+
+          // Intro animation - container expands to full width, tab slides to left edge
           const introTl = gsap.timeline({
             scrollTrigger: {
               trigger: wrapperRef.current,
@@ -98,16 +103,20 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
             }
           })
 
-          // Animate container to full width
+          // Animate container to full viewport width
           introTl
             .fromTo(
               containerRef.current,
               {
+                x: 0,
+                width: '100%',
                 paddingLeft: '0',
                 paddingRight: '0'
               },
               {
-                paddingLeft: '2rem',
+                x: -offsetX,
+                width: viewportWidth,
+                paddingLeft: '1.5rem',
                 paddingRight: '2rem',
                 ease: 'power2.out'
               },
@@ -115,7 +124,7 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
             )
             .fromTo(
               imageAreaRef.current,
-              { scale: 0.95, transformOrigin: 'center center' },
+              { scale: 0.95, transformOrigin: 'right center' },
               { scale: 1, ease: 'power2.out' },
               0
             )
