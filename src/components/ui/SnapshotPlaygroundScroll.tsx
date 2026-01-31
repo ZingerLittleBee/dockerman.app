@@ -149,6 +149,14 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
 
           // Image scales up in place (no movement)
           introTl.fromTo(imageAreaRef.current, { scale: 0.92 }, { scale: 1, ease: 'power2.out' }, 0)
+
+          // Tab list slides in from left
+          introTl.fromTo(
+            tabListRef.current,
+            { left: '0rem' },
+            { left: '10rem', ease: 'power2.out' },
+            0
+          )
         },
         // Mobile - simpler animation
         '(max-width: 767px)': () => {
