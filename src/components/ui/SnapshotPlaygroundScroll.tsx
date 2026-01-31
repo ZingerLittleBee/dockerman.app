@@ -22,6 +22,8 @@ const IMAGE_HEIGHT = 1760
 const SCROLL_HEIGHT_PER_ITEM = 80 // vh
 const HEADER_OFFSET = 100 // px - header height + top offset + padding
 const INTRO_ANIMATION_SCROLL = 300 // px - scroll distance for intro animation
+const SCROLL_THROTTLE_MS = 50 // 节流间隔，避免过于频繁的状态更新
+const FAST_SCROLL_THRESHOLD = 3 // 快速滚动判定：连续跳过 N 个 index
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
 
@@ -31,11 +33,18 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
   const tabListRef = useRef<HTMLDivElement>(null)
   const tabInnerRef = useRef<HTMLDivElement>(null)
   const imageAreaRef = useRef<HTMLDivElement>(null)
+
   const [activeIndex, setActiveIndex] = useState(0)
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set())
   const [isInitialLoad, setIsInitialLoad] = useState(true)
+  const [isFastScrolling, setIsFastScrolling] = useState(false)
   const lastIndexRef = useRef(0)
   const isNavigatingRef = useRef(false) // Track if navigating via tab click
+  const lastUpdateTimeRef = useRef(0) // 节流时间戳
+  const pendingIndexRef = useRef<number | null>(null) // 待处理的 index
+  const rafIdRef = useRef<number | null>(null) // requestAnimationFrame ID
+  const fastScrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const scrollTweenRef = useRef<gsap.core.Tween | null>(null) // 当前的滚动动画
 
   const handleImageLoad = useCallback((index: number) => {
     setLoadedImages((prev) => {
@@ -51,6 +60,13 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
     (index: number) => {
       if (!wrapperRef.current) return
 
+      // 取消任何待执行的滚动更新，防止竞争条件
+      if (rafIdRef.current) {
+        cancelAnimationFrame(rafIdRef.current)
+        rafIdRef.current = null
+      }
+      pendingIndexRef.current = null
+
       // Set navigating flag to skip intermediate index updates
       isNavigatingRef.current = true
 
@@ -65,11 +81,19 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
       const targetScroll =
         wrapperTop + INTRO_ANIMATION_SCROLL + (index / screenshots.length) * totalScrollHeight
 
-      gsap.to(window, {
+      // Kill 旧的滚动动画，防止其 onComplete 干扰状态
+      if (scrollTweenRef.current) {
+        scrollTweenRef.current.kill()
+        scrollTweenRef.current = null
+      }
+
+      scrollTweenRef.current = gsap.to(window, {
         scrollTo: { y: targetScroll },
         duration: 0.8,
         ease: 'power2.inOut',
         onComplete: () => {
+          // 只有当这是当前活动的动画时才重置标志
+          scrollTweenRef.current = null
           // Reset flag after navigation completes
           isNavigatingRef.current = false
         }
@@ -95,21 +119,74 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
 
       const totalHeight = screenshots.length * window.innerHeight * (SCROLL_HEIGHT_PER_ITEM / 100)
 
+      // 节流版本的 index 更新
       const handleIndexChange = (newIndex: number) => {
         // Skip if navigating via tab click (prevents loading intermediate images)
         if (isNavigatingRef.current) return
 
-        if (lastIndexRef.current !== newIndex) {
-          posthog.capture('feature_tab_switched', {
-            from_tab: screenshots[lastIndexRef.current]?.label,
-            to_tab: screenshots[newIndex]?.label,
-            to_tab_index: newIndex,
-            trigger: 'scroll',
-            location: 'snapshot_playground'
-          })
-          lastIndexRef.current = newIndex
-          setActiveIndex(newIndex)
+        // 如果 index 没变，直接返回
+        if (lastIndexRef.current === newIndex) return
+
+        const now = performance.now()
+        const timeDelta = now - lastUpdateTimeRef.current
+        const indexDelta = Math.abs(newIndex - lastIndexRef.current)
+
+        // 检测是否快速滚动（跳过多个 index 或更新过于频繁）
+        const isCurrentlyFastScrolling =
+          indexDelta >= FAST_SCROLL_THRESHOLD || timeDelta < SCROLL_THROTTLE_MS
+
+        if (isCurrentlyFastScrolling) {
+          // 快速滚动时：禁用 transition，立即更新
+          setIsFastScrolling(true)
+
+          // 清除之前的恢复定时器
+          if (fastScrollTimeoutRef.current) {
+            clearTimeout(fastScrollTimeoutRef.current)
+          }
+
+          // 延迟恢复 transition（滚动停止后）
+          fastScrollTimeoutRef.current = setTimeout(() => {
+            setIsFastScrolling(false)
+          }, 150)
         }
+
+        // 使用 requestAnimationFrame 批量更新，避免阻塞滚动
+        if (rafIdRef.current) {
+          cancelAnimationFrame(rafIdRef.current)
+        }
+
+        pendingIndexRef.current = newIndex
+        rafIdRef.current = requestAnimationFrame(() => {
+          // 再次检查是否正在导航，防止覆盖用户点击的目标位置
+          if (isNavigatingRef.current) {
+            rafIdRef.current = null
+            pendingIndexRef.current = null
+            return
+          }
+
+          const pendingIndex = pendingIndexRef.current
+          if (pendingIndex !== null && pendingIndex !== lastIndexRef.current) {
+            const fromLabel = screenshots[lastIndexRef.current]?.label
+            const toLabel = screenshots[pendingIndex]?.label
+
+            lastIndexRef.current = pendingIndex
+            lastUpdateTimeRef.current = performance.now()
+            setActiveIndex(pendingIndex)
+
+            // 延迟 posthog 调用，不阻塞主线程
+            setTimeout(() => {
+              posthog.capture('feature_tab_switched', {
+                from_tab: fromLabel,
+                to_tab: toLabel,
+                to_tab_index: pendingIndex,
+                trigger: 'scroll',
+                location: 'snapshot_playground'
+              })
+            }, 0)
+          }
+          rafIdRef.current = null
+          pendingIndexRef.current = null
+        })
       }
 
       ScrollTrigger.matchMedia({
@@ -230,7 +307,7 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
             <button
               aria-label="Go to first"
               className={clsx(
-                'flex size-8 items-center justify-center rounded-lg transition-all duration-300',
+                'flex h-10 w-48 items-center justify-center rounded-lg transition-all duration-300',
                 activeIndex === 0
                   ? 'cursor-not-allowed text-gray-300 dark:text-gray-600'
                   : 'text-gray-400 hover:bg-gray-100 hover:text-gray-600 dark:text-gray-500 dark:hover:bg-white/5 dark:hover:text-gray-300'
@@ -263,7 +340,10 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
 
               {/* 滚动内容 */}
               <div
-                className="flex flex-col gap-2 transition-transform duration-300 ease-out"
+                className={clsx(
+                  'flex flex-col gap-2 ease-out',
+                  !isFastScrolling && 'transition-transform duration-300'
+                )}
                 style={{ transform: `translateY(${(2 - activeIndex) * 68}px)` }}
               >
                 {screenshots.map((screenshot, index) => {
@@ -274,7 +354,8 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
                   return (
                     <button
                       className={clsx(
-                        'group relative flex h-[60px] w-full items-center justify-start gap-4 rounded-xl px-4 py-3 text-left transition-all duration-300',
+                        'group relative flex h-[60px] w-full items-center justify-start gap-4 rounded-xl px-4 py-3 text-left',
+                        !isFastScrolling && 'transition-all duration-300',
                         isActive && 'bg-gray-100 shadow-sm dark:bg-white/5'
                       )}
                       key={screenshot.label}
@@ -285,7 +366,8 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
                       <span className="relative z-10 flex w-full items-center gap-3">
                         <span
                           className={clsx(
-                            'flex size-9 shrink-0 items-center justify-center rounded-lg border transition-colors duration-300',
+                            'flex size-9 shrink-0 items-center justify-center rounded-lg border',
+                            !isFastScrolling && 'transition-colors duration-300',
                             isActive
                               ? 'border-gray-200 bg-white text-indigo-600 dark:border-white/10 dark:bg-gray-800 dark:text-indigo-400'
                               : 'border-transparent bg-transparent text-gray-500 group-hover:text-gray-900 dark:text-gray-500 dark:group-hover:text-gray-300'
@@ -295,7 +377,8 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
                         </span>
                         <span
                           className={clsx(
-                            'truncate font-medium transition-colors duration-300',
+                            'truncate font-medium',
+                            !isFastScrolling && 'transition-colors duration-300',
                             isActive
                               ? 'text-gray-900 dark:text-white'
                               : 'text-gray-500 group-hover:text-gray-900 dark:text-gray-500 dark:group-hover:text-gray-300'
@@ -319,7 +402,7 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
             <button
               aria-label="Go to last"
               className={clsx(
-                'flex size-8 items-center justify-center rounded-lg transition-all duration-300',
+                'flex h-10 w-48 items-center justify-center rounded-lg transition-all duration-300',
                 activeIndex === screenshots.length - 1
                   ? 'cursor-not-allowed text-gray-300 dark:text-gray-600'
                   : 'text-gray-400 hover:bg-gray-100 hover:text-gray-600 dark:text-gray-500 dark:hover:bg-white/5 dark:hover:text-gray-300'
@@ -355,7 +438,8 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
               return (
                 <div
                   className={clsx(
-                    'col-start-1 row-start-1 transition-opacity duration-300 ease-out will-change-[opacity]',
+                    'col-start-1 row-start-1 ease-out will-change-[opacity]',
+                    !isFastScrolling && 'transition-opacity duration-300',
                     isActive
                       ? 'pointer-events-auto z-10 opacity-100'
                       : 'pointer-events-none z-0 opacity-0'
