@@ -18,7 +18,7 @@ interface Screenshot {
 
 const IMAGE_WIDTH = 2560
 const IMAGE_HEIGHT = 1760
-const SCROLL_HEIGHT_PER_ITEM = 45 // vh
+const SCROLL_HEIGHT_PER_ITEM = 65 // vh - 增加高度让滚动速度变慢
 const HEADER_OFFSET = 100 // px
 
 gsap.registerPlugin(ScrollTrigger)
@@ -113,31 +113,33 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
       })
 
       // 为每张图片添加动画
-      // 每张图片有3个阶段：进入(80%)、中间放大(80%→85%)、离开(85%→80%)
+      // 图片固定 85% scale，新图片从右侧滑入覆盖旧图片，旧图片淡出
       imageElements.forEach((el, index) => {
         if (index === 0) {
-          // 第一张：先放大，再滑到左边并缩小
-          tl.fromTo(el, { scale: 0.8 }, { scale: 0.85, ease: 'none' }, 0)
-          tl.to(el, { xPercent: -100, scale: 0.8, ease: 'none' }, 0.5)
+          // 第一张：始终保持 85% scale，当下一张进入时淡出
+          gsap.set(el, { scale: 0.85, xPercent: 0, opacity: 1 })
+          // 当第二张图片进入时，第一张淡出
+          if (screenshots.length > 1) {
+            tl.to(el, { opacity: 0, ease: 'none' }, 0)
+          }
         } else if (index === screenshots.length - 1) {
-          // 最后一张：从右边滑到中间(80%)，然后放大到85%
+          // 最后一张：从右边滑入，不需要淡出
           tl.fromTo(
             el,
-            { xPercent: 100, scale: 0.8 },
-            { xPercent: 0, scale: 0.8, ease: 'none' },
-            index - 0.5
+            { xPercent: 100, scale: 0.85, opacity: 1 },
+            { xPercent: 0, scale: 0.85, opacity: 1, ease: 'none' },
+            index - 1
           )
-          tl.to(el, { scale: 0.85, ease: 'none' }, index)
         } else {
-          // 中间的：进入(80%)、放大(85%)、离开(80%)
+          // 中间图片：从右边滑入，下一张进入时淡出
           tl.fromTo(
             el,
-            { xPercent: 100, scale: 0.8 },
-            { xPercent: 0, scale: 0.8, ease: 'none' },
-            index - 0.5
+            { xPercent: 100, scale: 0.85, opacity: 1 },
+            { xPercent: 0, scale: 0.85, opacity: 1, ease: 'none' },
+            index - 1
           )
-          tl.to(el, { scale: 0.85, ease: 'none' }, index)
-          tl.to(el, { xPercent: -100, scale: 0.8, ease: 'none' }, index + 0.5)
+          // 当下一张图片进入时，当前图片淡出
+          tl.to(el, { opacity: 0, ease: 'none' }, index)
         }
       })
 
