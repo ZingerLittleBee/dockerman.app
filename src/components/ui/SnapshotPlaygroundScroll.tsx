@@ -115,15 +115,15 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
       // 为每张图片添加动画
       imageElements.forEach((el, index) => {
         if (index === 0) {
-          // 第一张：从中间滑到左边
-          tl.fromTo(el, { xPercent: 0 }, { xPercent: -100, ease: 'none' }, 0)
+          // 第一张：从中间滑到左边，同时缩小
+          tl.fromTo(el, { xPercent: 0, scale: 1 }, { xPercent: -100, scale: 0.8, ease: 'none' }, 0)
         } else if (index === screenshots.length - 1) {
-          // 最后一张：从右边滑到中间
-          tl.fromTo(el, { xPercent: 100 }, { xPercent: 0, ease: 'none' }, index - 0.5)
+          // 最后一张：从右边滑到中间，同时放大
+          tl.fromTo(el, { xPercent: 100, scale: 0.8 }, { xPercent: 0, scale: 1, ease: 'none' }, index - 0.5)
         } else {
-          // 中间的：从右边滑入，再滑到左边
-          tl.fromTo(el, { xPercent: 100 }, { xPercent: 0, ease: 'none' }, index - 0.5)
-          tl.to(el, { xPercent: -100, ease: 'none' }, index + 0.5)
+          // 中间的：从右边滑入并放大，再滑到左边并缩小
+          tl.fromTo(el, { xPercent: 100, scale: 0.8 }, { xPercent: 0, scale: 1, ease: 'none' }, index - 0.5)
+          tl.to(el, { xPercent: -100, scale: 0.8, ease: 'none' }, index + 0.5)
         }
       })
 
