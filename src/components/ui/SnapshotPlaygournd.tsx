@@ -19,7 +19,7 @@ import {
 } from '@remixicon/react'
 import { useTranslation } from '@/lib/i18n/client'
 import { Badge } from '../Badge'
-import SnapshotPlaygourndTabs from './SnapshotPlaygourndTabs'
+import SnapshotPlaygroundScroll from './SnapshotPlaygroundScroll'
 
 const screenshotConfigs = [
   { src: '/screenshots/3.2.0/dashboard.png', labelKey: 'dashboard', icon: RiDashboardLine },
@@ -73,7 +73,7 @@ export default function SnapshotPlaygournd() {
       </p>
 
       <div className="mt-8">
-        <SnapshotPlaygourndTabs screenshots={screenshots} />
+        <SnapshotPlaygroundScroll screenshots={screenshots} />
       </div>
 
       <dl className="mt-24 grid grid-cols-4 gap-10">
