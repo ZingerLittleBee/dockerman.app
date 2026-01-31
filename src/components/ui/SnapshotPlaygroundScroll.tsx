@@ -103,16 +103,10 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
             .fromTo(
               containerRef.current,
               {
-                maxWidth: '72rem', // max-w-6xl
-                marginLeft: 'auto',
-                marginRight: 'auto',
-                paddingLeft: '0.75rem',
-                paddingRight: '0.75rem'
+                paddingLeft: '0',
+                paddingRight: '0'
               },
               {
-                maxWidth: '100%',
-                marginLeft: '0',
-                marginRight: '0',
                 paddingLeft: '2rem',
                 paddingRight: '2rem',
                 ease: 'power2.out'
@@ -121,7 +115,7 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
             )
             .fromTo(
               imageAreaRef.current,
-              { scale: 0.92, transformOrigin: 'center center' },
+              { scale: 0.95, transformOrigin: 'center center' },
               { scale: 1, ease: 'power2.out' },
               0
             )
@@ -175,12 +169,12 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
   return (
     <div ref={wrapperRef}>
       <div
-        className="mx-auto grid min-h-screen max-w-6xl grid-cols-12 gap-6 px-3 md:gap-8"
+        className="mt-14 grid min-h-screen grid-cols-12 gap-8 md:gap-12"
         ref={containerRef}
       >
         {/* 左侧标签列表 */}
         <div
-          className="col-span-full md:col-span-3"
+          className="col-span-full grid grid-cols-2 gap-2 md:col-span-3 md:flex md:flex-col md:gap-3"
           ref={tabListRef}
         >
           <div className="flex flex-col gap-2 md:gap-3">
