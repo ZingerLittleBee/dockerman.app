@@ -8,7 +8,7 @@ import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Image from 'next/image'
 import posthog from 'posthog-js'
-import { memo, useCallback, useEffect, useRef, useState } from 'react'
+import { memo, useCallback, useRef, useState } from 'react'
 
 interface Screenshot {
   src: string
@@ -22,7 +22,6 @@ const IMAGE_HEIGHT = 1760
 const SCROLL_HEIGHT_PER_ITEM = 80 // vh
 const HEADER_OFFSET = 100 // px - header height + top offset + padding
 const INTRO_ANIMATION_SCROLL = 300 // px - scroll distance for intro animation
-const MAX_SCROLL_DELTA = 80 // px - max scroll distance per wheel event to limit speed
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
 
@@ -30,6 +29,7 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
   const wrapperRef = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const tabListRef = useRef<HTMLDivElement>(null)
+  const tabInnerRef = useRef<HTMLDivElement>(null)
   const imageAreaRef = useRef<HTMLDivElement>(null)
   const [activeIndex, setActiveIndex] = useState(0)
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set())
@@ -85,56 +85,6 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
     },
     [screenshots]
   )
-
-  // Limit scroll speed within the pinned area
-  useEffect(() => {
-    const wrapper = wrapperRef.current
-    if (!wrapper) return
-
-    let isInPinArea = false
-    let ticking = false
-
-    const handleWheel = (e: WheelEvent) => {
-      if (!isInPinArea) return
-
-      const delta = Math.abs(e.deltaY)
-      if (delta > MAX_SCROLL_DELTA) {
-        e.preventDefault()
-
-        if (!ticking) {
-          ticking = true
-          const clampedDelta = Math.sign(e.deltaY) * MAX_SCROLL_DELTA
-
-          gsap.to(window, {
-            scrollTo: { y: window.scrollY + clampedDelta },
-            duration: 0.15,
-            ease: 'power1.out',
-            onComplete: () => {
-              ticking = false
-            }
-          })
-        }
-      }
-    }
-
-    const checkPinArea = () => {
-      if (!wrapper) return
-      const rect = wrapper.getBoundingClientRect()
-      const totalScrollHeight =
-        screenshots.length * window.innerHeight * (SCROLL_HEIGHT_PER_ITEM / 100)
-      isInPinArea =
-        rect.top <= HEADER_OFFSET && rect.top > -(INTRO_ANIMATION_SCROLL + totalScrollHeight)
-    }
-
-    window.addEventListener('scroll', checkPinArea, { passive: true })
-    window.addEventListener('wheel', handleWheel, { passive: false })
-    checkPinArea()
-
-    return () => {
-      window.removeEventListener('scroll', checkPinArea)
-      window.removeEventListener('wheel', handleWheel)
-    }
-  }, [screenshots.length])
 
   useGSAP(
     () => {
@@ -270,49 +220,124 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
   return (
     <div ref={wrapperRef}>
       <div className="relative mt-14 min-h-[calc(100vh-100px)]" ref={containerRef}>
-        {/* 左侧标签列表 - 绝对定位在左侧 */}
+        {/* 左侧标签列表 - 只显示选中项及前后各一项 */}
         <div
-          className="absolute top-1/2 left-0 z-20 hidden -translate-y-1/2 md:block"
+          className="absolute top-0 left-0 z-20 hidden h-full md:flex md:flex-col md:justify-center"
           ref={tabListRef}
         >
-          <div className="flex flex-col gap-2 md:gap-3">
-            {screenshots.map((screenshot, index) => {
-              const isActive = activeIndex === index
-              return (
-                <button
-                  className={clsx(
-                    'group relative flex items-center justify-start gap-4 rounded-xl px-4 py-3 text-left transition-colors',
-                    isActive && 'bg-gray-100 shadow-sm dark:bg-white/5'
-                  )}
-                  key={screenshot.label}
-                  onClick={() => handleTabClick(index)}
-                  type="button"
-                >
-                  <span className="relative z-10 flex w-full items-center gap-3">
-                    <span
+          <div className="flex flex-col items-center gap-2">
+            {/* 到顶部按钮 */}
+            <button
+              aria-label="Go to first"
+              className={clsx(
+                'flex size-8 items-center justify-center rounded-lg transition-all duration-300',
+                activeIndex === 0
+                  ? 'cursor-not-allowed text-gray-300 dark:text-gray-600'
+                  : 'text-gray-400 hover:bg-gray-100 hover:text-gray-600 dark:text-gray-500 dark:hover:bg-white/5 dark:hover:text-gray-300'
+              )}
+              disabled={activeIndex === 0}
+              onClick={() => handleTabClick(0)}
+              type="button"
+            >
+              <svg className="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M5 15l7-7 7 7"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                />
+                <path d="M5 9h14" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+              </svg>
+            </button>
+
+            {/* Tab 列表区域 - 使用 translateY 实现平移滚动 */}
+            <div
+              className="relative w-48 overflow-hidden"
+              ref={tabInnerRef}
+              style={{ height: `${5 * 68}px` }}
+            >
+              {/* 上方渐变遮罩 */}
+              {activeIndex > 0 && (
+                <div className="pointer-events-none absolute top-0 right-0 left-0 z-10 h-16 bg-gradient-to-b from-white to-transparent dark:from-gray-950" />
+              )}
+
+              {/* 滚动内容 */}
+              <div
+                className="flex flex-col gap-2 transition-transform duration-300 ease-out"
+                style={{ transform: `translateY(${(2 - activeIndex) * 68}px)` }}
+              >
+                {screenshots.map((screenshot, index) => {
+                  const isActive = activeIndex === index
+                  const distance = Math.abs(index - activeIndex)
+                  const opacity = distance === 0 ? 1 : distance === 1 ? 0.5 : 0.3
+
+                  return (
+                    <button
                       className={clsx(
-                        'flex size-9 items-center justify-center rounded-lg border transition-colors duration-300',
-                        isActive
-                          ? 'border-gray-200 bg-white text-indigo-600 dark:border-white/10 dark:bg-gray-800 dark:text-indigo-400'
-                          : 'border-transparent bg-transparent text-gray-500 group-hover:text-gray-900 dark:text-gray-500 dark:group-hover:text-gray-300'
+                        'group relative flex h-[60px] w-full items-center justify-start gap-4 rounded-xl px-4 py-3 text-left transition-all duration-300',
+                        isActive && 'bg-gray-100 shadow-sm dark:bg-white/5'
                       )}
+                      key={screenshot.label}
+                      onClick={() => handleTabClick(index)}
+                      style={{ opacity }}
+                      type="button"
                     >
-                      <screenshot.icon className="size-5" />
-                    </span>
-                    <span
-                      className={clsx(
-                        'font-medium transition-colors duration-300',
-                        isActive
-                          ? 'text-gray-900 dark:text-white'
-                          : 'text-gray-500 group-hover:text-gray-900 dark:text-gray-500 dark:group-hover:text-gray-300'
-                      )}
-                    >
-                      {screenshot.label}
-                    </span>
-                  </span>
-                </button>
-              )
-            })}
+                      <span className="relative z-10 flex w-full items-center gap-3">
+                        <span
+                          className={clsx(
+                            'flex size-9 shrink-0 items-center justify-center rounded-lg border transition-colors duration-300',
+                            isActive
+                              ? 'border-gray-200 bg-white text-indigo-600 dark:border-white/10 dark:bg-gray-800 dark:text-indigo-400'
+                              : 'border-transparent bg-transparent text-gray-500 group-hover:text-gray-900 dark:text-gray-500 dark:group-hover:text-gray-300'
+                          )}
+                        >
+                          <screenshot.icon className="size-5" />
+                        </span>
+                        <span
+                          className={clsx(
+                            'truncate font-medium transition-colors duration-300',
+                            isActive
+                              ? 'text-gray-900 dark:text-white'
+                              : 'text-gray-500 group-hover:text-gray-900 dark:text-gray-500 dark:group-hover:text-gray-300'
+                          )}
+                        >
+                          {screenshot.label}
+                        </span>
+                      </span>
+                    </button>
+                  )
+                })}
+              </div>
+
+              {/* 下方渐变遮罩 */}
+              {activeIndex < screenshots.length - 1 && (
+                <div className="pointer-events-none absolute right-0 bottom-0 left-0 z-10 h-16 bg-gradient-to-t from-white to-transparent dark:from-gray-950" />
+              )}
+            </div>
+
+            {/* 到底部按钮 */}
+            <button
+              aria-label="Go to last"
+              className={clsx(
+                'flex size-8 items-center justify-center rounded-lg transition-all duration-300',
+                activeIndex === screenshots.length - 1
+                  ? 'cursor-not-allowed text-gray-300 dark:text-gray-600'
+                  : 'text-gray-400 hover:bg-gray-100 hover:text-gray-600 dark:text-gray-500 dark:hover:bg-white/5 dark:hover:text-gray-300'
+              )}
+              disabled={activeIndex === screenshots.length - 1}
+              onClick={() => handleTabClick(screenshots.length - 1)}
+              type="button"
+            >
+              <svg className="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M19 9l-7 7-7-7"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                />
+                <path d="M5 15h14" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+              </svg>
+            </button>
           </div>
         </div>
 
