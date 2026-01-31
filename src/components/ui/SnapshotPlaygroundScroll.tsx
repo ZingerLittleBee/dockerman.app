@@ -67,7 +67,10 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
 
   useGSAP(
     () => {
-      if (!wrapperRef.current || !containerRef.current || !tabListRef.current || !imageAreaRef.current) return
+      if (
+        !(wrapperRef.current && containerRef.current && tabListRef.current && imageAreaRef.current)
+      )
+        return
 
       const totalHeight = screenshots.length * window.innerHeight * (SCROLL_HEIGHT_PER_ITEM / 100)
 
@@ -121,37 +124,31 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
               trigger: wrapperRef.current,
               start: `top ${HEADER_OFFSET}px`,
               end: `+=${INTRO_ANIMATION_SCROLL}`,
-              scrub: 0.5,
+              scrub: 0.5
             }
           })
 
           // Animate container to full viewport width
-          introTl
-            .fromTo(
-              containerRef.current,
-              {
-                x: 0,
-                width: '100%',
-                paddingLeft: '0',
-                paddingRight: '0'
-              },
-              {
-                x: -offsetX,
-                width: viewportWidth,
-                paddingLeft: '1.5rem',
-                paddingRight: '2rem',
-                ease: 'power2.out'
-              },
-              0
-            )
-
-          // Image scales up in place (no movement)
           introTl.fromTo(
-            imageAreaRef.current,
-            { scale: 0.92 },
-            { scale: 1, ease: 'power2.out' },
+            containerRef.current,
+            {
+              x: 0,
+              width: '100%',
+              paddingLeft: '0',
+              paddingRight: '0'
+            },
+            {
+              x: -offsetX,
+              width: viewportWidth,
+              paddingLeft: '1.5rem',
+              paddingRight: '2rem',
+              ease: 'power2.out'
+            },
             0
           )
+
+          // Image scales up in place (no movement)
+          introTl.fromTo(imageAreaRef.current, { scale: 0.92 }, { scale: 1, ease: 'power2.out' }, 0)
         },
         // Mobile - simpler animation
         '(max-width: 767px)': () => {
@@ -184,13 +181,10 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
 
   return (
     <div ref={wrapperRef}>
-      <div
-        className="relative mt-14 min-h-[calc(100vh-100px)]"
-        ref={containerRef}
-      >
+      <div className="relative mt-14 min-h-[calc(100vh-100px)]" ref={containerRef}>
         {/* 左侧标签列表 - 绝对定位在左侧 */}
         <div
-          className="absolute left-0 top-1/2 z-20 hidden -translate-y-1/2 md:block"
+          className="absolute top-1/2 left-0 z-20 hidden -translate-y-1/2 md:block"
           ref={tabListRef}
         >
           <div className="flex flex-col gap-2 md:gap-3">
@@ -236,10 +230,10 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
 
         {/* 图片区域 - 屏幕正中间 */}
         <div
-          className="flex min-h-[calc(100vh-100px)] items-center justify-center px-4 md:px-0"
+          className="flex min-h-[calc(100vh-100px)] w-screen items-center justify-center px-4 md:px-0"
           ref={imageAreaRef}
         >
-          <div className="grid w-full max-w-[min(calc(100vw-280px),calc((100vh-120px)*2560/1760))]">
+          <div className="grid w-full max-w-[min(calc(100vw-280px),calc((100vh-220px)*2560/1760))]">
             {screenshots.map((screenshot, index) => {
               const isActive = activeIndex === index
               const isLoaded = loadedImages.has(index)
