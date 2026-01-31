@@ -185,12 +185,12 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
   return (
     <div ref={wrapperRef}>
       <div
-        className="mt-14 grid min-h-[calc(100vh-100px)] grid-cols-12 items-center gap-8 md:gap-12"
+        className="relative mt-14 min-h-[calc(100vh-100px)]"
         ref={containerRef}
       >
-        {/* 左侧标签列表 */}
+        {/* 左侧标签列表 - 绝对定位在左侧 */}
         <div
-          className="col-span-full grid grid-cols-2 gap-2 md:col-span-3 md:flex md:flex-col md:gap-3"
+          className="absolute left-0 top-1/2 z-20 hidden -translate-y-1/2 md:block"
           ref={tabListRef}
         >
           <div className="flex flex-col gap-2 md:gap-3">
@@ -234,12 +234,12 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
           </div>
         </div>
 
-        {/* 右侧图片区域 */}
+        {/* 图片区域 - 屏幕正中间 */}
         <div
-          className="col-span-full flex items-center justify-center md:col-span-9"
+          className="flex min-h-[calc(100vh-100px)] items-center justify-center px-4 md:px-0"
           ref={imageAreaRef}
         >
-          <div className="grid w-full max-w-[calc(100vh*2560/1760-4rem)]">
+          <div className="grid w-full max-w-[min(calc(100vw-280px),calc((100vh-120px)*2560/1760))]">
             {screenshots.map((screenshot, index) => {
               const isActive = activeIndex === index
               const isLoaded = loadedImages.has(index)
