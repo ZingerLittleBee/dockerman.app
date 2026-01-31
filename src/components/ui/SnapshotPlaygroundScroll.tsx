@@ -137,10 +137,10 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
   )
 
   return (
-    <div ref={wrapperRef}>
+    <div ref={wrapperRef} className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen">
       <div className="relative flex min-h-[calc(100vh-100px)] flex-col pt-8" ref={containerRef}>
         {/* 图片区域 */}
-        <div className="flex w-screen flex-1 items-center justify-center overflow-hidden" ref={imageAreaRef}>
+        <div className="flex w-full flex-1 items-center justify-center overflow-hidden" ref={imageAreaRef}>
           <div className="relative w-full">
             {screenshots.map((screenshot, index) => {
               const isLoaded = loadedImages.has(index)
