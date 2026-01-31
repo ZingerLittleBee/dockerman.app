@@ -22,18 +22,18 @@ import { Badge } from '../Badge'
 import SnapshotPlaygroundScroll from './SnapshotPlaygroundScroll'
 
 const screenshotConfigs = [
-  { src: '/screenshots/3.2.0/dashboard.png', labelKey: 'dashboard', icon: RiDashboardLine },
-  { src: '/screenshots/2.4.0/terminal.png', labelKey: 'terminal', icon: RiTerminalBoxLine },
-  { src: '/screenshots/2.4.0/process.png', labelKey: 'processes', icon: RiWindowLine },
-  { src: '/screenshots/2.4.0/inspect.png', labelKey: 'inspect', icon: RiInformation2Line },
-  { src: '/screenshots/2.4.0/stat.png', labelKey: 'stats', icon: RiLineChartFill },
+  { src: '/screenshots/dashboard.png', labelKey: 'dashboard', icon: RiDashboardLine },
+  { src: '/screenshots/terminal.png', labelKey: 'terminal', icon: RiTerminalBoxLine },
+  { src: '/screenshots/process.png', labelKey: 'processes', icon: RiWindowLine },
+  { src: '/screenshots/inspect.png', labelKey: 'inspect', icon: RiInformation2Line },
+  { src: '/screenshots/stats.png', labelKey: 'stats', icon: RiLineChartFill },
   { src: '/screenshots/logs.png', labelKey: 'logs', icon: RiNewsLine },
-  { src: '/screenshots/2.4.0/ssh.png', labelKey: 'ssh', icon: RiTerminalLine },
-  { src: '/screenshots/2.4.0/build-log-history.png', labelKey: 'build', icon: RiHammerLine },
+  { src: '/screenshots/ssh.png', labelKey: 'ssh', icon: RiTerminalLine },
+  { src: '/screenshots/build-history.png', labelKey: 'build', icon: RiHammerLine },
   { src: '/screenshots/event.png', labelKey: 'events', icon: RiFileList2Line },
-  { src: '/screenshots/3.0.0/file.png', labelKey: 'file', icon: RiFileLine },
-  { src: '/screenshots/3.3.0/image-analysis.png', labelKey: 'imageAnalysis', icon: RiPieChartLine },
-  { src: '/screenshots/3.4.0/compose.png', labelKey: 'compose', icon: RiStackLine }
+  { src: '/screenshots/file.png', labelKey: 'file', icon: RiFileLine },
+  { src: '/screenshots/image-analysis.png', labelKey: 'imageAnalysis', icon: RiPieChartLine },
+  { src: '/screenshots/container-compose.png', labelKey: 'compose', icon: RiStackLine }
 ]
 
 const featureConfigs = [
