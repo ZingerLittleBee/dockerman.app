@@ -5,8 +5,8 @@ import { Inter } from 'next/font/google'
 import Script from 'next/script'
 import { ThemeProvider } from 'next-themes'
 import './globals.css'
-import { siteConfig } from './siteConfig'
 import { LenisProvider } from '@/components/providers/LenisProvider'
+import { siteConfig } from './siteConfig'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -95,9 +95,7 @@ export default function RootLayout({
         className={`${inter.variable} min-h-screen scroll-auto antialiased selection:bg-indigo-100 selection:text-indigo-700 dark:bg-gray-950`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" disableTransitionOnChange>
-          <LenisProvider>
-            {children}
-          </LenisProvider>
+          <LenisProvider>{children}</LenisProvider>
         </ThemeProvider>
         <Analytics />
         <SpeedInsights />
