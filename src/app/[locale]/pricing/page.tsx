@@ -1,9 +1,9 @@
 'use client'
 
+import Balancer from 'react-wrap-balancer'
 import { Badge } from '@/components/Badge'
 import { PricingCard } from '@/components/ui/PricingCard'
 import { useTranslation } from '@/lib/i18n/client'
-import Balancer from 'react-wrap-balancer'
 
 export default function Pricing() {
   const { t } = useTranslation()

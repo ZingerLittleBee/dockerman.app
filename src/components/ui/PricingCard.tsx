@@ -22,7 +22,7 @@ const formatPrice = (amount: number) =>
   new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
-    minimumFractionDigits: 0,
+    minimumFractionDigits: 0
   }).format(amount)
 
 export function PricingCard({
@@ -35,7 +35,7 @@ export function PricingCard({
   disabled = false,
   highlighted = false,
   badgeText,
-  updatePolicy,
+  updatePolicy
 }: PricingCardProps) {
   const cardClasses = cx(
     'relative flex flex-col rounded-2xl p-6 sm:p-8',
@@ -82,13 +82,6 @@ export function PricingCard({
             </del>
           )}
         </div>
-
-        {updatePolicy && (
-          <p className="mt-4 flex items-center justify-center gap-1.5 text-gray-600 text-sm dark:text-gray-400">
-            <RiCheckLine className="size-4 text-indigo-500" />
-            {updatePolicy}
-          </p>
-        )}
       </div>
 
       <div className="mt-6 flex-1">
@@ -100,6 +93,13 @@ export function PricingCard({
             </li>
           ))}
         </ul>
+
+        {updatePolicy && (
+          <p className="mt-3 flex items-start gap-3 text-gray-600 text-sm dark:text-gray-400">
+            <RiCheckLine className="mt-0.5 size-5 shrink-0 text-indigo-500" />
+            {updatePolicy}
+          </p>
+        )}
       </div>
 
       <div className="mt-8">
@@ -110,20 +110,12 @@ export function PricingCard({
             rel="noopener noreferrer"
             target="_blank"
           >
-            <Button
-              className="w-full"
-              variant={highlighted ? 'primary' : 'secondary'}
-            >
+            <Button className="w-full" variant={highlighted ? 'primary' : 'secondary'}>
               {ctaText}
             </Button>
           </a>
         ) : (
-          <Button
-            aria-label={ctaText}
-            className="w-full"
-            disabled={disabled}
-            variant="secondary"
-          >
+          <Button aria-label={ctaText} className="w-full" disabled={disabled} variant="secondary">
             {ctaText}
           </Button>
         )}
