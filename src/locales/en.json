@@ -133,7 +133,11 @@
         },
         {
           "question": "Can I upgrade from 1 Device to 3 Devices?",
-          "answer": "Yes! You can upgrade anytime by paying the price difference. Your update subscription period will be preserved."
+          "answer": "Yes! You can upgrade anytime by paying the price difference ($7). Your update subscription period will be preserved."
+        },
+        {
+          "question": "How much does a major version upgrade cost?",
+          "answer": "Major version upgrades (e.g., v1 → v2) are available at a discounted price: $6 for 1 Device license, $12 for 3 Devices license. This includes another year of free updates."
         },
         {
           "question": "Is there a refund policy?",

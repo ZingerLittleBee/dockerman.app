@@ -99,18 +99,6 @@ export default function Pricing() {
         />
       </section>
 
-      <section className="mx-auto mt-12 max-w-2xl text-center">
-        <div className="rounded-xl bg-gray-50 p-6 dark:bg-gray-900">
-          <h2 className="font-semibold text-gray-900 dark:text-gray-100">
-            {t('pricing.upgradeInfo.title')}
-          </h2>
-          <ul className="mt-4 space-y-2 text-gray-600 text-sm dark:text-gray-400">
-            <li>{t('pricing.upgradeInfo.deviceUpgrade')}</li>
-            <li>{t('pricing.upgradeInfo.versionUpgrade')}</li>
-          </ul>
-        </div>
-      </section>
-
       <section aria-labelledby="pricing-faq" className="mx-auto mt-20 w-full max-w-3xl">
         <h2
           className="scroll-my-24 bg-gradient-to-br from-gray-900 to-gray-800 bg-clip-text py-2 text-center font-bold text-2xl text-transparent tracking-tighter lg:text-3xl dark:from-gray-50 dark:to-gray-300"
