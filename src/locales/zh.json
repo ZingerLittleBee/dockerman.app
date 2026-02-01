@@ -1,6 +1,7 @@
 {
   "nav": {
     "home": "首页",
+    "pricing": "定价",
     "download": "下载",
     "changelog": "更新日志"
   },
@@ -71,6 +72,34 @@
   },
   "common": {
     "download": "下载"
+  },
+  "pricing": {
+    "badge": "定价",
+    "title": "Dockerman 许可证",
+    "subtitle": "本地免费，远程付费",
+    "description": "简单定价，无需订阅。一次付费，永久拥有。",
+    "earlyBird": "早鸟价 · 限前 500 名",
+    "updatePolicy": "1 年免费更新",
+    "features": {
+      "containerManagement": "容器管理",
+      "imageManagement": "镜像管理",
+      "volumeManagement": "卷管理",
+      "networkManagement": "网络管理",
+      "systemMonitoring": "系统监控",
+      "localDockerOnly": "仅限本地 Docker",
+      "everythingInFree": "包含免费版所有功能",
+      "remoteViaSSH": "通过 SSH 连接远程主机",
+      "multiHostManagement": "多主机管理"
+    },
+    "cta": {
+      "currentPlan": "当前版本",
+      "upgradeNow": "立即升级"
+    },
+    "upgradeInfo": {
+      "title": "升级说明",
+      "deviceUpgrade": "单设备 → 3 设备：补差价即可",
+      "versionUpgrade": "v1 → v2 升级价：$6（单设备）/ $12（3 设备）"
+    }
   },
   "changelog": {
     "badge": "更新日志",

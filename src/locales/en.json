@@ -1,6 +1,7 @@
 {
   "nav": {
     "home": "Home",
+    "pricing": "Pricing",
     "download": "Download",
     "changelog": "Changelog"
   },
@@ -71,6 +72,34 @@
   },
   "common": {
     "download": "Download"
+  },
+  "pricing": {
+    "badge": "pricing",
+    "title": "Dockerman License",
+    "subtitle": "Local Free, Remote Paid",
+    "description": "Simple pricing. No subscriptions. Pay once, own it forever.",
+    "earlyBird": "Early Bird · First 500",
+    "updatePolicy": "1 year free updates",
+    "features": {
+      "containerManagement": "Container management",
+      "imageManagement": "Image management",
+      "volumeManagement": "Volume management",
+      "networkManagement": "Network management",
+      "systemMonitoring": "System monitoring",
+      "localDockerOnly": "Local Docker only",
+      "everythingInFree": "Everything in Free",
+      "remoteViaSSH": "Remote host via SSH",
+      "multiHostManagement": "Multi-host management"
+    },
+    "cta": {
+      "currentPlan": "Current Plan",
+      "upgradeNow": "Upgrade Now"
+    },
+    "upgradeInfo": {
+      "title": "Upgrade Information",
+      "deviceUpgrade": "1 Device → 3 Devices: Pay the difference",
+      "versionUpgrade": "v1 → v2 upgrade: $6 (1 device) / $12 (3 devices)"
+    }
   },
   "changelog": {
     "badge": "changelog",

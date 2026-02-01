@@ -145,6 +145,19 @@ export function Navigation() {
               </Link>
               <Link
                 className="px-2 py-1 text-gray-900 dark:text-gray-50"
+                href={`/${locale}/pricing`}
+                onClick={() => {
+                  posthog.capture('nav_link_clicked', {
+                    link_text: t('nav.pricing'),
+                    link_url: `/${locale}/pricing`,
+                    location: 'navbar_desktop'
+                  })
+                }}
+              >
+                {t('nav.pricing')}
+              </Link>
+              <Link
+                className="px-2 py-1 text-gray-900 dark:text-gray-50"
                 href={`/${locale}/download`}
                 onClick={() => {
                   posthog.capture('nav_link_clicked', {
@@ -229,6 +242,21 @@ export function Navigation() {
                 }}
               >
                 {t('nav.home')}
+              </a>
+            </li>
+
+            <li onClick={() => setOpen(false)}>
+              <a
+                href={`/${locale}/pricing`}
+                onClick={() => {
+                  posthog.capture('nav_link_clicked', {
+                    link_text: t('nav.pricing'),
+                    link_url: `/${locale}/pricing`,
+                    location: 'navbar_mobile'
+                  })
+                }}
+              >
+                {t('nav.pricing')}
               </a>
             </li>
 
