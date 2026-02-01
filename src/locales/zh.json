@@ -78,7 +78,7 @@
     "title": "Dockerman 许可证",
     "subtitle": "本地免费，远程付费",
     "description": "简单定价，无需订阅。一次付费，永久拥有。",
-    "earlyBird": "早鸟价 · 限前 500 名",
+    "earlyBird": "早鸟价",
     "updatePolicy": "1 年免费更新",
     "features": {
       "containerManagement": "容器管理",
