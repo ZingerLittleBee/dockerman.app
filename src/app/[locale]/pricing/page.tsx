@@ -78,7 +78,12 @@ export default function Pricing() {
           ctaHref="#"
           ctaText={t('pricing.cta.upgradeNow')}
           description={t('pricing.plans.threeDevices')}
-          features={[t('pricing.plans.threeDevicesSaving'), ...proFeatures]}
+          features={[
+            t('pricing.features.everythingInFree'),
+            t('pricing.plans.threeDevicesSaving'),
+            t('pricing.features.remoteViaSSH'),
+            t('pricing.features.multiHostManagement')
+          ]}
           highlighted
           originalPrice={19}
           price={15}

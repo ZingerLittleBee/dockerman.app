@@ -88,12 +88,6 @@ export function PricingCard({
 
       <div className="mt-6 flex-1">
         <ul className="space-y-3 text-left">
-          {description && (
-            <li className="flex items-start gap-3">
-              <RiCheckLine className="mt-0.5 size-5 shrink-0 text-indigo-500" />
-              <span className="text-gray-600 text-sm dark:text-gray-400">{description}</span>
-            </li>
-          )}
           {features.map((feature) => (
             <li className="flex items-start gap-3" key={feature}>
               <RiCheckLine className="mt-0.5 size-5 shrink-0 text-indigo-500" />
@@ -106,6 +100,13 @@ export function PricingCard({
           <p className="mt-3 flex items-start gap-3 text-gray-600 text-sm dark:text-gray-400">
             <RiCheckLine className="mt-0.5 size-5 shrink-0 text-indigo-500" />
             {updatePolicy}
+          </p>
+        )}
+
+        {description && (
+          <p className="mt-3 flex items-start gap-3 text-gray-600 text-sm dark:text-gray-400">
+            <RiCheckLine className="mt-0.5 size-5 shrink-0 text-indigo-500" />
+            {description}
           </p>
         )}
       </div>
