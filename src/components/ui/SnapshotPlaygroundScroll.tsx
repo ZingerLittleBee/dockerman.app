@@ -112,11 +112,19 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
 
       // 只处理内部导航链接（不是新窗口打开的）
       if (link?.href && !link.target && link.origin === window.location.origin) {
-        // 重置 ScrollTrigger 状态
+        const wrapper = wrapperRef.current
+
+        const container = containerRef.current
+
         for (const trigger of ScrollTrigger.getAll()) {
-          trigger.kill()
+          const triggerEl = trigger.vars?.trigger
+
+          const pinEl = trigger.vars?.pin
+
+          if (triggerEl === wrapper || pinEl === container) {
+            trigger.kill()
+          }
         }
-        ScrollTrigger.clearScrollMemory()
 
         // 确保滚动到顶部
         window.scrollTo(0, 0)
