@@ -106,8 +106,8 @@ const config: Config = {
         // Dialog
         dialogOverlayShow: 'dialogOverlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1)',
         dialogContentShow: 'dialogContentShow 150ms cubic-bezier(0.16, 1, 0.3, 1)',
-        'slide-down-fade': 'slide-down-fade ease-in-out',
-        'slide-up-fade': 'slide-up-fade ease-in-out',
+        'slide-down-fade': 'slide-down-fade ease-in-out forwards',
+        'slide-up-fade': 'slide-up-fade ease-in-out forwards',
         'fade-in': 'fade-in 200ms ease-out'
       }
     }
