@@ -1,6 +1,5 @@
 'use client'
 
-import { useTranslation } from '@/lib/i18n/client'
 import {
   RiDashboardLine,
   RiFileLine,
@@ -18,6 +17,7 @@ import {
   RiTerminalLine,
   RiWindowLine
 } from '@remixicon/react'
+import { useTranslation } from '@/lib/i18n/client'
 import { Badge } from '../Badge'
 import SnapshotPlaygroundScroll from './SnapshotPlaygroundScroll'
 
