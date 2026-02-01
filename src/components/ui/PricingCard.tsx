@@ -1,6 +1,6 @@
 'use client'
 
-import { RiCheckLine } from '@remixicon/react'
+import { RiCheckLine, RiCloseLine } from '@remixicon/react'
 import { motion } from 'motion/react'
 import { cx } from '@/lib/utils'
 import { Button } from '../Button'
@@ -11,6 +11,7 @@ interface PricingCardProps {
   price: number
   originalPrice?: number
   features: string[]
+  excludedFeatures?: string[]
   ctaText: string
   ctaHref?: string
   disabled?: boolean
@@ -32,6 +33,7 @@ export function PricingCard({
   price,
   originalPrice,
   features,
+  excludedFeatures = [],
   ctaText,
   ctaHref,
   disabled = false,
@@ -92,6 +94,14 @@ export function PricingCard({
             <li className="flex items-start gap-3" key={feature}>
               <RiCheckLine className="mt-0.5 size-5 shrink-0 text-indigo-500" />
               <span className="text-gray-600 text-sm dark:text-gray-400">{feature}</span>
+            </li>
+          ))}
+          {excludedFeatures.map((feature) => (
+            <li className="flex items-start gap-3" key={feature}>
+              <RiCloseLine className="mt-0.5 size-5 shrink-0 text-gray-400" />
+              <span className="text-gray-400 text-sm line-through dark:text-gray-500">
+                {feature}
+              </span>
             </li>
           ))}
         </ul>

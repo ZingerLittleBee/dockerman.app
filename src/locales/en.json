@@ -98,7 +98,7 @@
       "fileBrowser": "Container file browser",
       "composeSupport": "Docker Compose support",
       "darkMode": "Dark mode support",
-      "localDockerOnly": "Local Docker only",
+      "localDockerOnly": "Remote host support",
       "everythingInFree": "Everything in Free",
       "remoteViaSSH": "Remote host via SSH",
       "multiHostManagement": "Multi-host management"

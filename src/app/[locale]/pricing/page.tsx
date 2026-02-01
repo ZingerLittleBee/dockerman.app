@@ -24,9 +24,10 @@ export default function Pricing() {
     t('pricing.features.logViewer'),
     t('pricing.features.fileBrowser'),
     t('pricing.features.composeSupport'),
-    t('pricing.features.darkMode'),
-    t('pricing.features.localDockerOnly')
+    t('pricing.features.darkMode')
   ]
+
+  const freeExcludedFeatures = [t('pricing.features.localDockerOnly')]
 
   const proFeatures = [
     t('pricing.features.everythingInFree'),
@@ -68,6 +69,7 @@ export default function Pricing() {
         <PricingCard
           ctaText={t('pricing.cta.currentPlan')}
           disabled
+          excludedFeatures={freeExcludedFeatures}
           features={freeFeatures}
           price={0}
           title="FREE"

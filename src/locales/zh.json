@@ -98,7 +98,7 @@
       "fileBrowser": "容器文件浏览器",
       "composeSupport": "Docker Compose 支持",
       "darkMode": "深色模式支持",
-      "localDockerOnly": "仅限本地 Docker",
+      "localDockerOnly": "远程主机支持",
       "everythingInFree": "包含免费版所有功能",
       "remoteViaSSH": "通过 SSH 连接远程主机",
       "multiHostManagement": "多主机管理"
