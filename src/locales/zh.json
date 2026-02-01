@@ -81,12 +81,23 @@
     "description": "简单定价，无需订阅。一次付费，永久拥有。",
     "earlyBird": "早鸟价",
     "updatePolicy": "1 年免费更新",
+    "plans": {
+      "oneDevice": "适用于 1 台 macOS/Windows 设备",
+      "threeDevices": "适用于 3 台 macOS/Windows 设备",
+      "threeDevicesSaving": "相比单设备许可证立省 37%"
+    },
     "features": {
-      "containerManagement": "容器管理",
-      "imageManagement": "镜像管理",
+      "crossPlatform": "支持 macOS、Windows 和 Linux",
+      "containerManagement": "容器生命周期管理",
+      "imageManagement": "镜像管理与构建",
       "volumeManagement": "卷管理",
       "networkManagement": "网络管理",
-      "systemMonitoring": "系统监控",
+      "realTimeMonitoring": "实时资源监控",
+      "integratedTerminal": "集成终端访问",
+      "logViewer": "日志查看器（含过滤）",
+      "fileBrowser": "容器文件浏览器",
+      "composeSupport": "Docker Compose 支持",
+      "darkMode": "深色模式支持",
       "localDockerOnly": "仅限本地 Docker",
       "everythingInFree": "包含免费版所有功能",
       "remoteViaSSH": "通过 SSH 连接远程主机",
@@ -100,6 +111,35 @@
       "title": "升级说明",
       "deviceUpgrade": "单设备 → 3 设备：补差价即可",
       "versionUpgrade": "v1 → v2 升级价：$6（单设备）/ $12（3 设备）"
+    },
+    "faq": {
+      "title": "常见问题",
+      "items": [
+        {
+          "question": "终身许可证是什么意思？",
+          "answer": "一次购买，永久使用 Dockerman。许可证包含 1 年免费更新。之后您可以继续无限期使用当前版本，或续费获取下一年的更新。"
+        },
+        {
+          "question": "设备限制是什么意思？",
+          "answer": "您可以在许可证指定数量的设备上激活 Dockerman。您可以随时停用某台设备，将许可证转移到另一台设备。如果您丢失了对某台设备的访问权限，可以重置许可证以停用所有设备（限制：每 7 天一次）。"
+        },
+        {
+          "question": "许可证可以同时用于 macOS 和 Windows 吗？",
+          "answer": "可以！您的许可证同时适用于 macOS 和 Windows。您可以在设备限制内自由混合使用不同平台。"
+        },
+        {
+          "question": "1 年更新期结束后会怎样？",
+          "answer": "1 年后，您可以永久继续使用当前版本。要解锁新功能和更新，可以按升级价格续费。订阅期间解锁的所有功能终身可用。"
+        },
+        {
+          "question": "可以从单设备升级到 3 设备吗？",
+          "answer": "可以！您可以随时通过补差价升级。您的更新订阅期限将保持不变。"
+        },
+        {
+          "question": "有退款政策吗？",
+          "answer": "我们提供 14 天无条件退款保证。如果您对 Dockerman 不满意，请在购买后 14 天内联系我们获得全额退款。"
+        }
+      ]
     }
   },
   "changelog": {

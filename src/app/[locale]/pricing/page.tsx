@@ -1,6 +1,12 @@
 'use client'
 
 import Balancer from 'react-wrap-balancer'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger
+} from '@/components/Accordion'
 import { Badge } from '@/components/Badge'
 import { PricingCard } from '@/components/ui/PricingCard'
 import { useTranslation } from '@/lib/i18n/client'
@@ -13,7 +19,12 @@ export default function Pricing() {
     t('pricing.features.imageManagement'),
     t('pricing.features.volumeManagement'),
     t('pricing.features.networkManagement'),
-    t('pricing.features.systemMonitoring'),
+    t('pricing.features.realTimeMonitoring'),
+    t('pricing.features.integratedTerminal'),
+    t('pricing.features.logViewer'),
+    t('pricing.features.fileBrowser'),
+    t('pricing.features.composeSupport'),
+    t('pricing.features.darkMode'),
     t('pricing.features.localDockerOnly')
   ]
 
@@ -22,6 +33,11 @@ export default function Pricing() {
     t('pricing.features.remoteViaSSH'),
     t('pricing.features.multiHostManagement')
   ]
+
+  const faqs = t('pricing.faq.items', { returnObjects: true }) as Array<{
+    question: string
+    answer: string
+  }>
 
   return (
     <div className="mt-36 flex flex-col overflow-hidden px-3 pb-16">
@@ -61,10 +77,12 @@ export default function Pricing() {
           badgeText={t('pricing.earlyBird')}
           ctaHref="#"
           ctaText={t('pricing.cta.upgradeNow')}
-          features={proFeatures}
-          originalPrice={10}
-          price={8}
-          title="1 DEVICE"
+          description={t('pricing.plans.threeDevices')}
+          features={[t('pricing.plans.threeDevicesSaving'), ...proFeatures]}
+          highlighted
+          originalPrice={19}
+          price={15}
+          title="3 DEVICES"
           updatePolicy={t('pricing.updatePolicy')}
         />
 
@@ -72,11 +90,11 @@ export default function Pricing() {
           badgeText={t('pricing.earlyBird')}
           ctaHref="#"
           ctaText={t('pricing.cta.upgradeNow')}
+          description={t('pricing.plans.oneDevice')}
           features={proFeatures}
-          highlighted
-          originalPrice={19}
-          price={15}
-          title="3 DEVICES"
+          originalPrice={10}
+          price={8}
+          title="1 DEVICE"
           updatePolicy={t('pricing.updatePolicy')}
         />
       </section>
@@ -91,6 +109,29 @@ export default function Pricing() {
             <li>{t('pricing.upgradeInfo.versionUpgrade')}</li>
           </ul>
         </div>
+      </section>
+
+      <section aria-labelledby="pricing-faq" className="mx-auto mt-20 w-full max-w-3xl">
+        <h2
+          className="scroll-my-24 bg-gradient-to-br from-gray-900 to-gray-800 bg-clip-text py-2 text-center font-bold text-2xl text-transparent tracking-tighter lg:text-3xl dark:from-gray-50 dark:to-gray-300"
+          id="pricing-faq"
+        >
+          {t('pricing.faq.title')}
+        </h2>
+        <Accordion className="mt-8" type="multiple">
+          {faqs.map((item) => (
+            <AccordionItem
+              className="py-3 first:pt-0 first:pb-3"
+              key={item.question}
+              value={item.question}
+            >
+              <AccordionTrigger>{item.question}</AccordionTrigger>
+              <AccordionContent className="text-gray-600 dark:text-gray-400">
+                {item.answer}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
       </section>
     </div>
   )
