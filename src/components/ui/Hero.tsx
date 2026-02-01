@@ -1,10 +1,10 @@
 'use client'
 
-import { useTranslation } from '@/lib/i18n/client'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useRef } from 'react'
+import { useTranslation } from '@/lib/i18n/client'
 import HeroImage from './HeroImage'
 import TrackedHeroButton from './TrackedHeroButton'
 
@@ -23,7 +23,7 @@ export default function Hero() {
       const mm = gsap.matchMedia()
       mm.add('(min-width: 768px)', () => {
         const floatDistance = Math.min(window.innerHeight * 0.2, 160)
-        const pinDistance = Math.max(window.innerHeight * 0.9, 520)
+        const pinDistance = Math.max(window.innerHeight * 0.95, 520)
 
         const floatTl = gsap.timeline({
           scrollTrigger: {
