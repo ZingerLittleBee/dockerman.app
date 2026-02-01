@@ -61,6 +61,7 @@
     "copyright": "Dockerman. 保留所有权利。",
     "status": "所有系统正常运行",
     "links": {
+      "pricing": "定价",
       "download": "下载",
       "changelog": "更新日志",
       "github": "GitHub",
