@@ -67,6 +67,7 @@ Focus on simplicity and performance for Docker container management.
   - Block I/O statistics
 - 💻 Integrated terminal access
   - Terminal theme picker with color theme customization
+  - Configurable default shell and user
 - 📝 Process list viewing
 - 📜 Log viewer with real-time updates
   - Virtualized log list with follow/pause and load-more history
@@ -111,6 +112,10 @@ Focus on simplicity and performance for Docker container management.
   - Total count
   - Size analytics
   - Usage tracking
+
+### Volume Management
+
+- 📂 Volume File Browser with upload and download support
 
 ### System Integration
 
