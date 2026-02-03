@@ -27,10 +27,11 @@ Focus on simplicity and performance for Docker container management.
 ![build Screenshot](public/screenshots/2.4.0/build-log.png)
 ![build History Screenshot](public/screenshots/2.4.0/build-log-history.png)
 ![file system](public/screenshots/3.0.0/file.png)
-![Termin Settings](public/screenshots/3.2.0/terminal-settings.png)
+![Termin Settings](public/screenshots/terminal-settings.png)
 ![Image Analysis](public/screenshots/3.3.0/image-analysis.png)
 ![Compose Screenshot](public/screenshots/3.4.0/compose.png)
 ![Event Screenshot](public/screenshots/event.png)
+![Volume Browse Screenshot](public/screenshots/volume-browse.png)
 
 ## Features
 
