@@ -82,6 +82,15 @@ Update both `README.md` and `README.zh-CN.md` with the new version and release d
 
 **Note**: In the release date badge URL, spaces are encoded as `%20` and commas as `%2C`.
 
+### 6. Update README Features Section
+
+Add new features to the Features section in both `README.md` and `README.zh-CN.md`:
+
+- Keep descriptions **brief** (one line per feature)
+- No detailed sub-items needed
+- Add under the appropriate section (Container Management, Image Management, etc.)
+- Create new sections if needed (e.g., "Volume Management")
+
 ## File References
 
 | File | Purpose |
@@ -127,3 +136,5 @@ If screenshots are provided, add them using:
 - [ ] `README.md` release date badge updated
 - [ ] `README.zh-CN.md` version badge updated
 - [ ] `README.zh-CN.md` release date badge updated
+- [ ] `README.md` features section updated (brief, no details)
+- [ ] `README.zh-CN.md` features section updated (brief, no details)

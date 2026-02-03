@@ -5,6 +5,7 @@ import {
   RiFileLine,
   RiFileList2Line,
   RiHammerLine,
+  RiHardDriveLine,
   RiInformation2Line,
   RiLineChartFill,
   RiNewsLine,
@@ -33,7 +34,8 @@ const screenshotConfigs = [
   { src: '/screenshots/event.png', labelKey: 'events', icon: RiFileList2Line },
   { src: '/screenshots/file.png', labelKey: 'file', icon: RiFileLine },
   { src: '/screenshots/image-analysis.png', labelKey: 'imageAnalysis', icon: RiPieChartLine },
-  { src: '/screenshots/container-compose.png', labelKey: 'compose', icon: RiStackLine }
+  { src: '/screenshots/container-compose.png', labelKey: 'compose', icon: RiStackLine },
+  { src: '/screenshots/volume-browse.png', labelKey: 'volumeBrowse', icon: RiHardDriveLine }
 ]
 
 const featureConfigs = [

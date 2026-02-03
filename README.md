@@ -2,8 +2,8 @@
 
 Language: 🇺🇸 English | [🇨🇳 简体中文](./README.zh-CN.md)
 
-[![Version](https://img.shields.io/badge/version-v3.7.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.7.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Jan%2030%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.7.0)
+[![Version](https://img.shields.io/badge/version-v3.9.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.9.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Feb%2003%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.9.0)
 
 A modern, lightweight Docker management UI built with Tauri and Rust.
 Focus on simplicity and performance for Docker container management.
@@ -27,10 +27,11 @@ Focus on simplicity and performance for Docker container management.
 ![build Screenshot](public/screenshots/2.4.0/build-log.png)
 ![build History Screenshot](public/screenshots/2.4.0/build-log-history.png)
 ![file system](public/screenshots/3.0.0/file.png)
-![Termin Settings](public/screenshots/3.2.0/terminal-settings.png)
+![Termin Settings](public/screenshots/terminal-settings.png)
 ![Image Analysis](public/screenshots/3.3.0/image-analysis.png)
 ![Compose Screenshot](public/screenshots/3.4.0/compose.png)
 ![Event Screenshot](public/screenshots/event.png)
+![Volume Browse Screenshot](public/screenshots/volume-browse.png)
 
 ## Features
 
@@ -67,6 +68,7 @@ Focus on simplicity and performance for Docker container management.
   - Block I/O statistics
 - 💻 Integrated terminal access
   - Terminal theme picker with color theme customization
+  - Configurable default shell and user
 - 📝 Process list viewing
 - 📜 Log viewer with real-time updates
   - Virtualized log list with follow/pause and load-more history
@@ -111,6 +113,10 @@ Focus on simplicity and performance for Docker container management.
   - Total count
   - Size analytics
   - Usage tracking
+
+### Volume Management
+
+- 📂 Volume File Browser with upload and download support
 
 ### System Integration
 

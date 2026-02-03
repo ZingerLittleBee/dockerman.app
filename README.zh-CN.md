@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 
-[![Version](https://img.shields.io/badge/version-v3.7.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.7.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Jan%2030%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.7.0)
+[![Version](https://img.shields.io/badge/version-v3.9.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.9.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Feb%2003%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.9.0)
 
 一个现代、轻量级的 Docker 管理界面，使用 Tauri 和 Rust 构建。
 专注于简洁性和性能的 Docker 容器管理工具。
@@ -27,10 +27,11 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 ![build Screenshot](public/screenshots/2.4.0/build-log.png)
 ![build History Screenshot](public/screenshots/2.4.0/build-log-history.png)
 ![file system](public/screenshots/3.0.0/file.png)
-![Termin Settings](public/screenshots/3.2.0/terminal-settings.png)
+![Termin Settings](public/screenshots/terminal-settings.png)
 ![Image Analysis](public/screenshots/3.3.0/image-analysis.png)
 ![Compose Screenshot](public/screenshots/3.4.0/compose.png)
 ![Event Screenshot](public/screenshots/event.png)
+![Volume Browse Screenshot](public/screenshots/volume-browse.png)
 
 ## 功能特性
 
@@ -67,6 +68,7 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
   - 块 I/O 统计
 - 💻 集成终端访问
   - 终端主题选择器，支持颜色主题自定义
+  - 可配置默认 shell 和用户
 - 📝 进程列表查看
 - 📜 实时日志查看器
   - 虚拟化日志列表，支持跟踪/暂停和加载更多历史
@@ -111,6 +113,10 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
   - 总数统计
   - 大小分析
   - 使用追踪
+
+### 卷管理
+
+- 📂 卷文件浏览器，支持上传和下载
 
 ### 系统集成
 

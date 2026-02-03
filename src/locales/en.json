@@ -149,9 +149,10 @@
       "ssh": "SSH",
       "build": "Build",
       "events": "Events",
-      "file": "File",
+      "file": "Container File",
       "imageAnalysis": "Image Analysis",
-      "compose": "Compose"
+      "compose": "Compose",
+      "volumeBrowse": "Volume Browse"
     },
     "features": {
       "realTimeMonitoring": {
