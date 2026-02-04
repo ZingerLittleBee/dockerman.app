@@ -84,7 +84,7 @@
     "plans": {
       "oneDevice": "For 1 macOS/Windows device",
       "threeDevices": "For 3 macOS/Windows devices",
-      "threeDevicesSaving": "37% off compared to one device license"
+      "threeDevicesSaving": "33% off compared to one device license"
     },
     "features": {
       "crossPlatform": "macOS, Windows & Linux support",
@@ -146,6 +146,10 @@
         {
           "question": "Is there a refund policy?",
           "answer": "We offer a 14-day money-back guarantee. If you're not satisfied with Dockerman, email us at support@dockerman.app within 14 days of purchase for a full refund."
+        },
+        {
+          "question": "Need more devices?",
+          "answer": "If you need licenses for more than 3 devices, please contact us at support@dockerman.app for custom pricing."
         }
       ]
     }

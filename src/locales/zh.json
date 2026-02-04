@@ -84,7 +84,7 @@
     "plans": {
       "oneDevice": "适用于 1 台 macOS/Windows 设备",
       "threeDevices": "适用于 3 台 macOS/Windows 设备",
-      "threeDevicesSaving": "相比单设备许可证立省 37%"
+      "threeDevicesSaving": "相比单设备许可证立省 33%"
     },
     "features": {
       "crossPlatform": "支持 macOS、Windows 和 Linux",
@@ -146,6 +146,10 @@
         {
           "question": "有退款政策吗？",
           "answer": "我们提供 14 天无条件退款保证。如果您对 Dockerman 不满意，请在购买后 14 天内发送邮件至 support@dockerman.app 获得全额退款。"
+        },
+        {
+          "question": "需要更多设备？",
+          "answer": "如果您需要超过 3 台设备的许可证，请联系 support@dockerman.app 获取定制报价。"
         }
       ]
     }

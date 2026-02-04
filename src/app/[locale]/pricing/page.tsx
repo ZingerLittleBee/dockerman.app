@@ -77,9 +77,9 @@ export default function Pricing() {
 
         <PricingCard
           badgeText={t('pricing.earlyBird')}
-          ctaHref="#"
-          ctaText={t('pricing.cta.upgradeNow')}
+          ctaText="Coming Soon"
           description={t('pricing.plans.threeDevices')}
+          disabled
           features={[
             t('pricing.features.everythingInFree'),
             t('pricing.plans.threeDevicesSaving'),
@@ -87,20 +87,20 @@ export default function Pricing() {
             t('pricing.features.multiHostManagement')
           ]}
           highlighted
-          originalPrice={19}
-          price={15}
+          originalPrice={39}
+          price={24}
           title="3 DEVICES"
           updatePolicy={t('pricing.updatePolicy')}
         />
 
         <PricingCard
           badgeText={t('pricing.earlyBird')}
-          ctaHref="#"
-          ctaText={t('pricing.cta.upgradeNow')}
+          ctaText="Coming Soon"
           description={t('pricing.plans.oneDevice')}
+          disabled
           features={proFeatures}
-          originalPrice={10}
-          price={8}
+          originalPrice={19}
+          price={12}
           title="1 DEVICE"
           updatePolicy={t('pricing.updatePolicy')}
         />
