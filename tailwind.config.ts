@@ -101,8 +101,8 @@ const config: Config = {
         slideUpAndFade: 'slideUpAndFade 150ms cubic-bezier(0.16, 1, 0.3, 1)',
         slideRightAndFade: 'slideRightAndFade 150ms cubic-bezier(0.16, 1, 0.3, 1)',
         // Accordion
-        accordionOpen: 'accordionOpen 150ms cubic-bezier(0.87, 0, 0.13, 1)',
-        accordionClose: 'accordionClose 150ms cubic-bezier(0.87, 0, 0.13, 1)',
+        accordionOpen: 'accordionOpen 250ms cubic-bezier(0.33, 1, 0.68, 1)',
+        accordionClose: 'accordionClose 200ms cubic-bezier(0.33, 1, 0.68, 1)',
         // Dialog
         dialogOverlayShow: 'dialogOverlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1)',
         dialogContentShow: 'dialogContentShow 150ms cubic-bezier(0.16, 1, 0.3, 1)',
