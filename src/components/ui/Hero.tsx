@@ -20,22 +20,14 @@ export default function Hero() {
       const wrap = imageWrapRef.current
       if (!wrap) return
 
+      // 入场动画 - 只控制 opacity，避免与 ScrollTrigger 的 y 动画冲突
+      gsap.fromTo(wrap, { opacity: 0 }, { opacity: 1, duration: 1.4, ease: 'power2.out' })
+
       const mm = gsap.matchMedia()
       mm.add('(min-width: 768px)', () => {
-        const floatDistance = Math.min(window.innerHeight * 0.2, 160)
         const pinDistance = Math.max(window.innerHeight * 0.95, 520)
 
-        const floatTl = gsap.timeline({
-          scrollTrigger: {
-            trigger: wrap,
-            start: 'top bottom',
-            end: 'top 70%',
-            scrub: true
-          }
-        })
-
-        floatTl.to(wrap, { y: -floatDistance, ease: 'none' })
-
+        // 只保留 pin 效果，不添加视差动画，让图片跟随页面正常滚动
         ScrollTrigger.create({
           trigger: wrap,
           start: 'top 10%',
@@ -45,10 +37,6 @@ export default function Hero() {
           scrub: true,
           anticipatePin: 1
         })
-
-        return () => {
-          floatTl.kill()
-        }
       })
 
       return () => {
@@ -85,9 +73,8 @@ export default function Hero() {
         <TrackedHeroButton />
       </div>
       <div
-        className="relative mx-auto mt-20 ml-3 h-fit w-[40rem] max-w-6xl animate-slide-up-fade sm:ml-auto sm:w-full sm:px-2"
+        className="relative mx-auto mt-20 ml-3 h-fit w-[40rem] max-w-6xl opacity-0 sm:ml-auto sm:w-full sm:px-2"
         ref={imageWrapRef}
-        style={{ animationDuration: '1400ms' }}
       >
         <HeroImage />
         <div
