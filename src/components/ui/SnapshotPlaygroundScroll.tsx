@@ -102,6 +102,7 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
   const [lightboxImage, setLightboxImage] = useState<Screenshot | null>(null)
   const [activeIndex, setActiveIndex] = useState(0)
   const lastIndexRef = useRef(0)
+  const [animationKey, setAnimationKey] = useState(0)
 
   // 监听导航链接点击 - 修复同页面导航时的白屏问题
   // 当用户在 SnapshotPlayground 滚动区域点击 Home/Logo 时，需要重置 ScrollTrigger 状态
@@ -112,18 +113,28 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
 
       // 只处理内部导航链接（不是新窗口打开的）
       if (link?.href && !link.target && link.origin === window.location.origin) {
-        // 重置 ScrollTrigger 状态
+        const wrapper = wrapperRef.current
+
+        const container = containerRef.current
+
         for (const trigger of ScrollTrigger.getAll()) {
-          trigger.kill()
+          const triggerEl = trigger.vars?.trigger
+
+          const pinEl = trigger.vars?.pin
+
+          if (triggerEl === wrapper || pinEl === container) {
+            trigger.kill()
+          }
         }
-        ScrollTrigger.clearScrollMemory()
 
         // 确保滚动到顶部
         window.scrollTo(0, 0)
 
-        // 刷新 ScrollTrigger（下一帧执行，给 DOM 时间更新）
+        // 重新初始化动画（下一帧执行，给 DOM 时间更新）
         requestAnimationFrame(() => {
-          ScrollTrigger.refresh(true)
+          setAnimationKey((prev) => prev + 1)
+          setActiveIndex(0)
+          lastIndexRef.current = 0
         })
       }
     }
@@ -216,7 +227,7 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
         }
       }
     },
-    { scope: wrapperRef, dependencies: [screenshots.length] }
+    { scope: wrapperRef, dependencies: [screenshots.length, animationKey] }
   )
 
   return (
