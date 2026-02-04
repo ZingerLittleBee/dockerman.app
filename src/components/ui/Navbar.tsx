@@ -115,10 +115,10 @@ export function Navigation() {
   return (
     <header
       className={cx(
-        'fixed inset-x-3 top-4 z-50 mx-auto flex max-w-6xl transform-gpu animate-slide-down-fade justify-center rounded-xl border border-transparent px-3 py-3 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1.03)] will-change-transform',
+        'fixed inset-x-3 top-4 z-50 mx-auto flex max-w-6xl transform-gpu animate-slide-down-fade justify-center overflow-visible rounded-xl border border-transparent px-3 py-3 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1.03)] will-change-transform',
         open === true ? 'h-52' : 'h-16',
         scrolled || open === true
-          ? 'max-w-3xl border-gray-100 bg-white/80 shadow-black/5 shadow-xl backdrop-blur-nav dark:border-white/15 dark:bg-black/70'
+          ? 'max-w-4xl border-gray-100 bg-white/80 shadow-black/5 shadow-xl backdrop-blur-nav dark:border-white/15 dark:bg-black/70'
           : 'bg-white/0 dark:bg-gray-950/0'
       )}
     >
@@ -142,6 +142,19 @@ export function Navigation() {
                 }}
               >
                 {t('nav.home')}
+              </Link>
+              <Link
+                className="px-2 py-1 text-gray-900 dark:text-gray-50"
+                href={`/${locale}/pricing`}
+                onClick={() => {
+                  posthog.capture('nav_link_clicked', {
+                    link_text: t('nav.pricing'),
+                    link_url: `/${locale}/pricing`,
+                    location: 'navbar_desktop'
+                  })
+                }}
+              >
+                {t('nav.pricing')}
               </Link>
               <Link
                 className="px-2 py-1 text-gray-900 dark:text-gray-50"
@@ -229,6 +242,21 @@ export function Navigation() {
                 }}
               >
                 {t('nav.home')}
+              </a>
+            </li>
+
+            <li onClick={() => setOpen(false)}>
+              <a
+                href={`/${locale}/pricing`}
+                onClick={() => {
+                  posthog.capture('nav_link_clicked', {
+                    link_text: t('nav.pricing'),
+                    link_url: `/${locale}/pricing`,
+                    location: 'navbar_mobile'
+                  })
+                }}
+              >
+                {t('nav.pricing')}
               </a>
             </li>
 

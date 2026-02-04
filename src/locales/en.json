@@ -1,6 +1,7 @@
 {
   "nav": {
     "home": "Home",
+    "pricing": "Pricing",
     "download": "Download",
     "changelog": "Changelog"
   },
@@ -60,6 +61,7 @@
     "copyright": "Dockerman. All rights reserved.",
     "status": "All systems operational",
     "links": {
+      "pricing": "Pricing",
       "download": "Download",
       "changelog": "Changelog",
       "github": "GitHub",
@@ -71,6 +73,86 @@
   },
   "common": {
     "download": "Download"
+  },
+  "pricing": {
+    "badge": "pricing",
+    "title": "Dockerman License",
+    "subtitle": "Local Free, Remote Paid",
+    "description": "Simple pricing. No subscriptions. Pay once, own it forever.",
+    "earlyBird": "Early Bird",
+    "updatePolicy": "1 year free updates",
+    "plans": {
+      "oneDevice": "For 1 macOS/Windows device",
+      "threeDevices": "For 3 macOS/Windows devices",
+      "threeDevicesSaving": "37% off compared to one device license"
+    },
+    "features": {
+      "crossPlatform": "macOS, Windows & Linux support",
+      "containerManagement": "Container lifecycle management",
+      "imageManagement": "Image management & build",
+      "volumeManagement": "Volume management",
+      "networkManagement": "Network management",
+      "realTimeMonitoring": "Real-time resource monitoring",
+      "integratedTerminal": "Integrated terminal access",
+      "logViewer": "Log viewer with filtering",
+      "fileBrowser": "Container file browser",
+      "composeSupport": "Docker Compose support",
+      "darkMode": "Dark mode support",
+      "localDockerOnly": "Remote host support",
+      "everythingInFree": "Everything in Free",
+      "remoteViaSSH": "Remote host via SSH",
+      "multiHostManagement": "Multi-host management"
+    },
+    "cta": {
+      "currentPlan": "Current Plan",
+      "upgradeNow": "Upgrade Now"
+    },
+    "upgradeInfo": {
+      "title": "Upgrade Information",
+      "deviceUpgrade": "1 Device → 3 Devices: Pay the difference",
+      "versionUpgrade": "v1 → v2 upgrade: $6 (1 device) / $12 (3 devices)"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "items": [
+        {
+          "question": "What does Lifetime License mean?",
+          "answer": "Purchase once and use Dockerman forever. Your license includes 1 year of free updates. After that, you can continue using your current version indefinitely, or renew for another year of updates."
+        },
+        {
+          "question": "What does Device Limitation mean?",
+          "answer": "You can activate Dockerman on the number of devices specified by your license. You can deactivate a device anytime and transfer the license to another device. If you lose access to a device, you can reset your license to deactivate all devices (limit: once per 7 days)."
+        },
+        {
+          "question": "Can I use the license on both macOS and Windows?",
+          "answer": "Yes! Your license works on both macOS and Windows. You can mix and match platforms within your device limit."
+        },
+        {
+          "question": "Can I use Dockerman for commercial purposes?",
+          "answer": "Absolutely! There are no restrictions on personal or commercial use. You can use Dockerman for any purpose, including in professional and enterprise environments."
+        },
+        {
+          "question": "What happens after the 1-year update period?",
+          "answer": "After 1 year, you can continue using your current version forever. To unlock new features and updates, you can renew at the upgrade price. All features unlocked during your subscription remain available for life."
+        },
+        {
+          "question": "Can I upgrade from 1 Device to 3 Devices?",
+          "answer": "Yes! You can upgrade anytime by paying the price difference. Your update subscription period will be preserved."
+        },
+        {
+          "question": "How much does a major version upgrade cost?",
+          "answer": "Major version upgrades (e.g., v1 → v2) are available at a discounted price. This includes another year of free updates."
+        },
+        {
+          "question": "Is there a refund policy?",
+          "answer": "We offer a 14-day money-back guarantee. If you're not satisfied with Dockerman, email us at support@dockerman.app within 14 days of purchase for a full refund."
+        },
+        {
+          "question": "Need more devices?",
+          "answer": "If you need licenses for more than 3 devices, please contact us at support@dockerman.app for custom pricing."
+        }
+      ]
+    }
   },
   "changelog": {
     "badge": "changelog",

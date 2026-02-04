@@ -11,6 +11,7 @@ export default function Footer() {
 
   const navigation = {
     product: [
+      { name: t('footer.links.pricing'), href: `/${locale}/pricing`, external: false },
       { name: t('footer.links.download'), href: `/${locale}/download`, external: false },
       { name: t('footer.links.changelog'), href: `/${locale}/changelog`, external: false }
     ],
