@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 
-[![Version](https://img.shields.io/badge/version-v3.9.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.9.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Feb%2003%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.9.0)
+[![Version](https://img.shields.io/badge/version-v3.9.1-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.9.1)
+[![Release Date](https://img.shields.io/badge/release%20date-Feb%2005%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.9.1)
 
 一个现代、轻量级的 Docker 管理界面，使用 Tauri 和 Rust 构建。
 专注于简洁性和性能的 Docker 容器管理工具。
@@ -46,6 +46,7 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 ### 容器管理
 
 - 📋 详细的容器列表，带状态指示器
+- 🔍 容器列表支持快速搜索，实时过滤并可一键清除
 - 🐳 Docker Compose 视图
   - 支持平铺列表和按 Compose 项目分组视图切换
   - Compose 项目卡片，显示状态指示器和运行中的容器数量
@@ -114,9 +115,14 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
   - 大小分析
   - 使用追踪
 
+### 网络管理
+
+- 🔍 网络列表支持快速搜索（名称、ID、驱动、状态）
+
 ### 卷管理
 
 - 📂 卷文件浏览器，支持上传和下载
+- 🔍 卷列表支持快速搜索，实时过滤并可一键清除
 
 ### 系统集成
 
