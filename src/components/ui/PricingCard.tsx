@@ -71,17 +71,11 @@ export function PricingCard({
         </h3>
 
         <div className="mt-4 flex items-baseline justify-center gap-2">
-          <span
-            aria-label={`${price} dollars`}
-            className="font-bold text-4xl text-gray-900 tabular-nums dark:text-gray-100"
-          >
+          <span className="font-bold text-4xl text-gray-900 tabular-nums dark:text-gray-100">
             {formatPrice(price)}
           </span>
           {originalPrice && (
-            <del
-              aria-label={`originally ${originalPrice} dollars`}
-              className="text-gray-400 text-lg tabular-nums dark:text-gray-500"
-            >
+            <del className="text-gray-400 text-lg tabular-nums dark:text-gray-500">
               {formatPrice(originalPrice)}
             </del>
           )}
