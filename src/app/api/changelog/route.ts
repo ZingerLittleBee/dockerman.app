@@ -1,3 +1,25 @@
+/**
+ * GET /api/changelog
+ *
+ * 获取指定版本的 Changelog，返回 Markdown 格式内容。
+ *
+ * Query Parameters:
+ *   - version (required): 版本号，支持 "1.0.0" 或 "v1.0.0"
+ *   - locale  (optional): 语言，可选值 "en" | "zh"，默认 "en"
+ *
+ * Response 200:
+ *   { "version": "3.9.2", "locale": "zh", "content": "## Changelog markdown..." }
+ *
+ * Error Responses:
+ *   400 - Missing required parameter: version
+ *   400 - Invalid locale. Must be "en" or "zh"
+ *   404 - Changelog entry not found for version x.x.x
+ *   500 - Failed to read changelog file
+ *
+ * Examples:
+ *   GET /api/changelog?version=3.9.2&locale=zh
+ *   GET /api/changelog?version=1.0.0
+ */
 import { readFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { type NextRequest, NextResponse } from 'next/server'
