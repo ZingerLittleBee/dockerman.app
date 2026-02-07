@@ -2,8 +2,8 @@
 
 Language: 🇺🇸 English | [🇨🇳 简体中文](./README.zh-CN.md)
 
-[![Version](https://img.shields.io/badge/version-v3.9.1-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.9.1)
-[![Release Date](https://img.shields.io/badge/release%20date-Feb%2005%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.9.1)
+[![Version](https://img.shields.io/badge/version-v3.9.2-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.9.2)
+[![Release Date](https://img.shields.io/badge/release%20date-Feb%2007%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.9.2)
 
 A modern, lightweight Docker management UI built with Tauri and Rust.
 Focus on simplicity and performance for Docker container management.
@@ -123,6 +123,10 @@ Focus on simplicity and performance for Docker container management.
 
 - 📂 Volume File Browser with upload and download support
 - 🔍 Quick search for volumes with real-time filtering and clear reset
+
+### App Log Viewer
+
+- 📋 Custom HTML-based log viewer with keyword search, level filtering, detail dialog, and export support
 
 ### System Integration
 
