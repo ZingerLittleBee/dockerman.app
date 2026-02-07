@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 
-[![Version](https://img.shields.io/badge/version-v3.9.1-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.9.1)
-[![Release Date](https://img.shields.io/badge/release%20date-Feb%2005%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.9.1)
+[![Version](https://img.shields.io/badge/version-v3.9.2-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.9.2)
+[![Release Date](https://img.shields.io/badge/release%20date-Feb%2007%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.9.2)
 
 一个现代、轻量级的 Docker 管理界面，使用 Tauri 和 Rust 构建。
 专注于简洁性和性能的 Docker 容器管理工具。
@@ -123,6 +123,10 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 
 - 📂 卷文件浏览器，支持上传和下载
 - 🔍 卷列表支持快速搜索，实时过滤并可一键清除
+
+### 应用日志查看器
+
+- 📋 自定义 HTML 日志查看器，支持关键词搜索、级别过滤、详情对话框和导出功能
 
 ### 系统集成
 
