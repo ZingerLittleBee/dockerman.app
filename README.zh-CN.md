@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 
-[![Version](https://img.shields.io/badge/version-v3.9.2-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.9.2)
-[![Release Date](https://img.shields.io/badge/release%20date-Feb%2007%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.9.2)
+[![Version](https://img.shields.io/badge/version-v3.10.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.10.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Feb%2008%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.10.0)
 
 一个现代、轻量级的 Docker 管理界面，使用 Tauri 和 Rust 构建。
 专注于简洁性和性能的 Docker 容器管理工具。
@@ -42,6 +42,7 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 - 🔄 实时容器状态更新
 - 📈 资源使用可视化
 - 🖥️ 系统信息展示（Docker 版本、操作系统、架构、资源限制）
+- ⚡ 并行化容器统计查询，仪表盘加载更快
 
 ### 容器管理
 
@@ -103,11 +104,15 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
   - 实时构建日志流
   - 历史日志回放
   - Docker 构建命令生成和解析功能
+  - 从构建历史中重建，自动填充参数
+  - 无需重新配置即可重试失败的构建
 - 📉 镜像大小分析
   - 详细的镜像层大小拆解分析
   - 交互式的大小分布条，通过颜色块可视化各层比例
   - 支持展开/收起查看完整的 Dockerfile 构建命令
   - 可折叠的分布面板，支持紧凑视图
+  - 导出层分析为 JSON 或复制到剪贴板
+- 🐳 大型镜像导出/导入使用流式 I/O
 - 🕒 创建时间追踪
 - 🔍 详细的镜像检查
 - 📊 使用统计
@@ -134,6 +139,7 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
   - 自定义 Docker socket 路径支持
   - TCP 连接支持，连接远程 Docker 守护进程
   - SSH socket 转发，支持远程连接
+- 🛡️ 错误边界，组件异常时显示恢复界面而非白屏
 - 📁 侧边栏可折叠分区，带容器数量徽章
 - 🚀 轻量快速的性能
 - 💻 跨平台桌面应用

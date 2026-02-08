@@ -1,3 +1,38 @@
+<ChangelogEntry version="v3.10.0" date="Feb 08, 2026">
+## Image Layers, Build Rebuild & Error Handling
+
+This release adds image layer export, build rebuild/retry capabilities, and numerous bug fixes and performance improvements.
+
+### ✨ Features
+
+- 📤 <Bold>Image Layer Export:</Bold> Export image layer analysis as JSON file or copy to clipboard
+- 🎬 <Bold>Image Switch Transitions:</Bold> Smooth fade animations when switching between images in layer analysis, with staggered row entry effects
+- 🔄 <Bold>Build Rebuild:</Bold> Rebuild any previous build directly from build history with pre-filled parameters
+- 🔁 <Bold>Build Retry:</Bold> Retry failed builds without re-entering configuration
+
+### 🐛 Bug Fixes
+
+- 🔨 <Bold>Build Error Detection:</Bold> Fixed build failures not being properly detected, causing subsequent builds to immediately fail with stale errors
+- 🔍 <Bold>Build Error Details:</Bold> Extracted detailed error messages from Docker stream errors instead of showing generic "Docker stream error"
+- 📺 <Bold>Build Error Display:</Bold> Build errors now display directly in the terminal log with a separator, instead of only showing a toast notification
+- 📁 <Bold>Dockerfile Validation:</Bold> Rebuild now validates Dockerfile existence and shows a warning when the file is missing
+- 🔄 <Bold>Stale Layer Data:</Bold> Fixed stale layer data displaying briefly when switching images
+- 🛡️ <Bold>Inspect Isolation:</Bold> Image inspect failure no longer blocks layer history loading
+- 🐳 <Bold>Image Import:</Bold> File read errors are now properly reported instead of being silently ignored
+
+### ⚡ Performance
+
+- 🐳 <Bold>Image Export/Import:</Bold> Streaming I/O for large image export and import, significantly reducing memory usage
+- 📊 <Bold>Dashboard Stats:</Bold> Parallelized container stats queries, dramatically faster with many running containers
+
+### 🎨 Improvements
+
+- 🔔 <Bold>Updater Notification:</Bold> Streamlined update flow and refined notification styling with i18n support
+- 📭 <Bold>Empty States:</Bold> Container, image, network, and volume tables now show domain-specific icons when empty
+- 📱 <Bold>Responsive Layout:</Bold> Template stats grid adapts to smaller window sizes
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v3.9.2" date="Feb 07, 2026">
 ## App Log Viewer Revamp
 
