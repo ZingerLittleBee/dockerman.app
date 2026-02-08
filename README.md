@@ -2,8 +2,8 @@
 
 Language: 🇺🇸 English | [🇨🇳 简体中文](./README.zh-CN.md)
 
-[![Version](https://img.shields.io/badge/version-v3.9.2-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.9.2)
-[![Release Date](https://img.shields.io/badge/release%20date-Feb%2007%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.9.2)
+[![Version](https://img.shields.io/badge/version-v3.10.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.10.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Feb%2008%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.10.0)
 
 A modern, lightweight Docker management UI built with Tauri and Rust.
 Focus on simplicity and performance for Docker container management.
@@ -42,6 +42,7 @@ Focus on simplicity and performance for Docker container management.
 - 🔄 Real-time container status updates
 - 📈 Resource usage visualization
 - 🖥️ System information display (Docker version, OS, architecture, resource limits)
+- ⚡ Parallelized container stats queries for faster dashboard loading
 
 ### Container Management
 
@@ -103,11 +104,15 @@ Focus on simplicity and performance for Docker container management.
   - Real-time build log streaming
   - Historical log playback
   - Docker build command generation and parsing functionality
+  - Rebuild previous builds from history with pre-filled parameters
+  - Retry failed builds without re-entering configuration
 - 📉 Image Size Analysis
   - Detailed breakdown of layer sizes
   - Interactive size distribution bar with color-coded blocks
   - Layer details table with expand/collapse for Dockerfile commands
   - Collapsible distribution panel with compact view support
+  - Export layer analysis as JSON or copy to clipboard
+- 🐳 Streaming I/O for large image export and import
 - 🕒 Creation time tracking
 - 🔍 Detailed image inspection
 - 📊 Usage statistics
@@ -134,6 +139,7 @@ Focus on simplicity and performance for Docker container management.
   - Custom Docker socket path support
   - TCP connection support for remote Docker daemon
   - SSH socket forwarding for remote connections
+- 🛡️ Error boundary with recovery UI for unexpected component errors
 - 📁 Sidebar collapsible sections with container count badges
 - 🚀 Lightweight and fast performance
 - 💻 Cross-platform desktop application
