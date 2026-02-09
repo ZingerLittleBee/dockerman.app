@@ -2,8 +2,8 @@
 
 Language: 🇺🇸 English | [🇨🇳 简体中文](./README.zh-CN.md)
 
-[![Version](https://img.shields.io/badge/version-v3.10.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.10.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Feb%2008%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.10.0)
+[![Version](https://img.shields.io/badge/version-v3.11.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.11.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Feb%2010%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.11.0)
 
 A modern, lightweight Docker management UI built with Tauri and Rust.
 Focus on simplicity and performance for Docker container management.
@@ -43,6 +43,11 @@ Focus on simplicity and performance for Docker container management.
 - 📈 Resource usage visualization
 - 🖥️ System information display (Docker version, OS, architecture, resource limits)
 - ⚡ Parallelized container stats queries for faster dashboard loading
+
+### Storage
+
+- 💾 Docker disk usage breakdown (images, containers, volumes, build cache) with interactive chart
+- 🧹 One-click system prune
 
 ### Container Management
 
@@ -139,6 +144,7 @@ Focus on simplicity and performance for Docker container management.
   - Custom Docker socket path support
   - TCP connection support for remote Docker daemon
   - SSH socket forwarding for remote connections
+- 🔐 Private registry credential management with auto-matching on image pull
 - 🛡️ Error boundary with recovery UI for unexpected component errors
 - 📁 Sidebar collapsible sections with container count badges
 - 🚀 Lightweight and fast performance
