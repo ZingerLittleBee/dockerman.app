@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 
-[![Version](https://img.shields.io/badge/version-v3.10.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.10.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Feb%2008%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.10.0)
+[![Version](https://img.shields.io/badge/version-v3.11.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.11.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Feb%2010%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.11.0)
 
 一个现代、轻量级的 Docker 管理界面，使用 Tauri 和 Rust 构建。
 专注于简洁性和性能的 Docker 容器管理工具。
@@ -32,6 +32,7 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 ![Compose Screenshot](public/screenshots/3.4.0/compose.png)
 ![Event Screenshot](public/screenshots/event.png)
 ![Volume Browse Screenshot](public/screenshots/volume-browse.png)
+![Storage Screenshot](public/screenshots/storage.png)
 
 ## 功能特性
 
@@ -43,6 +44,11 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 - 📈 资源使用可视化
 - 🖥️ 系统信息展示（Docker 版本、操作系统、架构、资源限制）
 - ⚡ 并行化容器统计查询，仪表盘加载更快
+
+### 存储
+
+- 💾 Docker 磁盘用量分布（镜像、容器、卷、构建缓存），支持交互式图表
+- 🧹 一键系统清理
 
 ### 容器管理
 
@@ -139,6 +145,7 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
   - 自定义 Docker socket 路径支持
   - TCP 连接支持，连接远程 Docker 守护进程
   - SSH socket 转发，支持远程连接
+- 🔐 私有仓库凭证管理，拉取镜像时自动匹配
 - 🛡️ 错误边界，组件异常时显示恢复界面而非白屏
 - 📁 侧边栏可折叠分区，带容器数量徽章
 - 🚀 轻量快速的性能

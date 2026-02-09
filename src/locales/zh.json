@@ -234,7 +234,8 @@
       "file": "容器文件",
       "imageAnalysis": "镜像分析",
       "compose": "编排",
-      "volumeBrowse": "卷流览"
+      "volumeBrowse": "卷流览",
+      "storage": "存储"
     },
     "features": {
       "realTimeMonitoring": {
