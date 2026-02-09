@@ -234,7 +234,8 @@
       "file": "Container File",
       "imageAnalysis": "Image Analysis",
       "compose": "Compose",
-      "volumeBrowse": "Volume Browse"
+      "volumeBrowse": "Volume Browse",
+      "storage": "Storage"
     },
     "features": {
       "realTimeMonitoring": {

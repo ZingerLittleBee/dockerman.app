@@ -32,6 +32,7 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 ![Compose Screenshot](public/screenshots/3.4.0/compose.png)
 ![Event Screenshot](public/screenshots/event.png)
 ![Volume Browse Screenshot](public/screenshots/volume-browse.png)
+![Storage Screenshot](public/screenshots/storage.png)
 
 ## 功能特性
 
