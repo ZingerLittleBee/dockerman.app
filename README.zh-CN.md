@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 
-[![Version](https://img.shields.io/badge/version-v3.11.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.11.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Feb%2010%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.11.0)
+[![Version](https://img.shields.io/badge/version-v3.12.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.12.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Feb%2012%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.12.0)
 
 一个现代、轻量级的 Docker 管理界面，使用 Tauri 和 Rust 构建。
 专注于简洁性和性能的 Docker 容器管理工具。
@@ -82,6 +82,8 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
   - 虚拟化日志列表，支持跟踪/暂停和加载更多历史
   - 关键字/正则过滤，支持高亮和快捷操作
   - 导出日志为 TXT/JSON，复制过滤结果
+  - 日志最新优先排序，与事件页面保持一致
+  - 键盘快捷键（`P` 暂停、`/` 搜索、`g` 最新、`G` 最旧），带页面提示
 - 📂 容器文件浏览器
   - 动态加载的文件树导航
   - 文件夹上传和下载支持
@@ -92,9 +94,11 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 ### Docker 事件
 
 - 🔔 实时 Docker 事件监听
+- 🔔 容器异常事件桌面通知（非零退出码、OOM 终止、健康检查失败）
 - 🔍 全面的事件过滤和搜索
 - 📋 JSON 详情对话框，用于检查事件数据
 - ⚡ 操作按钮，支持复制 JSON 和删除选项
+- ⌨️ 键盘快捷键（`P` 暂停、`/` 搜索、`g` 最新、`G` 最旧），带页面提示
 
 ### 模板管理
 

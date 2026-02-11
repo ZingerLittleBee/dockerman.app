@@ -2,8 +2,8 @@
 
 Language: 🇺🇸 English | [🇨🇳 简体中文](./README.zh-CN.md)
 
-[![Version](https://img.shields.io/badge/version-v3.11.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.11.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Feb%2010%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.11.0)
+[![Version](https://img.shields.io/badge/version-v3.12.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.12.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Feb%2012%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.12.0)
 
 A modern, lightweight Docker management UI built with Tauri and Rust.
 Focus on simplicity and performance for Docker container management.
@@ -82,6 +82,8 @@ Focus on simplicity and performance for Docker container management.
   - Virtualized log list with follow/pause and load-more history
   - Keyword/regex filtering with highlight and quick shortcuts
   - Export logs as TXT/JSON and copy filtered results
+  - Newest-first log ordering, consistent with events page
+  - Keyboard shortcuts (`P` pause, `/` search, `g` newest, `G` oldest) with on-screen hints
 - 📂 Container File Browser
   - File tree navigation with dynamic loading
   - Folder upload and download support
@@ -92,9 +94,11 @@ Focus on simplicity and performance for Docker container management.
 ### Docker Events
 
 - 🔔 Real-time Docker event listening
+- 🔔 Desktop notifications for abnormal container events (non-zero exit, OOM killed, health check failure)
 - 🔍 Comprehensive event filtering and search
 - 📋 JSON details dialog for inspecting event data
 - ⚡ Action buttons with Copy JSON and Remove options
+- ⌨️ Keyboard shortcuts (`P` pause, `/` search, `g` newest, `G` oldest) with on-screen hints
 
 ### Template Management
 
