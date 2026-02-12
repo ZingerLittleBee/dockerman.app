@@ -2,8 +2,8 @@
 
 Language: 🇺🇸 English | [🇨🇳 简体中文](./README.zh-CN.md)
 
-[![Version](https://img.shields.io/badge/version-v3.12.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.12.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Feb%2012%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.12.0)
+[![Version](https://img.shields.io/badge/version-v3.12.1-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.12.1)
+[![Release Date](https://img.shields.io/badge/release%20date-Feb%2013%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.12.1)
 
 A modern, lightweight Docker management UI built with Tauri and Rust.
 Focus on simplicity and performance for Docker container management.
