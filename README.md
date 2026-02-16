@@ -2,8 +2,8 @@
 
 Language: 🇺🇸 English | [🇨🇳 简体中文](./README.zh-CN.md)
 
-[![Version](https://img.shields.io/badge/version-v3.12.1-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.12.1)
-[![Release Date](https://img.shields.io/badge/release%20date-Feb%2013%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.12.1)
+[![Version](https://img.shields.io/badge/version-v4.0.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.0.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Feb%2017%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.0.0)
 
 A modern, lightweight Docker management UI built with Tauri and Rust.
 Focus on simplicity and performance for Docker container management.
@@ -142,6 +142,14 @@ Focus on simplicity and performance for Docker container management.
 ### App Log Viewer
 
 - 📋 Custom HTML-based log viewer with keyword search, level filtering, detail dialog, and export support
+
+### Command Palette & System Tray
+
+- 🔍 Global command palette (Cmd+; / Ctrl+;) for quick access to containers, images, compose projects, networks, and volumes
+- 🖥️ System tray icon with connection status, resource stats, and quick actions
+- 📊 Optional real-time CPU & memory stats in the macOS menu bar
+- 🙈 Auto-hide dock icon when the main window is closed on macOS
+- ⌨️ Configurable global keyboard shortcut for the command palette
 
 ### System Integration
 
