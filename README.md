@@ -33,6 +33,7 @@ Focus on simplicity and performance for Docker container management.
 ![Event Screenshot](public/screenshots/event.png)
 ![Volume Browse Screenshot](public/screenshots/volume-browse.png)
 ![Storage Screenshot](public/screenshots/storage.png)
+![Command Palette](public/screenshots/4.0.0/cmd.png)
 
 ## Features
 

@@ -33,6 +33,7 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 ![Event Screenshot](public/screenshots/event.png)
 ![Volume Browse Screenshot](public/screenshots/volume-browse.png)
 ![Storage Screenshot](public/screenshots/storage.png)
+![Command Palette](public/screenshots/4.0.0/cmd.png)
 
 ## 功能特性
 
