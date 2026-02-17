@@ -3,10 +3,11 @@
 import { RiCheckboxCircleFill, RiMailLine } from '@remixicon/react'
 import Link from 'next/link'
 import { Button } from '@/components/Button'
-import { useTranslation } from '@/lib/i18n/client'
+import { useLocale, useTranslation } from '@/lib/i18n/client'
 
 export default function PricingSuccess() {
   const { t } = useTranslation()
+  const locale = useLocale()
 
   return (
     <div className="mt-36 flex flex-col items-center overflow-hidden px-3 pb-16">
@@ -35,7 +36,7 @@ export default function PricingSuccess() {
         </div>
 
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
-          <Link href="/download">
+          <Link href={`/${locale}/download`}>
             <Button className="w-full sm:w-auto" variant="primary">
               {t('pricing.success.downloadNow')}
             </Button>
