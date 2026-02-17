@@ -17,7 +17,6 @@ interface PricingCardProps {
   disabled?: boolean
   highlighted?: boolean
   badgeText?: string
-  updatePolicy?: string
 }
 
 const formatPrice = (amount: number) =>
@@ -39,7 +38,6 @@ export function PricingCard({
   disabled = false,
   highlighted = false,
   badgeText,
-  updatePolicy
 }: PricingCardProps) {
   const cardClasses = cx(
     'relative flex flex-col rounded-2xl p-6 sm:p-8',
@@ -59,8 +57,9 @@ export function PricingCard({
     >
       {badgeText && (
         <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-          <span className="inline-flex items-center rounded-full bg-indigo-600 px-3 py-1 font-medium text-white text-xs dark:bg-indigo-500">
-            {badgeText}
+          <span className="relative inline-flex items-center whitespace-nowrap rounded-full bg-gradient-to-r from-orange-500 to-red-500 px-3 py-1 font-semibold text-white text-xs shadow-lg shadow-red-500/25">
+            <span className="absolute inset-0 animate-ping rounded-full bg-red-500 opacity-20" />
+            🔥 {badgeText}
           </span>
         </div>
       )}
@@ -99,13 +98,6 @@ export function PricingCard({
             </li>
           ))}
         </ul>
-
-        {updatePolicy && (
-          <p className="mt-3 flex items-start gap-3 text-gray-600 text-sm dark:text-gray-400">
-            <RiCheckLine className="mt-0.5 size-5 shrink-0 text-indigo-500" />
-            {updatePolicy}
-          </p>
-        )}
 
         {description && (
           <p className="mt-3 flex items-start gap-3 text-gray-600 text-sm dark:text-gray-400">

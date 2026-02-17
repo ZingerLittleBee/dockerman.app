@@ -9,10 +9,11 @@ import {
 } from '@/components/Accordion'
 import { Badge } from '@/components/Badge'
 import { PricingCard } from '@/components/ui/PricingCard'
-import { useTranslation } from '@/lib/i18n/client'
+import { useLocale, useTranslation } from '@/lib/i18n/client'
 
 export default function Pricing() {
   const { t } = useTranslation()
+  const locale = useLocale()
 
   const freeFeatures = [
     t('pricing.features.containerManagement'),
@@ -32,7 +33,8 @@ export default function Pricing() {
   const proFeatures = [
     t('pricing.features.everythingInFree'),
     t('pricing.features.remoteViaSSH'),
-    t('pricing.features.multiHostManagement')
+    t('pricing.features.multiHostManagement'),
+    t('pricing.features.lifetimeUpdates')
   ]
 
   const faqs = t('pricing.faq.items', { returnObjects: true }) as Array<{
@@ -77,32 +79,31 @@ export default function Pricing() {
 
         <PricingCard
           badgeText={t('pricing.earlyBird')}
-          ctaText="Coming Soon"
+          ctaHref={`/api/checkout?plan=3-devices&locale=${locale}`}
+          ctaText={t('pricing.cta.upgradeNow')}
           description={t('pricing.plans.threeDevices')}
-          disabled
           features={[
             t('pricing.features.everythingInFree'),
             t('pricing.plans.threeDevicesSaving'),
             t('pricing.features.remoteViaSSH'),
-            t('pricing.features.multiHostManagement')
+            t('pricing.features.multiHostManagement'),
+            t('pricing.features.lifetimeUpdates')
           ]}
           highlighted
-          originalPrice={23.99}
-          price={14.99}
+          originalPrice={29}
+          price={19}
           title="3 DEVICES"
-          updatePolicy={t('pricing.updatePolicy')}
         />
 
         <PricingCard
           badgeText={t('pricing.earlyBird')}
-          ctaText="Coming Soon"
+          ctaHref={`/api/checkout?plan=1-device&locale=${locale}`}
+          ctaText={t('pricing.cta.upgradeNow')}
           description={t('pricing.plans.oneDevice')}
-          disabled
           features={proFeatures}
-          originalPrice={11.99}
-          price={7.99}
+          originalPrice={19}
+          price={14}
           title="1 DEVICE"
-          updatePolicy={t('pricing.updatePolicy')}
         />
       </section>
 
