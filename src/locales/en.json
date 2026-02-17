@@ -108,6 +108,16 @@
       "currentPlan": "Current Plan",
       "upgradeNow": "Upgrade Now"
     },
+    "success": {
+      "title": "Payment Successful!",
+      "description": "Thank you for purchasing Dockerman. Your license key will be sent to your email shortly.",
+      "nextSteps": "Next Steps",
+      "step1": "Check your email for the license key",
+      "step2": "Download Dockerman if you haven't already",
+      "step3": "Activate your license in the app settings",
+      "downloadNow": "Download Now",
+      "contactSupport": "Contact Support"
+    },
     "faq": {
       "title": "Frequently Asked Questions",
       "items": [

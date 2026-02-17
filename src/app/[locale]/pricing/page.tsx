@@ -9,10 +9,11 @@ import {
 } from '@/components/Accordion'
 import { Badge } from '@/components/Badge'
 import { PricingCard } from '@/components/ui/PricingCard'
-import { useTranslation } from '@/lib/i18n/client'
+import { useLocale, useTranslation } from '@/lib/i18n/client'
 
 export default function Pricing() {
   const { t } = useTranslation()
+  const locale = useLocale()
 
   const freeFeatures = [
     t('pricing.features.containerManagement'),
@@ -78,9 +79,9 @@ export default function Pricing() {
 
         <PricingCard
           badgeText={t('pricing.earlyBird')}
-          ctaText="Coming Soon"
+          ctaHref={`/api/checkout?plan=3-devices&locale=${locale}`}
+          ctaText={t('pricing.cta.upgradeNow')}
           description={t('pricing.plans.threeDevices')}
-          disabled
           features={[
             t('pricing.features.everythingInFree'),
             t('pricing.plans.threeDevicesSaving'),
@@ -96,9 +97,9 @@ export default function Pricing() {
 
         <PricingCard
           badgeText={t('pricing.earlyBird')}
-          ctaText="Coming Soon"
+          ctaHref={`/api/checkout?plan=1-device&locale=${locale}`}
+          ctaText={t('pricing.cta.upgradeNow')}
           description={t('pricing.plans.oneDevice')}
-          disabled
           features={proFeatures}
           originalPrice={19}
           price={14}

@@ -108,6 +108,16 @@
       "currentPlan": "当前版本",
       "upgradeNow": "立即升级"
     },
+    "success": {
+      "title": "支付成功！",
+      "description": "感谢您购买 Dockerman。许可证密钥将很快发送到您的邮箱。",
+      "nextSteps": "后续步骤",
+      "step1": "查收邮件中的许可证密钥",
+      "step2": "如果尚未下载，请先下载 Dockerman",
+      "step3": "在应用设置中激活许可证",
+      "downloadNow": "立即下载",
+      "contactSupport": "联系客服"
+    },
     "faq": {
       "title": "常见问题",
       "items": [
