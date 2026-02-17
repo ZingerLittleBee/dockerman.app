@@ -6,9 +6,15 @@ const CREEM_BASE_URL =
     ? 'https://api.creem.io'
     : 'https://test-api.creem.io'
 
-const PRODUCT_MAP: Record<string, string | undefined> = {
-  '1-device': process.env.CREEM_PRODUCT_ID_1_DEVICE,
-  '3-devices': process.env.CREEM_PRODUCT_ID_3_DEVICES
+const PLAN_CONFIG: Record<string, { productId?: string; discountCode?: string }> = {
+  '1-device': {
+    productId: process.env.CREEM_PRODUCT_ID_1_DEVICE,
+    discountCode: process.env.CREEM_DISCOUNT_CODE_1_DEVICE
+  },
+  '3-devices': {
+    productId: process.env.CREEM_PRODUCT_ID_3_DEVICES,
+    discountCode: process.env.CREEM_DISCOUNT_CODE_3_DEVICES
+  }
 }
 
 export async function GET(request: NextRequest) {
@@ -16,11 +22,11 @@ export async function GET(request: NextRequest) {
   const plan = searchParams.get('plan')
   const locale = searchParams.get('locale') ?? 'en'
 
-  if (!plan || !PRODUCT_MAP[plan]) {
+  if (!plan || !PLAN_CONFIG[plan]) {
     return NextResponse.json({ error: 'Invalid plan parameter' }, { status: 400 })
   }
 
-  const productId = PRODUCT_MAP[plan]
+  const { productId, discountCode } = PLAN_CONFIG[plan]
   if (!productId) {
     return NextResponse.json({ error: 'Product ID not configured' }, { status: 500 })
   }
@@ -31,7 +37,6 @@ export async function GET(request: NextRequest) {
   }
 
   const successUrl = `${siteConfig.url}/${locale}/pricing/success`
-  const discountCode = process.env.CREEM_DISCOUNT_CODE
 
   const body: Record<string, unknown> = {
     product_id: productId,
