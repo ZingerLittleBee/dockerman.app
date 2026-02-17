@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 
-[![Version](https://img.shields.io/badge/version-v3.12.1-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.12.1)
-[![Release Date](https://img.shields.io/badge/release%20date-Feb%2013%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v3.12.1)
+[![Version](https://img.shields.io/badge/version-v4.0.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.0.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Feb%2017%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.0.0)
 
 一个现代、轻量级的 Docker 管理界面，使用 Tauri 和 Rust 构建。
 专注于简洁性和性能的 Docker 容器管理工具。
@@ -33,6 +33,7 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 ![Event Screenshot](public/screenshots/event.png)
 ![Volume Browse Screenshot](public/screenshots/volume-browse.png)
 ![Storage Screenshot](public/screenshots/storage.png)
+![Command Palette](public/screenshots/4.0.0/cmd.png)
 
 ## 功能特性
 
@@ -142,6 +143,14 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 ### 应用日志查看器
 
 - 📋 自定义 HTML 日志查看器，支持关键词搜索、级别过滤、详情对话框和导出功能
+
+### 命令面板与系统托盘
+
+- 🔍 全局命令面板（Cmd+; / Ctrl+;），快速访问容器、镜像、Compose 项目、网络和卷
+- 🖥️ 系统托盘图标，显示连接状态、资源统计和快捷操作
+- 📊 可选的实时 CPU 和内存统计，直接显示在 macOS 菜单栏
+- 🙈 macOS 上关闭主窗口时 Dock 图标自动隐藏
+- ⌨️ 可配置的全局键盘快捷键，用于呼出命令面板
 
 ### 系统集成
 
