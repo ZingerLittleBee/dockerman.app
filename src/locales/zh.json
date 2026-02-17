@@ -79,7 +79,7 @@
     "title": "Dockerman 许可证",
     "subtitle": "本地免费，远程付费",
     "description": "简单定价，无需订阅。一次付费，永久拥有。",
-    "earlyBird": "早鸟价",
+    "earlyBird": "早鸟价 · 仅限前 100 份",
     "updatePolicy": "终身免费更新",
     "plans": {
       "oneDevice": "适用于 1 台 macOS/Windows 设备",
@@ -101,7 +101,8 @@
       "localDockerOnly": "远程主机支持",
       "everythingInFree": "包含免费版所有功能",
       "remoteViaSSH": "通过 SSH 连接远程主机",
-      "multiHostManagement": "多主机管理"
+      "multiHostManagement": "多主机管理",
+      "lifetimeUpdates": "享受以后所有更新内容"
     },
     "cta": {
       "currentPlan": "当前版本",

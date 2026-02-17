@@ -79,7 +79,7 @@
     "title": "Dockerman License",
     "subtitle": "Local Free, Remote Paid",
     "description": "Simple pricing. No subscriptions. Pay once, own it forever.",
-    "earlyBird": "Early Bird",
+    "earlyBird": "Early Bird - First 100 Only",
     "updatePolicy": "Lifetime updates",
     "plans": {
       "oneDevice": "For 1 macOS/Windows device",
@@ -101,7 +101,8 @@
       "localDockerOnly": "Remote host support",
       "everythingInFree": "Everything in Free",
       "remoteViaSSH": "Remote host via SSH",
-      "multiHostManagement": "Multi-host management"
+      "multiHostManagement": "Multi-host management",
+      "lifetimeUpdates": "All future updates included"
     },
     "cta": {
       "currentPlan": "Current Plan",

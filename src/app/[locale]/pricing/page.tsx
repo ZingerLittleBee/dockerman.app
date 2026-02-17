@@ -32,7 +32,8 @@ export default function Pricing() {
   const proFeatures = [
     t('pricing.features.everythingInFree'),
     t('pricing.features.remoteViaSSH'),
-    t('pricing.features.multiHostManagement')
+    t('pricing.features.multiHostManagement'),
+    t('pricing.features.lifetimeUpdates')
   ]
 
   const faqs = t('pricing.faq.items', { returnObjects: true }) as Array<{
@@ -84,7 +85,8 @@ export default function Pricing() {
             t('pricing.features.everythingInFree'),
             t('pricing.plans.threeDevicesSaving'),
             t('pricing.features.remoteViaSSH'),
-            t('pricing.features.multiHostManagement')
+            t('pricing.features.multiHostManagement'),
+            t('pricing.features.lifetimeUpdates')
           ]}
           highlighted
           originalPrice={29}
