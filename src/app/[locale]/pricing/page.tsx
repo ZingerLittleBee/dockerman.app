@@ -87,10 +87,9 @@ export default function Pricing() {
             t('pricing.features.multiHostManagement')
           ]}
           highlighted
-          originalPrice={23.99}
-          price={14.99}
+          originalPrice={29}
+          price={19}
           title="3 DEVICES"
-          updatePolicy={t('pricing.updatePolicy')}
         />
 
         <PricingCard
@@ -99,10 +98,9 @@ export default function Pricing() {
           description={t('pricing.plans.oneDevice')}
           disabled
           features={proFeatures}
-          originalPrice={11.99}
-          price={7.99}
+          originalPrice={19}
+          price={14}
           title="1 DEVICE"
-          updatePolicy={t('pricing.updatePolicy')}
         />
       </section>
 

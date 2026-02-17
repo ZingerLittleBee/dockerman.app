@@ -80,11 +80,11 @@
     "subtitle": "Local Free, Remote Paid",
     "description": "Simple pricing. No subscriptions. Pay once, own it forever.",
     "earlyBird": "Early Bird",
-    "updatePolicy": "1 year free updates",
+    "updatePolicy": "Lifetime updates",
     "plans": {
       "oneDevice": "For 1 macOS/Windows device",
       "threeDevices": "For 3 macOS/Windows devices",
-      "threeDevicesSaving": "37% off compared to one device license"
+      "threeDevicesSaving": "55% off compared to one device license"
     },
     "features": {
       "crossPlatform": "macOS, Windows & Linux support",
@@ -107,17 +107,12 @@
       "currentPlan": "Current Plan",
       "upgradeNow": "Upgrade Now"
     },
-    "upgradeInfo": {
-      "title": "Upgrade Information",
-      "deviceUpgrade": "1 Device → 3 Devices: Pay the difference",
-      "versionUpgrade": "v1 → v2 upgrade: $6 (1 device) / $12 (3 devices)"
-    },
     "faq": {
       "title": "Frequently Asked Questions",
       "items": [
         {
           "question": "What does Lifetime License mean?",
-          "answer": "Purchase once and use Dockerman forever. Your license includes 1 year of free updates. After that, you can continue using your current version indefinitely, or renew for another year of updates."
+          "answer": "Purchase once and use Dockerman forever. Your license includes lifetime free updates for all future versions."
         },
         {
           "question": "What does Device Limitation mean?",
@@ -130,18 +125,6 @@
         {
           "question": "Can I use Dockerman for commercial purposes?",
           "answer": "Absolutely! There are no restrictions on personal or commercial use. You can use Dockerman for any purpose, including in professional and enterprise environments."
-        },
-        {
-          "question": "What happens after the 1-year update period?",
-          "answer": "After 1 year, you can continue using your current version forever. To unlock new features and updates, you can renew at the upgrade price. All features unlocked during your subscription remain available for life."
-        },
-        {
-          "question": "Can I upgrade from 1 Device to 3 Devices?",
-          "answer": "Yes! You can upgrade anytime by paying the price difference. Your update subscription period will be preserved."
-        },
-        {
-          "question": "How much does a major version upgrade cost?",
-          "answer": "Major version upgrades (e.g., v1 → v2) are available at a discounted price. This includes another year of free updates."
         },
         {
           "question": "Is there a refund policy?",
