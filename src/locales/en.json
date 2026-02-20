@@ -80,6 +80,14 @@
     "subtitle": "Local Free, Remote Paid",
     "description": "Simple pricing. No subscriptions. Pay once, own it forever.",
     "earlyBird": "Early Bird - First 100 Only",
+    "deadline": "Early bird pricing ends April 1",
+    "countdown": {
+      "days": "Days",
+      "hours": "Hours",
+      "minutes": "Min",
+      "seconds": "Sec",
+      "expired": "Early bird pricing has ended"
+    },
     "updatePolicy": "Lifetime updates",
     "plans": {
       "oneDevice": "For 1 macOS/Windows device",

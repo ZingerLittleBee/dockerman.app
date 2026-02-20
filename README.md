@@ -2,8 +2,8 @@
 
 Language: 🇺🇸 English | [🇨🇳 简体中文](./README.zh-CN.md)
 
-[![Version](https://img.shields.io/badge/version-v4.0.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.0.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Feb%2017%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.0.0)
+[![Version](https://img.shields.io/badge/version-v4.1.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.1.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Feb%2020%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.1.0)
 
 A modern, lightweight Docker management UI built with Tauri and Rust.
 Focus on simplicity and performance for Docker container management.
@@ -158,6 +158,9 @@ Focus on simplicity and performance for Docker container management.
   - Custom Docker socket path support
   - TCP connection support for remote Docker daemon
   - SSH socket forwarding for remote connections
+- 🔑 License activation and management with license gate for remote host features
+  - 📡 Host latency display with ICMP ping and one-click refresh
+  - 🗑️ Host removal with confirmation dialog
 - 🔐 Private registry credential management with auto-matching on image pull
 - 🛡️ Error boundary with recovery UI for unexpected component errors
 - 📁 Sidebar collapsible sections with container count badges
