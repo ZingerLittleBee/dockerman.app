@@ -80,6 +80,14 @@
     "subtitle": "本地免费，远程付费",
     "description": "简单定价，无需订阅。一次付费，永久拥有。",
     "earlyBird": "早鸟价 · 仅限前 100 份",
+    "deadline": "早鸟价截止至 4 月 1 日",
+    "countdown": {
+      "days": "天",
+      "hours": "时",
+      "minutes": "分",
+      "seconds": "秒",
+      "expired": "早鸟优惠已结束"
+    },
     "updatePolicy": "终身免费更新",
     "plans": {
       "oneDevice": "适用于 1 台 macOS/Windows 设备",

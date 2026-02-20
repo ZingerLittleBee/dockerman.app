@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import Balancer from 'react-wrap-balancer'
 import {
   Accordion,
@@ -11,9 +12,35 @@ import { Badge } from '@/components/Badge'
 import { PricingCard } from '@/components/ui/PricingCard'
 import { useLocale, useTranslation } from '@/lib/i18n/client'
 
+const DEADLINE = new Date('2026-04-01T00:00:00')
+
+function useCountdown(target: Date) {
+  const [timeLeft, setTimeLeft] = useState(() => {
+    const diff = target.getTime() - Date.now()
+    return diff > 0 ? diff : 0
+  })
+
+  useEffect(() => {
+    if (timeLeft <= 0) return
+    const timer = setInterval(() => {
+      const diff = target.getTime() - Date.now()
+      setTimeLeft(diff > 0 ? diff : 0)
+    }, 1000)
+    return () => clearInterval(timer)
+  }, [target, timeLeft <= 0])
+
+  const seconds = Math.floor((timeLeft / 1000) % 60)
+  const minutes = Math.floor((timeLeft / 1000 / 60) % 60)
+  const hours = Math.floor((timeLeft / 1000 / 60 / 60) % 24)
+  const days = Math.floor(timeLeft / 1000 / 60 / 60 / 24)
+
+  return { days, hours, minutes, seconds, expired: timeLeft <= 0 }
+}
+
 export default function Pricing() {
   const { t } = useTranslation()
   const locale = useLocale()
+  const countdown = useCountdown(DEADLINE)
 
   const freeFeatures = [
     t('pricing.features.containerManagement'),
@@ -66,6 +93,34 @@ export default function Pricing() {
           {t('pricing.description')}
         </p>
       </section>
+
+      {!countdown.expired && (
+        <section className="mx-auto mt-10 w-full max-w-xl animate-slide-up-fade text-center" style={{ animationDuration: '600ms', animationDelay: '200ms', animationFillMode: 'backwards' }}>
+          <p className="mb-4 font-medium text-orange-600 text-sm dark:text-orange-400">
+            🔥 {t('pricing.deadline')}
+          </p>
+          <div className="flex justify-center gap-3">
+            {([
+              [countdown.days, t('pricing.countdown.days')],
+              [countdown.hours, t('pricing.countdown.hours')],
+              [countdown.minutes, t('pricing.countdown.minutes')],
+              [countdown.seconds, t('pricing.countdown.seconds')],
+            ] as const).map(([value, label]) => (
+              <div
+                className="flex min-w-[4rem] flex-col items-center rounded-xl bg-gray-900 px-3 py-2.5 shadow-lg dark:bg-white/10"
+                key={label}
+              >
+                <span className="font-bold text-2xl text-white tabular-nums sm:text-3xl">
+                  {String(value).padStart(2, '0')}
+                </span>
+                <span className="mt-0.5 text-gray-400 text-xs uppercase tracking-wider">
+                  {label}
+                </span>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className="mx-auto mt-16 grid w-full max-w-5xl gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <PricingCard
