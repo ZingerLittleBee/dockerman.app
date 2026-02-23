@@ -17,6 +17,7 @@ interface PricingCardProps {
   disabled?: boolean
   highlighted?: boolean
   badgeText?: string
+  plan?: string
 }
 
 const formatPrice = (amount: number) =>
@@ -38,6 +39,7 @@ export function PricingCard({
   disabled = false,
   highlighted = false,
   badgeText,
+  plan
 }: PricingCardProps) {
   const cardClasses = cx(
     'relative flex flex-col rounded-2xl p-6 sm:p-8',
@@ -58,8 +60,8 @@ export function PricingCard({
       {badgeText && (
         <div className="absolute -top-3 left-1/2 -translate-x-1/2">
           <span className="relative inline-flex items-center whitespace-nowrap rounded-full bg-gradient-to-r from-orange-500 to-red-500 px-3 py-1 font-semibold text-white text-xs shadow-lg shadow-red-500/25">
-            <span className="absolute inset-0 animate-ping rounded-full bg-red-500 opacity-20" />
-            🔥 {badgeText}
+            <span className="absolute inset-0 animate-ping rounded-full bg-red-500 opacity-20" />🔥{' '}
+            {badgeText}
           </span>
         </div>
       )}
@@ -112,6 +114,13 @@ export function PricingCard({
           <a
             aria-label={`${ctaText} - ${title}`}
             href={ctaHref}
+            onClick={() => {
+              if (plan) {
+                import('posthog-js').then(({ default: posthog }) => {
+                  posthog.capture('pricing_plan_selected', { plan })
+                })
+              }
+            }}
             rel="noopener noreferrer"
             target="_blank"
           >
