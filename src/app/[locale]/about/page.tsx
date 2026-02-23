@@ -101,6 +101,15 @@ export default function About() {
                 <a
                   className="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300"
                   href={member.social.github}
+                  onClick={() => {
+                    import('posthog-js').then(({ default: posthog }) => {
+                      posthog.capture('about_social_clicked', {
+                        platform: 'github',
+                        section: 'team_member',
+                        url: member.social.github
+                      })
+                    })
+                  }}
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -109,6 +118,15 @@ export default function About() {
                 <a
                   className="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300"
                   href={member.social.twitter}
+                  onClick={() => {
+                    import('posthog-js').then(({ default: posthog }) => {
+                      posthog.capture('about_social_clicked', {
+                        platform: 'twitter',
+                        section: 'team_member',
+                        url: member.social.twitter
+                      })
+                    })
+                  }}
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -148,13 +166,39 @@ export default function About() {
             {t('about.connect.description')}
           </p>
           <div className="mt-6 flex gap-4">
-            <a href="https://github.com/ZingerLittleBee" rel="noopener noreferrer" target="_blank">
+            <a
+              href="https://github.com/ZingerLittleBee"
+              onClick={() => {
+                import('posthog-js').then(({ default: posthog }) => {
+                  posthog.capture('about_social_clicked', {
+                    platform: 'github',
+                    section: 'join_us',
+                    url: 'https://github.com/ZingerLittleBee'
+                  })
+                })
+              }}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
               <Button className="bg-indigo-600 text-white hover:bg-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-400">
                 <RiGithubFill className="h-5 w-5" />
                 <span className="ml-2">{t('about.connect.followGithub')}</span>
               </Button>
             </a>
-            <a href="https://twitter.com/zinger_bee" rel="noopener noreferrer" target="_blank">
+            <a
+              href="https://twitter.com/zinger_bee"
+              onClick={() => {
+                import('posthog-js').then(({ default: posthog }) => {
+                  posthog.capture('about_social_clicked', {
+                    platform: 'twitter',
+                    section: 'join_us',
+                    url: 'https://twitter.com/zinger_bee'
+                  })
+                })
+              }}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
               <Button rel="noopener noreferrer" variant="secondary">
                 <RiTwitterXFill className="h-5 w-5" />
                 <span className="ml-2">{t('about.connect.followX')}</span>

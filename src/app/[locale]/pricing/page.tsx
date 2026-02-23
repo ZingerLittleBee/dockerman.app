@@ -27,7 +27,7 @@ function useCountdown(target: Date) {
       setTimeLeft(diff > 0 ? diff : 0)
     }, 1000)
     return () => clearInterval(timer)
-  }, [target, timeLeft <= 0])
+  }, [target, timeLeft])
 
   const seconds = Math.floor((timeLeft / 1000) % 60)
   const minutes = Math.floor((timeLeft / 1000 / 60) % 60)
@@ -69,6 +69,12 @@ export default function Pricing() {
     answer: string
   }>
 
+  useEffect(() => {
+    import('posthog-js').then(({ default: posthog }) => {
+      posthog.capture('pricing_plan_viewed', { locale })
+    })
+  }, [locale])
+
   return (
     <div className="mt-36 flex flex-col overflow-hidden px-3 pb-16">
       <section
@@ -95,17 +101,26 @@ export default function Pricing() {
       </section>
 
       {!countdown.expired && (
-        <section className="mx-auto mt-10 w-full max-w-xl animate-slide-up-fade text-center" style={{ animationDuration: '600ms', animationDelay: '200ms', animationFillMode: 'backwards' }}>
+        <section
+          className="mx-auto mt-10 w-full max-w-xl animate-slide-up-fade text-center"
+          style={{
+            animationDuration: '600ms',
+            animationDelay: '200ms',
+            animationFillMode: 'backwards'
+          }}
+        >
           <p className="mb-4 font-medium text-orange-600 text-sm dark:text-orange-400">
             🔥 {t('pricing.deadline')}
           </p>
           <div className="flex justify-center gap-3">
-            {([
-              [countdown.days, t('pricing.countdown.days')],
-              [countdown.hours, t('pricing.countdown.hours')],
-              [countdown.minutes, t('pricing.countdown.minutes')],
-              [countdown.seconds, t('pricing.countdown.seconds')],
-            ] as const).map(([value, label]) => (
+            {(
+              [
+                [countdown.days, t('pricing.countdown.days')],
+                [countdown.hours, t('pricing.countdown.hours')],
+                [countdown.minutes, t('pricing.countdown.minutes')],
+                [countdown.seconds, t('pricing.countdown.seconds')]
+              ] as const
+            ).map(([value, label]) => (
               <div
                 className="flex min-w-[4rem] flex-col items-center rounded-xl bg-gray-900 px-3 py-2.5 shadow-lg dark:bg-white/10"
                 key={label}
@@ -146,6 +161,7 @@ export default function Pricing() {
           ]}
           highlighted
           originalPrice={29}
+          plan="3-devices"
           price={19}
           title="3 DEVICES"
         />
@@ -157,6 +173,7 @@ export default function Pricing() {
           description={t('pricing.plans.oneDevice')}
           features={proFeatures}
           originalPrice={19}
+          plan="1-device"
           price={14}
           title="1 DEVICE"
         />
@@ -169,7 +186,22 @@ export default function Pricing() {
         >
           {t('pricing.faq.title')}
         </h2>
-        <Accordion className="mt-8" type="multiple">
+        <Accordion
+          className="mt-8"
+          onValueChange={(values: string[]) => {
+            if (values.length > 0) {
+              const lastValue = values.at(-1)
+              const faqIndex = faqs.findIndex((f) => f.question === lastValue)
+              import('posthog-js').then(({ default: posthog }) => {
+                posthog.capture('pricing_faq_expanded', {
+                  question: lastValue,
+                  faq_index: faqIndex
+                })
+              })
+            }
+          }}
+          type="multiple"
+        >
           {faqs.map((item) => (
             <AccordionItem
               className="py-3 first:pt-0 first:pb-3"

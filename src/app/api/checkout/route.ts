@@ -73,6 +73,23 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'No checkout URL returned' }, { status: 500 })
     }
 
+    // Fire checkout_redirected event via PostHog HTTP API
+    const posthogKey = process.env.NEXT_PUBLIC_POSTHOG_KEY
+    if (posthogKey) {
+      fetch('https://us.i.posthog.com/capture/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          api_key: posthogKey,
+          event: 'checkout_redirected',
+          distinct_id: body.request_id,
+          properties: { plan, locale }
+        })
+      }).catch(() => {
+        // Non-blocking: don't fail checkout if analytics fails
+      })
+    }
+
     return NextResponse.redirect(checkout.checkout_url)
   } catch (error) {
     console.error('Creem checkout error:', error)

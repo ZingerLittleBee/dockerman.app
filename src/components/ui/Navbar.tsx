@@ -214,7 +214,19 @@ export function Navigation() {
             >
               <Button>{t('common.download')}</Button>
             </a>
-            <Button className="aspect-square p-2" onClick={() => setOpen(!open)} variant="light">
+            <Button
+              className="aspect-square p-2"
+              onClick={() => {
+                const newOpen = !open
+                setOpen(newOpen)
+                import('posthog-js').then(({ default: ph }) => {
+                  ph.capture('mobile_menu_toggled', {
+                    action: newOpen ? 'open' : 'close'
+                  })
+                })
+              }}
+              variant="light"
+            >
               {open ? (
                 <RiCloseLine aria-hidden="true" className="size-5" />
               ) : (

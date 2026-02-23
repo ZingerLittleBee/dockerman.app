@@ -74,7 +74,15 @@ const ThemeSwitch = () => {
     <RadioGroup
       className="flex gap-1"
       onValueChange={(value) => {
+        const fromTheme = theme
         setTheme(value)
+        import('posthog-js').then(({ default: posthog }) => {
+          posthog.capture('footer_theme_changed', {
+            from_theme: fromTheme,
+            to_theme: value,
+            location: 'footer'
+          })
+        })
       }}
       value={theme}
     >
