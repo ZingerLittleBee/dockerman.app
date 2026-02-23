@@ -2,8 +2,8 @@
 
 Language: 🇺🇸 English | [🇨🇳 简体中文](./README.zh-CN.md)
 
-[![Version](https://img.shields.io/badge/version-v4.1.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.1.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Feb%2020%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.1.0)
+[![Version](https://img.shields.io/badge/version-v4.2.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.2.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Feb%2023%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.2.0)
 
 A modern, lightweight Docker management UI built with Tauri and Rust.
 Focus on simplicity and performance for Docker container management.
@@ -154,6 +154,7 @@ Focus on simplicity and performance for Docker container management.
 
 ### System Integration
 
+- ⌨️ Wayland global keyboard shortcut support via XDG Desktop Portal
 - 🔌 Native Docker daemon connection
   - Custom Docker socket path support
   - TCP connection support for remote Docker daemon

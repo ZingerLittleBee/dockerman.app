@@ -1,3 +1,21 @@
+<ChangelogEntry version="v4.2.0" date="Feb 23, 2026">
+## Single Instance & Wayland Shortcuts
+
+This release introduces single-instance support on Linux/Windows and global keyboard shortcuts on Wayland, along with window and UI bug fixes.
+
+### ✨ Features
+
+- 🖥️ <Bold>Single Instance (Linux/Windows):</Bold> Launching a second instance now activates the existing window instead of opening a duplicate
+- ⌨️ <Bold>Wayland Global Shortcuts:</Bold> Global keyboard shortcut support on Wayland via XDG Desktop Portal, with D-Bus + gsettings fallback for GNOME
+
+### 🐛 Bug Fixes
+
+- 🪟 <Bold>Linux Rounded Corners:</Bold> Fixed Linux window missing rounded corners when native decorations are disabled, now matches GNOME/libadwaita style
+- 🌗 <Bold>Dark Mode Controls:</Bold> Improved window control button hover visibility in dark mode
+- 🔍 <Bold>Spotlight Drag:</Bold> Fixed spotlight window hiding during drag operations on Linux/Wayland
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v4.1.0" date="Feb 20, 2026">
 ## License, Latency & Host Management
 

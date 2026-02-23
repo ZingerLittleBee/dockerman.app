@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 
-[![Version](https://img.shields.io/badge/version-v4.1.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.1.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Feb%2020%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.1.0)
+[![Version](https://img.shields.io/badge/version-v4.2.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.2.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Feb%2023%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.2.0)
 
 一个现代、轻量级的 Docker 管理界面，使用 Tauri 和 Rust 构建。
 专注于简洁性和性能的 Docker 容器管理工具。
@@ -154,6 +154,7 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 
 ### 系统集成
 
+- ⌨️ Wayland 全局键盘快捷键支持（通过 XDG Desktop Portal）
 - 🔌 原生 Docker 守护进程连接
   - 自定义 Docker socket 路径支持
   - TCP 连接支持，连接远程 Docker 守护进程
