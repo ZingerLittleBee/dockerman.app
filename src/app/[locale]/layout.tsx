@@ -1,4 +1,5 @@
 import { siteConfig } from '@/app/siteConfig'
+import { AnalyticsTracker } from '@/components/AnalyticsTracker'
 import { I18nProvider } from '@/components/I18nProvider'
 import Footer from '@/components/ui/Footer'
 import { Navigation } from '@/components/ui/Navbar'
@@ -43,6 +44,7 @@ export default async function LocaleLayout({
 
   return (
     <I18nProvider locale={locale}>
+      <AnalyticsTracker />
       <Navigation />
       {children}
       <Footer />
