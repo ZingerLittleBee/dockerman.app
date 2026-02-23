@@ -1,3 +1,21 @@
+<ChangelogEntry version="v4.2.0" date="2026年2月23日">
+## 单实例与 Wayland 快捷键
+
+本版本引入 Linux/Windows 单实例支持和 Wayland 全局键盘快捷键支持，以及窗口和 UI 的 Bug 修复。
+
+### ✨ 新功能
+
+- 🖥️ <Bold>单实例（Linux/Windows）：</Bold>启动第二个实例时会激活已有窗口，而不是打开重复窗口
+- ⌨️ <Bold>Wayland 全局快捷键：</Bold>通过 XDG Desktop Portal 在 Wayland 上支持全局键盘快捷键，并为 GNOME 提供 D-Bus + gsettings 回退方案
+
+### 🐛 修复
+
+- 🪟 <Bold>Linux 圆角：</Bold>修复禁用原生装饰时 Linux 窗口缺少圆角的问题，现在匹配 GNOME/libadwaita 风格
+- 🌗 <Bold>深色模式控制按钮：</Bold>改进深色模式下窗口控制按钮的悬停可见性
+- 🔍 <Bold>聚焦窗口拖拽：</Bold>修复 Linux/Wayland 上拖拽操作时聚焦窗口隐藏的问题
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v4.1.0" date="2026年2月20日">
 ## 许可证、延迟与主机管理
 
