@@ -40,34 +40,19 @@ export default function Download() {
       options: [
         {
           nameKey: 'download.options.windows64',
-          filename: `Dockerman_${CURRENT_VERSION}_x64_en-US.msi`,
-          ext: 'msi',
-          preview: true
+          filename: `Dockerman_${CURRENT_VERSION}_x64-setup.exe`,
+          ext: 'exe'
         }
       ]
     },
     {
       titleKey: 'download.platforms.linux',
       icon: RiUbuntuFill,
-      disabled: true,
       options: [
         {
           nameKey: 'download.options.appimage',
           filename: `Dockerman_${CURRENT_VERSION}_amd64.AppImage`,
-          ext: 'AppImage',
-          preview: true
-        },
-        {
-          nameKey: 'download.options.deb',
-          filename: `Dockerman_${CURRENT_VERSION}_amd64.deb`,
-          ext: 'deb',
-          preview: true
-        },
-        {
-          nameKey: 'download.options.rpm',
-          filename: `Dockerman-${CURRENT_VERSION}-1.x86_64.rpm`,
-          ext: 'rpm',
-          preview: true
+          ext: 'AppImage'
         }
       ]
     }
@@ -213,11 +198,6 @@ export default function Download() {
                     <div className="flex flex-col gap-2">
                       <div className="font-medium">
                         {t(option.nameKey)}
-                        {'preview' in option && (
-                          <span className="ml-2 rounded-full bg-slate-100 px-2 py-0.5 font-medium text-slate-800 text-xs dark:bg-slate-900 dark:text-slate-200">
-                            {t('download.preview')}
-                          </span>
-                        )}
                       </div>
                       <div className="text-gray-400 text-sm">{`.${option.ext}`}</div>
                     </div>
