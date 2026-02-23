@@ -28,6 +28,13 @@ export function Faqs() {
             <a
               className="font-medium text-indigo-600 hover:text-indigo-300 dark:text-indigo-400"
               href={siteConfig.issuesLink}
+              onClick={() => {
+                import('posthog-js').then(({ default: ph }) => {
+                  ph.capture('faq_issues_link_clicked', {
+                    url: siteConfig.issuesLink
+                  })
+                })
+              }}
             >
               {t('faqs.openIssues')}
             </a>{' '}
