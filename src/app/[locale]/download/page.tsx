@@ -162,13 +162,6 @@ export default function Download() {
             className="relative rounded-xl bg-white p-6 shadow-gray-200/50 shadow-lg ring-1 ring-gray-200/50 dark:bg-gray-900 dark:shadow-none dark:ring-gray-800"
             key={platform.titleKey}
           >
-            {platform.disabled && (
-              <div className="absolute inset-0 z-10 rounded-xl bg-gray-200/60 dark:bg-gray-800/70 [&>div]:w-full">
-                <div className="flex justify-end pt-2 pr-2">
-                  <Badge>{t('download.comingSoon')}</Badge>
-                </div>
-              </div>
-            )}
             <h2 className="flex items-center gap-2 font-semibold text-gray-900 text-xl dark:text-gray-100">
               <platform.icon className="size-8" />
               {t(platform.titleKey)}
