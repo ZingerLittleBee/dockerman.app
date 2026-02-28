@@ -1,0 +1,34 @@
+---
+title: Built-in Terminal
+description: Access container shells directly from Dockerman
+---
+
+## Overview
+
+Dockerman includes a built-in terminal that lets you open a shell inside any running container without leaving the application.
+
+## Opening a Terminal
+
+1. Navigate to a running container
+2. Click the **Terminal** tab or button
+3. A terminal session opens inside the container
+
+## Shell Selection
+
+Dockerman tries to detect available shells in the container:
+
+- `/bin/bash` — Used by default if available
+- `/bin/sh` — Fallback for minimal containers
+
+You can also specify a custom shell command when opening a terminal.
+
+## Terminal Features
+
+- Full interactive terminal with keyboard input
+- Copy and paste support
+- Scrollback buffer for reviewing output
+- Multiple terminal sessions to the same container
+
+## Closing a Terminal
+
+Close the terminal tab to end the session. The terminal process inside the container is terminated when you disconnect.

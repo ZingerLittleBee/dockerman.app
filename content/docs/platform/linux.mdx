@@ -1,0 +1,83 @@
+---
+title: Linux
+description: Setting up Dockerman on Linux
+---
+
+## Overview
+
+Dockerman runs natively on Linux. This guide covers installation, Docker Engine setup, and permissions.
+
+## Supported Distributions
+
+- Ubuntu 20.04+
+- Debian 11+
+- Fedora 38+
+- Arch Linux
+- Other distributions with GTK/WebKit support
+
+## Installation
+
+1. Download the `.deb`, `.rpm`, or `.AppImage` package from the [download page](/download)
+2. Install the package using your distribution's package manager
+
+For Debian/Ubuntu:
+
+```bash
+sudo dpkg -i dockerman_*.deb
+```
+
+For Fedora:
+
+```bash
+sudo rpm -i dockerman_*.rpm
+```
+
+For AppImage:
+
+```bash
+chmod +x Dockerman_*.AppImage
+./Dockerman_*.AppImage
+```
+
+## Docker Engine Setup
+
+Dockerman requires Docker Engine installed and running:
+
+```bash
+# Install Docker (Ubuntu/Debian)
+curl -fsSL https://get.docker.com | sh
+
+# Start Docker
+sudo systemctl start docker
+sudo systemctl enable docker
+```
+
+## User Permissions
+
+To use Docker without `sudo`, add your user to the `docker` group:
+
+```bash
+sudo usermod -aG docker $USER
+```
+
+Log out and log back in for the group change to take effect. Then launch Dockerman — it will detect Docker automatically.
+
+## Common Issues
+
+### Permission denied
+
+If Dockerman shows a permission error, verify your user is in the `docker` group:
+
+```bash
+groups
+```
+
+If `docker` is not listed, run the `usermod` command above and re-login.
+
+### Docker daemon not running
+
+Start the Docker service:
+
+```bash
+sudo systemctl start docker
+```

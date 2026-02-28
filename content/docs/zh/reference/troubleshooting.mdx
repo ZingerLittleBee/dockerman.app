@@ -1,0 +1,82 @@
+---
+title: 故障排除
+description: Dockerman 常见问题及解决方案
+---
+
+## Docker 连接问题
+
+### Dockerman 无法连接到 Docker
+
+1. 确认 Docker 正在运行：
+   ```bash
+   docker info
+   ```
+2. 检查 Docker socket 是否存在：
+   ```bash
+   ls -la /var/run/docker.sock
+   ```
+3. 确保你的用户有权访问 Docker：
+   ```bash
+   groups | grep docker
+   ```
+
+### 连接超时
+
+- 在 **设置 > Docker 连接** 中增加超时时间
+- 重启 Docker 守护进程后重试
+
+## 性能问题
+
+### Dockerman 运行缓慢或无响应
+
+- 关闭未使用的终端会话
+- 减少显示的容器数量（使用筛选功能）
+- 检查系统资源使用情况 — Dockerman 本身很轻量，但 Docker 可能消耗较多资源
+
+### 内存占用过高
+
+- 大量日志缓冲区可能消耗内存。清除容器日志或在设置中减少日志保留时间
+- 关闭不使用的文件浏览器标签页
+
+## 显示问题
+
+### 界面显示异常
+
+- 更新 Dockerman 到最新版本
+- 在 **设置 > 数据 > 清除缓存** 中清除应用缓存
+- 重启应用
+
+### 深色模式不生效
+
+- 确保系统主题设置正确
+- 尝试在设置中切换为明确的主题（浅色或深色）而非跟随系统
+
+## 平台相关问题
+
+### macOS：提示"应用已损坏，无法打开"
+
+这是因为 macOS 阻止了未签名的应用：
+
+```bash
+xattr -cr /Applications/Dockerman.app
+```
+
+### Linux：应用无法启动
+
+确保已安装必需的系统库：
+
+```bash
+# Ubuntu/Debian
+sudo apt install libwebkit2gtk-4.1-0 libgtk-3-0
+```
+
+### Windows：WSL 连接问题
+
+请参阅 [WSL 指南](/docs/platform/wsl) 获取详细的故障排除方法。
+
+## 获取帮助
+
+如果你的问题未列出：
+
+- 查看[更新日志](/changelog)了解最近的修复
+- 访问 [GitHub 仓库](https://github.com/ZingerLittleBee/dockerman) 查看已知问题

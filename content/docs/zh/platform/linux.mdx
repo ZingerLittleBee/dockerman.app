@@ -1,0 +1,83 @@
+---
+title: Linux
+description: 在 Linux 上安装和配置 Dockerman
+---
+
+## 概览
+
+Dockerman 在 Linux 上原生运行。本指南介绍安装、Docker Engine 配置和权限设置。
+
+## 支持的发行版
+
+- Ubuntu 20.04+
+- Debian 11+
+- Fedora 38+
+- Arch Linux
+- 其他支持 GTK/WebKit 的发行版
+
+## 安装
+
+1. 从[下载页面](/download)下载 `.deb`、`.rpm` 或 `.AppImage` 安装包
+2. 使用发行版的包管理器安装
+
+Debian/Ubuntu：
+
+```bash
+sudo dpkg -i dockerman_*.deb
+```
+
+Fedora：
+
+```bash
+sudo rpm -i dockerman_*.rpm
+```
+
+AppImage：
+
+```bash
+chmod +x Dockerman_*.AppImage
+./Dockerman_*.AppImage
+```
+
+## Docker Engine 配置
+
+Dockerman 需要已安装并运行的 Docker Engine：
+
+```bash
+# 安装 Docker（Ubuntu/Debian）
+curl -fsSL https://get.docker.com | sh
+
+# 启动 Docker
+sudo systemctl start docker
+sudo systemctl enable docker
+```
+
+## 用户权限
+
+要在不使用 `sudo` 的情况下使用 Docker，将你的用户添加到 `docker` 组：
+
+```bash
+sudo usermod -aG docker $USER
+```
+
+注销并重新登录使组变更生效。然后启动 Dockerman — 它会自动检测 Docker。
+
+## 常见问题
+
+### 权限被拒绝
+
+如果 Dockerman 显示权限错误，确认你的用户在 `docker` 组中：
+
+```bash
+groups
+```
+
+如果未列出 `docker`，运行上面的 `usermod` 命令并重新登录。
+
+### Docker 守护进程未运行
+
+启动 Docker 服务：
+
+```bash
+sudo systemctl start docker
+```

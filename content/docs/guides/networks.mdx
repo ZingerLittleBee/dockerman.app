@@ -1,0 +1,45 @@
+---
+title: Network Management
+description: Create and manage Docker networks
+---
+
+## Overview
+
+Dockerman provides a visual interface for managing Docker networks. You can view existing networks, create new ones, and connect or disconnect containers.
+
+## Network List
+
+The Networks page shows all Docker networks with:
+
+- Network name and ID
+- Driver type (bridge, host, overlay, etc.)
+- Scope (local, swarm)
+- Connected container count
+
+## Creating a Network
+
+1. Click **Create** on the Networks page
+2. Configure:
+   - Network name
+   - Driver (bridge is the most common)
+   - Subnet and gateway (optional)
+   - Enable IPv6 (optional)
+3. Click **Create**
+
+## Connecting Containers
+
+1. Click on a network to view its details
+2. Use the **Connect** button to add a container to the network
+3. Use the **Disconnect** button to remove a container
+
+## Inspecting a Network
+
+The detail view shows the full network configuration including:
+
+- IPAM settings
+- Connected containers with their IP addresses
+- Network options and labels
+
+## Removing a Network
+
+Click **Remove** on a network to delete it. The network must have no connected containers before it can be removed.
