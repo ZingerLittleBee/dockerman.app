@@ -189,9 +189,7 @@ export default function Download() {
                     variant="secondary"
                   >
                     <div className="flex flex-col gap-2">
-                      <div className="font-medium">
-                        {t(option.nameKey)}
-                      </div>
+                      <div className="font-medium">{t(option.nameKey)}</div>
                       <div className="text-gray-400 text-sm">{`.${option.ext}`}</div>
                     </div>
                   </Button>

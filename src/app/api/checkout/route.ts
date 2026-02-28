@@ -2,9 +2,7 @@ import { type NextRequest, NextResponse } from 'next/server'
 import { siteConfig } from '@/app/siteConfig'
 
 const CREEM_BASE_URL =
-  process.env.NODE_ENV === 'production'
-    ? 'https://api.creem.io'
-    : 'https://test-api.creem.io'
+  process.env.NODE_ENV === 'production' ? 'https://api.creem.io' : 'https://test-api.creem.io'
 
 const PLAN_CONFIG: Record<string, { productId?: string; discountCode?: string }> = {
   '1-device': {
@@ -22,7 +20,7 @@ export async function GET(request: NextRequest) {
   const plan = searchParams.get('plan')
   const locale = searchParams.get('locale') ?? 'en'
 
-  if (!plan || !PLAN_CONFIG[plan]) {
+  if (!(plan && PLAN_CONFIG[plan])) {
     return NextResponse.json({ error: 'Invalid plan parameter' }, { status: 400 })
   }
 
