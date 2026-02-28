@@ -23,6 +23,8 @@
     "@radix-ui/react-tooltip": "^1.1.6",
     "@remixicon/react": "^4.6.0",
     "@tabler/icons-react": "^3.31.0",
+    "@tailwindcss/forms": "^0.5.11",
+    "@tailwindcss/postcss": "^4.2.1",
     "@types/mdx": "^2.0.13",
     "@vercel/analytics": "^1.4.1",
     "@vercel/speed-insights": "^1.1.0",
@@ -42,18 +44,16 @@
     "react-wrap-balancer": "^1.1.1",
     "react-zoom-pan-pinch": "^3.7.0",
     "tailwind-merge": "^2.6.0",
-    "tailwind-variants": "^0.3.0"
+    "tailwind-variants": "^0.3.0",
+    "tailwindcss": "^4.2.1"
   },
   "devDependencies": {
     "@biomejs/biome": "2.3.12",
-    "@tailwindcss/forms": "^0.5.10",
     "@types/node": "^22.10.5",
     "@types/react": "19.2.10",
     "@types/react-dom": "19.2.3",
-    "postcss": "^8.4.49",
     "react-grab": "^0.0.98",
     "shiki": "^1.26.1",
-    "tailwindcss": "^3.4.17",
     "typescript": "^5.7.3",
     "ultracite": "7.1.1"
   },
