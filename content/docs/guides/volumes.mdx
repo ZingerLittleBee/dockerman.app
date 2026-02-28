@@ -1,0 +1,49 @@
+---
+title: Volume Management
+description: Create and manage Docker volumes for persistent data
+---
+
+## Overview
+
+Docker volumes provide persistent storage for container data. Dockerman lets you create, inspect, and manage volumes from a visual interface.
+
+## Volume List
+
+The Volumes page displays all Docker volumes with:
+
+- Volume name
+- Driver
+- Mount point
+- Created time
+
+## Creating a Volume
+
+1. Click **Create** on the Volumes page
+2. Enter a volume name
+3. Select a driver (local is the default)
+4. Add labels if needed
+5. Click **Create**
+
+## Using Volumes
+
+Volumes can be mounted when creating a container:
+
+1. In the container creation form, go to the **Volumes** section
+2. Click **Add Mount**
+3. Select the volume and set the mount path inside the container
+4. Choose read-write or read-only access
+
+## Inspecting a Volume
+
+Click on a volume to view:
+
+- Full configuration in JSON format
+- Mount point on the host
+- Labels and options
+- Containers currently using this volume
+
+## Removing a Volume
+
+Click **Remove** to delete a volume. The volume must not be in use by any container.
+
+Use **Prune** to remove all unused volumes and free up disk space.
