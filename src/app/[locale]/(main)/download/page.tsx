@@ -11,10 +11,10 @@ import {
 import posthog from 'posthog-js'
 import { useEffect, useState } from 'react'
 import Balancer from 'react-wrap-balancer'
+import { siteConfig } from '@/app/siteConfig'
 import { Badge } from '@/components/Badge'
 import { Button } from '@/components/Button'
 import { useTranslation } from '@/lib/i18n/client'
-import { siteConfig } from '../../siteConfig'
 
 const CURRENT_VERSION = siteConfig.latestVersion
 
