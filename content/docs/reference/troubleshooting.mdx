@@ -1,0 +1,82 @@
+---
+title: Troubleshooting
+description: Common issues and solutions for Dockerman
+---
+
+## Docker Connection Issues
+
+### Dockerman cannot connect to Docker
+
+1. Verify Docker is running:
+   ```bash
+   docker info
+   ```
+2. Check the Docker socket exists:
+   ```bash
+   ls -la /var/run/docker.sock
+   ```
+3. Ensure your user has permission to access Docker:
+   ```bash
+   groups | grep docker
+   ```
+
+### Connection timeout
+
+- Increase the timeout in **Settings > Docker Connection**
+- Restart the Docker daemon and try again
+
+## Performance Issues
+
+### Dockerman is slow or unresponsive
+
+- Close unused terminal sessions
+- Reduce the number of containers displayed (use filters)
+- Check system resource usage — Dockerman is lightweight but Docker itself may consume resources
+
+### High memory usage
+
+- Large log buffers can consume memory. Clear container logs or reduce log retention in Settings
+- Close file browser tabs you're not using
+
+## Display Issues
+
+### UI appears broken or unstyled
+
+- Update Dockerman to the latest version
+- Clear the application cache in **Settings > Data > Clear Cache**
+- Restart the application
+
+### Dark mode not working
+
+- Ensure your system theme is set correctly
+- Try switching to an explicit theme (Light or Dark) in Settings instead of System
+
+## Platform-Specific Issues
+
+### macOS: "App is damaged and can't be opened"
+
+This happens when macOS blocks unsigned applications:
+
+```bash
+xattr -cr /Applications/Dockerman.app
+```
+
+### Linux: Application won't launch
+
+Ensure required system libraries are installed:
+
+```bash
+# Ubuntu/Debian
+sudo apt install libwebkit2gtk-4.1-0 libgtk-3-0
+```
+
+### Windows: WSL connection issues
+
+See the [WSL guide](/docs/platform/wsl) for detailed troubleshooting.
+
+## Getting Help
+
+If your issue isn't listed here:
+
+- Check the [changelog](/changelog) for recent fixes
+- Visit the [GitHub repository](https://github.com/ZingerLittleBee/dockerman) for known issues
