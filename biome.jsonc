@@ -1,6 +1,9 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "extends": ["ultracite/biome/core", "ultracite/biome/next"],
+  "files": {
+    "includes": ["!.source"]
+  },
   "formatter": {
     "lineWidth": 100,
     "indentStyle": "space",

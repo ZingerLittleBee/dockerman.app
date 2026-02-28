@@ -1,14 +1,8 @@
-import { source } from '@/lib/source'
-import {
-  DocsBody,
-  DocsDescription,
-  DocsPage,
-  DocsTitle
-} from 'fumadocs-ui/layouts/docs/page'
-import { notFound } from 'next/navigation'
-import { getMDXComponents } from '@/mdx-components'
+import { DocsBody, DocsDescription, DocsPage, DocsTitle } from 'fumadocs-ui/layouts/docs/page'
+import defaultMdxComponents, { createRelativeLink } from 'fumadocs-ui/mdx'
 import type { Metadata } from 'next'
-import { createRelativeLink } from 'fumadocs-ui/mdx'
+import { notFound } from 'next/navigation'
+import { source } from '@/lib/source'
 
 export default async function Page({
   params
@@ -22,14 +16,15 @@ export default async function Page({
   const MDX = page.data.body
 
   return (
-    <DocsPage toc={page.data.toc} full={page.data.full}>
+    <DocsPage full={page.data.full} toc={page.data.toc}>
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription>{page.data.description}</DocsDescription>
       <DocsBody>
         <MDX
-          components={getMDXComponents({
+          components={{
+            ...defaultMdxComponents,
             a: createRelativeLink(source, page)
-          })}
+          }}
         />
       </DocsBody>
     </DocsPage>
