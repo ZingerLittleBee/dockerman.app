@@ -32,7 +32,7 @@ export default async function Page({
 }
 
 export async function generateStaticParams() {
-  return source.generateParams()
+  return source.generateParams('slug', 'locale')
 }
 
 export async function generateMetadata({
