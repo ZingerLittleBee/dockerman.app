@@ -12,7 +12,7 @@ export default async function Layout({
 }) {
   const { locale } = await params
   return (
-    <DocsLayout tree={source.getPageTree(locale)} {...baseOptions(locale)}>
+    <DocsLayout tree={source.getPageTree(locale)} {...baseOptions(locale)} i18n>
       {children}
     </DocsLayout>
   )
