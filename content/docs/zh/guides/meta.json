@@ -1,0 +1,14 @@
+{
+  "title": "功能指南",
+  "pages": [
+    "containers",
+    "images",
+    "networks",
+    "volumes",
+    "compose",
+    "monitoring",
+    "terminal",
+    "file-browser"
+  ],
+  "defaultOpen": true
+}

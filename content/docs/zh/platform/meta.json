@@ -1,0 +1,8 @@
+{
+  "title": "平台适配",
+  "pages": [
+    "wsl",
+    "linux"
+  ],
+  "defaultOpen": true
+}
