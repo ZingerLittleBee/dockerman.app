@@ -23,9 +23,11 @@ const customComponents = {
   ChangelogImage
 }
 
-export function useMDXComponents(components: MDXComponents) {
+export function getMDXComponents(components?: MDXComponents): MDXComponents {
   return {
     ...customComponents,
     ...components
   }
 }
+
+export const useMDXComponents = getMDXComponents

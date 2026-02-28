@@ -2,9 +2,32 @@
 
 import Balancer from 'react-wrap-balancer'
 import { Badge } from '@/components/Badge'
+import {
+  Bold,
+  ChangelogEntry,
+  ChangelogImage,
+  CustomLink,
+  H1,
+  H2,
+  H3,
+  P,
+  Ul
+} from '@/components/mdx'
 import ChangelogContentEn from '@/content/changelog/en/page.mdx'
 import ChangelogContentZh from '@/content/changelog/zh/page.mdx'
 import { useLocale, useTranslation } from '@/lib/i18n/client'
+
+const changelogComponents = {
+  h1: H1,
+  h2: H2,
+  h3: H3,
+  p: P,
+  Bold,
+  ul: Ul,
+  a: CustomLink,
+  ChangelogEntry,
+  ChangelogImage
+}
 
 const changelogContent = {
   en: ChangelogContentEn,
@@ -39,7 +62,7 @@ export default function ChangelogPage() {
       </section>
 
       <section className="my-16 max-w-4xl">
-        <ChangelogContent />
+        <ChangelogContent components={changelogComponents} />
       </section>
     </div>
   )
