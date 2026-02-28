@@ -3,7 +3,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Script from 'next/script'
-import { ThemeProvider } from 'next-themes'
+import { RootProvider } from 'fumadocs-ui/provider/next'
 import './globals.css'
 import { LenisProvider } from '@/components/providers/LenisProvider'
 import { siteConfig } from './siteConfig'
@@ -94,9 +94,9 @@ export default function RootLayout({
       <body
         className={`${inter.variable} min-h-screen scroll-auto antialiased selection:bg-indigo-100 selection:text-indigo-700 dark:bg-gray-950`}
       >
-        <ThemeProvider attribute="class" defaultTheme="system" disableTransitionOnChange>
+        <RootProvider>
           <LenisProvider>{children}</LenisProvider>
-        </ThemeProvider>
+        </RootProvider>
         <Analytics />
         <SpeedInsights />
       </body>
