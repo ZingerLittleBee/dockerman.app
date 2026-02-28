@@ -11,7 +11,10 @@ export default function PricingSuccess() {
 
   return (
     <div className="mt-36 flex flex-col items-center overflow-hidden px-3 pb-16">
-      <section className="animate-slide-up-fade max-w-lg text-center" style={{ animationDuration: '600ms', animationFillMode: 'backwards' }}>
+      <section
+        className="max-w-lg animate-slide-up-fade text-center"
+        style={{ animationDuration: '600ms', animationFillMode: 'backwards' }}
+      >
         <div className="flex justify-center">
           <RiCheckboxCircleFill className="size-16 text-green-500" />
         </div>

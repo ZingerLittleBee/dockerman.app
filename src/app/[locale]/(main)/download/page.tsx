@@ -11,10 +11,10 @@ import {
 import posthog from 'posthog-js'
 import { useEffect, useState } from 'react'
 import Balancer from 'react-wrap-balancer'
+import { siteConfig } from '@/app/siteConfig'
 import { Badge } from '@/components/Badge'
 import { Button } from '@/components/Button'
 import { useTranslation } from '@/lib/i18n/client'
-import { siteConfig } from '../../siteConfig'
 
 const CURRENT_VERSION = siteConfig.latestVersion
 
@@ -189,9 +189,7 @@ export default function Download() {
                     variant="secondary"
                   >
                     <div className="flex flex-col gap-2">
-                      <div className="font-medium">
-                        {t(option.nameKey)}
-                      </div>
+                      <div className="font-medium">{t(option.nameKey)}</div>
                       <div className="text-gray-400 text-sm">{`.${option.ext}`}</div>
                     </div>
                   </Button>
