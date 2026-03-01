@@ -1,7 +1,0 @@
-{
-  "/[locale]/[[...slug]]/page": "app/[locale]/[[...slug]]/page.js",
-  "/_global-error/page": "app/_global-error/page.js",
-  "/_not-found/page": "app/_not-found/page.js",
-  "/api/search/route": "app/api/search/route.js",
-  "/page": "app/page.js"
-}
