@@ -1,0 +1,32 @@
+{
+  "name": "@repo/shared",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./i18n": "./src/i18n/index.ts",
+    "./i18n/client": "./src/i18n/client.ts",
+    "./i18n/server": "./src/i18n/server.ts",
+    "./i18n/settings": "./src/i18n/settings.ts",
+    "./utils": "./src/utils.ts",
+    "./components/I18nProvider": "./src/components/I18nProvider.tsx",
+    "./components/LenisProvider": "./src/components/LenisProvider.tsx",
+    "./components/AnalyticsTracker": "./src/components/AnalyticsTracker.tsx",
+    "./hooks/usePageEngaged": "./src/hooks/usePageEngaged.ts",
+    "./hooks/useScrollDepth": "./src/hooks/useScrollDepth.ts"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "i18next": "^25.8.0",
+    "i18next-resources-to-backend": "^1.2.1",
+    "lenis": "^1.3.17",
+    "gsap": "^3.14.2",
+    "posthog-js": "^1.336.4",
+    "react-i18next": "^16.5.4",
+    "tailwind-merge": "^2.6.0"
+  },
+  "peerDependencies": {
+    "next": ">=16",
+    "react": ">=19",
+    "react-dom": ">=19"
+  }
+}
