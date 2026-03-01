@@ -1,0 +1,3 @@
+module.exports=[77512,a=>{"use strict";var b=a.i(27760);let c=a.i(34048).default.forwardRef(({children:a,className:c,...d},e)=>(0,b.jsx)("span",{className:"z-10 block w-fit rounded-lg border border-indigo-200/20 bg-indigo-50/50 px-3 py-1.5 font-semibold uppercase leading-4 tracking-tighter sm:text-sm dark:border-indigo-800/30 dark:bg-indigo-900/20",ref:e,...d,children:(0,b.jsx)("span",{className:"bg-gradient-to-b from-indigo-500 to-indigo-600 bg-clip-text text-transparent dark:from-indigo-200 dark:to-indigo-400",children:a})}));c.displayName="Badge",a.s(["Badge",()=>c])}];
+
+//# sourceMappingURL=apps_landing_src_components_Badge_tsx_b65f82cd._.js.map

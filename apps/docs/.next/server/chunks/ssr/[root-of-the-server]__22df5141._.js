@@ -1,0 +1,3 @@
+module.exports=[50227,(a,b,c)=>{b.exports=a.x("node:path",()=>require("node:path"))},54309,a=>{"use strict";a.s(["cookieName",0,"NEXT_LOCALE","defaultLocale",0,"en","locales",0,["en","zh"]])},48222,a=>{"use strict";a.i(54309),a.s([])},87903,a=>{a.v(b=>Promise.all(["server/chunks/ssr/[externals]_node:fs_promises_ef82023e._.js"].map(b=>a.l(b))).then(()=>b(12714)))},24878,a=>{a.v(b=>Promise.all(["server/chunks/ssr/6133a_next_dist_compiled_e4a630b8._.js"].map(b=>a.l(b))).then(()=>b(86967)))}];
+
+//# sourceMappingURL=%5Broot-of-the-server%5D__22df5141._.js.map

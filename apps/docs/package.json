@@ -17,6 +17,7 @@
     "@vercel/analytics": "^1.4.1",
     "@vercel/speed-insights": "^1.1.0",
     "fumadocs-core": "^16.6.7",
+    "posthog-js": "^1.336.4",
     "fumadocs-mdx": "^14.2.8",
     "fumadocs-ui": "^16.6.7",
     "next": "16.1.6",

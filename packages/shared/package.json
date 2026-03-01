@@ -24,6 +24,10 @@
     "react-i18next": "^16.5.4",
     "tailwind-merge": "^2.6.0"
   },
+  "devDependencies": {
+    "@types/react": "19.2.10",
+    "@types/react-dom": "19.2.3"
+  },
   "peerDependencies": {
     "next": ">=16",
     "react": ">=19",

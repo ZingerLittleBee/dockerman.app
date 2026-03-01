@@ -1,0 +1,17 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/[locale]/layout,_N_T_/[locale]/(main)/layout,_N_T_/[locale]/(main)/pricing/layout,_N_T_/[locale]/(main)/pricing/page,_N_T_/en/pricing"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/$d$locale/!KG1haW4p/pricing/__PAGE__",
+    "/$d$locale/!KG1haW4p/pricing",
+    "/$d$locale/!KG1haW4p",
+    "/$d$locale",
+    "/_index",
+    "/_head"
+  ]
+}
