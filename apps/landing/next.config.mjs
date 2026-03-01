@@ -1,9 +1,8 @@
-import createMDX from '@next/mdx'
+import { createMDX } from 'fumadocs-mdx/next'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   transpilePackages: ['@repo/shared'],
-  pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
   images: {
     qualities: [70, 75, 100]
   },

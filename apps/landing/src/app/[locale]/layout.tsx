@@ -1,4 +1,5 @@
-import { ThemeProvider } from 'next-themes'
+import { RootProvider } from 'fumadocs-ui/provider/next'
+import { provider } from '@/lib/i18n/fumadocs-ui'
 import { siteConfig } from '@/app/siteConfig'
 import { AnalyticsTracker } from '@repo/shared/components/AnalyticsTracker'
 import { I18nProvider } from '@repo/shared/components/I18nProvider'
@@ -42,11 +43,11 @@ export default async function LocaleLayout({
   const locale = rawLocale as Locale
 
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+    <RootProvider i18n={provider(locale)}>
       <I18nProvider locale={locale}>
         <AnalyticsTracker />
         {children}
       </I18nProvider>
-    </ThemeProvider>
+    </RootProvider>
   )
 }

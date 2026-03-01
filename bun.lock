@@ -11,33 +11,6 @@
         "ultracite": "7.1.1",
       },
     },
-    "apps/docs": {
-      "name": "@repo/docs",
-      "version": "0.1.0",
-      "dependencies": {
-        "@orama/tokenizers": "^3.1.18",
-        "@repo/shared": "workspace:*",
-        "@tailwindcss/postcss": "^4.2.1",
-        "@types/mdx": "^2.0.13",
-        "@vercel/analytics": "^1.4.1",
-        "@vercel/speed-insights": "^1.1.0",
-        "fumadocs-core": "^16.6.7",
-        "fumadocs-mdx": "^14.2.8",
-        "fumadocs-ui": "^16.6.7",
-        "next": "16.1.6",
-        "posthog-js": "^1.336.4",
-        "react": "19.2.4",
-        "react-dom": "19.2.4",
-        "tailwindcss": "^4.2.1",
-      },
-      "devDependencies": {
-        "@types/node": "^22.10.5",
-        "@types/react": "19.2.10",
-        "@types/react-dom": "19.2.3",
-        "shiki": "^1.26.1",
-        "typescript": "^5.7.3",
-      },
-    },
     "apps/landing": {
       "name": "@repo/landing",
       "version": "0.1.0",
@@ -46,6 +19,7 @@
         "@mdx-js/loader": "^3.1.0",
         "@mdx-js/react": "^3.1.0",
         "@next/mdx": "^16.1.6",
+        "@orama/tokenizers": "^3.1.18",
         "@radix-ui/react-accordion": "^1.2.2",
         "@radix-ui/react-label": "^2.1.1",
         "@radix-ui/react-radio-group": "^1.2.2",
@@ -62,6 +36,9 @@
         "@vercel/speed-insights": "^1.1.0",
         "clsx": "^2.1.1",
         "cobe": "^0.6.3",
+        "fumadocs-core": "^16.6.7",
+        "fumadocs-mdx": "^14.2.8",
+        "fumadocs-ui": "^16.6.7",
         "gsap": "^3.14.2",
         "motion": "^12.0.11",
         "next": "16.1.6",
@@ -421,8 +398,6 @@
     "@radix-ui/rect": ["@radix-ui/rect@1.1.1", "", {}, "sha512-HPwpGIzkl28mWyZqG52jiqDJ12waP11Pa1lGoiyUkIEuMLBP0oeK/C89esbXrxsky5we7dfd8U58nm0SgAWpVw=="],
 
     "@remixicon/react": ["@remixicon/react@4.9.0", "", { "peerDependencies": { "react": ">=18.2.0" } }, "sha512-5/jLDD4DtKxH2B4QVXTobvV1C2uL8ab9D5yAYNtFt+w80O0Ys1xFOrspqROL3fjrZi+7ElFUWE37hBfaAl6U+Q=="],
-
-    "@repo/docs": ["@repo/docs@workspace:apps/docs"],
 
     "@repo/landing": ["@repo/landing@workspace:apps/landing"],
 

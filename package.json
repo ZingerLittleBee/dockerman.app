@@ -8,9 +8,7 @@
     "check": "turbo run check",
     "fix": "turbo run fix",
     "dev:landing": "turbo run dev --filter=@repo/landing",
-    "dev:docs": "turbo run dev --filter=@repo/docs",
-    "build:landing": "turbo run build --filter=@repo/landing",
-    "build:docs": "turbo run build --filter=@repo/docs"
+    "build:landing": "turbo run build --filter=@repo/landing"
   },
   "devDependencies": {
     "@biomejs/biome": "2.3.12",
