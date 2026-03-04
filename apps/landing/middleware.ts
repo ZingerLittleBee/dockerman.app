@@ -36,6 +36,7 @@ export function middleware(request: NextRequest) {
   if (pathLocale) {
     // Set cookie if not already set
     const response = NextResponse.next()
+    response.headers.set('x-forwarded-path', pathname)
     response.cookies.set(cookieName, pathLocale, {
       path: '/',
       maxAge: 60 * 60 * 24 * 365 // 1 year

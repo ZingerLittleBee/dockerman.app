@@ -1,4 +1,5 @@
 import { RootProvider } from 'fumadocs-ui/provider/next'
+import { headers } from 'next/headers'
 import { provider } from '@/lib/i18n/fumadocs-ui'
 import { siteConfig } from '@/app/siteConfig'
 import { AnalyticsTracker } from '@repo/shared/components/AnalyticsTracker'
@@ -23,11 +24,27 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     zh: '基于 Tauri 和 Rust 构建的现代轻量级 Docker 管理界面，专注于简洁和性能。'
   }
 
+  // Build canonical + hreflang alternate URLs from current request path
+  const headerStore = await headers()
+  const pathname = headerStore.get('x-forwarded-path') || headerStore.get('x-invoke-path') || ''
+  // Strip the locale prefix to get the route segment (e.g. "/en/about" → "/about")
+  const routePath = pathname.replace(new RegExp(`^/${locale}`), '') || ''
+
+  const alternateLanguages: Record<string, string> = {}
+  for (const alt of locales) {
+    alternateLanguages[alt] = `${siteConfig.url}/${alt}${routePath}`
+  }
+
   return {
     title: titles[locale],
     description: descriptions[locale],
+    alternates: {
+      canonical: `${siteConfig.url}/${locale}${routePath}`,
+      languages: alternateLanguages
+    },
     openGraph: {
-      locale: locale === 'zh' ? 'zh_CN' : 'en_US'
+      locale: locale === 'zh' ? 'zh_CN' : 'en_US',
+      url: `${siteConfig.url}/${locale}${routePath}`
     }
   }
 }
