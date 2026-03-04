@@ -330,7 +330,7 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
                             isLoaded ? 'opacity-100' : 'opacity-0'
                           )}
                           height={IMAGE_HEIGHT}
-                          loading={index >= 3 ? 'eager' : undefined}
+                  loading={index >= 3 ? 'lazy' : undefined}
                           onLoad={() => handleImageLoad(index)}
                           priority={index < 3}
                           quality={70}
