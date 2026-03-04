@@ -163,7 +163,7 @@ html[lang="zh"] body {
 @font-face {
   font-family: "NanumPenScript";
   font-weight: 400;
-  font-display: block;
+  font-display: swap;
   font-style: normal;
   font-named-instance: "Regular";
   src: url("/fonts/NanumPenScript.woff2") format("woff2");
@@ -218,8 +218,9 @@ a {
 }
 
 ::view-transition-new(root) {
+  /* GIF is loaded on-demand via JS before triggering the transition, not eagerly via CSS */
   mask:
-    var(--transition-mask, url("/images/i-love-you-love.gif")) center / 0
+    var(--transition-mask, none) center / 0
     no-repeat;
   animation: scale 1.5s;
   animation-fill-mode: both;
