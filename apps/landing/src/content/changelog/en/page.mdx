@@ -1,3 +1,33 @@
+<ChangelogEntry version="v4.3.0" date="Mar 8, 2026">
+## WSL2 Docker Engine & Performance Boost
+
+This release lets Windows users run Docker Engine directly inside a managed WSL2 distro, adds non-blocking connection and concurrent data loading, and improves SSH tunnel reliability.
+
+### ✨ Features
+
+- 🪟 <Bold>WSL2 Docker Engine:</Bold> Windows users can now run Docker Engine directly inside a managed WSL2 distro — no Docker Desktop required
+- 🧙 <Bold>Setup Wizard:</Bold> Guided one-click setup that imports a lightweight Alpine distro, installs Docker, and starts the daemon
+- 🔄 <Bold>Crash Recovery:</Bold> Automatic daemon restart with backoff on unexpected shutdown or VM reboot
+- 📊 <Bold>Resource Monitor:</Bold> View CPU, memory, and disk usage of the WSL2 distro
+- ⚙️ <Bold>Daemon Configuration:</Bold> Edit `daemon.json` with a form editor or raw JSON, including registry mirrors, with validation and one-click apply
+- 🔀 <Bold>Engine Switching:</Bold> Switch between Docker Desktop and WSL2 Engine from the connection failed dialog
+
+### ⚡ Performance
+
+- 🔌 <Bold>Non-blocking Connection:</Bold> Connect dialog no longer blocks while syncing data — closes immediately after forwarding succeeds
+- 🚀 <Bold>Concurrent Data Loading:</Bold> Docker state (containers, images, compose, stats, info) now loads in parallel instead of sequentially
+
+### 🐛 Bug Fixes
+
+- 🔁 <Bold>Auto-Reconnect:</Bold> SSH tunnel failures are now detected via heartbeat and silently reconnected — no more manual reload needed
+- 🔗 <Bold>Host Status:</Bold> Host switcher no longer shows loading state after a successful connection
+
+### 🎨 Improvements
+
+- 🔄 <Bold>Unified Refresh Buttons:</Bold> All refresh buttons across the app now share a consistent component with spin animation
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v4.2.2" date="Feb 24, 2026">
 ## License Self-Service & Management
 
