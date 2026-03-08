@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 
-[![Version](https://img.shields.io/badge/version-v4.2.2-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.2.2)
-[![Release Date](https://img.shields.io/badge/release%20date-Feb%2024%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.2.2)
+[![Version](https://img.shields.io/badge/version-v4.3.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.3.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Mar%208%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.3.0)
 
 一个现代、轻量级的 Docker 管理界面，使用 Tauri 和 Rust 构建。
 专注于简洁性和性能的 Docker 容器管理工具。
@@ -159,6 +159,13 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
   - 自定义 Docker socket 路径支持
   - TCP 连接支持，连接远程 Docker 守护进程
   - SSH socket 转发，支持远程连接
+  - SSH 隧道故障心跳检测与自动重连
+- 🪟 WSL2 Docker 引擎（无需 Docker Desktop）
+  - 一键安装向导，使用 Alpine 发行版
+  - 自动崩溃恢复与退避策略
+  - WSL2 发行版资源监控
+  - 守护进程配置编辑器，支持镜像源配置
+  - Docker Desktop 与 WSL2 引擎切换
 - 🔑 许可证激活与管理，远程主机功能需许可证授权
   - 📡 主机延迟显示，支持 ICMP ping 和一键刷新
   - 🗑️ 主机移除，带确认对话框

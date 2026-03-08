@@ -2,8 +2,8 @@
 
 Language: 🇺🇸 English | [🇨🇳 简体中文](./README.zh-CN.md)
 
-[![Version](https://img.shields.io/badge/version-v4.2.2-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.2.2)
-[![Release Date](https://img.shields.io/badge/release%20date-Feb%2024%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.2.2)
+[![Version](https://img.shields.io/badge/version-v4.3.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.3.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Mar%208%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.3.0)
 
 A modern, lightweight Docker management UI built with Tauri and Rust.
 Focus on simplicity and performance for Docker container management.
@@ -159,6 +159,13 @@ Focus on simplicity and performance for Docker container management.
   - Custom Docker socket path support
   - TCP connection support for remote Docker daemon
   - SSH socket forwarding for remote connections
+  - Auto-reconnect on SSH tunnel failure via heartbeat detection
+- 🪟 WSL2 Docker Engine for Windows (no Docker Desktop required)
+  - One-click setup wizard with Alpine distro
+  - Automatic crash recovery with backoff
+  - Resource monitor for WSL2 distro
+  - Daemon configuration editor with registry mirror support
+  - Engine switching between Docker Desktop and WSL2
 - 🔑 License activation and management with license gate for remote host features
   - 📡 Host latency display with ICMP ping and one-click refresh
   - 🗑️ Host removal with confirmation dialog

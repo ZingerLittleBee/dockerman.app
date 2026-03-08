@@ -1,3 +1,33 @@
+<ChangelogEntry version="v4.3.0" date="2026年3月8日">
+## WSL2 Docker 引擎与性能提升
+
+本版本支持 Windows 用户在托管的 WSL2 发行版中直接运行 Docker 引擎，新增非阻塞连接和并发数据加载，并改进了 SSH 隧道的可靠性。
+
+### ✨ 新功能
+
+- 🪟 <Bold>WSL2 Docker 引擎：</Bold>Windows 用户现在可以在托管的 WSL2 发行版中直接运行 Docker 引擎，无需 Docker Desktop
+- 🧙 <Bold>安装向导：</Bold>引导式一键安装，导入轻量级 Alpine 发行版，安装 Docker 并启动守护进程
+- 🔄 <Bold>崩溃恢复：</Bold>意外关机或 VM 重启时自动以退避策略重启守护进程
+- 📊 <Bold>资源监控：</Bold>查看 WSL2 发行版的 CPU、内存和磁盘使用情况
+- ⚙️ <Bold>守护进程配置：</Bold>通过表单编辑器或原始 JSON 编辑 `daemon.json`，包括镜像源配置，支持验证和一键应用
+- 🔀 <Bold>引擎切换：</Bold>在连接失败对话框中切换 Docker Desktop 和 WSL2 引擎
+
+### ⚡ 性能
+
+- 🔌 <Bold>非阻塞连接：</Bold>连接对话框不再在同步数据时阻塞，转发成功后立即关闭
+- 🚀 <Bold>并发数据加载：</Bold>Docker 状态（容器、镜像、Compose、统计、信息）现在并行加载，不再顺序执行
+
+### 🐛 修复
+
+- 🔁 <Bold>自动重连：</Bold>SSH 隧道故障现在通过心跳检测并静默重连，无需手动重新加载
+- 🔗 <Bold>主机状态：</Bold>成功连接后主机切换器不再显示加载状态
+
+### 🎨 改进
+
+- 🔄 <Bold>统一刷新按钮：</Bold>应用内所有刷新按钮现在共享一致的组件和旋转动画
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v4.2.2" date="2026年2月24日">
 ## 许可证自助管理
 
