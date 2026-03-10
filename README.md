@@ -2,8 +2,8 @@
 
 Language: 🇺🇸 English | [🇨🇳 简体中文](./README.zh-CN.md)
 
-[![Version](https://img.shields.io/badge/version-v4.3.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.3.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Mar%208%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.3.0)
+[![Version](https://img.shields.io/badge/version-v4.4.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.4.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Mar%2011%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.4.0)
 
 A modern, lightweight Docker management UI built with Tauri and Rust.
 Focus on simplicity and performance for Docker container management.
@@ -91,6 +91,10 @@ Focus on simplicity and performance for Docker container management.
   - Single file upload and download with mode preservation
   - Symlink support and pagination for large directories
   - Context menus for file/folder operations
+  - File preview for text, code, images, Markdown, PDF, video, and audio
+  - In-place editing with syntax highlighting
+  - File and folder deletion from context menu
+  - Multi-select with batch download, delete, and copy paths
 
 ### Docker Events
 
