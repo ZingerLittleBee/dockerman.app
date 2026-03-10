@@ -17,7 +17,8 @@ import {
   RiStackLine,
   RiTerminalBoxLine,
   RiTerminalLine,
-  RiWindowLine
+  RiWindowLine,
+  RiFileTextLine
 } from '@remixicon/react'
 import { useTranslation } from '@repo/shared/i18n/client'
 import { Badge } from '../Badge'
@@ -34,6 +35,7 @@ const screenshotConfigs = [
   { src: '/screenshots/build-history.png', labelKey: 'build', icon: RiHammerLine },
   { src: '/screenshots/event.png', labelKey: 'events', icon: RiFileList2Line },
   { src: '/screenshots/file.png', labelKey: 'file', icon: RiFileLine },
+  { src: '/screenshots/file-preview.png', labelKey: 'filePreview', icon: RiFileTextLine },
   { src: '/screenshots/image-analysis.png', labelKey: 'imageAnalysis', icon: RiPieChartLine },
   { src: '/screenshots/container-compose.png', labelKey: 'compose', icon: RiStackLine },
   { src: '/screenshots/volume-browse.png', labelKey: 'volumeBrowse', icon: RiHardDriveLine },

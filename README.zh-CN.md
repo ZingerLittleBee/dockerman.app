@@ -27,6 +27,7 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 ![build Screenshot](apps/landing/public/screenshots/2.4.0/build-log.png)
 ![build History Screenshot](apps/landing/public/screenshots/2.4.0/build-log-history.png)
 ![file system](apps/landing/public/screenshots/3.0.0/file.png)
+![file preview](apps/landing/public/screenshots/file-preview.png)
 ![Termin Settings](apps/landing/public/screenshots/terminal-settings.png)
 ![Image Analysis](apps/landing/public/screenshots/3.3.0/image-analysis.png)
 ![Compose Screenshot](apps/landing/public/screenshots/3.4.0/compose.png)

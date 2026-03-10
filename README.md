@@ -2,8 +2,8 @@
 
 Language: 🇺🇸 English | [🇨🇳 简体中文](./README.zh-CN.md)
 
-[![Version](https://img.shields.io/badge/version-v4.4.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.4.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Mar%2011%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.4.0)
+[Version](https://github.com/dockerman/dockerman/releases/tag/v4.4.0)
+[Release Date](https://github.com/dockerman/dockerman/releases/tag/v4.4.0)
 
 A modern, lightweight Docker management UI built with Tauri and Rust.
 Focus on simplicity and performance for Docker container management.
@@ -27,6 +27,7 @@ Focus on simplicity and performance for Docker container management.
 ![build Screenshot](apps/landing/public/screenshots/2.4.0/build-log.png)
 ![build History Screenshot](apps/landing/public/screenshots/2.4.0/build-log-history.png)
 ![file system](apps/landing/public/screenshots/3.0.0/file.png)
+![file preview](apps/landing/public/screenshots/file-preview.png)
 ![Termin Settings](apps/landing/public/screenshots/terminal-settings.png)
 ![Image Analysis](apps/landing/public/screenshots/3.3.0/image-analysis.png)
 ![Compose Screenshot](apps/landing/public/screenshots/3.4.0/compose.png)
@@ -178,3 +179,4 @@ Focus on simplicity and performance for Docker container management.
 - 📁 Sidebar collapsible sections with container count badges
 - 🚀 Lightweight and fast performance
 - 💻 Cross-platform desktop application
+
