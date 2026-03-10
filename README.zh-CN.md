@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 
-[![Version](https://img.shields.io/badge/version-v4.3.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.3.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Mar%208%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.3.0)
+[![Version](https://img.shields.io/badge/version-v4.4.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.4.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Mar%2011%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.4.0)
 
 一个现代、轻量级的 Docker 管理界面，使用 Tauri 和 Rust 构建。
 专注于简洁性和性能的 Docker 容器管理工具。
@@ -91,6 +91,10 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
   - 单文件上传和下载，保留文件权限
   - 符号链接支持和大目录分页
   - 文件/文件夹操作的右键菜单
+  - 文件预览，支持文本、代码、图片、Markdown、PDF、视频和音频
+  - 就地编辑，支持语法高亮
+  - 右键菜单删除文件和文件夹
+  - 多选批量下载、删除和复制路径
 
 ### Docker 事件
 
