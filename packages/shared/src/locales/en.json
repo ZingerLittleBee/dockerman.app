@@ -237,7 +237,8 @@
       "imageAnalysis": "Image Analysis",
       "compose": "Compose",
       "volumeBrowse": "Volume Browse",
-      "storage": "Storage"
+      "storage": "Storage",
+      "filePreview": "File Preview"
     },
     "features": {
       "realTimeMonitoring": {

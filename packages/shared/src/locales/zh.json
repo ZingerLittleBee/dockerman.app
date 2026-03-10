@@ -237,7 +237,8 @@
       "imageAnalysis": "镜像分析",
       "compose": "编排",
       "volumeBrowse": "卷流览",
-      "storage": "存储"
+      "storage": "存储",
+      "filePreview": "文件预览"
     },
     "features": {
       "realTimeMonitoring": {
