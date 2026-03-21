@@ -2,8 +2,8 @@
 
 Language: 🇺🇸 English | [🇨🇳 简体中文](./README.zh-CN.md)
 
-[Version](https://github.com/dockerman/dockerman/releases/tag/v4.4.0)
-[Release Date](https://github.com/dockerman/dockerman/releases/tag/v4.4.0)
+[![Version](https://img.shields.io/badge/version-v4.5.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.5.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Mar%2021%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.5.0)
 
 A modern, lightweight Docker management UI built with Tauri and Rust.
 Focus on simplicity and performance for Docker container management.
@@ -16,25 +16,25 @@ Focus on simplicity and performance for Docker container management.
 - 🌙 Comprehensive dark mode support
 - 🌐 Internationalization (i18n) support
 
-![Dashboard Screenshot](apps/landing/public/screenshots/3.2.0/dashboard.png)
-![Dashboard Dark Screenshot](apps/landing/public/screenshots/3.2.0/dark.png)
-![Terminal Screenshot](apps/landing/public/screenshots/2.4.0/terminal.png)
-![Process List Screenshot](apps/landing/public/screenshots/2.4.0/process.png)
-![inspect Screenshot](apps/landing/public/screenshots/2.4.0/inspect.png)
-![stats Screenshot](apps/landing/public/screenshots/2.4.0/stat.png)
-![logs Screenshot](apps/landing/public/screenshots/logs.png)
-![ssh Screenshot](apps/landing/public/screenshots/2.4.0/ssh.png)
-![build Screenshot](apps/landing/public/screenshots/2.4.0/build-log.png)
-![build History Screenshot](apps/landing/public/screenshots/2.4.0/build-log-history.png)
-![file system](apps/landing/public/screenshots/3.0.0/file.png)
-![file preview](apps/landing/public/screenshots/file-preview.png)
-![Termin Settings](apps/landing/public/screenshots/terminal-settings.png)
-![Image Analysis](apps/landing/public/screenshots/3.3.0/image-analysis.png)
-![Compose Screenshot](apps/landing/public/screenshots/3.4.0/compose.png)
-![Event Screenshot](apps/landing/public/screenshots/event.png)
-![Volume Browse Screenshot](apps/landing/public/screenshots/volume-browse.png)
-![Storage Screenshot](apps/landing/public/screenshots/storage.png)
-![Command Palette](apps/landing/public/screenshots/4.0.0/cmd.png)
+![Dashboard Screenshot](apps/landing/public/screenshots/readme/dashboard.png)
+![Dashboard Dark Screenshot](apps/landing/public/screenshots/readme/dark.png)
+![Terminal Screenshot](apps/landing/public/screenshots/readme/terminal.png)
+![Process List Screenshot](apps/landing/public/screenshots/readme/process.png)
+![inspect Screenshot](apps/landing/public/screenshots/readme/inspect.png)
+![stats Screenshot](apps/landing/public/screenshots/readme/stats.png)
+![logs Screenshot](apps/landing/public/screenshots/readme/logs.png)
+![ssh Screenshot](apps/landing/public/screenshots/readme/ssh.png)
+![build Screenshot](apps/landing/public/screenshots/readme/build-log.png)
+![build History Screenshot](apps/landing/public/screenshots/readme/build-log-history.png)
+![file system](apps/landing/public/screenshots/readme/file.png)
+![file preview](apps/landing/public/screenshots/readme/file-preview.png)
+![Termin Settings](apps/landing/public/screenshots/readme/terminal-settings.png)
+![Image Analysis](apps/landing/public/screenshots/readme/image-analysis.png)
+![Compose Screenshot](apps/landing/public/screenshots/readme/compose.png)
+![Event Screenshot](apps/landing/public/screenshots/readme/event.png)
+![Volume Browse Screenshot](apps/landing/public/screenshots/readme/volume-browse.png)
+![Storage Screenshot](apps/landing/public/screenshots/readme/storage.png)
+![Command Palette](apps/landing/public/screenshots/readme/cmd.png)
 
 ## Features
 
@@ -71,11 +71,12 @@ Focus on simplicity and performance for Docker container management.
   - Network settings
   - Mount points
   - Container labels
-- 📊 Resource monitoring
-  - CPU usage and distribution
-  - Memory usage
-  - Network statistics
-  - Block I/O statistics
+- 📊 Resource monitoring with redesigned stats page
+  - Ring gauges for CPU and memory usage
+  - Sparkline charts for CPU, memory, network I/O, and disk I/O
+  - Time range selector for chart history
+  - Collapsible detail panels for network interfaces and disk devices
+  - Chart tooltips with formatted values
 - 💻 Integrated terminal access
   - Terminal theme picker with color theme customization
   - Configurable default shell and user
