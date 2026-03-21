@@ -301,10 +301,24 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
 
           {/* 图片区域 */}
           <div
-            className="flex h-full w-full items-center justify-center overflow-hidden"
+            className="flex h-full w-full items-center justify-center"
             ref={imageAreaRef}
           >
             <div className="relative flex h-full w-full items-center justify-center">
+              {/* 独立 shadow 层，避免堆叠图片的 shadow 叠加 */}
+              <div
+                className="pointer-events-none absolute inset-0 flex items-center justify-center"
+                style={{ transform: 'scale(0.85)' }}
+                aria-hidden="true"
+              >
+                <div className="h-full max-h-full w-auto rounded-2xl p-2 shadow-lg dark:shadow-[0_10px_30px_-5px_rgba(255,255,255,0.07),0_4px_10px_-4px_rgba(255,255,255,0.04)]">
+                  <div
+                    className="invisible h-full"
+                    style={{ aspectRatio: `${IMAGE_WIDTH} / ${IMAGE_HEIGHT}` }}
+                  />
+                </div>
+              </div>
+
               {screenshots.map((screenshot, index) => {
                 const isLoaded = loadedImages.has(index)
 
@@ -316,9 +330,9 @@ function SnapshotPlaygroundScroll({ screenshots }: { screenshots: Screenshot[] }
                     )}
                     key={screenshot.label}
                   >
-                    <div className="relative h-full max-h-full w-auto rounded-xl bg-slate-50/40 p-2 ring-1 ring-slate-200/50 ring-inset dark:bg-gray-900/70 dark:ring-white/10">
+                    <div className="relative h-full max-h-full w-auto rounded-2xl bg-slate-50/40 p-2 ring-1 ring-slate-200/50 ring-inset dark:bg-gray-900/70 dark:ring-white/10">
                       <div
-                        className="h-full overflow-hidden rounded-lg bg-white ring-1 ring-slate-900/5 dark:bg-slate-950 dark:ring-white/15"
+                        className="h-full overflow-hidden rounded-xl bg-white ring-1 ring-slate-900/5 dark:bg-slate-950 dark:ring-white/15"
                         style={{ aspectRatio: `${IMAGE_WIDTH} / ${IMAGE_HEIGHT}` }}
                       >
                         {!isLoaded && <LoadingSkeleton absolute />}
