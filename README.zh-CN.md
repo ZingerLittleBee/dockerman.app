@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 
-[![Version](https://img.shields.io/badge/version-v4.4.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.4.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Mar%2011%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.4.0)
+[![Version](https://img.shields.io/badge/version-v4.5.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.5.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Mar%2021%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.5.0)
 
 一个现代、轻量级的 Docker 管理界面，使用 Tauri 和 Rust 构建。
 专注于简洁性和性能的 Docker 容器管理工具。
@@ -21,7 +21,7 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 ![Terminal Screenshot](apps/landing/public/screenshots/2.4.0/terminal.png)
 ![Process List Screenshot](apps/landing/public/screenshots/2.4.0/process.png)
 ![inspect Screenshot](apps/landing/public/screenshots/2.4.0/inspect.png)
-![stats Screenshot](apps/landing/public/screenshots/2.4.0/stat.png)
+![stats Screenshot](apps/landing/public/screenshots/stats.png)
 ![logs Screenshot](apps/landing/public/screenshots/logs.png)
 ![ssh Screenshot](apps/landing/public/screenshots/2.4.0/ssh.png)
 ![build Screenshot](apps/landing/public/screenshots/2.4.0/build-log.png)
@@ -71,11 +71,12 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
   - 网络设置
   - 挂载点
   - 容器标签
-- 📊 资源监控
-  - CPU 使用率和分布
-  - 内存使用情况
-  - 网络统计
-  - 块 I/O 统计
+- 📊 资源监控，全新设计的统计页面
+  - 环形仪表盘显示 CPU 和内存使用率
+  - 迷你图表展示 CPU、内存、网络 I/O 和磁盘 I/O
+  - 时间范围选择器控制图表历史窗口
+  - 可折叠详情面板查看网络接口和磁盘设备
+  - 图表悬停提示显示格式化数值
 - 💻 集成终端访问
   - 终端主题选择器，支持颜色主题自定义
   - 可配置默认 shell 和用户
