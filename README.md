@@ -2,8 +2,8 @@
 
 Language: 🇺🇸 English | [🇨🇳 简体中文](./README.zh-CN.md)
 
-[![Version](https://img.shields.io/badge/version-v4.5.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.5.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Mar%2021%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.5.0)
+[![Version](https://img.shields.io/badge/version-v4.6.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.6.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Mar%2026%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.6.0)
 
 A modern, lightweight Docker management UI built with Tauri and Rust.
 Focus on simplicity and performance for Docker container management.
@@ -66,6 +66,9 @@ Focus on simplicity and performance for Docker container management.
   - Form-based configuration for guided setup
   - Docker command input mode with parsing support
   - Docker Run command import and parsing with enhanced UI
+- ⏸️ Container pause/unpause with three-state menu support
+- 📦 Container commit to save state as a new image
+- 🐑 Container clone to duplicate configuration into create dialog
 - 🔍 Container inspection with detailed information
   - Port mappings
   - Network settings
@@ -123,6 +126,9 @@ Focus on simplicity and performance for Docker container management.
   - Docker build command generation and parsing functionality
   - Rebuild previous builds from history with pre-filled parameters
   - Retry failed builds without re-entering configuration
+- 🚀 Image push to registries with streaming progress and credential management
+- 🔍 Docker Hub browser with image search, details, README, and tags
+- 🛡️ Trivy security scan with vulnerability filtering and review
 - 📉 Image Size Analysis
   - Detailed breakdown of layer sizes
   - Interactive size distribution bar with color-coded blocks
