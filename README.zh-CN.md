@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 
-[![Version](https://img.shields.io/badge/version-v4.5.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.5.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Mar%2021%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.5.0)
+[![Version](https://img.shields.io/badge/version-v4.6.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.6.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Mar%2026%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.6.0)
 
 一个现代、轻量级的 Docker 管理界面，使用 Tauri 和 Rust 构建。
 专注于简洁性和性能的 Docker 容器管理工具。
@@ -35,6 +35,8 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 ![Volume Browse Screenshot](apps/landing/public/screenshots/readme/volume-browse.png)
 ![Storage Screenshot](apps/landing/public/screenshots/readme/storage.png)
 ![Command Palette](apps/landing/public/screenshots/readme/cmd.png)
+![Docker Hub](apps/landing/public/screenshots/readme/dockerhub.png)
+![Image Security](apps/landing/public/screenshots/readme/image-security.png)
 
 ## 功能特性
 
@@ -66,6 +68,9 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
   - 表单配置，引导式设置
   - Docker 命令输入模式，支持解析
   - Docker Run 命令导入和解析，增强 UI 集成
+- ⏸️ 容器暂停/恢复，支持三态菜单
+- 📦 容器提交，将容器状态保存为新镜像
+- 🐑 容器克隆，将配置复制到创建对话框
 - 🔍 容器详情检查
   - 端口映射
   - 网络设置
@@ -123,6 +128,9 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
   - Docker 构建命令生成和解析功能
   - 从构建历史中重建，自动填充参数
   - 无需重新配置即可重试失败的构建
+- 🚀 镜像推送到仓库，支持流式进度和凭证管理
+- 🔍 Docker Hub 浏览器，支持镜像搜索、详情、README 和标签
+- 🛡️ Trivy 安全扫描，支持漏洞过滤和查看
 - 📉 镜像大小分析
   - 详细的镜像层大小拆解分析
   - 交互式的大小分布条，通过颜色块可视化各层比例
