@@ -211,7 +211,7 @@
       "linux": "Linux"
     },
     "options": {
-      "universal": "通用版 (M1/Intel)",
+      "universal": "通用版 (Apple silicon/Intel)",
       "windows64": "Windows (64位)",
       "appimage": "AppImage (64位)",
       "deb": "Debian / Ubuntu",
