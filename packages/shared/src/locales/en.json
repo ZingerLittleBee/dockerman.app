@@ -211,7 +211,7 @@
       "linux": "Linux"
     },
     "options": {
-      "universal": "Universal (M1/Intel)",
+      "universal": "Universal (Apple silicon/Intel)",
       "windows64": "Windows (64-bit)",
       "appimage": "AppImage (64-bit)",
       "deb": "Debian / Ubuntu",
