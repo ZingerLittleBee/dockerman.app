@@ -238,7 +238,9 @@
       "compose": "编排",
       "volumeBrowse": "卷流览",
       "storage": "存储",
-      "filePreview": "文件预览"
+      "filePreview": "文件预览",
+      "dockerHub": "Docker Hub",
+      "imageSecurity": "镜像安全"
     },
     "features": {
       "realTimeMonitoring": {

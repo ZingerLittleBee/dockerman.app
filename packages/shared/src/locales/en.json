@@ -238,7 +238,9 @@
       "compose": "Compose",
       "volumeBrowse": "Volume Browse",
       "storage": "Storage",
-      "filePreview": "File Preview"
+      "filePreview": "File Preview",
+      "dockerHub": "Docker Hub",
+      "imageSecurity": "Image Security"
     },
     "features": {
       "realTimeMonitoring": {

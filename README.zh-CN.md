@@ -35,6 +35,8 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 ![Volume Browse Screenshot](apps/landing/public/screenshots/readme/volume-browse.png)
 ![Storage Screenshot](apps/landing/public/screenshots/readme/storage.png)
 ![Command Palette](apps/landing/public/screenshots/readme/cmd.png)
+![Docker Hub](apps/landing/public/screenshots/readme/dockerhub.png)
+![Image Security](apps/landing/public/screenshots/readme/image-security.png)
 
 ## 功能特性
 
