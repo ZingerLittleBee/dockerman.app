@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 
-[![Version](https://img.shields.io/badge/version-v4.6.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.6.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Mar%2026%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.6.0)
+[![Version](https://img.shields.io/badge/version-v4.7.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.7.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Mar%2029%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.7.0)
 
 一个现代、轻量级的 Docker 管理界面，使用 Tauri 和 Rust 构建。
 专注于简洁性和性能的 Docker 容器管理工具。
@@ -57,7 +57,8 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 ### 容器管理
 
 - 📋 详细的容器列表，带状态指示器
-- 🔍 容器列表支持快速搜索，实时过滤并可一键清除
+- 🔍 容器列表支持快速搜索，实时过滤并可一键清除（支持按端口号、协议和端口映射搜索）
+- 🖼️ 容器创建对话框支持可搜索的镜像组合框
 - 🐳 Docker Compose 视图
   - 支持平铺列表和按 Compose 项目分组视图切换
   - Compose 项目卡片，显示状态指示器和运行中的容器数量

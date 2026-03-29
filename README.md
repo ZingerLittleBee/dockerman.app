@@ -2,8 +2,8 @@
 
 Language: 🇺🇸 English | [🇨🇳 简体中文](./README.zh-CN.md)
 
-[![Version](https://img.shields.io/badge/version-v4.6.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.6.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Mar%2026%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.6.0)
+[![Version](https://img.shields.io/badge/version-v4.7.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.7.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Mar%2029%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.7.0)
 
 A modern, lightweight Docker management UI built with Tauri and Rust.
 Focus on simplicity and performance for Docker container management.
@@ -57,7 +57,8 @@ Focus on simplicity and performance for Docker container management.
 ### Container Management
 
 - 📋 Detailed container list with status indicators
-- 🔍 Quick search for containers with real-time filtering and clear reset
+- 🔍 Quick search for containers with real-time filtering and clear reset (supports port number, protocol, and port mapping search)
+- 🖼️ Searchable image combobox in container create dialog
 - 🐳 Docker Compose View
   - Toggle between flat list and grouped view by Compose projects
   - Compose project cards with status indicators and running container counts
