@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 
-[![Version](https://img.shields.io/badge/version-v4.7.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.7.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Mar%2029%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.7.0)
+[![Version](https://img.shields.io/badge/version-v4.8.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.8.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Mar%2031%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.8.0)
 
 一个现代、轻量级的 Docker 管理界面，使用 Tauri 和 Rust 构建。
 专注于简洁性和性能的 Docker 容器管理工具。
@@ -72,6 +72,7 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 - ⏸️ 容器暂停/恢复，支持三态菜单
 - 📦 容器提交，将容器状态保存为新镜像
 - 🐑 容器克隆，将配置复制到创建对话框
+- 💾 容器备份与恢复，完整归档配置、文件系统和卷
 - 🔍 容器详情检查
   - 端口映射
   - 网络设置
