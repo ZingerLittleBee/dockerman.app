@@ -2,8 +2,8 @@
 
 Language: 🇺🇸 English | [🇨🇳 简体中文](./README.zh-CN.md)
 
-[![Version](https://img.shields.io/badge/version-v4.7.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.7.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Mar%2029%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.7.0)
+[![Version](https://img.shields.io/badge/version-v4.8.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.8.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Mar%2031%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.8.0)
 
 A modern, lightweight Docker management UI built with Tauri and Rust.
 Focus on simplicity and performance for Docker container management.
@@ -72,6 +72,7 @@ Focus on simplicity and performance for Docker container management.
 - ⏸️ Container pause/unpause with three-state menu support
 - 📦 Container commit to save state as a new image
 - 🐑 Container clone to duplicate configuration into create dialog
+- 💾 Container backup and restore with full configuration, filesystem, and volume archival
 - 🔍 Container inspection with detailed information
   - Port mappings
   - Network settings
