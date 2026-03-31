@@ -1,10 +1,12 @@
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import type { Metadata } from 'next'
+import { cookies } from 'next/headers'
 import { Inter } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
 import { LenisProvider } from '@repo/shared/components/LenisProvider'
+import { JsonLd } from '@/components/JsonLd'
 import { siteConfig } from './siteConfig'
 
 const inter = Inter({
@@ -15,7 +17,10 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://dockerman.app'),
-  title: 'Dockerman - Modern Docker Management UI',
+  title: {
+    default: 'Dockerman - Modern Docker Management UI',
+    template: '%s | Dockerman'
+  },
   description: siteConfig.description,
   keywords: [
     'Docker',
@@ -71,16 +76,50 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: '/favicon.ico'
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-snippet': -1,
+      'max-image-preview': 'large',
+      'max-video-preview': -1
+    }
   }
 }
 
-export default function RootLayout({
+const organizationJsonLd = {
+  '@context': 'https://schema.org' as const,
+  '@type': 'Organization' as const,
+  name: 'Dockerman',
+  url: siteConfig.url,
+  logo: `${siteConfig.url}/logo.svg`,
+  sameAs: [
+    'https://github.com/ZingerLittleBee',
+    'https://twitter.com/zinger_bee'
+  ]
+}
+
+const websiteJsonLd = {
+  '@context': 'https://schema.org' as const,
+  '@type': 'WebSite' as const,
+  name: siteConfig.name,
+  url: siteConfig.url,
+  publisher: { '@type': 'Organization' as const, name: 'Dockerman' }
+}
+
+export default async function RootLayout({
   children
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const cookieStore = await cookies()
+  const locale = cookieStore.get('NEXT_LOCALE')?.value || 'en'
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <head>
         {process.env.NODE_ENV === 'development' && (
           <Script
@@ -89,6 +128,8 @@ export default function RootLayout({
             strategy="beforeInteractive"
           />
         )}
+        <JsonLd data={organizationJsonLd} />
+        <JsonLd data={websiteJsonLd} />
       </head>
       <body
         className={`${inter.variable} min-h-screen scroll-auto antialiased selection:bg-indigo-100 selection:text-indigo-700 dark:bg-gray-950`}

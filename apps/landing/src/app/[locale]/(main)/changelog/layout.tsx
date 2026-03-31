@@ -1,25 +1,39 @@
-'use client'
-
+import type { Metadata } from 'next'
 import Balancer from 'react-wrap-balancer'
 import type { Locale } from '@repo/shared/i18n'
-import { useLocale } from '@repo/shared/i18n/client'
 
-export default function Layout({
-  children
+const titles: Record<Locale, string> = {
+  en: 'Changelog',
+  zh: '更新日志'
+}
+
+const descriptions: Record<Locale, string> = {
+  en: "Keep yourself informed about the most recent additions and improvements we've made to Dockerman.",
+  zh: '了解我们对 Dockerman 所做的最新更新和改进。'
+}
+
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale: raw } = await params
+  const locale = (raw as Locale) ?? 'en'
+  return {
+    title: titles[locale],
+    description: descriptions[locale]
+  }
+}
+
+export default async function Layout({
+  children,
+  params
 }: Readonly<{
   children: React.ReactNode
+  params: Promise<{ locale: string }>
 }>) {
-  const locale = useLocale()
-
-  const titles: Record<Locale, string> = {
-    en: 'Changelog',
-    zh: '更新日志'
-  }
-
-  const descriptions: Record<Locale, string> = {
-    en: "Keep yourself informed about the most recent additions and improvements we've made to Dockerman.",
-    zh: '了解我们对 Dockerman 所做的最新更新和改进。'
-  }
+  const { locale: raw } = await params
+  const locale = raw as Locale
 
   return (
     <main

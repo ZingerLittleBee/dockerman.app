@@ -4,11 +4,15 @@ import { Faqs } from '@/components/ui/Faqs'
 import Features from '@/components/ui/Features'
 import { Global } from '@/components/ui/Global'
 import Hero from '@/components/ui/Hero'
+import { HomeJsonLd } from '@/components/ui/HomeJsonLd'
 import SnapshotPlaygournd from '@/components/ui/SnapshotPlaygournd'
 
-export default function Home() {
+export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
+
   return (
     <main className="flex flex-col overflow-hidden">
+      <HomeJsonLd locale={locale} />
       <Hero />
       {/* <LogoCloud /> */}
       <Global />

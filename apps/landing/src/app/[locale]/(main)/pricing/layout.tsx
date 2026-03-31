@@ -3,13 +3,14 @@ import type { Locale } from '@repo/shared/i18n'
 
 const meta: Record<Locale, { title: string; description: string }> = {
   en: {
-    title: 'Terms of Use',
+    title: 'Pricing',
     description:
-      'Read the Dockerman Terms of Use covering license grant, restrictions, disclaimers, and intellectual property.'
+      'Simple pricing for Dockerman. Free for local Docker management. One-time payment for remote SSH access and multi-host support.'
   },
   zh: {
-    title: '使用条款',
-    description: '阅读 Dockerman 使用条款，包括许可授予、限制条款、免责声明和知识产权。'
+    title: '定价',
+    description:
+      'Dockerman 简单定价。本地 Docker 管理免费。一次付费即可获得远程 SSH 访问和多主机管理支持。'
   }
 }
 
@@ -28,5 +29,5 @@ export default function Layout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  return <main className="mx-auto mt-36 max-w-6xl">{children}</main>
+  return <>{children}</>
 }
