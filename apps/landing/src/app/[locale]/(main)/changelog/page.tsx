@@ -1,9 +1,6 @@
 import { defaultLocale, type Locale, locales } from '@repo/shared/i18n'
 import { getTranslation } from '@repo/shared/i18n/server'
-import Balancer from 'react-wrap-balancer'
-import { Badge } from '@/components/Badge'
-import ChangelogSubscribeForm from '@/components/changelog/ChangelogSubscribeForm'
-import ChangelogTimeline from '@/components/changelog/ChangelogTimeline'
+import ChangelogPageContent from '@/components/changelog/ChangelogPageContent'
 import { getChangelogEntries } from '@/lib/changelog'
 
 function isLocale(value: string): value is Locale {
@@ -26,34 +23,15 @@ export default async function ChangelogPage({ params }: { params: Promise<{ loca
   }
 
   return (
-    <div className="flex flex-col">
-      <section
-        aria-labelledby="changelog-overview"
-        className="animate-slide-up-fade"
-        style={{
-          animationDuration: '600ms',
-          animationFillMode: 'backwards'
-        }}
-      >
-        <div>
-          <Badge>{t('changelog.badge')}</Badge>
-        </div>
-        <h1
-          className="mt-2 inline-block bg-gradient-to-br from-gray-900 to-gray-800 bg-clip-text py-2 font-bold text-4xl text-transparent tracking-tighter sm:text-6xl md:text-6xl dark:from-gray-50 dark:to-gray-300"
-          id="changelog-overview"
-        >
-          <Balancer>{t('changelog.title')}</Balancer>
-        </h1>
-        <p className="mt-6 max-w-2xl text-gray-700 text-lg dark:text-gray-400">
-          {t('changelog.description')}
-        </p>
-      </section>
-
-      <section className="my-16">
-        <ChangelogTimeline entries={entries} locale={locale} />
-      </section>
-
-      <ChangelogSubscribeForm copy={subscribeCopy} />
-    </div>
+    <ChangelogPageContent
+      copy={{
+        badge: t('changelog.badge'),
+        description: t('changelog.description'),
+        subscribe: subscribeCopy,
+        title: t('changelog.title')
+      }}
+      entries={entries}
+      locale={locale}
+    />
   )
 }

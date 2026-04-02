@@ -17,6 +17,8 @@ interface ChangelogSubscribeFormProps {
   }
 }
 
+export type ChangelogSubscribeCopy = ChangelogSubscribeFormProps['copy']
+
 type FeedbackState =
   | {
       message: string

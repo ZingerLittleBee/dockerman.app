@@ -130,7 +130,7 @@ function TimelineEntry({
   locale: Locale
 }) {
   return (
-    <div className="relative flex scroll-mt-24 justify-end gap-2" id={entry.id}>
+    <div className="relative flex w-full scroll-mt-24 justify-end gap-2" id={entry.id}>
       <div className="sticky top-24 hidden w-36 flex-col items-end gap-2 self-start pb-4 md:flex">
         <span className="inline-flex rounded-sm bg-indigo-50 px-2.5 py-1 font-medium text-indigo-700 text-sm ring-1 ring-indigo-700/10 dark:bg-indigo-500/20 dark:text-indigo-300 dark:ring-indigo-400/10">
           {entry.version}
@@ -171,7 +171,7 @@ function TimelineEntry({
             {entry.images.map((image) => (
               <Image
                 alt={image.alt}
-                className="overflow-hidden rounded-xl shadow-black/15 shadow-md ring-1 ring-gray-200/50 dark:ring-gray-800"
+                className="overflow-hidden rounded-lg shadow-black/15 shadow-md ring-1 ring-gray-200/50 dark:ring-gray-800"
                 height={675}
                 key={`${entry.id}-${image.src}`}
                 src={image.src}
@@ -212,7 +212,7 @@ function TimelineEntry({
 
 export default function ChangelogTimeline({ entries, locale }: ChangelogTimelineProps) {
   return (
-    <div className="flex flex-col items-start">
+    <div className="flex w-full flex-col">
       {entries.map((entry, index) => (
         <TimelineEntry
           defaultSectionIds={
