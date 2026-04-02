@@ -1,0 +1,8 @@
+{
+  "title": "Plataforma",
+  "pages": [
+    "wsl",
+    "linux"
+  ],
+  "defaultOpen": true
+}

@@ -3,9 +3,10 @@ import { cookieName, defaultLocale, type Locale, locales } from '@repo/shared/i1
 
 function getLocaleFromHeaders(request: NextRequest): Locale {
   const acceptLanguage = request.headers.get('accept-language') || ''
-  if (acceptLanguage.toLowerCase().includes('zh')) {
-    return 'zh'
-  }
+  const lang = acceptLanguage.toLowerCase()
+  if (lang.includes('zh')) return 'zh'
+  if (lang.includes('ja')) return 'ja'
+  if (lang.includes('es')) return 'es'
   return defaultLocale
 }
 

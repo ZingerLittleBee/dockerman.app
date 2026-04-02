@@ -31,6 +31,22 @@ const sectionLabels = {
     localization: '国际化',
     other: '更新',
     performance: '性能'
+  },
+  ja: {
+    bugfix: 'バグ修正',
+    feature: '新機能',
+    improvement: 'アップデート',
+    localization: 'ローカリゼーション',
+    other: '変更',
+    performance: 'パフォーマンス'
+  },
+  es: {
+    bugfix: 'Correcciones',
+    feature: 'Nuevo',
+    improvement: 'Actualizaciones',
+    localization: 'Localización',
+    other: 'Cambios',
+    performance: 'Rendimiento'
   }
 } as const
 

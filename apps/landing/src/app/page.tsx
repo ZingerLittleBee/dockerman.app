@@ -13,7 +13,11 @@ export default async function RootPage() {
   }
 
   const acceptLanguage = headerStore.get('accept-language') || ''
-  const locale = acceptLanguage.toLowerCase().includes('zh') ? 'zh' : defaultLocale
+  const lang = acceptLanguage.toLowerCase()
+  let locale: Locale = defaultLocale
+  if (lang.includes('zh')) locale = 'zh'
+  else if (lang.includes('ja')) locale = 'ja'
+  else if (lang.includes('es')) locale = 'es'
 
   redirect(`/${locale}`)
 }

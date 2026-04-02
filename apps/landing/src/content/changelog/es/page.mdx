@@ -1,0 +1,105 @@
+<ChangelogEntry version="v4.8.0" date="31 de marzo de 2026">
+## Respaldo y Restauración de Contenedores
+
+Esta versión introduce funcionalidad completa de respaldo y restauración de contenedores con seguimiento de progreso, vista previa y comandos Spotlight para acceso rápido.
+
+### ✨ Características
+
+- 💾 <Bold>Respaldo de Contenedores:</Bold> Respaldo y restauración completa de contenedores con seguimiento de progreso
+- 📦 <Bold>Archivar Todo:</Bold> Respalda la configuración del contenedor, el sistema de archivos y los volúmenes en un solo archivo
+- 🔄 <Bold>Restauración Inteligente:</Bold> Restaura contenedores desde el respaldo con vista previa, edición de puertos, resolución de conflictos de nombres y re-etiquetado de imágenes
+- 🔍 <Bold>Vista Previa del Respaldo:</Bold> Muestra detalles de configuración antes de restaurar
+- ⚡ <Bold>Progreso en Streaming:</Bold> Seguimiento de progreso en tiempo real con soporte para cancelar
+- 🔎 <Bold>Comandos Spotlight:</Bold> Acceso rápido a operaciones de respaldo y restauración
+
+</ChangelogEntry>
+
+<ChangelogEntry version="v4.7.0" date="29 de marzo de 2026">
+## Combobox de Imágenes y Búsqueda por Puerto
+
+Esta versión agrega un combobox de imágenes con búsqueda para la creación de contenedores y búsqueda por número de puerto.
+
+### ✨ Características
+
+- 🖼️ <Bold>Combobox de Imágenes:</Bold> Reemplaza la entrada de texto de imágenes con un combobox con búsqueda en el diálogo de creación de contenedores
+- 🔍 <Bold>Búsqueda por Puerto:</Bold> Busca contenedores por número de puerto, protocolo o mapeo de puertos
+
+### 🔧 Mejoras
+
+- 🔌 <Bold>EndpointsConfig:</Bold> Agrega el campo EndpointsConfig faltante en el parser de comandos docker run
+- ⚠️ <Bold>Mensajes de Error:</Bold> Muestra el mensaje de error real cuando falla la creación del contenedor
+
+</ChangelogEntry>
+
+<ChangelogEntry version="v4.6.0" date="26 de marzo de 2026">
+## Navegador de Docker Hub y Escaneo de Seguridad
+
+Esta versión agrega operaciones de pausa/reanudación, commit y clonación de contenedores, push de imágenes a registros, navegador integrado de Docker Hub y escaneo de seguridad Trivy.
+
+### ✨ Características
+
+- ⏸️ <Bold>Pausa/Reanudación de Contenedores:</Bold> Pausa y reanuda contenedores en ejecución con soporte de menú de tres estados
+- 📦 <Bold>Commit de Contenedores:</Bold> Guarda el estado del contenedor como una nueva imagen vía diálogo de commit
+- 🐑 <Bold>Clonación de Contenedores:</Bold> Clona la configuración de contenedores existentes en el diálogo de creación
+- 🚀 <Bold>Push de Imágenes:</Bold> Push de imágenes a registros con progreso en streaming y gestión de credenciales
+- 🔍 <Bold>Navegador de Docker Hub:</Bold> Busca, navega detalles de imágenes, README y tags directamente en la app
+- 🛡️ <Bold>Escaneo de Seguridad Trivy:</Bold> Instala Trivy, escanea imágenes por vulnerabilidades, filtra y revisa resultados
+
+</ChangelogEntry>
+
+<ChangelogEntry version="v4.0.0" date="17 de febrero de 2026">
+## Paleta de Comandos y Bandeja del Sistema
+
+Esta versión introduce una paleta de comandos global para acceso instantáneo a recursos, integración con la bandeja del sistema con estadísticas en tiempo real, y auto-ocultamiento del ícono del Dock en macOS.
+
+### ✨ Características
+
+- 🔍 <Bold>Paleta de Comandos:</Bold> Paleta de comandos global (Cmd+; / Ctrl+;) para acceso rápido a contenedores, imágenes, proyectos Compose, redes y volúmenes con acciones instantáneas
+- 🖥️ <Bold>Bandeja del Sistema:</Bold> Ícono en la barra de menú con estado de conexión, estadísticas de recursos y acciones rápidas (mostrar/ocultar ventana, spotlight, configuración, salir)
+- 📊 <Bold>Estadísticas en la Barra:</Bold> Estadísticas opcionales de CPU y memoria en tiempo real mostradas directamente en la barra de menú de macOS, configurables en Ajustes
+- 🙈 <Bold>Auto-ocultar Ícono del Dock:</Bold> El ícono del Dock se oculta automáticamente cuando se cierra la ventana principal en macOS
+- ⌨️ <Bold>Atajo Personalizado:</Bold> Atajo de teclado global configurable para la paleta de comandos
+- 🌐 <Bold>i18n:</Bold> Localización completa en español e inglés para la paleta de comandos y ajustes de la bandeja
+
+</ChangelogEntry>
+
+<ChangelogEntry version="v3.0.0" date="8 de diciembre de 2025">
+## Eventos de Docker y Explorador de Archivos de Contenedores
+
+Esta versión introduce monitoreo de eventos de Docker en tiempo real y un explorador de archivos completo para contenedores Docker.
+
+### ✨ Características
+
+- <Bold>Monitoreo de Eventos Docker:</Bold> Escucha de eventos Docker en tiempo real con filtrado comprehensivo de eventos, búsqueda y diálogo de detalles JSON para inspeccionar datos de eventos
+- <Bold>Explorador de Archivos de Contenedores:</Bold> Implementa un explorador de sistema de archivos para contenedores Docker:
+  - 🌳 Navegación de árbol de archivos con carga dinámica
+  - 📂 Soporte para subir y descargar carpetas (basado en tar)
+  - 📄 Subida y descarga de archivos individuales con preservación de modo
+  - 🔗 Soporte para enlaces simbólicos en listas de archivos
+  - 📄 Paginación para directorios grandes
+  - 📋 Menús contextuales para operaciones de archivos/carpetas (Descargar, Copiar Ruta, Ver Propiedades)
+
+</ChangelogEntry>
+
+<ChangelogEntry version="v1.0.0" date="4 de febrero de 2025">
+## Primera Versión Oficial
+
+Nos complace anunciar la primera versión oficial de Dockerman: una UI moderna y ligera para gestión Docker que brinda potente rendimiento y simplicidad para la gestión de contenedores.
+
+### Características Principales
+
+- <Bold>Vista General del Panel:</Bold> Acceso instantáneo a estadísticas de contenedores e imágenes, con monitoreo en tiempo real del uso de recursos y actualizaciones de estado de contenedores.
+- <Bold>Gestión de Contenedores:</Bold> Control comprehensivo de contenedores con capacidades de inspección detallada, acceso integrado a terminal y monitoreo de recursos en tiempo real.
+- <Bold>Gestión de Imágenes:</Bold> Manejo eficiente de imágenes con análisis detallado de tamaño, información de etiquetas y seguimiento de uso.
+- <Bold>Monitoreo de Recursos:</Bold> Visualización en tiempo real del uso de CPU, consumo de memoria, estadísticas de red y rendimiento de E/S de bloques.
+- <Bold>Integración del Sistema:</Bold> Integración nativa con el demonio Docker proporcionando rendimiento y confiabilidad superiores.
+
+### Puntos Destacados
+
+- <Bold>Rendimiento Potente:</Bold> Construido con Tauri para velocidad excepcional y mínima huella de recursos.
+- <Bold>Integración de Terminal:</Bold> Acceso integrado a terminal para interacción directa con contenedores.
+- <Bold>Gestión de Procesos:</Bold> Visualización y monitoreo de lista de procesos en tiempo real.
+- <Bold>Visor de Logs:</Bold> Capacidades avanzadas de visualización de logs con actualizaciones en tiempo real.
+- <Bold>Enfoque en Seguridad:</Bold> Operación solo local asegurando que los datos de tus contenedores permanezcan seguros.
+
+</ChangelogEntry>

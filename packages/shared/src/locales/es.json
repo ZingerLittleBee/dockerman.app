@@ -1,0 +1,458 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "pricing": "Precios",
+    "download": "Descargar",
+    "changelog": "Historial de Cambios"
+  },
+  "hero": {
+    "title": "Gestión Docker",
+    "titleBreak": "moderna simplificada",
+    "description": "Una UI ligera y potente para gestión Docker enfocada en simplicidad y rendimiento.",
+    "cta": "Descargar gratis"
+  },
+  "features": {
+    "badge": "Aplicación de Escritorio",
+    "title": "Gestión Docker Ligera",
+    "description": "Experimenta la gestión Docker reinventada: ultraligera y extremadamente rápida. Construida con Tauri y Rust, Dockerman utiliza recursos mínimos del sistema mientras ofrece tiempos de respuesta instantáneos. Interfaz simplificada con funciones esenciales para una gestión eficiente de contenedores.",
+    "stats": {
+      "performance": "Rendimiento",
+      "bundleSize": "Tamaño del Paquete",
+      "memoryUsage": "Uso de Memoria"
+    }
+  },
+  "faqs": {
+    "title": "Preguntas Frecuentes",
+    "description": "¿No encuentras la respuesta que buscas? No dudes en ponerte en contacto abriendo",
+    "openIssues": "issues",
+    "descriptionSuffix": "en GitHub.",
+    "items": [
+      {
+        "question": "¿Qué sistemas operativos soporta Dockerman?",
+        "answer": "Dockerman soporta macOS, Windows y las principales distribuciones Linux. Construida con Tauri y Rust, proporciona rendimiento y experiencia consistentes en varios sistemas operativos."
+      },
+      {
+        "question": "¿Dockerman requiere conexión a Internet?",
+        "answer": "Dockerman es una aplicación local que no requiere conexión a Internet. Se ejecuta completamente en tu dispositivo, asegurando la seguridad y privacidad de tus datos."
+      },
+      {
+        "question": "¿Dónde se almacenan los datos SSH?",
+        "answer": "Los datos SSH se almacenan en tu dispositivo y nunca se suben a ningún servidor."
+      },
+      {
+        "question": "¿Qué hace diferente a Dockerman de otras herramientas de gestión Docker?",
+        "answer": "Dockerman se destaca por su enfoque en velocidad y eficiencia. Ofrece tiempos de inicio rápidos, uso mínimo de recursos (<30MB de memoria), monitoreo de contenedores en tiempo real y una interfaz limpia enfocada en las tareas Docker más comunes."
+      }
+    ]
+  },
+  "cta": {
+    "title": "¿Listo para empezar?",
+    "description": "Comienza a gestionar tus contenedores Docker con una experiencia de escritorio ligera y potente.",
+    "downloadButton": "Descargar para Escritorio",
+    "learnMore": "¿Quieres saber más?",
+    "viewChangelog": "Ver el Historial de Cambios"
+  },
+  "footer": {
+    "description": "Una UI moderna y ligera para gestión Docker. Construida con amor para desarrolladores alrededor del mundo.",
+    "product": "Producto",
+    "resources": "Recursos",
+    "company": "Empresa",
+    "legal": "Legal",
+    "copyright": "Dockerman. Todos los derechos reservados.",
+    "status": "Todos los sistemas operativos",
+    "links": {
+      "pricing": "Precios",
+      "download": "Descargar",
+      "changelog": "Historial de Cambios",
+      "github": "GitHub",
+      "about": "Acerca de",
+      "privacy": "Privacidad",
+      "terms": "Términos",
+      "dpa": "DPA"
+    }
+  },
+  "common": {
+    "download": "Descargar"
+  },
+  "pricing": {
+    "badge": "precios",
+    "title": "Licencia Dockerman",
+    "subtitle": "Local Gratis, Remoto Pago",
+    "description": "Precios simples. Sin suscripciones. Paga una vez, úsala para siempre.",
+    "earlyBird": "Precio de Lanzamiento - Solo los primeros 100",
+    "deadline": "El precio de lanzamiento termina el 1 de abril",
+    "countdown": {
+      "days": "Días",
+      "hours": "Horas",
+      "minutes": "Min",
+      "seconds": "Seg",
+      "expired": "El precio de lanzamiento ha terminado"
+    },
+    "updatePolicy": "Actualizaciones de por vida",
+    "plans": {
+      "oneDevice": "Para 1 dispositivo macOS/Windows",
+      "threeDevices": "Para 3 dispositivos macOS/Windows",
+      "threeDevicesSaving": "55% de descuento comparado con la licencia de un dispositivo"
+    },
+    "features": {
+      "crossPlatform": "Soporte para macOS, Windows y Linux",
+      "containerManagement": "Gestión del ciclo de vida de contenedores",
+      "imageManagement": "Gestión y construcción de imágenes",
+      "volumeManagement": "Gestión de volúmenes",
+      "networkManagement": "Gestión de redes",
+      "realTimeMonitoring": "Monitoreo de recursos en tiempo real",
+      "integratedTerminal": "Acceso a terminal integrada",
+      "logViewer": "Visor de logs con filtrado",
+      "fileBrowser": "Explorador de archivos de contenedores",
+      "composeSupport": "Soporte para Docker Compose",
+      "darkMode": "Soporte para modo oscuro",
+      "localDockerOnly": "Soporte para host remoto",
+      "everythingInFree": "Todo en la versión Gratis",
+      "remoteViaSSH": "Host remoto vía SSH",
+      "multiHostManagement": "Gestión multi-host",
+      "lifetimeUpdates": "Todas las actualizaciones futuras incluidas"
+    },
+    "cta": {
+      "currentPlan": "Plan Actual",
+      "upgradeNow": "Actualizar Ahora"
+    },
+    "success": {
+      "title": "¡Pago Exitoso!",
+      "description": "Gracias por comprar Dockerman. Tu clave de licencia será enviada a tu correo electrónico en breve.",
+      "nextSteps": "Siguientes Pasos",
+      "step1": "Revisa tu correo electrónico para la clave de licencia",
+      "step2": "Descarga Dockerman si aún no lo has hecho",
+      "step3": "Activa tu licencia en la configuración de la aplicación",
+      "downloadNow": "Descargar Ahora",
+      "contactSupport": "Contactar Soporte"
+    },
+    "faq": {
+      "title": "Preguntas Frecuentes",
+      "items": [
+        {
+          "question": "¿Qué significa Licencia de por Vida?",
+          "answer": "Compra una vez y usa Dockerman para siempre. Tu licencia incluye actualizaciones gratuitas de por vida para todas las versiones futuras."
+        },
+        {
+          "question": "¿Qué significa la Limitación de Dispositivos?",
+          "answer": "Puedes activar Dockerman en la cantidad de dispositivos especificada por tu licencia. Puedes desactivar un dispositivo en cualquier momento y transferir la licencia a otro dispositivo. Si pierdes acceso a un dispositivo, puedes reiniciar tu licencia para desactivar todos los dispositivos (límite: una vez cada 7 días)."
+        },
+        {
+          "question": "¿Puedo usar la licencia tanto en macOS como en Windows?",
+          "answer": "¡Sí! Tu licencia funciona tanto en macOS como en Windows. Puedes mezclar y combinar plataformas dentro del límite de tus dispositivos."
+        },
+        {
+          "question": "¿Puedo usar Dockerman para fines comerciales?",
+          "answer": "¡Absolutamente! No hay restricciones para uso personal o comercial. Puedes usar Dockerman para cualquier propósito, incluyendo entornos profesionales y empresariales."
+        },
+        {
+          "question": "¿Hay política de reembolso?",
+          "answer": "Ofrecemos una garantía de devolución de dinero de 14 días. Si no estás satisfecho con Dockerman, envíanos un correo a support@dockerman.app dentro de los 14 días posteriores a la compra para un reembolso completo."
+        },
+        {
+          "question": "¿Necesitas más dispositivos?",
+          "answer": "Si necesitas licencias para más de 3 dispositivos, por favor contáctanos en support@dockerman.app para precios personalizados."
+        }
+      ]
+    }
+  },
+  "changelog": {
+    "badge": "historial de cambios",
+    "title": "Novedades",
+    "description": "Mantente al día con las últimas actualizaciones, funciones y mejoras de Dockerman.",
+    "subscribe": {
+      "title": "Recibe actualizaciones de lanzamiento en tu correo",
+      "description": "Suscríbete a las actualizaciones del historial de cambios y te enviaremos un correo cuando se lancen versiones importantes de Dockerman.",
+      "placeholder": "Ingresa tu correo electrónico",
+      "button": "Suscribirse",
+      "notice": "Sin spam. Solo actualizaciones del producto y lanzamientos.",
+      "success": "Estás suscrito. Te enviaremos un correo en el próximo lanzamiento.",
+      "fallbackSuccess": "Tu aplicación de correo se está abriendo para confirmar la suscripción.",
+      "error": "La suscripción falló. Por favor intenta de nuevo."
+    }
+  },
+  "about": {
+    "badge": "acerca de",
+    "title": "Construyendo la herramienta de gestión Docker que siempre quisimos",
+    "description": "Somos un equipo de desarrolladores y diseñadores que creemos que gestionar contenedores Docker debe ser simple, intuitivo y eficiente.",
+    "mission": {
+      "title": "Nuestra Misión",
+      "p1": "Dockerman nació de nuestras propias frustraciones con las herramientas existentes de gestión Docker. Queríamos algo que fuera rápido, multiplataforma y enfocado en la productividad del desarrollador.",
+      "p2": "Nuestra misión es hacer que la gestión de contenedores sea accesible para todos, desde desarrolladores individuales hasta grandes equipos, manteniendo el poder y la flexibilidad que Docker proporciona."
+    },
+    "team": {
+      "title": "Conoce al Equipo",
+      "role": "Desarrollador Full Stack",
+      "bio": "Programando en Rust, TypeScript y Flutter | Convirtiendo café en software mágico | Construyendo para cerrar la brecha entre tecnología y humanidad."
+    },
+    "values": {
+      "title": "Nuestros Valores",
+      "performanceFirst": {
+        "title": "Rendimiento Primero",
+        "description": "Construida con Rust y Tauri para un rendimiento potente y uso mínimo de recursos."
+      },
+      "developerExperience": {
+        "title": "Experiencia del Desarrollador",
+        "description": "Interfaz intuitiva diseñada para desarrolladores, por desarrolladores."
+      },
+      "privacyFocused": {
+        "title": "Enfocados en Privacidad",
+        "description": "Tus datos permanecen locales. Creemos en la transparencia y la privacidad del usuario."
+      }
+    },
+    "connect": {
+      "title": "Mantente Conectado",
+      "description": "Sigue el desarrollo de Dockerman y sé el primero en saber sobre nuevas funciones y actualizaciones.",
+      "followGithub": "Seguir en GitHub",
+      "followX": "Seguir en X"
+    }
+  },
+  "download": {
+    "badge": "descargar",
+    "title": "Descarga para tu plataforma",
+    "description": "Elige la versión que coincida con tu sistema. Todas las descargas están disponibles en la",
+    "releasesPage": "Página de Lanzamientos",
+    "homebrew": "Instalar con Homebrew",
+    "comingSoon": "Próximamente",
+    "preview": "Vista Previa",
+    "platforms": {
+      "macos": "macOS",
+      "windows": "Windows",
+      "linux": "Linux"
+    },
+    "options": {
+      "universal": "Universal (Apple silicon/Intel)",
+      "windows64": "Windows (64-bit)",
+      "appimage": "AppImage (64-bit)",
+      "deb": "Debian / Ubuntu",
+      "rpm": "Red Hat / Fedora"
+    }
+  },
+  "snapshot": {
+    "badge": "POTENTE",
+    "title": "Gestión Docker,",
+    "titleBreak": "Simplificada",
+    "description": "Una UI moderna y ligera para gestión Docker enfocada en simplicidad y rendimiento. Monitorea y gestiona tus contenedores con integración multiplataforma de escritorio.",
+    "tabs": {
+      "dashboard": "Panel",
+      "terminal": "Terminal",
+      "processes": "Procesos",
+      "inspect": "Inspeccionar",
+      "stats": "Estadísticas",
+      "logs": "Logs",
+      "ssh": "SSH",
+      "build": "Construir",
+      "events": "Eventos",
+      "file": "Archivos del Contenedor",
+      "imageAnalysis": "Análisis de Imagen",
+      "compose": "Compose",
+      "volumeBrowse": "Explorar Volúmenes",
+      "storage": "Almacenamiento",
+      "filePreview": "Vista Previa de Archivo",
+      "dockerHub": "Docker Hub",
+      "imageSecurity": "Seguridad de Imagen"
+    },
+    "features": {
+      "realTimeMonitoring": {
+        "name": "Monitoreo en Tiempo Real",
+        "description": "Monitorea métricas de CPU, memoria, red y E/S de contenedores en tiempo real con rendimiento potente."
+      },
+      "containerManagement": {
+        "name": "Gestión de Contenedores",
+        "description": "Inicia, detén, inspecciona y gestiona contenedores con una interfaz intuitiva. Accede a la terminal integrada y lista de procesos."
+      },
+      "remoteConnectivity": {
+        "name": "Conectividad Remota",
+        "description": "Conecta a instancias Docker remotas de forma segura vía SSH. Gestiona contenedores en múltiples hosts desde una sola interfaz."
+      },
+      "powerfulPerformance": {
+        "name": "Rendimiento Potente",
+        "description": "Construida con Tauri para un inicio rápido como un rayo y uso mínimo de recursos mientras gestionas tu entorno Docker."
+      }
+    }
+  },
+  "global": {
+    "badge": "Gestión Docker Moderna",
+    "title": "Gestión Docker",
+    "titleBreak": "Ligera",
+    "titleMobile": "Potente y Ligera",
+    "features": {
+      "powerfulPerformance": {
+        "name": "Rendimiento Potente",
+        "description": "Construida con Tauri y Rust para una experiencia de escritorio rápida como un rayo y potente."
+      },
+      "realTimeMonitoring": {
+        "name": "Monitoreo en Tiempo Real",
+        "description": "Monitorea estadísticas de contenedores, logs y uso de recursos en tiempo real."
+      },
+      "containerManagement": {
+        "name": "Gestión de Contenedores",
+        "description": "Gestiona contenedores fácilmente con inspección detallada y acceso a terminal."
+      }
+    }
+  },
+  "privacy": {
+    "badge": "privacidad",
+    "title": "Política de Privacidad",
+    "description": "Nos tomamos tu privacidad en serio. Así es como manejamos tus datos.",
+    "sections": {
+      "dataCollection": {
+        "title": "Recolección de Datos",
+        "content": "Dockerman es una aplicación de escritorio que se ejecuta localmente en tu máquina. Todos los datos de contenedores e imágenes se procesan localmente a través de tu demonio Docker. Recopilamos análisis de uso anónimos mínimos para mejorar el producto (ver sección de Análisis abajo)."
+      },
+      "analytics": {
+        "title": "Análisis Anónimos",
+        "content": "Para entender cómo los usuarios interactúan con Dockerman y mejorar el producto, recopilamos datos de uso anónimos vía PostHog. Estos datos son completamente anónimos y no pueden usarse para identificarte.",
+        "collected": "Qué recopilamos:",
+        "collectedItems": [
+          "Eventos de inicio de la aplicación (versión de la app, sistema operativo)",
+          "Navegación de páginas (qué páginas son visitadas)",
+          "Uso de funciones (operaciones de contenedores, imágenes, compose, redes, volúmenes)",
+          "Tipos de conexión al host Docker (socket local, TCP, SSH)"
+        ],
+        "notCollected": "Qué NO recopilamos:",
+        "notCollectedItems": [
+          "Información de identidad personal",
+          "Nombres/contenido de contenedores o imágenes",
+          "Direcciones IP o datos de ubicación",
+          "Configuraciones Docker o variables de entorno",
+          "Cualquier archivo sensible o credenciales"
+        ]
+      },
+      "optOut": {
+        "title": "Opción de No Participar",
+        "content": "Puedes deshabilitar el análisis en cualquier momento en Configuración → Privacidad. Cuando está deshabilitado, no se recopila ni transmite ningún dato, y cualquier dato de sesión existente se borra inmediatamente."
+      },
+      "localStorage": {
+        "title": "Almacenamiento Local",
+        "content": "Las configuraciones y preferencias de la aplicación se almacenan localmente en tu dispositivo. Estas configuraciones nunca se transmiten a servidores externos y permanecen bajo tu control."
+      },
+      "updates": {
+        "title": "Actualizaciones",
+        "content": "Al verificar actualizaciones de la aplicación, Dockerman solo se conecta a nuestro repositorio de lanzamientos para verificar la última versión. No se transmite información personal durante este proceso."
+      },
+      "contact": {
+        "title": "Contacto",
+        "content": "Si tienes alguna pregunta sobre nuestras prácticas de privacidad, por favor no dudes en contactarnos a través de nuestros canales de soporte."
+      }
+    }
+  },
+  "terms": {
+    "badge": "términos",
+    "title": "Términos de Uso",
+    "description": "Por favor lee estos términos cuidadosamente antes de usar Dockerman. Al usar Dockerman, aceptas estos términos.",
+    "sections": {
+      "acceptance": {
+        "title": "Aceptación de los Términos",
+        "content": "Al descargar, instalar o usar Dockerman, reconoces que has leído, entendido y aceptas estar sujeto a estos Términos de Uso. Si no estás de acuerdo con estos términos, no uses el software."
+      },
+      "license": {
+        "title": "Concesión de Licencia",
+        "intro": "Sujeto a tu cumplimiento con estos Términos, te otorgamos una licencia limitada, no exclusiva, no transferible, no sublicenciable para:",
+        "items": [
+          "Descargar e instalar Dockerman en tus dispositivos",
+          "Usar Dockerman para fines personales o de negocio",
+          "Recibir actualizaciones de software cuando estén disponibles"
+        ]
+      },
+      "restrictions": {
+        "title": "Restricciones",
+        "intro": "No puedes:",
+        "items": [
+          "Copiar, modificar o crear obras derivadas del software",
+          "Ingeniería inversa, descompilar o desensamblar el software",
+          "Eliminar o alterar cualquier aviso de propiedad en el software",
+          "Redistribuir, vender, alquilar, arrendar o sublicenciar el software",
+          "Usar el software para cualquier propósito ilícito"
+        ]
+      },
+      "intellectualProperty": {
+        "title": "Propiedad Intelectual",
+        "content": "Dockerman y todos los derechos de propiedad intelectual relacionados son y seguirán siendo propiedad exclusiva nuestra y de nuestros licenciantes. Todos los derechos no expresamente otorgados en estos Términos están reservados."
+      },
+      "disclaimer": {
+        "title": "Descargo de Responsabilidad",
+        "content": "EL SOFTWARE SE PROPORCIONA 'TAL CUAL', SIN GARANTÍA DE NINGÚN TIPO. EN LA MEDIDA MÁXIMA PERMITIDA POR LA LEY, RENUNCIAMOS A TODAS LAS GARANTÍAS, EXPRESAS O IMPLÍCITAS, INCLUYENDO PERO NO LIMITADO A GARANTÍAS DE COMERCIABILIDAD, IDONEIDAD PARA UN PROPÓSITO PARTICULAR Y NO INFRACCIÓN."
+      },
+      "updatesToTerms": {
+        "title": "Actualizaciones a los Términos",
+        "content": "Nos reservamos el derecho de modificar estos Términos en cualquier momento. Te notificaremos sobre cualquier cambio material publicando los Términos actualizados en nuestro sitio web. Tu uso continuo de Dockerman después de tales modificaciones constituye tu aceptación de los Términos actualizados."
+      },
+      "contact": {
+        "title": "Contacto",
+        "content": "Si tienes alguna pregunta sobre estos Términos, por favor contáctanos en"
+      }
+    }
+  },
+  "dpa": {
+    "badge": "DPA",
+    "title": "Acuerdo de Procesamiento de Datos",
+    "description": "Este acuerdo describe cómo Dockerman procesa y protege tus datos.",
+    "sections": {
+      "overview": {
+        "title": "Resumen del Procesamiento de Datos",
+        "intro": "Dockerman procesa datos en dos categorías principales:",
+        "items": [
+          "Datos locales: procesados exclusivamente en tu dispositivo",
+          "Análisis anónimos: recopilados para mejorar el producto (opción de no participar disponible)"
+        ]
+      },
+      "categories": {
+        "title": "Categorías de Datos",
+        "localData": "Datos Locales (nunca transmitidos):",
+        "localItems": [
+          "Configuraciones y ajustes de contenedores Docker",
+          "Logs y métricas de contenedores",
+          "Preferencias de aplicación local",
+          "Credenciales de conexión SSH",
+          "Estadísticas de recursos del sistema"
+        ],
+        "analyticsData": "Análisis Anónimos (opción de no participar disponible):",
+        "analyticsItems": [
+          "Versión de la app y tipo de sistema operativo",
+          "Patrones de navegación de páginas",
+          "Conteos de uso de funciones (no contenido)",
+          "Tipos de conexión al host Docker"
+        ]
+      },
+      "security": {
+        "title": "Almacenamiento y Seguridad de Datos",
+        "intro": "Implementamos medidas de seguridad para proteger tus datos:",
+        "items": [
+          "Todos los datos de análisis están completamente anonimizados",
+          "Nunca se recogen identificadores personales",
+          "El análisis puede deshabilitarse en cualquier momento",
+          "Los datos locales permanecen encriptados en tu dispositivo"
+        ]
+      },
+      "purposes": {
+        "title": "Propósitos del Procesamiento de Datos",
+        "intro": "Procesamos datos de análisis anónimos para los siguientes propósitos:",
+        "items": [
+          "Entender qué funciones se usan más",
+          "Identificar áreas para mejorar",
+          "Rastrear la adopción de nuevas funciones",
+          "Descubrir problemas de usabilidad"
+        ]
+      },
+      "retention": {
+        "title": "Retención de Datos",
+        "content": "Los datos de análisis anónimos se retienen para propósitos de mejora del producto. Dado que los datos son anónimos, no pueden asociarse con ningún individuo. Los datos locales permanecen bajo tu control y se almacenan solo en tu dispositivo."
+      },
+      "rights": {
+        "title": "Tus Derechos",
+        "intro": "Tienes derecho a:",
+        "items": [
+          "Optar por no participar en la recolección de análisis en cualquier momento",
+          "Usar Dockerman sin ninguna recolección de datos",
+          "Solicitar información sobre nuestras prácticas de datos",
+          "Contactarnos con inquietudes de privacidad"
+        ]
+      },
+      "contact": {
+        "title": "Contacto",
+        "content": "Para cualquier pregunta sobre el procesamiento de datos o para ejercer tus derechos, por favor contáctanos en"
+      }
+    }
+  }
+}

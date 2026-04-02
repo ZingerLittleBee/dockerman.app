@@ -6,11 +6,15 @@ import { useEffect } from 'react'
 import { initReactI18next, useTranslation as useTranslationOrg } from 'react-i18next'
 // Import translations synchronously to avoid hydration mismatch
 import en from '../locales/en.json'
+import es from '../locales/es.json'
+import ja from '../locales/ja.json'
 import zh from '../locales/zh.json'
 import { defaultLocale, getOptions, type Locale, locales } from './settings'
 
 const resources = {
   en: { translation: en },
+  es: { translation: es },
+  ja: { translation: ja },
   zh: { translation: zh }
 }
 
