@@ -5,6 +5,7 @@ import { Inter } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
 import { LenisProvider } from '@repo/shared/components/LenisProvider'
+import AgentationClient from '@/components/AgentationClient'
 import { siteConfig } from './siteConfig'
 
 const inter = Inter({
@@ -94,6 +95,7 @@ export default function RootLayout({
         className={`${inter.variable} min-h-screen scroll-auto antialiased selection:bg-indigo-100 selection:text-indigo-700 dark:bg-gray-950`}
       >
         <LenisProvider>{children}</LenisProvider>
+        {process.env.NODE_ENV === 'development' ? <AgentationClient /> : null}
         <Analytics />
         <SpeedInsights />
       </body>

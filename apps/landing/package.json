@@ -51,6 +51,7 @@
     "@types/node": "^22.10.5",
     "@types/react": "19.2.10",
     "@types/react-dom": "19.2.3",
+    "agentation": "^3.0.2",
     "react-grab": "^0.0.98",
     "shiki": "^1.26.1",
     "typescript": "^5.7.3"

@@ -2,9 +2,8 @@
 
 import * as AccordionPrimitives from '@radix-ui/react-accordion'
 import { RiAddLine } from '@remixicon/react'
-import React from 'react'
-
 import { cx } from '@repo/shared/utils'
+import React from 'react'
 
 const Accordion = AccordionPrimitives.Root
 
@@ -14,11 +13,11 @@ const AccordionTrigger = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitives.Trigger>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitives.Trigger>
 >(({ className, children, ...props }, forwardedRef) => (
-  <AccordionPrimitives.Header className="flex">
+  <AccordionPrimitives.Header className="flex w-full">
     <AccordionPrimitives.Trigger
       className={cx(
         // base
-        'group flex flex-1 cursor-pointer items-center justify-between py-3 text-left font-medium text-sm leading-none',
+        'group flex w-full flex-1 cursor-pointer items-center justify-between py-3 text-left font-medium text-sm leading-none',
         // text color
         'text-gray-900 dark:text-gray-50',
         // disabled
