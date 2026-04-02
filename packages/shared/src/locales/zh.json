@@ -159,7 +159,17 @@
   "changelog": {
     "badge": "更新日志",
     "title": "最新动态",
-    "description": "了解 Dockerman 的最新更新、功能和改进。"
+    "description": "了解 Dockerman 的最新更新、功能和改进。",
+    "subscribe": {
+      "title": "通过邮件获取版本更新",
+      "description": "订阅更新日志后，Dockerman 有重要版本发布时我们会发邮件通知您。",
+      "placeholder": "输入你的邮箱",
+      "button": "订阅",
+      "notice": "不会发送垃圾邮件，只发送产品和版本更新。",
+      "success": "订阅成功，下一次版本发布时我们会邮件通知您。",
+      "fallbackSuccess": "正在打开你的邮件客户端以确认订阅。",
+      "error": "订阅失败，请稍后再试。"
+    }
   },
   "about": {
     "badge": "关于",

@@ -159,7 +159,17 @@
   "changelog": {
     "badge": "changelog",
     "title": "What's New",
-    "description": "Keep track of the latest updates, features, and improvements to Dockerman."
+    "description": "Keep track of the latest updates, features, and improvements to Dockerman.",
+    "subscribe": {
+      "title": "Get release updates in your inbox",
+      "description": "Subscribe to changelog updates and we’ll email you when major Dockerman releases ship.",
+      "placeholder": "Enter your email",
+      "button": "Subscribe",
+      "notice": "No spam. Only product and release updates.",
+      "success": "You're subscribed. We'll email you on the next release.",
+      "fallbackSuccess": "Your mail app is opening to confirm the subscription.",
+      "error": "Subscription failed. Please try again."
+    }
   },
   "about": {
     "badge": "about",
