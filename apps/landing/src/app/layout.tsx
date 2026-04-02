@@ -1,11 +1,11 @@
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import type { Metadata } from 'next'
-import dynamic from 'next/dynamic'
 import { Inter } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
 import { LenisProvider } from '@repo/shared/components/LenisProvider'
+import AgentationClient from '@/components/AgentationClient'
 import { siteConfig } from './siteConfig'
 
 const inter = Inter({
@@ -13,13 +13,6 @@ const inter = Inter({
   display: 'swap',
   variable: '--font-inter'
 })
-
-const AgentationClient =
-  process.env.NODE_ENV === 'development'
-    ? dynamic(() => import('@/components/AgentationClient'), {
-        ssr: false
-      })
-    : null
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://dockerman.app'),
@@ -102,7 +95,7 @@ export default function RootLayout({
         className={`${inter.variable} min-h-screen scroll-auto antialiased selection:bg-indigo-100 selection:text-indigo-700 dark:bg-gray-950`}
       >
         <LenisProvider>{children}</LenisProvider>
-        {AgentationClient ? <AgentationClient /> : null}
+        {process.env.NODE_ENV === 'development' ? <AgentationClient /> : null}
         <Analytics />
         <SpeedInsights />
       </body>
