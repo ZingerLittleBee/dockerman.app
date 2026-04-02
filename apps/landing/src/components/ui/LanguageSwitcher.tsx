@@ -1,19 +1,9 @@
 'use client'
 
+import { cookieName, type Locale, localeConfig, locales } from '@repo/shared/i18n'
 import { usePathname, useRouter } from 'next/navigation'
 import posthog from 'posthog-js'
 import { useEffect, useRef, useState } from 'react'
-import { cookieName, type Locale, locales } from '@repo/shared/i18n'
-
-const languageNames: Record<Locale, string> = {
-  en: 'EN',
-  zh: '中'
-}
-
-const languageFullNames: Record<Locale, string> = {
-  en: 'English',
-  zh: '中文'
-}
 
 export function LanguageSwitcher({ currentLocale }: { currentLocale: Locale }) {
   const router = useRouter()
@@ -51,20 +41,23 @@ export function LanguageSwitcher({ currentLocale }: { currentLocale: Locale }) {
     setOpen(false)
   }
 
+  const currentConfig = localeConfig[currentLocale]
+
   return (
     <div className="relative" ref={ref}>
       <button
         aria-label="Switch language"
-        className="flex size-10 items-center justify-center rounded-lg text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+        className="flex items-center justify-center gap-2 rounded-lg px-3 py-2 text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
         onClick={() => setOpen(!open)}
       >
-        <span className="font-medium text-sm">{languageNames[currentLocale]}</span>
+        <span className="text-base">{currentConfig.flag}</span>
+        <span className="hidden font-medium text-sm sm:inline">{currentConfig.name}</span>
       </button>
       {open && (
-        <div className="absolute top-12 right-0 z-50 min-w-[120px] rounded-lg border border-gray-200 bg-white py-1 shadow-lg dark:border-gray-700 dark:bg-gray-900">
+        <div className="absolute top-12 right-0 z-50 min-w-[160px] rounded-lg border border-gray-200 bg-white py-1 shadow-lg dark:border-gray-700 dark:bg-gray-900">
           {locales.map((locale) => (
             <button
-              className={`flex w-full items-center px-4 py-2 text-left text-sm transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 ${
+              className={`flex w-full items-center gap-2 px-4 py-2 text-left text-sm transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 ${
                 locale === currentLocale
                   ? 'text-indigo-600 dark:text-indigo-400'
                   : 'text-gray-700 dark:text-gray-300'
@@ -72,7 +65,8 @@ export function LanguageSwitcher({ currentLocale }: { currentLocale: Locale }) {
               key={locale}
               onClick={() => switchLocale(locale)}
             >
-              {languageFullNames[locale]}
+              <span className="text-base">{localeConfig[locale].flag}</span>
+              <span>{localeConfig[locale].name}</span>
             </button>
           ))}
         </div>

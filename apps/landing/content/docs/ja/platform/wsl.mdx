@@ -1,0 +1,18 @@
+---
+title: WSL サポート
+description: Windows Subsystem for Linux で Dockerman を使用する
+---
+
+## 概要
+
+Dockerman は Windows 上の WSL2 内の Docker と連携できます。
+
+## セットアップ
+
+1. WSL2 がインストールされていることを確認
+2. WSL2 ディストリビューションに Docker をインストール
+3. Dockerman の設定で WSL ソケットを選択
+
+## WSL2 ソケットパス
+
+デフォルト: `\\wsl$\<distro>\var\run\docker.sock`

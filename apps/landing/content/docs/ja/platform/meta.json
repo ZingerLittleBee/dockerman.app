@@ -1,0 +1,8 @@
+{
+  "title": "プラットフォーム",
+  "pages": [
+    "wsl",
+    "linux"
+  ],
+  "defaultOpen": true
+}

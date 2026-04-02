@@ -1,0 +1,11 @@
+{
+  "title": "Dockerman ドキュメント",
+  "pages": [
+    "index",
+    "getting-started",
+    "---",
+    "guides",
+    "platform",
+    "reference"
+  ]
+}

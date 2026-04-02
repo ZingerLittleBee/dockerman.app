@@ -1,0 +1,458 @@
+{
+  "nav": {
+    "home": "ホーム",
+    "pricing": "価格",
+    "download": "ダウンロード",
+    "changelog": "変更履歴"
+  },
+  "hero": {
+    "title": "モダンな Docker",
+    "titleBreak": "管理を簡単に",
+    "description": "シンプルさとパフォーマンスに焦点を当てた、軽量で強力な Docker 管理 UI。",
+    "cta": "無料でダウンロード"
+  },
+  "features": {
+    "badge": "デスクトップアプリ",
+    "title": "軽量 Docker 管理",
+    "description": "Docker 管理を再定義 - 超軽量で高速。Tauri と Rust で構築された Dockerman は、最小限のシステムリソースを使用しながら即座に応答します。効率的なコンテナ管理に必要な機能を備えた洗練されたインターフェース。",
+    "stats": {
+      "performance": "パフォーマンス",
+      "bundleSize": "バンドルサイズ",
+      "memoryUsage": "メモリ使用量"
+    }
+  },
+  "faqs": {
+    "title": "よくある質問",
+    "description": "お探しの答えが見つかりませんか？GitHub で",
+    "openIssues": "Issue を作成",
+    "descriptionSuffix": "してお問い合わせください。",
+    "items": [
+      {
+        "question": "Dockerman はどのオペレーティングシステムをサポートしていますか？",
+        "answer": "Dockerman は macOS、Windows、主要な Linux ディストリビューションをサポートしています。Tauri と Rust で構築されており、さまざまなオペレーティングシステムで一貫したパフォーマンスと体験を提供します。"
+      },
+      {
+        "question": "Dockerman はインターネット接続を必要としますか？",
+        "answer": "Dockerman はローカルアプリケーションであり、インターネット接続は不要です。デバイス上で完全に実行されるため、データのセキュリティとプライバシーが確保されます。"
+      },
+      {
+        "question": "SSH データはどこに保存されますか？",
+        "answer": "SSH データはお使いのデバイスに保存され、いかなるサーバーにもアップロードされることはありません。"
+      },
+      {
+        "question": "Dockerman は他の Docker 管理ツールと何が違いますか？",
+        "answer": "Dockerman は速度と効率性を重視しています。高速な起動、最小限のリソース使用量（30MB 未満）、リアルタイムのコンテナ監視、そして最も一般的な Docker タスクに焦点を当てたシンプルなインターフェースが特徴です。"
+      }
+    ]
+  },
+  "cta": {
+    "title": "始める準備はできましたか？",
+    "description": "軽量で強力なデスクトップアプリで Docker コンテナの管理を開始しましょう。",
+    "downloadButton": "デスクトップ版をダウンロード",
+    "learnMore": "詳細を知りたいですか？",
+    "viewChangelog": "変更履歴を見る"
+  },
+  "footer": {
+    "description": "モダンで軽量な Docker 管理 UI。世界中の開発者のために愛を込めて作られました。",
+    "product": "製品",
+    "resources": "リソース",
+    "company": "会社",
+    "legal": "法的情報",
+    "copyright": "Dockerman. All rights reserved.",
+    "status": "すべてのシステムが正常に動作しています",
+    "links": {
+      "pricing": "価格",
+      "download": "ダウンロード",
+      "changelog": "変更履歴",
+      "github": "GitHub",
+      "about": "会社概要",
+      "privacy": "プライバシーポリシー",
+      "terms": "利用規約",
+      "dpa": "DPA"
+    }
+  },
+  "common": {
+    "download": "ダウンロード"
+  },
+  "pricing": {
+    "badge": "価格",
+    "title": "Dockerman ライセンス",
+    "subtitle": "ローカルは無料、リモートは有料",
+    "description": "シンプルな価格設定。サブスクリプションなし。一度購入すれば永久にご利用いただけます。",
+    "earlyBird": "アーリーバード - 先着 100 名様のみ",
+    "deadline": "アーリーバード価格は 4 月 1 日まで",
+    "countdown": {
+      "days": "日",
+      "hours": "時間",
+      "minutes": "分",
+      "seconds": "秒",
+      "expired": "アーリーバード価格は終了しました"
+    },
+    "updatePolicy": "生涯無料アップデート",
+    "plans": {
+      "oneDevice": "1 台の macOS/Windows デバイス用",
+      "threeDevices": "3 台の macOS/Windows デバイス用",
+      "threeDevicesSaving": "単体ライセンスと比較して 55% お得"
+    },
+    "features": {
+      "crossPlatform": "macOS、Windows、Linux 対応",
+      "containerManagement": "コンテナライフサイクル管理",
+      "imageManagement": "イメージ管理とビルド",
+      "volumeManagement": "ボリューム管理",
+      "networkManagement": "ネットワーク管理",
+      "realTimeMonitoring": "リアルタイムリソース監視",
+      "integratedTerminal": "統合ターミナルアクセス",
+      "logViewer": "フィルタリング付きログビューア",
+      "fileBrowser": "コンテナファイルブラウザ",
+      "composeSupport": "Docker Compose 対応",
+      "darkMode": "ダークモード対応",
+      "localDockerOnly": "リモートホスト対応",
+      "everythingInFree": "無料版のすべての機能",
+      "remoteViaSSH": "SSH 経由のリモートホスト接続",
+      "multiHostManagement": "マルチホスト管理",
+      "lifetimeUpdates": "今後のすべてのアップデートを含む"
+    },
+    "cta": {
+      "currentPlan": "現在のプラン",
+      "upgradeNow": "今すぐアップグレード"
+    },
+    "success": {
+      "title": "支払いが完了しました！",
+      "description": "Dockerman をご購入いただきありがとうございます。ライセンスキーはまもなくメールで送信されます。",
+      "nextSteps": "次のステップ",
+      "step1": "メールでライセンスキーを確認する",
+      "step2": "まだダウンロードしていない場合は Dockerman をダウンロードする",
+      "step3": "アプリの設定でライセンスを有効化する",
+      "downloadNow": "今すぐダウンロード",
+      "contactSupport": "サポートに問い合わせ"
+    },
+    "faq": {
+      "title": "よくある質問",
+      "items": [
+        {
+          "question": "生涯ライセンスとは何ですか？",
+          "answer": "一度購入すれば、永久に Dockerman をご利用いただけます。ライセンスには、今後のすべてのバージョンの生涯無料アップデートが含まれています。"
+        },
+        {
+          "question": "デバイス制限とは何ですか？",
+          "answer": "ライセンスで指定された台数のデバイスで Dockerman を有効化できます。いつでもデバイスを無効化し、別のデバイスにライセンスを移行できます。デバイスへのアクセスを失った場合、7 日に 1 回の制限でライセンスをリセットしてすべてのデバイスを無効化できます。"
+        },
+        {
+          "question": "ライセンスは macOS と Windows の両方で使用できますか？",
+          "answer": "はい！ライセンスは macOS と Windows の両方で動作します。デバイス制限内でプラットフォームを自由に組み合わせて使用できます。"
+        },
+        {
+          "question": "Dockerman を商用目的で使用できますか？",
+          "answer": "もちろんです！個人または商用での使用に制限はありません。Dockerman はプロフェッショナルおよびエンタープライズ環境を含む、あらゆる目的で使用できます。"
+        },
+        {
+          "question": "返金ポリシーはありますか？",
+          "answer": "14 日間の返金保証を提供しています。Dockerman にご満足いただけない場合は、購入後 14 日以内に support@dockerman.app までメールでご連絡ください。全額返金いたします。"
+        },
+        {
+          "question": "さらに多くのデバイスが必要ですか？",
+          "answer": "3 台を超えるデバイスのライセンスが必要な場合は、support@dockerman.app までご連絡いただき、カスタム価格についてお問い合わせください。"
+        }
+      ]
+    }
+  },
+  "changelog": {
+    "badge": "変更履歴",
+    "title": "最新情報",
+    "description": "Dockerman の最新アップデート、機能、改善点を追跡しましょう。",
+    "subscribe": {
+      "title": "メールでリリースアップデートを受け取る",
+      "description": "変更履歴の更新を購読すると、主要な Dockerman リリースが出荷されたときにメールでお知らせします。",
+      "placeholder": "メールアドレスを入力",
+      "button": "購読する",
+      "notice": "スパムは送信しません。製品とリリースの更新のみ。",
+      "success": "購読しました。次のリリースでメールを送信します。",
+      "fallbackSuccess": "購読を確認するためにメールアプリを開いています。",
+      "error": "購読に失敗しました。もう一度お試しください。"
+    }
+  },
+  "about": {
+    "badge": "会社概要",
+    "title": "私たちが常に望んでいた Docker 管理ツールを構築する",
+    "description": "私たちは、Docker コンテナの管理がシンプルで直感的かつ効率的であるべきだと信じる開発者とデザイナーのチームです。",
+    "mission": {
+      "title": "私たちの使命",
+      "p1": "Dockerman は、既存の Docker 管理ツールへの不満から生まれました。高速でクロスプラットフォームであり、開発者の生産性に焦点を当てたものが欲しかったのです。",
+      "p2": "私たちの使命は、個人の開発者から大規模チームまで、すべての人にコンテナ管理をアクセス可能にしながら、Docker が提供する強力な機能と柔軟性を維持することです。"
+    },
+    "team": {
+      "title": "チームを知る",
+      "role": "フルスタック開発者",
+      "bio": "Rust、TypeScript、Flutter でコーディング | コーヒーをソフトウェアの魔法に変換 | テクノロジーと人間性の架け橋となるものを構築"
+    },
+    "values": {
+      "title": "私たちの価値観",
+      "performanceFirst": {
+        "title": "パフォーマンスファースト",
+        "description": "Rust と Tauri で構築され、強力なパフォーマンスと最小限のリソース使用量を実現。"
+      },
+      "developerExperience": {
+        "title": "開発者体験",
+        "description": "開発者のために、開発者によって設計された直感的なインターフェース。"
+      },
+      "privacyFocused": {
+        "title": "プライバシー重視",
+        "description": "あなたのデータはローカルに残ります。透明性とユーザープライバシーを信じています。"
+      }
+    },
+    "connect": {
+      "title": "つながりを保つ",
+      "description": "Dockerman の開発をフォローし、新機能とアップデートをいち早く知りましょう。",
+      "followGithub": "GitHub でフォロー",
+      "followX": "X でフォロー"
+    }
+  },
+  "download": {
+    "badge": "ダウンロード",
+    "title": "プラットフォームに合ったバージョンをダウンロード",
+    "description": "システムに合ったバージョンを選択してください。すべてのダウンロードは",
+    "releasesPage": "リリースページ",
+    "homebrew": "Homebrew でインストール",
+    "comingSoon": "近日公開",
+    "preview": "プレビュー",
+    "platforms": {
+      "macos": "macOS",
+      "windows": "Windows",
+      "linux": "Linux"
+    },
+    "options": {
+      "universal": "ユニバーサル (Apple silicon/Intel)",
+      "windows64": "Windows (64ビット)",
+      "appimage": "AppImage (64ビット)",
+      "deb": "Debian / Ubuntu",
+      "rpm": "Red Hat / Fedora"
+    }
+  },
+  "snapshot": {
+    "badge": "パワフル",
+    "title": "Docker 管理、",
+    "titleBreak": "シンプルに",
+    "description": "シンプルさとパフォーマンスに焦点を当てた、モダンで軽量な Docker 管理 UI。クロスプラットフォームのデスクトップ統合でコンテナを監視および管理します。",
+    "tabs": {
+      "dashboard": "ダッシュボード",
+      "terminal": "ターミナル",
+      "processes": "プロセス",
+      "inspect": "検査",
+      "stats": "統計",
+      "logs": "ログ",
+      "ssh": "SSH",
+      "build": "ビルド",
+      "events": "イベント",
+      "file": "コンテナファイル",
+      "imageAnalysis": "イメージ分析",
+      "compose": "Compose",
+      "volumeBrowse": "ボリュームブラウズ",
+      "storage": "ストレージ",
+      "filePreview": "ファイルプレビュー",
+      "dockerHub": "Docker Hub",
+      "imageSecurity": "イメージセキュリティ"
+    },
+    "features": {
+      "realTimeMonitoring": {
+        "name": "リアルタイム監視",
+        "description": "強力なパフォーマンスで、コンテナの CPU、メモリ、ネットワーク、I/O メトリクスをリアルタイムで監視します。"
+      },
+      "containerManagement": {
+        "name": "コンテナ管理",
+        "description": "直感的なインターフェースでコンテナを起動、停止、検査、管理します。統合ターミナルとプロセスリストにアクセスします。"
+      },
+      "remoteConnectivity": {
+        "name": "リモート接続",
+        "description": "SSH を介してリモート Docker インスタンスに安全に接続します。単一のインターフェースから複数のホスト上のコンテナを管理します。"
+      },
+      "powerfulPerformance": {
+        "name": "強力なパフォーマンス",
+        "description": "Tauri で構築され、高速な起動と最小限のリソース使用量を実現しながら Docker 環境を管理します。"
+      }
+    }
+  },
+  "global": {
+    "badge": "モダンな Docker 管理",
+    "title": "軽量",
+    "titleBreak": "Docker 管理",
+    "titleMobile": "強力で軽量",
+    "features": {
+      "powerfulPerformance": {
+        "name": "強力なパフォーマンス",
+        "description": "Tauri と Rust で構築され、高速で強力なデスクトップ体験を提供します。"
+      },
+      "realTimeMonitoring": {
+        "name": "リアルタイム監視",
+        "description": "コンテナの統計、ログ、リソース使用状況をリアルタイムで監視します。"
+      },
+      "containerManagement": {
+        "name": "コンテナ管理",
+        "description": "詳細な検査とターミナルアクセスでコンテナを簡単に管理します。"
+      }
+    }
+  },
+  "privacy": {
+    "badge": "プライバシー",
+    "title": "プライバシーポリシー",
+    "description": "私たちはあなたのプライバシーを真剣に受け止めています。以下は、データの取り扱い方法です。",
+    "sections": {
+      "dataCollection": {
+        "title": "データ収集",
+        "content": "Dockerman は、マシン上でローカルに実行されるデスクトップアプリケーションです。すべてのコンテナとイメージデータは、Docker デーモンを介してローカルで処理されます。製品を改善するために、最小限の匿名使用分析データを収集しています（詳細は以下の分析セクションを参照）。"
+      },
+      "analytics": {
+        "title": "匿名分析",
+        "content": "ユーザーが Dockerman をどのように使用しているかを理解し、製品を改善するために、PostHog を介して匿名使用データを収集しています。このデータは完全に匿名であり、あなたを特定するために使用することはできません。",
+        "collected": "収集するデータ：",
+        "collectedItems": [
+          "アプリ起動イベント（アプリバージョン、オペレーティングシステム）",
+          "ページナビゲーション（どのページが訪問されたか）",
+          "機能使用状況（コンテナ、イメージ、Compose、ネットワーク、ボリューム操作）",
+          "Docker ホスト接続タイプ（ローカルソケット、TCP、SSH）"
+        ],
+        "notCollected": "収集しないデータ：",
+        "notCollectedItems": [
+          "個人を特定できる情報",
+          "コンテナまたはイメージの名前/内容",
+          "IP アドレスまたは位置情報",
+          "Docker 設定または環境変数",
+          "機密性の高いファイルや認証情報"
+        ]
+      },
+      "optOut": {
+        "title": "オプトアウト",
+        "content": "設定 → プライバシーで、いつでも分析を無効にできます。無効にすると、データの収集や送信は行われず、既存のセッションデータも即座にクリアされます。"
+      },
+      "localStorage": {
+        "title": "ローカルストレージ",
+        "content": "アプリケーション設定と環境設定は、デバイス上にローカルに保存されます。これらの設定は外部サーバーに送信されることはなく、常にあなたの管理下にあります。"
+      },
+      "updates": {
+        "title": "アップデート",
+        "content": "アプリケーションのアップデートを確認する際、Dockerman は最新バージョンを確認するためにリリースリポジトリにのみ接続します。このプロセス中に個人情報が送信されることはありません。"
+      },
+      "contact": {
+        "title": "お問い合わせ",
+        "content": "プライバシーに関するご質問がございましたら、お気軽にサポートチャネルからお問い合わせください。"
+      }
+    }
+  },
+  "terms": {
+    "badge": "規約",
+    "title": "利用規約",
+    "description": "Dockerman を使用する前に、これらの規約を注意深くお読みください。Dockerman を使用することで、これらの規約に同意したことになります。",
+    "sections": {
+      "acceptance": {
+        "title": "規約の同意",
+        "content": "Dockerman をダウンロード、インストール、または使用することで、これらの利用規約を読み、理解し、遵守することに同意したことを認めます。これらの規約に同意しない場合は、ソフトウェアを使用しないでください。"
+      },
+      "license": {
+        "title": "ライセンスの付与",
+        "intro": "これらの規約への遵守を条件として、以下のような限定的、非独占的、譲渡不可、再ライセンス不可のライセンスを付与します：",
+        "items": [
+          "デバイスに Dockerman をダウンロードしてインストールする",
+          "個人またはビジネス目的で Dockerman を使用する",
+          "利用可能な場合、ソフトウェアアップデートを受け取る"
+        ]
+      },
+      "restrictions": {
+        "title": "制限事項",
+        "intro": "あなたは以下のことを行ってはなりません：",
+        "items": [
+          "ソフトウェアを複製、修正、または派生作品を作成する",
+          "ソフトウェアをリバースエンジニアリング、逆コンパイル、または逆アセンブルする",
+          "ソフトウェア内のプロプライエタリな通知を削除または変更する",
+          "ソフトウェアを再配布、販売、レンタル、リース、またはサブライセンスする",
+          "違法な目的でソフトウェアを使用する"
+        ]
+      },
+      "intellectualProperty": {
+        "title": "知的財産",
+        "content": "Dockerman および関連するすべての知的財産権は、当社および当社のライセンサーの独占的財産であり、今後もそうであり続けます。これらの規約で明示的に付与されていないすべての権利は留保されています。"
+      },
+      "disclaimer": {
+        "title": "免責事項",
+        "content": "本ソフトウェアは「現状のまま」提供され、いかなる種類の保証もありません。法律で許容される最大限の範囲で、商業性の保証、特定の目的への適合性、非侵害性を含むすべての明示または黙示の保証を否認します。"
+      },
+      "updatesToTerms": {
+        "title": "規約の更新",
+        "content": "当社は、これらの規約をいつでも変更する権利を留保します。重要な変更については、ウェブサイトに更新された規約を掲載することで通知します。そのような変更後に Dockerman を引き続き使用することは、更新された規約への同意を構成します。"
+      },
+      "contact": {
+        "title": "お問い合わせ",
+        "content": "これらの規約に関するご質問がございましたら、以下までお問い合わせください："
+      }
+    }
+  },
+  "dpa": {
+    "badge": "DPA",
+    "title": "データ処理契約",
+    "description": "本契約は、Dockerman がデータをどのように処理し保護するかを概説します。",
+    "sections": {
+      "overview": {
+        "title": "データ処理の概要",
+        "intro": "Dockerman は、主に 2 つのカテゴリでデータを処理します：",
+        "items": [
+          "ローカルデータ：お客様のデバイス上でのみ処理",
+          "匿名分析：製品改善のために収集（オプトアウト可能）"
+        ]
+      },
+      "categories": {
+        "title": "データカテゴリ",
+        "localData": "ローカルデータ（送信されません）：",
+        "localItems": [
+          "Docker コンテナ設定と環境設定",
+          "コンテナログとメトリクス",
+          "ローカルアプリケーション環境設定",
+          "SSH 接続認証情報",
+          "システムリソース統計"
+        ],
+        "analyticsData": "匿名分析（オプトアウト可能）：",
+        "analyticsItems": [
+          "アプリバージョンとオペレーティングシステムタイプ",
+          "ページナビゲーションパターン",
+          "機能使用回数（内容ではなく）",
+          "Docker ホスト接続タイプ"
+        ]
+      },
+      "security": {
+        "title": "データストレージとセキュリティ",
+        "intro": "データを保護するためにセキュリティ対策を実施しています：",
+        "items": [
+          "すべての分析データは完全に匿名化されています",
+          "個人を特定できる識別子は収集されません",
+          "分析はいつでも無効にできます",
+          "ローカルデータはデバイス上で暗号化されて保存されます"
+        ]
+      },
+      "purposes": {
+        "title": "データ処理の目的",
+        "intro": "以下の目的のために匿名分析データを処理します：",
+        "items": [
+          "どの機能が最も使用されているかを理解する",
+          "改善が必要な領域を特定する",
+          "新機能の採用状況を追跡する",
+          "ユーザビリティの問題を発見する"
+        ]
+      },
+      "retention": {
+        "title": "データ保持",
+        "content": "匿名分析データは、製品改善の目的で保持されます。データは匿名であるため、いかなる個人とも関連付けることはできません。ローカルデータはあなたの管理下にあり、デバイス上にのみ保存されます。"
+      },
+      "rights": {
+        "title": "あなたの権利",
+        "intro": "あなたには以下の権利があります：",
+        "items": [
+          "いつでも分析収集をオプトアウトする",
+          "データを収集せずに Dockerman を使用する",
+          "データ処理方法に関する情報をリクエストする",
+          "プライバシーに関する懸念で当社に連絡する"
+        ]
+      },
+      "contact": {
+        "title": "お問い合わせ",
+        "content": "データ処理に関するご質問や、権利の行使については、以下までお問い合わせください："
+      }
+    }
+  }
+}

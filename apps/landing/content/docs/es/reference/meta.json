@@ -1,0 +1,10 @@
+{
+  "title": "Referencia",
+  "pages": [
+    "settings",
+    "keyboard-shortcuts",
+    "licensing",
+    "troubleshooting"
+  ],
+  "defaultOpen": true
+}
