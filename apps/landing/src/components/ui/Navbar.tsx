@@ -185,7 +185,7 @@ export function Navigation() {
             </div>
           </nav>
           <div className="hidden items-center gap-2 md:flex">
-            <LanguageSwitcher currentLocale={locale} />
+            <LanguageSwitcher compact={scrolled} currentLocale={locale} />
             <ThemeToggleButton />
             <a
               href={`/${locale}/download`}

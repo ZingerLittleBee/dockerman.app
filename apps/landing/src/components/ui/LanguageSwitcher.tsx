@@ -1,11 +1,12 @@
 'use client'
 
+import { RiTranslate2 } from '@remixicon/react'
 import { cookieName, type Locale, localeConfig, locales } from '@repo/shared/i18n'
 import { usePathname, useRouter } from 'next/navigation'
 import posthog from 'posthog-js'
 import { useEffect, useRef, useState } from 'react'
 
-export function LanguageSwitcher({ currentLocale }: { currentLocale: Locale }) {
+export function LanguageSwitcher({ currentLocale, compact }: { currentLocale: Locale; compact?: boolean }) {
   const router = useRouter()
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
@@ -47,11 +48,19 @@ export function LanguageSwitcher({ currentLocale }: { currentLocale: Locale }) {
     <div className="relative" ref={ref}>
       <button
         aria-label="Switch language"
-        className="flex items-center justify-center gap-2 rounded-lg px-3 py-2 text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+        className={compact
+          ? 'flex size-10 items-center justify-center rounded-lg text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
+          : 'flex items-center justify-center gap-2 rounded-lg px-3 py-2 text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'}
         onClick={() => setOpen(!open)}
       >
-        <span className="text-base">{currentConfig.flag}</span>
-        <span className="hidden font-medium text-sm sm:inline">{currentConfig.name}</span>
+        {compact ? (
+          <RiTranslate2 className="size-5" />
+        ) : (
+          <>
+            <span className="text-base">{currentConfig.flag}</span>
+            <span className="hidden font-medium text-sm sm:inline">{currentConfig.name}</span>
+          </>
+        )}
       </button>
       {open && (
         <div className="absolute top-12 right-0 z-50 min-w-[160px] rounded-lg border border-gray-200 bg-white py-1 shadow-lg dark:border-gray-700 dark:bg-gray-900">
