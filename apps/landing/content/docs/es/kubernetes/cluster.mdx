@@ -1,0 +1,78 @@
+---
+title: "Clúster"
+description: "Inicia un clúster local k3d o importa un kubeconfig existente para gestionar cualquier entorno Kubernetes."
+---
+
+Inicia un clúster local con k3d o importa un kubeconfig existente, luego gestiona el clúster desde la misma sección de Kubernetes.
+
+## Inicia un clúster local con k3d
+
+Usa k3d cuando quieras un clúster local desechable para desarrollo y pruebas.
+
+<Steps>
+  <Step>
+    ### Abre la sección de Kubernetes
+
+    Si no hay ningún clúster configurado, Dockerman muestra un botón de Iniciar un clúster.
+  </Step>
+  <Step>
+    ### Haz clic en Iniciar un clúster
+
+    Dockerman descarga el binario de k3d en el primer uso.
+  </Step>
+  <Step>
+    ### Espera a que el clúster se levante
+
+    El clúster local suele iniciarse en unos 10 segundos en una máquina moderna.
+  </Step>
+  <Step>
+    ### Comienza a usar Kubernetes
+
+    El selector de namespaces se completa y las listas de cargas de trabajo se vuelven disponibles.
+  </Step>
+</Steps>
+
+<Callout type="warn">
+  Dockerman descarga el binario de k3d en el primer uso. Permite HTTPS saliente o instala el binario tú mismo antes de comenzar.
+</Callout>
+
+## Importa un clúster existente
+
+Importa un kubeconfig cuando ya tienes un clúster y quieres que Dockerman lo gestione directamente.
+
+<Steps>
+  <Step>
+    ### Haz clic en Importar clúster
+
+    Abre el flujo de importación desde la página de Clúster.
+  </Step>
+  <Step>
+    ### Selecciona un archivo kubeconfig
+
+    Dockerman lee el archivo y te permite elegir un contexto si el archivo contiene más de uno.
+  </Step>
+  <Step>
+    ### Verifica la conexión
+
+    Dockerman sondea el servidor de API antes de guardar el clúster.
+  </Step>
+</Steps>
+
+## Cambia de contexto
+
+Usa el menú desplegable de contexto en la parte superior de la sección de Kubernetes para moverte entre clústeres importados y el clúster local de k3d. Cambiar de contexto recarga las listas para el clúster seleccionado.
+
+## Elimina un clúster
+
+Usa la acción que coincida con el tipo de clúster.
+
+- Eliminar de Dockerman para olvidar un kubeconfig importado mientras dejas el clúster remoto en ejecución.
+- Desmantelar el clúster local de k3d para eliminar el clúster y sus datos.
+
+<Callout type="warn">
+  Desmantelar un clúster de k3d es irreversible. Pierdes todas las cargas de trabajo y volúmenes persistentes creados dentro de él.
+</Callout>
+
+## Versión y estado del clúster
+
+La página de Clúster muestra la versión del servidor, el estado actual y la lista de nodos, incluyendo las versiones de kubelet y kube-proxy de cada nodo, para que puedas detectar desviaciones de versión o una conexión rota de un vistazo.

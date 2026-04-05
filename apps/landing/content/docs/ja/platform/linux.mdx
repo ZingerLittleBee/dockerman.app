@@ -1,22 +1,88 @@
 ---
-title: Linux サポート
-description: Linux システムで Dockerman を使用する
+title: "Linux"
+description: "Linux ディストリビューションに Dockerman をインストールし、セットアップ用に Docker Engine を構成。"
 ---
 
-## 概要
-
-Dockerman は主要な Linux ディストリビューションをサポートしています。
-
-## サポートされているディストリビューション
-
-- Ubuntu 20.04+
-- Debian 11+
-- Fedora 35+
-- Arch Linux
+Dockermanは`.deb`、`.rpm`、またはAppImageとして提供されるため、お使いのディストリビューションにインストールできます。
 
 ## インストール
 
-各ディストリビューションのパッケージ形式をダウンロードしてください：
-- `.deb`（Debian/Ubuntu）
-- `.rpm`（Fedora/RHEL）
-- `.AppImage`（ユニバーサル）
+<Tabs items={['.deb', '.rpm', 'AppImage']}>
+  <Tab>
+    ```bash
+    sudo dpkg -i dockerman_*_amd64.deb
+    sudo apt-get install -f
+    ```
+
+    DebianまたはUbuntuに`.deb`パッケージをインストールします。
+  </Tab>
+  <Tab>
+    ```bash
+    sudo rpm -i dockerman-*.x86_64.rpm
+    # or
+    sudo dnf install dockerman-*.x86_64.rpm
+    ```
+
+    FedoraまたはRHELに`.rpm`パッケージをインストールします。
+  </Tab>
+  <Tab>
+    ```bash
+    chmod +x Dockerman-*.AppImage
+    ./Dockerman-*.AppImage
+    ```
+
+    デスクトップがサポートしている場合は、AppImageLauncherまたは`--install`を使用してください。
+  </Tab>
+</Tabs>
+
+## Docker Engine のセットアップ
+
+[docs.docker.com/engine/install/](https://docs.docker.com/engine/install/)でディストリビューションごとの公式Docker Engineインストール手順に従い、デーモンが実行されていることを確認してください。DockermanはDocker Engine 20.10以降で動作します。
+
+## 権限
+
+<Steps>
+  <Step>
+    ### docker グループへのユーザ追加
+
+    ```bash
+    sudo usermod -aG docker $USER
+    ```
+  </Step>
+  <Step>
+    ### ログアウトと再ログイン
+
+    グループメンバーシップは新しいログインセッションにのみ適用されます。
+  </Step>
+  <Step>
+    ### アクセスの確認
+
+    `sudo`なしで`docker ps`を実行してください。
+  </Step>
+</Steps>
+
+<Callout type="warn">
+  `docker`グループに所属することは、ホスト上での事実上のrootアクセス権を持つことを意味します。より厳格な境界が必要な場合は、rootless Dockerを使用してください。
+</Callout>
+
+## Wayland と X11
+
+DockermanはWaylandとX11の両方で動作します。Waylandではグローバルショートカットはxdg-desktop-portal Shortcuts APIを使用し、X11では従来のキーグラブを使用します。
+
+## Freedesktop 統合
+
+Dockermanは`.desktop`ファイルをインストールするため、アプリケーションメニューに表示されます。トレイアイコンはStatusNotifierItem仕様を使用しており、KDE、拡張機能付きGNOME、XFCE、MATEでサポートされています。
+
+## トラブルシューティング
+
+<Accordions>
+  <Accordion title="docker コマンドが見つからない">
+    まずDocker Engineをインストールし、新しいシェルを開いてPATHがDocker CLIを認識できるようにしてください。
+  </Accordion>
+  <Accordion title="/var/run/docker.sock でのアクセス権拒否">
+    ユーザを`docker`グループに追加し、ログアウトして再ログインして新しいグループメンバーシップを有効にしてください。
+  </Accordion>
+  <Accordion title="トレイアイコンが表示されない">
+    デスクトップ環境用のStatusNotifierItem拡張機能をインストールしてください。GNOMEでは通常、AppIndicatorとKStatusNotifierItem Supportが必要です。
+  </Accordion>
+</Accordions>

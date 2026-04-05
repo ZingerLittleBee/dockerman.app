@@ -1,7 +1,8 @@
 {
-  "title": "平台适配",
+  "title": "平台",
   "pages": [
-    "wsl",
+    "windows",
+    "macos",
     "linux"
   ],
   "defaultOpen": true

@@ -1,0 +1,65 @@
+---
+title: "Resumen"
+description: "Soporte nativo de Kubernetes en Dockerman: cargas de trabajo, redes, configuración, almacenamiento, RBAC, CRDs, Helm y depuración."
+---
+
+El soporte de Kubernetes Fase 1 de Dockerman es una forma ligera y primero-GUI de ejecutar e inspeccionar un clúster Kubernetes real sin cambiar de herramientas o aprender un nuevo panel.
+
+## Por qué Kubernetes en Dockerman
+
+Usa Dockerman cuando quieras Kubernetes en la misma aplicación que ya usas para Docker. Mantén la interfaz local y rápida, trae k3d para la configuración de clúster con un clic, y permanece dentro de una aplicación de escritorio nativa Rust y Tauri en lugar de saltar a otro panel. Es más ligero que la ruta Kubernetes integrada de Docker Desktop y se adapta al desarrollo local, clústeres pequeños y verificaciones de cordura de CI.
+
+## Qué se incluye
+
+<Cards>
+  <Card title="Clúster" href="/es/docs/kubernetes/cluster">
+    Inicia clústeres k3d locales o importa kubeconfigs existentes.
+  </Card>
+  <Card title="Cargas de trabajo" href="/es/docs/kubernetes/workloads">
+    Explora Pods, Deployments, StatefulSets, DaemonSets, Jobs, CronJobs y ReplicaSets.
+  </Card>
+  <Card title="Redes" href="/es/docs/kubernetes/networking">
+    Inspecciona Services, Ingresses, Endpoints y NetworkPolicies.
+  </Card>
+  <Card title="Configuración y almacenamiento" href="/es/docs/kubernetes/config-storage">
+    Trabaja con ConfigMaps, Secrets, PVCs y StorageClasses.
+  </Card>
+  <Card title="RBAC" href="/es/docs/kubernetes/rbac">
+    Ve quién puede hacer qué entre cuentas, roles y bindings.
+  </Card>
+  <Card title="Helm" href="/es/docs/kubernetes/helm">
+    Gestiona repositorios y releases de Helm desde la interfaz.
+  </Card>
+  <Card title="Port Forward y DNS" href="/es/docs/kubernetes/port-forward">
+    Redirige puertos y registra entradas DNS locales automáticas.
+  </Card>
+  <Card title="Asistente de depuración" href="/es/docs/kubernetes/debug">
+    Lanza un pod de depuración efímero con las herramientas que necesitas.
+  </Card>
+</Cards>
+
+## Dos formas de empezar
+
+<Tabs items={['k3d (local)', 'Clúster existente']}>
+  <Tab>
+    Abre [Clúster](/es/docs/kubernetes/cluster) y usa el flujo [Inicia un clúster local con k3d](/es/docs/kubernetes/cluster#inicia-un-clúster-local-con-k3d) cuando quieras un clúster local desechable para desarrollo o pruebas.
+  </Tab>
+  <Tab>
+    Abre [Clúster](/es/docs/kubernetes/cluster) y usa el flujo [Importa un clúster existente](/es/docs/kubernetes/cluster#importa-un-clúster-existente) cuando ya tengas un kubeconfig para kind, minikube, EKS, GKE, AKS o on-prem.
+  </Tab>
+</Tabs>
+
+## Namespaces
+
+Usa el selector de namespaces en la barra superior para filtrar cada lista de Kubernetes. Cambia de namespace sin desconectarte del clúster, luego sigue explorando cargas de trabajo, redes, configuración y RBAC en el nuevo namespace.
+
+## Qué aún no está soportado
+
+<Callout type="info">
+  La Fase 1 se centra en los recursos anteriores. Aún no tienes disponibles estos flujos de trabajo:
+
+  - Creación de clústeres fuera de k3d, como kubeadm o aprovisionamiento de servicios gestionados.
+  - Horizontal pod autoscalers.
+  - Gateway API más allá de Ingress.
+  - Editores visuales de CRDs, usa edición YAML en su lugar.
+</Callout>

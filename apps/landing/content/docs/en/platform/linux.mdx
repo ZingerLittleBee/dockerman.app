@@ -1,83 +1,88 @@
 ---
 title: Linux
-description: Setting up Dockerman on Linux
+description: Install Dockerman on Linux distributions and configure the Docker Engine for your setup.
 ---
 
-## Overview
+Dockerman ships as a `.deb`, `.rpm`, or AppImage so you can install it on the distribution you already use.
 
-Dockerman runs natively on Linux. This guide covers installation, Docker Engine setup, and permissions.
+## Install
 
-## Supported Distributions
+<Tabs items={['.deb', '.rpm', 'AppImage']}>
+  <Tab>
+    ```bash
+    sudo dpkg -i dockerman_*_amd64.deb
+    sudo apt-get install -f
+    ```
 
-- Ubuntu 20.04+
-- Debian 11+
-- Fedora 38+
-- Arch Linux
-- Other distributions with GTK/WebKit support
+    Install the `.deb` package on Debian or Ubuntu.
+  </Tab>
+  <Tab>
+    ```bash
+    sudo rpm -i dockerman-*.x86_64.rpm
+    # or
+    sudo dnf install dockerman-*.x86_64.rpm
+    ```
 
-## Installation
+    Install the `.rpm` package on Fedora or RHEL.
+  </Tab>
+  <Tab>
+    ```bash
+    chmod +x Dockerman-*.AppImage
+    ./Dockerman-*.AppImage
+    ```
 
-1. Download the `.deb`, `.rpm`, or `.AppImage` package from the [download page](/download)
-2. Install the package using your distribution's package manager
+    Use AppImageLauncher or `--install` if your desktop supports it.
+  </Tab>
+</Tabs>
 
-For Debian/Ubuntu:
+## Set up Docker Engine
 
-```bash
-sudo dpkg -i dockerman_*.deb
-```
+Follow the official Docker Engine install instructions for your distribution at [docs.docker.com/engine/install/](https://docs.docker.com/engine/install/), then make sure the daemon is running. Dockerman works with Docker Engine 20.10 and later.
 
-For Fedora:
+## Permissions
 
-```bash
-sudo rpm -i dockerman_*.rpm
-```
+<Steps>
+  <Step>
+    ### Add your user to the docker group
 
-For AppImage:
+    ```bash
+    sudo usermod -aG docker $USER
+    ```
+  </Step>
+  <Step>
+    ### Log out and back in
 
-```bash
-chmod +x Dockerman_*.AppImage
-./Dockerman_*.AppImage
-```
+    Group membership only applies to new login sessions.
+  </Step>
+  <Step>
+    ### Verify access
 
-## Docker Engine Setup
+    Run `docker ps` without `sudo`.
+  </Step>
+</Steps>
 
-Dockerman requires Docker Engine installed and running:
+<Callout type="warn">
+  Being in the `docker` group is effectively root access on the host. Use rootless Docker if you need a stricter boundary.
+</Callout>
 
-```bash
-# Install Docker (Ubuntu/Debian)
-curl -fsSL https://get.docker.com | sh
+## Wayland vs X11
 
-# Start Docker
-sudo systemctl start docker
-sudo systemctl enable docker
-```
+Dockerman works on both Wayland and X11. On Wayland, global shortcuts use the xdg-desktop-portal Shortcuts API, and on X11 they use a traditional key grab.
 
-## User Permissions
+## Freedesktop integration
 
-To use Docker without `sudo`, add your user to the `docker` group:
+Dockerman installs a `.desktop` file so it appears in your application menu. The tray icon uses the StatusNotifierItem specification, which is supported by KDE, GNOME with extensions, XFCE, and MATE.
 
-```bash
-sudo usermod -aG docker $USER
-```
+## Troubleshooting
 
-Log out and log back in for the group change to take effect. Then launch Dockerman — it will detect Docker automatically.
-
-## Common Issues
-
-### Permission denied
-
-If Dockerman shows a permission error, verify your user is in the `docker` group:
-
-```bash
-groups
-```
-
-If `docker` is not listed, run the `usermod` command above and re-login.
-
-### Docker daemon not running
-
-Start the Docker service:
-
-```bash
-sudo systemctl start docker
-```
+<Accordions>
+  <Accordion title="docker command not found">
+    Install Docker Engine first, then open a new shell so your PATH picks up the Docker CLI.
+  </Accordion>
+  <Accordion title="Permission denied on /var/run/docker.sock">
+    Add your user to the `docker` group and log out and back in so the new group membership takes effect.
+  </Accordion>
+  <Accordion title="Tray icon missing">
+    Install a StatusNotifierItem extension for your desktop environment. GNOME usually needs AppIndicator and KStatusNotifierItem Support.
+  </Accordion>
+</Accordions>

@@ -1,0 +1,65 @@
+---
+title: "概览"
+description: "Dockerman 的原生 Kubernetes 支持 — 工作负载、网络、配置、存储、RBAC、CRD、Helm 与调试。"
+---
+
+Dockerman 的第一阶段 Kubernetes 支持提供了一种轻量级、以 GUI 为先的方式，让你无需切换工具或学习新仪表板即可运行和检查真实的 Kubernetes 集群。
+
+## 为什么使用 Dockerman 管理 Kubernetes
+
+当你希望在管理 Docker 的同一应用中使用 Kubernetes 时，请选择 Dockerman。保持界面本地化且快速，随身携带 k3d 实现一键集群设置，并始终停留在原生 Rust 和 Tauri 桌面应用中，无需跳转到其他仪表板。它比 Docker Desktop 内置的 Kubernetes 路径更轻量，适用于本地开发、小型集群和 CI 健康检查。
+
+## 功能概览
+
+<Cards>
+  <Card title="集群" href="/zh/docs/kubernetes/cluster">
+    启动本地 k3d 集群或导入现有 kubeconfig。
+  </Card>
+  <Card title="工作负载" href="/zh/docs/kubernetes/workloads">
+    浏览 Pod、Deployment、StatefulSet、DaemonSet、Job、CronJob 和 ReplicaSet。
+  </Card>
+  <Card title="网络" href="/zh/docs/kubernetes/networking">
+    检查 Service、Ingress、Endpoint 和 NetworkPolicy。
+  </Card>
+  <Card title="配置与存储" href="/zh/docs/kubernetes/config-storage">
+    使用 ConfigMap、Secret、PVC 和 StorageClass。
+  </Card>
+  <Card title="RBAC" href="/zh/docs/kubernetes/rbac">
+    查看账户、角色和绑定中的权限分配。
+  </Card>
+  <Card title="Helm" href="/zh/docs/kubernetes/helm">
+    从 GUI 管理仓库和 Helm 发布版本。
+  </Card>
+  <Card title="端口转发与 DNS" href="/zh/docs/kubernetes/port-forward">
+    转发端口并注册自动本地 DNS 条目。
+  </Card>
+  <Card title="调试助手" href="/zh/docs/kubernetes/debug">
+    启动带有你所需工具的临时调试 Pod。
+  </Card>
+</Cards>
+
+## 两种启动方式
+
+<Tabs items={['k3d（本地）', '现有集群']}>
+  <Tab>
+    当你需要用于开发或测试的一次性本地集群时，打开[集群](/zh/docs/kubernetes/cluster)并使用[使用 k3d 启动本地集群](/zh/docs/kubernetes/cluster#使用-k3d-启动本地集群)流程。
+  </Tab>
+  <Tab>
+    当你已有 kind、minikube、EKS、GKE、AKS 或本地部署的 kubeconfig 时，打开[集群](/zh/docs/kubernetes/cluster)并使用[导入已有集群](/zh/docs/kubernetes/cluster#导入已有集群)流程。
+  </Tab>
+</Tabs>
+
+## 命名空间
+
+使用顶部栏中的命名空间切换器来限定每个 Kubernetes 列表的范围。无需断开集群连接即可切换命名空间，然后继续在新命名空间中浏览工作负载、网络、配置和 RBAC。
+
+## 暂不支持的功能
+
+<Callout type="info">
+  第一阶段专注于上述资源。你暂时还无法使用以下功能：
+
+  - k3d 之外的集群创建，如 kubeadm 或托管服务配置。
+  - Horizontal Pod Autoscaler。
+  - Ingress 之外的 Gateway API。
+  - 可视化 CRD 编辑器，请改用 YAML 编辑。
+</Callout>

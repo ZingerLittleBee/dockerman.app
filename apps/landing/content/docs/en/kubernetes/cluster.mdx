@@ -1,0 +1,78 @@
+---
+title: Cluster
+description: Start a local k3d cluster or import an existing kubeconfig to manage any Kubernetes environment.
+---
+
+Start a local k3d cluster or import an existing kubeconfig, then manage the cluster from the same Kubernetes section.
+
+## Start a local cluster with k3d
+
+Use k3d when you want a disposable local cluster for development and testing.
+
+<Steps>
+  <Step>
+    ### Open the Kubernetes section
+
+    If no cluster is configured, Dockerman shows a Start a Cluster button.
+  </Step>
+  <Step>
+    ### Click Start a Cluster
+
+    Dockerman downloads the k3d binary on first use.
+  </Step>
+  <Step>
+    ### Wait for the cluster to come up
+
+    The local cluster usually starts in about 10 seconds on a modern machine.
+  </Step>
+  <Step>
+    ### Start using Kubernetes
+
+    The namespace switcher populates and workload lists become available.
+  </Step>
+</Steps>
+
+<Callout type="warn">
+  Dockerman downloads the k3d binary on first use. Allow outbound HTTPS or install the binary yourself before you start.
+</Callout>
+
+## Import an existing cluster
+
+Import a kubeconfig when you already have a cluster and want Dockerman to manage it directly.
+
+<Steps>
+  <Step>
+    ### Click Import Cluster
+
+    Open the import flow from the Cluster page.
+  </Step>
+  <Step>
+    ### Select a kubeconfig file
+
+    Dockerman reads the file and lets you choose a context if the file contains more than one.
+  </Step>
+  <Step>
+    ### Verify the connection
+
+    Dockerman probes the API server before it saves the cluster.
+  </Step>
+</Steps>
+
+## Switch contexts
+
+Use the context dropdown at the top of the Kubernetes section to move between imported clusters and the local k3d cluster. Switching contexts reloads the lists for the selected cluster.
+
+## Delete a cluster
+
+Use the action that matches the cluster type.
+
+- Delete from Dockerman to forget an imported kubeconfig while leaving the remote cluster running.
+- Tear down the local k3d cluster to remove the cluster and its data.
+
+<Callout type="warn">
+  Tearing down a k3d cluster is irreversible. You lose every workload and persistent volume created inside it.
+</Callout>
+
+## Cluster version and status
+
+The Cluster page shows the server version, the current status, and the node list, including each node's kubelet and kube-proxy versions, so you can spot version drift or a broken connection at a glance.

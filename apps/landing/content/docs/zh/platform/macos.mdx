@@ -1,0 +1,48 @@
+---
+title: "macOS"
+description: "在 macOS 上运行 Dockerman，默认使用 Docker Desktop 作为后端。"
+---
+
+Dockerman 在 macOS 上以经过签名和公证的 DMG 形式发布，提供 Intel、Apple Silicon 和 Universal 版本。
+
+## 安装
+
+<Steps>
+  <Step>
+    ### 下载 DMG
+
+    从发布页面选择 Intel、Apple Silicon 或 Universal 版本。如果你希望一个下载适用于所有 Mac，请选择 Universal 版本。
+  </Step>
+  <Step>
+    ### 打开并拖入应用程序文件夹
+
+    打开 DMG 并将 Dockerman 拖入应用程序文件夹。
+  </Step>
+  <Step>
+    ### 启动 Dockerman
+
+    从应用程序文件夹或 Spotlight 启动 Dockerman，如果 macOS 提示首次启动授权，请批准。
+  </Step>
+</Steps>
+
+## Docker 后端
+
+Docker Desktop 是 macOS 上支持的后端，当 Docker Desktop 运行时，Dockerman 会自动连接。
+
+<Callout type="info">
+  兼容 Docker 的 socket（如 `/var/run/docker.sock` 和 `~/.docker/run/docker.sock`）也可以使用。如果 Dockerman 未能自动检测到你的 socket，请在设置 → Docker 设置中设置路径。
+</Callout>
+
+## 菜单栏和托盘
+
+Dockerman 会在菜单栏添加一个图标，提供快速操作和最近访问的目标。在设置 → 托盘设置中控制托盘图标行为。
+
+## Apple Silicon 注意事项
+
+在 Apple Silicon 上，运行容器前请注意镜像平台。许多公共镜像默认为 `amd64`，因此尽可能拉取 `arm64` 版本，或显式设置 `--platform=linux/arm64`。
+
+## 故障排除
+
+- "Socket not found" 表示 Docker Desktop 未运行，或 Dockerman 指向了错误的 socket 路径。
+- "Gatekeeper blocks the app" 表示你需要右键点击应用并在首次启动时选择"打开"。
+- "Keychain prompts repeatedly" 表示 Dockerman 尚未被允许保存每台主机的凭证。

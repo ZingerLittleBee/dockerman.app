@@ -1,0 +1,48 @@
+---
+title: "macOS"
+description: "Ejecuta Dockerman en macOS con Docker Desktop como backend predeterminado."
+---
+
+Dockerman en macOS se distribuye como un DMG firmado y notarizado con builds para Intel, Apple Silicon y Universal.
+
+## Instalar
+
+<Steps>
+  <Step>
+    ### Descarga el DMG
+
+    Elige el build para Intel, Apple Silicon o Universal desde la página de releases. Usa Universal si quieres una sola descarga para todos los Mac.
+  </Step>
+  <Step>
+    ### Abre y arrastra a Aplicaciones
+
+    Abre el DMG y arrastra Dockerman a Aplicaciones.
+  </Step>
+  <Step>
+    ### Inicia Dockerman
+
+    Inicia Dockerman desde Aplicaciones o Spotlight, y luego aprueba el mensaje de primera ejecución si macOS te lo solicita.
+  </Step>
+</Steps>
+
+## Backend de Docker
+
+Docker Desktop es el backend compatible en macOS, y Dockerman se conecta automáticamente cuando Docker Desktop está en ejecución.
+
+<Callout type="info">
+  Los sockets compatibles con Docker como `/var/run/docker.sock` y `~/.docker/run/docker.sock` también funcionan. Si Dockerman no detecta tu socket automáticamente, configura la ruta en Ajustes → Ajustes de Docker.
+</Callout>
+
+## Barra de menús y bandeja
+
+Dockerman añade un icono en la barra de menús con acciones rápidas y objetivos recientes. Controla el comportamiento del icono de bandeja en Ajustes → Ajustes de bandeja.
+
+## Notas sobre Apple Silicon
+
+En Apple Silicon, verifica la plataforma de la imagen antes de ejecutar un contenedor. Muchas imágenes públicas usan `amd64` por defecto, así que descarga la variante `arm64` cuando puedas o configura `--platform=linux/arm64` explícitamente.
+
+## Solución de problemas
+
+- "Socket not found" significa que Docker Desktop no está en ejecución, o Dockerman está apuntando a la ruta de socket incorrecta.
+- "Gatekeeper blocks the app" significa que necesitas hacer clic derecho en la aplicación y elegir Abrir en la primera ejecución.
+- "Keychain prompts repeatedly" significa que Dockerman aún no tiene permiso para guardar la credencial por host.

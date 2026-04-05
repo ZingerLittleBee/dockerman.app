@@ -1,20 +1,50 @@
 ---
 title: Welcome to Dockerman
-description: Modern Docker Management UI built with Tauri and Rust
+description: A fast, cross-platform UI for Docker and Kubernetes built with Tauri and Rust.
 ---
 
-## Overview
+Dockerman gives you a single place to manage Docker and Kubernetes from the desktop. Use it if you are a developer or operator who wants a native app that keeps container work, image work, and cluster work in one flow. It covers both pillars: Docker for local and remote host operations, and Kubernetes for browsing and debugging workloads.
 
-Dockerman is a modern, lightweight Docker management interface built with Tauri and Rust, focused on simplicity and performance.
+## What Dockerman covers
 
-## Features
+Dockerman splits the experience between Docker and Kubernetes so you can move from local container tasks to cluster work without changing tools. Keep your Docker hosts, images, volumes, and Compose projects close, then switch to Kubernetes when you need workloads, services, configuration, Helm, or pod debugging. Start with the cards below.
 
-- Container lifecycle management (create, start, stop, restart, remove)
-- Image management with pull, build, and remove operations
-- Real-time resource monitoring with CPU, memory, and network stats
-- Built-in terminal access to running containers
-- Cross-platform support (macOS, Windows, Linux)
+## Start here
 
-## Getting Started
+<Cards>
+  <Card title="Getting Started" href="/en/docs/getting-started">
+    Install the app and connect to Docker.
+  </Card>
+  <Card title="Docker" href="/en/docs/docker/containers">
+    Manage containers, images, networks, volumes, and Compose.
+  </Card>
+  <Card title="Kubernetes" href="/en/docs/kubernetes/overview">
+    Browse workloads, networking, config, Helm, and debug pods.
+  </Card>
+  <Card title="Advanced" href="/en/docs/advanced/spotlight">
+    Spotlight command palette and remote hosts.
+  </Card>
+</Cards>
 
-Follow the [Getting Started](/docs/getting-started) guide to install and set up Dockerman.
+## Key capabilities
+
+<Cards>
+  <Card title="Full Docker lifecycle">
+    Create, run, inspect, log, and terminal into containers; manage images, networks, volumes, and Compose projects from one place.
+  </Card>
+  <Card title="Native Kubernetes (Phase 1)">
+    k3d in one click or bring your own kubeconfig; browse workloads, Services, ConfigMaps, RBAC, CRDs, and Helm releases.
+  </Card>
+  <Card title="Backup and restore">
+    Snapshot a container's config, filesystem, and volumes to a single tar.gz and restore it anywhere (Added in v4.8.0).
+  </Card>
+  <Card title="Image security">
+    Scan images with Trivy and browse Docker Hub without leaving the app (Added in v4.6.0).
+  </Card>
+  <Card title="WSL2 Docker Engine">
+    Run Docker on Windows without Docker Desktop. Dockerman sets up an Alpine WSL2 distro and installs Docker automatically (Added in v4.3.0).
+  </Card>
+  <Card title="Remote hosts">
+    Connect to remote Docker daemons over SSH tunnels and switch between hosts on the fly.
+  </Card>
+</Cards>

@@ -1,0 +1,80 @@
+---
+title: "Redes"
+description: "Crea y gestiona redes Docker, conecta contenedores y busca contenedores por puerto."
+---
+
+Usa esta página para listar redes, crear nuevas, conectar o desconectar contenedores, y buscar por puerto.
+
+## La lista de redes
+
+La lista de redes muestra el nombre, el controlador, el ámbito, la cantidad de contenedores conectados y la subred. Las redes integradas como `bridge`, `host` y `none` están marcadas para que no las elimines por error.
+
+## Crear una red
+
+<Steps>
+  <Step>
+    ### Elige un nombre y un controlador
+
+    Elige el nombre de la red, luego selecciona un controlador como bridge, overlay, macvlan, ipvlan, host o null.
+  </Step>
+  <Step>
+    ### Configurar IPAM (opcional)
+
+    Configura la subred, la puerta de enlace y el rango de IP si necesitas direccionamiento personalizado.
+  </Step>
+  <Step>
+    ### Etiquetas (opcional)
+
+    Añade etiquetas clave-valor cuando quieras organizar o automatizar la red más tarde.
+  </Step>
+</Steps>
+
+<Callout type="info">
+  Las redes overlay requieren el modo Swarm en el daemon.
+</Callout>
+
+## Conectar y desconectar contenedores
+
+Abre una red, selecciona Conectar contenedor, luego elige el contenedor objetivo y un alias opcional. Usa Desconectar desde la misma vista cuando quieras eliminar el contenedor de la red nuevamente.
+
+## Buscar por puerto
+
+Añadido en la v4.7.0.
+
+Busca por puerto cuando quieras encontrar contenedores que expongan un servicio específico o un mapeo de host.
+
+<Steps>
+  <Step>
+    ### Abre el diálogo de búsqueda por puerto
+
+    Comienza desde la página de Redes y selecciona Búsqueda por puerto.
+  </Step>
+  <Step>
+    ### Introduce el número de puerto y el protocolo
+
+    Proporciona el puerto y elige TCP o UDP.
+  </Step>
+  <Step>
+    ### Revisa los contenedores coincidentes
+
+    Los resultados muestran el contenedor, la red en la que está y el mapeo de puerto exacto.
+  </Step>
+</Steps>
+
+<Callout type="info">
+  La búsqueda por puerto cubre tanto los puertos expuestos como los mapeos de puerto del host.
+</Callout>
+
+{/* TODO(screenshot): networks/port-search - Port search dialog with results */}
+
+## Inspeccionar una red
+
+Abre Inspeccionar para revisar el JSON de la red, incluyendo las opciones del controlador, la configuración de IPAM y los contenedores conectados con sus direcciones IP y alias.
+
+## Eliminar y purgar
+
+Eliminar quita una sola red después de que desconectes los contenedores adjuntos. Purgar elimina todas las redes que no estén siendo usadas por al menos un contenedor.
+
+<Callout type="warn">
+  Las redes integradas (`bridge`, `host`, `none`) no pueden eliminarse. Purgar las omite automáticamente.
+</Callout>

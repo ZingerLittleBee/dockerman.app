@@ -1,0 +1,100 @@
+---
+title: Compose & Templates
+description: Manage multi-container applications with Docker Compose and bootstrap projects from the template library.
+---
+
+Manage Docker Compose projects and bootstrap new ones from the built-in template library.
+
+## Compose projects
+
+The Compose page shows each project that Dockerman finds from the `com.docker.compose.project` label, along with its container count, status, and base path.
+
+## Start, stop, and remove a project
+
+<Steps>
+  <Step>
+    ### Select a project
+
+    Pick the Compose project you want to manage.
+  </Step>
+  <Step>
+    ### Start
+
+    Dockerman brings all services up and pulls any missing images first.
+  </Step>
+  <Step>
+    ### Stop
+
+    Dockerman brings all services down, but keeps the containers.
+  </Step>
+  <Step>
+    ### Remove
+
+    Dockerman removes the containers and networks. Volumes stay unless you check Include volumes.
+  </Step>
+</Steps>
+
+<Callout type="warn">
+  Include volumes removes both anonymous and named volumes defined by the Compose file. Named volumes with other consumers are skipped.
+</Callout>
+
+## Pull project images
+
+Pull fetches every image referenced by the Compose file without starting any services. Use it before a cold start on a new host.
+
+## Edit compose.yaml
+
+Edit the Compose file in Monaco, then save it back to disk. Dockerman validates the file on save.
+
+<Callout type="info">
+  Dockerman reruns `docker compose config` after each save to verify the file. Invalid YAML blocks the save.
+</Callout>
+
+## View logs across services
+
+Use the project-level Logs view to merge logs from every service, color-code them by service, and keep the same search behavior as [container logs](/en/docs/docker/logs).
+
+{/* TODO(screenshot): compose/project-logs - Multi-service merged log view */}
+
+## Templates library
+
+Use the Templates library when you want to start from a curated stack instead of a blank Compose file.
+
+<Cards>
+  <Card title="Databases">
+    MySQL, PostgreSQL, MongoDB, Redis, CouchDB.
+  </Card>
+  <Card title="Message queues">
+    RabbitMQ, NATS, Kafka.
+  </Card>
+  <Card title="Observability">
+    Prometheus and Grafana, Loki, Tempo.
+  </Card>
+  <Card title="Development">
+    phpMyAdmin, pgAdmin, Adminer, MinIO.
+  </Card>
+</Cards>
+
+<Steps>
+  <Step>
+    ### Open the Templates page
+
+    Open the page that lists the built-in templates.
+  </Step>
+  <Step>
+    ### Pick a template
+
+    Review the services, required environment variables, and default ports.
+  </Step>
+  <Step>
+    ### Configure and launch
+
+    Fill in the requested values, choose a project name, then start it.
+  </Step>
+</Steps>
+
+{/* TODO(screenshot): compose/templates-library - Template library page */}
+
+## Create your own template
+
+Save any existing Compose file as a template, then edit or delete it from the Templates page when you need to update your starter projects.

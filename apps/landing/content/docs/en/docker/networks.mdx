@@ -1,0 +1,80 @@
+---
+title: Networks
+description: Create and manage Docker networks, connect containers, and search containers by port.
+---
+
+Use this page to list networks, create new ones, connect or disconnect containers, and search by port.
+
+## The network list
+
+The network list shows the name, driver, scope, attached container count, and subnet. Built-in networks such as `bridge`, `host`, and `none` are flagged so you do not delete them by mistake.
+
+## Create a network
+
+<Steps>
+  <Step>
+    ### Pick a name and driver
+
+    Choose the network name, then pick a driver such as bridge, overlay, macvlan, ipvlan, host, or null.
+  </Step>
+  <Step>
+    ### Configure IPAM (optional)
+
+    Set the subnet, gateway, and IP range if you need custom addressing.
+  </Step>
+  <Step>
+    ### Labels (optional)
+
+    Add key-value labels when you want to organize or automate the network later.
+  </Step>
+</Steps>
+
+<Callout type="info">
+  Overlay networks require Swarm mode on the daemon.
+</Callout>
+
+## Connect and disconnect containers
+
+Open a network, choose Connect Container, then pick the target container and optional alias. Use Disconnect from the same view when you want to remove the container from the network again.
+
+## Search by port
+
+Added in v4.7.0.
+
+Search by port when you want to find containers that expose a specific service or host mapping.
+
+<Steps>
+  <Step>
+    ### Open the port search dialog
+
+    Start from the Networks page and choose Port Search.
+  </Step>
+  <Step>
+    ### Enter the port number and protocol
+
+    Provide the port and choose TCP or UDP.
+  </Step>
+  <Step>
+    ### Review matching containers
+
+    Results show the container, the network it is on, and the exact port mapping.
+  </Step>
+</Steps>
+
+<Callout type="info">
+  Port search covers both exposed ports and host port mappings.
+</Callout>
+
+{/* TODO(screenshot): networks/port-search - Port search dialog with results */}
+
+## Inspect a network
+
+Open Inspect to review the network JSON, including the driver options, IPAM settings, and connected containers with their IP addresses and aliases.
+
+## Delete and prune
+
+Delete removes a single network after you disconnect the attached containers. Prune removes every network that is not used by at least one container.
+
+<Callout type="warn">
+  Built-in networks (`bridge`, `host`, `none`) cannot be deleted. Prune skips them automatically.
+</Callout>

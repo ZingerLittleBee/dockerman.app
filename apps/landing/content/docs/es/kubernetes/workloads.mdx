@@ -1,0 +1,64 @@
+---
+title: "Cargas de trabajo"
+description: "Gestiona Pods, Deployments, StatefulSets, DaemonSets, Jobs, CronJobs y ReplicaSets en un solo lugar."
+---
+
+Gestiona todos los tipos de recursos de carga de trabajo desde una sola página. Usa la vista de lista para revisar el estado, abre la vista de detalle para las acciones, y accede al editor YAML cuando necesites editar el objeto directamente.
+
+## Pods
+
+Abre un Pod para ver su estado, el número de contenedores listos, reinicios y antigüedad. Desde la vista de detalle, accede directamente a [Logs y Terminal del Pod](/es/docs/kubernetes/logs-terminal) o inicia el [Asistente de Depuración](/es/docs/kubernetes/debug) cuando necesites una shell o comprobaciones de red más profundas.
+
+## Deployments
+
+Usa Deployments cuando quieras gestión de réplicas e historial de despliegues en un solo lugar.
+
+La lista muestra réplicas listas, actualizadas y disponibles para que puedas ver el estado del despliegue de un vistazo.
+
+<Steps>
+  <Step>
+    ### Escalar
+
+    Cambia el número de réplicas en línea y guarda.
+  </Step>
+  <Step>
+    ### Despliegue
+
+    Actualiza la imagen u otro campo que active un despliegue, luego observa cómo se actualiza el historial de revisiones.
+
+    {/* TODO(screenshot): kubernetes/deployment-rollout - Deployment rollout history */}
+  </Step>
+  <Step>
+    ### Reversión
+
+    Selecciona una revisión anterior del historial de despliegues y revierte a ella.
+  </Step>
+</Steps>
+
+## StatefulSets
+
+Usa StatefulSets para nombres de pods ordenados, identidades estables y plantillas de almacenamiento persistente. La vista de detalle muestra las réplicas actuales y las reclamaciones de almacenamiento que posee cada pod, y las eliminaciones en cascada mantienen los PVC por defecto.
+
+## DaemonSets
+
+Usa DaemonSets cuando necesites un pod por nodo coincidente, como recolectores de logs, agentes de monitoreo o componentes de red a nivel de nodo.
+
+## Jobs
+
+Usa Jobs para trabajos de ejecución hasta completarse. Rastrea las finalizaciones, límites de espera y plazos activos desde la lista y la vista de detalle.
+
+## CronJobs
+
+Usa CronJobs cuando necesites Jobs programados. Revisa la expresión cron, el estado de suspensión, la última ejecución y los controles de activación manual desde la vista de detalle.
+
+## ReplicaSets
+
+Los ReplicaSets suelen estar bajo un Deployment. Ábrelo cuando necesites inspeccionar el estado del controlador, pero edita el Deployment en lugar de cambiar el ReplicaSet directamente.
+
+<Callout type="info">
+  Los Deployments gestionan sus propios ReplicaSets. Cambia el Deployment a menos que estés depurando el comportamiento del controlador.
+</Callout>
+
+## Editar cargas de trabajo con YAML
+
+Abre el botón Editar YAML en cualquier carga de trabajo cuando necesites editar el objeto completo en Monaco. Dockerman utiliza el esquema de Kubernetes para autocompletar y ejecuta la guarda en modo de prueba para que el YAML inválido sea rechazado antes de llegar al servidor de la API.

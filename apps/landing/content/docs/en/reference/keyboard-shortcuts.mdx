@@ -1,42 +1,71 @@
 ---
 title: Keyboard Shortcuts
-description: Keyboard shortcuts reference for Dockerman
+description: Every keyboard shortcut in Dockerman, grouped by surface — global, lists, logs, terminal, and Kubernetes.
 ---
 
-## Global Shortcuts
+Every keyboard shortcut in Dockerman is grouped by surface. Most shortcuts are customizable in [Settings → Shortcut settings](/en/docs/reference/settings#shortcut-settings).
+
+## Global
 
 | Shortcut | Action |
-|----------|--------|
-| `Ctrl/Cmd + K` | Open command palette |
-| `Ctrl/Cmd + ,` | Open settings |
-| `Ctrl/Cmd + Q` | Quit Dockerman |
-| `Ctrl/Cmd + R` | Refresh current view |
-| `Ctrl/Cmd + F` | Search / Filter |
+| --- | --- |
+| Cmd/Ctrl + K | Open Spotlight |
+| Cmd/Ctrl + , | Open Settings |
+| Cmd/Ctrl + Shift + L | Toggle theme |
+| Cmd/Ctrl + Shift + H | Open Host switcher |
 
 ## Navigation
 
 | Shortcut | Action |
-|----------|--------|
-| `Ctrl/Cmd + 1` | Go to Containers |
-| `Ctrl/Cmd + 2` | Go to Images |
-| `Ctrl/Cmd + 3` | Go to Networks |
-| `Ctrl/Cmd + 4` | Go to Volumes |
-| `Ctrl/Cmd + 5` | Go to Compose |
+| --- | --- |
+| Up / Down | Move selection in the current list |
+| Enter | Open the selected row |
+| Cmd/Ctrl + Click | Toggle multi-select |
+| Shift + Click | Select a range |
 
-## Container Actions
+## Container actions
 
 | Shortcut | Action |
-|----------|--------|
-| `Enter` | Open selected container |
-| `Ctrl/Cmd + T` | Open terminal for container |
-| `Ctrl/Cmd + L` | View container logs |
-| `Delete` | Remove selected container |
+| --- | --- |
+| S | Start |
+| X | Stop |
+| R | Restart |
+| P | Pause or unpause |
+| L | Logs |
+| T | Terminal |
+| I | Inspect |
+| Delete | Remove after confirmation |
+
+## Log viewer
+
+| Shortcut | Action |
+| --- | --- |
+| / | Open search |
+| n | Next match |
+| N | Previous match |
+| g | Jump to the start |
+| G | Jump to the latest line |
+| P | Previous match, same as Shift + n |
+| Esc | Close search or clear highlights |
 
 ## Terminal
 
 | Shortcut | Action |
-|----------|--------|
-| `Ctrl/Cmd + Shift + T` | New terminal tab |
-| `Ctrl/Cmd + W` | Close terminal tab |
-| `Ctrl/Cmd + C` | Copy (when text selected) |
-| `Ctrl/Cmd + V` | Paste |
+| --- | --- |
+| Ctrl/Cmd + Shift + C | Copy selection |
+| Ctrl/Cmd + Shift + V | Paste |
+| Ctrl/Cmd + Shift + K | Clear the terminal |
+| Ctrl + C | Send SIGINT to the process |
+| Ctrl + D | Send EOF |
+
+## Kubernetes
+
+| Shortcut | Action |
+| --- | --- |
+| N | Cycle namespace |
+| D | Debug on a Pod |
+| Y | Edit YAML |
+
+## Customize
+
+Change any shortcut in [Settings → Shortcut settings](/en/docs/reference/settings#shortcut-settings).

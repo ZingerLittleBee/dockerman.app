@@ -1,0 +1,222 @@
+---
+title: "容器"
+description: "创建、检查和管理 Docker 容器；一键克隆、提交、暂停和备份。"
+---
+
+在此处创建、检查、克隆、提交、备份和恢复容器。
+
+## 容器列表
+
+容器列表显示名称和 ID、镜像、状态、端口映射以及创建时间。使用搜索栏按名称、镜像或端口进行筛选，然后在使用 Ctrl/Cmd+点击 进行多选以运行批量操作。
+
+{/* TODO(screenshot): containers/list - Container list with multi-select */}
+
+## 生命周期操作
+
+使用生命周期操作来控制所选容器，无需打开详情视图。
+
+| 操作 | 效果 |
+| --- | --- |
+| Start | 启动已停止的容器 |
+| Stop | 优雅地停止运行中的容器（先发送 SIGTERM，超时后发送 SIGKILL） |
+| Restart | 停止并重新启动容器 |
+| Pause | 使用 `SIGSTOP` 冻结所有进程 |
+| Unpause | 使用 `SIGCONT` 恢复暂停的进程 |
+| Remove | 删除容器，但仅在容器停止后执行 |
+
+<Callout type="info">
+  **暂停与停止的区别** - 暂停会将容器的进程冻结在内存中，取消暂停后可立即恢复。停止会终止进程并释放容器的 PID 命名空间。
+</Callout>
+
+## 创建容器
+
+当你希望 Dockerman 从镜像、`docker run` 命令、现有容器或模板构建新容器时，使用创建对话框。
+
+<Tabs items={['表单', '从 docker run', '克隆现有', '从模板']}>
+  <Tab>
+    <Steps>
+      <Step>
+        ### 选择基础镜像
+
+        选择本地镜像或在继续之前按需拉取一个镜像。
+      </Step>
+      <Step>
+        ### 设置名称和命令
+
+        为容器命名，仅在需要时覆盖入口点或命令。
+      </Step>
+      <Step>
+        ### 端口和网络
+
+        添加端口映射并选择容器应加入的网络。
+      </Step>
+      <Step>
+        ### 环境变量和卷
+
+        添加键值对形式的环境变量，然后挂载绑定路径或命名卷。
+      </Step>
+      <Step>
+        ### 资源限制和重启策略
+
+        设置 CPU 和内存限制，然后选择重启策略。
+      </Step>
+    </Steps>
+
+    {/* TODO(screenshot): containers/create-form - Create container dialog form tab */}
+  </Tab>
+  <Tab>
+    粘贴 `docker run` 命令，Dockerman 会将其解析到表单标签页供你在创建容器前审核。
+
+    ```bash
+    docker run -d -p 8080:80 --name web nginx:latest
+    ```
+  </Tab>
+  <Tab>
+    克隆现有容器会将其配置复制到一个新的创建对话框中，以便你在启动前更改任何字段。v4.6.0 新增。它不会复制卷数据。
+  </Tab>
+  <Tab>
+    当你希望从精选项目而非空白表单开始时，使用 [Compose 模板](/zh/docs/docker/compose#模板库)。
+  </Tab>
+</Tabs>
+
+## 检查和更新
+
+打开检查以查看完整的容器 JSON，包括网络设置、挂载、环境变量和标签。使用更新来修改可以在不重新创建容器的情况下更改的少量实时设置，例如 CPU、内存和重启策略。对于镜像、环境或端口更改，请停止容器并创建一个新容器。
+
+## 提交运行中的容器
+
+v4.6.0 新增。
+
+提交会将容器当前的写入层保存为新的镜像标签。
+
+<Steps>
+  <Step>
+    ### 选择容器
+
+    选择你要快照的运行中容器。
+  </Step>
+  <Step>
+    ### 填写新镜像名称和标签
+
+    为新镜像选择仓库和标签。
+  </Step>
+  <Step>
+    ### 确认
+
+    新镜像将出现在镜像列表中。
+  </Step>
+</Steps>
+
+<Callout type="warn">
+  提交不包含挂载卷中的数据。它仅捕获容器自身的文件系统更改。
+</Callout>
+
+## 克隆容器
+
+v4.6.0 新增。
+
+克隆会将容器配置（包括镜像引用、端口、环境变量、挂载和网络）复制到一个新的创建对话框中。当你需要一个带有小幅更改的第二个实例时使用它。克隆用于配置复用，而提交用于将文件系统更改保存到新镜像。
+
+## 备份和恢复
+
+v4.8.0 新增。
+
+当你希望将容器的配置、文件系统和卷数据保存到一个可以在同一主机或其他主机上恢复的 `.tar.gz` 归档文件时，备份容器。
+
+### 备份包含的内容
+
+归档文件包含清单、容器配置、文件系统快照以及任何附加的卷。
+
+<Files>
+  <Folder name="backup-<name>-<timestamp>.tar.gz" defaultOpen>
+    <File name="manifest.json" />
+    <File name="config.json" />
+    <File name="filesystem.tar" />
+    <Folder name="volumes">
+      <File name="<volume-name>.tar" />
+    </Folder>
+  </Folder>
+</Files>
+
+### 创建备份
+
+<Steps>
+  <Step>
+    ### 打开备份对话框
+
+    在容器列表中，右键点击容器并选择备份。
+  </Step>
+  <Step>
+    ### 选择要包含的内容
+
+    配置始终包含在内。根据需要切换文件系统和卷。
+  </Step>
+  <Step>
+    ### 选择输出路径
+
+    在本地机器上选择目标目录。
+  </Step>
+  <Step>
+    ### 等待进度条完成
+
+    备份会流式传输到磁盘，你可以随时取消。
+  </Step>
+</Steps>
+
+{/* TODO(screenshot): containers/backup-dialog - Backup dialog with progress */}
+
+### 从备份恢复
+
+<Steps>
+  <Step>
+    ### 选择 `.tar.gz` 文件
+
+    在容器页面，选择恢复并选择归档文件。
+  </Step>
+  <Step>
+    ### 预览备份
+
+    Dockerman 读取清单并显示镜像引用、端口、挂载和环境变量。
+  </Step>
+  <Step>
+    ### 编辑名称、端口和镜像标签
+
+    如果名称冲突则更改容器名称，重新映射主机端口，如果镜像在本地缺失则重新标记镜像。
+  </Step>
+  <Step>
+    ### 确认恢复
+
+    新容器将被创建并启动。
+  </Step>
+</Steps>
+
+<Callout type="warn">
+  名称冲突会被预先检测到。端口冲突仅在启动时才会被发现，因此在确认前请检查主机端口。
+</Callout>
+
+{/* TODO(screenshot): containers/restore-preview - Restore preview with editable fields */}
+
+### 提示
+
+- 大型容器的备份大小随卷大小增长，因此归档文件的大小会随附加数据量增加而增加。
+- 要在主机之间移动容器，在源主机上创建备份，复制 `.tar.gz` 文件，然后在目标主机上恢复。
+- 备份不包含网络定义。确保目标主机具有匹配的网络，或让 Dockerman 重新创建它们。
+
+## 批量操作
+
+使用 Ctrl/Cmd+点击 或 Shift+点击 多选容器，然后对所选内容运行操作。批量操作包括启动、停止、重启、暂停和删除。
+
+<Callout type="warn">
+  批量删除是不可逆的，且只会对整个所选内容提示一次。
+</Callout>
+
+## 键盘快捷键
+
+查看 [容器操作快捷键](/zh/docs/reference/keyboard-shortcuts#容器操作) 了解完整的键位映射。当某行被聚焦时，以下按键可运行常用操作。
+
+| 操作 | 快捷键 |
+| --- | --- |
+| Start | `S` |
+| Stop | `X` |
+| Logs | `L` |
+| Terminal | `T` |

@@ -1,0 +1,189 @@
+---
+title: "Imágenes"
+description: "Extrae, construye, envía, analiza y escanea imágenes Docker con un navegador de Docker Hub y escáner Trivy integrados."
+---
+
+Extrae, construye, envía, analiza y escanea imágenes desde aquí, y explora Docker Hub sin salir de la aplicación.
+
+## La lista de imágenes
+
+Usa la lista de imágenes para ordenar por tamaño o fecha de creación, y cambia entre todas las imágenes y las imágenes huérfanas cuando quieras limpiar capas antiguas.
+
+<Tabs items={['Todas', 'Huérfanas']}>
+  <Tab>
+    Todas las imágenes incluyen cada etiqueta disponible localmente. Usa esta vista cuando quieras inspeccionar, reetiquetar, construir desde, enviar o escanear una imagen.
+  </Tab>
+  <Tab>
+    Las imágenes huérfanas son capas sin etiquetar dejadas por las construcciones. Usa esta vista cuando quieras eliminar intermediarios no utilizados.
+  </Tab>
+</Tabs>
+
+## Extraer una imagen
+
+Dockerman sugiere registros, nombres de imagen y etiquetas mientras escribes en el cuadro combinado de extracción. Añadido en la v4.7.0.
+
+<Steps>
+  <Step>
+    ### Abrir el diálogo de extracción
+
+    Haz clic en Extraer desde la página de Imágenes.
+  </Step>
+  <Step>
+    ### Introducir la referencia de la imagen
+
+    Escribe el registro, repositorio y etiqueta que quieres extraer.
+  </Step>
+  <Step>
+    ### Ver el progreso en streaming
+
+    Sigue el progreso de descarga y extracción de capas hasta que la imagen aparezca en la lista.
+  </Step>
+</Steps>
+
+## Explorar Docker Hub
+
+Añadido en la v4.6.0.
+
+Usa el navegador de Hub integrado para buscar, inspeccionar y extraer imágenes públicas sin cambiar a la interfaz web.
+
+<Steps>
+  <Step>
+    ### Abrir el navegador de Hub
+
+    Desde la página de Imágenes, haz clic en Explorar Docker Hub.
+  </Step>
+  <Step>
+    ### Buscar una imagen
+
+    Escribe una consulta, luego revisa las insignias de oficial y verificado en los resultados.
+  </Step>
+  <Step>
+    ### Leer el README y las etiquetas
+
+    Haz clic en una imagen para ver su README en línea y la lista completa de etiquetas.
+  </Step>
+  <Step>
+    ### Extraer una etiqueta específica
+
+    Haz clic en Extraer junto a la etiqueta que quieres usar.
+  </Step>
+</Steps>
+
+{/* TODO(screenshot): images/hub-browser - Docker Hub browser with readme */}
+
+## Construir desde un Dockerfile
+
+La construcción usa el mismo daemon de Docker que el resto de Dockerman, y BuildKit se usa automáticamente cuando el daemon lo soporta.
+
+<Steps>
+  <Step>
+    ### Elegir un contexto de construcción
+
+    Selecciona una carpeta local que contenga el Dockerfile.
+  </Step>
+  <Step>
+    ### Revisar o editar el Dockerfile
+
+    Abre el Dockerfile en Monaco, luego guarda tus cambios en disco antes de construir.
+  </Step>
+  <Step>
+    ### Establecer el nombre de la imagen y los argumentos de construcción
+
+    Establece la etiqueta de la imagen, argumentos de construcción opcionales, y una etapa objetivo si la necesitas.
+  </Step>
+  <Step>
+    ### Ejecutar la construcción
+
+    Observa los registros de construcción en streaming en la terminal hasta que la imagen aparezca en la lista de Imágenes.
+  </Step>
+</Steps>
+
+<Callout type="info">
+  Dockerman respeta `.dockerignore` en el contexto de construcción seleccionado.
+</Callout>
+
+## Enviar a un registro
+
+Añadido en la v4.6.0.
+
+Envía una imagen etiquetada después de iniciar sesión en el registro objetivo o proporcionar credenciales para el envío.
+
+<Steps>
+  <Step>
+    ### Etiquetar la imagen para el registro objetivo
+
+    Usa un nombre completo como `registry.example.com/team/app:1.2.0`.
+  </Step>
+  <Step>
+    ### Configurar las credenciales del registro
+
+    Dockerman lee la autenticación existente de Docker desde `~/.docker/config.json`, o puedes añadir credenciales por envío.
+  </Step>
+  <Step>
+    ### Enviar con progreso en streaming
+
+    Sigue el progreso de subida hasta que el registro acepte la nueva etiqueta.
+  </Step>
+</Steps>
+
+<Callout type="info">
+  Funcionan tanto los registros públicos como los privados aquí, incluyendo Docker Hub, GHCR, Harbor, AWS ECR, Nexus y GitLab Container Registry.
+</Callout>
+
+## Analizar el tamaño de la imagen
+
+Abre la vista de Tamaño de Imagen para ver el árbol de capas y los lugares donde la imagen gasta su espacio.
+
+- Busca cachés de paquetes de gran tamaño que se quedaron en la capa final.
+- Busca artefactos de construcción que deberían haberse copiado en una imagen de tiempo de ejecución más pequeña.
+- Busca capas `COPY` redundantes que dupliquen los mismos archivos.
+
+## Operaciones de etiquetado
+
+Usa las operaciones de etiquetado para etiquetar, desetiquetar o reetiquetar una imagen para otro repositorio o registro. Reetiquetar cambia solo la referencia, así que las capas subyacentes se quedan donde están.
+
+## Escanear con Trivy
+
+Añadido en la v4.6.0.
+
+Escanea una imagen para encontrar vulnerabilidades conocidas en sus capas instaladas.
+
+### Instalación por primera vez
+
+El primer escaneo descarga el binario de Trivy y su base de datos de vulnerabilidades.
+
+<Callout type="warn">
+  El primer escaneo descarga el binario de Trivy, unos 50 MB, más la base de datos de vulnerabilidades. La descarga es única y se almacena en caché localmente. Consulta [Configuración de Trivy](/es/docs/reference/settings#configuración-de-trivy) si necesitas una ruta de binario personalizada.
+</Callout>
+
+### Ejecutar un escaneo
+
+<Steps>
+  <Step>
+    ### Seleccionar una imagen
+
+    Elige la imagen que quieres escanear desde la página de Imágenes.
+  </Step>
+  <Step>
+    ### Hacer clic en Escanear con Trivy
+
+    Dockerman inicia el escaneo y transmite el progreso a la vista de informes.
+  </Step>
+  <Step>
+    ### Esperar el informe
+
+    Los escaneos típicos tardan de 30 segundos a 3 minutos, dependiendo del tamaño de la imagen.
+  </Step>
+</Steps>
+
+### Leer el informe
+
+Dockerman agrupa los hallazgos por severidad, luego te permite expandir cada hallazgo para ver el ID de CVE, descripción, versiones afectadas y versiones de corrección cuando estén disponibles. Exporta el informe raw como JSON cuando quieras alimentarlo en CI o archivar el resultado.
+
+{/* TODO(screenshot): images/trivy-report - Trivy report with expanded finding */}
+
+## Limpieza
+
+- Elimina imágenes huérfanas desde la pestaña Huérfanas cuando quieras limpiar restos de construcción rápidamente.
+- Borra versiones antiguas con selección múltiple cuando ya no necesites una etiqueta.
+- Usa los controles de poda del sistema en [Configuración de Docker](/es/docs/reference/settings#configuración-de-docker) cuando quieras eliminar todas las imágenes no utilizadas a la vez.

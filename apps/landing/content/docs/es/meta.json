@@ -1,10 +1,13 @@
 {
-  "title": "Documentación Dockerman",
+  "title": "Documentación de Dockerman",
   "pages": [
     "index",
     "getting-started",
     "---",
-    "guides",
+    "docker",
+    "kubernetes",
+    "---",
+    "advanced",
     "platform",
     "reference"
   ]

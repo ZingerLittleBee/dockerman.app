@@ -1,0 +1,22 @@
+---
+title: RBAC
+description: Browse ServiceAccounts, Roles, ClusterRoles, and their bindings to understand who can do what.
+---
+
+Use the RBAC page to answer one question quickly: who can do what in this cluster.
+
+## ServiceAccounts
+
+Use ServiceAccounts to see which identities run inside the current namespace. The detail view shows mounted secrets, image pull secrets, and generated token secrets.
+
+## Roles and ClusterRoles
+
+Use Roles and ClusterRoles to inspect the permissions attached to those identities. The detail view expands the `rules` array into a readable table with apiGroups, resources, verbs, and resourceNames.
+
+## RoleBindings and ClusterRoleBindings
+
+Use RoleBindings and ClusterRoleBindings to see which subjects point at each role. The list shows the role reference and the subjects, including users, groups, and ServiceAccounts.
+
+## Troubleshooting permissions
+
+When a pod cannot read, list, create, or exec into something, check the binding chain first and then verify the pod's ServiceAccount. If you still need to confirm access from inside the cluster, use the [Debug Assistant](/en/docs/kubernetes/debug).

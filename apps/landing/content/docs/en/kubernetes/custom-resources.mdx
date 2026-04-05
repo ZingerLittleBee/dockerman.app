@@ -1,0 +1,24 @@
+---
+title: Custom Resources
+description: Discover Custom Resource Definitions in your cluster and browse or edit their instances.
+---
+
+Added in v4.8.0. Use this page to discover CustomResourceDefinitions, browse their instances, and edit them as YAML.
+
+## List CRDs
+
+Open the CRDs list to see every installed definition, along with its group, version, scope, and instance count.
+
+## Browse resource instances
+
+Select a CRD to browse its instances across namespaces or across the cluster, depending on the resource scope. The detail table uses the CRD's printer columns when they are available.
+
+## View and edit YAML
+
+Open any instance in the YAML editor when you need to change it. Dockerman uses the CRD schema for validation and autocomplete.
+
+## Limitations
+
+<Callout type="info">
+  Phase 1 supports YAML-only editing for custom resources. Field-level forms are planned for Phase 2.
+</Callout>

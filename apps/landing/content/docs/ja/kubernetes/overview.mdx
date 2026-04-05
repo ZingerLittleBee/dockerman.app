@@ -1,0 +1,65 @@
+---
+title: "概要"
+description: "Dockerman のネイティブ Kubernetes サポート — ワークロード、ネットワーキング、設定、ストレージ、RBAC、CRD、Helm、デバッグ。"
+---
+
+DockermanのPhase 1 Kubernetesサポートは、ツールを切り替えたり新しいダッシュボードを学習したりすることなく、実際のKubernetesクラスターを実行および確認するための軽量でGUIファーストの方法です。
+
+## DockermanでKubernetesを使う理由
+
+Docker用に既に使用している同じアプリでKubernetesが必要な場合にDockermanを使用してください。インターフェースをローカルで高速に保ち、k3dを連れてきてワンクリックでクラスターをセットアップし、別のダッシュボードに飛ばずにネイティブなRustとTauriのデスクトップアプリの中に留まります。Docker Desktopの組み込みKubernetesパスよりも軽量で、ローカル開発や小規模クラスター、CI健全性チェックに適しています。
+
+## 含まれる機能
+
+<Cards>
+  <Card title="クラスター" href="/ja/docs/kubernetes/cluster">
+    ローカルのk3dクラスターを起動したり、既存のkubeconfigをインポートしたりします。
+  </Card>
+  <Card title="ワークロード" href="/ja/docs/kubernetes/workloads">
+    Pod、Deployment、StatefulSet、DaemonSet、Job、CronJob、ReplicaSetを参照します。
+  </Card>
+  <Card title="ネットワーキング" href="/ja/docs/kubernetes/networking">
+    Service、Ingress、Endpoint、NetworkPolicyを確認します。
+  </Card>
+  <Card title="設定とストレージ" href="/ja/docs/kubernetes/config-storage">
+    ConfigMap、Secret、PVC、StorageClassを操作します。
+  </Card>
+  <Card title="RBAC" href="/ja/docs/kubernetes/rbac">
+    アカウント、ロール、バインディングを横断して誰が何をできるかを確認します。
+  </Card>
+  <Card title="Helm" href="/ja/docs/kubernetes/helm">
+    GUIからリポジトリとHelmリリースを管理します。
+  </Card>
+  <Card title="ポートフォワードとDNS" href="/ja/docs/kubernetes/port-forward">
+    ポートをフォワードし、自動ローカルDNSエントリを登録します。
+  </Card>
+  <Card title="デバッグアシスタント" href="/ja/docs/kubernetes/debug">
+    必要なツールを備えた一時的なデバッグPodを起動します。
+  </Card>
+</Cards>
+
+## 開始する2つの方法
+
+<Tabs items={['k3d（ローカル）', '既存のクラスター']}>
+  <Tab>
+    [クラスター](/ja/docs/kubernetes/cluster)を開き、開発やテスト用の使い捨てローカルクラスターが必要な場合は[k3dでローカルクラスターを起動](/ja/docs/kubernetes/cluster#k3dでローカルクラスターを起動)フローを使用してください。
+  </Tab>
+  <Tab>
+    [クラスター](/ja/docs/kubernetes/cluster)を開き、kind、minikube、EKS、GKE、AKS、またはオンプレミスのkubeconfigを既に持っている場合は[既存のクラスターをインポート](/ja/docs/kubernetes/cluster#既存のクラスターをインポート)フローを使用してください。
+  </Tab>
+</Tabs>
+
+## ネームスペース
+
+トップバーのネームスペース切り替え機能を使用して、すべてのKubernetesリストの範囲を設定します。クラスターから切断することなくネームスペースを切り替え、新しいネームスペースでワークロード、ネットワーキング、設定、RBACを参照し続けます。
+
+## まだサポートされていない機能
+
+<Callout type="info">
+  Phase 1は上記のリソースに焦点を当てています。以下のワークフローはまだ利用できません：
+
+  - k3d以外のクラスター作成（kubeadmやマネージドサービスのプロビジョニングなど）。
+  - Horizontal Pod Autoscaler。
+  - Ingress以外のGateway API。
+  - ビジュアルCRDエディタ（代わりにYAML編集を使用してください）。
+</Callout>

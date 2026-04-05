@@ -1,0 +1,68 @@
+---
+title: "Reenvío de puertos y DNS"
+description: "Reenvía puertos locales a Services o Pods y opcionalmente registra entradas DNS automáticas."
+---
+
+Reenvía puertos locales a Services o Pods, y luego deja que Dockerman registre un nombre DNS local para cada reenvío activo.
+
+## Reenvío de puertos de un Service o Pod
+
+Usa un Service cuando quieras que el reenvío sobreviva a los reinicios de los pods.
+
+<Steps>
+  <Step>
+    ### Selecciona un objetivo
+
+    Elige un Pod o Service. Los Services son la opción más segura para reenvíos de larga duración.
+  </Step>
+  <Step>
+    ### Selecciona los puertos de destino y local
+
+    Dockerman sugiere el primer puerto del objetivo y un puerto local sin usar.
+  </Step>
+  <Step>
+    ### Inicia el reenvío
+
+    Inicia la conexión y obsérvala aparecer en Reenvíos activos.
+  </Step>
+</Steps>
+
+## Gestión de reenvíos activos
+
+La lista de reenvíos activos muestra el objetivo, el puerto local, el estado y la acción Detener. Dockerman se reconecta después de errores de red transitorios.
+
+## DNS automático
+
+Añadido en la v4.8.0. El DNS automático registra un nombre de host para cada reenvío de puerto activo y lo apunta a `127.0.0.1`.
+
+<Steps>
+  <Step>
+    ### Habilita el DNS automático en Ajustes
+
+    Abre Ajustes > Configuración de DNS de Kubernetes > Habilitar DNS automático.
+  </Step>
+  <Step>
+    ### Crea un reenvío de puerto
+
+    Dockerman añade la entrada DNS tan pronto como inicia el reenvío.
+  </Step>
+  <Step>
+    ### Abre la URL en tu navegador
+
+    Abre `http://<alias>:<puerto-local>/` después de que la entrada DNS esté en su lugar.
+  </Step>
+</Steps>
+
+<Callout type="warn">
+  El DNS automático edita `/etc/hosts` en macOS y Linux, lo que requiere privilegios elevados. En Windows, utiliza un servidor DNS local en `127.0.0.1:53`.
+</Callout>
+
+## Entradas DNS manuales
+
+Añade un mapeo de nombre de host e IP manualmente cuando quieras una entrada estática o cuando el DNS automático no esté disponible. Las entradas manuales permanecen en su lugar entre reinicios de la aplicación.
+
+## Solución de problemas
+
+- Puerto ya en uso: selecciona el siguiente puerto local libre que sugiere Dockerman.
+- Entrada DNS no resuelta: confirma que el DNS automático está habilitado y borra cualquier caché del navegador obsoleto.
+- El reenvío sigue cayendo: verifica que el Service de respaldo aún tenga Endpoints saludables.

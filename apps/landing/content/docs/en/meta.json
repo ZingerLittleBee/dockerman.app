@@ -4,7 +4,10 @@
     "index",
     "getting-started",
     "---",
-    "guides",
+    "docker",
+    "kubernetes",
+    "---",
+    "advanced",
     "platform",
     "reference"
   ]

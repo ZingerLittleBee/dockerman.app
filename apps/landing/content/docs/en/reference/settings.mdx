@@ -1,31 +1,50 @@
 ---
 title: Settings
-description: Configure Dockerman to your preferences
+description: Reference for every settings page in Dockerman, from Docker connections to notifications.
 ---
 
-## Accessing Settings
+Reference for every settings page. Each section links back to the feature it controls.
 
-Open settings via the gear icon in the sidebar or press `Ctrl/Cmd + ,`.
+## Docker settings
 
-## General
+Use Docker settings to choose the connection type, set a socket path, and inspect connection status. For SSH-backed connections, see [Remote Hosts](/en/docs/advanced/remote-hosts).
 
-- **Language** — Choose between English and Chinese
-- **Theme** — Light, Dark, or System (follows OS setting)
-- **Start at login** — Launch Dockerman when you log in
+## Daemon config panel
 
-## Docker Connection
+Use the Daemon config panel to edit `daemon.json` in either a form view or a raw JSON view. Registry mirrors are especially useful on Windows with the WSL2 Engine, and [Windows platform](/en/docs/platform/windows#edit-daemonjson) shows where that file lives.
 
-- **Docker socket path** — Path to the Docker socket (default: `/var/run/docker.sock`)
-- **Connection timeout** — How long to wait for Docker to respond
+## Kubernetes DNS settings
 
-Dockerman auto-detects your Docker installation on startup. You only need to change these if you use a non-standard configuration.
+Use Kubernetes DNS settings to enable automatic DNS for port forwards. See [Port Forward & DNS](/en/docs/kubernetes/port-forward#automatic-dns) for the behavior it controls.
 
-## Notifications
+## Kubernetes port forward settings
 
-- **Container state changes** — Get notified when containers start, stop, or crash
-- **Resource alerts** — Alerts when containers approach resource limits
+Use Kubernetes port forward settings to set the default local port range, retry behavior, and auto-reconnect.
 
-## Data
+## License settings
 
-- **Log retention** — How long to keep container logs in Dockerman
-- **Cache** — Clear cached data and temporary files
+Use License settings to activate, view, and reset your Dockerman license. See [Licensing](/en/docs/reference/licensing) for the full flow.
+
+## Notification settings
+
+Use Notification settings to control which events trigger a notification and whether Dockerman shows an in-app banner, a system notification, or both.
+
+## Privacy settings
+
+Use Privacy settings to toggle product analytics and crash reporting. Both are opt-in by default.
+
+## Shortcut settings
+
+Use Shortcut settings to customize or unbind anything listed in [Keyboard Shortcuts](/en/docs/reference/keyboard-shortcuts).
+
+## Terminal settings
+
+Use Terminal settings to change the font family, font size, cursor style, theme, and default shell preference for new terminals.
+
+## Tray settings
+
+Use Tray settings to show or hide the tray icon, minimize Dockerman to the tray on close, and edit the tray menu actions.
+
+## Trivy settings
+
+Use Trivy settings to set the Trivy binary path, the vulnerability database update interval, and the default severity filters. See [Scan with Trivy](/en/docs/docker/images#scan-with-trivy) for the scan flow.

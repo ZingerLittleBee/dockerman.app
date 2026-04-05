@@ -1,0 +1,39 @@
+---
+title: "终端"
+description: "使用内置 xterm.js 终端进入任意运行中容器的交互式 shell。"
+---
+
+通过 xterm.js 在任意运行中的容器内打开交互式 shell。
+
+## 打开终端
+
+从容器列表中选择一个容器并打开终端。Dockerman 会打开一个新的终端视图，并在容器内部启动一个交互式 shell。
+
+## 选择 shell
+
+Dockerman 会依次尝试 `bash`、`sh` 和 `zsh`。如果你想使用其他命令，可以在终端设置控件中为当前会话覆盖 shell。
+
+<Callout type="info">
+  Alpine 或 distroless 等精简镜像可能未内置 bash。Dockerman 会自动回退到 `sh`。
+</Callout>
+
+## 复制、粘贴和滚动
+
+| 快捷键 | 操作 |
+| --- | --- |
+| Ctrl/Cmd + Shift + C | 复制选中内容 |
+| Ctrl/Cmd + Shift + V | 粘贴 |
+| 鼠标滚轮 | 滚动 |
+| Ctrl/Cmd + Shift + K | 清除终端 |
+
+## 主题和字体
+
+选择一个内置主题，然后在 [终端设置](/zh/docs/reference/settings#终端设置) 中自定义字体和字号。
+
+## 限制
+
+<Callout type="warn">
+  - 停止容器将终止终端会话。
+  - 长时间空闲的连接可能会被 Docker 断开，因此需要重新打开终端以重新连接。
+  - 某些 TUI 应用程序可能需要在启动前设置 `TERM=xterm-256color`。
+</Callout>

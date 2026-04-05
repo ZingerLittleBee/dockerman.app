@@ -1,0 +1,146 @@
+---
+title: "Windows"
+description: "Ejecuta Dockerman en Windows con Docker Desktop o el Docker Engine WSL2 integrado."
+---
+
+Windows tiene dos rutas de Docker compatibles: Docker Desktop o el Docker Engine WSL2 integrado.
+
+## Comparación rápida
+
+| Aspecto | Docker Desktop | Docker Engine WSL2 |
+| --- | --- | --- |
+| Suscripción | Requerida para la mayoría de empresas | No requerida |
+| Huella de instalación | Instalación más grande | Distro WSL pequeña basada en Alpine |
+| Uso de recursos | Mayor, porque ejecuta una VM y servicios | Menor, porque se ejecuta dentro de WSL2 |
+| Esfuerzo de configuración | Instalador estándar | Automatizado por Dockerman |
+| Soporte | Totalmente compatible | Totalmente compatible, añadido en la v4.3.0 |
+
+## Opción A: Docker Desktop
+
+<Steps>
+  <Step>
+    ### Instala Docker Desktop
+
+    Descarga Docker Desktop desde docker.com y ejecuta el instalador.
+  </Step>
+  <Step>
+    ### Asegúrate de que Docker Desktop esté en ejecución
+
+    Espera a que el icono de la ballena muestre que Docker Desktop está en ejecución.
+  </Step>
+  <Step>
+    ### Inicia Dockerman
+
+    Dockerman detecta Docker Desktop automáticamente y se conecta a él.
+  </Step>
+</Steps>
+
+## Opción B: Docker Engine WSL2
+
+Añadido en la v4.3.0.
+
+Dockerman incluye la ruta WSL2 para ti, así que no necesitas Docker Desktop ni configuración manual de WSL.
+
+### Requisitos previos
+
+- Windows 10 versión 2004 o posterior, o Windows 11.
+- WSL2 instalado con `wsl --install` desde una sesión de PowerShell elevada.
+- Virtualización habilitada en BIOS o UEFI.
+
+### Asistente de configuración
+
+El Asistente de configuración se ejecuta automáticamente en el primer inicio cuando no se detecta Docker Desktop.
+
+<Steps>
+  <Step>
+    ### Elige el Docker Engine WSL2
+
+    Selecciona la ruta del Docker Engine WSL2 integrado cuando aparezca el diálogo de bienvenida.
+  </Step>
+  <Step>
+    ### Importa Alpine
+
+    Dockerman importa una distro WSL Alpine mínima para el Docker Engine.
+  </Step>
+  <Step>
+    ### Instala Docker dentro de Alpine
+
+    Dockerman instala Docker y configura el daemon para que inicie al iniciar sesión.
+  </Step>
+  <Step>
+    ### Verifica la conexión
+
+    Dockerman ejecuta una verificación de salud y se conecta al nuevo daemon.
+  </Step>
+</Steps>
+
+<Callout type="warn">
+  No cierres Dockerman mientras el asistente está en ejecución. La primera configuración tarda unos minutos y debe finalizar antes de que la aplicación sea utilizable.
+</Callout>
+
+{/* TODO(screenshot): windows/setup-wizard - WSL2 Setup Wizard welcome step */}
+
+### Qué hace el asistente
+
+El asistente crea los archivos de la distro Alpine que Dockerman utiliza para ejecutar Docker.
+
+<Files>
+  <Folder name="(Alpine WSL2 distro)" defaultOpen>
+    <File name="/etc/docker/daemon.json" />
+    <Folder name="/etc/init.d">
+      <File name="docker" />
+    </Folder>
+    <Folder name="/var/lib/docker">
+      <File name="(Docker data root)" />
+    </Folder>
+  </Folder>
+</Files>
+
+### Edita daemon.json
+
+Usa Configuración → Panel de configuración del daemon para editar `/etc/docker/daemon.json` ya sea en una vista de formulario para campos comunes o una vista JSON sin procesar para todo lo demás. Guardar reinicia Docker dentro de la distro Alpine.
+
+### Recuperación tras fallo del daemon
+
+Si el daemon de Docker falla, Dockerman muestra un banner con un botón de Reinicio y transmite los logs del fallo para que puedas diagnosticar el problema.
+
+### Cambia entre Docker Desktop y el Engine WSL2
+
+<Steps>
+  <Step>
+    ### Abre Configuración → Configuración de Docker
+
+    Abre la página de configuración de Docker desde la configuración de la aplicación.
+  </Step>
+  <Step>
+    ### Selecciona el otro backend
+
+    Cambia entre Docker Desktop y el Docker Engine WSL2.
+  </Step>
+  <Step>
+    ### Reconecta
+
+    Guarda el cambio y reconecta al backend seleccionado.
+  </Step>
+</Steps>
+
+## Monitorización de recursos para WSL2
+
+Usa [Stats](/es/docs/docker/stats) para monitorizar el Engine WSL2 como cualquier otro daemon de Docker. Si Windows parece consumir mucha memoria, verifica el ballooning de la VM WSL2 en el Administrador de tareas.
+
+## Solución de problemas
+
+<Accordions>
+  <Accordion title="WSL2 no instalado">
+    Instala WSL2 con `wsl --install`, reinicia si Windows lo solicita, y verifica la instalación con `wsl --status`.
+  </Accordion>
+  <Accordion title="Virtualización deshabilitada">
+    Habilita la virtualización en BIOS o UEFI, luego confirma que está activa desde el Administrador de tareas → Rendimiento → CPU.
+  </Accordion>
+  <Accordion title="Fallo al importar Alpine">
+    Verifica el espacio libre en disco, cierra cualquier proceso WSL o Docker obsoleto, y revisa el Log de la aplicación para ver el error exacto de importación.
+  </Accordion>
+  <Accordion title="El daemon no inicia tras reiniciar">
+    Ve a [Recuperación tras fallo del daemon](/es/docs/platform/windows#recuperación-tras-fallo-del-daemon) y [Edita daemon.json](/es/docs/platform/windows#edita-daemonjson). Ambas secciones cubren los fallos de inicio habituales.
+  </Accordion>
+</Accordions>

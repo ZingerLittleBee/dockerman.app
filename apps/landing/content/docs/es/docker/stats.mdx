@@ -1,0 +1,41 @@
+---
+title: "Estadísticas"
+description: "Paneles de recursos en tiempo real con medidores en anillo y gráficos sparkline."
+---
+
+Usa esta página como tu panel de recursos en tiempo real. Rediseñada en la v4.5.0, combina medidores en anillo con gráficos sparkline para que puedas detectar presiones rápidamente.
+
+## Panel de vista general
+
+La página de Estadísticas muestra primero una vista general de los contenedores en ejecución, y luego te permite profundizar en los paneles de cada contenedor cuando necesites más detalle.
+
+## Medidores en anillo
+
+Los medidores en anillo muestran el uso instantáneo de CPU y memoria por contenedor. El anillo exterior muestra el valor actual, y el arco interior atenuado muestra el promedio durante el rango de tiempo seleccionado. El verde indica menos del 50 por ciento, el ámbar cubre de 50 a 80 por ciento, y el rojo marca cualquier valor superior a eso.
+
+## Gráficos sparkline
+
+Los cuatro gráficos sparkline debajo de cada fila de medidores te ofrecen un historial compacto de cada métrica.
+
+- CPU percent
+- Memory in MB
+- Network I/O in bytes per second for receive and transmit
+- Disk I/O in bytes per second for read and write
+
+Pasa el cursor sobre un punto para ver el valor exacto de ese momento.
+
+## Selector de rango de tiempo
+
+Usa el selector en la parte superior para cambiar entre 1h, 3h, 6h, 12h y 24h. El rango seleccionado se aplica tanto a los sparklines como al promedio del medidor en anillo.
+
+## Interfaces de red y dispositivos de disco
+
+Expande una fila de contenedor cuando quieras desglosar el I/O de red por interfaz o el I/O de disco por dispositivo. Esto es útil cuando un contenedor tiene múltiples conexiones de red o varios bind mounts.
+
+## Consejos
+
+- Picos de CPU en 1h que se aplanan en 24h suelen significar trabajo por lotes de corta duración, no una fuga de memoria.
+- Memoria que sube durante 24h y nunca baja es una señal fuerte de fuga de memoria.
+- Picos de I/O de disco que coinciden con el crecimiento de logs a menudo significan logs sin rotar, así que revisa [Logs](/es/docs/docker/logs).
+
+{/* TODO(screenshot): stats/dashboard - Stats overview with ring gauges and sparklines */}

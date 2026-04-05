@@ -1,0 +1,85 @@
+---
+title: Helm
+description: Add chart repositories and install, upgrade, roll back, and uninstall Helm releases from a GUI.
+---
+
+Use Helm to manage chart repositories and releases without leaving Dockerman.
+
+## Repositories
+
+Add the repositories you use most, then refresh them when you need the latest chart index.
+
+<Steps>
+  <Step>
+    ### Add a repository
+
+    Enter a repository name and URL, such as Bitnami, Jetstack, or ingress-nginx.
+  </Step>
+  <Step>
+    ### Update repositories
+
+    Refresh the chart index after you add or change a repository.
+  </Step>
+  <Step>
+    ### Remove a repository
+
+    Remove a repository when you no longer need it in Dockerman.
+  </Step>
+</Steps>
+
+## Browse charts
+
+Search across every added repository, then open a chart to read its README and available versions.
+
+## Install a release
+
+<Steps>
+  <Step>
+    ### Pick a chart and version
+
+    Choose the chart version you want to install.
+  </Step>
+  <Step>
+    ### Pick a release name and namespace
+
+    Set the release name and target namespace before you install.
+  </Step>
+  <Step>
+    ### Edit values.yaml
+
+    Dockerman loads the chart's default values into Monaco, then you override only the values you need.
+  </Step>
+  <Step>
+    ### Install
+
+    Start the release and watch the progress stream until it succeeds.
+  </Step>
+</Steps>
+
+## Upgrade and rollback
+
+<Steps>
+  <Step>
+    ### Open a release
+
+    Open the release detail view to see the current revision and history.
+  </Step>
+  <Step>
+    ### Upgrade
+
+    Pick a new chart version or edit values, then run the upgrade.
+  </Step>
+  <Step>
+    ### Rollback
+
+    Choose a previous revision from the history and roll back to it.
+  </Step>
+</Steps>
+
+## Uninstall a release
+
+Remove a release when you no longer need it in the cluster.
+
+<Callout type="warn">
+  Uninstall deletes the Kubernetes resources created by Helm, but it does not always remove PersistentVolumeClaims or CRDs that the chart installed. Check the chart's docs for `--keep-history` or `keepCRDs` behavior before you remove a production release.
+</Callout>

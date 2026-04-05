@@ -1,0 +1,33 @@
+---
+title: "ネットワーキング"
+description: "すべてのネームスペースで Services、Ingresses、Endpoints、NetworkPolicies を検査。"
+---
+
+ネットワーキングページを使用して、クラスタ内のトラフィックの流れを検査します。`kubectl`に戻ることなく、Services、Ingresses、Endpoints、NetworkPoliciesを確認できます。
+
+## Services
+
+Servicesを使用して、ワークロードの安定したフロントドアを確認します。リストにはサービスタイプ、ClusterIP、ポート、セレクターが表示されます。
+
+- `ClusterIP`：クラスタ内の内部トラフィック用
+- `NodePort`：クイックアクセス用のノードレベルポートが必要な場合
+- `LoadBalancer`：クラスタが外部ロードバランサーを公開する場合
+- `ExternalName`：ServiceがセレクターではなくDNS名を指す場合
+
+詳細ビューでは、バックエンドのEndpointsへのリンクが表示されます。
+
+## Ingresses
+
+Ingressesを使用して、クラスタへのHTTPルーティングを検査します。リストにはホスト、パス、バックエンドServicesが表示され、詳細ビューにはTLSシークレット、アノテーション、ルールツリーが表示されます。
+
+## Endpoints
+
+Serviceの背後にある生のバックエンドアドレスが必要な場合は、Endpointsを使用します。このビューは、Serviceに健全なバックエンドがない場合に最も役立ちます。
+
+## NetworkPolicies
+
+NetworkPoliciesを使用して、どのPodが相互に通信できるかを理解します。
+
+<Callout type="info">
+  NetworkPoliciesの第1段階は表示専用です。`kubectl apply`を使用するか、別のリソースのYAMLを編集して、NetworkPoliciesを作成および編集してください。
+</Callout>

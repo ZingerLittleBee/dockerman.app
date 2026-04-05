@@ -1,0 +1,100 @@
+---
+title: "Compose 与模板"
+description: "通过 Docker Compose 管理多容器应用，并从模板库快速启动项目。"
+---
+
+管理 Docker Compose 项目，并从内置模板库快速启动新项目。
+
+## Compose 项目
+
+Compose 页面显示 Dockerman 从 `com.docker.compose.project` 标签找到的每个项目，以及其容器数量、状态和基础路径。
+
+## 启动、停止和移除项目
+
+<Steps>
+  <Step>
+    ### 选择项目
+
+    选择你要管理的 Compose 项目。
+  </Step>
+  <Step>
+    ### 启动
+
+    Dockerman 会先拉取所有缺失的镜像，然后启动所有服务。
+  </Step>
+  <Step>
+    ### 停止
+
+    Dockerman 会停止所有服务，但保留容器。
+  </Step>
+  <Step>
+    ### 移除
+
+    Dockerman 会移除容器和网络。卷会保留，除非你勾选"包含卷"。
+  </Step>
+</Steps>
+
+<Callout type="warn">
+  包含卷会移除 Compose 文件定义的匿名卷和命名卷。有其他使用者的命名卷会被跳过。
+</Callout>
+
+## 拉取项目镜像
+
+拉取会获取 Compose 文件引用的所有镜像，而不启动任何服务。在新主机上冷启动前使用此功能。
+
+## 编辑 compose.yaml
+
+在 Monaco 编辑器中编辑 Compose 文件，然后保存回磁盘。Dockerman 会在保存时验证文件。
+
+<Callout type="info">
+  Dockerman 会在每次保存后重新运行 `docker compose config` 来验证文件。无效的 YAML 会阻止保存。
+</Callout>
+
+## 查看跨服务日志
+
+使用项目级日志视图合并每个服务的日志，按服务进行颜色编码，并保持与[容器日志](/zh/docs/docker/logs)相同的搜索行为。
+
+{/* TODO(screenshot): compose/project-logs - 多服务合并日志视图 */}
+
+## 模板库
+
+当你想从精选的技术栈开始，而不是空白的 Compose 文件时，请使用模板库。
+
+<Cards>
+  <Card title="数据库">
+    MySQL、PostgreSQL、MongoDB、Redis、CouchDB。
+  </Card>
+  <Card title="消息队列">
+    RabbitMQ、NATS、Kafka。
+  </Card>
+  <Card title="可观测性">
+    Prometheus 和 Grafana、Loki、Tempo。
+  </Card>
+  <Card title="开发工具">
+    phpMyAdmin、pgAdmin、Adminer、MinIO。
+  </Card>
+</Cards>
+
+<Steps>
+  <Step>
+    ### 打开模板页面
+
+    打开列出内置模板的页面。
+  </Step>
+  <Step>
+    ### 选择模板
+
+    查看服务、所需环境变量和默认端口。
+  </Step>
+  <Step>
+    ### 配置并启动
+
+    填写所需值，选择项目名称，然后启动。
+  </Step>
+</Steps>
+
+{/* TODO(screenshot): compose/templates-library - 模板库页面 */}
+
+## 创建你自己的模板
+
+将任何现有的 Compose 文件保存为模板，然后在需要更新启动项目时从模板页面编辑或删除它。

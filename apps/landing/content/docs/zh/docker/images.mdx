@@ -1,0 +1,189 @@
+---
+title: "镜像"
+description: "拉取、构建、推送、分析和扫描 Docker 镜像，内置 Docker Hub 浏览器与 Trivy 扫描。"
+---
+
+在此拉取、构建、推送、分析和扫描镜像，无需离开应用即可浏览 Docker Hub。
+
+## 镜像列表
+
+使用镜像列表按大小或创建时间排序，并在所有镜像和悬空镜像之间切换，以便清理旧层。
+
+<Tabs items={['全部', '悬空']}>
+  <Tab>
+    全部镜像包含本地可用的每个标签。当你想要检查、重新标记、基于其构建、推送或扫描镜像时，使用此视图。
+  </Tab>
+  <Tab>
+    悬空镜像是构建留下的未标记层。当你想要删除未使用的中间层时，使用此视图。
+  </Tab>
+</Tabs>
+
+## 拉取镜像
+
+Dockerman 会在你输入拉取下拉框时建议仓库、镜像名称和标签。v4.7.0 新增。
+
+<Steps>
+  <Step>
+    ### 打开拉取对话框
+
+    在镜像页面点击拉取。
+  </Step>
+  <Step>
+    ### 输入镜像引用
+
+    输入你想要拉取的仓库、镜像库和标签。
+  </Step>
+  <Step>
+    ### 观看流式进度
+
+    跟踪层下载和解压进度，直到镜像出现在列表中。
+  </Step>
+</Steps>
+
+## 浏览 Docker Hub
+
+v4.6.0 新增。
+
+使用内置的 Hub 浏览器搜索、检查和拉取公共镜像，无需切换到 Web 界面。
+
+<Steps>
+  <Step>
+    ### 打开 Hub 浏览器
+
+    在镜像页面，点击浏览 Docker Hub。
+  </Step>
+  <Step>
+    ### 搜索镜像
+
+    输入查询内容，然后在结果中查看官方和已验证徽章。
+  </Step>
+  <Step>
+    ### 阅读 README 和标签
+
+    点击镜像以在内联视图中查看其 README 和完整的标签列表。
+  </Step>
+  <Step>
+    ### 拉取特定标签
+
+    在你想要使用的标签旁边点击拉取。
+  </Step>
+</Steps>
+
+{/* TODO(screenshot): images/hub-browser - Docker Hub browser with readme */}
+
+## 从 Dockerfile 构建
+
+构建使用与 Dockerman 其余部分相同的 Docker 守护进程，当守护进程支持时，会自动使用 BuildKit。
+
+<Steps>
+  <Step>
+    ### 选择构建上下文
+
+    选择包含 Dockerfile 的本地文件夹。
+  </Step>
+  <Step>
+    ### 查看或编辑 Dockerfile
+
+    在 Monaco 编辑器中打开 Dockerfile，然后在构建前将更改保存到磁盘。
+  </Step>
+  <Step>
+    ### 设置镜像名称和构建参数
+
+    设置镜像标签、可选的构建参数，以及如果需要的话设置目标阶段。
+  </Step>
+  <Step>
+    ### 运行构建
+
+    在终端中观看构建日志流，直到镜像出现在镜像列表中。
+  </Step>
+</Steps>
+
+<Callout type="info">
+  Dockerman 会遵循所选构建上下文中的 `.dockerignore`。
+</Callout>
+
+## 推送到仓库
+
+v4.6.0 新增。
+
+在登录到目标仓库或为推送提供凭据后，推送已标记的镜像。
+
+<Steps>
+  <Step>
+    ### 为目标仓库标记镜像
+
+    使用完整的名称，如 `registry.example.com/team/app:1.2.0`。
+  </Step>
+  <Step>
+    ### 配置仓库凭据
+
+    Dockerman 从 `~/.docker/config.json` 读取现有的 Docker 认证，或者你可以为每次推送添加凭据。
+  </Step>
+  <Step>
+    ### 推送并观看流式进度
+
+    跟踪上传进度，直到仓库接受新标签。
+  </Step>
+</Steps>
+
+<Callout type="info">
+  公共仓库和私有仓库都支持，包括 Docker Hub、GHCR、Harbor、AWS ECR、Nexus 和 GitLab Container Registry。
+</Callout>
+
+## 分析镜像大小
+
+打开镜像大小视图以查看层树结构和镜像空间使用情况。
+
+- 查找最终层中遗留的超大软件包缓存。
+- 查找应该复制到更小运行时镜像的构建产物。
+- 查找重复复制相同文件的冗余 `COPY` 层。
+
+## 标签操作
+
+使用标签操作来标记、取消标记或重新标记镜像，以便用于其他仓库或仓库。重新标记仅更改引用，因此底层层保持不变。
+
+## 使用 Trivy 扫描
+
+v4.6.0 新增。
+
+扫描镜像以发现其已安装层中的已知漏洞。
+
+### 首次安装
+
+首次扫描会下载 Trivy 二进制文件及其漏洞数据库。
+
+<Callout type="warn">
+  首次扫描会下载 Trivy 二进制文件（约 50 MB）以及漏洞数据库。此下载是一次性的，并在本地缓存。如果你需要自定义二进制文件路径，请参阅 [Trivy 设置](/zh/docs/reference/settings#trivy-设置)。
+</Callout>
+
+### 运行扫描
+
+<Steps>
+  <Step>
+    ### 选择镜像
+
+    从镜像页面选择你想要扫描的镜像。
+  </Step>
+  <Step>
+    ### 点击使用 Trivy 扫描
+
+    Dockerman 启动扫描并将进度流式传输到报告视图。
+  </Step>
+  <Step>
+    ### 等待报告
+
+    典型扫描需要 30 秒到 3 分钟，具体取决于镜像大小。
+  </Step>
+</Steps>
+
+### 阅读报告
+
+Dockerman 按严重程度对发现进行分组，然后让你展开每个发现以查看 CVE ID、描述、受影响版本和可用的修复版本。当你想要将其输入 CI 或存档结果时，将原始报告导出为 JSON。
+
+{/* TODO(screenshot): images/trivy-report - Trivy report with expanded finding */}
+
+## 清理
+
+- 当你想要快速清除构建残留时，从悬空标签页删除悬空镜像。
+- 当你不再需要某个标签时，使用多选删除旧版本。
+- 当你想要一次性删除所有未使用的镜像时，在 [Docker 设置](/zh/docs/reference/settings#docker-设置) 中使用系统清理控件。

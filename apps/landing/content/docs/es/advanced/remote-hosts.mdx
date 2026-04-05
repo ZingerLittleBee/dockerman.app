@@ -1,0 +1,68 @@
+---
+title: "Hosts Remotos (SSH)"
+description: "Gestiona hosts Docker remotos mediante túneles SSH y cambia entre ellos desde el selector de hosts."
+---
+
+Dockerman se conecta a demonios Docker remotos reenviando su socket Unix a través de SSH. Una vez configurado un host, todas las funciones (contenedores, imágenes, logs, terminales) funcionan exactamente igual que en localhost.
+
+## Añade un host remoto
+
+Añade un host una vez, luego cambia a él como cualquier otro objetivo Docker.
+
+<Steps>
+  <Step>
+    ### Abre Hosts
+
+    Abre Hosts desde el menú de la bandeja o la vista de Hosts.
+  </Step>
+  <Step>
+    ### Haz clic en Añadir Host
+
+    Haz clic en **Añadir Host**. Un diálogo solicitará los detalles de conexión.
+  </Step>
+  <Step>
+    ### Completa los detalles SSH
+
+    Introduce el host, puerto (predeterminado `22`), usuario y método de autenticación.
+  </Step>
+  <Step>
+    ### Prueba y guarda
+
+    Prueba la conexión, luego guárdala. Dockerman abre un túnel de prueba y ejecuta un ping de Docker.
+  </Step>
+</Steps>
+
+## Autenticación por clave vs contraseña
+
+Elige el método de autenticación SSH que coincida con la configuración del host remoto.
+
+<Tabs items={['Clave SSH', 'Contraseña']}>
+  <Tab>
+    Pega la clave privada directamente o indica a Dockerman la ruta de un archivo de clave.
+
+    <Callout type="warn">
+      Las claves privadas deben tener permisos 600 en disco; OpenSSH rechaza claves con permisos más permisivos.
+    </Callout>
+  </Tab>
+  <Tab>
+    La autenticación por contraseña se almacena localmente. Úsala solo para configuraciones temporales o escenarios de portátiles compartidos.
+  </Tab>
+</Tabs>
+
+## Cambia entre hosts
+
+Usa el Selector de Hosts en la barra superior para moverte entre `localhost` y cada host remoto configurado. Cambiar de host recarga todos los datos para el objetivo seleccionado.
+
+## Reconexión automática
+
+Dockerman supervisa la salud del túnel SSH y se reconecta después de fallos transitorios. Un banner te advierte cuando un host lleva más de 30 segundos desconectado.
+
+## Cómo funciona el túnel SSH
+
+Dockerman abre una sesión SSH y reenvía un socket unix local al `/var/run/docker.sock` remoto, o a la ruta de socket que configuraste. Todas las llamadas a la API de Docker fluyen a través de ese túnel, así que nada sale del canal SSH.
+
+## Notas de seguridad
+
+<Callout type="warn">
+  Configura solo hosts remotos en los que confíes y en redes de confianza. Las credenciales SSH permanecen en tu máquina local, así que trata el sistema que las almacena como sensible.
+</Callout>

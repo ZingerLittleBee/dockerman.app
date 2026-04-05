@@ -1,0 +1,46 @@
+---
+title: "Volúmenes"
+description: "Gestiona volúmenes Docker: crea, inspecciona y limpia el almacenamiento persistente."
+---
+
+Usa esta página para listar, crear, inspeccionar y limpiar volúmenes. Cuando necesites explorar el contenido de un volumen, ve a [Archivos](/es/docs/docker/files).
+
+## La lista de volúmenes
+
+La lista de volúmenes muestra el nombre, driver, punto de montaje, tamaño y fecha de creación. Ordena y filtra para encontrar el volumen que necesitas.
+
+## Crear un volumen
+
+<Steps>
+  <Step>
+    ### Elige un nombre y driver
+
+    Selecciona el nombre del volumen, luego elige el driver que deseas. Local es el valor predeterminado, y los drivers de plugin aparecen cuando están instalados.
+  </Step>
+  <Step>
+    ### Opciones del driver (opcional)
+
+    Agrega cualquier opción específica del driver, como configuraciones de montaje NFS para el driver local.
+  </Step>
+  <Step>
+    ### Etiquetas (opcional)
+
+    Añade etiquetas cuando quieras agrupar o consultar el volumen más tarde.
+  </Step>
+</Steps>
+
+## Explorar archivos del volumen
+
+Usa [Archivos](/es/docs/docker/files) para explorar el contenido de un volumen, previsualizar archivos, editar archivos de texto, subir archivos, descargar archivos y gestionar acciones de selección múltiple.
+
+## Inspeccionar un volumen
+
+Abre Inspeccionar para revisar el JSON del volumen, incluyendo el punto de montaje, opciones del driver, etiquetas, ámbito y la lista de contenedores que actualmente usan el volumen.
+
+## Limpiar volúmenes no utilizados
+
+Limpiar elimina todos los volúmenes que no están actualmente conectados a un contenedor.
+
+<Callout type="warn">
+  Limpiar elimina todos los volúmenes no utilizados, incluyendo volúmenes con nombre que podrías querer conservar. Usa Eliminar en su lugar cuando quieras ser explícito.
+</Callout>

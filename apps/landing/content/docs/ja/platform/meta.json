@@ -1,7 +1,8 @@
 {
   "title": "プラットフォーム",
   "pages": [
-    "wsl",
+    "windows",
+    "macos",
     "linux"
   ],
   "defaultOpen": true

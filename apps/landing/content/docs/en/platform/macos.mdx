@@ -1,0 +1,48 @@
+---
+title: macOS
+description: Run Dockerman on macOS with Docker Desktop as the default backend.
+---
+
+Dockerman on macOS ships as a signed, notarized DMG with Intel, Apple Silicon, and Universal builds.
+
+## Install
+
+<Steps>
+  <Step>
+    ### Download the DMG
+
+    Pick the Intel, Apple Silicon, or Universal build from the release page. Use Universal if you want one download for every Mac.
+  </Step>
+  <Step>
+    ### Open and drag to Applications
+
+    Open the DMG and drag Dockerman into Applications.
+  </Step>
+  <Step>
+    ### Launch Dockerman
+
+    Start Dockerman from Applications or Spotlight, then approve the first-launch prompt if macOS asks for it.
+  </Step>
+</Steps>
+
+## Docker backend
+
+Docker Desktop is the supported backend on macOS, and Dockerman connects automatically when Docker Desktop is running.
+
+<Callout type="info">
+  Docker-compatible sockets such as `/var/run/docker.sock` and `~/.docker/run/docker.sock` also work. If Dockerman does not detect your socket automatically, set the path in Settings → Docker settings.
+</Callout>
+
+## Menu bar and tray
+
+Dockerman adds a menu bar icon with quick actions and recent targets. Control the tray icon behavior in Settings → Tray settings.
+
+## Apple Silicon notes
+
+On Apple Silicon, watch the image platform before you run a container. Many public images default to `amd64`, so pull the `arm64` variant when you can or set `--platform=linux/arm64` explicitly.
+
+## Troubleshooting
+
+- "Socket not found" means Docker Desktop is not running, or Dockerman is pointed at the wrong socket path.
+- "Gatekeeper blocks the app" means you need to right-click the app and choose Open on first launch.
+- "Keychain prompts repeatedly" means Dockerman has not been allowed to save the per-host credential yet.

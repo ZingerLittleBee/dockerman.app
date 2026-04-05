@@ -1,0 +1,85 @@
+---
+title: "Helm"
+description: "Añade repositorios de charts e instala, actualiza, revierte y desinstala releases de Helm desde una GUI."
+---
+
+Usa Helm para gestionar repositorios de charts y releases sin salir de Dockerman.
+
+## Repositorios
+
+Añade los repositorios que más usas, luego actualízalos cuando necesites el índice de charts más reciente.
+
+<Steps>
+  <Step>
+    ### Añadir un repositorio
+
+    Introduce un nombre y URL de repositorio, como Bitnami, Jetstack o ingress-nginx.
+  </Step>
+  <Step>
+    ### Actualizar repositorios
+
+    Actualiza el índice de charts después de añadir o modificar un repositorio.
+  </Step>
+  <Step>
+    ### Eliminar un repositorio
+
+    Elimina un repositorio cuando ya no lo necesites en Dockerman.
+  </Step>
+</Steps>
+
+## Explorar charts
+
+Busca en todos los repositorios añadidos, luego abre un chart para leer su README y ver las versiones disponibles.
+
+## Instalar un release
+
+<Steps>
+  <Step>
+    ### Elegir un chart y versión
+
+    Elige la versión del chart que quieres instalar.
+  </Step>
+  <Step>
+    ### Elegir nombre de release y namespace
+
+    Establece el nombre del release y el namespace de destino antes de instalar.
+  </Step>
+  <Step>
+    ### Editar values.yaml
+
+    Dockerman carga los valores por defecto del chart en Monaco, luego tú sobrescribes solo los valores que necesitas.
+  </Step>
+  <Step>
+    ### Instalar
+
+    Inicia el release y observa el progreso en tiempo real hasta que se complete con éxito.
+  </Step>
+</Steps>
+
+## Actualizar y revertir
+
+<Steps>
+  <Step>
+    ### Abrir un release
+
+    Abre la vista de detalle del release para ver la revisión actual y el historial.
+  </Step>
+  <Step>
+    ### Actualizar
+
+    Elige una nueva versión del chart o edita los valores, luego ejecuta la actualización.
+  </Step>
+  <Step>
+    ### Revertir
+
+    Elige una revisión anterior del historial y revierte a ella.
+  </Step>
+</Steps>
+
+## Desinstalar un release
+
+Elimina un release cuando ya no lo necesites en el clúster.
+
+<Callout type="warn">
+  La desinstalación elimina los recursos de Kubernetes creados por Helm, pero no siempre elimina los PersistentVolumeClaims o CRDs que el chart instaló. Consulta la documentación del chart para conocer el comportamiento de `--keep-history` o `keepCRDs` antes de eliminar un release en producción.
+</Callout>

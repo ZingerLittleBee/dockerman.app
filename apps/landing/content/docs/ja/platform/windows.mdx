@@ -1,0 +1,146 @@
+---
+title: "Windows"
+description: "Docker Desktop または内蔵 WSL2 Docker Engine を使用して Windows で Dockerman を実行。"
+---
+
+Windows には2つのサポートされているDockerパスがあります：Docker Desktopまたは内蔵WSL2 Docker Engineです。
+
+## クイック比較
+
+| 項目 | Docker Desktop | WSL2 Docker Engine |
+| --- | --- | --- |
+| サブスクリプション | ほとんどの企業で必要 | 不要 |
+| フットプリント | インストールサイズが大きい | 小さなAlpineベースのWSLディストリビューション |
+| リソース使用量 | VMとサービスを実行するため高い | WSL2内で実行されるため低い |
+| セットアップ作業 | 標準インストーラー | Dockermanが自動化 |
+| サポート | 完全サポート | 完全サポート、v4.3.0 で追加されました |
+
+## オプションA：Docker Desktop
+
+<Steps>
+  <Step>
+    ### Docker Desktopをインストール
+
+    docker.comからDocker Desktopをダウンロードし、インストーラーを実行してください。
+  </Step>
+  <Step>
+    ### Docker Desktopが実行中であることを確認
+
+    クジラアイコンが表示され、Docker Desktopが実行中であることを確認してください。
+  </Step>
+  <Step>
+    ### Dockermanを起動
+
+    DockermanはDocker Desktopを自動検出し、接続します。
+  </Step>
+</Steps>
+
+## オプションB：WSL2 Docker Engine
+
+v4.3.0 で追加されました。
+
+DockermanはWSL2パスをバンドルしているため、Docker Desktopや手動のWSLセットアップは必要ありません。
+
+### 前提条件
+
+- Windows 10 バージョン2004以降、またはWindows 11
+- 管理者権限のPowerShellセッションから`wsl --install`でインストールされたWSL2
+- BIOSまたはUEFIで仮想化が有効になっていること
+
+### セットアップウィザード
+
+セットアップウィザードは、Docker Desktopが検出されない場合、初回起動時に自動的に実行されます。
+
+<Steps>
+  <Step>
+    ### WSL2 Docker Engineを選択
+
+    ウェルカムダイアログが表示されたら、内蔵WSL2 Docker Engineパスを選択してください。
+  </Step>
+  <Step>
+    ### Alpineをインポート
+
+    DockermanはDocker Engine用の最小限のAlpine WSLディストリビューションをインポートします。
+  </Step>
+  <Step>
+    ### Alpine内にDockerをインストール
+
+    DockermanはDockerをインストールし、ログイン時にデーモンが起動するように設定します。
+  </Step>
+  <Step>
+    ### 接続を確認
+
+    Dockermanはヘルスチェックを実行し、新しいデーモンに接続します。
+  </Step>
+</Steps>
+
+<Callout type="warn">
+  ウィザードの実行中はDockermanを閉じないでください。初回セットアップには数分かかり、アプリが使用可能になる前に完了する必要があります。
+</Callout>
+
+{/* TODO(screenshot): windows/setup-wizard - WSL2 Setup Wizard welcome step */}
+
+### ウィザードの処理内容
+
+ウィザードは、DockermanがDockerを実行するために使用するAlpineディストリビューションファイルを作成します。
+
+<Files>
+  <Folder name="(Alpine WSL2 distro)" defaultOpen>
+    <File name="/etc/docker/daemon.json" />
+    <Folder name="/etc/init.d">
+      <File name="docker" />
+    </Folder>
+    <Folder name="/var/lib/docker">
+      <File name="(Docker data root)" />
+    </Folder>
+  </Folder>
+</Files>
+
+### daemon.jsonの編集
+
+設定→Daemon設定パネルを使用して、`/etc/docker/daemon.json`を編集してください。一般的なフィールドはフォームビューで、それ以外は raw JSON ビューで編集できます。保存するとAlpineディストリビューション内のDockerが再起動します。
+
+### デーモンクラッシュからの復旧
+
+Dockerデーモンがクラッシュした場合、Dockermanは再起動ボタン付きのバナーを表示し、クラッシュログをストリーミングして障害を診断できるようにします。
+
+### Docker DesktopとWSL2 Engineの切り替え
+
+<Steps>
+  <Step>
+    ### 設定→Docker設定を開く
+
+    アプリ設定からDocker設定ページを開いてください。
+  </Step>
+  <Step>
+    ### 別のバックエンドを選択
+
+    Docker DesktopとWSL2 Docker Engineを切り替えてください。
+  </Step>
+  <Step>
+    ### 再接続
+
+    変更を保存し、選択したバックエンドに再接続してください。
+  </Step>
+</Steps>
+
+## WSL2のリソース監視
+
+[Stats](/ja/docs/docker/stats)を使用して、WSL2 Engineを他のDockerデーモンと同様に監視してください。Windowsのメモリ使用量が多く見える場合は、タスクマネージャーでWSL2 VMのバルーニングを確認してください。
+
+## トラブルシューティング
+
+<Accordions>
+  <Accordion title="WSL2がインストールされていない">
+    `wsl --install`でWSL2をインストールし、Windowsが求めれば再起動して、`wsl --status`でインストールを確認してください。
+  </Accordion>
+  <Accordion title="仮想化が無効">
+    BIOSまたはUEFIで仮想化を有効にし、タスクマネージャー→パフォーマンス→CPUで有効になっていることを確認してください。
+  </Accordion>
+  <Accordion title="Alpineのインポートに失敗">
+    空きディスク容量を確認し、古いWSLまたはDockerプロセスを終了して、アプリログで正確なインポートエラーを確認してください。
+  </Accordion>
+  <Accordion title="再起動後にデーモンが起動しない">
+    [デーモンクラッシュからの復旧](/ja/docs/platform/windows#デーモンクラッシュからの復旧)と[daemonjsonの編集](/ja/docs/platform/windows#daemonjsonの編集)を参照してください。両方のセクションで一般的な起動障害をカバーしています。
+  </Accordion>
+</Accordions>

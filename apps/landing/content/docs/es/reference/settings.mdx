@@ -1,23 +1,50 @@
 ---
-title: Configuración
-description: Configuración de la aplicación Dockerman
+title: "Configuración"
+description: "Referencia de cada página de configuración de Dockerman, desde conexiones Docker hasta notificaciones."
 ---
 
-## Resumen
+Referencia de cada página de configuración. Cada sección enlaza de vuelta a la función que controla.
 
-Personaliza las opciones de configuración de Dockerman.
+## Configuración de Docker
 
-## Configuración General
+Usa la configuración de Docker para elegir el tipo de conexión, establecer una ruta de socket e inspeccionar el estado de la conexión. Para conexiones basadas en SSH, consulta [Hosts remotos](/es/docs/advanced/remote-hosts).
 
-- **Idioma**: Selecciona el idioma de la UI
-- **Tema**: Modo claro/oscuro
-- **Al Inicio**: Iniciar Dockerman al arrancar el sistema
+## Panel de configuración del daemon
 
-## Configuración Docker
+Usa el panel de configuración del daemon para editar `daemon.json` ya sea en una vista de formulario o en una vista JSON sin procesar. Los mirrors de registro son especialmente útiles en Windows con el motor WSL2, y la [plataforma Windows](/es/docs/platform/windows#edita-daemonjson) muestra dónde se encuentra ese archivo.
 
-- **Ruta del Socket**: Socket Docker personalizado
-- **Host Remoto**: Conexión Docker remota vía SSH
+## Configuración de DNS de Kubernetes
 
-## Privacidad
+Usa la configuración de DNS de Kubernetes para habilitar el DNS automático para los reenvíos de puertos. Consulta [Reenvío de puertos y DNS](/es/docs/kubernetes/port-forward#dns-automático) para conocer el comportamiento que controla.
 
-- **Analíticas**: Habilitar/deshabilitar analíticas de uso
+## Configuración de reenvío de puertos de Kubernetes
+
+Usa la configuración de reenvío de puertos de Kubernetes para establecer el rango de puertos locales predeterminado, el comportamiento de reintentos y la reconexión automática.
+
+## Configuración de licencia
+
+Usa la configuración de licencia para activar, ver y restablecer tu licencia de Dockerman. Consulta [Licencias](/es/docs/reference/licensing) para ver el flujo completo.
+
+## Configuración de notificaciones
+
+Usa la configuración de notificaciones para controlar qué eventos activan una notificación y si Dockerman muestra un banner en la aplicación, una notificación del sistema, o ambos.
+
+## Configuración de privacidad
+
+Usa la configuración de privacidad para activar o desactivar el análisis del producto y los informes de errores. Ambos son opt-in por defecto.
+
+## Configuración de atajos
+
+Usa la configuración de atajos para personalizar o desvincular cualquier elemento listado en [Atajos de teclado](/es/docs/reference/keyboard-shortcuts).
+
+## Configuración del terminal
+
+Usa la configuración del terminal para cambiar la familia de fuentes, el tamaño de fuente, el estilo del cursor, el tema y la preferencia de shell predeterminada para nuevos terminales.
+
+## Configuración de la bandeja
+
+Usa la configuración de la bandeja para mostrar u ocultar el icono de la bandeja, minimizar Dockerman a la bandeja al cerrar, y editar las acciones del menú de la bandeja.
+
+## Configuración de Trivy
+
+Usa la configuración de Trivy para establecer la ruta del binario de Trivy, el intervalo de actualización de la base de datos de vulnerabilidades y los filtros de severidad predeterminados. Consulta [Escanear con Trivy](/es/docs/docker/images#escanear-con-trivy) para ver el flujo de escaneo.

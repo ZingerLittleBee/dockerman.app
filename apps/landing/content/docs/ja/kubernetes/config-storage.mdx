@@ -1,0 +1,30 @@
+---
+title: "設定とストレージ"
+description: "kubectl の切り替えなしで ConfigMaps、Secrets、PersistentVolumeClaims、StorageClasses を管理。"
+---
+
+設定とストレージを使用して、ワークロードが依存するデータソースとバッキングストアを確認します。
+
+## ConfigMaps
+
+ConfigMap を開いて、キー、値、リスト行、詳細ビュー、YAML を確認します。アプリの設定を変更する必要がある場合は、オブジェクトを編集してください。
+
+<Callout type="info">
+  ConfigMap を編集しても、それをマウントしているポッドは再起動されません。新しいデータを反映させる必要がある場合は、所有している Deployment または StatefulSet を更新してください。
+</Callout>
+
+## Secrets
+
+Secret を開いて、タイプ、キー、値を確認します。リストには `Opaque`、`kubernetes.io/tls`、`kubernetes.io/dockerconfigjson` などの一般的なタイプが表示され、各キーには独自の表示制御があります。
+
+<Callout type="warn">
+  表示すると、シークレットの値が平文で表示されます。その時点で画面を見ることができる人は誰でも値を読むことができます。
+</Callout>
+
+## PersistentVolumeClaims
+
+PersistentVolumeClaims を使用して、各クレームのフェーズ、バインドされている PersistentVolume、ストレージクラス、アクセスモード、容量を確認します。
+
+## StorageClasses
+
+StorageClasses を使用して、プロビジョナー、再利用ポリシー、ボリュームバインディングモード、デフォルトクラスマーカーなど、クラスターのストレージオプションを確認します。

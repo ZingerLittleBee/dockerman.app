@@ -1,24 +1,136 @@
 ---
-title: Primeros Pasos
-description: Instala y configura Dockerman en tu sistema
+title: "Primeros Pasos"
+description: "Instala Dockerman y conéctate a tu primer daemon de Docker en minutos."
 ---
+
+Usa esta página para instalar Dockerman y hacer tu primera conexión. Si estás en Windows y quieres evitar Docker Desktop, usa la ruta WSL2 integrada en la guía de la plataforma Windows: [Windows](/es/docs/platform/windows).
+
+## Requisitos previos
+
+<Callout type="info">
+  Un daemon de Docker debe estar disponible antes de que puedas gestionar contenedores. En Windows, Dockerman puede aprovisionar uno para ti a través de la ruta integrada del Docker Engine en WSL2 en la [guía de la plataforma Windows](/es/docs/platform/windows).
+</Callout>
 
 ## Instalación
 
-Descarga Dockerman desde el [sitio web oficial](https://dockerman.app/es/download).
+<Tabs items={['macOS', 'Windows', 'Linux']}>
+  <Tab>
+    <Steps>
+      <Step>
+        ### Descarga el DMG
 
-## Requisitos del Sistema
+        Descarga el DMG de macOS desde la página de Descargas.
+      </Step>
+      <Step>
+        ### Abre y arrastra a Aplicaciones
 
-- macOS 12+ / Windows 10+ / Linux (Ubuntu 20.04+)
-- Docker Engine instalado y en ejecución
+        Abre el DMG, luego arrastra Dockerman a Aplicaciones.
+      </Step>
+      <Step>
+        ### Inicia Dockerman
 
-## Pasos
+        Inicia Dockerman desde Aplicaciones o Spotlight.
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab>
+    <Steps>
+      <Step>
+        ### Descarga el MSI
 
-1. Descarga el instalador para tu plataforma
-2. Ejecuta el instalador
-3. Lanza Dockerman
-4. Dockerman detectará automáticamente tu Docker Engine
+        Descarga el MSI de Windows desde la página de Descargas.
+      </Step>
+      <Step>
+        ### Ejecuta el instalador
 
-## Primeros Pasos
+        Ejecuta el instalador y sigue las instrucciones.
+      </Step>
+      <Step>
+        ### Inicia Dockerman
 
-Después de lanzar Dockerman, verás el panel con un resumen de tu entorno Docker.
+        Inicia Dockerman, luego usa el Asistente de Configuración WSL2 en el primer inicio si quieres la ruta integrada del Docker Engine. Consulta la [guía de la plataforma Windows](/es/docs/platform/windows).
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab>
+    <Steps>
+      <Step>
+        ### Instala el paquete
+
+        Instala el paquete que coincida con tu distribución. Usa el build `.deb`, `.rpm`, o AppImage, luego sigue la [guía de la plataforma Linux](/es/docs/platform/linux).
+      </Step>
+      <Step>
+        ### Añade tu usuario al grupo docker
+
+        Ejecuta:
+
+        ```bash
+        sudo usermod -aG docker $USER
+        ```
+
+        Cierra sesión y vuelve a iniciarla para que la nueva membresía del grupo surta efecto.
+      </Step>
+      <Step>
+        ### Inicia Dockerman
+
+        Inicia Dockerman desde el menú de escritorio o ejecutando `dockerman`.
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+## Primer inicio
+
+<Steps>
+  <Step>
+    ### El diálogo de conexión
+
+    Dockerman intenta conectarse automáticamente al Docker local y muestra el progreso o errores.
+
+    {/* TODO(screenshot): getting-started/connect-dialog - Connect dialog on first launch */}
+  </Step>
+  <Step>
+    ### Elige una fuente de Docker
+
+    Selecciona el socket local, un endpoint TCP, o un host SSH.
+  </Step>
+  <Step>
+    ### Inicialización de datos
+
+    Dockerman carga contenedores, imágenes, redes, volúmenes y proyectos Compose en paralelo.
+  </Step>
+  <Step>
+    ### El panel de control
+
+    Revisa una instantánea de los contenedores en ejecución y detenidos, más gráficos en tiempo real.
+
+    {/* TODO(screenshot): getting-started/dashboard - Dashboard after first connect */}
+  </Step>
+</Steps>
+
+## Siguientes pasos
+
+<Cards>
+  <Card title="Contenedores" href="/es/docs/docker/containers">
+    Aprende la gestión del ciclo de vida de contenedores.
+  </Card>
+  <Card title="Kubernetes" href="/es/docs/kubernetes/overview">
+    Adéntrate en cargas de trabajo, servicios, configuración y depuración.
+  </Card>
+  <Card title="Guías de plataforma" href="/es/docs/platform/windows">
+    Configura la ruta WSL2 de Windows.
+  </Card>
+  <Card title="Solución de problemas" href="/es/docs/reference/troubleshooting">
+    Resuelve problemas de configuración y conexión.
+  </Card>
+</Cards>
+
+## Requisitos del sistema
+
+| Plataforma | Versión mínima | Arquitectura |
+| --- | --- | --- |
+| macOS | 11 (Big Sur) | Intel, Apple Silicon, Universal |
+| Windows | 10 (1903) / 11 | x86_64 |
+| Linux | kernel 5.x | x86_64, aarch64 |
+
+Un daemon de Docker (Engine 20.10+) debe estar disponible antes de que empieces a gestionar contenedores; en Windows, Dockerman puede aprovisionar uno a través de la ruta opcional de WSL2. El soporte de Kubernetes usa el paquete opcional de k3d.

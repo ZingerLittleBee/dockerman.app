@@ -1,29 +1,71 @@
 ---
-title: Atajos de Teclado
-description: Referencia de atajos de teclado de Dockerman
+title: "Atajos de Teclado"
+description: "Cada atajo de teclado en Dockerman, agrupado por superficie."
 ---
 
-## Atajos Globales
+Cada atajo de teclado en Dockerman está agrupado por superficie. La mayoría de los atajos se pueden personalizar en [Configuración → Atajos de teclado](/es/docs/reference/settings#configuración-de-atajos-de-teclado).
+
+## Global
 
 | Atajo | Acción |
-|-------|--------|
-| `Cmd/Ctrl + ;` | Abrir paleta de comandos |
-| `Cmd/Ctrl + Shift + T` | Abrir nueva terminal |
-| `Cmd/Ctrl + ,` | Abrir configuración |
-
-## Vista de Contenedores
-
-| Atajo | Acción |
-|-------|--------|
-| `R` | Reiniciar contenedor |
-| `S` | Detener contenedor |
-| `K` | Eliminar contenedor |
-| `L` | Ver logs |
+| --- | --- |
+| Cmd/Ctrl + K | Abrir Spotlight |
+| Cmd/Ctrl + , | Abrir Configuración |
+| Cmd/Ctrl + Shift + L | Cambiar tema |
+| Cmd/Ctrl + Shift + H | Abrir selector de host |
 
 ## Navegación
 
 | Atajo | Acción |
-|-------|--------|
-| `Cmd/Ctrl + 1` | Panel |
-| `Cmd/Ctrl + 2` | Contenedores |
-| `Cmd/Ctrl + 3` | Imágenes |
+| --- | --- |
+| Up / Down | Mover selección en la lista actual |
+| Enter | Abrir la fila seleccionada |
+| Cmd/Ctrl + Click | Activar/desactivar selección múltiple |
+| Shift + Click | Seleccionar un rango |
+
+## Acciones de contenedores
+
+| Atajo | Acción |
+| --- | --- |
+| S | Start |
+| X | Stop |
+| R | Restart |
+| P | Pause or unpause |
+| L | Logs |
+| T | Terminal |
+| I | Inspect |
+| Delete | Remove tras confirmación |
+
+## Visor de registros
+
+| Atajo | Acción |
+| --- | --- |
+| / | Abrir búsqueda |
+| n | Next match |
+| N | Previous match |
+| g | Jump to the start |
+| G | Jump to the latest line |
+| P | Previous match, mismo que Shift + n |
+| Esc | Cerrar búsqueda o limpiar resaltados |
+
+## Terminal
+
+| Atajo | Acción |
+| --- | --- |
+| Ctrl/Cmd + Shift + C | Copiar selección |
+| Ctrl/Cmd + Shift + V | Pegar |
+| Ctrl/Cmd + Shift + K | Limpiar la terminal |
+| Ctrl + C | Enviar SIGINT al proceso |
+| Ctrl + D | Enviar EOF |
+
+## Kubernetes
+
+| Atajo | Acción |
+| --- | --- |
+| N | Cycle namespace |
+| D | Debug en un Pod |
+| Y | Edit YAML |
+
+## Personalizar
+
+Cambia cualquier atajo en [Configuración → Atajos de teclado](/es/docs/reference/settings#configuración-de-atajos-de-teclado).

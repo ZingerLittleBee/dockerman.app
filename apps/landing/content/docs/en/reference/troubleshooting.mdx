@@ -1,82 +1,68 @@
 ---
 title: Troubleshooting
-description: Common issues and solutions for Dockerman
+description: Common issues and how to resolve them — connection problems, permissions, performance, and Kubernetes.
 ---
 
-## Docker Connection Issues
+Common issues and the quickest way to resolve each one.
 
-### Dockerman cannot connect to Docker
+## Can't connect to Docker daemon
 
-1. Verify Docker is running:
-   ```bash
-   docker info
-   ```
-2. Check the Docker socket exists:
-   ```bash
-   ls -la /var/run/docker.sock
-   ```
-3. Ensure your user has permission to access Docker:
-   ```bash
-   groups | grep docker
-   ```
+Use the tabs below to match the platform you are on.
 
-### Connection timeout
+<Tabs items={['macOS', 'Windows', 'Linux']}>
+  <Tab>
+    Make sure Docker Desktop is running, then check [Settings → Docker settings](/en/docs/reference/settings#docker-settings) for the socket path Dockerman should use.
+  </Tab>
+  <Tab>
+    Choose between Docker Desktop and the WSL2 Engine in [Windows](/en/docs/platform/windows). If Dockerman is pointed at the wrong backend, switch it in [Settings → Docker settings](/en/docs/reference/settings#docker-settings).
+  </Tab>
+  <Tab>
+    Add your user to the docker group and follow [Linux permissions](/en/docs/platform/linux#permissions).
+  </Tab>
+</Tabs>
 
-- Increase the timeout in **Settings > Docker Connection**
-- Restart the Docker daemon and try again
+## Permission errors on Linux
 
-## Performance Issues
+If Dockerman cannot reach `/var/run/docker.sock`, add your user to the docker group, log out and back in, and verify that `docker ps` works without `sudo`.
 
-### Dockerman is slow or unresponsive
+## WSL2 Setup Wizard fails
 
-- Close unused terminal sessions
-- Reduce the number of containers displayed (use filters)
-- Check system resource usage — Dockerman is lightweight but Docker itself may consume resources
+Use the Windows troubleshooting section for the WSL2 path: [Windows platform troubleshooting](/en/docs/platform/windows#troubleshooting).
 
-### High memory usage
+## SSH host connection fails
 
-- Large log buffers can consume memory. Clear container logs or reduce log retention in Settings
-- Close file browser tabs you're not using
+Check the host port, private key file permissions, and any firewall rule that blocks outbound port 22. For the full setup flow, see [Remote Hosts](/en/docs/advanced/remote-hosts).
 
-## Display Issues
+## Performance issues
 
-### UI appears broken or unstyled
+- High CPU when idle usually means a Logs tab is streaming a large file set. Pause tabs you are not using.
+- Slow list loads with hundreds of containers usually means you need to filter by status or Compose project first.
+- Sluggish stats usually means the selected time range is too wide. Reduce it to 1h or 3h.
 
-- Update Dockerman to the latest version
-- Clear the application cache in **Settings > Data > Clear Cache**
-- Restart the application
+## Kubernetes: k3d fails to start
 
-### Dark mode not working
+<Accordions>
+  <Accordion title="Port 6443 already in use">
+    Stop the other Kubernetes tool or change the k3d API port before you try again.
+  </Accordion>
+  <Accordion title="vm.max_map_count too low">
+    Run `sudo sysctl -w vm.max_map_count=262144`, then persist the value in `/etc/sysctl.conf` if you want it to survive reboot.
+  </Accordion>
+  <Accordion title="k3d binary download failed">
+    Check outbound HTTPS access, then retry the download. If needed, place the binary manually at the path shown in the error.
+  </Accordion>
+</Accordions>
 
-- Ensure your system theme is set correctly
-- Try switching to an explicit theme (Light or Dark) in Settings instead of System
+## Kubernetes: kubeconfig import fails
 
-## Platform-Specific Issues
+- Pick the correct context name when you import the kubeconfig.
+- Refresh expired credentials, then export the kubeconfig again.
+- Verify that `kubectl get ns` works from the command line before you import behind a proxy or firewall.
 
-### macOS: "App is damaged and can't be opened"
+## Collecting logs
 
-This happens when macOS blocks unsigned applications:
+Open the App Log page first. If you need to file an issue, export the App Log and attach it with the Dockerman version.
 
-```bash
-xattr -cr /Applications/Dockerman.app
-```
+## Getting help
 
-### Linux: Application won't launch
-
-Ensure required system libraries are installed:
-
-```bash
-# Ubuntu/Debian
-sudo apt install libwebkit2gtk-4.1-0 libgtk-3-0
-```
-
-### Windows: WSL connection issues
-
-See the [WSL guide](/docs/platform/wsl) for detailed troubleshooting.
-
-## Getting Help
-
-If your issue isn't listed here:
-
-- Check the [changelog](/changelog) for recent fixes
-- Visit the [GitHub repository](https://github.com/ZingerLittleBee/dockerman) for known issues
+File issues on the Dockerman GitHub repository and attach the App Log export plus the Dockerman version from Settings → About.

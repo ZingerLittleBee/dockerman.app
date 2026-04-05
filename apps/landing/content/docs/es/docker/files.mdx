@@ -1,0 +1,85 @@
+---
+title: "Archivos"
+description: "Navega, previsualiza, edita, sube, descarga y elimina archivos dentro de volúmenes y contenedores en ejecución."
+---
+
+Usa el navegador de Archivos de la misma manera tanto si estás dentro de un volumen como dentro de un contenedor en ejecución. Esta página cubre ambos puntos de entrada y todas las operaciones de archivos.
+
+## Puntos de entrada
+
+<Tabs items={['Desde un volumen', 'Desde un contenedor']}>
+  <Tab>
+    Abre la página de Volúmenes, selecciona un volumen y haz clic en Explorar. La ruta se ve así `/volume/<nombre>/browse`.
+  </Tab>
+  <Tab>
+    Abre un contenedor en ejecución, luego haz clic en Archivos o abre `/file` directamente. Los contenedores detenidos no exponen un navegador de archivos editable.
+  </Tab>
+</Tabs>
+
+## Navegación
+
+Usa el árbol de la izquierda para moverte entre carpetas, usa la ruta de navegación en la parte superior para volver atrás, haz doble clic en carpetas para descender, y usa Atrás o Inicio cuando quieras saltar rápidamente. El campo de ruta te permite ir directamente a una ruta conocida.
+
+## Previsualizar archivos
+
+Añadido en la v4.4.0.
+
+La previsualización maneja los tipos de archivo comunes que esperas inspeccionar sin descargar el archivo primero.
+
+| Tipo | Formatos |
+| --- | --- |
+| Texto y código | `.txt`, `.log`, `.json`, `.yaml`, `.toml`, `.ini`, `.env`, archivos de código fuente |
+| Markdown | `.md`, `.mdx` |
+| Imágenes | `.png`, `.jpg`, `.jpeg`, `.gif`, `.webp`, `.svg` |
+| PDF | `.pdf` |
+| Vídeo | `.mp4`, `.webm` |
+| Audio | `.mp3`, `.wav`, `.ogg` |
+
+<Callout type="info">
+  Los archivos de más de 10 MB son solo para descarga, así Dockerman no carga todo el archivo en memoria.
+</Callout>
+
+{/* TODO(screenshot): files/preview-image - Image preview with zoom */}
+
+## Editar archivos
+
+Añadido en la v4.4.0.
+
+Abre archivos de texto y código en Monaco, haz tus cambios, luego guárdalos de vuelta en el volumen o contenedor. Los cambios no guardados permanecen visibles hasta que los guardes o descartes.
+
+<Callout type="warn">
+  Editar un archivo dentro de un contenedor en ejecución cambia la capa editable del contenedor, no la imagen. Reiniciar desde la misma imagen descarta la edición a menos que primero hagas commit del contenedor, consulta [Confirmar un contenedor en ejecución](/es/docs/docker/containers#confirmar-un-contenedor-en-ejecución).
+</Callout>
+
+{/* TODO(screenshot): files/edit-monaco - File editor with Monaco syntax highlighting */}
+
+## Subir y descargar
+
+Arrastra un archivo o carpeta al navegador, o usa el botón Subir, para añadir contenido al directorio actual. Descarga archivos individuales directamente, o deja que Dockerman comprima una carpeta en zip antes de guardarla.
+
+## Eliminar archivos
+
+Añadido en la v4.4.0.
+
+Eliminar quita el archivo o carpeta seleccionado del volumen o contenedor actual.
+
+<Callout type="warn">
+  La eliminación de archivos es irreversible y omite cualquier papelera de reciclaje del host.
+</Callout>
+
+## Selección múltiple
+
+Añadido en la v4.4.0.
+
+Usa la selección múltiple cuando quieras descargar un grupo de archivos, eliminar varios a la vez, o arrastrar una selección a un objetivo de subida.
+
+| Atajo | Acción |
+| --- | --- |
+| Ctrl/Cmd + Clic | Alternar un solo archivo |
+| Shift + Clic | Seleccionar un rango contiguo |
+| Ctrl/Cmd + A | Seleccionar todo en el directorio actual |
+| Esc | Borrar la selección actual |
+
+<Callout type="warn">
+  La eliminación por lotes pide confirmación una sola vez para toda la selección. No hay aviso por archivo.
+</Callout>

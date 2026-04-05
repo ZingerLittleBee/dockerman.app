@@ -1,0 +1,41 @@
+---
+title: Stats
+description: Real-time resource dashboards with ring gauges and sparkline charts for every container.
+---
+
+Use this page as your real-time resource dashboard. Redesigned in v4.5.0, it combines ring gauges with sparkline charts so you can spot pressure quickly.
+
+## Overview dashboard
+
+The Stats page shows an overview of running containers first, then lets you drill into per-container panels when you need more detail.
+
+## Ring gauges
+
+Ring gauges show instantaneous CPU and memory usage per container. The outer ring shows the current value, and the faded inner arc shows the average over the selected time range. Green stays below 50 percent, amber covers 50 to 80 percent, and red marks anything above that.
+
+## Sparkline charts
+
+The four sparkline charts below each gauge row give you a compact history for each metric.
+
+- CPU percent
+- Memory in MB
+- Network I/O in bytes per second for receive and transmit
+- Disk I/O in bytes per second for read and write
+
+Hover a point to see the exact value for that moment.
+
+## Time range selector
+
+Use the selector at the top to switch between 1h, 3h, 6h, 12h, and 24h. The selected range applies to both the sparklines and the ring gauge average.
+
+## Network interfaces and disk devices
+
+Expand a container row when you want to break out network I/O by interface or disk I/O by device. This is useful when a container has multiple network attachments or several bind mounts.
+
+## Tips
+
+- Spiky CPU over 1h that flattens out over 24h usually means short-lived batch work, not a leak.
+- Memory that climbs over 24h and never drops is a strong leak signal.
+- Disk I/O spikes that line up with log growth often mean unrotated logs, so check [Logs](/en/docs/docker/logs).
+
+{/* TODO(screenshot): stats/dashboard - Stats overview with ring gauges and sparklines */}

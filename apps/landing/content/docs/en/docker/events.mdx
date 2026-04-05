@@ -1,0 +1,48 @@
+---
+title: Events
+description: Stream, filter, persist, and export Docker daemon events for auditing and troubleshooting.
+---
+
+Use this page to watch `docker events` in a searchable, filterable, exportable UI.
+
+## Opening the events stream
+
+Open the Events page to start streaming from the current time. Pause the stream when you want to inspect what is already on screen without losing the backlog you have collected.
+
+## Filter events
+
+Filter events by the dimensions below when you want to narrow a noisy stream.
+
+- Resource type: container, image, network, volume, daemon
+- Action: create, start, stop, die, destroy, pull, push, connect, disconnect, and more
+- Time range: rolling window or custom absolute range
+- Free text: matches any field
+
+## Persist history
+
+Dockerman writes events to a local JSONL file in its app data directory so the history survives restarts. Use the retention setting in the Data management area when you want to change how long Dockerman keeps it.
+
+## Search and query
+
+Search by container name, image, or label, then combine search with filters when you want to focus on a specific chain of events.
+
+## Export
+
+Export the current stream when you need to move the data somewhere else.
+
+- JSON: raw event objects for pipelines or archival
+- CSV: flattened columns for spreadsheets
+
+## Troubleshooting with events
+
+<Accordions>
+  <Accordion title="Why did my container restart?">
+    Check for a `die` event followed by `start`, then open the payload to read the exit code and the restart reason.
+  </Accordion>
+  <Accordion title="Why did image pull fail?">
+    Pull failures appear in `pull` events, and the payload includes the error message that Docker returned.
+  </Accordion>
+  <Accordion title="Who disconnected from my network?">
+    `disconnect` events identify the container that left the network, so you can trace the change quickly.
+  </Accordion>
+</Accordions>

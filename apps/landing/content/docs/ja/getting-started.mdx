@@ -1,24 +1,136 @@
 ---
-title: はじめに
-description: システムに Dockerman をインストールして設定する
+title: "はじめに"
+description: "数分で Dockerman をインストールし、最初の Docker daemon に接続します。"
 ---
+
+このページではDockermanをインストールし、最初の接続を行います。Windowsをご使用でDocker Desktopを避けたい場合は、Windowsプラットフォームガイドの組み込みWSL2パスをご利用ください：[Windows](/ja/docs/platform/windows)。
+
+## 前提条件
+
+<Callout type="info">
+  コンテナを管理するには、事前にDocker daemonが利用可能である必要があります。Windowsでは、[Windowsプラットフォームガイド](/ja/docs/platform/windows)の組み込みWSL2 Docker Engineパスを通じて、DockermanがDocker daemonをプロビジョニングできます。
+</Callout>
 
 ## インストール
 
-Dockerman は[公式ウェブサイト](https://dockerman.app/ja/download)からダウンロードできます。
+<Tabs items={['macOS', 'Windows', 'Linux']}>
+  <Tab>
+    <Steps>
+      <Step>
+        ### DMGのダウンロード
 
-### システム要件
+        ダウンロードページからmacOS用DMGをダウンロードしてください。
+      </Step>
+      <Step>
+        ### 開いてApplicationsにドラッグ
 
-- macOS 12+ / Windows 10+ / Linux（Ubuntu 20.04+）
-- Docker Engine がインストールされ、実行中であること
+        DMGを開き、DockermanをApplicationsフォルダにドラッグしてください。
+      </Step>
+      <Step>
+        ### Dockermanの起動
 
-### 手順
+        ApplicationsまたはSpotlightからDockermanを起動してください。
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab>
+    <Steps>
+      <Step>
+        ### MSIのダウンロード
 
-1. プラットフォーム用のインストーラーをダウンロード
-2. インストーラーを実行
-3. Dockerman を起動
-4. Dockerman は自動的に Docker Engine を検出します
+        ダウンロードページからWindows用MSIをダウンロードしてください。
+      </Step>
+      <Step>
+        ### インストーラーの実行
 
-## 最初のステップ
+        インストーラーを実行し、プロンプトに従ってください。
+      </Step>
+      <Step>
+        ### Dockermanの起動
 
-Dockerman を起動すると、Docker 環境の概要が表示されるダッシュボードが表示されます。
+        Dockermanを起動し、初回起動時に組み込みDocker Engineパスをご希望の場合はWSL2セットアップウィザードをご利用ください。詳細は[Windowsプラットフォームガイド](/ja/docs/platform/windows)をご覧ください。
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab>
+    <Steps>
+      <Step>
+        ### パッケージのインストール
+
+        お使いのディストリビューションに合ったパッケージをインストールしてください。`.deb`、`.rpm`、またはAppImageビルドをご利用いただけます。その後、[Linuxプラットフォームガイド](/ja/docs/platform/linux)に従ってください。
+      </Step>
+      <Step>
+        ### dockerグループへのユーザー追加
+
+        以下を実行してください：
+
+        ```bash
+        sudo usermod -aG docker $USER
+        ```
+
+        新しいグループメンバーシップが有効になるよう、ログアウトして再度ログインしてください。
+      </Step>
+      <Step>
+        ### Dockermanの起動
+
+        デスクトップメニューから、または`dockerman`を実行してDockermanを起動してください。
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+## 初回起動
+
+<Steps>
+  <Step>
+    ### 接続ダイアログ
+
+    Dockermanは自動的にローカルDockerに接続を試み、進捗状況またはエラーを表示します。
+
+    {/* TODO(screenshot): getting-started/connect-dialog - Connect dialog on first launch */}
+  </Step>
+  <Step>
+    ### Dockerソースの選択
+
+    ローカルソケット、TCPエンドポイント、またはSSHホストを選択してください。
+  </Step>
+  <Step>
+    ### データの初期化
+
+    Dockermanはコンテナ、イメージ、ネットワーク、ボリューム、およびComposeプロジェクトを並列で読み込みます。
+  </Step>
+  <Step>
+    ### ダッシュボード
+
+    実行中および停止したコンテナのスナップショットと、リアルタイムチャートを確認できます。
+
+    {/* TODO(screenshot): getting-started/dashboard - Dashboard after first connect */}
+  </Step>
+</Steps>
+
+## 次のステップ
+
+<Cards>
+  <Card title="コンテナ" href="/ja/docs/docker/containers">
+    コンテナライフサイクル管理について学びます。
+  </Card>
+  <Card title="Kubernetes" href="/ja/docs/kubernetes/overview">
+    ワークロード、サービス、設定、およびデバッグに進みます。
+  </Card>
+  <Card title="プラットフォームガイド" href="/ja/docs/platform/windows">
+    Windows WSL2パスを設定します。
+  </Card>
+  <Card title="トラブルシューティング" href="/ja/docs/reference/troubleshooting">
+    セットアップおよび接続の問題を解決します。
+  </Card>
+</Cards>
+
+## システム要件
+
+| プラットフォーム | 最低バージョン | アーキテクチャ |
+| --- | --- | --- |
+| macOS | 11 (Big Sur) | Intel、Apple Silicon、Universal |
+| Windows | 10 (1903) / 11 | x86_64 |
+| Linux | kernel 5.x | x86_64、aarch64 |
+
+コンテナの管理を開始する前に、Docker daemon（Engine 20.10+）が利用可能である必要があります。Windowsでは、オプションのWSL2パスを通じてDockermanがDocker daemonをプロビジョニングできます。Kubernetesサポートにはオプションのk3dバンドルを使用します。

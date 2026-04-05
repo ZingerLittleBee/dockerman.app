@@ -1,0 +1,30 @@
+---
+title: Config & Storage
+description: Manage ConfigMaps, Secrets, PersistentVolumeClaims, and StorageClasses without the kubectl juggling.
+---
+
+Use Config & Storage to inspect the data sources and backing stores that workloads depend on.
+
+## ConfigMaps
+
+Open a ConfigMap to review its keys, values, list row, detail view, and YAML. Edit the object when you need to change configuration for an app.
+
+<Callout type="info">
+  Editing a ConfigMap does not restart pods that mount it. Update the owning Deployment or StatefulSet if you need the new data to take effect.
+</Callout>
+
+## Secrets
+
+Open a Secret to inspect its type, keys, and values. The list shows common types such as `Opaque`, `kubernetes.io/tls`, and `kubernetes.io/dockerconfigjson`, and each key has its own reveal control.
+
+<Callout type="warn">
+  Reveal shows secret values in plaintext. Anyone who can see the screen at that moment can read them.
+</Callout>
+
+## PersistentVolumeClaims
+
+Use PersistentVolumeClaims to see the phase, bound PersistentVolume, storage class, access modes, and capacity for each claim.
+
+## StorageClasses
+
+Use StorageClasses to inspect the cluster's storage options, including the provisioner, reclaim policy, volume binding mode, and the default class marker.

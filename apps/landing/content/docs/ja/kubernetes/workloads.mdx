@@ -1,0 +1,64 @@
+---
+title: "ワークロード"
+description: "Pods、Deployments、StatefulSets、DaemonSets、Jobs、CronJobs、ReplicaSets を一箇所で管理。"
+---
+
+すべてのワークロードリソースタイプを1ページで管理します。リストビューでステータスを確認し、詳細ビューでアクションを実行し、オブジェクトを直接編集する必要がある場合はYAMLエディタを開きます。
+
+## Pods
+
+Podを開くと、ステータス、準備完了コンテナ数、再起動回数、経過時間が表示されます。詳細ビューからは、[Podログとターミナル](/ja/docs/kubernetes/logs-terminal)に直接移動するか、シェルや詳細なネットワークチェックが必要な場合は[デバッグアシスタント](/ja/docs/kubernetes/debug)を起動できます。
+
+## Deployments
+
+レプリカ管理とロールアウト履歴を1箇所で管理したい場合はDeploymentを使用します。
+
+リストには準備完了、更新済み、利用可能なレプリカが表示されるため、ロールアウトの健全性を一目で確認できます。
+
+<Steps>
+  <Step>
+    ### スケール
+
+    レプリカ数をインラインで変更して保存します。
+  </Step>
+  <Step>
+    ### ロールアウト
+
+    ロールアウトをトリガーするイメージや他のフィールドを更新し、リビジョン履歴の更新を確認します。
+
+    {/* TODO(screenshot): kubernetes/deployment-rollout - Deployment rollout history */}
+  </Step>
+  <Step>
+    ### ロールバック
+
+    ロールアウト履歴から以前のリビジョンを選択してロールバックします。
+  </Step>
+</Steps>
+
+## StatefulSets
+
+順序付けられたPod名、安定したID、永続ストレージテンプレートにはStatefulSetを使用します。詳細ビューには現在のレプリカと各Podが所有するストレージクレームが表示され、削除のカスケードではデフォルトでPVCが保持されます。
+
+## DaemonSets
+
+ログコレクター、モニタリングエージェント、ノードレベルのネットワークコンポーネントなど、一致するノードごとに1つのPodが必要な場合はDaemonSetを使用します。
+
+## Jobs
+
+完了まで実行する作業にはJobを使用します。リストと詳細ビューから完了数、バックオフ制限、アクティブな期限を追跡します。
+
+## CronJobs
+
+スケジュールされたJobが必要な場合はCronJobを使用します。詳細ビューからcron式、サスペンド状態、最終実行、手動トリガーコントロールを確認します。
+
+## ReplicaSets
+
+ReplicaSetは通常Deploymentの下に配置されます。コントローラーの状態を確認する必要がある場合は開きますが、ReplicaSetを直接変更するのではなくDeploymentを編集してください。
+
+<Callout type="info">
+  Deploymentは自身のReplicaSetを管理します。コントローラーの動作をデバッグする場合を除き、Deploymentを変更してください。
+</Callout>
+
+## YAMLでワークロードを編集
+
+ワークロードの編集YAMLボタンを開くと、Monacoで完全なオブジェクトを編集できます。DockermanはKubernetesスキーマを使用して自動補完を行い、保存をドライラン実行するため、無効なYAMLはAPIサーバーに到達する前に拒否されます。

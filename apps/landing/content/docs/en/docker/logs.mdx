@@ -1,0 +1,49 @@
+---
+title: Logs
+description: Stream and search container logs at scale with a virtualized list and power-user keyboard shortcuts.
+---
+
+Use this page to read container logs in a virtualized list and drive it with keyboard shortcuts.
+
+## Live log streaming
+
+Open Logs to stream from the container's current log tail. Pause freezes the view without disconnecting the stream, and Resume jumps back to the latest line and follows again.
+
+## Virtualized list
+
+Dockerman renders log rows on demand so the viewer stays responsive even when you scroll through a large history.
+
+<Callout type="info">
+  Memory usage stays roughly constant regardless of log length because only visible rows stay in the DOM.
+</Callout>
+
+## Search
+
+Open search with `/`, type a query, and toggle regex only when you need it. Matches stay highlighted in place as you move through the stream.
+
+## Power shortcuts
+
+| Shortcut | Action |
+| --- | --- |
+| `/` | Open search |
+| Enter | Next match |
+| Shift + Enter | Previous match |
+| `n` | Next match outside the search box |
+| `N` | Previous match |
+| `g` | Jump to the beginning of the log |
+| `G` | Jump to the latest line |
+| `P` | Previous match, as an alternative to Shift + Enter |
+| Esc | Close search or clear highlights |
+
+## Timestamp formats
+
+Switch between relative time, absolute UTC, and absolute local time from the view options.
+
+## Export logs
+
+Export logs when you want to hand them off to another tool or store them elsewhere.
+
+- JSON: timestamps plus stdout or stderr per line
+- Plain text: exactly what you see in the viewer
+
+See [log viewer shortcuts](/en/docs/reference/keyboard-shortcuts#log-viewer) for the full keymap.

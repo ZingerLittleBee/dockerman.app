@@ -1,24 +1,136 @@
 ---
-title: 快速开始
-description: 在您的系统上安装和配置 Dockerman
+title: "快速开始"
+description: "在几分钟内安装 Dockerman 并连接到你的第一个 Docker daemon。"
 ---
+
+使用本页面安装 Dockerman 并进行首次连接。如果你在 Windows 上且希望避免使用 Docker Desktop，请使用 Windows 平台指南中的内置 WSL2 路径：[Windows](/zh/docs/platform/windows)。
+
+## 前提条件
+
+<Callout type="info">
+  在管理容器之前，必须有一个可用的 Docker daemon。在 Windows 上，Dockerman 可以通过 [Windows 平台指南](/zh/docs/platform/windows) 中的内置 WSL2 Docker Engine 路径为你配置一个。
+</Callout>
 
 ## 安装
 
-从[官方网站](https://dockerman.app/zh/download)下载 Dockerman。
+<Tabs items={['macOS', 'Windows', 'Linux']}>
+  <Tab>
+    <Steps>
+      <Step>
+        ### 下载 DMG
 
-### 系统要求
+        从下载页面下载 macOS DMG。
+      </Step>
+      <Step>
+        ### 打开并拖入应用程序
 
-- macOS 12+ / Windows 10+ / Linux (Ubuntu 20.04+)
-- 已安装并运行 Docker Engine
+        打开 DMG，然后将 Dockerman 拖入应用程序文件夹。
+      </Step>
+      <Step>
+        ### 启动 Dockerman
 
-### 安装步骤
+        从应用程序文件夹或 Spotlight 启动 Dockerman。
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab>
+    <Steps>
+      <Step>
+        ### 下载 MSI
 
-1. 下载适用于您平台的安装包
-2. 运行安装程序
-3. 启动 Dockerman
-4. Dockerman 将自动检测您的 Docker Engine
+        从下载页面下载 Windows MSI。
+      </Step>
+      <Step>
+        ### 运行安装程序
 
-## 初次使用
+        运行安装程序并按照提示操作。
+      </Step>
+      <Step>
+        ### 启动 Dockerman
 
-启动 Dockerman 后，您将看到仪表板，其中展示了 Docker 环境的概览信息。
+        启动 Dockerman，如果需要内置 Docker Engine 路径，可在首次启动时使用 WSL2 设置向导。详见 [Windows 平台指南](/zh/docs/platform/windows)。
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab>
+    <Steps>
+      <Step>
+        ### 安装软件包
+
+        安装适合你发行版的软件包。使用 `.deb`、`.rpm` 或 AppImage 版本，然后按照 [Linux 平台指南](/zh/docs/platform/linux) 操作。
+      </Step>
+      <Step>
+        ### 将用户添加到 docker 组
+
+        运行：
+
+        ```bash
+        sudo usermod -aG docker $USER
+        ```
+
+        注销并重新登录，以使新的组成员身份生效。
+      </Step>
+      <Step>
+        ### 启动 Dockerman
+
+        从桌面菜单启动 Dockerman，或通过运行 `dockerman` 启动。
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+## 首次启动
+
+<Steps>
+  <Step>
+    ### 连接对话框
+
+    Dockerman 会自动尝试连接本地 Docker，并显示进度或错误信息。
+
+    {/* TODO(screenshot): getting-started/connect-dialog - Connect dialog on first launch */}
+  </Step>
+  <Step>
+    ### 选择 Docker 源
+
+    选择本地 socket、TCP 端点或 SSH 主机。
+  </Step>
+  <Step>
+    ### 数据初始化
+
+    Dockerman 会并行加载容器、镜像、网络、卷和 Compose 项目。
+  </Step>
+  <Step>
+    ### 仪表板
+
+    查看运行中和已停止容器的快照，以及实时图表。
+
+    {/* TODO(screenshot): getting-started/dashboard - Dashboard after first connect */}
+  </Step>
+</Steps>
+
+## 下一步
+
+<Cards>
+  <Card title="容器" href="/zh/docs/docker/containers">
+    学习容器生命周期管理。
+  </Card>
+  <Card title="Kubernetes" href="/zh/docs/kubernetes/overview">
+    深入了解工作负载、服务、配置和调试。
+  </Card>
+  <Card title="平台指南" href="/zh/docs/platform/windows">
+    配置 Windows WSL2 路径。
+  </Card>
+  <Card title="故障排除" href="/zh/docs/reference/troubleshooting">
+    解决设置和连接问题。
+  </Card>
+</Cards>
+
+## 系统要求
+
+| 平台 | 最低版本 | 架构 |
+| --- | --- | --- |
+| macOS | 11 (Big Sur) | Intel, Apple Silicon, Universal |
+| Windows | 10 (1903) / 11 | x86_64 |
+| Linux | kernel 5.x | x86_64, aarch64 |
+
+在开始管理容器之前，必须有一个可用的 Docker daemon（Engine 20.10+）；在 Windows 上，Dockerman 可以通过可选的 WSL2 路径为你配置一个。Kubernetes 支持使用可选的 k3d 捆绑包。

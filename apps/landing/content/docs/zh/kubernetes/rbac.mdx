@@ -1,0 +1,22 @@
+---
+title: "权限 (RBAC)"
+description: "浏览 ServiceAccounts、Roles、ClusterRoles 及其绑定，理解谁可以做什么。"
+---
+
+使用 RBAC 页面快速回答一个问题：在这个集群中谁可以做什么。
+
+## ServiceAccounts
+
+使用 ServiceAccounts 查看在当前命名空间中运行的身份。详情视图显示挂载的 secrets、镜像拉取 secrets 以及生成的 token secrets。
+
+## Roles 和 ClusterRoles
+
+使用 Roles 和 ClusterRoles 检查附加到这些身份的权限。详情视图将 `rules` 数组展开为可读的表格，包含 apiGroups、resources、verbs 和 resourceNames。
+
+## RoleBindings 和 ClusterRoleBindings
+
+使用 RoleBindings 和 ClusterRoleBindings 查看哪些主体指向每个角色。列表显示角色引用和主体，包括 users、groups 和 ServiceAccounts。
+
+## 排查权限问题
+
+当 Pod 无法读取、列出、创建或执行到某个资源时，首先检查绑定链，然后验证 Pod 的 ServiceAccount。如果你仍然需要从集群内部确认访问权限，请使用 [调试助手](/zh/docs/kubernetes/debug)。

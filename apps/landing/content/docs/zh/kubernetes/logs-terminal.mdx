@@ -1,0 +1,44 @@
+---
+title: "Pod 日志与终端"
+description: "流式查看 Pod 日志，并通过 xterm.js 连接到 Pod 内任意容器。"
+---
+
+通过 xterm.js 流式查看 Pod 日志并连接到 Pod 内的任意容器。
+
+## 流式查看 Pod 日志
+
+从任意 Pod 行或 Pod 详情视图打开日志。日志流会在 Pod 运行时保持实时更新，详情视图让你无需离开页面即可浏览最近的输出。
+
+## 搜索快捷键
+
+Pod 日志使用与[容器日志](/zh/docs/docker/logs#快捷键)相同的键盘快捷键，包括 `/`、`n` 和 `N`、`g` 和 `G`，以及 `Esc`。
+
+## 多容器 Pod
+
+当 Pod 包含多个容器时，使用顶部的容器下拉菜单。Init 容器也会显示在同一列表中，切换容器会重置日志流。
+
+## Pod 终端（exec）
+
+<Steps>
+  <Step>
+    ### 打开终端
+
+    在 Pod 页面中，点击终端按钮或在选中 Pod 时按 `T` 键。
+  </Step>
+  <Step>
+    ### 选择容器
+
+    单容器 Pod 可跳过此步骤。
+  </Step>
+  <Step>
+    ### 选择 shell
+
+    Dockerman 会依次尝试 `bash`、`sh`、`zsh`，与 Docker 容器终端使用的回退顺序相同。
+  </Step>
+</Steps>
+
+## 限制
+
+- 终止目标容器会结束会话。
+- 会话历史不会在重启后保留。
+- 某些 TUI 应用需要设置 `TERM=xterm-256color`。

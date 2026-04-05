@@ -1,20 +1,50 @@
 ---
-title: Dockerman へようこそ
-description: Tauri と Rust で構築されたモダンな Docker 管理 UI
+title: "ようこそ"
+description: "Dockerman へようこそ — Tauri と Rust で構築されたクロスプラットフォームの Docker と Kubernetes 用 UI。"
 ---
 
-## 概要
+DockermanはデスクトップからDockerとKubernetesを管理する統合的な場所を提供します。コンテナ作業、イメージ作業、クラスタ作業を一つの流れで行えるネイティブアプリを求める開発者や運用者の方にご利用いただけます。ローカルおよびリモートホスト操作のためのDockerと、ワークロードの閲覧やデバッグのためのKubernetes、両方の柱をカバーしています。
 
-Dockerman は、Tauri と Rust で構築されたモダンで軽量な Docker 管理インターフェースです。シンプルさとパフォーマンスに焦点を当てています。
+## Dockermanがカバーする範囲
 
-## 機能
+DockermanはDockerとKubernetesの間で体験を分割し、ツールを切り替えることなくローカルコンテナタスクからクラスタ作業へ移行できるようにします。Dockerホスト、イメージ、ボリューム、Composeプロジェクトを手近に保ち、ワークロード、サービス、設定、Helm、またはポッドデバッグが必要なときにKubernetesに切り替えてください。以下のカードから始めてください。
 
-- コンテナライフサイクル管理（作成、開始、停止、再起動、削除）
-- プル、ビルド、削除操作を含むイメージ管理
-- CPU、メモリ、ネットワーク統計のリアルタイムリソース監視
-- 実行中のコンテナへの組み込みターミナルアクセス
-- クロスプラットフォーム対応（macOS、Windows、Linux）
+## ここから始める
 
-## はじめに
+<Cards>
+  <Card title="はじめに" href="/ja/docs/getting-started">
+    アプリをインストールし、Dockerに接続します。
+  </Card>
+  <Card title="Docker" href="/ja/docs/docker/containers">
+    コンテナ、イメージ、ネットワーク、ボリューム、Composeを管理します。
+  </Card>
+  <Card title="Kubernetes" href="/ja/docs/kubernetes/overview">
+    ワークロード、ネットワーク、設定、Helmを閲覧し、ポッドをデバッグします。
+  </Card>
+  <Card title="高度な機能" href="/ja/docs/advanced/spotlight">
+    Spotlightコマンドパレットとリモートホスト。
+  </Card>
+</Cards>
 
-Dockerman のインストールと設定については、[はじめに](/ja/docs/getting-started)ガイドをご覧ください。
+## 主な機能
+
+<Cards>
+  <Card title="Dockerの完全なライフサイクル">
+    コンテナの作成、実行、検査、ログ表示、ターミナル接続を行い、イメージ、ネットワーク、ボリューム、Composeプロジェクトを一箇所から管理します。
+  </Card>
+  <Card title="ネイティブKubernetes（フェーズ1）">
+    ワンクリックでk3dを起動、または既存のkubeconfigを使用。ワークロード、Service、ConfigMap、RBAC、CRD、Helmリリースを閲覧します。
+  </Card>
+  <Card title="バックアップと復元">
+    コンテナの設定、ファイルシステム、ボリュームを単一のtar.gzにスナップショットし、どこでも復元できます（v4.8.0で追加）。
+  </Card>
+  <Card title="イメージセキュリティ">
+    Trivyでイメージをスキャンし、アプリを離れることなくDocker Hubを閲覧できます（v4.6.0で追加）。
+  </Card>
+  <Card title="WSL2 Docker Engine">
+    Docker DesktopなしでWindows上でDockerを実行。DockermanがAlpine WSL2ディストリビューションをセットアップし、Dockerを自動インストールします（v4.3.0で追加）。
+  </Card>
+  <Card title="リモートホスト">
+    SSHトンネル経由でリモートDockerデーモンに接続し、ホスト間を即座に切り替えます。
+  </Card>
+</Cards>

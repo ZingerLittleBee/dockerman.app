@@ -1,0 +1,17 @@
+{
+  "title": "Kubernetes",
+  "pages": [
+    "overview",
+    "cluster",
+    "workloads",
+    "networking",
+    "config-storage",
+    "rbac",
+    "custom-resources",
+    "helm",
+    "port-forward",
+    "debug",
+    "logs-terminal"
+  ],
+  "defaultOpen": true
+}
