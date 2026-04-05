@@ -3,6 +3,66 @@ title: Remote Hosts (SSH)
 description: Manage remote Docker hosts over SSH tunnels and switch between them from the host selector.
 ---
 
-{/* TODO: body content will be written in a later task */}
+Dockerman connects to remote Docker daemons by forwarding their Unix socket over SSH. Once a host is configured, every feature (containers, images, logs, terminals) works exactly like on localhost.
 
-This page is under construction. Check back soon.
+## Add a remote host
+
+Add a host once, then switch to it like any other Docker target.
+
+<Steps>
+  <Step>
+    ### Open Hosts
+
+    Open Hosts from the tray menu or go to `/hosts`.
+  </Step>
+  <Step>
+    ### Click Add Host
+
+    Click **Add Host**. A dialog asks for connection details.
+  </Step>
+  <Step>
+    ### Fill in the SSH details
+
+    Enter the host, port (default `22`), user, and authentication method.
+  </Step>
+  <Step>
+    ### Test and save
+
+    Test the connection, then save it. Dockerman opens a test tunnel and runs a Docker ping.
+  </Step>
+</Steps>
+
+## Key-based vs password authentication
+
+Choose the SSH authentication method that matches how the remote host is set up.
+
+<Tabs items={['SSH key', 'Password']}>
+  <Tab>
+    Paste the private key directly or point Dockerman at a key file path.
+
+    <Callout type="warn">
+      Private keys must be mode 600 on disk; OpenSSH refuses keys with looser permissions.
+    </Callout>
+  </Tab>
+  <Tab>
+    Password authentication is stored locally and encrypted at rest. Use it only for short-lived setups or shared-laptop scenarios.
+  </Tab>
+</Tabs>
+
+## Switch between hosts
+
+Use the Host Switcher in the top bar to move between `localhost` and every configured remote host. Switching hosts reloads all data for the newly selected target.
+
+## Auto reconnect
+
+Dockerman watches SSH tunnel health and reconnects after transient failures. A banner warns you when a host has been offline for more than 30 seconds.
+
+## How the SSH tunnel works
+
+Dockerman opens an SSH session and forwards a local unix socket to the remote `/var/run/docker.sock`, or to the socket path you configured. All Docker API calls flow through that tunnel, so nothing leaves the SSH channel.
+
+## Security notes
+
+<Callout type="warn">
+  Only configure remote hosts you trust on trusted networks. Private keys and passwords are stored locally in Dockerman's app data directory. Treat that directory as sensitive.
+</Callout>

@@ -3,6 +3,35 @@ title: Spotlight
 description: Navigate Dockerman, run actions, and search resources with a single keystroke command palette.
 ---
 
-{/* TODO: body content will be written in a later task */}
+Spotlight is Dockerman's command palette. One keystroke opens a searchable, keyboard-driven launcher that can navigate anywhere in the app, run common actions, and look up resources.
 
-This page is under construction. Check back soon.
+## Open Spotlight
+
+Press `Cmd/Ctrl + K` by default, or open Spotlight from the tray menu. Spotlight opens as a separate, frameless window that does not steal focus from the main app.
+
+## Navigate to resources
+
+Start typing a container name, image tag, Compose project, Kubernetes Pod, or Settings page. Results are ranked by usage and recency, and pressing `Enter` opens the selected result.
+
+## Quick actions
+
+Use inline actions directly from the result list when Spotlight shows them.
+
+- Containers: Start, Stop, Restart, Logs, Terminal, Backup
+- Images: Pull (re-pull), Scan with Trivy, Delete
+- Settings pages: jump directly
+- Templates: Launch
+
+## Search highlights
+
+Matching characters are highlighted in each result as you type. Searches are fuzzy, so `cntlog` still matches "container logs".
+
+## Customize the shortcut
+
+Change the Spotlight shortcut in [Shortcut settings](/en/docs/reference/settings#shortcut-settings).
+
+## Tips
+
+<Callout type="info">
+  Spotlight runs in its own Tauri window so it can stay instant. Closing it does not close the main Dockerman window, and vice versa.
+</Callout>
