@@ -3,6 +3,83 @@ title: Files
 description: Browse, preview, edit, upload, download, and delete files inside volumes and running containers.
 ---
 
-{/* TODO: body content will be written in a later task */}
+Use the Files browser the same way whether you are inside a volume or inside a running container. This page covers both entry points and every file operation.
 
-This page is under construction. Check back soon.
+## Entry points
+
+<Tabs items={['From a volume', 'From a container']}>
+  <Tab>
+    Open the Volumes page, select a volume, and click Browse. The route looks like `/volume/<name>/browse`.
+  </Tab>
+  <Tab>
+    Open a running container, then click Files or open `/file` directly. Stopped containers do not expose a writable file browser.
+  </Tab>
+</Tabs>
+
+## Navigation
+
+Use the tree on the left to move through folders, use the breadcrumb at the top to jump back up, double-click folders to descend, and use Back or Home when you want to jump quickly. The path input lets you jump straight to a known path.
+
+## Preview files
+
+Added in v4.4.0.
+
+Preview handles the common file types you expect to inspect without downloading the file first.
+
+| Type | Formats |
+| --- | --- |
+| Text and code | `.txt`, `.log`, `.json`, `.yaml`, `.toml`, `.ini`, `.env`, source code files |
+| Markdown | `.md`, `.mdx` |
+| Images | `.png`, `.jpg`, `.jpeg`, `.gif`, `.webp`, `.svg` |
+| PDF | `.pdf` |
+| Video | `.mp4`, `.webm` |
+| Audio | `.mp3`, `.wav`, `.ogg` |
+
+<Callout type="info">
+  Files larger than 10 MB are download-only so Dockerman does not load the whole file into memory.
+</Callout>
+
+{/* TODO(screenshot): files/preview-image - Image preview with zoom */}
+
+## Edit files
+
+Added in v4.4.0.
+
+Open text and code files in Monaco, make your changes, then save them back to the volume or container. Unsaved changes stay visible until you save or discard them.
+
+<Callout type="warn">
+  Editing a file inside a running container changes the container's writable layer, not the image. Restarting from the same image discards the edit unless you commit the container first, see [Commit a running container](/en/docs/docker/containers#commit-a-running-container).
+</Callout>
+
+{/* TODO(screenshot): files/edit-monaco - File editor with Monaco syntax highlighting */}
+
+## Upload and download
+
+Drag a file or folder into the browser, or use the Upload button, to add content to the current directory. Download single files directly, or let Dockerman zip a folder before it saves.
+
+## Delete files
+
+Added in v4.4.0.
+
+Delete removes the selected file or folder from the current volume or container.
+
+<Callout type="warn">
+  File deletion is irreversible and bypasses any host recycle bin.
+</Callout>
+
+## Multi-select
+
+Added in v4.4.0.
+
+Use multi-select when you want to download a group of files, delete several at once, or drag a selection to an upload target.
+
+| Shortcut | Action |
+| --- | --- |
+| Ctrl/Cmd + Click | Toggle a single file |
+| Shift + Click | Select a contiguous range |
+| Ctrl/Cmd + A | Select all in the current directory |
+| Esc | Clear the current selection |
+
+<Callout type="warn">
+  Batch delete asks for confirmation once for the whole selection. There is no per-file prompt.
+</Callout>

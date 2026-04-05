@@ -3,6 +3,44 @@ title: Volumes
 description: Manage Docker volumes — create, inspect, and prune persistent storage used by your containers.
 ---
 
-{/* TODO: body content will be written in a later task */}
+Use this page to list, create, inspect, and prune volumes. When you need to browse volume contents, jump to [Files](/en/docs/docker/files).
 
-This page is under construction. Check back soon.
+## The volume list
+
+The volume list shows the name, driver, mountpoint, size, and created time. Sort and filter to find the volume you want.
+
+## Create a volume
+
+<Steps>
+  <Step>
+    ### Pick a name and driver
+
+    Choose the volume name, then pick the driver you want. Local is the default, and plugin drivers appear when they are installed.
+  </Step>
+  <Step>
+    ### Driver options (optional)
+
+    Add any driver-specific options, such as NFS mount settings for the local driver.
+  </Step>
+  <Step>
+    ### Labels (optional)
+
+    Add labels when you want to group or query the volume later.
+  </Step>
+</Steps>
+
+## Browse volume files
+
+Use [Files](/en/docs/docker/files) to browse a volume's contents, preview files, edit text files, upload files, download files, and handle multi-select actions.
+
+## Inspect a volume
+
+Open Inspect to review the volume JSON, including the mountpoint, driver options, labels, scope, and the list of containers currently using the volume.
+
+## Prune unused volumes
+
+Prune removes every volume that is not currently attached to a container.
+
+<Callout type="warn">
+  Prune removes all unused volumes, including named volumes you might want to keep. Use Delete instead when you want to be explicit.
+</Callout>

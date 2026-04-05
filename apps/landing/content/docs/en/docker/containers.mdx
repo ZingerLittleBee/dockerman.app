@@ -3,6 +3,220 @@ title: Containers
 description: Create, inspect, and manage Docker containers; clone, commit, pause, and back up with a click.
 ---
 
-{/* TODO: body content will be written in a later task */}
+Create, inspect, clone, commit, back up, and restore containers from here.
 
-This page is under construction. Check back soon.
+## The container list
+
+The container list shows the name and ID, image, status, port mappings, and created time. Use the search bar to filter by name, image, or port, then multi-select with Ctrl/Cmd+Click when you want to run batch actions.
+
+{/* TODO(screenshot): containers/list - Container list with multi-select */}
+
+## Lifecycle actions
+
+Use the lifecycle actions to control the selected container without opening the detail view.
+
+| Action | Effect |
+| --- | --- |
+| Start | Starts a stopped container |
+| Stop | Gracefully stops a running container (SIGTERM, then SIGKILL after timeout) |
+| Restart | Stops and starts the container |
+| Pause | Freezes all processes with `SIGSTOP` |
+| Unpause | Resumes paused processes with `SIGCONT` |
+| Remove | Deletes the container, but only after it is stopped |
+
+<Callout type="info">
+  **Pause vs Stop** - Pause freezes the container's processes in memory so they resume instantly on unpause. Stop terminates processes and releases the container's PID namespace.
+</Callout>
+
+## Create a container
+
+Use the create dialog when you want Dockerman to build a new container from an image, a `docker run` command, an existing container, or a template.
+
+<Tabs items={['Form', 'From docker run', 'Clone existing', 'From template']}>
+  <Tab>
+    <Steps>
+      <Step>
+        ### Pick a base image
+
+        Select a local image or pull one on demand before you continue.
+      </Step>
+      <Step>
+        ### Set the name and command
+
+        Give the container a name, then override the entrypoint or command only when you need to.
+      </Step>
+      <Step>
+        ### Ports and networks
+
+        Add port mappings and choose the network the container should join.
+      </Step>
+      <Step>
+        ### Environment variables and volumes
+
+        Add key-value environment variables, then mount bind paths or named volumes.
+      </Step>
+      <Step>
+        ### Resource limits and restart policy
+
+        Set CPU and memory limits, then choose the restart policy.
+      </Step>
+    </Steps>
+
+    {/* TODO(screenshot): containers/create-form - Create container dialog form tab */}
+  </Tab>
+  <Tab>
+    Paste a `docker run` command and Dockerman parses it into the Form tab for review before it creates the container.
+
+    ```bash
+    docker run -d -p 8080:80 --name web nginx:latest
+    ```
+  </Tab>
+  <Tab>
+    Clone existing copies a container's configuration into a fresh create dialog so you can change any field before launch. Added in v4.6.0. It does not copy volume data.
+  </Tab>
+  <Tab>
+    Use [Compose templates](/en/docs/docker/compose#templates-library) when you want to start from a curated project instead of a blank form.
+  </Tab>
+</Tabs>
+
+## Inspect and update
+
+Open Inspect to review the full container JSON, including network settings, mounts, environment variables, and labels. Use Update for the small set of live settings you can change without recreating the container, such as CPU, memory, and restart policy. For image, environment, or port changes, stop the container and create a new one instead.
+
+## Commit a running container
+
+Added in v4.6.0.
+
+Commit saves the container's current writable layer as a new image tag.
+
+<Steps>
+  <Step>
+    ### Select the container
+
+    Pick the running container you want to snapshot.
+  </Step>
+  <Step>
+    ### Fill in the new image name and tag
+
+    Choose the repository and tag for the new image.
+  </Step>
+  <Step>
+    ### Confirm
+
+    The new image appears in the Images list.
+  </Step>
+</Steps>
+
+<Callout type="warn">
+  Commit does not include data from mounted volumes. It only captures the container's own filesystem changes.
+</Callout>
+
+## Clone a container
+
+Added in v4.6.0.
+
+Clone copies the container configuration, including the image reference, ports, environment variables, mounts, and network, into a new create dialog. Use it when you need a second instance with small changes. Clone is for configuration reuse, while Commit is for saving filesystem changes into a new image.
+
+## Backup and restore
+
+Added in v4.8.0.
+
+Back up a container when you want to save its configuration, its filesystem, and its volume data into a single `.tar.gz` archive that you can restore on the same host or another one.
+
+### What a backup contains
+
+The archive includes a manifest, the container config, the filesystem snapshot, and any attached volumes.
+
+<Files>
+  <Folder name="backup-<name>-<timestamp>.tar.gz" defaultOpen>
+    <File name="manifest.json" />
+    <File name="config.json" />
+    <File name="filesystem.tar" />
+    <Folder name="volumes">
+      <File name="<volume-name>.tar" />
+    </Folder>
+  </Folder>
+</Files>
+
+### Create a backup
+
+<Steps>
+  <Step>
+    ### Open the backup dialog
+
+    From the container list, right-click a container and choose Backup.
+  </Step>
+  <Step>
+    ### Choose what to include
+
+    Config is always included. Toggle filesystem and volumes as needed.
+  </Step>
+  <Step>
+    ### Pick an output path
+
+    Select a destination directory on the local machine.
+  </Step>
+  <Step>
+    ### Wait for the progress bar
+
+    Backup streams to disk, and you can cancel at any time.
+  </Step>
+</Steps>
+
+{/* TODO(screenshot): containers/backup-dialog - Backup dialog with progress */}
+
+### Restore from a backup
+
+<Steps>
+  <Step>
+    ### Select a `.tar.gz` file
+
+    From the Containers page, choose Restore and pick the archive.
+  </Step>
+  <Step>
+    ### Preview the backup
+
+    Dockerman reads the manifest and shows the image reference, ports, mounts, and environment.
+  </Step>
+  <Step>
+    ### Edit name, ports, and image tag
+
+    Change the container name if it conflicts, remap host ports, and retag the image if it is missing locally.
+  </Step>
+  <Step>
+    ### Confirm restore
+
+    The new container is created and started.
+  </Step>
+</Steps>
+
+<Callout type="warn">
+  Name conflicts are detected up front. Port conflicts are only caught at start time, so check host ports before you confirm.
+</Callout>
+
+{/* TODO(screenshot): containers/restore-preview - Restore preview with editable fields */}
+
+### Tips
+
+- Backups of large containers scale with volume size, so expect the archive to grow with the amount of attached data.
+- To move a container between hosts, create the backup on the source host, copy the `.tar.gz`, then restore it on the target host.
+- Backups do not include network definitions. Make sure the target host has matching networks, or let Dockerman recreate them.
+
+## Batch operations
+
+Multi-select containers with Ctrl/Cmd+Click or Shift+Click, then run actions across the selection. Batch actions include Start, Stop, Restart, Pause, and Remove.
+
+<Callout type="warn">
+  Batch Remove is irreversible and prompts only once for the whole selection.
+</Callout>
+
+## Keyboard shortcuts
+
+See [container action shortcuts](/en/docs/reference/keyboard-shortcuts#container-actions) for the full keymap. When a row is focused, these keys run the common actions below.
+
+| Action | Shortcut |
+| --- | --- |
+| Start | `S` |
+| Stop | `X` |
+| Logs | `L` |
+| Terminal | `T` |

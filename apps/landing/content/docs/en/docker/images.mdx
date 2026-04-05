@@ -3,6 +3,187 @@ title: Images
 description: Pull, build, push, analyze, and scan Docker images with a built-in Docker Hub browser and Trivy scanner.
 ---
 
-{/* TODO: body content will be written in a later task */}
+Pull, build, push, analyze, and scan images from here, and browse Docker Hub without leaving the app.
 
-This page is under construction. Check back soon.
+## The image list
+
+Use the image list to sort by size or created time, and switch between all images and dangling images when you want to clean up old layers.
+
+<Tabs items={['All', 'Dangling']}>
+  <Tab>
+    All images include every tag that is available locally. Use this view when you want to inspect, retag, build from, push, or scan an image.
+  </Tab>
+  <Tab>
+    Dangling images are untagged layers left behind by builds. Use this view when you want to delete unused intermediates.
+  </Tab>
+</Tabs>
+
+## Pull an image
+
+Dockerman suggests registries, image names, and tags as you type in the pull combobox. Added in v4.7.0.
+
+<Steps>
+  <Step>
+    ### Open the Pull dialog
+
+    Click Pull from the Images page.
+  </Step>
+  <Step>
+    ### Enter the image reference
+
+    Type the registry, repository, and tag you want to pull.
+  </Step>
+  <Step>
+    ### Watch the streaming progress
+
+    Follow the layer download and extract progress until the image appears in the list.
+  </Step>
+</Steps>
+
+## Browse Docker Hub
+
+Added in v4.6.0.
+
+Use the built-in Hub browser to search, inspect, and pull public images without switching to the web UI.
+
+<Steps>
+  <Step>
+    ### Open the Hub browser
+
+    From the Images page, click Browse Docker Hub.
+  </Step>
+  <Step>
+    ### Search for an image
+
+    Type a query, then review the official and verified badges in the results.
+  </Step>
+  <Step>
+    ### Read the README and tags
+
+    Click an image to view its README inline and the full tag list.
+  </Step>
+  <Step>
+    ### Pull a specific tag
+
+    Click Pull next to the tag you want to use.
+  </Step>
+</Steps>
+
+{/* TODO(screenshot): images/hub-browser - Docker Hub browser with readme */}
+
+## Build from a Dockerfile
+
+Build uses the same Docker daemon as the rest of Dockerman, and BuildKit is used automatically when the daemon supports it.
+
+<Steps>
+  <Step>
+    ### Choose a build context
+
+    Select a local folder that contains the Dockerfile.
+  </Step>
+  <Step>
+    ### Review or edit the Dockerfile
+
+    Open the Dockerfile in Monaco, then save your changes to disk before you build.
+  </Step>
+  <Step>
+    ### Set the image name and build args
+
+    Set the image tag, optional build arguments, and a target stage if you need one.
+  </Step>
+  <Step>
+    ### Run the build
+
+    Watch the build logs stream in the terminal until the image appears in the Images list.
+  </Step>
+</Steps>
+
+<Callout type="info">
+  Dockerman honors `.dockerignore` in the selected build context.
+</Callout>
+
+## Push to a registry
+
+Added in v4.6.0.
+
+Push a tagged image after you sign in to the target registry or provide credentials for the push.
+
+<Steps>
+  <Step>
+    ### Tag the image for the target registry
+
+    Use a full name like `registry.example.com/team/app:1.2.0`.
+  </Step>
+  <Step>
+    ### Configure registry credentials
+
+    Dockerman reads existing Docker auth from `~/.docker/config.json`, or you can add credentials per push.
+  </Step>
+  <Step>
+    ### Push with streaming progress
+
+    Follow the upload progress until the registry accepts the new tag.
+  </Step>
+</Steps>
+
+<Callout type="info">
+  Public registries and private registries both work here, including Docker Hub, GHCR, Harbor, AWS ECR, Nexus, and GitLab Container Registry.
+</Callout>
+
+## Analyze image size
+
+Open the Image Size view to see the layer tree and the places where the image spends its space.
+
+- Look for oversized package caches that were left in the final layer.
+- Look for build artifacts that should have been copied into a smaller runtime image.
+- Look for redundant `COPY` layers that duplicate the same files.
+
+## Tag operations
+
+Use tag operations to tag, untag, or retag an image for another repository or registry. Retagging changes the reference only, so the underlying layers stay where they are.
+
+## Scan with Trivy
+
+Added in v4.6.0.
+
+Scan an image to find known vulnerabilities in its installed layers.
+
+### First-time install
+
+The first scan downloads the Trivy binary and its vulnerability database.
+
+<Callout type="warn">
+  The first scan downloads the Trivy binary, about 50 MB, plus the vulnerability database. The download is one-time and cached locally. See [Trivy settings](/en/docs/reference/settings#trivy-settings) if you need a custom binary path.
+</Callout>
+
+### Run a scan
+
+<Steps>
+  <Step>
+    ### Select an image
+
+    Pick the image you want to scan from the Images page.
+  </Step>
+  <Step>
+    ### Click Scan with Trivy
+
+    Dockerman starts the scan and streams progress into the report view.
+  </Step>
+  <Step>
+    ### Wait for the report
+
+    Typical scans take 30 seconds to 3 minutes, depending on image size.
+  </Step>
+</Steps>
+
+### Read the report
+
+Dockerman groups findings by severity, then lets you expand each finding to see the CVE ID, description, affected versions, and fix versions when available. Export the raw report as JSON when you want to feed it into CI or archive the result.
+
+{/* TODO(screenshot): images/trivy-report - Trivy report with expanded finding */}
+
+## Cleanup
+
+- Remove dangling images from the Dangling tab when you want to clear build leftovers quickly.
+- Delete old versions with multi-select when you no longer need a tag.
+- Use the system prune controls in [Docker settings](/en/docs/reference/settings#docker-settings) when you want to remove all unused images at once.

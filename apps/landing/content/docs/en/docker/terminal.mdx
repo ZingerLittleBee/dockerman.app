@@ -3,6 +3,37 @@ title: Terminal
 description: Attach an interactive shell to any running container with a built-in xterm.js terminal.
 ---
 
-{/* TODO: body content will be written in a later task */}
+Use this page to open an interactive shell in any running container through xterm.js.
 
-This page is under construction. Check back soon.
+## Open a terminal
+
+From the container list, select a container and open Terminal. Dockerman opens a new terminal view with an interactive shell inside the container.
+
+## Choose a shell
+
+Dockerman tries `bash`, then `sh`, then `zsh`. Override the shell for a session from the terminal settings control if you want a different command.
+
+<Callout type="info">
+  Minimal images such as Alpine or distroless may not ship with bash. Dockerman falls back to `sh` automatically.
+</Callout>
+
+## Copy, paste, and scroll
+
+| Shortcut | Action |
+| --- | --- |
+| Ctrl/Cmd + Shift + C | Copy the selection |
+| Ctrl/Cmd + Shift + V | Paste |
+| Mouse wheel | Scroll |
+| Ctrl/Cmd + Shift + K | Clear the terminal |
+
+## Themes and fonts
+
+Choose one of the built-in themes, then customize the font family and size in [Terminal settings](/en/docs/reference/settings#terminal-settings).
+
+## Limitations
+
+<Callout type="warn">
+  - Stopping the container ends the terminal session.
+  - Long idle connections may be dropped by Docker, so reopen the terminal to reconnect.
+  - Some TUI apps may need `TERM=xterm-256color` before you launch them.
+</Callout>
