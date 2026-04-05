@@ -3,8 +3,78 @@ title: "Asistente de Depuración"
 description: "Lanza un pod de depuración efímero junto a un pod objetivo para diagnosticar problemas de red, DNS y sistema de archivos."
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout'
+Añadido en la v4.8.0. Usa el Asistente de Depuración para lanzar un pod de depuración efímero junto a un pod objetivo y abrir un shell con herramientas de depuración preinstaladas.
 
-<Callout type="info">
-  Esta página aún no está traducida. Consulte la [versión en inglés](/en/docs/kubernetes/debug).
-</Callout>
+## Cuándo usar el Asistente de Depuración
+
+- La imagen objetivo es mínima, como distroless o scratch, y no tiene shell.
+- Necesitas herramientas como `tcpdump`, `dig`, `curl` o `nc` que no están en la imagen objetivo.
+- Necesitas inspeccionar volúmenes montados o el espacio de nombres de red del pod sin tocar el pod mismo.
+- Estás depurando un `CrashLoopBackOff` y el pod nunca permanece activo el tiempo suficiente para `kubectl exec`.
+
+## Lanzar un pod de depuración
+
+<Steps>
+  <Step>
+    ### Selecciona el pod objetivo
+
+    Desde Pods o Workloads, elige Depurar en el pod que quieres inspeccionar.
+  </Step>
+  <Step>
+    ### Configura las opciones de compartición
+
+    Elige si compartir el espacio de nombres de proceso, el espacio de nombres de red y los volúmenes montados.
+  </Step>
+  <Step>
+    ### Espera a que el pod de depuración esté Listo
+
+    Dockerman crea el pod y espera a que esté Listo antes de abrir el terminal.
+  </Step>
+  <Step>
+    ### Interactúa mediante el terminal integrado
+
+    El pod de depuración se abre en una pestaña de terminal de Dockerman.
+
+    {/* TODO(screenshot): kubernetes/debug-assistant - Debug pod terminal with target info */}
+  </Step>
+</Steps>
+
+## Qué hay dentro del pod de depuración
+
+| Herramienta | Propósito |
+| --- | --- |
+| `bash`, `sh` | Shells |
+| `ps`, `top`, `htop` | Inspección de procesos |
+| `netstat`, `ss` | Estado de conexiones |
+| `tcpdump` | Captura de paquetes |
+| `curl`, `wget` | Sondas HTTP |
+| `dig`, `nslookup` | Resolución DNS |
+| `nc` | Comprobaciones TCP y UDP raw |
+| `vim`, `less` | Inspección de archivos |
+| `strace` | Tracing de syscalls cuando el kernel lo permite |
+
+## Flujos de trabajo comunes de depuración
+
+<Accordions>
+  <Accordion title="Diagnostica un problema de DNS">
+    - Ejecuta `dig @<cluster-dns>` para el Service o nombre que esperas resolver.
+    - Verifica `/etc/resolv.conf` dentro del pod de depuración.
+    - Verifica los Endpoints de kube-dns desde la página de Redes.
+    - Prueba `getent hosts` antes de salir del pod.
+  </Accordion>
+  <Accordion title="Captura el tráfico entre pods">
+    - Ejecuta `tcpdump -i any port 8080 -w /tmp/capture.pcap`.
+    - Reproduce la solicitud desde el pod objetivo o un pod cliente.
+    - Copia la captura con `kubectl cp`.
+    - Abre la captura en Wireshark.
+  </Accordion>
+  <Accordion title="Inspecciona un volumen montado">
+    - Lanza el pod de depuración con los montajes de volúmenes habilitados.
+    - `cd` a la ruta de montaje.
+    - Inspecciona el contenido en su lugar.
+  </Accordion>
+</Accordions>
+
+## Limpieza
+
+El pod de depuración es efímero. Cierra la pestaña del terminal o sal del shell cuando termines, y Dockerman lo limpiará por ti.

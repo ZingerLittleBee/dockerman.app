@@ -3,8 +3,220 @@ title: "Contenedores"
 description: "Crea, inspecciona y gestiona contenedores Docker; clona, confirma, pausa y respalda con un clic."
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout'
+Crea, inspecciona, clona, confirma, respalda y restaura contenedores desde aquí.
+
+## La lista de contenedores
+
+La lista de contenedores muestra el nombre e ID, imagen, estado, mapeos de puertos y tiempo de creación. Usa la barra de búsqueda para filtrar por nombre, imagen o puerto, luego selecciona múltiples con Ctrl/Cmd+Clic cuando quieras ejecutar acciones por lotes.
+
+{/* TODO(screenshot): containers/list - Container list with multi-select */}
+
+## Acciones del ciclo de vida
+
+Usa las acciones del ciclo de vida para controlar el contenedor seleccionado sin abrir la vista de detalle.
+
+| Acción | Efecto |
+| --- | --- |
+| Iniciar | Inicia un contenedor detenido |
+| Detener | Detiene gracefulmente un contenedor en ejecución (SIGTERM, luego SIGKILL después del timeout) |
+| Reiniciar | Detiene e inicia el contenedor |
+| Pausar | Congela todos los procesos con `SIGSTOP` |
+| Reanudar | Reanuda los procesos pausados con `SIGCONT` |
+| Eliminar | Borra el contenedor, pero solo después de que esté detenido |
 
 <Callout type="info">
-  Esta página aún no está traducida. Consulte la [versión en inglés](/en/docs/docker/containers).
+  **Pausar vs Detener** - Pausar congela los procesos del contenedor en memoria para que se reanuden instantáneamente al despausar. Detener termina los procesos y libera el namespace PID del contenedor.
 </Callout>
+
+## Crear un contenedor
+
+Usa el diálogo de creación cuando quieras que Dockerman construya un nuevo contenedor desde una imagen, un comando `docker run`, un contenedor existente o una plantilla.
+
+<Tabs items={['Formulario', 'Desde docker run', 'Clonar existente', 'Desde plantilla']}>
+  <Tab>
+    <Steps>
+      <Step>
+        ### Seleccionar una imagen base
+
+        Selecciona una imagen local o descarga una bajo demanda antes de continuar.
+      </Step>
+      <Step>
+        ### Establecer el nombre y el comando
+
+        Dale un nombre al contenedor, luego sobrescribe el entrypoint o el comando solo cuando lo necesites.
+      </Step>
+      <Step>
+        ### Puertos y redes
+
+        Agrega mapeos de puertos y elige la red a la que debe unirse el contenedor.
+      </Step>
+      <Step>
+        ### Variables de entorno y volúmenes
+
+        Agrega variables de entorno clave-valor, luego monta rutas de bind o volúmenes nombrados.
+      </Step>
+      <Step>
+        ### Límites de recursos y política de reinicio
+
+        Establece límites de CPU y memoria, luego elige la política de reinicio.
+      </Step>
+    </Steps>
+
+    {/* TODO(screenshot): containers/create-form - Create container dialog form tab */}
+  </Tab>
+  <Tab>
+    Pega un comando `docker run` y Dockerman lo analiza en la pestaña Formulario para revisión antes de crear el contenedor.
+
+    ```bash
+    docker run -d -p 8080:80 --name web nginx:latest
+    ```
+  </Tab>
+  <Tab>
+    Clonar existente copia la configuración de un contenedor en un nuevo diálogo de creación para que puedas cambiar cualquier campo antes del lanzamiento. Añadido en la v4.6.0. No copia datos de volúmenes.
+  </Tab>
+  <Tab>
+    Usa [plantillas de Compose](/es/docs/docker/compose#biblioteca-de-plantillas) cuando quieras comenzar desde un proyecto curado en lugar de un formulario en blanco.
+  </Tab>
+</Tabs>
+
+## Inspeccionar y actualizar
+
+Abre Inspeccionar para revisar el JSON completo del contenedor, incluyendo configuraciones de red, montajes, variables de entorno y etiquetas. Usa Actualizar para el pequeño conjunto de configuraciones en vivo que puedes cambiar sin recrear el contenedor, como CPU, memoria y política de reinicio. Para cambios de imagen, entorno o puertos, detén el contenedor y crea uno nuevo en su lugar.
+
+## Confirmar un contenedor en ejecución
+
+Añadido en la v4.6.0.
+
+Confirmar guarda la capa escribible actual del contenedor como una nueva etiqueta de imagen.
+
+<Steps>
+  <Step>
+    ### Seleccionar el contenedor
+
+    Elige el contenedor en ejecución que quieras capturar.
+  </Step>
+  <Step>
+    ### Completar el nuevo nombre y etiqueta de imagen
+
+    Elige el repositorio y la etiqueta para la nueva imagen.
+  </Step>
+  <Step>
+    ### Confirmar
+
+    La nueva imagen aparece en la lista de Imágenes.
+  </Step>
+</Steps>
+
+<Callout type="warn">
+  Confirmar no incluye datos de volúmenes montados. Solo captura los cambios del propio sistema de archivos del contenedor.
+</Callout>
+
+## Clonar un contenedor
+
+Añadido en la v4.6.0.
+
+Clonar copia la configuración del contenedor, incluyendo la referencia de imagen, puertos, variables de entorno, montajes y red, en un nuevo diálogo de creación. Úsalo cuando necesites una segunda instancia con pequeños cambios. Clonar es para reutilización de configuración, mientras que Confirmar es para guardar cambios del sistema de archivos en una nueva imagen.
+
+## Respaldo y restauración
+
+Añadido en la v4.8.0.
+
+Respalda un contenedor cuando quieras guardar su configuración, su sistema de archivos y sus datos de volumen en un único archivo `.tar.gz` que puedes restaurar en el mismo host o en otro.
+
+### Qué contiene un respaldo
+
+El archivo incluye un manifiesto, la configuración del contenedor, la instantánea del sistema de archivos y cualquier volumen adjunto.
+
+<Files>
+  <Folder name="backup-<name>-<timestamp>.tar.gz" defaultOpen>
+    <File name="manifest.json" />
+    <File name="config.json" />
+    <File name="filesystem.tar" />
+    <Folder name="volumes">
+      <File name="<volume-name>.tar" />
+    </Folder>
+  </Folder>
+</Files>
+
+### Crear un respaldo
+
+<Steps>
+  <Step>
+    ### Abrir el diálogo de respaldo
+
+    Desde la lista de contenedores, haz clic derecho en un contenedor y elige Respaldo.
+  </Step>
+  <Step>
+    ### Elegir qué incluir
+
+    La configuración siempre está incluida. Activa o desactiva el sistema de archivos y los volúmenes según sea necesario.
+  </Step>
+  <Step>
+    ### Elegir una ruta de salida
+
+    Selecciona un directorio de destino en la máquina local.
+  </Step>
+  <Step>
+    ### Esperar la barra de progreso
+
+    El respaldo se transmite al disco, y puedes cancelar en cualquier momento.
+  </Step>
+</Steps>
+
+{/* TODO(screenshot): containers/backup-dialog - Backup dialog with progress */}
+
+### Restaurar desde un respaldo
+
+<Steps>
+  <Step>
+    ### Seleccionar un archivo `.tar.gz`
+
+    Desde la página de Contenedores, elige Restaurar y selecciona el archivo.
+  </Step>
+  <Step>
+    ### Previsualizar el respaldo
+
+    Dockerman lee el manifiesto y muestra la referencia de imagen, puertos, montajes y entorno.
+  </Step>
+  <Step>
+    ### Editar nombre, puertos y etiqueta de imagen
+
+    Cambia el nombre del contenedor si hay conflicto, reasigna puertos del host y reetiqueta la imagen si falta localmente.
+  </Step>
+  <Step>
+    ### Confirmar restauración
+
+    El nuevo contenedor se crea e inicia.
+  </Step>
+</Steps>
+
+<Callout type="warn">
+  Los conflictos de nombre se detectan de antemano. Los conflictos de puerto solo se detectan al momento de iniciar, así que verifica los puertos del host antes de confirmar.
+</Callout>
+
+{/* TODO(screenshot): containers/restore-preview - Restore preview with editable fields */}
+
+### Consejos
+
+- Los respaldos de contenedores grandes escalan con el tamaño del volumen, así que espera que el archivo crezca con la cantidad de datos adjuntos.
+- Para mover un contenedor entre hosts, crea el respaldo en el host de origen, copia el `.tar.gz`, luego restáuralo en el host de destino.
+- Los respaldos no incluyen definiciones de red. Asegúrate de que el host de destino tenga redes coincidentes, o deja que Dockerman las recree.
+
+## Operaciones por lotes
+
+Selecciona múltiples contenedores con Ctrl/Cmd+Clic o Shift+Clic, luego ejecuta acciones sobre la selección. Las acciones por lotes incluyen Iniciar, Detener, Reiniciar, Pausar y Eliminar.
+
+<Callout type="warn">
+  Eliminar por lotes es irreversible y solo solicita confirmación una vez para toda la selección.
+</Callout>
+
+## Atajos de teclado
+
+Consulta [atajos de acciones de contenedores](/es/docs/reference/keyboard-shortcuts#acciones-de-contenedores) para el mapa de teclas completo. Cuando una fila está enfocada, estas teclas ejecutan las acciones comunes a continuación.
+
+| Acción | Atajo |
+| --- | --- |
+| Iniciar | `S` |
+| Detener | `X` |
+| Logs | `L` |
+| Terminal | `T` |

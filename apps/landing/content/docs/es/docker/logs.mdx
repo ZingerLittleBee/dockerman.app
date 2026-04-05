@@ -3,8 +3,47 @@ title: "Registros"
 description: "Transmite y busca registros de contenedores a escala con una lista virtualizada y atajos de teclado."
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout'
+Usa esta página para leer los registros de contenedores en una lista virtualizada y controlarla con atajos de teclado.
+
+## Transmisión de registros en vivo
+
+Abre Registros para transmitir desde el final actual de los registros del contenedor. Pausa congela la vista sin desconectar la transmisión, y Reanudar salta de vuelta a la última línea y sigue de nuevo.
+
+## Lista virtualizada
+
+Dockerman renderiza las filas de registro bajo demanda para que el visor se mantenga responsivo incluso cuando te desplazas por un historial extenso.
 
 <Callout type="info">
-  Esta página aún no está traducida. Consulte la [versión en inglés](/en/docs/docker/logs).
+  El uso de memoria se mantiene aproximadamente constante independientemente de la longitud del registro porque solo las filas visibles permanecen en el DOM.
 </Callout>
+
+## Búsqueda
+
+Abre la búsqueda con `/`, escribe una consulta, y activa regex solo cuando lo necesites. Las coincidencias permanecen resaltadas en su lugar mientras te desplazas por la transmisión.
+
+## Atajos avanzados
+
+| Atajo | Acción |
+| --- | --- |
+| `/` | Abrir búsqueda |
+| Enter | Coincidencia siguiente |
+| Shift + Enter | Coincidencia anterior |
+| `n` | Coincidencia siguiente fuera del cuadro de búsqueda |
+| `N` | Coincidencia anterior |
+| `g` | Saltar al inicio del registro |
+| `G` | Saltar a la última línea |
+| `P` | Coincidencia anterior, como alternativa a Shift + Enter |
+| Esc | Cerrar búsqueda o limpiar resaltados |
+
+## Formatos de marca de tiempo
+
+Cambia entre tiempo relativo, UTC absoluto y tiempo local absoluto desde las opciones de vista.
+
+## Exportar registros
+
+Exporta los registros cuando quieras entregarlos a otra herramienta o almacenarlos en otro lugar.
+
+- JSON: marcas de tiempo más stdout o stderr por línea
+- Texto plano: exactamente lo que ves en el visor
+
+Consulta [atajos del visor de registros](/es/docs/reference/keyboard-shortcuts#visor-de-registros) para el mapa de teclas completo.

@@ -3,8 +3,98 @@ title: "Compose y Plantillas"
 description: "Gestiona aplicaciones multi-contenedor con Docker Compose e inicia proyectos desde la biblioteca de plantillas."
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout'
+Gestiona proyectos de Docker Compose e inicia nuevos desde la biblioteca de plantillas integrada.
+
+## Proyectos de Compose
+
+La página de Compose muestra cada proyecto que Dockerman encuentra a partir de la etiqueta `com.docker.compose.project`, junto con el número de contenedores, el estado y la ruta base.
+
+## Iniciar, detener y eliminar un proyecto
+
+<Steps>
+  <Step>
+    ### Selecciona un proyecto
+
+    Elige el proyecto de Compose que quieres gestionar.
+  </Step>
+  <Step>
+    ### Iniciar
+
+    Dockerman levanta todos los servicios y descarga primero las imágenes que falten.
+  </Step>
+  <Step>
+    ### Detener
+
+    Dockerman baja todos los servicios, pero mantiene los contenedores.
+  </Step>
+  <Step>
+    ### Eliminar
+
+    Dockerman elimina los contenedores y las redes. Los volúmenes permanecen a menos que marques Incluir volúmenes.
+  </Step>
+</Steps>
+
+<Callout type="warn">
+  Incluir volúmenes elimina tanto los volúmenes anónimos como los nombrados definidos por el archivo de Compose. Los volúmenes nombrados que tienen otros consumidores se omiten.
+</Callout>
+
+## Descargar imágenes del proyecto
+
+Descargar obtiene todas las imágenes referenciadas por el archivo de Compose sin iniciar ningún servicio. Úsalo antes de un inicio en frío en un nuevo host.
+
+## Editar compose.yaml
+
+Edita el archivo de Compose en Monaco, luego guárdalo de nuevo en disco. Dockerman valida el archivo al guardar.
 
 <Callout type="info">
-  Esta página aún no está traducida. Consulte la [versión en inglés](/en/docs/docker/compose).
+  Dockerman vuelve a ejecutar `docker compose config` después de cada guardado para verificar el archivo. Un YAML inválido bloquea el guardado.
 </Callout>
+
+## Ver logs entre servicios
+
+Usa la vista de Logs a nivel de proyecto para fusionar los logs de cada servicio, codificarlos por color según el servicio, y mantener el mismo comportamiento de búsqueda que en los [logs de contenedores](/es/docs/docker/logs).
+
+{/* TODO(screenshot): compose/project-logs - Multi-service merged log view */}
+
+## Biblioteca de plantillas
+
+Usa la biblioteca de plantillas cuando quieras empezar desde un stack curado en lugar de un archivo de Compose en blanco.
+
+<Cards>
+  <Card title="Bases de datos">
+    MySQL, PostgreSQL, MongoDB, Redis, CouchDB.
+  </Card>
+  <Card title="Colas de mensajes">
+    RabbitMQ, NATS, Kafka.
+  </Card>
+  <Card title="Observabilidad">
+    Prometheus y Grafana, Loki, Tempo.
+  </Card>
+  <Card title="Desarrollo">
+    phpMyAdmin, pgAdmin, Adminer, MinIO.
+  </Card>
+</Cards>
+
+<Steps>
+  <Step>
+    ### Abre la página de Plantillas
+
+    Abre la página que lista las plantillas integradas.
+  </Step>
+  <Step>
+    ### Elige una plantilla
+
+    Revisa los servicios, las variables de entorno requeridas y los puertos por defecto.
+  </Step>
+  <Step>
+    ### Configura y lanza
+
+    Rellena los valores solicitados, elige un nombre de proyecto, luego inícialo.
+  </Step>
+</Steps>
+
+{/* TODO(screenshot): compose/templates-library - Template library page */}
+
+## Crea tu propia plantilla
+
+Guarda cualquier archivo de Compose existente como plantilla, luego edítalo o elimínalo desde la página de Plantillas cuando necesites actualizar tus proyectos de inicio.

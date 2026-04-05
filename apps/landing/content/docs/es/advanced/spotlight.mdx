@@ -3,8 +3,35 @@ title: "Spotlight"
 description: "Paleta de comandos para navegar Dockerman, ejecutar acciones y buscar recursos con una sola pulsación."
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout'
+Spotlight es la paleta de comandos de Dockerman. Una pulsación abre un lanzador buscable y controlado por teclado que puede navegar a cualquier parte de la aplicación, ejecutar acciones comunes y buscar recursos.
+
+## Abrir Spotlight
+
+Presiona `Cmd/Ctrl + K` por defecto, o abre Spotlight desde el menú de la bandeja. Spotlight se abre como una ventana separada sin marco mientras deja la ventana principal de Dockerman abierta en segundo plano.
+
+## Navegar a recursos
+
+Empieza a escribir un nombre de contenedor, etiqueta de imagen, proyecto Compose, Pod de Kubernetes o página de Configuración. Los resultados se ordenan por uso y recencia, y presionar `Enter` abre el resultado seleccionado.
+
+## Acciones rápidas
+
+Usa acciones inline directamente desde la lista de resultados cuando Spotlight las muestre.
+
+- Contenedores: Start, Stop, Restart, Logs, Terminal, Backup
+- Imágenes: Pull (re-pull), Scan with Trivy, Delete
+- Páginas de configuración: salta directamente
+- Plantillas: Launch
+
+## Resaltados de búsqueda
+
+Los caracteres coincidentes se resaltan en cada resultado mientras escribes. Las búsquedas son difusas, así que `cntlog` aún coincide con "container logs".
+
+## Personalizar el atajo
+
+Cambia el atajo de Spotlight en [Configuración de atajos](/es/docs/reference/settings#configuración-de-atajos).
+
+## Consejos
 
 <Callout type="info">
-  Esta página aún no está traducida. Consulte la [versión en inglés](/en/docs/advanced/spotlight).
+  Spotlight se ejecuta en su propia ventana de Tauri para mantenerse instantáneo. Cerrarlo no cierra la ventana principal de Dockerman, y viceversa.
 </Callout>

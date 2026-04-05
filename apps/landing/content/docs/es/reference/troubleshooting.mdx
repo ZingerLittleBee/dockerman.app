@@ -3,8 +3,66 @@ title: "Resolución de Problemas"
 description: "Problemas comunes y cómo resolverlos: conexión, permisos, rendimiento y Kubernetes."
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout'
+Problemas comunes y la forma más rápida de resolver cada uno.
 
-<Callout type="info">
-  Esta página aún no está traducida. Consulte la [versión en inglés](/en/docs/reference/troubleshooting).
-</Callout>
+## No se puede conectar al demonio de Docker
+
+Usa las pestañas de abajo para seleccionar tu plataforma.
+
+<Tabs items={['macOS', 'Windows', 'Linux']}>
+  <Tab>
+    Asegúrate de que Docker Desktop esté en ejecución, luego revisa [Configuración → Ajustes de Docker](/es/docs/reference/settings#configuración-de-docker) para ver la ruta del socket que Dockerman debe usar.
+  </Tab>
+  <Tab>
+    Elige entre Docker Desktop y el motor WSL2 en [Windows](/es/docs/platform/windows). Si Dockerman apunta al backend incorrecto, cámbialo en [Configuración → Ajustes de Docker](/es/docs/reference/settings#configuración-de-docker).
+  </Tab>
+  <Tab>
+    Añade tu usuario al grupo docker y sigue las [instrucciones de permisos en Linux](/es/docs/platform/linux#permisos).
+  </Tab>
+</Tabs>
+
+## Errores de permisos en Linux
+
+Si Dockerman no puede acceder a `/var/run/docker.sock`, añade tu usuario al grupo docker, cierra sesión y vuelve a iniciarla, y verifica que `docker ps` funcione sin `sudo`.
+
+## El Asistente de Configuración de WSL2 falla
+
+Usa la sección de resolución de problemas de Windows para la ruta de WSL2: [Resolución de problemas en la plataforma Windows](/es/docs/platform/windows#solución-de-problemas).
+
+## La conexión al host SSH falla
+
+Verifica el puerto del host, los permisos del archivo de clave privada, y cualquier regla de firewall que bloquee el puerto de salida 22. Para el flujo completo de configuración, consulta [Hosts Remotos](/es/docs/advanced/remote-hosts).
+
+## Problemas de rendimiento
+
+- Un alto consumo de CPU en reposo generalmente significa que una pestaña de Registros está transmitiendo un conjunto de archivos grande. Pausa las pestañas que no estés usando.
+- Cargas lentas de listas con cientos de contenedores generalmente significa que necesitas filtrar primero por estado o proyecto de Compose.
+- Estadísticas lentas generalmente significa que el rango de tiempo seleccionado es demasiado amplio. Redúcelo a 1h o 3h.
+
+## Kubernetes: k3d no se inicia
+
+<Accordions>
+  <Accordion title="El puerto 6443 ya está en uso">
+    Detén la otra herramienta de Kubernetes o cambia el puerto API de k3d antes de intentarlo de nuevo.
+  </Accordion>
+  <Accordion title="vm.max_map_count demasiado bajo">
+    Ejecuta `sudo sysctl -w vm.max_map_count=262144`, luego persiste el valor en `/etc/sysctl.conf` si quieres que sobreviva al reinicio.
+  </Accordion>
+  <Accordion title="Falló la descarga del binario de k3d">
+    Verifica el acceso HTTPS saliente, luego reintenta la descarga. Si es necesario, coloca el binario manualmente en la ruta mostrada en el error.
+  </Accordion>
+</Accordions>
+
+## Kubernetes: falla la importación de kubeconfig
+
+- Selecciona el nombre de contexto correcto cuando importes el kubeconfig.
+- Actualiza las credenciales expiradas, luego exporta el kubeconfig de nuevo.
+- Verifica que `kubectl get ns` funcione desde la línea de comandos antes de importar detrás de un proxy o firewall.
+
+## Recopilación de registros
+
+Abre primero la página de Registro de la Aplicación. Si necesitas reportar un problema, exporta el Registro de la Aplicación y adjúntalo junto con la versión de Dockerman.
+
+## Obtener ayuda
+
+Reporta problemas en el repositorio de GitHub de Dockerman y adjunta la exportación del Registro de la Aplicación más la versión de Dockerman desde Configuración → Acerca de.

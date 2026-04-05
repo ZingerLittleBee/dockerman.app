@@ -3,8 +3,31 @@ title: "Redes"
 description: "Inspecciona Services, Ingresses, Endpoints y NetworkPolicies en cada namespace."
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout'
+Usa la página de Redes para inspeccionar cómo se mueve el tráfico a través del clúster. Lee Services, Ingresses, Endpoints y NetworkPolicies sin volver a `kubectl`.
+
+## Services
+
+Usa Services para ver la puerta de entrada estable para una carga de trabajo. La lista muestra el tipo de servicio, ClusterIP, puertos y selector.
+
+- `ClusterIP` para tráfico interno dentro del clúster.
+- `NodePort` cuando necesitas un puerto a nivel de nodo para acceso rápido.
+- `LoadBalancer` cuando el clúster expone un balanceador de carga externo.
+- `ExternalName` cuando el Service apunta a un nombre DNS en lugar de un selector.
+
+La vista de detalle te enlaza con los Endpoints de respaldo.
+
+## Ingresses
+
+Usa Ingresses para inspeccionar el enrutamiento HTTP hacia el clúster. La lista muestra hosts, rutas y Services de backend, mientras que la vista de detalle muestra secretos TLS, anotaciones y el árbol de reglas.
+
+## Endpoints
+
+Usa Endpoints cuando necesites las direcciones de backend sin procesar detrás de un Service. Esta vista es más útil cuando un Service no tiene backends saludables.
+
+## NetworkPolicies
+
+Usa NetworkPolicies para entender qué pods pueden comunicarse entre sí.
 
 <Callout type="info">
-  Esta página aún no está traducida. Consulte la [versión en inglés](/en/docs/kubernetes/networking).
+  La fase 1 es solo de visualización para NetworkPolicies. Créalos y edítalos con `kubectl apply` o editando el YAML de otro recurso.
 </Callout>

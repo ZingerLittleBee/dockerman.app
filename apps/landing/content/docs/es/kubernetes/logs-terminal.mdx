@@ -3,8 +3,42 @@ title: "Registros y Terminal de Pod"
 description: "Transmite registros de Pods y conéctate a cualquier contenedor dentro de un Pod mediante xterm.js."
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout'
+Transmite registros de Pod y conéctate a cualquier contenedor dentro de un Pod mediante xterm.js.
 
-<Callout type="info">
-  Esta página aún no está traducida. Consulte la [versión en inglés](/en/docs/kubernetes/logs-terminal).
-</Callout>
+## Transmitir registros de Pod
+
+Abre los registros desde cualquier fila de Pod o desde la vista de detalle del Pod. El flujo de registros permanece activo mientras el Pod se ejecuta, y la vista de detalle te permite moverte entre la salida reciente sin salir de la página.
+
+## Atajos de búsqueda
+
+Los registros de Pod usan los mismos atajos de teclado que los [registros de contenedores](/es/docs/docker/logs#atajos-avanzados), incluyendo `/`, `n` y `N`, `g` y `G`, y `Esc`.
+
+## Pods multi-contenedor
+
+Usa el menú desplegable de contenedores en la parte superior cuando un Pod tiene más de un contenedor. Los contenedores de inicialización aparecen en la misma lista, y cambiar de contenedor reinicia el flujo.
+
+## Terminal de Pod (exec)
+
+<Steps>
+  <Step>
+    ### Abrir la terminal
+
+    Desde un Pod, haz clic en Terminal o presiona `T` cuando el Pod esté seleccionado.
+  </Step>
+  <Step>
+    ### Elegir un contenedor
+
+    Omite este paso para Pods de un solo contenedor.
+  </Step>
+  <Step>
+    ### Elegir un shell
+
+    Dockerman intenta `bash`, luego `sh`, luego `zsh`, el mismo orden de reserva que usa para las terminales de contenedores Docker.
+  </Step>
+</Steps>
+
+## Limitaciones
+
+- Matar el contenedor objetivo finaliza la sesión.
+- El historial de sesiones no persiste entre reinicios.
+- Algunas aplicaciones TUI necesitan `TERM=xterm-256color`.

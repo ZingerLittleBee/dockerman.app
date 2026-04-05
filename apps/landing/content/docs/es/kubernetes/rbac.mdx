@@ -3,8 +3,20 @@ title: "RBAC"
 description: "Explora ServiceAccounts, Roles, ClusterRoles y sus bindings para entender quién puede hacer qué."
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout'
+Usa la página de RBAC para responder una pregunta rápidamente: quién puede hacer qué en este clúster.
 
-<Callout type="info">
-  Esta página aún no está traducida. Consulte la [versión en inglés](/en/docs/kubernetes/rbac).
-</Callout>
+## ServiceAccounts
+
+Usa ServiceAccounts para ver qué identidades se ejecutan dentro del namespace actual. La vista de detalle muestra los secretos montados, los secretos de extracción de imágenes y los secretos de tokens generados.
+
+## Roles y ClusterRoles
+
+Usa Roles y ClusterRoles para inspeccionar los permisos asociados a esas identidades. La vista de detalle expande el array `rules` en una tabla legible con apiGroups, resources, verbs y resourceNames.
+
+## RoleBindings y ClusterRoleBindings
+
+Usa RoleBindings y ClusterRoleBindings para ver qué subjects apuntan a cada rol. La lista muestra la referencia del rol y los subjects, incluyendo usuarios, grupos y ServiceAccounts.
+
+## Solución de problemas de permisos
+
+Cuando un pod no puede leer, listar, crear o ejecutar algo, verifica primero la cadena de vinculación y luego confirma el ServiceAccount del pod. Si aún necesitas confirmar el acceso desde dentro del clúster, usa el [Asistente de Depuración](/es/docs/kubernetes/debug).

@@ -3,8 +3,28 @@ title: "Configuración y Almacenamiento"
 description: "Gestiona ConfigMaps, Secrets, PersistentVolumeClaims y StorageClasses sin saltar entre comandos kubectl."
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout'
+Usa Configuración y Almacenamiento para inspeccionar las fuentes de datos y los almacenes de respaldo de los que dependen las cargas de trabajo.
+
+## ConfigMaps
+
+Abre un ConfigMap para revisar sus claves, valores, fila de lista, vista de detalle y YAML. Edita el objeto cuando necesites cambiar la configuración de una aplicación.
 
 <Callout type="info">
-  Esta página aún no está traducida. Consulte la [versión en inglés](/en/docs/kubernetes/config-storage).
+  Editar un ConfigMap no reinicia los pods que lo montan. Actualiza el Deployment o StatefulSet propietario si necesitas que los nuevos datos surtan efecto.
 </Callout>
+
+## Secrets
+
+Abre un Secret para inspeccionar su tipo, claves y valores. La lista muestra tipos comunes como `Opaque`, `kubernetes.io/tls` y `kubernetes.io/dockerconfigjson`, y cada clave tiene su propio control de revelado.
+
+<Callout type="warn">
+  Revelar muestra los valores del secreto en texto plano. Cualquiera que pueda ver la pantalla en ese momento puede leerlos.
+</Callout>
+
+## PersistentVolumeClaims
+
+Usa PersistentVolumeClaims para ver la fase, el PersistentVolume vinculado, la clase de almacenamiento, los modos de acceso y la capacidad de cada reclamación.
+
+## StorageClasses
+
+Usa StorageClasses para inspeccionar las opciones de almacenamiento del clúster, incluyendo el provisionador, la política de reclamación, el modo de vinculación de volúmenes y el marcador de clase predeterminada.

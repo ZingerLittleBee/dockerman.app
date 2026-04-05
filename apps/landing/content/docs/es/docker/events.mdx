@@ -3,8 +3,46 @@ title: "Eventos"
 description: "Transmite, filtra, persiste y exporta eventos del daemon de Docker."
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout'
+Usa esta página para ver `docker events` en una interfaz que permite buscar, filtrar y exportar.
 
-<Callout type="info">
-  Esta página aún no está traducida. Consulte la [versión en inglés](/en/docs/docker/events).
-</Callout>
+## Abrir la transmisión de eventos
+
+Abre la página de Eventos para comenzar a transmitir desde el momento actual. Pausa la transmisión cuando quieras inspeccionar lo que ya está en pantalla sin perder el historial que has recopilado.
+
+## Filtrar eventos
+
+Filtra los eventos por las siguientes dimensiones cuando quieras reducir una transmisión ruidosa.
+
+- Tipo de recurso: contenedor, imagen, red, volumen, daemon
+- Acción: create, start, stop, die, destroy, pull, push, connect, disconnect, y más
+- Rango de tiempo: ventana deslizante o rango absoluto personalizado
+- Texto libre: coincide con cualquier campo
+
+## Persistir el historial
+
+Dockerman escribe los eventos en un archivo JSONL local en su directorio de datos de aplicación para que el historial sobreviva a los reinicios. Usa la configuración de retención en el área de gestión de datos cuando quieras cambiar cuánto tiempo los conserva Dockerman.
+
+## Buscar y consultar
+
+Busca por nombre de contenedor, imagen o etiqueta, luego combina la búsqueda con filtros cuando quieras enfocarte en una cadena específica de eventos.
+
+## Exportar
+
+Exporta la transmisión actual cuando necesites mover los datos a otro lugar.
+
+- JSON: objetos de evento sin procesar para pipelines o archivo
+- CSV: columnas aplanadas para hojas de cálculo
+
+## Solución de problemas con eventos
+
+<Accordions>
+  <Accordion title="¿Por qué se reinició mi contenedor?">
+    Busca un evento `die` seguido de `start`, luego abre el payload para leer el código de salida y la razón del reinicio.
+  </Accordion>
+  <Accordion title="¿Por qué falló la descarga de la imagen?">
+    Los fallos de descarga aparecen en eventos `pull`, y el payload incluye el mensaje de error que Docker devolvió.
+  </Accordion>
+  <Accordion title="¿Quién se desconectó de mi red?">
+    Los eventos `disconnect` identifican el contenedor que abandonó la red, para que puedas rastrear el cambio rápidamente.
+  </Accordion>
+</Accordions>

@@ -3,8 +3,86 @@ title: "Linux"
 description: "Instala Dockerman en distribuciones Linux y configura el Docker Engine para tu entorno."
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout'
+Dockerman se distribuye como `.deb`, `.rpm` o AppImage para que puedas instalarlo en la distribución que ya utilizas.
 
-<Callout type="info">
-  Esta página aún no está traducida. Consulte la [versión en inglés](/en/docs/platform/linux).
+## Instalación
+
+<Tabs items={['.deb', '.rpm', 'AppImage']}>
+  <Tab>
+    ```bash
+    sudo dpkg -i dockerman_*_amd64.deb
+    sudo apt-get install -f
+    ```
+
+    Instala el paquete `.deb` en Debian o Ubuntu.
+  </Tab>
+  <Tab>
+    ```bash
+    sudo rpm -i dockerman-*.x86_64.rpm
+    # o
+    sudo dnf install dockerman-*.x86_64.rpm
+    ```
+
+    Instala el paquete `.rpm` en Fedora o RHEL.
+  </Tab>
+  <Tab>
+    ```bash
+    chmod +x Dockerman-*.AppImage
+    ./Dockerman-*.AppImage
+    ```
+
+    Usa AppImageLauncher o `--install` si tu escritorio lo soporta.
+  </Tab>
+</Tabs>
+
+## Configurar Docker Engine
+
+Sigue las instrucciones oficiales de instalación de Docker Engine para tu distribución en [docs.docker.com/engine/install/](https://docs.docker.com/engine/install/), luego asegúrate de que el daemon esté en ejecución. Dockerman funciona con Docker Engine 20.10 y versiones posteriores.
+
+## Permisos
+
+<Steps>
+  <Step>
+    ### Añade tu usuario al grupo docker
+
+    ```bash
+    sudo usermod -aG docker $USER
+    ```
+  </Step>
+  <Step>
+    ### Cierra sesión y vuelve a iniciarla
+
+    La membresía del grupo solo se aplica a las nuevas sesiones de inicio.
+  </Step>
+  <Step>
+    ### Verifica el acceso
+
+    Ejecuta `docker ps` sin `sudo`.
+  </Step>
+</Steps>
+
+<Callout type="warn">
+  Estar en el grupo `docker` es efectivamente acceso root en el host. Usa Docker rootless si necesitas un límite más estricto.
 </Callout>
+
+## Wayland vs X11
+
+Dockerman funciona tanto en Wayland como en X11. En Wayland, los atajos globales usan la API de Atajos de xdg-desktop-portal, y en X11 usan una captura de teclas tradicional.
+
+## Integración con Freedesktop
+
+Dockerman instala un archivo `.desktop` para que aparezca en tu menú de aplicaciones. El icono de la bandeja usa la especificación StatusNotifierItem, que es soportada por KDE, GNOME con extensiones, XFCE y MATE.
+
+## Solución de problemas
+
+<Accordions>
+  <Accordion title="comando docker no encontrado">
+    Instala Docker Engine primero, luego abre una nueva shell para que tu PATH reconozca el CLI de Docker.
+  </Accordion>
+  <Accordion title="Permiso denegado en /var/run/docker.sock">
+    Añade tu usuario al grupo `docker` y cierra sesión y vuelve a iniciarla para que la nueva membresía del grupo surta efecto.
+  </Accordion>
+  <Accordion title="Icono de bandeja no visible">
+    Instala una extensión StatusNotifierItem para tu entorno de escritorio. GNOME normalmente necesita AppIndicator y KStatusNotifierItem Support.
+  </Accordion>
+</Accordions>

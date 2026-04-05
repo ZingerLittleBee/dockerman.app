@@ -3,8 +3,50 @@ title: "Licencias"
 description: "Activa, gestiona y restablece tu licencia de Dockerman entre dispositivos."
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout'
+Activa, gestiona y restablece tu licencia de Dockerman.
 
-<Callout type="info">
-  Esta página aún no está traducida. Consulte la [versión en inglés](/en/docs/reference/licensing).
-</Callout>
+## Descripción general
+
+El núcleo de Dockerman es gratuito. Algunas funciones avanzadas pueden requerir una licencia, y la aplicación te lo solicita en el momento de uso cuando eso ocurre.
+
+## Activar
+
+<Steps>
+  <Step>
+    ### Abre Ajustes → Licencia
+
+    Pega tu clave de licencia en la página de ajustes de Licencia.
+  </Step>
+  <Step>
+    ### Verifica en línea
+
+    Dockerman contacta con el servidor de licencias para verificar la clave.
+  </Step>
+  <Step>
+    ### Confirma la activación
+
+    El estado cambia a Activo, y Dockerman almacena la clave de licencia y el identificador del dispositivo localmente.
+  </Step>
+</Steps>
+
+## Gestionar dispositivos
+
+Cada licencia está vinculada a un identificador de dispositivo. Si reemplazas una máquina o pierdes el acceso a una, restablece la vinculación en el portal de autoservicio de licencias antes de activar en una máquina nueva.
+
+## Verificación sin conexión
+
+Después de la activación, Dockerman verifica la licencia localmente en cada inicio con una firma Ed25519. El uso diario no requiere acceso a la red.
+
+## Solución de problemas
+
+<Accordions>
+  <Accordion title="La activación falla con error de red">
+    Comprueba la configuración de tu firewall y proxy, luego intenta la activación de nuevo desde Ajustes → Licencia. Si el error persiste, utiliza el portal de autoservicio de licencias.
+  </Accordion>
+  <Accordion title="Límite de dispositivos alcanzado">
+    Restablece la vinculación del dispositivo antiguo en el portal de autoservicio de licencias, luego activa la licencia de nuevo en la máquina nueva.
+  </Accordion>
+  <Accordion title="Licencia inválida después de una actualización">
+    Intenta reactivar la licencia primero. Si eso no ayuda, contacta con soporte y adjunta la exportación del Registro de la aplicación.
+  </Accordion>
+</Accordions>
