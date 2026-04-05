@@ -1,37 +1,10 @@
 ---
-title: Solución de Problemas
-description: Problemas comunes y soluciones
+title: "Resolución de Problemas"
+description: "Problemas comunes y cómo resolverlos: conexión, permisos, rendimiento y Kubernetes."
 ---
 
-## Problemas de Conexión Docker
+import { Callout } from 'fumadocs-ui/components/callout'
 
-### Síntomas
-- Error "No se puede conectar al demonio Docker"
-- Lista de contenedores vacía
-
-### Soluciones
-1. Verifica que el demonio Docker esté ejecutándose: `docker ps`
-2. Revisa los permisos del socket
-3. Verifica la ruta del socket personalizado en configuración
-
-## Problemas de Conexión SSH
-
-### Síntomas
-- Falla al conectar a host remoto
-- Errores de tiempo de espera
-
-### Soluciones
-1. Verifica que tu clave SSH sea válida
-2. Asegúrate de que el host sea alcanzable
-3. Verifica que el puerto Docker (2375/2376 por defecto) esté abierto
-
-## Problemas de Rendimiento
-
-### Síntomas
-- UI lenta
-- Alto uso de CPU
-
-### Soluciones
-1. Reinicia Dockerman
-2. Limpia el sistema Docker: `docker system prune`
-3. Usa filtros si tienes muchos contenedores
+<Callout type="info">
+  Esta página aún no está traducida. Consulte la [versión en inglés](/en/docs/reference/troubleshooting).
+</Callout>

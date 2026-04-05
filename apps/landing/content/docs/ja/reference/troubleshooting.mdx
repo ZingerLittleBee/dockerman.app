@@ -1,37 +1,10 @@
 ---
-title: トラブルシューティング
-description: 一般的な問題と解決策
+title: "トラブルシューティング"
+description: "一般的な問題とその解決方法 — 接続、権限、パフォーマンス、Kubernetes。"
 ---
 
-## Docker 接続の問題
+import { Callout } from 'fumadocs-ui/components/callout'
 
-### 症状
-- 「Docker デーモンに接続できません」エラー
-- 空のコンテナリスト
-
-### 解決策
-1. Docker デーモンが実行されていることを確認: `docker ps`
-2. ソケットの権限を確認
-3. カスタムソケットパスを設定で確認
-
-## SSH 接続の問題
-
-### 症状
-- リモートホストへの接続に失敗
-- タイムアウトエラー
-
-### 解決策
-1. SSH キーが有効であることを確認
-2. ホストが到達可能であることを確認
-3. Docker ポート（デフォルト 2375/2376）が開いていることを確認
-
-## パフォーマンスの問題
-
-### 症状
-- UI が遅い
-- 高い CPU 使用率
-
-### 解決策
-1. Dockerman を再起動
-2. Docker システムをクリーンアップ: `docker system prune`
-3. 多数のコンテナがある場合はフィルタを使用
+<Callout type="info">
+  このページはまだ翻訳されていません。[英語版](/en/docs/reference/troubleshooting)をご覧ください。
+</Callout>
