@@ -1,7 +1,8 @@
 {
   "title": "Platform",
   "pages": [
-    "wsl",
+    "windows",
+    "macos",
     "linux"
   ],
   "defaultOpen": true

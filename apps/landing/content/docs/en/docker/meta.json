@@ -1,0 +1,16 @@
+{
+  "title": "Docker",
+  "pages": [
+    "containers",
+    "images",
+    "networks",
+    "volumes",
+    "files",
+    "compose",
+    "stats",
+    "events",
+    "logs",
+    "terminal"
+  ],
+  "defaultOpen": true
+}
