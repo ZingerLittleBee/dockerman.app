@@ -3,8 +3,28 @@ title: "配置与存储"
 description: "管理 ConfigMaps、Secrets、PersistentVolumeClaims 和 StorageClasses，无需频繁切换 kubectl。"
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout'
+使用配置与存储功能来检查工作负载所依赖的数据源和底层存储。
+
+## ConfigMaps
+
+打开 ConfigMap 查看其键、值、列表行、详情视图和 YAML。当你需要更改应用的配置时，编辑该对象。
 
 <Callout type="info">
-  此页面尚未翻译。请查看 [英文版本](/en/docs/kubernetes/config-storage)。
+  编辑 ConfigMap 不会重启挂载它的 Pod。如果你需要新数据生效，请更新所属的 Deployment 或 StatefulSet。
 </Callout>
+
+## Secrets
+
+打开 Secret 查看其类型、键和值。列表显示常见类型，如 `Opaque`、`kubernetes.io/tls` 和 `kubernetes.io/dockerconfigjson`，每个键都有独立的显示控制。
+
+<Callout type="warn">
+  显示操作会以明文展示 Secret 值。任何此时能看到屏幕的人都可以读取它们。
+</Callout>
+
+## PersistentVolumeClaims
+
+使用 PersistentVolumeClaims 查看每个声明的阶段、绑定的 PersistentVolume、存储类、访问模式和容量。
+
+## StorageClasses
+
+使用 StorageClasses 检查集群的存储选项，包括供应程序、回收策略、卷绑定模式和默认类标记。

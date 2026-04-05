@@ -3,8 +3,66 @@ title: "故障排查"
 description: "常见问题与解决方法 — 连接、权限、性能以及 Kubernetes。"
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout'
+常见问题及其最快的解决方法。
 
-<Callout type="info">
-  此页面尚未翻译。请查看 [英文版本](/en/docs/reference/troubleshooting)。
-</Callout>
+## 无法连接到 Docker 守护进程
+
+使用下方的标签页匹配你所在的平台。
+
+<Tabs items={['macOS', 'Windows', 'Linux']}>
+  <Tab>
+    确保 Docker Desktop 正在运行，然后检查[设置 → Docker 设置](/zh/docs/reference/settings#docker-设置)中 Dockerman 应使用的套接字路径。
+  </Tab>
+  <Tab>
+    在 [Windows](/zh/docs/platform/windows) 中选择 Docker Desktop 或 WSL2 引擎。如果 Dockerman 指向了错误的后端，请在[设置 → Docker 设置](/zh/docs/reference/settings#docker-设置)中切换。
+  </Tab>
+  <Tab>
+    将你的用户添加到 docker 组，并遵循 [Linux 权限](/zh/docs/platform/linux#将你的用户添加到-docker-组)指南。
+  </Tab>
+</Tabs>
+
+## Linux 权限错误
+
+如果 Dockerman 无法访问 `/var/run/docker.sock`，请将你的用户添加到 docker 组，注销并重新登录，然后验证 `docker ps` 是否可以在不使用 `sudo` 的情况下运行。
+
+## WSL2 设置向导失败
+
+使用 Windows 故障排查部分查看 WSL2 路径：[Windows 平台故障排查](/zh/docs/platform/windows#方案-bwsl2-docker-engine)。
+
+## SSH 主机连接失败
+
+检查主机端口、私钥文件权限，以及任何阻止出站端口 22 的防火墙规则。有关完整的设置流程，请参阅[远程主机](/zh/docs/advanced/remote-hosts)。
+
+## 性能问题
+
+- 空闲时 CPU 占用高通常意味着某个日志标签页正在流式传输大量文件。暂停你不使用的标签页。
+- 加载数百个容器时列表缓慢通常意味着你需要先按状态或 Compose 项目过滤。
+- 统计信息卡顿通常意味着所选时间范围太宽。将其缩小到 1 小时或 3 小时。
+
+## Kubernetes：k3d 启动失败
+
+<Accordions>
+  <Accordion title="端口 6443 已被占用">
+    停止其他 Kubernetes 工具，或在重试前更改 k3d API 端口。
+  </Accordion>
+  <Accordion title="vm.max_map_count 过低">
+    运行 `sudo sysctl -w vm.max_map_count=262144`，然后如果你想在重启后保留该值，请将其持久化到 `/etc/sysctl.conf` 中。
+  </Accordion>
+  <Accordion title="k3d 二进制文件下载失败">
+    检查出站 HTTPS 访问，然后重试下载。如果需要，请手动将二进制文件放置到错误提示的路径。
+  </Accordion>
+</Accordions>
+
+## Kubernetes：kubeconfig 导入失败
+
+- 导入 kubeconfig 时选择正确的上下文名称。
+- 刷新过期凭证，然后重新导出 kubeconfig。
+- 在代理或防火墙后导入之前，先验证 `kubectl get ns` 是否可以在命令行中正常工作。
+
+## 收集日志
+
+首先打开应用日志页面。如果你需要提交 issue，请导出应用日志并附上 Dockerman 版本。
+
+## 获取帮助
+
+在 Dockerman GitHub 仓库提交 issue，并附上应用日志导出文件以及设置 → 关于中的 Dockerman 版本。

@@ -3,8 +3,48 @@ title: "设置"
 description: "Dockerman 每个设置页的参考 — 从 Docker 连接到通知。"
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout'
+每个设置页的参考。每个部分都链接回其控制的功能。
 
-<Callout type="info">
-  此页面尚未翻译。请查看 [英文版本](/en/docs/reference/settings)。
-</Callout>
+## Docker 设置
+
+使用 Docker 设置来选择连接类型、设置 socket 路径并检查连接状态。对于基于 SSH 的连接，请参阅[远程主机](/zh/docs/advanced/remote-hosts)。
+
+## Daemon 配置面板
+
+使用 Daemon 配置面板以表单视图或原始 JSON 视图编辑 `daemon.json`。Registry mirrors 在 Windows 上使用 WSL2 Engine 时特别有用，[Windows 平台](/zh/docs/platform/windows#编辑-daemonjson)页面展示了该文件的位置。
+
+## Kubernetes DNS 设置
+
+使用 Kubernetes DNS 设置为端口转发启用自动 DNS。请参阅[端口转发与 DNS](/zh/docs/kubernetes/port-forward#自动-dns)了解其控制的行为。
+
+## Kubernetes 端口转发设置
+
+使用 Kubernetes 端口转发设置来配置默认本地端口范围、重试行为和自动重连。
+
+## 许可证设置
+
+使用许可证设置来激活、查看和重置你的 Dockerman 许可证。完整流程请参阅[许可证](/zh/docs/reference/licensing)。
+
+## 通知设置
+
+使用通知设置来控制哪些事件触发通知，以及 Dockerman 显示应用内横幅、系统通知还是两者都显示。
+
+## 隐私设置
+
+使用隐私设置来开启或关闭产品分析和崩溃报告。两者默认均为可选加入。
+
+## 快捷键设置
+
+使用快捷键设置来自定义或解绑[键盘快捷键](/zh/docs/reference/keyboard-shortcuts)中列出的任何内容。
+
+## 终端设置
+
+使用终端设置来更改字体族、字体大小、光标样式、主题以及新终端的默认 shell 偏好。
+
+## 托盘设置
+
+使用托盘设置来显示或隐藏托盘图标、关闭时将 Dockerman 最小化到托盘，以及编辑托盘菜单操作。
+
+## Trivy 设置
+
+使用 Trivy 设置来配置 Trivy 二进制文件路径、漏洞数据库更新间隔和默认严重性过滤器。扫描流程请参阅[使用 Trivy 扫描](/zh/docs/docker/images#使用-trivy-扫描)。

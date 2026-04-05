@@ -3,8 +3,50 @@ title: "许可证"
 description: "在多台设备上激活、管理和重置你的 Dockerman 许可证。"
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout'
+激活、管理和重置你的 Dockerman 许可证。
 
-<Callout type="info">
-  此页面尚未翻译。请查看 [英文版本](/en/docs/reference/licensing)。
-</Callout>
+## 概述
+
+Dockerman 核心功能免费。某些高级功能可能需要许可证，应用会在使用时提示你。
+
+## 激活
+
+<Steps>
+  <Step>
+    ### 打开设置 → 许可证
+
+    将你的许可证密钥粘贴到许可证设置页面。
+  </Step>
+  <Step>
+    ### 在线验证
+
+    Dockerman 会连接许可证服务器验证密钥。
+  </Step>
+  <Step>
+    ### 确认激活
+
+    状态变为已激活，Dockerman 会在本地存储许可证密钥和设备标识符。
+  </Step>
+</Steps>
+
+## 管理设备
+
+每个许可证绑定到一个设备标识符。如果你更换机器或无法访问某台设备，请先在许可证自助服务门户重置绑定，然后在新机器上激活。
+
+## 离线验证
+
+激活后，Dockerman 每次启动时都会使用 Ed25519 签名在本地验证许可证。日常使用不需要网络连接。
+
+## 故障排除
+
+<Accordions>
+  <Accordion title="激活失败并显示网络错误">
+    检查你的防火墙和代理设置，然后从设置 → 许可证重试激活。如果错误仍然存在，请使用许可证自助服务门户。
+  </Accordion>
+  <Accordion title="已达到设备上限">
+    在许可证自助服务门户重置旧设备绑定，然后在新机器上重新激活许可证。
+  </Accordion>
+  <Accordion title="更新后许可证无效">
+    首先尝试重新激活许可证。如果无效，请联系支持并附上应用日志导出。
+  </Accordion>
+</Accordions>

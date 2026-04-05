@@ -3,8 +3,144 @@ title: "Windows"
 description: "在 Windows 上使用 Docker Desktop 或内置 WSL2 Docker Engine 运行 Dockerman。"
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout'
+Windows 支持两种 Docker 方案：Docker Desktop 或内置 WSL2 Docker Engine。
 
-<Callout type="info">
-  此页面尚未翻译。请查看 [英文版本](/en/docs/platform/windows)。
+## 快速对比
+
+| 特性 | Docker Desktop | WSL2 Docker Engine |
+| --- | --- | --- |
+| 订阅 | 大多数企业需要订阅 | 无需订阅 |
+| 体积 | 安装包较大 | 基于 Alpine 的小型 WSL 发行版 |
+| 资源占用 | 较高，因为运行 VM 和服务 | 较低，因为在 WSL2 内部运行 |
+| 设置难度 | 标准安装程序 | 由 Dockerman 自动完成 |
+| 支持状态 | 完全支持 | 完全支持，v4.3.0 新增 |
+
+## 方案 A：Docker Desktop
+
+<Steps>
+  <Step>
+    ### 安装 Docker Desktop
+
+    从 docker.com 下载 Docker Desktop 并运行安装程序。
+  </Step>
+  <Step>
+    ### 确保 Docker Desktop 正在运行
+
+    等待鲸鱼图标显示 Docker Desktop 正在运行。
+  </Step>
+  <Step>
+    ### 启动 Dockerman
+
+    Dockerman 会自动检测 Docker Desktop 并连接到它。
+  </Step>
+</Steps>
+
+## 方案 B：WSL2 Docker Engine
+
+v4.3.0 新增。
+
+Dockerman 为你内置了 WSL2 方案，因此你无需安装 Docker Desktop 或手动配置 WSL。
+
+### 前提条件
+
+- Windows 10 版本 2004 或更高版本，或 Windows 11。
+- 在管理员权限的 PowerShell 会话中运行 `wsl --install` 安装 WSL2。
+- 在 BIOS 或 UEFI 中启用虚拟化。
+
+### 设置向导
+
+当未检测到 Docker Desktop 时，设置向导会在首次启动时自动运行。
+
+<Steps>
+  <Step>
+    ### 选择 WSL2 Docker Engine
+
+    在欢迎对话框出现时，选择内置的 WSL2 Docker Engine 方案。
+  </Step>
+  <Step>
+    ### 导入 Alpine
+
+    Dockerman 会导入一个精简的 Alpine WSL 发行版用于运行 Docker Engine。
+  </Step>
+  <Step>
+    ### 在 Alpine 内安装 Docker
+
+    Dockerman 安装 Docker 并配置守护进程在登录时自动启动。
+  </Step>
+  <Step>
+    ### 验证连接
+
+    Dockerman 运行健康检查并连接到新的守护进程。
+  </Step>
+</Steps>
+
+<Callout type="warn">
+  向导运行期间请勿关闭 Dockerman。首次设置需要几分钟时间，必须完成后才能使用应用。
 </Callout>
+
+{/* TODO(screenshot): windows/setup-wizard - WSL2 Setup Wizard welcome step */}
+
+### 向导执行的操作
+
+向导创建 Alpine 发行版文件，供 Dockerman 运行 Docker 使用。
+
+<Files>
+  <Folder name="(Alpine WSL2 发行版)" defaultOpen>
+    <File name="/etc/docker/daemon.json" />
+    <Folder name="/etc/init.d">
+      <File name="docker" />
+    </Folder>
+    <Folder name="/var/lib/docker">
+      <File name="(Docker 数据根目录)" />
+    </Folder>
+  </Folder>
+</Files>
+
+### 编辑 daemon.json
+
+使用 设置 → 守护进程配置 面板来编辑 `/etc/docker/daemon.json`，支持表单视图（常用字段）或原始 JSON 视图（所有字段）。保存后会重启 Alpine 发行版内的 Docker。
+
+### 守护进程崩溃恢复
+
+如果 Docker 守护进程崩溃，Dockerman 会显示一个带有重启按钮的横幅，并实时输出崩溃日志以便你诊断故障原因。
+
+### 在 Docker Desktop 和 WSL2 Engine 之间切换
+
+<Steps>
+  <Step>
+    ### 打开 设置 → Docker 设置
+
+    从应用设置中打开 Docker 设置页面。
+  </Step>
+  <Step>
+    ### 选择另一个后端
+
+    在 Docker Desktop 和 WSL2 Docker Engine 之间切换。
+  </Step>
+  <Step>
+    ### 重新连接
+
+    保存更改并重新连接到选定的后端。
+  </Step>
+</Steps>
+
+## WSL2 资源监控
+
+使用 [统计](/zh/docs/docker/stats) 像监控其他 Docker 守护进程一样监控 WSL2 Engine。如果 Windows 显示内存占用较高，请在任务管理器中检查 WSL2 VM 的内存气球回收情况。
+
+## 故障排除
+
+<Accordions>
+  <Accordion title="WSL2 未安装">
+    使用 `wsl --install` 安装 WSL2，如果 Windows 要求则重启，然后使用 `wsl --status` 验证安装。
+  </Accordion>
+  <Accordion title="虚拟化已禁用">
+    在 BIOS 或 UEFI 中启用虚拟化，然后在 任务管理器 → 性能 → CPU 中确认已激活。
+  </Accordion>
+  <Accordion title="Alpine 导入失败">
+    检查磁盘剩余空间，关闭所有残留的 WSL 或 Docker 进程，并查看应用日志获取具体的导入错误。
+  </Accordion>
+  <Accordion title="重启后守护进程无法启动">
+    跳转到 [守护进程崩溃恢复](/zh/docs/platform/windows#守护进程崩溃恢复) 和 [编辑 daemon.json](/zh/docs/platform/windows#编辑-daemonjson)。这两个部分涵盖了常见的启动失败原因。
+  </Accordion>
+</Accordions>

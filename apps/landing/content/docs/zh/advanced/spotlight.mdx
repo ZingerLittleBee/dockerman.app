@@ -3,8 +3,35 @@ title: "Spotlight"
 description: "一键导航 Dockerman、执行操作并搜索资源的命令面板。"
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout'
+Spotlight 是 Dockerman 的命令面板。一键即可打开可搜索、键盘驱动的启动器，你可以在应用中导航到任意位置、执行常用操作并查找资源。
+
+## 打开 Spotlight
+
+默认按下 `Cmd/Ctrl + K`，或从托盘菜单打开 Spotlight。Spotlight 以独立的无边框窗口打开，同时保持主 Dockerman 窗口在后台运行。
+
+## 导航到资源
+
+开始输入容器名称、镜像标签、Compose 项目、Kubernetes Pod 或设置页面。结果按使用频率和最近使用时间排序，按下 `Enter` 打开选中的结果。
+
+## 快捷操作
+
+当 Spotlight 显示内联操作时，直接从结果列表中使用它们。
+
+- 容器：启动、停止、重启、日志、终端、备份
+- 镜像：拉取（重新拉取）、使用 Trivy 扫描、删除
+- 设置页面：直接跳转
+- 模板：启动
+
+## 搜索高亮
+
+输入时，匹配的字符会在每个结果中高亮显示。搜索是模糊的，因此 `cntlog` 仍然可以匹配 "container logs"。
+
+## 自定义快捷键
+
+在 [快捷键设置](/zh/docs/reference/settings#快捷键设置) 中更改 Spotlight 快捷键。
+
+## 使用技巧
 
 <Callout type="info">
-  此页面尚未翻译。请查看 [英文版本](/en/docs/advanced/spotlight)。
+  Spotlight 在独立的 Tauri 窗口中运行，因此可以保持即时响应。关闭 Spotlight 不会关闭主 Dockerman 窗口，反之亦然。
 </Callout>

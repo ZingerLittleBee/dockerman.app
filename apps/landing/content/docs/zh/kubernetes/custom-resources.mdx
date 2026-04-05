@@ -3,8 +3,22 @@ title: "自定义资源"
 description: "发现集群中的 CRD 并浏览或编辑其实例。"
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout'
+v4.8.0 新增。使用此页面发现 CustomResourceDefinitions，浏览其实例，并以 YAML 格式编辑。
+
+## 列出 CRD
+
+打开 CRD 列表查看所有已安装的定义，及其组、版本、作用域和实例数量。
+
+## 浏览资源实例
+
+选择 CRD 以浏览其跨命名空间或集群的实例，具体取决于资源作用域。详情表格在可用时使用 CRD 的打印列。
+
+## 查看和编辑 YAML
+
+需要更改时，在 YAML 编辑器中打开任意实例。Dockerman 使用 CRD 模式进行验证和自动补全。
+
+## 限制
 
 <Callout type="info">
-  此页面尚未翻译。请查看 [英文版本](/en/docs/kubernetes/custom-resources)。
+  第一阶段仅支持自定义资源的 YAML 编辑。字段级表单计划在第二阶段提供。
 </Callout>

@@ -3,8 +3,46 @@ title: "事件"
 description: "流式查看、过滤、持久化和导出 Docker daemon 事件。"
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout'
+使用此页面在可搜索、可过滤、可导出的界面中查看 `docker events`。
 
-<Callout type="info">
-  此页面尚未翻译。请查看 [英文版本](/en/docs/docker/events)。
-</Callout>
+## 打开事件流
+
+打开事件页面以从当前时间开始流式传输。当你想要检查屏幕上已有的内容而不丢失已收集的积压数据时，暂停流。
+
+## 过滤事件
+
+当你想要缩小嘈杂的流范围时，通过以下维度过滤事件。
+
+- 资源类型：container、image、network、volume、daemon
+- 操作：create、start、stop、die、destroy、pull、push、connect、disconnect 等
+- 时间范围：滚动窗口或自定义绝对范围
+- 自由文本：匹配任何字段
+
+## 持久化历史
+
+Dockerman 将事件写入其应用数据目录中的本地 JSONL 文件，以便历史记录在重启后保留。当你想要更改 Dockerman 保留时间时，使用数据管理区域中的保留设置。
+
+## 搜索和查询
+
+按容器名称、镜像或标签搜索，然后当你想要关注特定事件链时，将搜索与过滤结合使用。
+
+## 导出
+
+当你需要将数据移到其他地方时，导出当前流。
+
+- JSON：用于管道或归档的原始事件对象
+- CSV：用于电子表格的扁平化列
+
+## 使用事件进行故障排查
+
+<Accordions>
+  <Accordion title="为什么我的容器重启了？">
+    检查 `die` 事件后跟 `start` 事件，然后打开负载以读取退出码和重启原因。
+  </Accordion>
+  <Accordion title="为什么镜像拉取失败？">
+    拉取失败出现在 `pull` 事件中，负载包含 Docker 返回的错误消息。
+  </Accordion>
+  <Accordion title="谁断开了我的网络连接？">
+    `disconnect` 事件标识离开网络的容器，因此你可以快速追踪变更。
+  </Accordion>
+</Accordions>

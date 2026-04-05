@@ -3,8 +3,78 @@ title: "调试助手"
 description: "为目标 Pod 启动临时 debug Pod，用于诊断网络、DNS 和文件系统问题。"
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout'
+v4.8.0 新增。使用调试助手在目标 Pod 旁边启动一个临时调试 Pod，并打开一个预装了调试工具的 Shell。
 
-<Callout type="info">
-  此页面尚未翻译。请查看 [英文版本](/en/docs/kubernetes/debug)。
-</Callout>
+## 何时使用调试助手
+
+- 目标镜像是精简镜像，如 distroless 或 scratch，没有 Shell。
+- 你需要使用 `tcpdump`、`dig`、`curl` 或 `nc` 等工具，但目标镜像中没有这些工具。
+- 你需要检查挂载的卷或 Pod 的网络命名空间，而不想直接操作 Pod。
+- 你正在调试 `CrashLoopBackOff`，Pod 无法保持足够长的时间来执行 `kubectl exec`。
+
+## 启动调试 Pod
+
+<Steps>
+  <Step>
+    ### 选择目标 Pod
+
+    在 Pods 或 Workloads 页面，选择你要检查的 Pod 上的 Debug 按钮。
+  </Step>
+  <Step>
+    ### 配置共享选项
+
+    选择是否共享进程命名空间、网络命名空间和挂载的卷。
+  </Step>
+  <Step>
+    ### 等待调试 Pod 就绪
+
+    Dockerman 创建 Pod 并等待其变为 Ready 状态，然后才会打开终端。
+  </Step>
+  <Step>
+    ### 通过嵌入式终端交互
+
+    调试 Pod 会在 Dockerman 的终端标签页中打开。
+
+    {/* TODO(screenshot): kubernetes/debug-assistant - Debug pod terminal with target info */}
+  </Step>
+</Steps>
+
+## 调试 Pod 内置工具
+
+| 工具 | 用途 |
+| --- | --- |
+| `bash`, `sh` | Shell |
+| `ps`, `top`, `htop` | 进程检查 |
+| `netstat`, `ss` | 连接状态 |
+| `tcpdump` | 数据包捕获 |
+| `curl`, `wget` | HTTP 探测 |
+| `dig`, `nslookup` | DNS 解析 |
+| `nc` | 原始 TCP 和 UDP 检查 |
+| `vim`, `less` | 文件检查 |
+| `strace` | 系统调用追踪（内核允许时） |
+
+## 常见调试工作流
+
+<Accordions>
+  <Accordion title="诊断 DNS 问题">
+    - 运行 `dig @<cluster-dns>` 来解析你期望的 Service 或名称。
+    - 在调试 Pod 内检查 `/etc/resolv.conf`。
+    - 从 Networking 页面验证 kube-dns Endpoints。
+    - 离开 Pod 前尝试 `getent hosts`。
+  </Accordion>
+  <Accordion title="捕获 Pod 间流量">
+    - 运行 `tcpdump -i any port 8080 -w /tmp/capture.pcap`。
+    - 从目标 Pod 或客户端 Pod 重现请求。
+    - 使用 `kubectl cp` 将捕获文件复制出来。
+    - 在 Wireshark 中打开捕获文件。
+  </Accordion>
+  <Accordion title="检查挂载的卷">
+    - 启用卷挂载启动调试 Pod。
+    - `cd` 到挂载路径。
+    - 就地检查内容。
+  </Accordion>
+</Accordions>
+
+## 清理
+
+调试 Pod 是临时的。完成后关闭终端标签页或退出 Shell，Dockerman 会自动为你清理。

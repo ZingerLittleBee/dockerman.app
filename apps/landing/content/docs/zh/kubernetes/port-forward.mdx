@@ -3,8 +3,66 @@ title: "端口转发与 DNS"
 description: "将本地端口转发到 Services 或 Pods，并可选地注册自动 DNS 条目。"
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout'
+将本地端口转发到 Services 或 Pods，然后让 Dockerman 为每个活动的转发注册一个本地 DNS 名称。
 
-<Callout type="info">
-  此页面尚未翻译。请查看 [英文版本](/en/docs/kubernetes/port-forward)。
+## 转发 Service 或 Pod 端口
+
+当你希望转发在 pod 重启后仍然保持时，请使用 Service。
+
+<Steps>
+  <Step>
+    ### 选择目标
+
+    选择一个 Pod 或 Service。对于长期运行的转发，Service 是更安全的选择。
+  </Step>
+  <Step>
+    ### 选择目标端口和本地端口
+
+    Dockerman 会建议目标的第一个端口和一个未使用的本地端口。
+  </Step>
+  <Step>
+    ### 启动转发
+
+    启动连接，并观察它出现在活动转发列表中。
+  </Step>
+</Steps>
+
+## 管理活动转发
+
+活动转发列表显示目标、本地端口、状态和停止操作。Dockerman 会在短暂的网络错误后自动重新连接。
+
+## 自动 DNS
+
+v4.8.0 新增。自动 DNS 为每个活动的端口转发注册一个主机名，并将其指向 `127.0.0.1`。
+
+<Steps>
+  <Step>
+    ### 在设置中启用自动 DNS
+
+    打开设置 > Kubernetes DNS 设置 > 启用自动 DNS。
+  </Step>
+  <Step>
+    ### 创建端口转发
+
+    Dockerman 会在转发启动后立即添加 DNS 条目。
+  </Step>
+  <Step>
+    ### 在浏览器中打开 URL
+
+    在 DNS 条目生效后，打开 `http://<alias>:<local-port>/`。
+  </Step>
+</Steps>
+
+<Callout type="warn">
+  自动 DNS 在 macOS 和 Linux 上会编辑 `/etc/hosts`，这需要提升的权限。在 Windows 上，它使用 `127.0.0.1:53` 上的本地 DNS 服务器。
 </Callout>
+
+## 手动 DNS 条目
+
+当你需要静态条目或自动 DNS 不可用时，手动添加主机名和 IP 映射。手动条目会在应用重启后保持不变。
+
+## 故障排除
+
+- 端口已被占用：选择 Dockerman 建议的下一个可用本地端口。
+- DNS 条目无法解析：确认自动 DNS 已启用，并清除所有过时的浏览器缓存。
+- 转发持续断开：检查后端 Service 是否仍有健康的 Endpoints。

@@ -3,8 +3,62 @@ title: "工作负载"
 description: "一站式管理 Pods、Deployments、StatefulSets、DaemonSets、Jobs、CronJobs 和 ReplicaSets。"
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout'
+在一个页面中管理所有工作负载资源类型。使用列表视图扫描状态，打开详情视图执行操作，需要直接编辑对象时进入 YAML 编辑器。
+
+## Pods
+
+打开 Pod 查看其状态、就绪容器数量、重启次数和运行时长。在详情视图中，可以直接跳转到 [Pod 日志与终端](/zh/docs/kubernetes/logs-terminal)，或在需要 shell 或更深入的网络检查时启动 [调试助手](/zh/docs/kubernetes/debug)。
+
+## Deployments
+
+当你需要在一个地方管理副本和查看滚动更新历史时，使用 Deployments。
+
+列表显示就绪、已更新和可用的副本数量，让你可以一目了然地查看滚动更新健康状况。
+
+<Steps>
+  <Step>
+    ### 扩展
+
+    直接修改副本数量并保存。
+  </Step>
+  <Step>
+    ### 滚动更新
+
+    更新镜像或其他触发滚动更新的字段，然后观察修订历史更新。
+
+    {/* TODO(screenshot): kubernetes/deployment-rollout - Deployment rollout history */}
+  </Step>
+  <Step>
+    ### 回滚
+
+    从滚动更新历史中选择一个先前的修订版本并回滚到该版本。
+  </Step>
+</Steps>
+
+## StatefulSets
+
+使用 StatefulSets 来获得有序的 Pod 名称、稳定的标识和持久化存储模板。详情视图显示当前副本数量和每个 Pod 拥有的存储声明，删除级联操作默认会保留 PVC。
+
+## DaemonSets
+
+当你需要在每个匹配的节点上运行一个 Pod 时使用 DaemonSets，例如日志收集器、监控代理或节点级网络组件。
+
+## Jobs
+
+使用 Jobs 来执行运行到完成的工作。在列表和详情视图中跟踪完成数量、退避限制和活跃期限。
+
+## CronJobs
+
+当你需要定时执行 Jobs 时使用 CronJobs。在详情视图中查看 cron 表达式、暂停状态、上次运行时间和手动触发控件。
+
+## ReplicaSets
+
+ReplicaSets 通常位于 Deployment 之下。当你需要检查控制器状态时打开它，但应该编辑 Deployment 而不是直接修改 ReplicaSet。
 
 <Callout type="info">
-  此页面尚未翻译。请查看 [英文版本](/en/docs/kubernetes/workloads)。
+  Deployments 管理它们自己的 ReplicaSets。除非你在调试控制器行为，否则请修改 Deployment。
 </Callout>
+
+## 使用 YAML 编辑工作负载
+
+当你需要在 Monaco 编辑器中编辑完整对象时，在任何工作负载上点击编辑 YAML 按钮。Dockerman 使用 Kubernetes 模式进行自动补全，并执行保存预检，因此无效的 YAML 会在到达 API 服务器之前被拒绝。

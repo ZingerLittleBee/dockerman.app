@@ -3,8 +3,76 @@ title: "集群"
 description: "启动本地 k3d 集群或导入已有 kubeconfig 来管理任何 Kubernetes 环境。"
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout'
+启动本地 k3d 集群或导入已有 kubeconfig，然后在同一个 Kubernetes 分区中管理集群。
 
-<Callout type="info">
-  此页面尚未翻译。请查看 [英文版本](/en/docs/kubernetes/cluster)。
+## 使用 k3d 启动本地集群
+
+当你需要一个可丢弃的本地集群用于开发和测试时，使用 k3d。
+
+<Steps>
+  <Step>
+    ### 打开 Kubernetes 分区
+
+    如果未配置集群，Dockerman 会显示一个「启动集群」按钮。
+  </Step>
+  <Step>
+    ### 点击「启动集群」
+
+    Dockerman 会在首次使用时下载 k3d 二进制文件。
+  </Step>
+  <Step>
+    ### 等待集群启动
+
+    在现代机器上，本地集群通常会在约 10 秒内启动。
+  </Step>
+  <Step>
+    ### 开始使用 Kubernetes
+
+    命名空间切换器会被填充，工作负载列表也将可用。
+  </Step>
+</Steps>
+
+<Callout type="warn">
+  Dockerman 会在首次使用时下载 k3d 二进制文件。请允许出站 HTTPS 连接，或在启动前自行安装该二进制文件。
 </Callout>
+
+## 导入已有集群
+
+当你已有集群并希望 Dockerman 直接管理它时，导入 kubeconfig。
+
+<Steps>
+  <Step>
+    ### 点击「导入集群」
+
+    从集群页面打开导入流程。
+  </Step>
+  <Step>
+    ### 选择 kubeconfig 文件
+
+    Dockerman 会读取该文件，如果文件中包含多个上下文，则允许你选择一个。
+  </Step>
+  <Step>
+    ### 验证连接
+
+    Dockerman 会在保存集群之前探测 API 服务器。
+  </Step>
+</Steps>
+
+## 切换上下文
+
+使用 Kubernetes 分区顶部的上下文下拉菜单，在导入的集群和本地 k3d 集群之间切换。切换上下文会重新加载所选集群的列表。
+
+## 删除集群
+
+使用与集群类型匹配的操作。
+
+- 从 Dockerman 中删除以遗忘导入的 kubeconfig，同时保持远程集群运行。
+- 拆除本地 k3d 集群以移除该集群及其数据。
+
+<Callout type="warn">
+  拆除 k3d 集群是不可逆的。你将丢失在其中创建的所有工作负载和持久卷。
+</Callout>
+
+## 集群版本和状态
+
+集群页面显示服务器版本、当前状态和节点列表，包括每个节点的 kubelet 和 kube-proxy 版本，因此你可以一目了然地发现版本漂移或连接中断。

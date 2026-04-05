@@ -3,8 +3,69 @@ title: "键盘快捷键"
 description: "Dockerman 中所有键盘快捷键的完整参考，按界面分组。"
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout'
+Dockerman 中的所有键盘快捷键按界面分组。大多数快捷键可在 [设置 → 快捷键设置](/zh/docs/reference/settings#快捷键设置) 中自定义。
 
-<Callout type="info">
-  此页面尚未翻译。请查看 [英文版本](/en/docs/reference/keyboard-shortcuts)。
-</Callout>
+## 全局
+
+| 快捷键 | 操作 |
+| --- | --- |
+| Cmd/Ctrl + K | 打开 Spotlight |
+| Cmd/Ctrl + , | 打开设置 |
+| Cmd/Ctrl + Shift + L | 切换主题 |
+| Cmd/Ctrl + Shift + H | 打开主机切换器 |
+
+## 导航
+
+| 快捷键 | 操作 |
+| --- | --- |
+| Up / Down | 在当前列表中移动选择 |
+| Enter | 打开选中行 |
+| Cmd/Ctrl + Click | 切换多选 |
+| Shift + Click | 选择范围 |
+
+## 容器操作
+
+| 快捷键 | 操作 |
+| --- | --- |
+| S | 启动 |
+| X | 停止 |
+| R | 重启 |
+| P | 暂停或恢复 |
+| L | 日志 |
+| T | 终端 |
+| I | 检查 |
+| Delete | 确认后删除 |
+
+## 日志查看器
+
+| 快捷键 | 操作 |
+| --- | --- |
+| / | 打开搜索 |
+| n | 下一个匹配项 |
+| N | 上一个匹配项 |
+| g | 跳转到开头 |
+| G | 跳转到最新行 |
+| P | 上一个匹配项，等同于 Shift + n |
+| Esc | 关闭搜索或清除高亮 |
+
+## 终端
+
+| 快捷键 | 操作 |
+| --- | --- |
+| Ctrl/Cmd + Shift + C | 复制选中内容 |
+| Ctrl/Cmd + Shift + V | 粘贴 |
+| Ctrl/Cmd + Shift + K | 清空终端 |
+| Ctrl + C | 向进程发送 SIGINT |
+| Ctrl + D | 发送 EOF |
+
+## Kubernetes
+
+| 快捷键 | 操作 |
+| --- | --- |
+| N | 循环切换命名空间 |
+| D | 在 Pod 上调试 |
+| Y | 编辑 YAML |
+
+## 自定义
+
+在 [设置 → 快捷键设置](/zh/docs/reference/settings#快捷键设置) 中更改任意快捷键。

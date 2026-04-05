@@ -3,8 +3,83 @@ title: "Helm"
 description: "添加 chart 仓库并从 GUI 安装、升级、回滚和卸载 Helm releases。"
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout'
+使用 Helm 管理 chart 仓库和 releases，无需离开 Dockerman。
 
-<Callout type="info">
-  此页面尚未翻译。请查看 [英文版本](/en/docs/kubernetes/helm)。
+## 仓库
+
+添加你最常用的仓库，然后在需要最新 chart 索引时刷新它们。
+
+<Steps>
+  <Step>
+    ### 添加仓库
+
+    输入仓库名称和 URL，例如 Bitnami、Jetstack 或 ingress-nginx。
+  </Step>
+  <Step>
+    ### 更新仓库
+
+    在添加或更改仓库后刷新 chart 索引。
+  </Step>
+  <Step>
+    ### 移除仓库
+
+    当你不再需要某个仓库时，将其从 Dockerman 中移除。
+  </Step>
+</Steps>
+
+## 浏览 charts
+
+在所有已添加的仓库中搜索，然后打开 chart 查看其 README 和可用版本。
+
+## 安装 release
+
+<Steps>
+  <Step>
+    ### 选择 chart 和版本
+
+    选择你要安装的 chart 版本。
+  </Step>
+  <Step>
+    ### 选择 release 名称和命名空间
+
+    在安装前设置 release 名称和目标命名空间。
+  </Step>
+  <Step>
+    ### 编辑 values.yaml
+
+    Dockerman 将 chart 的默认值加载到 Monaco 中，然后你只需覆盖需要的值。
+  </Step>
+  <Step>
+    ### 安装
+
+    启动 release 并观察进度流直到成功。
+  </Step>
+</Steps>
+
+## 升级和回滚
+
+<Steps>
+  <Step>
+    ### 打开 release
+
+    打开 release 详情视图以查看当前版本和历史记录。
+  </Step>
+  <Step>
+    ### 升级
+
+    选择新的 chart 版本或编辑值，然后运行升级。
+  </Step>
+  <Step>
+    ### 回滚
+
+    从历史记录中选择一个先前的版本并回滚到该版本。
+  </Step>
+</Steps>
+
+## 卸载 release
+
+当你不再需要集群中的某个 release 时，将其移除。
+
+<Callout type="warn">
+  卸载会删除 Helm 创建的 Kubernetes 资源，但并不总是会移除 chart 安装的 PersistentVolumeClaims 或 CRD。在移除生产 release 之前，请查看 chart 文档了解 `--keep-history` 或 `keepCRDs` 的行为。
 </Callout>

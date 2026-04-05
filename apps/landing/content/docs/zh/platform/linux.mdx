@@ -3,8 +3,86 @@ title: "Linux"
 description: "在 Linux 发行版上安装 Dockerman 并为你的环境配置 Docker Engine。"
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout'
+Dockerman 提供 `.deb`、`.rpm` 或 AppImage 格式，你可以在当前使用的发行版上安装它。
 
-<Callout type="info">
-  此页面尚未翻译。请查看 [英文版本](/en/docs/platform/linux)。
+## 安装
+
+<Tabs items={['.deb', '.rpm', 'AppImage']}>
+  <Tab>
+    ```bash
+    sudo dpkg -i dockerman_*_amd64.deb
+    sudo apt-get install -f
+    ```
+
+    在 Debian 或 Ubuntu 上安装 `.deb` 包。
+  </Tab>
+  <Tab>
+    ```bash
+    sudo rpm -i dockerman-*.x86_64.rpm
+    # 或
+    sudo dnf install dockerman-*.x86_64.rpm
+    ```
+
+    在 Fedora 或 RHEL 上安装 `.rpm` 包。
+  </Tab>
+  <Tab>
+    ```bash
+    chmod +x Dockerman-*.AppImage
+    ./Dockerman-*.AppImage
+    ```
+
+    如果你的桌面环境支持，请使用 AppImageLauncher 或 `--install`。
+  </Tab>
+</Tabs>
+
+## 配置 Docker Engine
+
+请按照官方 Docker Engine 安装说明为你的发行版进行安装：[docs.docker.com/engine/install/](https://docs.docker.com/engine/install/)，然后确保守护进程正在运行。Dockerman 支持 Docker Engine 20.10 及更高版本。
+
+## 权限
+
+<Steps>
+  <Step>
+    ### 将你的用户添加到 docker 组
+
+    ```bash
+    sudo usermod -aG docker $USER
+    ```
+  </Step>
+  <Step>
+    ### 注销并重新登录
+
+    组成员身份仅适用于新的登录会话。
+  </Step>
+  <Step>
+    ### 验证访问权限
+
+    无需 `sudo` 即可运行 `docker ps`。
+  </Step>
+</Steps>
+
+<Callout type="warn">
+  加入 `docker` 组实际上相当于拥有主机的 root 权限。如果你需要更严格的隔离边界，请使用 rootless Docker。
 </Callout>
+
+## Wayland 与 X11
+
+Dockerman 同时支持 Wayland 和 X11。在 Wayland 上，全局快捷键使用 xdg-desktop-portal Shortcuts API；在 X11 上则使用传统的按键抓取。
+
+## Freedesktop 集成
+
+Dockerman 会安装一个 `.desktop` 文件，使其出现在你的应用程序菜单中。托盘图标使用 StatusNotifierItem 规范，KDE、GNOME（需扩展）、XFCE 和 MATE 均支持该规范。
+
+## 故障排除
+
+<Accordions>
+  <Accordion title="找不到 docker 命令">
+    请先安装 Docker Engine，然后打开一个新的 shell，以便 PATH 能够识别 Docker CLI。
+  </Accordion>
+  <Accordion title="/var/run/docker.sock 权限被拒绝">
+    将你的用户添加到 `docker` 组，然后注销并重新登录，以使新的组成员身份生效。
+  </Accordion>
+  <Accordion title="托盘图标缺失">
+    为你的桌面环境安装 StatusNotifierItem 扩展。GNOME 通常需要 AppIndicator 和 KStatusNotifierItem 支持。
+  </Accordion>
+</Accordions>

@@ -3,8 +3,48 @@ title: "欢迎"
 description: "欢迎使用 Dockerman — 基于 Tauri 和 Rust 构建的跨平台 Docker 与 Kubernetes UI。"
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout'
+Dockerman 让你在桌面上统一管理 Docker 和 Kubernetes。如果你是开发者或运维人员，想要一款原生应用来整合容器、镜像和集群操作，那么它就是你的理想选择。它涵盖两大核心功能：Docker 用于本地和远程主机操作，Kubernetes 用于浏览和调试工作负载。
 
-<Callout type="info">
-  此页面尚未翻译。请查看 [英文版本](/en/docs/index)。
-</Callout>
+## Dockerman 涵盖的内容
+
+Dockerman 将 Docker 和 Kubernetes 的体验分开，让你无需切换工具就能从本地容器任务过渡到集群工作。管理你的 Docker 主机、镜像、卷和 Compose 项目，然后在需要工作负载、服务、配置、Helm 或 Pod 调试时切换到 Kubernetes。从下方的卡片开始探索。
+
+## 从这里开始
+
+<Cards>
+  <Card title="入门指南" href="/zh/docs/getting-started">
+    安装应用并连接 Docker。
+  </Card>
+  <Card title="Docker" href="/zh/docs/docker/containers">
+    管理容器、镜像、网络、卷和 Compose。
+  </Card>
+  <Card title="Kubernetes" href="/zh/docs/kubernetes/overview">
+    浏览工作负载、服务、配置、Helm 并调试 Pod。
+  </Card>
+  <Card title="高级功能" href="/zh/docs/advanced/spotlight">
+    Spotlight 命令面板和远程主机。
+  </Card>
+</Cards>
+
+## 核心功能
+
+<Cards>
+  <Card title="完整的 Docker 生命周期">
+    创建、运行、检查、查看日志并进入容器终端；在一个地方管理镜像、网络、卷和 Compose 项目。
+  </Card>
+  <Card title="原生 Kubernetes（第一阶段）">
+    一键启动 k3d 或导入你自己的 kubeconfig；浏览工作负载、Service、ConfigMap、RBAC、CRD 和 Helm 发布。
+  </Card>
+  <Card title="备份与恢复">
+    将容器的配置、文件系统和卷快照打包为单个 tar.gz 文件，并在任何地方恢复（v4.8.0 新增）。
+  </Card>
+  <Card title="镜像安全">
+    使用 Trivy 扫描镜像，无需离开应用即可浏览 Docker Hub（v4.6.0 新增）。
+  </Card>
+  <Card title="WSL2 Docker 引擎">
+    在 Windows 上无需 Docker Desktop 即可运行 Docker。Dockerman 会自动设置 Alpine WSL2 发行版并安装 Docker（v4.3.0 新增）。
+  </Card>
+  <Card title="远程主机">
+    通过 SSH 隧道连接远程 Docker 守护进程，并在主机之间快速切换。
+  </Card>
+</Cards>

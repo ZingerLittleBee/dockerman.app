@@ -3,8 +3,31 @@ title: "网络"
 description: "跨命名空间检查 Services、Ingresses、Endpoints 和 NetworkPolicies。"
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout'
+使用网络页面检查流量如何在集群中流动。无需返回 `kubectl`，即可读取 Service、Ingress、Endpoint 和 NetworkPolicy。
+
+## Services
+
+使用 Service 查看工作负载的稳定入口。列表显示服务类型、ClusterIP、端口和选择器。
+
+- `ClusterIP` 用于集群内部流量。
+- `NodePort` 当你需要节点级端口进行快速访问时。
+- `LoadBalancer` 当集群暴露外部负载均衡器时。
+- `ExternalName` 当 Service 指向 DNS 名称而非选择器时。
+
+详情视图会链接到其后端的 Endpoint。
+
+## Ingresses
+
+使用 Ingress 检查进入集群的 HTTP 路由。列表显示主机、路径和后端 Service，详情视图显示 TLS 密钥、注解和规则树。
+
+## Endpoints
+
+当你需要 Service 背后的原始后端地址时，使用 Endpoint。当 Service 没有健康后端时，此视图最有用。
+
+## NetworkPolicies
+
+使用 NetworkPolicy 了解哪些 Pod 可以相互通信。
 
 <Callout type="info">
-  此页面尚未翻译。请查看 [英文版本](/en/docs/kubernetes/networking)。
+  第一阶段 NetworkPolicy 仅支持查看。使用 `kubectl apply` 或编辑其他资源的 YAML 来创建和编辑它们。
 </Callout>
