@@ -3,8 +3,78 @@ title: "デバッグアシスタント"
 description: "ターゲット Pod の隣に一時的なデバッグ Pod を起動し、ネットワーク、DNS、ファイルシステムの問題を診断。"
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout'
+v4.8.0 で追加されました。デバッグアシスタントを使用して、ターゲットPodの隣に一時的なデバッグPodを起動し、デバッグツールがプリインストールされたシェルを開きます。
 
-<Callout type="info">
-  このページはまだ翻訳されていません。[英語版](/en/docs/kubernetes/debug)をご覧ください。
-</Callout>
+## デバッグアシスタントを使用する場合
+
+- ターゲットイメージがdistrolessやscratchなどのミニマルイメージで、シェルがない場合。
+- `tcpdump`、`dig`、`curl`、`nc`などのツールがターゲットイメージに含まれていない場合。
+- マウントされたボリュームやPodのネットワーク名前空間を、Pod自体に触れることなく調査する必要がある場合。
+- `CrashLoopBackOff`をデバッグしていて、Podが`kubectl exec`で十分な時間稼働しない場合。
+
+## デバッグPodを起動する
+
+<Steps>
+  <Step>
+    ### ターゲットPodを選択する
+
+    PodsまたはWorkloadsから、調査したいPodでデバッグを選択します。
+  </Step>
+  <Step>
+    ### 共有オプションを設定する
+
+    プロセス名前空間、ネットワーク名前空間、マウントされたボリュームを共有するかどうかを選択します。
+  </Step>
+  <Step>
+    ### デバッグPodのReady状態を待つ
+
+    DockermanはPodを作成し、ターミナルを開く前にReady状態になるのを待ちます。
+  </Step>
+  <Step>
+    ### 埋め込みターミナルで操作する
+
+    デバッグPodはDockermanのターミナルタブで開きます。
+
+    {/* TODO(screenshot): kubernetes/debug-assistant - Debug pod terminal with target info */}
+  </Step>
+</Steps>
+
+## デバッグPodの中身
+
+| ツール | 用途 |
+| --- | --- |
+| `bash`, `sh` | シェル |
+| `ps`, `top`, `htop` | プロセス調査 |
+| `netstat`, `ss` | 接続状態 |
+| `tcpdump` | パケットキャプチャ |
+| `curl`, `wget` | HTTPプロービング |
+| `dig`, `nslookup` | DNS解決 |
+| `nc` | 生のTCPおよびUDPチェック |
+| `vim`, `less` | ファイル調査 |
+| `strace` | カーネルが許可する場合のシステムコールトレース |
+
+## 一般的なデバッグワークフロー
+
+<Accordions>
+  <Accordion title="DNS問題を診断する">
+    - 解決を期待するServiceまたは名前に対して`dig @<cluster-dns>`を実行します。
+    - デバッグPod内の`/etc/resolv.conf`を確認します。
+    - Networkingページからkube-dnsエンドポイントを確認します。
+    - Podを離れる前に`getent hosts`を試します。
+  </Accordion>
+  <Accordion title="Pod間のトラフィックをキャプチャする">
+    - `tcpdump -i any port 8080 -w /tmp/capture.pcap`を実行します。
+    - ターゲットPodまたはクライアントPodからリクエストを再現します。
+    - `kubectl cp`でキャプチャをコピーします。
+    - Wiresharkでキャプチャを開きます。
+  </Accordion>
+  <Accordion title="マウントされたボリュームを調査する">
+    - ボリュームマウントを有効にしてデバッグPodを起動します。
+    - マウントパスに`cd`します。
+    - その場で内容を調査します。
+  </Accordion>
+</Accordions>
+
+## クリーンアップ
+
+デバッグPodは一時的なものです。ターミナルタブを閉じるか、シェルを終了すると、Dockermanが自動的にクリーンアップします。

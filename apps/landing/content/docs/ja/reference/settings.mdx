@@ -3,8 +3,48 @@ title: "設定"
 description: "Dockerman のすべての設定ページのリファレンス — Docker 接続から通知まで。"
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout'
+すべての設定ページのリファレンスです。各セクションは制御する機能へのリンクを含んでいます。
 
-<Callout type="info">
-  このページはまだ翻訳されていません。[英語版](/en/docs/reference/settings)をご覧ください。
-</Callout>
+## Docker設定
+
+Docker設定では接続タイプの選択、ソケットパスの設定、接続状態の確認ができます。SSH接続の詳細は[リモートホスト](/ja/docs/advanced/remote-hosts)をご覧ください。
+
+## Daemon設定パネル
+
+Daemon設定パネルでは、`daemon.json`をフォームビューまたは生のJSONビューで編集できます。レジストリミラーはWSL2エンジンを使用するWindowsで特に便利で、[Windowsプラットフォーム](/ja/docs/platform/windows#daemonjsonの編集)でそのファイルの場所を確認できます。
+
+## Kubernetes DNS設定
+
+Kubernetes DNS設定では、ポートフォワードの自動DNSを有効化できます。制御する動作の詳細は[ポートフォワードとDNS](/ja/docs/kubernetes/port-forward#自動dns)をご覧ください。
+
+## Kubernetesポートフォワード設定
+
+Kubernetesポートフォワード設定では、デフォルトのローカルポート範囲、再試行動作、自動再接続を設定できます。
+
+## ライセンス設定
+
+ライセンス設定では、Dockermanライセンスの有効化、表示、リセットができます。詳細なフローは[ライセンス](/ja/docs/reference/licensing)をご覧ください。
+
+## 通知設定
+
+通知設定では、どのイベントが通知をトリガーするか、およびDockermanがアプリ内バナー、システム通知、またはその両方を表示するかを制御できます。
+
+## プライバシー設定
+
+プライバシー設定では、製品アナリティクスとクラッシュレポートのオン/オフを切り替えられます。両方ともデフォルトでオプトインです。
+
+## ショートカット設定
+
+ショートカット設定では、[キーボードショートカット](/ja/docs/reference/keyboard-shortcuts)に一覧表示されているものをカスタマイズまたはバインド解除できます。
+
+## ターミナル設定
+
+ターミナル設定では、新しいターミナルのフォントファミリー、フォントサイズ、カーソルスタイル、テーマ、デフォルトシェルの設定を変更できます。
+
+## トレイ設定
+
+トレイ設定では、トレイアイコンの表示/非表示、閉じたときにDockermanをトレイに最小化、トレイメニューアクションの編集ができます。
+
+## Trivy設定
+
+Trivy設定では、Trivyバイナリパス、脆弱性データベースの更新間隔、デフォルトの重大度フィルターを設定できます。スキャンフローの詳細は[Trivyでのスキャン](/ja/docs/docker/images#trivyでスキャン)をご覧ください。

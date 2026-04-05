@@ -3,8 +3,66 @@ title: "トラブルシューティング"
 description: "一般的な問題とその解決方法 — 接続、権限、パフォーマンス、Kubernetes。"
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout'
+一般的な問題と、それぞれを解決する最も迅速な方法です。
 
-<Callout type="info">
-  このページはまだ翻訳されていません。[英語版](/en/docs/reference/troubleshooting)をご覧ください。
-</Callout>
+## Dockerデーモンに接続できない
+
+ご利用のプラットフォームに合わせて、以下のタブをご使用ください。
+
+<Tabs items={['macOS', 'Windows', 'Linux']}>
+  <Tab>
+    Docker Desktopが実行中であることを確認し、[設定 → Docker設定](/ja/docs/reference/settings#docker設定)でDockermanが使用すべきソケットパスを確認してください。
+  </Tab>
+  <Tab>
+    [Windows](/ja/docs/platform/windows)でDocker DesktopとWSL2エンジンのどちらを使用するか選択してください。Dockermanが誤ったバックエンドを指している場合は、[設定 → Docker設定](/ja/docs/reference/settings#docker設定)で切り替えてください。
+  </Tab>
+  <Tab>
+    ユーザーをdockerグループに追加し、[Linuxの権限](/ja/docs/platform/linux#docker-グループへのユーザ追加)に従ってください。
+  </Tab>
+</Tabs>
+
+## Linuxでの権限エラー
+
+Dockermanが`/var/run/docker.sock`にアクセスできない場合は、ユーザーをdockerグループに追加し、ログアウトして再度ログインし、`sudo`なしで`docker ps`が動作することを確認してください。
+
+## WSL2セットアップウィザードが失敗する
+
+WSL2のパスについては、Windowsのトラブルシューティングセクションをご使用ください：[Windowsプラットフォームのトラブルシューティング](/ja/docs/platform/windows#docker-desktopとwsl2-engineの切り替え)。
+
+## SSHホスト接続が失敗する
+
+ホストポート、秘密鍵ファイルの権限、および外向きポート22をブロックするファイアウォールルールを確認してください。詳細なセットアップ手順については、[リモートホスト](/ja/docs/advanced/remote-hosts)をご覧ください。
+
+## パフォーマンスの問題
+
+- アイドル時のCPU使用率が高い場合、通常はLogsタブが大量のファイルセットをストリーミングしていることを意味します。使用していないタブは一時停止してください。
+- 数百のコンテナでリストの読み込みが遅い場合、通常はまずステータスまたはComposeプロジェクトでフィルタリングする必要があることを意味します。
+- 統計情報の表示が遅い場合、通常は選択した時間範囲が広すぎることを意味します。1時間または3時間に縮小してください。
+
+## Kubernetes：k3dが起動に失敗する
+
+<Accordions>
+  <Accordion title="ポート6443が既に使用中">
+    他のKubernetesツールを停止するか、k3d APIポートを変更してから再試行してください。
+  </Accordion>
+  <Accordion title="vm.max_map_countが低すぎる">
+    `sudo sysctl -w vm.max_map_count=262144`を実行し、再起動後も値を保持したい場合は`/etc/sysctl.conf`に永続化してください。
+  </Accordion>
+  <Accordion title="k3dバイナリのダウンロードに失敗">
+    外向きHTTPSアクセスを確認し、ダウンロードを再試行してください。必要に応じて、エラーに表示されたパスにバイナリを手動で配置してください。
+  </Accordion>
+</Accordions>
+
+## Kubernetes：kubeconfigのインポートに失敗
+
+- kubeconfigをインポートする際に、正しいコンテキスト名を選択してください。
+- 期限切れの認証情報を更新し、kubeconfigを再度エクスポートしてください。
+- プロキシまたはファイアウォールの内側でインポートする前に、コマンドラインから`kubectl get ns`が動作することを確認してください。
+
+## ログの収集
+
+まずApp Logページを開いてください。問題を報告する必要がある場合は、App Logをエクスポートし、Dockermanのバージョンとともに添付してください。
+
+## サポートを受ける
+
+DockermanのGitHubリポジトリで問題を報告し、App Logのエクスポートと、設定 → Aboutから取得したDockermanのバージョンを添付してください。

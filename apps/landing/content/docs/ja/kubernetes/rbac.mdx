@@ -3,8 +3,20 @@ title: "RBAC"
 description: "ServiceAccounts、Roles、ClusterRoles とそのバインディングを参照して、誰が何をできるかを理解。"
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout'
+RBACページを使用して、このクラスターで誰が何をできるかという問いにすばやく答えましょう。
 
-<Callout type="info">
-  このページはまだ翻訳されていません。[英語版](/en/docs/kubernetes/rbac)をご覧ください。
-</Callout>
+## ServiceAccounts
+
+ServiceAccountsを使用して、現在のネームスペース内で実行されているIDを確認します。詳細ビューには、マウントされたシークレット、イメージプルシークレット、および生成されたトークンシークレットが表示されます。
+
+## Roles and ClusterRoles
+
+RolesおよびClusterRolesを使用して、それらのIDに付与された権限を確認します。詳細ビューでは、`rules`配列をapiGroups、resources、verbs、およびresourceNamesを含む読みやすいテーブルに展開して表示します。
+
+## RoleBindings and ClusterRoleBindings
+
+RoleBindingsおよびClusterRoleBindingsを使用して、各ロールを指しているサブジェクトを確認します。リストにはロール参照と、ユーザー、グループ、ServiceAccountを含むサブジェクトが表示されます。
+
+## Troubleshooting permissions
+
+Podが読み取り、リスト表示、作成、または実行ができない場合は、まずバインディングチェーンを確認し、PodのServiceAccountを検証してください。クラスター内からのアクセスを確認する必要がある場合は、[Debug Assistant](/ja/docs/kubernetes/debug)を使用してください。

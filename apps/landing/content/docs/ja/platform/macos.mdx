@@ -3,8 +3,46 @@ title: "macOS"
 description: "macOS でデフォルトバックエンドとして Docker Desktop を使用して Dockerman を実行。"
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout'
+macOS版Dockermanは、署名済みかつ公証済みのDMGとして提供されており、Intel、Apple Silicon、Universalビルドが含まれています。
+
+## インストール
+
+<Steps>
+  <Step>
+    ### DMGのダウンロード
+
+    リリースページからIntel、Apple Silicon、またはUniversalビルドを選択してください。すべてのMacで使用できる1つのダウンロードが必要な場合はUniversalを選択してください。
+  </Step>
+  <Step>
+    ### 開いてApplicationsにドラッグ
+
+    DMGを開き、DockermanをApplicationsにドラッグしてください。
+  </Step>
+  <Step>
+    ### Dockermanの起動
+
+    ApplicationsまたはSpotlightからDockermanを起動し、macOSが求めた場合は初回起動プロンプトを承認してください。
+  </Step>
+</Steps>
+
+## Dockerバックエンド
+
+Docker DesktopはmacOSでサポートされているバックエンドであり、Docker Desktopが実行中の場合、Dockermanは自動的に接続します。
 
 <Callout type="info">
-  このページはまだ翻訳されていません。[英語版](/en/docs/platform/macos)をご覧ください。
+  `/var/run/docker.sock`や`~/.docker/run/docker.sock`などのDocker互換ソケットも動作します。Dockermanがソケットを自動検出しない場合は、設定→Docker設定でパスを設定してください。
 </Callout>
+
+## メニューバーとトレイ
+
+Dockermanはクイックアクションと最近のターゲットを備えたメニューバーアイコンを追加します。トレイアイコンの動作は設定→トレイ設定で制御できます。
+
+## Apple Siliconに関する注意事項
+
+Apple Siliconでは、コンテナを実行する前にイメージプラットフォームに注意してください。多くの公開イメージはデフォルトで`amd64`のため、可能な場合は`arm64`バリアントをプルするか、`--platform=linux/arm64`を明示的に設定してください。
+
+## トラブルシューティング
+
+- 「Socket not found」は、Docker Desktopが実行されていないか、Dockermanが誤ったソケットパスを指していることを意味します。
+- 「Gatekeeper blocks the app」は、初回起動時にアプリを右クリックして「開く」を選択する必要があることを意味します。
+- 「Keychain prompts repeatedly」は、Dockermanがホストごとの認証情報を保存することをまだ許可されていないことを意味します。

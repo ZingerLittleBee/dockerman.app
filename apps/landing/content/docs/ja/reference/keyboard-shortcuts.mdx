@@ -3,8 +3,69 @@ title: "キーボードショートカット"
 description: "Dockerman のすべてのキーボードショートカット、サーフェス別にグループ化。"
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout'
+Dockerman のすべてのキーボードショートカットはサーフェス別にグループ化されています。ほとんどのショートカットは[設定 → ショートカット設定](/ja/docs/reference/settings#ショートカット設定)でカスタマイズできます。
 
-<Callout type="info">
-  このページはまだ翻訳されていません。[英語版](/en/docs/reference/keyboard-shortcuts)をご覧ください。
-</Callout>
+## グローバル
+
+| ショートカット | アクション |
+| --- | --- |
+| Cmd/Ctrl + K | Spotlight を開く |
+| Cmd/Ctrl + , | 設定を開く |
+| Cmd/Ctrl + Shift + L | テーマを切り替える |
+| Cmd/Ctrl + Shift + H | ホストスイッチャーを開く |
+
+## ナビゲーション
+
+| ショートカット | アクション |
+| --- | --- |
+| Up / Down | 現在のリストで選択を移動 |
+| Enter | 選択した行を開く |
+| Cmd/Ctrl + Click | 複数選択を切り替える |
+| Shift + Click | 範囲を選択 |
+
+## コンテナアクション
+
+| ショートカット | アクション |
+| --- | --- |
+| S | Start |
+| X | Stop |
+| R | Restart |
+| P | Pause または Unpause |
+| L | Logs |
+| T | Terminal |
+| I | Inspect |
+| Delete | 確認後に削除 |
+
+## ログビューア
+
+| ショートカット | アクション |
+| --- | --- |
+| / | 検索を開く |
+| n | 次の一致 |
+| N | 前の一致 |
+| g | 先頭にジャンプ |
+| G | 最新の行にジャンプ |
+| P | 前の一致（Shift + n と同じ） |
+| Esc | 検索を閉じるかハイライトをクリア |
+
+## ターミナル
+
+| ショートカット | アクション |
+| --- | --- |
+| Ctrl/Cmd + Shift + C | 選択をコピー |
+| Ctrl/Cmd + Shift + V | 貼り付け |
+| Ctrl/Cmd + Shift + K | ターミナルをクリア |
+| Ctrl + C | プロセスに SIGINT を送信 |
+| Ctrl + D | EOF を送信 |
+
+## Kubernetes
+
+| ショートカット | アクション |
+| --- | --- |
+| N | ネームスペースを切り替える |
+| D | Pod でデバッグ |
+| Y | YAML を編集 |
+
+## カスタマイズ
+
+任意のショートカットは[設定 → ショートカット設定](/ja/docs/reference/settings#ショートカット設定)で変更できます。
