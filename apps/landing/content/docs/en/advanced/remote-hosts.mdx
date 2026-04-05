@@ -13,7 +13,7 @@ Add a host once, then switch to it like any other Docker target.
   <Step>
     ### Open Hosts
 
-    Open Hosts from the tray menu or go to `/hosts`.
+    Open Hosts from the tray menu or the Hosts view.
   </Step>
   <Step>
     ### Click Add Host
@@ -45,7 +45,7 @@ Choose the SSH authentication method that matches how the remote host is set up.
     </Callout>
   </Tab>
   <Tab>
-    Password authentication is stored locally and encrypted at rest. Use it only for short-lived setups or shared-laptop scenarios.
+    Password authentication is stored locally. Use it only for short-lived setups or shared-laptop scenarios.
   </Tab>
 </Tabs>
 
@@ -64,5 +64,5 @@ Dockerman opens an SSH session and forwards a local unix socket to the remote `/
 ## Security notes
 
 <Callout type="warn">
-  Only configure remote hosts you trust on trusted networks. Private keys and passwords are stored locally in Dockerman's app data directory. Treat that directory as sensitive.
+  Only configure remote hosts you trust on trusted networks. SSH credentials stay local to your machine, so treat the system that stores them as sensitive.
 </Callout>
