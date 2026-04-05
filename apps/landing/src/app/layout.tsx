@@ -4,7 +4,6 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
-import { LenisProvider } from '@repo/shared/components/LenisProvider'
 import AgentationClient from '@/components/AgentationClient'
 import { siteConfig } from './siteConfig'
 
@@ -94,7 +93,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} min-h-screen scroll-auto antialiased selection:bg-indigo-100 selection:text-indigo-700 dark:bg-gray-950`}
       >
-        <LenisProvider>{children}</LenisProvider>
+        {children}
         {process.env.NODE_ENV === 'development' ? <AgentationClient /> : null}
         <Analytics />
         <SpeedInsights />
