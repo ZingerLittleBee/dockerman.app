@@ -3,6 +3,134 @@ title: Getting Started
 description: Install Dockerman and connect to your first Docker daemon in minutes.
 ---
 
-{/* TODO: body content will be written in a later task */}
+Use this page to install Dockerman and make your first connection. If you are on Windows and want to avoid Docker Desktop, use the built-in WSL2 path in the Windows platform guide: [Windows](/en/docs/platform/windows).
 
-This page is under construction. Check back soon.
+## Prerequisites
+
+<Callout type="info">
+  A Docker daemon must be available before you can manage containers. On Windows, Dockerman can provision one for you through the built-in WSL2 Docker Engine path in the [Windows platform guide](/en/docs/platform/windows).
+</Callout>
+
+## Install
+
+<Tabs items={['macOS', 'Windows', 'Linux']}>
+  <Tab>
+    <Steps>
+      <Step>
+        ### Download the DMG
+
+        Download the macOS DMG from the Download page.
+      </Step>
+      <Step>
+        ### Open and drag to Applications
+
+        Open the DMG, then drag Dockerman into Applications.
+      </Step>
+      <Step>
+        ### Launch Dockerman
+
+        Launch Dockerman from Applications or Spotlight.
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab>
+    <Steps>
+      <Step>
+        ### Download the MSI
+
+        Download the Windows MSI from the Download page.
+      </Step>
+      <Step>
+        ### Run the installer
+
+        Run the installer and follow the prompts.
+      </Step>
+      <Step>
+        ### Launch Dockerman
+
+        Launch Dockerman, then use the WSL2 Setup Wizard on first launch if you want the built-in Docker Engine path. See the [Windows platform guide](/en/docs/platform/windows).
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab>
+    <Steps>
+      <Step>
+        ### Install the package
+
+        Install the package that matches your distro. Use the `.deb`, `.rpm`, or AppImage build, then follow the [Linux platform guide](/en/docs/platform/linux).
+      </Step>
+      <Step>
+        ### Add your user to the docker group
+
+        Run:
+
+        ```bash
+        sudo usermod -aG docker $USER
+        ```
+
+        Log out and back in so the new group membership takes effect.
+      </Step>
+      <Step>
+        ### Launch Dockerman
+
+        Launch Dockerman from your desktop menu or by running `dockerman`.
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+## First launch
+
+<Steps>
+  <Step>
+    ### The connect dialog
+
+    Dockerman tries local Docker automatically and shows progress or errors.
+
+    {/* TODO(screenshot): getting-started/connect-dialog - Connect dialog on first launch */}
+  </Step>
+  <Step>
+    ### Pick a Docker source
+
+    Choose the local socket, a TCP endpoint, or an SSH host.
+  </Step>
+  <Step>
+    ### Data initialization
+
+    Dockerman loads containers, images, networks, volumes, and Compose projects in parallel.
+  </Step>
+  <Step>
+    ### The dashboard
+
+    Review a snapshot of running and stopped containers, plus live charts.
+
+    {/* TODO(screenshot): getting-started/dashboard - Dashboard after first connect */}
+  </Step>
+</Steps>
+
+## Next steps
+
+<Cards>
+  <Card title="Containers" href="/en/docs/docker/containers">
+    Learn container lifecycle management.
+  </Card>
+  <Card title="Kubernetes" href="/en/docs/kubernetes/overview">
+    Move into workloads, services, config, and debugging.
+  </Card>
+  <Card title="Platform guides" href="/en/docs/platform/windows">
+    Configure the Windows WSL2 path.
+  </Card>
+  <Card title="Troubleshooting" href="/en/docs/reference/troubleshooting">
+    Resolve setup and connection problems.
+  </Card>
+</Cards>
+
+## System requirements
+
+| Platform | Minimum version | Architecture |
+| --- | --- | --- |
+| macOS | 11 (Big Sur) | Intel, Apple Silicon, Universal |
+| Windows | 10 (1903) / 11 | x86_64 |
+| Linux | kernel 5.x | x86_64, aarch64 |
+
+A Docker daemon (Engine 20.10+) must be available before you start managing containers; on Windows, Dockerman can provision one through the optional WSL2 path. Kubernetes support uses the optional k3d bundle.
