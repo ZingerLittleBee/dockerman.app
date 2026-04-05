@@ -3,6 +3,66 @@ title: Troubleshooting
 description: Common issues and how to resolve them — connection problems, permissions, performance, and Kubernetes.
 ---
 
-{/* TODO: body content will be written in a later task */}
+Common issues and the quickest way to resolve each one.
 
-This page is under construction. Check back soon.
+## Can't connect to Docker daemon
+
+Use the tabs below to match the platform you are on.
+
+<Tabs items={['macOS', 'Windows', 'Linux']}>
+  <Tab>
+    Make sure Docker Desktop is running, then check [Settings → Docker settings](/en/docs/reference/settings#docker-settings) for the socket path Dockerman should use.
+  </Tab>
+  <Tab>
+    Choose between Docker Desktop and the WSL2 Engine in [Windows](/en/docs/platform/windows). If Dockerman is pointed at the wrong backend, switch it in [Settings → Docker settings](/en/docs/reference/settings#docker-settings).
+  </Tab>
+  <Tab>
+    Add your user to the docker group and follow [Linux permissions](/en/docs/platform/linux#permissions).
+  </Tab>
+</Tabs>
+
+## Permission errors on Linux
+
+If Dockerman cannot reach `/var/run/docker.sock`, add your user to the docker group, log out and back in, and verify that `docker ps` works without `sudo`.
+
+## WSL2 Setup Wizard fails
+
+Use the Windows troubleshooting section for the WSL2 path: [Windows platform troubleshooting](/en/docs/platform/windows#troubleshooting).
+
+## SSH host connection fails
+
+Check the host port, private key file permissions, and any firewall rule that blocks outbound port 22. For the full setup flow, see [Remote Hosts](/en/docs/advanced/remote-hosts).
+
+## Performance issues
+
+- High CPU when idle usually means a Logs tab is streaming a large file set. Pause tabs you are not using.
+- Slow list loads with hundreds of containers usually means you need to filter by status or Compose project first.
+- Sluggish stats usually means the selected time range is too wide. Reduce it to 1h or 3h.
+
+## Kubernetes: k3d fails to start
+
+<Accordions>
+  <Accordion title="Port 6443 already in use">
+    Stop the other Kubernetes tool or change the k3d API port before you try again.
+  </Accordion>
+  <Accordion title="vm.max_map_count too low">
+    Run `sudo sysctl -w vm.max_map_count=262144`, then persist the value in `/etc/sysctl.conf` if you want it to survive reboot.
+  </Accordion>
+  <Accordion title="k3d binary download failed">
+    Check outbound HTTPS access, then retry the download. If needed, place the binary manually at the path shown in the error.
+  </Accordion>
+</Accordions>
+
+## Kubernetes: kubeconfig import fails
+
+- Pick the correct context name when you import the kubeconfig.
+- Refresh expired credentials, then export the kubeconfig again.
+- Verify that `kubectl get ns` works from the command line before you import behind a proxy or firewall.
+
+## Collecting logs
+
+Open the App Log page first. If you need to file an issue, export the App Log and attach it with the Dockerman version.
+
+## Getting help
+
+File issues on the Dockerman GitHub repository and attach the App Log export plus the Dockerman version from Settings → About.

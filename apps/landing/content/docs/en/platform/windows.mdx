@@ -3,6 +3,144 @@ title: Windows
 description: Run Dockerman on Windows with either Docker Desktop or the built-in WSL2 Docker Engine.
 ---
 
-{/* TODO: body content will be written in a later task */}
+Windows has two supported Docker paths: Docker Desktop or the built-in WSL2 Docker Engine.
 
-This page is under construction. Check back soon.
+## Quick comparison
+
+| Aspect | Docker Desktop | WSL2 Docker Engine |
+| --- | --- | --- |
+| Subscription | Required for most businesses | Not required |
+| Footprint | Larger install | Small Alpine-based WSL distro |
+| Resource usage | Higher, because it runs a VM and services | Lower, because it runs inside WSL2 |
+| Setup effort | Standard installer | Automated by Dockerman |
+| Support | Fully supported | Fully supported, added in v4.3.0 |
+
+## Option A: Docker Desktop
+
+<Steps>
+  <Step>
+    ### Install Docker Desktop
+
+    Download Docker Desktop from docker.com and run the installer.
+  </Step>
+  <Step>
+    ### Make sure Docker Desktop is running
+
+    Wait for the whale icon to show that Docker Desktop is running.
+  </Step>
+  <Step>
+    ### Launch Dockerman
+
+    Dockerman detects Docker Desktop automatically and connects to it.
+  </Step>
+</Steps>
+
+## Option B: WSL2 Docker Engine
+
+Added in v4.3.0.
+
+Dockerman bundles the WSL2 path for you, so you do not need Docker Desktop or manual WSL setup.
+
+### Prerequisites
+
+- Windows 10 version 2004 or later, or Windows 11.
+- WSL2 installed with `wsl --install` from an elevated PowerShell session.
+- Virtualization enabled in BIOS or UEFI.
+
+### Setup Wizard
+
+The Setup Wizard runs automatically on first launch when Docker Desktop is not detected.
+
+<Steps>
+  <Step>
+    ### Choose WSL2 Docker Engine
+
+    Pick the built-in WSL2 Docker Engine path when the welcome dialog appears.
+  </Step>
+  <Step>
+    ### Import Alpine
+
+    Dockerman imports a minimal Alpine WSL distro for the Docker Engine.
+  </Step>
+  <Step>
+    ### Install Docker inside Alpine
+
+    Dockerman installs Docker and configures the daemon to start on login.
+  </Step>
+  <Step>
+    ### Verify the connection
+
+    Dockerman runs a health check and connects to the new daemon.
+  </Step>
+</Steps>
+
+<Callout type="warn">
+  Do not close Dockerman while the wizard is running. The first setup takes a few minutes and needs to finish before the app is usable.
+</Callout>
+
+{/* TODO(screenshot): windows/setup-wizard - WSL2 Setup Wizard welcome step */}
+
+### What the wizard does
+
+The wizard creates the Alpine distro files that Dockerman uses to run Docker.
+
+<Files>
+  <Folder name="(Alpine WSL2 distro)" defaultOpen>
+    <File name="/etc/docker/daemon.json" />
+    <Folder name="/etc/init.d">
+      <File name="docker" />
+    </Folder>
+    <Folder name="/var/lib/docker">
+      <File name="(Docker data root)" />
+    </Folder>
+  </Folder>
+</Files>
+
+### Edit daemon.json
+
+Use Settings → Daemon config panel to edit `/etc/docker/daemon.json` in either a form view for common fields or a raw JSON view for everything else. Saving restarts Docker inside the Alpine distro.
+
+### Recovery from daemon crash
+
+If the Docker daemon crashes, Dockerman shows a banner with a Restart button and streams the crash logs so you can diagnose the failure.
+
+### Switch between Docker Desktop and WSL2 Engine
+
+<Steps>
+  <Step>
+    ### Open Settings → Docker settings
+
+    Open the Docker settings page from the app settings.
+  </Step>
+  <Step>
+    ### Pick the other backend
+
+    Switch between Docker Desktop and the WSL2 Docker Engine.
+  </Step>
+  <Step>
+    ### Reconnect
+
+    Save the change and reconnect to the selected backend.
+  </Step>
+</Steps>
+
+## Resource monitoring for WSL2
+
+Use [Stats](/en/docs/docker/stats) to monitor the WSL2 Engine like any other Docker daemon. If Windows looks memory-heavy, check the WSL2 VM's ballooning in Task Manager.
+
+## Troubleshooting
+
+<Accordions>
+  <Accordion title="WSL2 not installed">
+    Install WSL2 with `wsl --install`, reboot if Windows asks for it, and verify the install with `wsl --status`.
+  </Accordion>
+  <Accordion title="Virtualization disabled">
+    Enable virtualization in BIOS or UEFI, then confirm it is active from Task Manager → Performance → CPU.
+  </Accordion>
+  <Accordion title="Alpine import failed">
+    Check free disk space, close any stale WSL or Docker processes, and review the App Log for the exact import error.
+  </Accordion>
+  <Accordion title="Daemon won't start after reboot">
+    Jump to [Recovery from daemon crash](/en/docs/platform/windows#recovery-from-daemon-crash) and [Edit daemon.json](/en/docs/platform/windows#edit-daemonjson). Both sections cover the usual startup failures.
+  </Accordion>
+</Accordions>

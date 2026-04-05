@@ -3,6 +3,48 @@ title: Settings
 description: Reference for every settings page in Dockerman, from Docker connections to notifications.
 ---
 
-{/* TODO: body content will be written in a later task */}
+Reference for every settings page. Each section links back to the feature it controls.
 
-This page is under construction. Check back soon.
+## Docker settings
+
+Use Docker settings to choose the connection type, set a socket path, and inspect connection status. For SSH-backed connections, see [Remote Hosts](/en/docs/advanced/remote-hosts).
+
+## Daemon config panel
+
+Use the Daemon config panel to edit `daemon.json` in either a form view or a raw JSON view. Registry mirrors are especially useful on Windows with the WSL2 Engine, and [Windows platform](/en/docs/platform/windows#edit-daemonjson) shows where that file lives.
+
+## Kubernetes DNS settings
+
+Use Kubernetes DNS settings to enable automatic DNS for port forwards. See [Port Forward & DNS](/en/docs/kubernetes/port-forward#automatic-dns) for the behavior it controls.
+
+## Kubernetes port forward settings
+
+Use Kubernetes port forward settings to set the default local port range, retry behavior, and auto-reconnect.
+
+## License settings
+
+Use License settings to activate, view, and reset your Dockerman license. See [Licensing](/en/docs/reference/licensing) for the full flow.
+
+## Notification settings
+
+Use Notification settings to control which events trigger a notification and whether Dockerman shows an in-app banner, a system notification, or both.
+
+## Privacy settings
+
+Use Privacy settings to toggle product analytics and crash reporting. Both are opt-in by default.
+
+## Shortcut settings
+
+Use Shortcut settings to customize or unbind anything listed in [Keyboard Shortcuts](/en/docs/reference/keyboard-shortcuts).
+
+## Terminal settings
+
+Use Terminal settings to change the font family, font size, cursor style, theme, and default shell preference for new terminals.
+
+## Tray settings
+
+Use Tray settings to show or hide the tray icon, minimize Dockerman to the tray on close, and edit the tray menu actions.
+
+## Trivy settings
+
+Use Trivy settings to set the Trivy binary path, the vulnerability database update interval, and the default severity filters. See [Scan with Trivy](/en/docs/docker/images#scan-with-trivy) for the scan flow.

@@ -3,6 +3,86 @@ title: Linux
 description: Install Dockerman on Linux distributions and configure the Docker Engine for your setup.
 ---
 
-{/* TODO: body content will be written in a later task */}
+Dockerman ships as a `.deb`, `.rpm`, or AppImage so you can install it on the distribution you already use.
 
-This page is under construction. Check back soon.
+## Install
+
+<Tabs items={['.deb', '.rpm', 'AppImage']}>
+  <Tab>
+    ```bash
+    sudo dpkg -i dockerman_*_amd64.deb
+    sudo apt-get install -f
+    ```
+
+    Install the `.deb` package on Debian or Ubuntu.
+  </Tab>
+  <Tab>
+    ```bash
+    sudo rpm -i dockerman-*.x86_64.rpm
+    # or
+    sudo dnf install dockerman-*.x86_64.rpm
+    ```
+
+    Install the `.rpm` package on Fedora or RHEL.
+  </Tab>
+  <Tab>
+    ```bash
+    chmod +x Dockerman-*.AppImage
+    ./Dockerman-*.AppImage
+    ```
+
+    Use AppImageLauncher or `--install` if your desktop supports it.
+  </Tab>
+</Tabs>
+
+## Set up Docker Engine
+
+Follow the official Docker Engine install instructions for your distribution at [docs.docker.com/engine/install/](https://docs.docker.com/engine/install/), then make sure the daemon is running. Dockerman works with Docker Engine 20.10 and later.
+
+## Permissions
+
+<Steps>
+  <Step>
+    ### Add your user to the docker group
+
+    ```bash
+    sudo usermod -aG docker $USER
+    ```
+  </Step>
+  <Step>
+    ### Log out and back in
+
+    Group membership only applies to new login sessions.
+  </Step>
+  <Step>
+    ### Verify access
+
+    Run `docker ps` without `sudo`.
+  </Step>
+</Steps>
+
+<Callout type="warn">
+  Being in the `docker` group is effectively root access on the host. Use rootless Docker if you need a stricter boundary.
+</Callout>
+
+## Wayland vs X11
+
+Dockerman works on both Wayland and X11. On Wayland, global shortcuts use the xdg-desktop-portal Shortcuts API, and on X11 they use a traditional key grab.
+
+## Freedesktop integration
+
+Dockerman installs a `.desktop` file so it appears in your application menu. The tray icon uses the StatusNotifierItem specification, which is supported by KDE, GNOME with extensions, XFCE, and MATE.
+
+## Troubleshooting
+
+<Accordions>
+  <Accordion title="docker command not found">
+    Install Docker Engine first, then open a new shell so your PATH picks up the Docker CLI.
+  </Accordion>
+  <Accordion title="Permission denied on /var/run/docker.sock">
+    Add your user to the `docker` group and log out and back in so the new group membership takes effect.
+  </Accordion>
+  <Accordion title="Tray icon missing">
+    Install a StatusNotifierItem extension for your desktop environment. GNOME usually needs AppIndicator and KStatusNotifierItem Support.
+  </Accordion>
+</Accordions>

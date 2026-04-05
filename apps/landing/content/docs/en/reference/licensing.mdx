@@ -3,6 +3,50 @@ title: Licensing
 description: Activate, manage, and reset your Dockerman license across devices.
 ---
 
-{/* TODO: body content will be written in a later task */}
+Activate, manage, and reset your Dockerman license.
 
-This page is under construction. Check back soon.
+## Overview
+
+Dockerman's core is free. Some advanced features may require a license, and the app prompts you at the point of use when that happens.
+
+## Activate
+
+<Steps>
+  <Step>
+    ### Open Settings → License
+
+    Paste your license key into the License settings page.
+  </Step>
+  <Step>
+    ### Verify online
+
+    Dockerman contacts the license server to verify the key.
+  </Step>
+  <Step>
+    ### Confirm activation
+
+    The status changes to Active, and Dockerman stores the license key and device identifier locally.
+  </Step>
+</Steps>
+
+## Manage devices
+
+Each license is bound to a device identifier. If you replace a machine or lose access to one, reset the binding in the License Self-Service portal before you activate on a new machine.
+
+## Offline verification
+
+After activation, Dockerman verifies the license locally on every launch with an Ed25519 signature. Day-to-day use does not require network access.
+
+## Troubleshooting
+
+<Accordions>
+  <Accordion title="Activation fails with network error">
+    Check your firewall and proxy settings, then try the activation again from Settings → License. If the error persists, use the License Self-Service portal.
+  </Accordion>
+  <Accordion title="Device limit reached">
+    Reset the old device binding in the License Self-Service portal, then activate the license again on the new machine.
+  </Accordion>
+  <Accordion title="License invalid after an update">
+    Try reactivating the license first. If that does not help, contact support and attach the App Log export.
+  </Accordion>
+</Accordions>
