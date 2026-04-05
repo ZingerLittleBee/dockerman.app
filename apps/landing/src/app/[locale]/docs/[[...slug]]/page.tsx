@@ -1,8 +1,9 @@
 import { DocsBody, DocsDescription, DocsPage, DocsTitle } from 'fumadocs-ui/layouts/docs/page'
-import defaultMdxComponents, { createRelativeLink } from 'fumadocs-ui/mdx'
+import { createRelativeLink } from 'fumadocs-ui/mdx'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { source } from '@/lib/source'
+import { getMDXComponents } from '../../../../../mdx-components'
 
 export default async function Page({
   params
@@ -21,10 +22,9 @@ export default async function Page({
       <DocsDescription>{page.data.description}</DocsDescription>
       <DocsBody>
         <MDX
-          components={{
-            ...defaultMdxComponents,
+          components={getMDXComponents({
             a: createRelativeLink(source, page)
-          }}
+          })}
         />
       </DocsBody>
     </DocsPage>

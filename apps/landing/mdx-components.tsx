@@ -8,35 +8,39 @@ import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
 import { TypeTable } from 'fumadocs-ui/components/type-table'
 import type { MDXComponents } from 'mdx/types'
 
+const docsMdxComponents: MDXComponents = {
+  Accordion,
+  Accordions,
+  Callout,
+  Card,
+  Cards,
+  File,
+  Files,
+  Folder,
+  Step,
+  Steps,
+  Tab,
+  Tabs,
+  TypeTable
+}
+
 // Fumadocs docs pages use getMDXComponents.
 // Globally register the Fumadocs UI components used across the new docs so that
 // individual MDX files do not need per-file imports.
 export function getMDXComponents(components?: MDXComponents): MDXComponents {
   return {
     ...defaultMdxComponents,
-    Accordion,
-    Accordions,
-    Callout,
-    Card,
-    Cards,
-    File,
-    Files,
-    Folder,
-    Step,
-    Steps,
-    Tab,
-    Tabs,
-    TypeTable,
+    ...docsMdxComponents,
     ...components
   }
 }
 
-// Next.js MDX integration uses useMDXComponents (for changelog pages).
-// Leave it untouched - the changelog pages use their own components from
-// src/components/mdx.tsx (ChangelogEntry, ChangelogImage, etc.) via per-file imports.
+// The docs and changelog MDX runtime both flow through useMDXComponents here.
+// Keep the docs component registry available globally; page-level imports still win.
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     ...defaultMdxComponents,
+    ...docsMdxComponents,
     ...components
   }
 }
