@@ -3,6 +3,78 @@ title: Debug Assistant
 description: Launch an ephemeral debug pod alongside a target pod to diagnose network, DNS, and filesystem issues.
 ---
 
-{/* TODO: body content will be written in a later task */}
+Added in v4.8.0. Use Debug Assistant to launch an ephemeral debug pod next to a target pod and open a shell with debugging tools preinstalled.
 
-This page is under construction. Check back soon.
+## When to use Debug Assistant
+
+- The target image is minimal, such as distroless or scratch, and has no shell.
+- You need tools like `tcpdump`, `dig`, `curl`, or `nc` that are not in the target image.
+- You need to inspect mounted volumes or the pod's network namespace without touching the pod itself.
+- You are debugging a `CrashLoopBackOff` and the pod never stays up long enough for `kubectl exec`.
+
+## Launch a debug pod
+
+<Steps>
+  <Step>
+    ### Select the target pod
+
+    From Pods or Workloads, choose Debug on the pod you want to inspect.
+  </Step>
+  <Step>
+    ### Configure sharing options
+
+    Choose whether to share the process namespace, the network namespace, and mounted volumes.
+  </Step>
+  <Step>
+    ### Wait for the debug pod to be Ready
+
+    Dockerman creates the pod and waits for it to become Ready before it opens the terminal.
+  </Step>
+  <Step>
+    ### Interact via the embedded terminal
+
+    The debug pod opens in a Dockerman terminal tab.
+
+    {/* TODO(screenshot): kubernetes/debug-assistant - Debug pod terminal with target info */}
+  </Step>
+</Steps>
+
+## What's inside the debug pod
+
+| Tool | Purpose |
+| --- | --- |
+| `bash`, `sh` | Shells |
+| `ps`, `top`, `htop` | Process inspection |
+| `netstat`, `ss` | Connection state |
+| `tcpdump` | Packet capture |
+| `curl`, `wget` | HTTP probing |
+| `dig`, `nslookup` | DNS resolution |
+| `nc` | Raw TCP and UDP checks |
+| `vim`, `less` | File inspection |
+| `strace` | Syscall tracing when the kernel allows it |
+
+## Common debug workflows
+
+<Accordions>
+  <Accordion title="Diagnose a DNS problem">
+    - Run `dig @<cluster-dns>` for the Service or name you expect to resolve.
+    - Check `/etc/resolv.conf` inside the debug pod.
+    - Verify kube-dns Endpoints from the Networking page.
+    - Try `getent hosts` before you leave the pod.
+  </Accordion>
+  <Accordion title="Capture traffic between pods">
+    - Run `tcpdump -i any port 8080 -w /tmp/capture.pcap`.
+    - Reproduce the request from the target pod or a client pod.
+    - Copy the capture out with `kubectl cp`.
+    - Open the capture in Wireshark.
+  </Accordion>
+  <Accordion title="Inspect a mounted volume">
+    - Launch the debug pod with volume mounts enabled.
+    - `cd` to the mount path.
+    - Inspect the contents in place.
+  </Accordion>
+</Accordions>
+
+## Cleanup
+
+The debug pod is ephemeral. Close the terminal tab or exit the shell when you are done, and Dockerman cleans it up for you.

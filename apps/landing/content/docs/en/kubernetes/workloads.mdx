@@ -3,6 +3,62 @@ title: Workloads
 description: Manage Pods, Deployments, StatefulSets, DaemonSets, Jobs, CronJobs, and ReplicaSets in one place.
 ---
 
-{/* TODO: body content will be written in a later task */}
+Manage every workload resource type from one page. Use the list view to scan status, open the detail view for actions, and drop into the YAML editor when you need to edit the object directly.
 
-This page is under construction. Check back soon.
+## Pods
+
+Open a Pod to see its status, ready container count, restarts, and age. From the detail view, jump straight to [Pod Logs & Terminal](/en/docs/kubernetes/logs-terminal) or launch the [Debug Assistant](/en/docs/kubernetes/debug) when you need a shell or deeper network checks.
+
+## Deployments
+
+Use Deployments when you want replica management and rollout history in one place.
+
+The list shows ready, updated, and available replicas so you can see rollout health at a glance.
+
+<Steps>
+  <Step>
+    ### Scale
+
+    Change the replica count inline and save.
+  </Step>
+  <Step>
+    ### Rollout
+
+    Update the image or another field that triggers a rollout, then watch the revision history update.
+
+    {/* TODO(screenshot): kubernetes/deployment-rollout - Deployment rollout history */}
+  </Step>
+  <Step>
+    ### Rollback
+
+    Pick a previous revision from the rollout history and roll back to it.
+  </Step>
+</Steps>
+
+## StatefulSets
+
+Use StatefulSets for ordered pod names, stable identities, and persistent storage templates. The detail view shows the current replicas and the storage claims each pod owns, and delete cascades keep PVCs by default.
+
+## DaemonSets
+
+Use DaemonSets when you need one pod per matching node, such as log collectors, monitoring agents, or node-level networking components.
+
+## Jobs
+
+Use Jobs for run-to-completion work. Track completions, backoff limits, and active deadlines from the list and detail view.
+
+## CronJobs
+
+Use CronJobs when you need scheduled Jobs. Review the cron expression, suspend state, last run, and manual trigger controls from the detail view.
+
+## ReplicaSets
+
+ReplicaSets usually sit underneath a Deployment. Open one when you need to inspect the controller state, but edit the Deployment instead of changing the ReplicaSet directly.
+
+<Callout type="info">
+  Deployments manage their own ReplicaSets. Change the Deployment unless you are debugging controller behavior.
+</Callout>
+
+## Edit workloads with YAML
+
+Open the Edit YAML button on any workload when you need to edit the full object in Monaco. Dockerman uses the Kubernetes schema for autocomplete and dry-runs the save so invalid YAML is rejected before it reaches the API server.

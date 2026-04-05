@@ -3,6 +3,31 @@ title: Networking
 description: Inspect Services, Ingresses, Endpoints, and NetworkPolicies across every namespace.
 ---
 
-{/* TODO: body content will be written in a later task */}
+Use the Networking page to inspect how traffic moves through the cluster. Read Services, Ingresses, Endpoints, and NetworkPolicies without jumping back to `kubectl`.
 
-This page is under construction. Check back soon.
+## Services
+
+Use Services to see the stable front door for a workload. The list shows the service type, ClusterIP, ports, and selector.
+
+- `ClusterIP` for internal traffic inside the cluster.
+- `NodePort` when you need a node-level port for quick access.
+- `LoadBalancer` when the cluster exposes an external load balancer.
+- `ExternalName` when the Service points to a DNS name instead of a selector.
+
+The detail view links you to the backing Endpoints.
+
+## Ingresses
+
+Use Ingresses to inspect HTTP routing into the cluster. The list shows hosts, paths, and backend Services, while the detail view shows TLS secrets, annotations, and the rules tree.
+
+## Endpoints
+
+Use Endpoints when you need the raw backend addresses behind a Service. This view is most useful when a Service has no healthy backends.
+
+## NetworkPolicies
+
+Use NetworkPolicies to understand which pods can talk to each other.
+
+<Callout type="info">
+  Phase 1 is view-only for NetworkPolicies. Create and edit them with `kubectl apply` or by editing the YAML for another resource.
+</Callout>

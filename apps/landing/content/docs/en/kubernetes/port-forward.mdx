@@ -3,6 +3,66 @@ title: Port Forward & DNS
 description: Forward local ports to Services or Pods and optionally register automatic DNS entries for them.
 ---
 
-{/* TODO: body content will be written in a later task */}
+Forward local ports to Services or Pods, then let Dockerman register a local DNS name for each active forward.
 
-This page is under construction. Check back soon.
+## Forward a Service or Pod port
+
+Use a Service when you want the forward to survive pod restarts.
+
+<Steps>
+  <Step>
+    ### Pick a target
+
+    Choose a Pod or Service. Services are the safer default for long-lived forwards.
+  </Step>
+  <Step>
+    ### Pick the target and local ports
+
+    Dockerman suggests the target's first port and an unused local port.
+  </Step>
+  <Step>
+    ### Start the forward
+
+    Start the connection and watch it appear in Active Forwards.
+  </Step>
+</Steps>
+
+## Manage active forwards
+
+The active forwards list shows the target, local port, status, and Stop action. Dockerman reconnects after transient network errors.
+
+## Automatic DNS
+
+Added in v4.8.0. Automatic DNS registers a hostname for each active port-forward and points it at `127.0.0.1`.
+
+<Steps>
+  <Step>
+    ### Enable automatic DNS in Settings
+
+    Open Settings > Kubernetes DNS settings > Enable automatic DNS.
+  </Step>
+  <Step>
+    ### Create a port forward
+
+    Dockerman adds the DNS entry as soon as the forward starts.
+  </Step>
+  <Step>
+    ### Open the URL in your browser
+
+    Open `http://<alias>:<local-port>/` after the DNS entry is in place.
+  </Step>
+</Steps>
+
+<Callout type="warn">
+  Automatic DNS edits `/etc/hosts` on macOS and Linux, which requires elevated privileges. On Windows, it uses a local DNS server on `127.0.0.1:53`.
+</Callout>
+
+## Manual DNS entries
+
+Add a hostname and IP mapping manually when you want a static entry or when automatic DNS is not available. Manual entries stay in place across app restarts.
+
+## Troubleshooting
+
+- Port already in use: pick the next free local port that Dockerman suggests.
+- DNS entry not resolving: confirm automatic DNS is enabled and clear any stale browser cache.
+- Forward keeps dropping: check that the backing Service still has healthy Endpoints.

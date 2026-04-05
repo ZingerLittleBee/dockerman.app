@@ -3,6 +3,63 @@ title: Overview
 description: Native Kubernetes support in Dockerman — workloads, networking, config, storage, RBAC, CRDs, Helm, and debug.
 ---
 
-{/* TODO: body content will be written in a later task */}
+Dockerman's Phase 1 Kubernetes support is a lightweight, GUI-first way to run and inspect a real Kubernetes cluster without switching tools or learning a new dashboard.
 
-This page is under construction. Check back soon.
+## Why Kubernetes in Dockerman
+
+Use Dockerman when you want Kubernetes in the same app you already use for Docker. Keep the interface local and fast, bring k3d along for one-click cluster setup, and stay inside a native Rust and Tauri desktop app instead of jumping to another dashboard. It is lighter than Docker Desktop's built-in Kubernetes path and fits local development, small clusters, and CI sanity checks.
+
+## What's included
+
+<Cards>
+  <Card title="Cluster" href="/en/docs/kubernetes/cluster">
+    Start local k3d clusters or import existing kubeconfigs.
+  </Card>
+  <Card title="Workloads" href="/en/docs/kubernetes/workloads">
+    Browse Pods, Deployments, StatefulSets, DaemonSets, Jobs, CronJobs, and ReplicaSets.
+  </Card>
+  <Card title="Networking" href="/en/docs/kubernetes/networking">
+    Inspect Services, Ingresses, Endpoints, and NetworkPolicies.
+  </Card>
+  <Card title="Config & Storage" href="/en/docs/kubernetes/config-storage">
+    Work with ConfigMaps, Secrets, PVCs, and StorageClasses.
+  </Card>
+  <Card title="RBAC" href="/en/docs/kubernetes/rbac">
+    See who can do what across accounts, roles, and bindings.
+  </Card>
+  <Card title="Helm" href="/en/docs/kubernetes/helm">
+    Manage repositories and Helm releases from the GUI.
+  </Card>
+  <Card title="Port Forward & DNS" href="/en/docs/kubernetes/port-forward">
+    Forward ports and register automatic local DNS entries.
+  </Card>
+  <Card title="Debug Assistant" href="/en/docs/kubernetes/debug">
+    Launch an ephemeral debug pod with the tools you need.
+  </Card>
+</Cards>
+
+## Two ways to start
+
+<Tabs items={['k3d (local)', 'Existing cluster']}>
+  <Tab>
+    Open [Cluster](/en/docs/kubernetes/cluster) and use the [Start a local cluster with k3d](/en/docs/kubernetes/cluster#start-a-local-cluster-with-k3d) flow when you want a disposable local cluster for development or testing.
+  </Tab>
+  <Tab>
+    Open [Cluster](/en/docs/kubernetes/cluster) and use the [Import an existing cluster](/en/docs/kubernetes/cluster#import-an-existing-cluster) flow when you already have a kubeconfig for kind, minikube, EKS, GKE, AKS, or on-prem.
+  </Tab>
+</Tabs>
+
+## Namespaces
+
+Use the namespace switcher in the top bar to scope every Kubernetes list. Switch namespaces without disconnecting from the cluster, then keep browsing workloads, networking, config, and RBAC in the new namespace.
+
+## What's not yet supported
+
+<Callout type="info">
+  Phase 1 focuses on the resources above. You do not get these workflows yet:
+
+  - Cluster creation outside k3d, such as kubeadm or managed-service provisioning.
+  - Horizontal pod autoscalers.
+  - Gateway API beyond Ingress.
+  - Visual CRD editors, use YAML editing instead.
+</Callout>
