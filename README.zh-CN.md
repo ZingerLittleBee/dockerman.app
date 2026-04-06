@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 
-[![Version](https://img.shields.io/badge/version-v4.8.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.8.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Mar%2031%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.8.0)
+[![Version](https://img.shields.io/badge/version-v5.0.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.0.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Apr%207%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.0.0)
 
 一个现代、轻量级的 Docker 管理界面，使用 Tauri 和 Rust 构建。
 专注于简洁性和性能的 Docker 容器管理工具。
@@ -17,6 +17,7 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 - 🌐 国际化 (i18n) 支持
 
 ![Dashboard Screenshot](apps/landing/public/screenshots/readme/dashboard.png)
+![Kubernetes](apps/landing/public/screenshots/readme/k8s.png)
 ![Dashboard Dark Screenshot](apps/landing/public/screenshots/readme/dark.png)
 ![Terminal Screenshot](apps/landing/public/screenshots/readme/terminal.png)
 ![Process List Screenshot](apps/landing/public/screenshots/readme/process.png)
@@ -40,6 +41,36 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 
 ## 功能特性
 
+### Kubernetes 管理
+
+- ☸️ 与 Docker 并行的完整 Kubernetes 管理
+- 🚀 通过 kubeconfig 连接集群或使用 k3d 创建本地集群（自动安装）
+- 📦 工作负载：Deployments、StatefulSets、DaemonSets、Jobs、CronJobs、ReplicaSets、Pods
+- 🌐 网络：Services、Ingresses、Endpoints、NetworkPolicies
+- 🔧 配置与存储：ConfigMaps、Secrets、PVCs、StorageClasses
+- 🔐 RBAC：Roles、ClusterRoles、Bindings、ServiceAccounts
+- 🧩 自定义资源定义（CRDs）浏览和实例管理
+- 📝 内置 YAML 编辑器，支持深层链接
+- ⎈ Helm 支持：releases、仓库、chart 搜索和安装
+- 🔗 Pods、Services 和 Deployments 端口转发，支持本地域名映射
+- 🌍 转发服务自动本地 DNS 注册
+- 🛠️ 调试助手，诊断 Pod 和集群问题
+- 🧭 资源层级面包屑导航
+
+### Cloudflared 隧道
+
+- ☁️ 一键将本地容器端口暴露到互联网
+- 📋 侧边栏专用隧道列表，支持批量操作
+- 🔄 容器停止/销毁时自动清理隧道
+- 💾 崩溃后持久化隧道恢复
+
+### 镜像升级检测
+
+- 🔄 自动检测容器镜像是否有可用更新
+- 🏷️ 容器列表上的升级徽章，基于摘要比对
+- 🖱️ 一键升级，拉取镜像并重建容器
+- 🔁 一键回滚，升级前自动备份
+
 ### 仪表盘概览
 
 - 📊 容器和镜像统计一目了然
@@ -56,6 +87,9 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 
 ### 容器管理
 
+- 📊 容器信息仪表盘，环境变量、挂载点和资源限制显示在独立面板中
+- ❤️ 健康检查状态与 CPU 和内存并排显示
+- 🔌 容器端口列，多端口时弹出下拉框
 - 📋 详细的容器列表，带状态指示器
 - 🔍 容器列表支持快速搜索，实时过滤并可一键清除（支持按端口号、协议和端口映射搜索）
 - 🖼️ 容器创建对话框支持可搜索的镜像组合框
@@ -88,6 +122,7 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
   - 终端主题选择器，支持颜色主题自定义
   - 可配置默认 shell 和用户
 - 📝 进程列表查看
+- 📋 统一日志查看器，Docker 容器和 Kubernetes Pods 共享
 - 📜 实时日志查看器
   - 虚拟化日志列表，支持跟踪/暂停和加载更多历史
   - 关键字/正则过滤，支持高亮和快捷操作

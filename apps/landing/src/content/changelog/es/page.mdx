@@ -1,3 +1,64 @@
+<ChangelogEntry version="v5.0.0" date="7 de abril de 2026">
+## Soporte de Kubernetes y Túneles en la Nube
+
+Esta versión principal introduce gestión completa de Kubernetes, túneles Cloudflared para exposición a internet con un clic, detección automática de actualizaciones de imágenes con rollback, un panel de información de contenedores renovado y dos nuevos idiomas.
+
+### ✨ Características
+
+- ☸️ <Bold>Soporte de Kubernetes:</Bold> Gestión completa de Kubernetes junto con Docker
+  - 🚀 Gestión de Clústeres: Conectar vía kubeconfig o crear clústeres locales con k3d
+  - 📦 Cargas de Trabajo: Gestionar Deployments, StatefulSets, DaemonSets, Jobs, CronJobs, ReplicaSets y Pods
+  - 🌐 Redes: Services, Ingresses, Endpoints y NetworkPolicies
+  - 🔧 Configuración y Almacenamiento: ConfigMaps, Secrets, PersistentVolumeClaims y StorageClasses
+  - 🔐 RBAC: Roles, ClusterRoles, RoleBindings, ClusterRoleBindings y ServiceAccounts
+  - 🧩 Recursos Personalizados: Explorar CRDs y gestionar sus instancias
+  - 📝 Editor YAML: Editar cualquier recurso con soporte de enlaces profundos
+  - ⎈ Soporte de Helm: Explorar releases, agregar repositorios, buscar charts e instalar
+  - 🔗 Reenvío de Puertos: Reenviar puertos para Pods, Services y Deployments
+  - 🌍 DNS Automático: Registro DNS local automático para servicios reenviados
+  - 🛠️ Asistente de Depuración: Página de diagnóstico para problemas de Pods y clústeres
+- ☁️ <Bold>Túneles Cloudflared:</Bold> Exponer puertos de contenedores locales a internet con un clic
+  - 🔘 Botón de túnel con un clic en la tabla de puertos del contenedor
+  - 📋 Lista dedicada de túneles en la barra lateral con operaciones por lotes
+  - 🔄 Limpieza automática al detener/destruir contenedores
+  - 💾 Recuperación persistente de túneles después de fallos
+- 🔄 <Bold>Detección de Actualización de Imágenes:</Bold> Detectar automáticamente actualizaciones disponibles
+  - 🏷️ Insignias de actualización en la lista de contenedores con comparación de digest
+  - 🖱️ Actualización con un clic con pull de imagen y recreación de contenedor
+  - 🔁 Rollback con un clic desde el menú de acciones
+  - ⚡ Verificaciones automáticas al cargar, refrescar y cambiar de host
+- 📊 <Bold>Panel de Información de Contenedor:</Bold> Página de información renovada con diseño de panel
+  - 🎯 Variables de entorno, montajes y límites de recursos en paneles dedicados
+  - ❤️ Estado de healthcheck junto a CPU y memoria
+- 🌐 <Bold>Japonés y Español:</Bold> Localización completa para ja y es (4 idiomas en total)
+- 🔌 <Bold>Columna de Puertos:</Bold> Nueva columna de puertos con menú desplegable
+- 📋 <Bold>Visor de Logs Unificado:</Bold> LogViewer compartido para logs de Docker y Kubernetes
+- 📜 <Bold>Desplazamiento Horizontal:</Bold> Todas las tablas principales soportan desplazamiento horizontal
+- 🧭 <Bold>Navegación K8s con Migas:</Bold> Enlaces de migas de pan clicables para la jerarquía de recursos
+
+### 🔧 Mejoras
+
+- 📌 <Bold>Filas Expandidas Fijas:</Bold> Las filas expandidas permanecen fijas al desplazarse
+- 📏 <Bold>Persistencia de Ancho de Columnas:</Bold> Los anchos redimensionables se recuerdan entre sesiones
+- 🔍 <Bold>Mostrar Todo al Buscar:</Bold> La búsqueda incluye automáticamente contenedores detenidos
+- 📋 <Bold>Página de Inspección:</Bold> Encabezados de sección fijos y diseños mejorados
+- 🔁 <Bold>Fiabilidad de Túneles:</Bold> Tiempo de espera de inicio, botón de cancelar y recuperación
+- 🔀 <Bold>Rediseño del Selector Host/K8s:</Bold> Iconos consolidados con pestañas animadas
+- 🔘 <Bold>Botón de Alternancia Unificado:</Bold> Mostrar/Ocultar todo en un solo botón
+- 🎨 <Bold>Pulido de UI K8s:</Bold> Vista compacta, insignias unificadas, páginas de detalle simplificadas
+
+### 🐛 Correcciones
+
+- 📝 <Bold>Edición de KeyValueTable:</Bold> Corregida la imposibilidad de editar valores al agregar nuevas claves
+- 🐳 <Bold>Filtrado de Contenedores K3d:</Bold> Ocultar contenedores de infraestructura k3d del sidebar
+- ⚙️ <Bold>Terminal K8s:</Bold> Verificaciones reforzadas de disponibilidad del terminal
+- 🔍 <Bold>Resaltado del Selector de Host:</Bold> Resaltado activo limitado al modo actual
+- 🗑️ <Bold>Limpieza de Clúster K3d:</Bold> Eliminado flag inválido de la eliminación de clúster
+
+<ChangelogImage src="/screenshots/kubernetes.png" alt="Vista General del Clúster Kubernetes" />
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v4.8.0" date="31 de marzo de 2026">
 ## Respaldo y Restauración de Contenedores
 

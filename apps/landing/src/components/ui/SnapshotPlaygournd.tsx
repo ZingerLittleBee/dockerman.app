@@ -20,7 +20,8 @@ import {
   RiWindowLine,
   RiFileTextLine,
   RiSearchLine,
-  RiShieldCheckLine
+  RiShieldCheckLine,
+  RiShipLine
 } from '@remixicon/react'
 import { useTranslation } from '@repo/shared/i18n/client'
 import { Badge } from '../Badge'
@@ -43,7 +44,8 @@ const screenshotConfigs = [
   { src: '/screenshots/volume-browse.png', labelKey: 'volumeBrowse', icon: RiHardDriveLine },
   { src: '/screenshots/storage.png', labelKey: 'storage', icon: RiDatabase2Line },
   { src: '/screenshots/readme/dockerhub.png', labelKey: 'dockerHub', icon: RiSearchLine },
-  { src: '/screenshots/image-security.png', labelKey: 'imageSecurity', icon: RiShieldCheckLine }
+  { src: '/screenshots/image-security.png', labelKey: 'imageSecurity', icon: RiShieldCheckLine },
+  { src: '/screenshots/kubernetes.png', labelKey: 'kubernetes', icon: RiShipLine }
 ]
 
 const featureConfigs = [

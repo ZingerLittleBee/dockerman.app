@@ -1,3 +1,64 @@
+<ChangelogEntry version="v5.0.0" date="Apr 7, 2026">
+## Kubernetes Support & Cloud Tunnels
+
+This major release introduces full Kubernetes management, Cloudflared tunnels for one-click internet exposure, automatic image upgrade detection with rollback, a rebuilt container info dashboard, and two new languages.
+
+### ✨ Features
+
+- ☸️ <Bold>Kubernetes Support:</Bold> Full Kubernetes management alongside Docker
+  - 🚀 Cluster Management: Connect via kubeconfig or create local clusters with k3d
+  - 📦 Workloads: Manage Deployments, StatefulSets, DaemonSets, Jobs, CronJobs, ReplicaSets, and Pods
+  - 🌐 Networking: Services, Ingresses, Endpoints, and NetworkPolicies
+  - 🔧 Config & Storage: ConfigMaps, Secrets, PersistentVolumeClaims, and StorageClasses
+  - 🔐 RBAC: Roles, ClusterRoles, RoleBindings, ClusterRoleBindings, and ServiceAccounts
+  - 🧩 Custom Resources: Browse CRDs and manage their instances
+  - 📝 YAML Editor: Edit any resource with deep-link support
+  - ⎈ Helm Support: Browse releases, add repos, search charts, and install
+  - 🔗 Port Forwarding: Forward ports for Pods, Services, and Deployments
+  - 🌍 Auto DNS: Local DNS registration for forwarded services
+  - 🛠️ Debug Assistant: Troubleshooting page for Pod and cluster issues
+- ☁️ <Bold>Cloudflared Tunnels:</Bold> Expose local container ports to the internet with one click
+  - 🔘 One-click tunnel button in container port info table
+  - 📋 Dedicated tunnel list in sidebar with batch operations
+  - 🔄 Automatic cleanup on container stop/die/destroy
+  - 💾 Persistent tunnel recovery after crashes
+- 🔄 <Bold>Image Upgrade Detection:</Bold> Automatically detect when container images have updates
+  - 🏷️ Upgrade badges on container list with digest comparison
+  - 🖱️ One-click upgrade with image pull and container recreation
+  - 🔁 One-click rollback from action menu
+  - ⚡ Automatic checks on page load, refresh, and host switch
+- 📊 <Bold>Container Info Dashboard:</Bold> Rebuilt container info page with dashboard layout
+  - 🎯 Env vars, mounts, and resource limits in dedicated panels
+  - ❤️ Healthcheck status alongside CPU and memory
+- 🌐 <Bold>Japanese & Spanish:</Bold> Full localization for ja and es (4 languages total)
+- 🔌 <Bold>Container Ports Column:</Bold> New ports column with popover dropdown
+- 📋 <Bold>Unified Log Viewer:</Bold> Shared LogViewer for Docker and Kubernetes logs
+- 📜 <Bold>Table Horizontal Scrolling:</Bold> All major tables support horizontal scrolling
+- 🧭 <Bold>K8s Breadcrumb Navigation:</Bold> Clickable breadcrumbs for resource hierarchy
+
+### 🔧 Improvements
+
+- 📌 <Bold>Sticky Expanded Rows:</Bold> Expanded container rows stay pinned while scrolling
+- 📏 <Bold>Column Width Persistence:</Bold> Resizable column widths remembered across sessions
+- 🔍 <Bold>Auto Show All on Search:</Bold> Searching now includes stopped containers
+- 📋 <Bold>Inspect Page:</Bold> Sticky section headers and improved layouts
+- 🔁 <Bold>Tunnel Reliability:</Bold> Startup timeout, cancel button, and crash recovery
+- 🔀 <Bold>Host/K8s Switcher Redesign:</Bold> Consolidated icons with animated tabs
+- 🔘 <Bold>Unified Toggle Button:</Bold> Merged Show All / Hide All toggle
+- 🎨 <Bold>K8s UI Polish:</Bold> Compacted overview, unified badges, streamlined detail pages
+
+### 🐛 Bug Fixes
+
+- 📝 <Bold>KeyValueTable Editing:</Bold> Fixed inability to edit values when adding new keys
+- 🐳 <Bold>K3d Container Filtering:</Bold> Hidden k3d containers from sidebar
+- ⚙️ <Bold>K8s Terminal:</Bold> Hardened terminal availability checks
+- 🔍 <Bold>Host Switcher Highlight:</Bold> Scoped active highlight to current mode
+- 🗑️ <Bold>K3d Cluster Cleanup:</Bold> Removed invalid flag from cluster delete
+
+<ChangelogImage src="/screenshots/kubernetes.png" alt="Kubernetes Cluster Overview" />
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v4.8.0" date="Mar 31, 2026">
 ## Container Backup & Restore
 

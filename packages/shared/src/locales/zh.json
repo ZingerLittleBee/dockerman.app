@@ -250,7 +250,8 @@
       "storage": "存储",
       "filePreview": "文件预览",
       "dockerHub": "Docker Hub",
-      "imageSecurity": "镜像安全"
+      "imageSecurity": "镜像安全",
+      "kubernetes": "Kubernetes"
     },
     "features": {
       "realTimeMonitoring": {
