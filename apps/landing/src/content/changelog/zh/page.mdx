@@ -1,3 +1,64 @@
+<ChangelogEntry version="v5.0.0" date="2026年4月7日">
+## Kubernetes 支持与云隧道
+
+本次重大版本引入完整的 Kubernetes 管理、Cloudflared 隧道一键暴露端口到互联网、自动镜像升级检测与回滚、全新容器信息仪表盘以及两种新语言。
+
+### ✨ 新功能
+
+- ☸️ <Bold>Kubernetes 支持：</Bold>与 Docker 并行的完整 Kubernetes 管理
+  - 🚀 集群管理：通过 kubeconfig 连接或使用 k3d 创建本地集群
+  - 📦 工作负载：管理 Deployments、StatefulSets、DaemonSets、Jobs、CronJobs、ReplicaSets 和 Pods
+  - 🌐 网络：Services、Ingresses、Endpoints 和 NetworkPolicies
+  - 🔧 配置与存储：ConfigMaps、Secrets、PersistentVolumeClaims 和 StorageClasses
+  - 🔐 RBAC：Roles、ClusterRoles、RoleBindings、ClusterRoleBindings 和 ServiceAccounts
+  - 🧩 自定义资源：浏览 CRD 并管理其实例
+  - 📝 YAML 编辑器：编辑任何资源，支持深层链接
+  - ⎈ Helm 支持：浏览 releases、添加仓库、搜索 charts 并安装
+  - 🔗 端口转发：为 Pods、Services 和 Deployments 转发端口
+  - 🌍 自动 DNS：为转发服务自动注册本地 DNS
+  - 🛠️ 调试助手：Pod 和集群问题的故障排除页面
+- ☁️ <Bold>Cloudflared 隧道：</Bold>一键将本地容器端口暴露到互联网
+  - 🔘 容器端口信息表中的一键隧道按钮
+  - 📋 侧边栏中的专用隧道列表，支持批量操作
+  - 🔄 容器停止/销毁时自动清理
+  - 💾 崩溃后持久化隧道恢复
+- 🔄 <Bold>镜像升级检测：</Bold>自动检测容器镜像是否有可用更新
+  - 🏷️ 容器列表上的升级徽章，基于摘要比对
+  - 🖱️ 一键升级，拉取镜像并重建容器
+  - 🔁 操作菜单中的一键回滚
+  - ⚡ 页面加载、刷新和切换主机时自动检查
+- 📊 <Bold>容器信息仪表盘：</Bold>全新仪表盘布局的容器信息页
+  - 🎯 环境变量、挂载点和资源限制显示在独立面板中
+  - ❤️ 健康检查状态与 CPU 和内存并排显示
+- 🌐 <Bold>日语和西班牙语：</Bold>新增 ja 和 es 完整本地化（共 4 种语言）
+- 🔌 <Bold>容器端口列：</Bold>新增端口列，多端口时弹出下拉框
+- 📋 <Bold>统一日志查看器：</Bold>Docker 和 Kubernetes 共享 LogViewer 组件
+- 📜 <Bold>表格水平滚动：</Bold>所有主要表格支持水平滚动
+- 🧭 <Bold>K8s 面包屑导航：</Bold>可点击的面包屑链接，用于资源层级导航
+
+### 🔧 改进
+
+- 📌 <Bold>展开行置顶：</Bold>展开的容器行在滚动时保持置顶
+- 📏 <Bold>列宽持久化：</Bold>可调整的表格列宽跨会话记忆
+- 🔍 <Bold>搜索时自动显示全部：</Bold>搜索时自动包含已停止的容器
+- 📋 <Bold>检查页面：</Bold>粘性区域标题和改进的布局
+- 🔁 <Bold>隧道可靠性：</Bold>启动超时、取消按钮和崩溃恢复
+- 🔀 <Bold>主机/K8s 切换器重设计：</Bold>合并图标与动画标签页
+- 🔘 <Bold>统一切换按钮：</Bold>合并显示全部/隐藏全部为单一切换
+- 🎨 <Bold>K8s UI 优化：</Bold>紧凑概览、统一徽章、精简详情页
+
+### 🐛 Bug 修复
+
+- 📝 <Bold>KeyValueTable 编辑：</Bold>修复添加新键时无法编辑值的问题
+- 🐳 <Bold>K3d 容器过滤：</Bold>从侧边栏隐藏 k3d 基础设施容器
+- ⚙️ <Bold>K8s 终端：</Bold>增强 Kubernetes Pods 终端可用性检查
+- 🔍 <Bold>主机切换器高亮：</Bold>将活跃高亮限定在当前侧边栏模式
+- 🗑️ <Bold>K3d 集群清理：</Bold>移除集群删除中的无效参数
+
+<ChangelogImage src="/screenshots/kubernetes.png" alt="Kubernetes 集群概览" />
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v4.8.0" date="2026年3月31日">
 ## 容器备份与恢复
 

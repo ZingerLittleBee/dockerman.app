@@ -250,7 +250,8 @@
       "storage": "Storage",
       "filePreview": "File Preview",
       "dockerHub": "Docker Hub",
-      "imageSecurity": "Image Security"
+      "imageSecurity": "Image Security",
+      "kubernetes": "Kubernetes"
     },
     "features": {
       "realTimeMonitoring": {

@@ -1,3 +1,64 @@
+<ChangelogEntry version="v5.0.0" date="2026年4月7日">
+## Kubernetes サポートとクラウドトンネル
+
+このメジャーリリースでは、完全な Kubernetes 管理、Cloudflared トンネルによるワンクリックのインターネット公開、自動イメージアップグレード検出とロールバック、刷新されたコンテナ情報ダッシュボード、2つの新言語が導入されました。
+
+### ✨ 新機能
+
+- ☸️ <Bold>Kubernetes サポート:</Bold> Docker と並行した完全な Kubernetes 管理
+  - 🚀 クラスタ管理: kubeconfig で接続または k3d でローカルクラスタを作成
+  - 📦 ワークロード: Deployments、StatefulSets、DaemonSets、Jobs、CronJobs、ReplicaSets、Pods の管理
+  - 🌐 ネットワーク: Services、Ingresses、Endpoints、NetworkPolicies
+  - 🔧 設定とストレージ: ConfigMaps、Secrets、PersistentVolumeClaims、StorageClasses
+  - 🔐 RBAC: Roles、ClusterRoles、RoleBindings、ClusterRoleBindings、ServiceAccounts
+  - 🧩 カスタムリソース: CRD の閲覧とインスタンスの管理
+  - 📝 YAML エディタ: ディープリンク対応の任意リソース編集
+  - ⎈ Helm サポート: リリースの閲覧、リポジトリの追加、チャートの検索とインストール
+  - 🔗 ポートフォワーディング: Pods、Services、Deployments のポート転送
+  - 🌍 自動 DNS: 転送サービスのローカル DNS 自動登録
+  - 🛠️ デバッグアシスタント: Pod とクラスタの問題診断ページ
+- ☁️ <Bold>Cloudflared トンネル:</Bold> ワンクリックでローカルコンテナポートをインターネットに公開
+  - 🔘 コンテナポート情報テーブルのワンクリックトンネルボタン
+  - 📋 サイドバーの専用トンネルリスト（バッチ操作対応）
+  - 🔄 コンテナ停止/破棄時の自動クリーンアップ
+  - 💾 クラッシュ後の永続トンネル復旧
+- 🔄 <Bold>イメージアップグレード検出:</Bold> コンテナイメージの更新を自動検出
+  - 🏷️ ダイジェスト比較によるコンテナリストのアップグレードバッジ
+  - 🖱️ イメージプルとコンテナ再作成によるワンクリックアップグレード
+  - 🔁 アクションメニューからのワンクリックロールバック
+  - ⚡ ページ読み込み、リフレッシュ、ホスト切り替え時の自動チェック
+- 📊 <Bold>コンテナ情報ダッシュボード:</Bold> ダッシュボードレイアウトで刷新されたコンテナ情報ページ
+  - 🎯 環境変数、マウント、リソース制限を専用パネルに表示
+  - ❤️ ヘルスチェックステータスを CPU とメモリと並列表示
+- 🌐 <Bold>日本語とスペイン語:</Bold> ja と es の完全なローカライゼーション（計4言語）
+- 🔌 <Bold>コンテナポートカラム:</Bold> ポップオーバードロップダウン付きの新しいポートカラム
+- 📋 <Bold>統合ログビューア:</Bold> Docker と Kubernetes ログの共有 LogViewer
+- 📜 <Bold>テーブル水平スクロール:</Bold> すべての主要テーブルが水平スクロールに対応
+- 🧭 <Bold>K8s パンくずナビゲーション:</Bold> リソース階層のクリック可能なパンくずリンク
+
+### 🔧 改善
+
+- 📌 <Bold>展開行の固定:</Bold> 展開されたコンテナ行がスクロール中も固定表示
+- 📏 <Bold>カラム幅の永続化:</Bold> リサイズ可能なカラム幅がセッション間で記憶
+- 🔍 <Bold>検索時の全件表示:</Bold> 検索時に停止中のコンテナも自動的に含める
+- 📋 <Bold>インスペクトページ:</Bold> 固定セクションヘッダーと改善されたレイアウト
+- 🔁 <Bold>トンネルの信頼性:</Bold> 起動タイムアウト、キャンセルボタン、クラッシュ復旧
+- 🔀 <Bold>ホスト/K8s 切替の再設計:</Bold> アニメーションタブ付きの統合アイコン
+- 🔘 <Bold>統合トグルボタン:</Bold> すべて表示/非表示を単一トグルに統合
+- 🎨 <Bold>K8s UI ポリッシュ:</Bold> コンパクトな概要、統一バッジ、合理化された詳細ページ
+
+### 🐛 バグ修正
+
+- 📝 <Bold>KeyValueTable 編集:</Bold> 新しいキー追加時に値を編集できない問題を修正
+- 🐳 <Bold>K3d コンテナフィルタリング:</Bold> k3d インフラコンテナをサイドバーから非表示
+- ⚙️ <Bold>K8s ターミナル:</Bold> Kubernetes Pods のターミナル利用可否チェックを強化
+- 🔍 <Bold>ホスト切替ハイライト:</Bold> アクティブハイライトを現在のサイドバーモードに限定
+- 🗑️ <Bold>K3d クラスタクリーンアップ:</Bold> クラスタ削除の無効なフラグを除去
+
+<ChangelogImage src="/screenshots/kubernetes.png" alt="Kubernetes クラスタ概要" />
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v4.8.0" date="2026年3月31日">
 ## コンテナのバックアップと復元
 

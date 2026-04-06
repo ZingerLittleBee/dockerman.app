@@ -2,8 +2,8 @@
 
 Language: 🇺🇸 English | [🇨🇳 简体中文](./README.zh-CN.md)
 
-[![Version](https://img.shields.io/badge/version-v4.8.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.8.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Mar%2031%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v4.8.0)
+[![Version](https://img.shields.io/badge/version-v5.0.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.0.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Apr%207%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.0.0)
 
 A modern, lightweight Docker management UI built with Tauri and Rust.
 Focus on simplicity and performance for Docker container management.
@@ -17,6 +17,7 @@ Focus on simplicity and performance for Docker container management.
 - 🌐 Internationalization (i18n) support
 
 ![Dashboard Screenshot](apps/landing/public/screenshots/readme/dashboard.png)
+![Kubernetes](apps/landing/public/screenshots/readme/k8s.png)
 ![Dashboard Dark Screenshot](apps/landing/public/screenshots/readme/dark.png)
 ![Terminal Screenshot](apps/landing/public/screenshots/readme/terminal.png)
 ![Process List Screenshot](apps/landing/public/screenshots/readme/process.png)
@@ -40,6 +41,36 @@ Focus on simplicity and performance for Docker container management.
 
 ## Features
 
+### Kubernetes Management
+
+- ☸️ Full Kubernetes management alongside Docker
+- 🚀 Cluster management via kubeconfig or local k3d clusters with auto-install
+- 📦 Workloads: Deployments, StatefulSets, DaemonSets, Jobs, CronJobs, ReplicaSets, Pods
+- 🌐 Networking: Services, Ingresses, Endpoints, NetworkPolicies
+- 🔧 Config & Storage: ConfigMaps, Secrets, PVCs, StorageClasses
+- 🔐 RBAC: Roles, ClusterRoles, Bindings, ServiceAccounts
+- 🧩 Custom Resource Definitions (CRDs) browsing and instance management
+- 📝 Built-in YAML editor with deep-link support
+- ⎈ Helm support: releases, repositories, chart search, and install
+- 🔗 Port forwarding for Pods, Services, and Deployments with local domain mapping
+- 🌍 Automatic local DNS registration for forwarded services
+- 🛠️ Debug assistant for diagnosing Pod and cluster issues
+- 🧭 Breadcrumb navigation for resource hierarchy
+
+### Cloudflared Tunnels
+
+- ☁️ Expose local container ports to the internet with one click
+- 📋 Dedicated tunnel list in sidebar with batch operations
+- 🔄 Automatic cleanup on container stop/die/destroy events
+- 💾 Persistent tunnel recovery after crashes
+
+### Image Upgrade Detection
+
+- 🔄 Automatically detect when container images have updates available
+- 🏷️ Upgrade badges on container list with digest comparison
+- 🖱️ One-click upgrade with image pull and container recreation
+- 🔁 One-click rollback with automatic backup before upgrade
+
 ### Dashboard Overview
 
 - 📊 Container and image statistics at a glance
@@ -56,6 +87,9 @@ Focus on simplicity and performance for Docker container management.
 
 ### Container Management
 
+- 📊 Container info dashboard with env vars, mounts, and resource limits in dedicated panels
+- ❤️ Healthcheck status surfaced alongside CPU and memory
+- 🔌 Container ports column with popover dropdown for multi-port containers
 - 📋 Detailed container list with status indicators
 - 🔍 Quick search for containers with real-time filtering and clear reset (supports port number, protocol, and port mapping search)
 - 🖼️ Searchable image combobox in container create dialog
@@ -88,6 +122,7 @@ Focus on simplicity and performance for Docker container management.
   - Terminal theme picker with color theme customization
   - Configurable default shell and user
 - 📝 Process list viewing
+- 📋 Unified log viewer shared between Docker containers and Kubernetes Pods
 - 📜 Log viewer with real-time updates
   - Virtualized log list with follow/pause and load-more history
   - Keyword/regex filtering with highlight and quick shortcuts

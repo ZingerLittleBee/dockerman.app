@@ -250,7 +250,8 @@
       "storage": "ストレージ",
       "filePreview": "ファイルプレビュー",
       "dockerHub": "Docker Hub",
-      "imageSecurity": "イメージセキュリティ"
+      "imageSecurity": "イメージセキュリティ",
+      "kubernetes": "Kubernetes"
     },
     "features": {
       "realTimeMonitoring": {
