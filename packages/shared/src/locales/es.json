@@ -292,6 +292,26 @@
       }
     }
   },
+  "kubernetes": {
+    "badge": "Soporte Kubernetes",
+    "title": "Domina Tu",
+    "titleBreak": "Clúster Kubernetes",
+    "description": "Desde la monitorización de nodos hasta la orquestación de servicios, gestiona todos tus recursos K8s con una interfaz de escritorio intuitiva.",
+    "features": {
+      "clusterOverview": {
+        "name": "Vista del Clúster",
+        "description": "Monitorea nodos, pods y eventos de todo tu clúster de un vistazo."
+      },
+      "workloads": {
+        "name": "Gestión de Cargas",
+        "description": "Gestiona Pods, Deployments, StatefulSets y CronJobs con control total del ciclo de vida."
+      },
+      "serviceNetwork": {
+        "name": "Servicios y Red",
+        "description": "Visualiza y gestiona Services, Ingresses y Endpoints de la red de tu clúster."
+      }
+    }
+  },
   "privacy": {
     "badge": "privacidad",
     "title": "Política de Privacidad",

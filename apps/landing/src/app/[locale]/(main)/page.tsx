@@ -5,6 +5,7 @@ import Features from '@/components/ui/Features'
 import GlobalLazy from '@/components/ui/GlobalLazy'
 import Hero from '@/components/ui/Hero'
 import HeroImage from '@/components/ui/HeroImage'
+import KubernetesLazy from '@/components/ui/KubernetesLazy'
 import SnapshotPlaygroundLazy from '@/components/ui/SnapshotPlaygroundLazy'
 
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
@@ -15,6 +16,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <Hero>
         <HeroImage />
       </Hero>
+      <KubernetesLazy />
       <GlobalLazy />
       <SnapshotPlaygroundLazy />
       <Features locale={locale as Locale} />
