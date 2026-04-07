@@ -1,25 +1,27 @@
-import { BackgroundBeamsWithCollision } from '@/components/ui/background-beams-with-collision'
-import Cta from '@/components/ui/Cta'
-import { Faqs } from '@/components/ui/Faqs'
+import type { Locale } from '@repo/shared/i18n'
+import CtaSectionLazy from '@/components/ui/CtaSectionLazy'
+import FaqsLazy from '@/components/ui/FaqsLazy'
 import Features from '@/components/ui/Features'
-import { Global } from '@/components/ui/Global'
+import GlobalLazy from '@/components/ui/GlobalLazy'
 import Hero from '@/components/ui/Hero'
-import SnapshotPlaygournd from '@/components/ui/SnapshotPlaygournd'
+import HeroImage from '@/components/ui/HeroImage'
+import SnapshotPlaygroundLazy from '@/components/ui/SnapshotPlaygroundLazy'
 
-export default function Home() {
+export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
+
   return (
     <main className="flex flex-col overflow-hidden">
-      <Hero />
-      {/* <LogoCloud /> */}
-      <Global />
-      <SnapshotPlaygournd />
-      <Features />
+      <Hero>
+        <HeroImage />
+      </Hero>
+      <GlobalLazy />
+      <SnapshotPlaygroundLazy />
+      <Features locale={locale as Locale} />
       <div className="mx-auto mt-36 max-w-6xl px-3">
-        <Faqs />
+        <FaqsLazy />
       </div>
-      <BackgroundBeamsWithCollision>
-        <Cta />
-      </BackgroundBeamsWithCollision>
+      <CtaSectionLazy />
     </main>
   )
 }
