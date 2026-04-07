@@ -2,8 +2,8 @@
 
 Language: 🇺🇸 English | [🇨🇳 简体中文](./README.zh-CN.md)
 
-[![Version](https://img.shields.io/badge/version-v5.0.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.0.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Apr%207%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.0.0)
+[![Version](https://img.shields.io/badge/version-v5.1.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.1.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Apr%208%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.1.0)
 
 A modern, lightweight Docker management UI built with Tauri and Rust.
 Focus on simplicity and performance for Docker container management.
@@ -63,6 +63,16 @@ Focus on simplicity and performance for Docker container management.
 - 📋 Dedicated tunnel list in sidebar with batch operations
 - 🔄 Automatic cleanup on container stop/die/destroy events
 - 💾 Persistent tunnel recovery after crashes
+
+### Podman Support
+
+- 🐙 First-class Podman runtime support alongside Docker
+- 🔍 Automatic runtime detection via API probing
+- ⚙️ Per-host and global runtime preference selector (Auto / Docker / Podman)
+- 🔌 Auto-discovery of Podman rootless/rootful sockets on Linux and macOS
+- 🏷️ Runtime badge in sidebar host switcher with color-coded indicator
+- 🚫 Compose actions automatically hidden for Podman runtime
+- 🧩 Extensible runtime capabilities system for feature gating
 
 ### Image Upgrade Detection
 
