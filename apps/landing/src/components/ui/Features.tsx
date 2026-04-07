@@ -1,7 +1,5 @@
-'use client'
-
-import React from 'react'
-import { useTranslation } from '@repo/shared/i18n/client'
+import type { Locale } from '@repo/shared/i18n'
+import { getTranslation } from '@repo/shared/i18n/server'
 import { Badge } from '../Badge'
 
 const stats = [
@@ -10,8 +8,8 @@ const stats = [
   { key: 'memoryUsage', value: '<30MB' }
 ]
 
-export default function Features() {
-  const { t } = useTranslation()
+export default async function Features({ locale }: { locale: Locale }) {
+  const { t } = await getTranslation(locale)
 
   return (
     <section
@@ -30,16 +28,17 @@ export default function Features() {
       </p>
       <dl className="mt-12 grid grid-cols-1 gap-y-8 md:grid-cols-3 md:border-gray-200 md:border-y md:py-14 dark:border-gray-800">
         {stats.map((stat, index) => (
-          <React.Fragment key={index}>
-            <div className="border-indigo-100 border-l-2 pl-6 md:border-l md:text-center lg:border-gray-200 lg:first:border-none dark:border-indigo-900 lg:dark:border-gray-800">
-              <dd className="inline-block bg-gradient-to-t from-indigo-900 to-indigo-600 bg-clip-text font-bold text-5xl text-transparent tracking-tight lg:text-6xl dark:from-indigo-700 dark:to-indigo-400">
-                {stat.value}
-              </dd>
-              <dt className="mt-1 text-gray-600 dark:text-gray-400">
-                {t(`features.stats.${stat.key}`)}
-              </dt>
-            </div>
-          </React.Fragment>
+          <div
+            className="border-indigo-100 border-l-2 pl-6 md:border-l md:text-center lg:border-gray-200 lg:first:border-none dark:border-indigo-900 lg:dark:border-gray-800"
+            key={index}
+          >
+            <dd className="inline-block bg-gradient-to-t from-indigo-900 to-indigo-600 bg-clip-text font-bold text-5xl text-transparent tracking-tight lg:text-6xl dark:from-indigo-700 dark:to-indigo-400">
+              {stat.value}
+            </dd>
+            <dt className="mt-1 text-gray-600 dark:text-gray-400">
+              {t(`features.stats.${stat.key}`)}
+            </dt>
+          </div>
         ))}
       </dl>
     </section>
