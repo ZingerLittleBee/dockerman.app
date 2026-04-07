@@ -30,6 +30,11 @@ export const Kubernetes = () => {
           delay: i * 0.1,
         })
       })
+
+      // K8s section is lazy-loaded, which shifts all elements below it.
+      // Refresh so other ScrollTriggers (e.g. SnapshotPlayground pin)
+      // recalculate their positions.
+      ScrollTrigger.refresh()
     },
     { scope: sectionRef }
   )
@@ -42,7 +47,7 @@ export const Kubernetes = () => {
   }))
 
   return (
-    <div className="relative z-10 px-3">
+    <div className="px-3">
       <section
         aria-labelledby="kubernetes-title"
         className="relative mx-auto mt-28 flex w-full max-w-6xl flex-col items-center justify-center overflow-hidden rounded-3xl bg-gray-950 py-24 md:mt-40"
