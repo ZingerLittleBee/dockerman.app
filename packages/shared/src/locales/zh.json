@@ -292,6 +292,26 @@
       }
     }
   },
+  "kubernetes": {
+    "badge": "Kubernetes 支持",
+    "title": "掌控你的",
+    "titleBreak": "Kubernetes 集群",
+    "description": "从节点监控到服务编排，用直观的桌面界面管理你的所有 K8s 资源。",
+    "features": {
+      "clusterOverview": {
+        "name": "集群概览",
+        "description": "一目了然地监控集群中的节点、Pod 和事件。"
+      },
+      "workloads": {
+        "name": "工作负载管理",
+        "description": "全面管理 Pod、Deployment、StatefulSet 和 CronJob 的完整生命周期。"
+      },
+      "serviceNetwork": {
+        "name": "服务与网络",
+        "description": "可视化管理集群中的 Service、Ingress 和 Endpoints 网络。"
+      }
+    }
+  },
   "privacy": {
     "badge": "隐私",
     "title": "隐私政策",

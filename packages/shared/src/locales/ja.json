@@ -292,6 +292,26 @@
       }
     }
   },
+  "kubernetes": {
+    "badge": "Kubernetes サポート",
+    "title": "Kubernetes クラスターを",
+    "titleBreak": "完全に掌握",
+    "description": "ノード監視からサービスオーケストレーションまで、直感的なデスクトップインターフェースですべての K8s リソースを管理。",
+    "features": {
+      "clusterOverview": {
+        "name": "クラスター概要",
+        "description": "クラスター全体のノード、Pod、イベントを一目で監視します。"
+      },
+      "workloads": {
+        "name": "ワークロード管理",
+        "description": "Pod、Deployment、StatefulSet、CronJob をライフサイクル全体で管理します。"
+      },
+      "serviceNetwork": {
+        "name": "サービス & ネットワーク",
+        "description": "クラスターネットワークの Service、Ingress、Endpoints を可視化・管理します。"
+      }
+    }
+  },
   "privacy": {
     "badge": "プライバシー",
     "title": "プライバシーポリシー",

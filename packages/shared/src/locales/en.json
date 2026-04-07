@@ -292,6 +292,26 @@
       }
     }
   },
+  "kubernetes": {
+    "badge": "Kubernetes Support",
+    "title": "Master Your",
+    "titleBreak": "Kubernetes Cluster",
+    "description": "From node monitoring to service orchestration, manage all your K8s resources with an intuitive desktop interface.",
+    "features": {
+      "clusterOverview": {
+        "name": "Cluster Overview",
+        "description": "Monitor nodes, pods, and events across your entire cluster at a glance."
+      },
+      "workloads": {
+        "name": "Workloads Management",
+        "description": "Manage Pods, Deployments, StatefulSets, and CronJobs with full lifecycle control."
+      },
+      "serviceNetwork": {
+        "name": "Service & Network",
+        "description": "Visualize and manage Services, Ingresses, and Endpoints for your cluster networking."
+      }
+    }
+  },
   "privacy": {
     "badge": "privacy",
     "title": "Privacy Policy",
