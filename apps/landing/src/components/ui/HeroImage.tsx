@@ -10,7 +10,7 @@ export default function HeroImage() {
             className="rounded object-contain shadow-2xl md:rounded-xl dark:hidden"
             height={1600}
             priority={true}
-            quality={100}
+            quality={75}
             src="/screenshots/dashboard.png"
             width={2400}
           />
@@ -19,7 +19,7 @@ export default function HeroImage() {
             className="hidden rounded object-contain shadow-2xl md:rounded-xl dark:block dark:shadow-indigo-600/10"
             height={1600}
             priority={true}
-            quality={100}
+            quality={75}
             src="/screenshots/dashboard-dark.png"
             width={2400}
           />
