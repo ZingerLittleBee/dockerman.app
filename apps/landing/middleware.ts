@@ -1,5 +1,5 @@
-import { type NextRequest, NextResponse } from 'next/server'
 import { cookieName, defaultLocale, type Locale, locales } from '@repo/shared/i18n'
+import { type NextRequest, NextResponse } from 'next/server'
 
 function getLocaleFromHeaders(request: NextRequest): Locale {
   const acceptLanguage = request.headers.get('accept-language') || ''
@@ -35,7 +35,11 @@ export function middleware(request: NextRequest) {
   // Check if path already has locale
   const pathLocale = getLocaleFromPath(pathname)
   if (pathLocale) {
-    // Set cookie if not already set
+    const existing = request.cookies.get(cookieName)?.value
+    if (existing === pathLocale) {
+      return NextResponse.next()
+    }
+
     const response = NextResponse.next()
     response.cookies.set(cookieName, pathLocale, {
       path: '/',

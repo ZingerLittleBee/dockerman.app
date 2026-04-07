@@ -1,22 +1,21 @@
 'use client'
 
 import { useGSAP } from '@gsap/react'
+import { useTranslation } from '@repo/shared/i18n/client'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { useRef } from 'react'
-import { useTranslation } from '@repo/shared/i18n/client'
-import HeroImage from './HeroImage'
+import { type ReactNode, useRef } from 'react'
 import TrackedHeroButton from './TrackedHeroButton'
 
-gsap.registerPlugin(ScrollTrigger)
-
-export default function Hero() {
+export default function Hero({ children }: { children?: ReactNode }) {
   const { t } = useTranslation()
   const sectionRef = useRef<HTMLElement>(null)
   const imageWrapRef = useRef<HTMLDivElement>(null)
 
   useGSAP(
     () => {
+      gsap.registerPlugin(ScrollTrigger)
+
       const wrap = imageWrapRef.current
       if (!wrap) return
 
@@ -76,7 +75,7 @@ export default function Hero() {
         className="relative mx-auto mt-20 ml-3 h-fit w-[40rem] max-w-6xl opacity-0 sm:ml-auto sm:w-full sm:px-2"
         ref={imageWrapRef}
       >
-        <HeroImage />
+        {children}
       </div>
     </section>
   )

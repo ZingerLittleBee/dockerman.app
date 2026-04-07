@@ -13,7 +13,6 @@
   --font-sans-zh:
     "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei",
     sans-serif;
-  --font-handwriting: "NanumPenScript";
 
   --animate-hide: hide 150ms cubic-bezier(0.16, 1, 0.3, 1);
   --animate-slideDownAndFade: slideDownAndFade 150ms
@@ -158,15 +157,6 @@ html[lang="zh"] body {
   font-family:
     "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei",
     sans-serif;
-}
-
-@font-face {
-  font-family: "NanumPenScript";
-  font-weight: 400;
-  font-display: block;
-  font-style: normal;
-  font-named-instance: "Regular";
-  src: url("/fonts/NanumPenScript.woff2") format("woff2");
 }
 
 .backdrop-blur {
