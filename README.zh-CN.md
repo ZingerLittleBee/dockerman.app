@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 
-[![Version](https://img.shields.io/badge/version-v5.0.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.0.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Apr%207%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.0.0)
+[![Version](https://img.shields.io/badge/version-v5.1.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.1.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Apr%208%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.1.0)
 
 一个现代、轻量级的 Docker 管理界面，使用 Tauri 和 Rust 构建。
 专注于简洁性和性能的 Docker 容器管理工具。
@@ -63,6 +63,16 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 - 📋 侧边栏专用隧道列表，支持批量操作
 - 🔄 容器停止/销毁时自动清理隧道
 - 💾 崩溃后持久化隧道恢复
+
+### Podman 支持
+
+- 🐙 与 Docker 并行的一流 Podman 运行时支持
+- 🔍 通过 API 探测自动检测运行时类型
+- ⚙️ 每主机和全局运行时偏好选择器（自动 / Docker / Podman）
+- 🔌 Linux 和 macOS 上自动发现 Podman rootless/rootful socket
+- 🏷️ 侧边栏主机切换器显示运行时类型彩色徽章
+- 🚫 Podman 运行时自动隐藏 Compose 相关操作
+- 🧩 可扩展的运行时能力系统，支持功能门控
 
 ### 镜像升级检测
 

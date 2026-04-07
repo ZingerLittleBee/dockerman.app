@@ -1,3 +1,31 @@
+<ChangelogEntry version="v5.1.0" date="Apr 8, 2026">
+## Podman Runtime Support
+
+This release introduces first-class Podman runtime support alongside Docker, with automatic runtime detection, per-host preference selection, and an extensible capabilities system for feature gating.
+
+### ✨ Features
+
+- 🐙 <Bold>Podman Support:</Bold> First-class Podman runtime support alongside Docker
+  - 🔍 Runtime Detection: Automatic detection of Docker, Podman, or compatible runtimes via API probing
+  - ⚙️ Runtime Preference: Per-host and global runtime preference selector (Auto / Docker / Podman)
+  - 🔌 Socket Resolution: Auto-discovery of Podman rootless/rootful sockets on Linux and macOS
+  - 🌐 Remote SSH Probing: Runtime-aware socket resolution for remote SSH hosts
+  - 🏷️ Runtime Badge: Sidebar host switcher shows detected runtime type with color-coded badge
+  - 📊 Dashboard Integration: Runtime kind displayed in the system info card
+  - 🔧 Connection Feedback: Detected runtime shown in connection success terminal output
+  - 🚫 Compose Gate: Stack templates and Compose actions automatically hidden for Podman runtime
+  - 🔎 Spotlight Awareness: Command palette skips Compose data when connected to Podman
+  - 🧩 Capabilities Layer: Extensible runtime capabilities system for future feature gating
+
+### 🔧 Improvements
+
+- 🔄 <Bold>Runtime Switch Handling:</Bold> Template page dynamically updates when switching between Docker and Podman hosts
+- 🛡️ <Bold>Spotlight Isolation:</Bold> Spotlight window runtime checks use direct Tauri commands without store side effects
+
+<ChangelogImage src="/screenshots/podman.png" alt="Podman Runtime Dashboard" />
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v5.0.0" date="Apr 7, 2026">
 ## Kubernetes Support & Cloud Tunnels
 
