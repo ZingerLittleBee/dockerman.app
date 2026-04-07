@@ -42,7 +42,7 @@ export const Kubernetes = () => {
   }))
 
   return (
-    <div className="px-3">
+    <div className="relative z-10 px-3">
       <section
         aria-labelledby="kubernetes-title"
         className="relative mx-auto mt-28 flex w-full max-w-6xl flex-col items-center justify-center overflow-hidden rounded-3xl bg-gray-950 py-24 md:mt-40"
