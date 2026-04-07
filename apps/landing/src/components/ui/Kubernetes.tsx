@@ -39,12 +39,6 @@ export const Kubernetes = () => {
     { scope: sectionRef }
   )
 
-  const featureKeys = ['clusterOverview', 'workloads', 'serviceNetwork'] as const
-
-  const features = featureKeys.map((key) => ({
-    name: t(`kubernetes.features.${key}.name`),
-    description: t(`kubernetes.features.${key}.description`),
-  }))
 
   return (
     <div className="px-3">
@@ -97,23 +91,6 @@ export const Kubernetes = () => {
           </div>
         </div>
 
-        {/* Feature Cards */}
-        <div
-          className="mt-10 grid w-full max-w-4xl grid-cols-1 gap-4 px-6 md:grid-cols-3"
-          data-k8s-animate
-        >
-          {features.map((feature) => (
-            <div
-              className="rounded-xl border border-gray-800 bg-gray-900/80 p-6"
-              key={feature.name}
-            >
-              <h3 className="font-semibold text-white">{feature.name}</h3>
-              <p className="mt-2 text-gray-400 text-sm leading-6">
-                {feature.description}
-              </p>
-            </div>
-          ))}
-        </div>
       </section>
     </div>
   )
