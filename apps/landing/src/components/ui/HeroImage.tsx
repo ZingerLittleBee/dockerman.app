@@ -8,8 +8,8 @@ export default function HeroImage() {
           <Image
             alt="dockerman dashboard"
             className="rounded object-contain shadow-2xl md:rounded-xl dark:hidden"
-            fetchPriority="high"
             height={1600}
+            priority
             quality={80}
             sizes="(max-width: 640px) 100vw, (max-width: 1200px) 80vw, 1200px"
             src="/screenshots/dashboard.png"
@@ -18,8 +18,8 @@ export default function HeroImage() {
           <Image
             alt="dockerman dashboard"
             className="hidden rounded object-contain shadow-2xl md:rounded-xl dark:block dark:shadow-indigo-600/10"
-            fetchPriority="high"
             height={1600}
+            priority
             quality={80}
             sizes="(max-width: 640px) 100vw, (max-width: 1200px) 80vw, 1200px"
             src="/screenshots/dashboard-dark.png"

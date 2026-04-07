@@ -6,12 +6,12 @@ import type { LenisRef } from 'lenis/react'
 import { ReactLenis } from 'lenis/react'
 import { useEffect, useRef } from 'react'
 
-gsap.registerPlugin(ScrollTrigger)
-
 export function LenisProvider({ children }: { children: React.ReactNode }) {
   const lenisRef = useRef<LenisRef>(null)
 
   useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger)
+
     function update(time: number) {
       lenisRef.current?.lenis?.raf(time * 1000)
     }

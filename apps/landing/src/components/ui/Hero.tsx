@@ -19,9 +19,6 @@ export default function Hero({ children }: { children?: ReactNode }) {
       const wrap = imageWrapRef.current
       if (!wrap) return
 
-      // 入场动画 - 只控制 opacity，避免与 ScrollTrigger 的 y 动画冲突
-      gsap.fromTo(wrap, { opacity: 0 }, { opacity: 1, duration: 1.4, ease: 'power2.out' })
-
       const mm = gsap.matchMedia()
       mm.add('(min-width: 768px)', () => {
         const pinDistance = Math.max(window.innerHeight * 0.95, 520)
@@ -72,7 +69,7 @@ export default function Hero({ children }: { children?: ReactNode }) {
         <TrackedHeroButton />
       </div>
       <div
-        className="relative mx-auto mt-20 ml-3 h-fit w-[40rem] max-w-6xl opacity-0 sm:ml-auto sm:w-full sm:px-2"
+        className="relative mx-auto mt-20 ml-3 h-fit w-[40rem] max-w-6xl sm:ml-auto sm:w-full sm:px-2"
         ref={imageWrapRef}
       >
         {children}

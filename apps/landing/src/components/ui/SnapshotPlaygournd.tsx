@@ -45,7 +45,7 @@ const screenshotConfigs = [
   { src: '/screenshots/storage.png', labelKey: 'storage', icon: RiDatabase2Line },
   { src: '/screenshots/readme/dockerhub.png', labelKey: 'dockerHub', icon: RiSearchLine },
   { src: '/screenshots/image-security.png', labelKey: 'imageSecurity', icon: RiShieldCheckLine },
-  { src: '/screenshots/5.0.0/kubernetes.png', labelKey: 'kubernetes', icon: RiShipLine }
+  { src: '/screenshots/kubernetes.png', labelKey: 'kubernetes', icon: RiShipLine }
 ]
 
 const featureConfigs = [
