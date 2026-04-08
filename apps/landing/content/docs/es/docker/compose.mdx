@@ -5,6 +5,10 @@ description: "Gestiona aplicaciones multi-contenedor con Docker Compose e inicia
 
 Gestiona proyectos de Docker Compose e inicia nuevos desde la biblioteca de plantillas integrada.
 
+<Callout type="warn">
+  Compose es una función exclusiva de Docker. Cuando Dockerman detecta un runtime Podman, la sección de Compose se oculta automáticamente.
+</Callout>
+
 ## Proyectos de Compose
 
 La página de Compose muestra cada proyecto que Dockerman encuentra a partir de la etiqueta `com.docker.compose.project`, junto con el número de contenedores, el estado y la ruta base.

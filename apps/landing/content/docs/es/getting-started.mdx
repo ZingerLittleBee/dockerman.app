@@ -1,6 +1,6 @@
 ---
 title: "Primeros Pasos"
-description: "Instala Dockerman y conéctate a tu primer daemon de Docker en minutos."
+description: "Instala Dockerman y conéctate a tu primer runtime de Docker o Podman en minutos."
 ---
 
 Usa esta página para instalar Dockerman y hacer tu primera conexión. Si estás en Windows y quieres evitar Docker Desktop, usa la ruta WSL2 integrada en la guía de la plataforma Windows: [Windows](/es/docs/platform/windows).
@@ -8,7 +8,7 @@ Usa esta página para instalar Dockerman y hacer tu primera conexión. Si estás
 ## Requisitos previos
 
 <Callout type="info">
-  Un daemon de Docker debe estar disponible antes de que puedas gestionar contenedores. En Windows, Dockerman puede aprovisionar uno para ti a través de la ruta integrada del Docker Engine en WSL2 en la [guía de la plataforma Windows](/es/docs/platform/windows).
+  Un runtime de Docker o Podman debe estar disponible antes de que puedas gestionar contenedores. Dockerman detecta automáticamente qué runtime está en ejecución y adapta la interfaz en consecuencia. En Windows, Dockerman puede aprovisionar un Docker Engine para ti a través de la ruta integrada de WSL2 en la [guía de la plataforma Windows](/es/docs/platform/windows).
 </Callout>
 
 ## Instalación
@@ -90,9 +90,9 @@ Usa esta página para instalar Dockerman y hacer tu primera conexión. Si estás
     {/* TODO(screenshot): getting-started/connect-dialog - Connect dialog on first launch */}
   </Step>
   <Step>
-    ### Elige una fuente de Docker
+    ### Elige una fuente de runtime
 
-    Selecciona el socket local, un endpoint TCP, o un host SSH.
+    Selecciona el socket local, un endpoint TCP, o un host SSH. Establece la preferencia de runtime a Auto, Docker o Podman. Auto detecta el runtime disponible, intentando Docker primero y luego Podman.
   </Step>
   <Step>
     ### Inicialización de datos
@@ -133,4 +133,4 @@ Usa esta página para instalar Dockerman y hacer tu primera conexión. Si estás
 | Windows | 10 (1903) / 11 | x86_64 |
 | Linux | kernel 5.x | x86_64, aarch64 |
 
-Un daemon de Docker (Engine 20.10+) debe estar disponible antes de que empieces a gestionar contenedores; en Windows, Dockerman puede aprovisionar uno a través de la ruta opcional de WSL2. El soporte de Kubernetes usa el paquete opcional de k3d.
+Un daemon de Docker (Engine 20.10+) o Podman (4.0+) debe estar disponible antes de que empieces a gestionar contenedores; en Windows, Dockerman puede aprovisionar Docker a través de la ruta opcional de WSL2. El soporte de Kubernetes usa el paquete opcional de k3d.

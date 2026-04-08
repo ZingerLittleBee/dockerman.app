@@ -5,6 +5,10 @@ description: Manage multi-container applications with Docker Compose and bootstr
 
 Manage Docker Compose projects and bootstrap new ones from the built-in template library.
 
+<Callout type="warn">
+  Compose is only available when connected to a Docker runtime. When Dockerman detects Podman, Compose actions and stack templates are automatically hidden.
+</Callout>
+
 ## Compose projects
 
 The Compose page shows each project that Dockerman finds from the `com.docker.compose.project` label, along with its container count, status, and base path.

@@ -1,6 +1,6 @@
 ---
 title: "快速开始"
-description: "在几分钟内安装 Dockerman 并连接到你的第一个 Docker daemon。"
+description: "在几分钟内安装 Dockerman 并连接到你的第一个 Docker 或 Podman 运行时。"
 ---
 
 使用本页面安装 Dockerman 并进行首次连接。如果你在 Windows 上且希望避免使用 Docker Desktop，请使用 Windows 平台指南中的内置 WSL2 路径：[Windows](/zh/docs/platform/windows)。
@@ -8,7 +8,7 @@ description: "在几分钟内安装 Dockerman 并连接到你的第一个 Docker
 ## 前提条件
 
 <Callout type="info">
-  在管理容器之前，必须有一个可用的 Docker daemon。在 Windows 上，Dockerman 可以通过 [Windows 平台指南](/zh/docs/platform/windows) 中的内置 WSL2 Docker Engine 路径为你配置一个。
+  在管理容器之前，必须有一个可用的 Docker 或 Podman 运行时。Dockerman 会自动检测正在运行的运行时并相应调整 UI。在 Windows 上，Dockerman 可以通过 [Windows 平台指南](/zh/docs/platform/windows) 中的内置 WSL2 Docker Engine 路径为你配置一个。
 </Callout>
 
 ## 安装
@@ -90,9 +90,9 @@ description: "在几分钟内安装 Dockerman 并连接到你的第一个 Docker
     {/* TODO(screenshot): getting-started/connect-dialog - Connect dialog on first launch */}
   </Step>
   <Step>
-    ### 选择 Docker 源
+    ### 选择运行时来源
 
-    选择本地 socket、TCP 端点或 SSH 主机。
+    选择本地 socket、TCP 端点或 SSH 主机。将运行时偏好设置为 Auto、Docker 或 Podman。Auto 模式会检测可用的运行时，优先尝试 Docker，然后是 Podman。
   </Step>
   <Step>
     ### 数据初始化
@@ -133,4 +133,4 @@ description: "在几分钟内安装 Dockerman 并连接到你的第一个 Docker
 | Windows | 10 (1903) / 11 | x86_64 |
 | Linux | kernel 5.x | x86_64, aarch64 |
 
-在开始管理容器之前，必须有一个可用的 Docker daemon（Engine 20.10+）；在 Windows 上，Dockerman 可以通过可选的 WSL2 路径为你配置一个。Kubernetes 支持使用可选的 k3d 捆绑包。
+在开始管理容器之前，必须有一个可用的 Docker 守护进程（Engine 20.10+）或 Podman（4.0+）；在 Windows 上，Dockerman 可以通过可选的 WSL2 路径为你配置一个。Kubernetes 支持使用可选的 k3d 捆绑包。

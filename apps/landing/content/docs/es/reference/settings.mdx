@@ -5,6 +5,10 @@ description: "Referencia de cada página de configuración de Dockerman, desde c
 
 Referencia de cada página de configuración. Cada sección enlaza de vuelta a la función que controla.
 
+## Configuración de runtime
+
+Usa el selector de preferencia de runtime para elegir entre Auto, Docker y Podman. Auto intenta Docker primero, luego Podman. El runtime detectado se muestra debajo del selector después de una conexión exitosa. Cuando se conecta a Podman, las funciones de Compose se desactivan automáticamente.
+
 ## Configuración de Docker
 
 Usa la configuración de Docker para elegir el tipo de conexión, establecer una ruta de socket e inspeccionar el estado de la conexión. Para conexiones basadas en SSH, consulta [Hosts remotos](/es/docs/advanced/remote-hosts).

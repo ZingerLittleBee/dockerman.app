@@ -5,6 +5,10 @@ description: "Docker Compose でマルチコンテナアプリケーションを
 
 Docker Composeプロジェクトを管理し、組み込みテンプレートライブラリから新規プロジェクトをブートストラップします。
 
+<Callout type="warn">
+  ComposeはDockerランタイム専用の機能です。Podmanが検出された場合、Composeセクションは自動的に非表示になります。
+</Callout>
+
 ## Composeプロジェクト
 
 Composeページには、`com.docker.compose.project`ラベルからDockermanが検出した各プロジェクトと、そのコンテナ数、ステータス、ベースパスが表示されます。
