@@ -7,11 +7,13 @@ Gestiona todos los tipos de recursos de carga de trabajo desde una sola página.
 
 ## Pods
 
-Abre un Pod para ver su estado, el número de contenedores listos, reinicios y antigüedad. Desde la vista de detalle, accede directamente a [Logs y Terminal del Pod](/es/docs/kubernetes/logs-terminal) o inicia el [Asistente de Depuración](/es/docs/kubernetes/debug) cuando necesites una shell o comprobaciones de red más profundas.
+Abre un Pod para ver su estado, el número de contenedores listos, reinicios y antigüedad. La vista de detalle muestra información a nivel de contenedor, incluyendo puertos, conteo de variables de entorno, solicitudes y límites de recursos, y montajes de volúmenes. Desde allí, accede directamente a [Logs y Terminal del Pod](/es/docs/kubernetes/logs-terminal) o inicia el [Asistente de Depuración](/es/docs/kubernetes/debug) cuando necesites una shell o comprobaciones de red más profundas.
+
+Elimina un Pod desde la vista de lista cuando necesites forzar un reinicio o eliminar un pod atascado.
 
 ## Deployments
 
-Usa Deployments cuando quieras gestión de réplicas e historial de despliegues en un solo lugar.
+Usa Deployments cuando quieras gestión de réplicas en un solo lugar.
 
 La lista muestra réplicas listas, actualizadas y disponibles para que puedas ver el estado del despliegue de un vistazo.
 
@@ -22,22 +24,15 @@ La lista muestra réplicas listas, actualizadas y disponibles para que puedas ve
     Cambia el número de réplicas en línea y guarda.
   </Step>
   <Step>
-    ### Despliegue
+    ### Reiniciar
 
-    Actualiza la imagen u otro campo que active un despliegue, luego observa cómo se actualiza el historial de revisiones.
-
-    {/* TODO(screenshot): kubernetes/deployment-rollout - Deployment rollout history */}
-  </Step>
-  <Step>
-    ### Reversión
-
-    Selecciona una revisión anterior del historial de despliegues y revierte a ella.
+    Activa un reinicio progresivo para aplicar nuevos valores de ConfigMap o forzar una descarga nueva de la misma etiqueta de imagen.
   </Step>
 </Steps>
 
 ## StatefulSets
 
-Usa StatefulSets para nombres de pods ordenados, identidades estables y plantillas de almacenamiento persistente. La vista de detalle muestra las réplicas actuales y las reclamaciones de almacenamiento que posee cada pod, y las eliminaciones en cascada mantienen los PVC por defecto.
+Usa StatefulSets para nombres de pods ordenados, identidades estables y plantillas de almacenamiento persistente. La vista de detalle muestra las réplicas actuales y los pods asociados. Escalar y reiniciar funcionan de la misma forma que en Deployments.
 
 ## DaemonSets
 
@@ -45,7 +40,7 @@ Usa DaemonSets cuando necesites un pod por nodo coincidente, como recolectores d
 
 ## Jobs
 
-Usa Jobs para trabajos de ejecución hasta completarse. Rastrea las finalizaciones, límites de espera y plazos activos desde la lista y la vista de detalle.
+Usa Jobs para trabajos de ejecución hasta completarse. Rastrea las finalizaciones, límites de espera y plazos activos desde la lista y la vista de detalle. Elimina un Job desde la lista cuando la ejecución haya finalizado y ya no sea necesario.
 
 ## CronJobs
 

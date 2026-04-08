@@ -29,7 +29,9 @@ Usa un Service cuando quieras que el reenvío sobreviva a los reinicios de los p
 
 ## Gestión de reenvíos activos
 
-La lista de reenvíos activos muestra el objetivo, el puerto local, el estado y la acción Detener. Dockerman se reconecta después de errores de red transitorios.
+La lista de reenvíos activos muestra el objetivo, el puerto local, el estado y la acción Detener.
+
+Los reenvíos de Services y Deployments se reconectan automáticamente después de errores de red transitorios usando retroceso exponencial, y cambian a un nuevo pod listo cuando el actual desaparece. Los reenvíos de Pods no se reconectan porque no hay un selector para encontrar un reemplazo.
 
 ## DNS automático
 
@@ -56,10 +58,6 @@ Añadido en la v4.8.0. El DNS automático registra un nombre de host para cada r
 <Callout type="warn">
   El DNS automático edita `/etc/hosts` en macOS y Linux, lo que requiere privilegios elevados. En Windows, utiliza un servidor DNS local en `127.0.0.1:53`.
 </Callout>
-
-## Entradas DNS manuales
-
-Añade un mapeo de nombre de host e IP manualmente cuando quieras una entrada estática o cuando el DNS automático no esté disponible. Las entradas manuales permanecen en su lugar entre reinicios de la aplicación.
 
 ## Solución de problemas
 

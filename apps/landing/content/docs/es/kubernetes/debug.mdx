@@ -39,6 +39,18 @@ Añadido en la v4.8.0. Usa el Asistente de Depuración para lanzar un pod de dep
   </Step>
 </Steps>
 
+## Presets de depuración
+
+Dockerman incluye tres presets integrados que preconfiguran el puerto y el protocolo de depuración para runtimes comunes:
+
+| Preset | Puerto | Protocolo |
+| --- | --- | --- |
+| Node.js | 9229 | Inspector |
+| Go (Delve) | 2345 | DAP |
+| Python (debugpy) | 5678 | DAP |
+
+Selecciona un preset al lanzar el pod de depuración para omitir la configuración manual de puertos.
+
 ## Qué hay dentro del pod de depuración
 
 | Herramienta | Propósito |

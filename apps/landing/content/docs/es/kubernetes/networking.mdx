@@ -7,18 +7,20 @@ Usa la página de Redes para inspeccionar cómo se mueve el tráfico a través d
 
 ## Services
 
-Usa Services para ver la puerta de entrada estable para una carga de trabajo. La lista muestra el tipo de servicio, ClusterIP, puertos y selector.
+Usa Services para ver la puerta de entrada estable para una carga de trabajo. La lista muestra el tipo de servicio, ClusterIP y puertos.
 
 - `ClusterIP` para tráfico interno dentro del clúster.
 - `NodePort` cuando necesitas un puerto a nivel de nodo para acceso rápido.
 - `LoadBalancer` cuando el clúster expone un balanceador de carga externo.
 - `ExternalName` cuando el Service apunta a un nombre DNS en lugar de un selector.
 
-La vista de detalle te enlaza con los Endpoints de respaldo.
+Los Services con un selector también muestran un botón Reenviar que inicia un [reenvío de puertos](/es/docs/kubernetes/port-forward) hacia un pod de respaldo listo.
+
+La vista de detalle muestra la especificación completa del Service y el YAML.
 
 ## Ingresses
 
-Usa Ingresses para inspeccionar el enrutamiento HTTP hacia el clúster. La lista muestra hosts, rutas y Services de backend, mientras que la vista de detalle muestra secretos TLS, anotaciones y el árbol de reglas.
+Usa Ingresses para inspeccionar el enrutamiento HTTP hacia el clúster. La lista muestra hosts, rutas y Services de backend, mientras que la vista de detalle muestra secretos TLS, anotaciones y la tabla de reglas.
 
 ## Endpoints
 

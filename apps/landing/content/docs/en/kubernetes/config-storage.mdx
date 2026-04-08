@@ -7,7 +7,7 @@ Use Config & Storage to inspect the data sources and backing stores that workloa
 
 ## ConfigMaps
 
-Open a ConfigMap to review its keys, values, list row, detail view, and YAML. Edit the object when you need to change configuration for an app.
+Open a ConfigMap to review its keys, values, and YAML. Edit the object when you need to change configuration for an app. Dockerman checks the resource version before saving, so you get a conflict warning if someone else edited the same ConfigMap while you were working on it. Delete a ConfigMap from the list when it is no longer needed.
 
 <Callout type="info">
   Editing a ConfigMap does not restart pods that mount it. Update the owning Deployment or StatefulSet if you need the new data to take effect.
@@ -15,7 +15,9 @@ Open a ConfigMap to review its keys, values, list row, detail view, and YAML. Ed
 
 ## Secrets
 
-Open a Secret to inspect its type, keys, and values. The list shows common types such as `Opaque`, `kubernetes.io/tls`, and `kubernetes.io/dockerconfigjson`, and each key has its own reveal control.
+Open a Secret to inspect its type, keys, and values. The list shows common types such as `Opaque`, `kubernetes.io/tls`, and `kubernetes.io/dockerconfigjson`. The same resource-version conflict detection as ConfigMaps applies when editing.
+
+Binary secret values can be downloaded to a local file. Delete a Secret from the list when it is no longer needed.
 
 <Callout type="warn">
   Reveal shows secret values in plaintext. Anyone who can see the screen at that moment can read them.
@@ -23,7 +25,7 @@ Open a Secret to inspect its type, keys, and values. The list shows common types
 
 ## PersistentVolumeClaims
 
-Use PersistentVolumeClaims to see the phase, bound PersistentVolume, storage class, access modes, and capacity for each claim.
+Use PersistentVolumeClaims to see the phase, bound PersistentVolume, storage class, access modes, and capacity for each claim. Delete a PVC from the list when the claim is released and no longer needed.
 
 ## StorageClasses
 

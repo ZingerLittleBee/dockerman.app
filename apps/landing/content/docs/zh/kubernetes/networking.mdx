@@ -7,18 +7,20 @@ description: "跨命名空间检查 Services、Ingresses、Endpoints 和 Network
 
 ## Services
 
-使用 Service 查看工作负载的稳定入口。列表显示服务类型、ClusterIP、端口和选择器。
+使用 Service 查看工作负载的稳定入口。列表显示服务类型、ClusterIP 和端口。
 
 - `ClusterIP` 用于集群内部流量。
 - `NodePort` 当你需要节点级端口进行快速访问时。
 - `LoadBalancer` 当集群暴露外部负载均衡器时。
 - `ExternalName` 当 Service 指向 DNS 名称而非选择器时。
 
-详情视图会链接到其后端的 Endpoint。
+有选择器的 Service 还会在列表中显示 Forward 按钮，可快速启动到就绪后端 Pod 的[端口转发](/zh/docs/kubernetes/port-forward)。
+
+详情视图显示完整的 Service 规格和 YAML。
 
 ## Ingresses
 
-使用 Ingress 检查进入集群的 HTTP 路由。列表显示主机、路径和后端 Service，详情视图显示 TLS 密钥、注解和规则树。
+使用 Ingress 检查进入集群的 HTTP 路由。列表显示主机、路径和后端 Service，详情视图显示 TLS 密钥、注解和规则表格。
 
 ## Endpoints
 
