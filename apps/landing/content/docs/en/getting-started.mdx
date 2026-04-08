@@ -1,6 +1,6 @@
 ---
 title: Getting Started
-description: Install Dockerman and connect to your first Docker daemon in minutes.
+description: Install Dockerman and connect to your first Docker or Podman runtime in minutes.
 ---
 
 Use this page to install Dockerman and make your first connection. If you are on Windows and want to avoid Docker Desktop, use the built-in WSL2 path in the Windows platform guide: [Windows](/en/docs/platform/windows).
@@ -8,7 +8,7 @@ Use this page to install Dockerman and make your first connection. If you are on
 ## Prerequisites
 
 <Callout type="info">
-  A Docker daemon must be available before you can manage containers. On Windows, Dockerman can provision one for you through the built-in WSL2 Docker Engine path in the [Windows platform guide](/en/docs/platform/windows).
+  A Docker or Podman runtime must be available before you can manage containers. Dockerman auto-detects which runtime is running and adapts the UI accordingly. On Windows, Dockerman can provision a Docker Engine for you through the built-in WSL2 path in the [Windows platform guide](/en/docs/platform/windows).
 </Callout>
 
 ## Install
@@ -90,9 +90,9 @@ Use this page to install Dockerman and make your first connection. If you are on
     {/* TODO(screenshot): getting-started/connect-dialog - Connect dialog on first launch */}
   </Step>
   <Step>
-    ### Pick a Docker source
+    ### Pick a runtime source
 
-    Choose the local socket, a TCP endpoint, or an SSH host.
+    Choose the local socket, a TCP endpoint, or an SSH host. Set the runtime preference to Auto, Docker, or Podman. Auto detects whichever runtime is available, trying Docker first then Podman.
   </Step>
   <Step>
     ### Data initialization
@@ -133,4 +133,4 @@ Use this page to install Dockerman and make your first connection. If you are on
 | Windows | 10 (1903) / 11 | x86_64 |
 | Linux | kernel 5.x | x86_64, aarch64 |
 
-A Docker daemon (Engine 20.10+) must be available before you start managing containers; on Windows, Dockerman can provision one through the optional WSL2 path. Kubernetes support uses the optional k3d bundle.
+A Docker daemon (Engine 20.10+) or Podman (4.0+) must be available before you start managing containers; on Windows, Dockerman can provision Docker through the optional WSL2 path. Kubernetes support uses the optional k3d bundle.

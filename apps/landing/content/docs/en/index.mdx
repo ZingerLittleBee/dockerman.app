@@ -3,7 +3,7 @@ title: Welcome to Dockerman
 description: A fast, cross-platform UI for Docker and Kubernetes built with Tauri and Rust.
 ---
 
-Dockerman gives you a single place to manage Docker and Kubernetes from the desktop. Use it if you are a developer or operator who wants a native app that keeps container work, image work, and cluster work in one flow. It covers both pillars: Docker for local and remote host operations, and Kubernetes for browsing and debugging workloads.
+Dockerman gives you a single place to manage Docker, Podman, and Kubernetes from the desktop. Use it if you are a developer or operator who wants a native app that keeps container work, image work, and cluster work in one flow. It covers Docker and Podman for local and remote host operations, and Kubernetes for browsing and debugging workloads.
 
 ## What Dockerman covers
 
@@ -46,5 +46,8 @@ Dockerman splits the experience between Docker and Kubernetes so you can move fr
   </Card>
   <Card title="Remote hosts">
     Connect to remote Docker daemons over SSH tunnels and switch between hosts on the fly.
+  </Card>
+  <Card title="Podman runtime support">
+    Use Podman as a drop-in alternative to Docker. Dockerman auto-detects the runtime and adapts the UI accordingly (Added in v5.1.0).
   </Card>
 </Cards>

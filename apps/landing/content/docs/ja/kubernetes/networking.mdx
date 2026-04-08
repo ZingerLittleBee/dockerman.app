@@ -7,18 +7,20 @@ description: "すべてのネームスペースで Services、Ingresses、Endpoi
 
 ## Services
 
-Servicesを使用して、ワークロードの安定したフロントドアを確認します。リストにはサービスタイプ、ClusterIP、ポート、セレクターが表示されます。
+Servicesを使用して、ワークロードの安定したフロントドアを確認します。リストにはサービスタイプ、ClusterIP、ポートが表示されます。
 
 - `ClusterIP`：クラスタ内の内部トラフィック用
 - `NodePort`：クイックアクセス用のノードレベルポートが必要な場合
 - `LoadBalancer`：クラスタが外部ロードバランサーを公開する場合
 - `ExternalName`：ServiceがセレクターではなくDNS名を指す場合
 
-詳細ビューでは、バックエンドのEndpointsへのリンクが表示されます。
+セレクター付きのServiceにはForwardボタンが表示され、準備完了のバックエンドPodへの[ポート転送](/ja/docs/kubernetes/port-forward)を開始できます。
+
+詳細ビューでは、Service仕様の全体とYAMLが表示されます。
 
 ## Ingresses
 
-Ingressesを使用して、クラスタへのHTTPルーティングを検査します。リストにはホスト、パス、バックエンドServicesが表示され、詳細ビューにはTLSシークレット、アノテーション、ルールツリーが表示されます。
+Ingressesを使用して、クラスタへのHTTPルーティングを検査します。リストにはホスト、パス、バックエンドServicesが表示され、詳細ビューにはTLSシークレット、アノテーション、ルールテーブルが表示されます。
 
 ## Endpoints
 

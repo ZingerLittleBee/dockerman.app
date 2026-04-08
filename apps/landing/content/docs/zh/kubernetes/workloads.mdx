@@ -7,13 +7,15 @@ description: "一站式管理 Pods、Deployments、StatefulSets、DaemonSets、J
 
 ## Pods
 
-打开 Pod 查看其状态、就绪容器数量、重启次数和运行时长。在详情视图中，可以直接跳转到 [Pod 日志与终端](/zh/docs/kubernetes/logs-terminal)，或在需要 shell 或更深入的网络检查时启动 [调试助手](/zh/docs/kubernetes/debug)。
+打开 Pod 查看其状态、就绪容器数量、重启次数和运行时长。详情视图显示容器级别信息，包括端口、环境变量数量、资源请求和限制以及卷挂载。在详情视图中，可以直接跳转到 [Pod 日志与终端](/zh/docs/kubernetes/logs-terminal)，或在需要 shell 或更深入的网络检查时启动 [调试助手](/zh/docs/kubernetes/debug)。
+
+在列表视图中删除 Pod，以强制重启或移除卡住的 Pod。
 
 ## Deployments
 
-当你需要在一个地方管理副本和查看滚动更新历史时，使用 Deployments。
+当你需要在一个地方管理副本时，使用 Deployments。
 
-列表显示就绪、已更新和可用的副本数量，让你可以一目了然地查看滚动更新健康状况。
+列表显示就绪、已更新和可用的副本数量，让你可以一目了然地查看健康状况。
 
 <Steps>
   <Step>
@@ -22,22 +24,15 @@ description: "一站式管理 Pods、Deployments、StatefulSets、DaemonSets、J
     直接修改副本数量并保存。
   </Step>
   <Step>
-    ### 滚动更新
+    ### 重启
 
-    更新镜像或其他触发滚动更新的字段，然后观察修订历史更新。
-
-    {/* TODO(screenshot): kubernetes/deployment-rollout - Deployment rollout history */}
-  </Step>
-  <Step>
-    ### 回滚
-
-    从滚动更新历史中选择一个先前的修订版本并回滚到该版本。
+    触发滚动重启以应用新的 ConfigMap 值，或强制重新拉取相同镜像标签。
   </Step>
 </Steps>
 
 ## StatefulSets
 
-使用 StatefulSets 来获得有序的 Pod 名称、稳定的标识和持久化存储模板。详情视图显示当前副本数量和每个 Pod 拥有的存储声明，删除级联操作默认会保留 PVC。
+使用 StatefulSets 来获得有序的 Pod 名称、稳定的标识和持久化存储模板。详情视图显示当前副本数量和关联的 Pod。扩展和重启操作与 Deployments 相同。
 
 ## DaemonSets
 
@@ -45,7 +40,7 @@ description: "一站式管理 Pods、Deployments、StatefulSets、DaemonSets、J
 
 ## Jobs
 
-使用 Jobs 来执行运行到完成的工作。在列表和详情视图中跟踪完成数量、退避限制和活跃期限。
+使用 Jobs 来执行运行到完成的工作。在列表和详情视图中跟踪完成数量、退避限制和活跃期限。当运行结束且不再需要时，可以从列表中删除 Job。
 
 ## CronJobs
 

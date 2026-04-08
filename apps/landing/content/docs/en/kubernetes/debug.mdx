@@ -39,6 +39,18 @@ Added in v4.8.0. Use Debug Assistant to launch an ephemeral debug pod next to a 
   </Step>
 </Steps>
 
+## Debug presets
+
+Dockerman ships three built-in presets that pre-configure the debug port and protocol for common runtimes:
+
+| Preset | Port | Protocol |
+| --- | --- | --- |
+| Node.js | 9229 | Inspector |
+| Go (Delve) | 2345 | DAP |
+| Python (debugpy) | 5678 | DAP |
+
+Select a preset when launching the debug pod to skip manual port configuration.
+
 ## What's inside the debug pod
 
 | Tool | Purpose |

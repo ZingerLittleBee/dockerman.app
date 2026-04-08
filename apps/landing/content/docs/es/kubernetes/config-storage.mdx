@@ -7,7 +7,7 @@ Usa Configuración y Almacenamiento para inspeccionar las fuentes de datos y los
 
 ## ConfigMaps
 
-Abre un ConfigMap para revisar sus claves, valores, fila de lista, vista de detalle y YAML. Edita el objeto cuando necesites cambiar la configuración de una aplicación.
+Abre un ConfigMap para revisar sus claves, valores y YAML. Edita el objeto cuando necesites cambiar la configuración de una aplicación. Dockerman verifica la versión del recurso antes de guardar, de modo que recibes una advertencia de conflicto si alguien más editó el mismo ConfigMap mientras trabajabas en él. Elimina un ConfigMap desde la lista cuando ya no sea necesario.
 
 <Callout type="info">
   Editar un ConfigMap no reinicia los pods que lo montan. Actualiza el Deployment o StatefulSet propietario si necesitas que los nuevos datos surtan efecto.
@@ -15,7 +15,9 @@ Abre un ConfigMap para revisar sus claves, valores, fila de lista, vista de deta
 
 ## Secrets
 
-Abre un Secret para inspeccionar su tipo, claves y valores. La lista muestra tipos comunes como `Opaque`, `kubernetes.io/tls` y `kubernetes.io/dockerconfigjson`, y cada clave tiene su propio control de revelado.
+Abre un Secret para inspeccionar su tipo, claves y valores. La lista muestra tipos comunes como `Opaque`, `kubernetes.io/tls` y `kubernetes.io/dockerconfigjson`. La misma detección de conflictos por versión de recurso que en ConfigMaps se aplica al editar.
+
+Los valores binarios de secretos se pueden descargar a un archivo local. Elimina un Secret desde la lista cuando ya no sea necesario.
 
 <Callout type="warn">
   Revelar muestra los valores del secreto en texto plano. Cualquiera que pueda ver la pantalla en ese momento puede leerlos.
@@ -23,7 +25,7 @@ Abre un Secret para inspeccionar su tipo, claves y valores. La lista muestra tip
 
 ## PersistentVolumeClaims
 
-Usa PersistentVolumeClaims para ver la fase, el PersistentVolume vinculado, la clase de almacenamiento, los modos de acceso y la capacidad de cada reclamación.
+Usa PersistentVolumeClaims para ver la fase, el PersistentVolume vinculado, la clase de almacenamiento, los modos de acceso y la capacidad de cada reclamación. Elimina un PVC desde la lista cuando la reclamación esté liberada y ya no sea necesaria.
 
 ## StorageClasses
 

@@ -7,18 +7,20 @@ Use the Networking page to inspect how traffic moves through the cluster. Read S
 
 ## Services
 
-Use Services to see the stable front door for a workload. The list shows the service type, ClusterIP, ports, and selector.
+Use Services to see the stable front door for a workload. The list shows the service type, ClusterIP, and ports.
 
 - `ClusterIP` for internal traffic inside the cluster.
 - `NodePort` when you need a node-level port for quick access.
 - `LoadBalancer` when the cluster exposes an external load balancer.
 - `ExternalName` when the Service points to a DNS name instead of a selector.
 
-The detail view links you to the backing Endpoints.
+Services with a selector also show a Forward button that starts a [port forward](/en/docs/kubernetes/port-forward) to a ready backing pod.
+
+The detail view shows the full Service spec and YAML.
 
 ## Ingresses
 
-Use Ingresses to inspect HTTP routing into the cluster. The list shows hosts, paths, and backend Services, while the detail view shows TLS secrets, annotations, and the rules tree.
+Use Ingresses to inspect HTTP routing into the cluster. The list shows hosts, paths, and backend Services, while the detail view shows TLS secrets, annotations, and the rules table.
 
 ## Endpoints
 

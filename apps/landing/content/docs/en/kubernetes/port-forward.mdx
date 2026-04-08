@@ -29,7 +29,9 @@ Use a Service when you want the forward to survive pod restarts.
 
 ## Manage active forwards
 
-The active forwards list shows the target, local port, status, and Stop action. Dockerman reconnects after transient network errors.
+The active forwards list shows the target, local port, status, and Stop action.
+
+Service and Deployment forwards automatically reconnect after transient network errors using exponential backoff, and switch to a new ready pod when the current one goes away. Pod forwards do not reconnect because there is no selector to find a replacement.
 
 ## Automatic DNS
 
@@ -56,10 +58,6 @@ Added in v4.8.0. Automatic DNS registers a hostname for each active port-forward
 <Callout type="warn">
   Automatic DNS edits `/etc/hosts` on macOS and Linux, which requires elevated privileges. On Windows, it uses a local DNS server on `127.0.0.1:53`.
 </Callout>
-
-## Manual DNS entries
-
-Add a hostname and IP mapping manually when you want a static entry or when automatic DNS is not available. Manual entries stay in place across app restarts.
 
 ## Troubleshooting
 

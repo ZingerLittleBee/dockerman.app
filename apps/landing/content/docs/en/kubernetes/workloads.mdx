@@ -7,13 +7,15 @@ Manage every workload resource type from one page. Use the list view to scan sta
 
 ## Pods
 
-Open a Pod to see its status, ready container count, restarts, and age. From the detail view, jump straight to [Pod Logs & Terminal](/en/docs/kubernetes/logs-terminal) or launch the [Debug Assistant](/en/docs/kubernetes/debug) when you need a shell or deeper network checks.
+Open a Pod to see its status, ready container count, restarts, and age. The detail view shows container-level information including ports, environment variable counts, resource requests and limits, and volume mounts. From there, jump straight to [Pod Logs & Terminal](/en/docs/kubernetes/logs-terminal) or launch the [Debug Assistant](/en/docs/kubernetes/debug) when you need a shell or deeper network checks.
+
+Delete a Pod from the list view when you need to force a restart or remove a stuck pod.
 
 ## Deployments
 
-Use Deployments when you want replica management and rollout history in one place.
+Use Deployments when you want replica management in one place.
 
-The list shows ready, updated, and available replicas so you can see rollout health at a glance.
+The list shows ready, updated, and available replicas so you can see health at a glance.
 
 <Steps>
   <Step>
@@ -22,22 +24,15 @@ The list shows ready, updated, and available replicas so you can see rollout hea
     Change the replica count inline and save.
   </Step>
   <Step>
-    ### Rollout
+    ### Restart
 
-    Update the image or another field that triggers a rollout, then watch the revision history update.
-
-    {/* TODO(screenshot): kubernetes/deployment-rollout - Deployment rollout history */}
-  </Step>
-  <Step>
-    ### Rollback
-
-    Pick a previous revision from the rollout history and roll back to it.
+    Trigger a rolling restart to pick up new ConfigMap values or force a fresh pull of the same image tag.
   </Step>
 </Steps>
 
 ## StatefulSets
 
-Use StatefulSets for ordered pod names, stable identities, and persistent storage templates. The detail view shows the current replicas and the storage claims each pod owns, and delete cascades keep PVCs by default.
+Use StatefulSets for ordered pod names, stable identities, and persistent storage templates. The detail view shows the current replicas and associated pods. Scale and restart work the same way as Deployments.
 
 ## DaemonSets
 
@@ -45,7 +40,7 @@ Use DaemonSets when you need one pod per matching node, such as log collectors, 
 
 ## Jobs
 
-Use Jobs for run-to-completion work. Track completions, backoff limits, and active deadlines from the list and detail view.
+Use Jobs for run-to-completion work. Track completions, backoff limits, and active deadlines from the list and detail view. Delete a Job from the list when the run is finished and no longer needed.
 
 ## CronJobs
 

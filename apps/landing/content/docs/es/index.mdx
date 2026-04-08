@@ -1,9 +1,9 @@
 ---
 title: "Bienvenido"
-description: "Bienvenido a Dockerman — una interfaz multiplataforma para Docker y Kubernetes creada con Tauri y Rust."
+description: "Bienvenido a Dockerman — una interfaz multiplataforma para Docker, Podman y Kubernetes creada con Tauri y Rust."
 ---
 
-Dockerman te ofrece un único lugar para gestionar Docker y Kubernetes desde el escritorio. Úsalo si eres desarrollador u operador que quiere una aplicación nativa que mantenga el trabajo con contenedores, imágenes y clústeres en un solo flujo. Cubre ambos pilares: Docker para operaciones locales y en hosts remotos, y Kubernetes para explorar y depurar cargas de trabajo.
+Dockerman te ofrece un único lugar para gestionar Docker, Podman y Kubernetes desde el escritorio. Úsalo si eres desarrollador u operador que quiere una aplicación nativa que mantenga el trabajo con contenedores, imágenes y clústeres en un solo flujo. Cubre Docker y Podman para operaciones locales y en hosts remotos, y Kubernetes para explorar y depurar cargas de trabajo.
 
 ## Qué cubre Dockerman
 
@@ -46,5 +46,8 @@ Dockerman divide la experiencia entre Docker y Kubernetes para que puedas pasar 
   </Card>
   <Card title="Hosts remotos">
     Conecta a daemons Docker remotos a través de túneles SSH y cambia entre hosts sobre la marcha.
+  </Card>
+  <Card title="Soporte de runtime Podman">
+    Usa Podman como alternativa a Docker. Dockerman detecta automáticamente el runtime y adapta la interfaz (Añadido en v5.1.0).
   </Card>
 </Cards>

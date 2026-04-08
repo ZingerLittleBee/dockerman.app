@@ -7,7 +7,7 @@ description: "管理 ConfigMaps、Secrets、PersistentVolumeClaims 和 StorageCl
 
 ## ConfigMaps
 
-打开 ConfigMap 查看其键、值、列表行、详情视图和 YAML。当你需要更改应用的配置时，编辑该对象。
+打开 ConfigMap 查看其键、值和 YAML。当你需要更改应用的配置时，编辑该对象。Dockerman 在保存前会检查资源版本，因此如果其他人在你编辑期间修改了同一 ConfigMap，你会收到冲突警告。当不再需要时，可以从列表中删除 ConfigMap。
 
 <Callout type="info">
   编辑 ConfigMap 不会重启挂载它的 Pod。如果你需要新数据生效，请更新所属的 Deployment 或 StatefulSet。
@@ -15,7 +15,9 @@ description: "管理 ConfigMaps、Secrets、PersistentVolumeClaims 和 StorageCl
 
 ## Secrets
 
-打开 Secret 查看其类型、键和值。列表显示常见类型，如 `Opaque`、`kubernetes.io/tls` 和 `kubernetes.io/dockerconfigjson`，每个键都有独立的显示控制。
+打开 Secret 查看其类型、键和值。列表显示常见类型，如 `Opaque`、`kubernetes.io/tls` 和 `kubernetes.io/dockerconfigjson`。编辑时与 ConfigMaps 相同的资源版本冲突检测同样适用。
+
+二进制 Secret 值可以下载到本地文件。当不再需要时，可以从列表中删除 Secret。
 
 <Callout type="warn">
   显示操作会以明文展示 Secret 值。任何此时能看到屏幕的人都可以读取它们。
@@ -23,7 +25,7 @@ description: "管理 ConfigMaps、Secrets、PersistentVolumeClaims 和 StorageCl
 
 ## PersistentVolumeClaims
 
-使用 PersistentVolumeClaims 查看每个声明的阶段、绑定的 PersistentVolume、存储类、访问模式和容量。
+使用 PersistentVolumeClaims 查看每个声明的阶段、绑定的 PersistentVolume、存储类、访问模式和容量。当声明已释放且不再需要时，可以从列表中删除 PVC。
 
 ## StorageClasses
 

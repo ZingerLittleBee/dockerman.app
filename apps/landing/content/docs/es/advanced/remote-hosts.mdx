@@ -26,9 +26,14 @@ Añade un host una vez, luego cambia a él como cualquier otro objetivo Docker.
     Introduce el host, puerto (predeterminado `22`), usuario y método de autenticación.
   </Step>
   <Step>
+    ### Elegir preferencia de runtime
+
+    Selecciona Auto, Docker o Podman. Auto sondea el host remoto y se conecta al socket del runtime que encuentre primero. El modo Podman descubre automáticamente los sockets rootless (`$XDG_RUNTIME_DIR/podman/podman.sock`) y rootful (`/run/podman/podman.sock`).
+  </Step>
+  <Step>
     ### Prueba y guarda
 
-    Prueba la conexión, luego guárdala. Dockerman abre un túnel de prueba y ejecuta un ping de Docker.
+    Prueba la conexión, luego guárdala. Dockerman abre un túnel de prueba, sondea el runtime y muestra el tipo detectado.
   </Step>
 </Steps>
 
@@ -59,7 +64,7 @@ Dockerman supervisa la salud del túnel SSH y se reconecta después de fallos tr
 
 ## Cómo funciona el túnel SSH
 
-Dockerman abre una sesión SSH y reenvía un socket unix local al `/var/run/docker.sock` remoto, o a la ruta de socket que configuraste. Todas las llamadas a la API de Docker fluyen a través de ese túnel, así que nada sale del canal SSH.
+Dockerman abre una sesión SSH y reenvía un socket unix local al socket del runtime remoto. Por defecto es `/var/run/docker.sock` para Docker, o el socket de Podman cuando la preferencia de runtime está configurada como Podman o Auto detecta Podman. Todas las llamadas a la API fluyen a través de ese túnel, así que nada sale del canal SSH.
 
 ## Notas de seguridad
 

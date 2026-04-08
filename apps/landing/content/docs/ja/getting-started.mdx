@@ -1,6 +1,6 @@
 ---
 title: "はじめに"
-description: "数分で Dockerman をインストールし、最初の Docker daemon に接続します。"
+description: "数分で Dockerman をインストールし、最初の Docker または Podman ランタイムに接続します。"
 ---
 
 このページではDockermanをインストールし、最初の接続を行います。Windowsをご使用でDocker Desktopを避けたい場合は、Windowsプラットフォームガイドの組み込みWSL2パスをご利用ください：[Windows](/ja/docs/platform/windows)。
@@ -8,7 +8,7 @@ description: "数分で Dockerman をインストールし、最初の Docker da
 ## 前提条件
 
 <Callout type="info">
-  コンテナを管理するには、事前にDocker daemonが利用可能である必要があります。Windowsでは、[Windowsプラットフォームガイド](/ja/docs/platform/windows)の組み込みWSL2 Docker Engineパスを通じて、DockermanがDocker daemonをプロビジョニングできます。
+  コンテナを管理するには、DockerまたはPodmanランタイムが事前に利用可能である必要があります。Dockermanは起動時にランタイムを自動検出します。Windowsでは、[Windowsプラットフォームガイド](/ja/docs/platform/windows)の組み込みWSL2 Docker Engineパスを通じて、DockermanがDocker daemonをプロビジョニングできます。
 </Callout>
 
 ## インストール
@@ -90,9 +90,9 @@ description: "数分で Dockerman をインストールし、最初の Docker da
     {/* TODO(screenshot): getting-started/connect-dialog - Connect dialog on first launch */}
   </Step>
   <Step>
-    ### Dockerソースの選択
+    ### ランタイムソースの選択
 
-    ローカルソケット、TCPエンドポイント、またはSSHホストを選択してください。
+    ランタイム設定（Auto / Docker / Podman）を選択し、ローカルソケット、TCPエンドポイント、またはSSHホストを指定してください。
   </Step>
   <Step>
     ### データの初期化
@@ -133,4 +133,4 @@ description: "数分で Dockerman をインストールし、最初の Docker da
 | Windows | 10 (1903) / 11 | x86_64 |
 | Linux | kernel 5.x | x86_64、aarch64 |
 
-コンテナの管理を開始する前に、Docker daemon（Engine 20.10+）が利用可能である必要があります。Windowsでは、オプションのWSL2パスを通じてDockermanがDocker daemonをプロビジョニングできます。Kubernetesサポートにはオプションのk3dバンドルを使用します。
+コンテナの管理を開始する前に、Docker Engine 20.10+またはPodman 4.0+が利用可能である必要があります。Windowsでは、オプションのWSL2パスを通じてDockermanがDocker daemonをプロビジョニングできます。Kubernetesサポートにはオプションのk3dバンドルを使用します。
