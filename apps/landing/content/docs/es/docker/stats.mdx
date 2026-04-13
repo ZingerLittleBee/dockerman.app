@@ -1,9 +1,9 @@
 ---
 title: "Estadísticas"
-description: "Paneles de recursos en tiempo real con medidores en anillo y gráficos sparkline."
+description: "Paneles de recursos en tiempo real y históricos con medidores en anillo y gráficos sparkline para cada contenedor."
 ---
 
-Usa esta página como tu panel de recursos en tiempo real. Rediseñada en la v4.5.0, combina medidores en anillo con gráficos sparkline para que puedas detectar presiones rápidamente.
+Usa esta página como tu panel de recursos. Rediseñada en la v4.5.0, combina medidores en anillo con gráficos sparkline para que puedas detectar presiones rápidamente. Con estadísticas históricas, también puedes revisar tendencias durante los últimos 7 días.
 
 ## Panel de vista general
 
@@ -18,7 +18,7 @@ Los medidores en anillo muestran el uso instantáneo de CPU y memoria por conten
 Los cuatro gráficos sparkline debajo de cada fila de medidores te ofrecen un historial compacto de cada métrica.
 
 - CPU percent
-- Memory in MB
+- Memory in MB (rangos en vivo) o memory percent (rangos históricos)
 - Network I/O in bytes per second for receive and transmit
 - Disk I/O in bytes per second for read and write
 
@@ -26,7 +26,18 @@ Pasa el cursor sobre un punto para ver el valor exacto de ese momento.
 
 ## Selector de rango de tiempo
 
-Usa el selector en la parte superior para cambiar entre 1h, 3h, 6h, 12h y 24h. El rango seleccionado se aplica tanto a los sparklines como al promedio del medidor en anillo.
+El selector en la parte superior ofrece siete rangos divididos en dos modos:
+
+| Rango | Modo | Fuente de datos |
+| --- | --- | --- |
+| 1 min, 5 min, 15 min | En vivo | Stream en tiempo real del daemon de Docker |
+| 1 hora, 6 horas, 24 horas, 7 días | Histórico | Almacén de series temporales (muestras crudas de 5 segundos para 1h, agregados de 5 minutos para rangos más largos) |
+
+Los rangos en vivo muestran datos a medida que llegan del stream de estadísticas de Docker. Los rangos históricos consultan la base de datos de series temporales, que es poblada por el [programador de tareas en segundo plano](/es/docs/homelab/scheduler).
+
+<Callout type="info">
+  Los rangos históricos requieren que las tareas en segundo plano `stats_aggregation` y `stats_retention_prune` estén habilitadas. Están activas por defecto. Las muestras crudas de 5 segundos se retienen por 1 hora; los agregados de 5 minutos se retienen por 7 días.
+</Callout>
 
 ## Interfaces de red y dispositivos de disco
 
@@ -37,5 +48,6 @@ Expande una fila de contenedor cuando quieras desglosar el I/O de red por interf
 - Picos de CPU en 1h que se aplanan en 24h suelen significar trabajo por lotes de corta duración, no una fuga de memoria.
 - Memoria que sube durante 24h y nunca baja es una señal fuerte de fuga de memoria.
 - Picos de I/O de disco que coinciden con el crecimiento de logs a menudo significan logs sin rotar, así que revisa [Logs](/es/docs/docker/logs).
+- Usa el rango de 7 días para identificar patrones semanales, como trabajos de backup que generan picos de recursos en un horario.
 
 {/* TODO(screenshot): stats/dashboard - Stats overview with ring gauges and sparklines */}

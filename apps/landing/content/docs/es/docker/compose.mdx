@@ -19,7 +19,7 @@ La página de Compose muestra cada proyecto que Dockerman encuentra a partir de 
   <Step>
     ### Selecciona un proyecto
 
-    Elige el proyecto de Compose que quieres gestionar.
+    Elige el proyecto de Compose que quieras gestionar.
   </Step>
   <Step>
     ### Iniciar
@@ -48,10 +48,64 @@ Descargar obtiene todas las imágenes referenciadas por el archivo de Compose si
 
 ## Editar compose.yaml
 
-Edita el archivo de Compose en Monaco, luego guárdalo de nuevo en disco. Dockerman valida el archivo al guardar.
+Abre el editor de YAML de Compose para editar el archivo en Monaco con resaltado de sintaxis completo, validación de esquema y autocompletado para campos de especificación de Compose (services, networks, volumes, configs).
+
+<Steps>
+  <Step>
+    ### Abrir el editor
+
+    Selecciona un proyecto de Compose y haz clic en **Editar** para abrir su `compose.yaml` en el editor Monaco integrado.
+  </Step>
+  <Step>
+    ### Editar con validación
+
+    Mientras escribes, el editor valida contra el esquema JSON de Compose y resalta errores inline. Campos comunes como `image`, `ports`, `volumes` y `environment` ofrecen autocompletado.
+  </Step>
+  <Step>
+    ### Guardar en disco
+
+    Haz clic en **Guardar** para escribir el archivo en su ubicación original en disco. Dockerman ejecuta `docker compose config` para verificar el archivo antes de guardar. YAML inválido bloquea el guardado.
+  </Step>
+  <Step>
+    ### Aplicar cambios
+
+    Haz clic en **Aplicar** para ejecutar `docker compose up -d` con el archivo actualizado, recreando solo los servicios que cambiaron.
+  </Step>
+</Steps>
 
 <Callout type="info">
-  Dockerman vuelve a ejecutar `docker compose config` después de cada guardado para verificar el archivo. Un YAML inválido bloquea el guardado.
+  Los archivos de Compose se guardan directamente en el directorio del proyecto en tu sistema de archivos. Puedes versionarlos con `git` o editarlos con cualquier herramienta externa, y Dockerman detectará los cambios la próxima vez que abras el editor.
+</Callout>
+
+## Convertir `docker run` a Compose
+
+Pega un comando `docker run` y Dockerman lo convierte en un `compose.yaml` que puedes guardar como un nuevo stack.
+
+<Steps>
+  <Step>
+    ### Abrir el convertidor
+
+    Ve a la página de Compose y haz clic en **Desde docker run**, o busca "run to compose" en [Spotlight](/es/docs/advanced/spotlight).
+  </Step>
+  <Step>
+    ### Pegar el comando
+
+    Pega un comando `docker run` (se soporta continuación multi-línea con `\`). El panel derecho muestra una vista previa de YAML en vivo que se actualiza mientras editas.
+  </Step>
+  <Step>
+    ### Revisar la salida
+
+    El convertidor maneja flags comunes incluyendo `-p`, `-v`, `-e`, `--name`, `--restart`, `--network`, `--privileged`, `--cap-add` y `--device`. Flags que el convertidor no reconoce se preservan como comentarios YAML para que nada se pierda.
+  </Step>
+  <Step>
+    ### Guardar como nuevo stack
+
+    Haz clic en **Guardar como stack** para escribir el `compose.yaml` generado en tu directorio de stacks y abrirlo en el editor YAML para ajustes adicionales.
+  </Step>
+</Steps>
+
+<Callout type="warn">
+  El convertidor cubre aproximadamente el 80% de los flags de `docker run`. Flags avanzados como `--health-*` y `--ulimit` se preservan como comentarios. Revisa la salida antes de desplegar.
 </Callout>
 
 ## Ver logs entre servicios

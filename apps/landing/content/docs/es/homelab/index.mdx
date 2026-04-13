@@ -1,0 +1,63 @@
+---
+title: Homelab
+description: Automatiza, monitorea y mantiene tus servicios autoalojados sin salir de Dockerman.
+---
+
+Las funciones de homelab de Dockerman te permiten monitorear tus servicios autoalojados, recibir notificaciones cuando algo falla y solucionar problemas sin tener que alternar entre múltiples herramientas.
+
+## Por qué el modo homelab
+
+La mayoría de la gestión de contenedores ocurre mientras estás en tu escritorio. El modo homelab cubre el resto: qué sucede cuando te alejas, cuando un servicio falla a las 3 AM, o cuando aparece una nueva versión de imagen mientras no estás atento.
+
+Dockerman es **desktop-first y local-first**. No despliega un contenedor de gestión ni expone un puerto de gestión. Todo se ejecuta dentro de la aplicación, las credenciales permanecen en tu Keychain del sistema, y los archivos Compose se guardan en tu sistema de archivos donde `git` y el CLI de `docker compose` pueden usarlos directamente.
+
+## El flujo de trabajo end-to-end
+
+<Steps>
+  <Step>
+    ### Configura canales de notificación
+
+    Conecta [Telegram, ntfy, Gotify, Discord o un webhook genérico](/es/docs/homelab/notifications) para que Dockerman pueda contactarte cuando estés ausente.
+  </Step>
+  <Step>
+    ### Crea reglas de alerta
+
+    Define [reglas de alerta](/es/docs/homelab/alerts) como "notifícame cuando cualquier contenedor salga con un código distinto de cero" o "alerta cuando el CPU permanezca por encima del 90% durante 5 minutos".
+  </Step>
+  <Step>
+    ### Suscríbete a actualizaciones de imágenes
+
+    Activa [monitoreo de actualizaciones de imágenes](/es/docs/homelab/image-watches) para los servicios que te importan. Dockerman verifica los registros en segundo plano y envía una notificación cuando hay una nueva versión disponible.
+  </Step>
+  <Step>
+    ### Diagnostica y soluciona
+
+    Cuando algo se rompe, genera un [paquete de diagnóstico](/es/docs/homelab/diagnostic-bundle) con un clic, edita el YAML de Compose en el [editor integrado](/es/docs/docker/compose#editar-composeyaml) y aplica la solución.
+  </Step>
+</Steps>
+
+## Funciones de un vistazo
+
+<Cards>
+  <Card title="Tareas en segundo plano" href="/es/docs/homelab/scheduler">
+    Programación cron e intervalos que siguen ejecutándose cuando la ventana principal está cerrada.
+  </Card>
+  <Card title="Notificaciones" href="/es/docs/homelab/notifications">
+    Telegram, ntfy, Gotify, Discord, Webhook y notificaciones del sistema a través de un esquema de URL compatible con Shoutrrr.
+  </Card>
+  <Card title="Reglas de alerta" href="/es/docs/homelab/alerts">
+    Cuatro tipos de reglas que cubren salidas de contenedores, health checks, umbrales de recursos y ráfagas de reinicio.
+  </Card>
+  <Card title="Monitoreo de actualizaciones de imágenes" href="/es/docs/homelab/image-watches">
+    Sondeo de registros en segundo plano con comparación de digest y notificación multi-canal cuando llega una nueva versión.
+  </Card>
+  <Card title="Paquete de diagnóstico" href="/es/docs/homelab/diagnostic-bundle">
+    Zip de un clic con inspect, eventos, logs y estadísticas para un contenedor o un stack Compose completo.
+  </Card>
+</Cards>
+
+## Cómo permanece en ejecución
+
+Dockerman usa **residencia en bandeja**: cerrar la ventana principal envía la aplicación a la bandeja del sistema, y las tareas en segundo plano siguen ejecutándose. Cuando cierras el icono de la bandeja, Dockerman te informa que las tareas en segundo plano se detendrán.
+
+Un servicio de sistema completo (launchd / systemd / Windows Service) está planificado para una versión futura.

@@ -1,0 +1,63 @@
+---
+title: Homelab
+description: 在 Dockerman 中自动化、监控和维护你的自托管服务。
+---
+
+Dockerman 的 homelab 功能让你监控自托管服务，在出现问题时收到通知，并无需切换多个工具即可修复问题。
+
+## 为什么使用 homelab 模式
+
+大多数容器管理发生在你坐在桌前时。Homelab 模式覆盖其余场景：当你离开时、凌晨 3 点服务崩溃时，或者当你没有关注时新版本镜像发布时。
+
+Dockerman 是**桌面优先和本地优先**的。它不会部署管理容器，也不会暴露管理端口。所有功能都在应用内部运行，凭证保存在系统 Keychain 中，Compose 文件直接存放在文件系统上，`git` 和 `docker compose` CLI 可以直接使用它们。
+
+## 端到端工作流
+
+<Steps>
+  <Step>
+    ### 设置通知渠道
+
+    连接 [Telegram、ntfy、Gotify、Discord 或通用 webhook](/zh/docs/homelab/notifications)，让 Dockerman 在你离开时也能联系到你。
+  </Step>
+  <Step>
+    ### 创建告警规则
+
+    定义[告警规则](/zh/docs/homelab/alerts)，例如"当任何容器以非零代码退出时通知我"或"当 CPU 持续 5 分钟高于 90% 时告警"。
+  </Step>
+  <Step>
+    ### 订阅镜像更新
+
+    为你关心的服务开启[镜像升级监控](/zh/docs/homelab/image-watches)。Dockerman 在后台检查镜像仓库，当有新版本可用时推送通知。
+  </Step>
+  <Step>
+    ### 诊断和修复
+
+    当出现问题时，一键生成[诊断包](/zh/docs/homelab/diagnostic-bundle)，在[内置编辑器](/zh/docs/docker/compose#编辑-composeyaml)中编辑 Compose YAML，然后应用修复。
+  </Step>
+</Steps>
+
+## 功能一览
+
+<Cards>
+  <Card title="后台任务" href="/zh/docs/homelab/scheduler">
+    Cron 和间隔调度，即使主窗口关闭也能持续运行。
+  </Card>
+  <Card title="通知" href="/zh/docs/homelab/notifications">
+    Telegram、ntfy、Gotify、Discord、Webhook 和系统通知，使用 Shoutrrr 兼容的 URL 方案。
+  </Card>
+  <Card title="告警规则" href="/zh/docs/homelab/alerts">
+    四种规则类型，涵盖容器退出、健康检查、资源阈值和重启爆发。
+  </Card>
+  <Card title="镜像升级监控" href="/zh/docs/homelab/image-watches">
+    后台镜像仓库轮询，通过 digest 比较，新版本发布时多渠道推送。
+  </Card>
+  <Card title="诊断包" href="/zh/docs/homelab/diagnostic-bundle">
+    一键打包 inspect、events、logs 和 stats 为 zip 文件，适用于单个容器或整个 Compose 技术栈。
+  </Card>
+</Cards>
+
+## 如何保持运行
+
+Dockerman 使用**托盘驻留**：关闭主窗口会将应用发送到系统托盘，后台任务继续运行。当你退出托盘图标时，Dockerman 会提醒你后台任务将停止。
+
+完整的系统服务（launchd / systemd / Windows Service）计划在未来的版本中推出。

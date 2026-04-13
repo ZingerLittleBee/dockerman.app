@@ -50,8 +50,62 @@ Composeページには、`com.docker.compose.project`ラベルからDockermanが
 
 ComposeファイルをMonacoで編集し、ディスクに保存します。Dockermanは保存時にファイルを検証します。
 
+<Steps>
+  <Step>
+    ### エディタを開く
+
+    Composeプロジェクトを選択し、**編集**をクリックして組み込みMonacoエディタでその`compose.yaml`を開きます。
+  </Step>
+  <Step>
+    ### 検証付きで編集
+
+    入力すると、エディタはCompose JSONスキーマに対して検証し、エラーをインラインでハイライトします。`image`、`ports`、`volumes`、`environment`などの一般的なフィールドは自動補完を提供します。
+  </Step>
+  <Step>
+    ### ディスクに保存
+
+    **保存**をクリックしてファイルをディスク上の元の場所に書き込みます。Dockermanは保存前に`docker compose config`を実行してファイルを検証します。無効なYAMLは保存をブロックします。
+  </Step>
+  <Step>
+    ### 変更を適用
+
+    **適用**をクリックして更新されたファイルで`docker compose up -d`を実行し、変更されたサービスのみを再作成します。
+  </Step>
+</Steps>
+
 <Callout type="info">
-  Dockermanは保存後に`docker compose config`を再実行してファイルを検証します。無効なYAMLがある場合、保存はブロックされます。
+  Composeファイルはファイルシステム上のプロジェクトディレクトリに直接保存されます。`git`でバージョン管理したり、外部ツールで編集したりでき、Dockermanは次にエディタを開いたときに変更を反映します。
+</Callout>
+
+## `docker run`をComposeに変換
+
+`docker run`コマンドを貼り付けると、Dockermanはそれを新しいスタックとして保存できる`compose.yaml`に変換します。
+
+<Steps>
+  <Step>
+    ### コンバータを開く
+
+    Composeページに移動し、**docker runから**をクリックするか、[Spotlight](/ja/docs/advanced/spotlight)で「run to compose」を検索します。
+  </Step>
+  <Step>
+    ### コマンドを貼り付け
+
+    `docker run`コマンドを貼り付けます（複数行の`\`継続がサポートされています）。右側のパネルには、編集に応じて更新されるライブYAMLプレビューが表示されます。
+  </Step>
+  <Step>
+    ### 出力を確認
+
+    コンバータは`-p`、`-v`、`-e`、`--name`、`--restart`、`--network`、`--privileged`、`--cap-add`、`--device`などの一般的なフラグを処理します。コンバータが認識しないフラグはYAMLコメントとして保持されるため、何も失われません。
+  </Step>
+  <Step>
+    ### 新しいスタックとして保存
+
+    **スタックとして保存**をクリックして生成された`compose.yaml`をスタックディレクトリに書き込み、さらに調整するためにYAMLエディタで開きます。
+  </Step>
+</Steps>
+
+<Callout type="warn">
+  コンバータは約80%の`docker run`フラグをカバーします。`--health-*`や`--ulimit`などの高度なフラグはコメントとして保持されます。デプロイ前に出力を確認してください。
 </Callout>
 
 ## サービス横断ログの表示

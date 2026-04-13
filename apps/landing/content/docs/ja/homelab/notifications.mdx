@@ -1,0 +1,82 @@
+---
+title: 通知
+description: Telegram、ntfy、Gotify、Discord、Webhook、またはシステム通知でアラートを受信します。
+---
+
+Dockermanは複数のチャンネルを通じて通知をプッシュできるため、デスクを離れている間に何かが発生したときに知ることができます。チャンネルは**Shoutrrr互換URLスキーム**を使用します。これはWatchtower、Beszel、その他のHomelabツールで使用されているものと同じ形式です。
+
+## サポートされているチャンネル
+
+| チャンネル | URL形式 | 備考 |
+| --- | --- | --- |
+| Telegram | `telegram://token@telegram?chats=chat_id` | BotFatherからのボットトークン |
+| ntfy | `ntfy://ntfy.sh/topic` または `ntfy://user:pass@ntfy.sh/topic` | セルフホストまたはntfy.sh |
+| Gotify | `gotify://gotify.example.com/token` | セルフホストGotifyサーバー |
+| Discord | `discord://token@id` | Webhook URLをShoutrrr形式に変換 |
+| Webhook | `generic://example.com/webhook` | 任意のエンドポイントへの汎用JSON POST |
+| システム通知 | 組み込み、URL不要 | macOS、Windows、Linuxのネイティブ通知 |
+
+システム通知は常に利用可能でデフォルトで有効です。これらは「外部」チャンネルとしてカウントされません。
+
+## 通知チャンネルの追加
+
+<Steps>
+  <Step>
+    ### 通知設定を開く
+
+    サイドバーからまたは[Spotlight](/ja/docs/advanced/spotlight)経由で通知ページに移動します。
+  </Step>
+  <Step>
+    ### チャンネルを追加
+
+    **チャンネルを追加**をクリックし、名前を付けてShoutrrr URLを貼り付けます。
+  </Step>
+  <Step>
+    ### チャンネルをテスト
+
+    **テスト**をクリックしてテストメッセージを即座に送信します。メッセージが届けば、チャンネルの準備は完了です。
+  </Step>
+  <Step>
+    ### 保存
+
+    チャンネルを保存します。これで[アラートルール](/ja/docs/homelab/alerts)と[イメージアップグレード監視](/ja/docs/homelab/image-watches)で利用可能になります。
+  </Step>
+</Steps>
+
+{/* TODO(screenshot): homelab/notifications-add - 通知チャンネル追加ダイアログ */}
+
+## 認証情報のセキュリティ
+
+Shoutrrr URLの機密部分（トークンやパスワードなど）は、システムKeychain（macOS Keychain、Windows DPAPI、またはLinux Secret Service）に保存されます。データベースには、シークレットがプレースホルダーに置き換えられた編集済みバージョンのURLのみが保存されます。
+
+<Callout type="info">
+  Dockermanは認証情報を通知チャンネル自体以外のサーバーに送信することはありません。認証情報は送信時にKeychainから読み取られ、ログに記録されることはありません。
+</Callout>
+
+## 通知の使用場所
+
+通知チャンネルは2つのシステムで使用されます：
+
+<Cards>
+  <Card title="アラートルール" href="/ja/docs/homelab/alerts">
+    各アラートルールは1つ以上のチャンネルにバインドされます。ルールが発火すると、バインドされたすべてのチャンネルにブロードキャストされます。
+  </Card>
+  <Card title="イメージアップグレード監視" href="/ja/docs/homelab/image-watches">
+    イメージ監視はグローバルなデフォルトチャンネルリストを使用します。新しいイメージバージョンが見つかったとき、すべてのデフォルトチャンネルが通知を受信します。
+  </Card>
+</Cards>
+
+## チャンネルの管理
+
+通知ページから以下ができます：
+
+- チャンネルの名前またはURLを**編集**
+- チャンネルを削除せずに**無効化**（無効化されたチャンネルは配信時にスキップされます）
+- チャンネルを**削除**（参照していたアラートルールはそのチャンネルへの配信を停止します）
+- いつでもチャンネルを**再テスト**
+
+## ヒント
+
+- WatchtowerやBeszelで既にShoutrrr URLを使用している場合は、同じURLをDockermanに貼り付けることができます。
+- Discordの場合、webhook URL（`https://discord.com/api/webhooks/ID/TOKEN`）をShoutrrr形式に変換してください：`discord://TOKEN@ID`。
+- 汎用webhookチャンネルは`title`と`body`フィールドを含むJSON POSTを送信します。webhookを受け入れる任意のサービスとの統合に使用してください。
