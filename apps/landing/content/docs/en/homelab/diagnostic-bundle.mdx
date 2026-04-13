@@ -1,0 +1,94 @@
+---
+title: Diagnostic Bundle
+description: Generate a one-click zip of inspect data, events, logs, and stats for a container or Compose stack.
+---
+
+The diagnostic bundle packs everything you need to debug a container or Compose stack into a single `.zip` file. Share it with a friend, post it in an issue, or keep it for your own reference.
+
+## What the bundle contains
+
+<Files>
+  <Folder name="diagnostic-bundle.zip" defaultOpen>
+    <File name="manifest.json" />
+    <File name="system.json" />
+    <File name="events.json" />
+    <Folder name="container-name" defaultOpen>
+      <File name="inspect.json" />
+      <File name="logs.txt" />
+      <File name="stats.json" />
+    </Folder>
+  </Folder>
+</Files>
+
+| File | Contents |
+| --- | --- |
+| `manifest.json` | Generation timestamp, Dockerman version, host type, file inventory, redaction count, and any errors encountered |
+| `system.json` | Docker version and system info (sensitive fields excluded) |
+| `events.json` | Docker events filtered by the selected time window and target containers |
+| `inspect.json` | Combined container, image, network, and volume inspect data. Environment variables are redacted by default. `State.Health` is included. |
+| `logs.txt` | Timestamped container logs within the selected time window |
+| `stats.json` | Resource usage samples from the time series store (raw 5-second samples when available, falling back to 5-minute aggregates for longer windows, or a current snapshot if time series data is not available) |
+
+When targeting a Compose stack, the bundle includes one subdirectory per container in the stack.
+
+## Generate a bundle
+
+<Tabs items={['From a container', 'From a Compose stack', 'From Spotlight']}>
+  <Tab>
+    Open the container's action menu and select **Diagnostic bundle**.
+  </Tab>
+  <Tab>
+    Open the Compose stack's overflow menu and select **Diagnostic bundle**.
+  </Tab>
+  <Tab>
+    Open [Spotlight](/en/docs/advanced/spotlight) and search for "diagnostic bundle", then pick the target.
+  </Tab>
+</Tabs>
+
+<Steps>
+  <Step>
+    ### Choose the time window
+
+    Select how far back to include logs, events, and stats. Longer windows produce larger bundles.
+  </Step>
+  <Step>
+    ### Review redaction settings
+
+    Environment variables matching `TOKEN`, `PASSWORD`, `SECRET`, `KEY`, `CREDENTIAL`, or `AUTH` (case-insensitive) are replaced with `***REDACTED***` by default. Toggle this off if you need the raw values.
+  </Step>
+  <Step>
+    ### Pick a save location
+
+    Choose where to save the `.zip` file on your local filesystem.
+  </Step>
+  <Step>
+    ### Wait for generation
+
+    A progress indicator shows the packing status. Generation typically takes under 10 seconds for a single container.
+  </Step>
+  <Step>
+    ### Open the result
+
+    After generation, click **Show in Finder** (macOS) or the equivalent to jump to the saved file.
+  </Step>
+</Steps>
+
+## Sensitive data redaction
+
+By default, environment variable values that match the following pattern are replaced with `***REDACTED***`:
+
+```
+(?i)(TOKEN|PASSWORD|SECRET|KEY|CREDENTIAL|AUTH)
+```
+
+This applies to the `inspect.json` files in the bundle. You can disable redaction in the bundle dialog when you need the raw values for your own debugging.
+
+<Callout type="warn">
+  Even with redaction enabled, container logs may contain sensitive data printed by the application. Review the bundle before sharing it publicly.
+</Callout>
+
+## Tips
+
+- Use diagnostic bundles when asking for help in GitHub issues or community forums. The structured format makes it easy for others to understand your setup.
+- The stats data in the bundle depends on the [background task scheduler](/en/docs/homelab/scheduler) having collected time series data. If the scheduler was recently enabled, the stats section may only contain a current snapshot.
+- For Compose stacks with many containers, bundles can grow large. Use a shorter time window to keep the file size manageable.

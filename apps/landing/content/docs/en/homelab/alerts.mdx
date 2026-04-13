@@ -1,0 +1,149 @@
+---
+title: Alert Rules
+description: Create typed alert rules for container exits, health checks, resource thresholds, and restart bursts.
+---
+
+Alert rules connect Docker events and resource metrics to your [notification channels](/en/docs/homelab/notifications). When a rule fires, Dockerman broadcasts a message to every channel bound to that rule.
+
+## Rule types
+
+Dockerman ships with four typed rule kinds. Each kind has a dedicated form in the UI instead of a free-text expression, so setup is quick and mistakes are unlikely.
+
+<Tabs items={['Container exit', 'Health unhealthy', 'Resource threshold', 'Restart burst']}>
+  <Tab>
+    ### Container exit (non-zero)
+
+    Fires when a container's `die` event reports a non-zero exit code.
+
+    **Data source:** Docker events
+
+    **Use case:** Catch unexpected crashes, failed entrypoints, or OOM kills.
+
+    No extra fields required beyond the target selector.
+  </Tab>
+  <Tab>
+    ### Health unhealthy
+
+    Fires when a container's healthcheck status transitions to `unhealthy` from any other state.
+
+    **Data source:** Docker events
+
+    **Use case:** Detect degraded services that are still running but no longer passing their health checks.
+
+    No extra fields required beyond the target selector.
+  </Tab>
+  <Tab>
+    ### Resource threshold
+
+    Fires when a metric stays above a threshold for a sustained duration.
+
+    **Data source:** Stats time series store
+
+    **Fields:**
+    | Field | Description |
+    | --- | --- |
+    | Metric | `cpu` or `mem_percent` |
+    | Operator | `>` or `>=` |
+    | Threshold | The percentage value to compare against |
+    | Duration | How many seconds the metric must stay above the threshold before firing |
+
+    **Use case:** Spot memory leaks, runaway CPU, or containers hitting their resource limits.
+  </Tab>
+  <Tab>
+    ### Restart burst
+
+    Fires when a single container restarts more than a threshold number of times within a time window.
+
+    **Data source:** Docker events
+
+    **Fields:**
+    | Field | Description |
+    | --- | --- |
+    | Count | Minimum number of restarts to trigger |
+    | Window | Time window in seconds |
+
+    **Use case:** Detect crash-loop scenarios where a container keeps restarting and failing.
+  </Tab>
+</Tabs>
+
+## Target selector
+
+All four rule types share the same target selector, so you choose what to watch in one consistent way.
+
+| Scope | Behavior |
+| --- | --- |
+| All containers | The rule applies to every container on the connected host |
+| Compose project | The rule applies to all containers belonging to a specific Compose project |
+| Specific containers | The rule applies only to the containers you pick |
+
+## Create a rule
+
+<Steps>
+  <Step>
+    ### Open the Alerts page
+
+    Navigate to the Alerts page from the sidebar or [Spotlight](/en/docs/advanced/spotlight).
+  </Step>
+  <Step>
+    ### Click Add rule
+
+    Choose the rule type and fill in the form fields.
+  </Step>
+  <Step>
+    ### Set the target
+
+    Pick whether this rule watches all containers, a Compose project, or specific containers.
+  </Step>
+  <Step>
+    ### Bind notification channels
+
+    Select one or more [notification channels](/en/docs/homelab/notifications) that should receive the alert.
+  </Step>
+  <Step>
+    ### Configure cooldown and severity
+
+    Set a cooldown period to prevent repeated alerts, and choose a severity level for filtering.
+  </Step>
+  <Step>
+    ### Save and enable
+
+    The rule starts evaluating immediately.
+  </Step>
+</Steps>
+
+## Cooldown and silence windows
+
+### Cooldown
+
+After a rule fires, it enters a cooldown period (configurable per rule). During cooldown the rule does not fire again, even if the condition remains true. This prevents notification storms when multiple containers fail at the same time.
+
+### Silence windows
+
+Set time windows when the rule should not fire at all, for example "02:00 - 05:00" for planned maintenance windows. The rule still evaluates during silence windows, but suppresses notifications.
+
+## Severity levels
+
+Each rule has a severity: **info**, **warning**, or **critical**. Severity is metadata for filtering and history searches. It does not affect routing; all bound channels receive every alert regardless of severity.
+
+## Alert history
+
+The Alerts page includes a history tab showing every time a rule fired, with:
+
+- Timestamp
+- Rule name and kind
+- Context (container name, metric value, exit code, etc.)
+- Which channels received the notification
+
+## Routing model
+
+Each rule directly binds to a list of notification channels. When the rule fires, the message goes to every channel in that list. There is no global routing table or severity-based channel mapping in this version.
+
+## Tips
+
+<Callout type="info">
+  Start with a `container_exit_non_zero` rule targeting all containers and bound to your primary notification channel. It catches the most common failure mode with zero configuration.
+</Callout>
+
+- Use `resource_threshold` with a duration of at least 60 seconds to avoid false positives from brief spikes.
+- Combine `restart_burst` with a low count (e.g. 3 restarts in 300 seconds) to catch crash-loops early.
+- Review the alert history periodically to tune cooldown periods. If you see repeated entries for the same incident, increase the cooldown.

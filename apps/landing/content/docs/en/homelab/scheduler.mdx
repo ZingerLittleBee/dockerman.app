@@ -1,0 +1,71 @@
+---
+title: Background Tasks
+description: Schedule cron and interval tasks that keep running when the main window is closed.
+---
+
+The background task scheduler runs jobs on a cron expression or a fixed interval, even when the main Dockerman window is closed. It is the engine behind stats aggregation, retention cleanup, and [image upgrade checks](/en/docs/homelab/image-watches).
+
+## How it works
+
+The scheduler uses the system tray to stay alive. When you close the main window, Dockerman moves to the tray and tasks keep running. Quitting the tray icon stops all background tasks, and Dockerman tells you so before it exits.
+
+## Built-in task kinds
+
+Dockerman ships with the following task kinds. Each one is pre-registered and can be enabled or configured from the Tasks page.
+
+| Kind | Purpose | Default schedule |
+| --- | --- | --- |
+| `stats_aggregation` | Rolls up raw 5-second stats samples into 5-minute aggregates | Every 30 minutes |
+| `stats_retention_prune` | Deletes expired raw samples (older than 1 hour) and expired aggregates (older than 7 days) | Every 60 minutes |
+| `image_upgrade_check` | Checks subscribed images for new versions on their registries | Every 6 hours |
+
+Additional kinds such as `auto_backup` and `auto_prune` are planned for future releases.
+
+## The Tasks page
+
+Open the Tasks page to see every registered task at a glance.
+
+Each row shows:
+
+- **Kind** and a human-readable description
+- **Schedule** (cron expression or interval)
+- **Next run** countdown
+- **Last run** time and result (success, failure with error message)
+- **Enabled** toggle
+
+## Managing tasks
+
+### Change the schedule
+
+Edit the schedule for any task from its row. You can set a cron expression (e.g. `0 */2 * * *` for every 2 hours) or a fixed interval in seconds.
+
+### Enable or disable
+
+Toggle a task on or off. Disabled tasks stay in the list but do not run until re-enabled.
+
+### Run now
+
+Click **Run now** to trigger a task immediately, regardless of its schedule. The run appears in the task history like any scheduled run.
+
+### View history
+
+Expand a task row to see the last N runs with their start time, duration, status, and any error messages.
+
+## Data storage
+
+Task definitions and run history are stored in the local SQLite database.
+
+| Table | Contents |
+| --- | --- |
+| `tasks` | Task ID, kind, schedule, enabled flag, config, and creation time |
+| `task_runs` | Run ID, parent task, start and finish timestamps, status, and error messages |
+
+## Tips
+
+<Callout type="info">
+  The scheduler only runs while Dockerman is in the system tray or the main window is open. If you need tasks to survive a full app quit, a system service mode is planned for a future release.
+</Callout>
+
+- Check the Tasks page after a fresh install to make sure `stats_aggregation` and `stats_retention_prune` are enabled. They are on by default.
+- If disk usage grows, shorten the retention prune interval or lower the retention window in settings.
+- The `image_upgrade_check` task is created automatically when you add your first [image upgrade watch](/en/docs/homelab/image-watches).

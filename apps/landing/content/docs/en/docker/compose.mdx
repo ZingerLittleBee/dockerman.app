@@ -48,10 +48,64 @@ Pull fetches every image referenced by the Compose file without starting any ser
 
 ## Edit compose.yaml
 
-Edit the Compose file in Monaco, then save it back to disk. Dockerman validates the file on save.
+Open the Compose YAML editor to edit the file in Monaco with full syntax highlighting, schema validation, and autocompletion for Compose spec fields (services, networks, volumes, configs).
+
+<Steps>
+  <Step>
+    ### Open the editor
+
+    Select a Compose project and click **Edit** to open its `compose.yaml` in the built-in Monaco editor.
+  </Step>
+  <Step>
+    ### Edit with validation
+
+    As you type, the editor validates against the Compose JSON schema and highlights errors inline. Common fields like `image`, `ports`, `volumes`, and `environment` offer autocompletion.
+  </Step>
+  <Step>
+    ### Save to disk
+
+    Click **Save** to write the file to its original location on disk. Dockerman runs `docker compose config` to verify the file before saving. Invalid YAML blocks the save.
+  </Step>
+  <Step>
+    ### Apply changes
+
+    Click **Apply** to run `docker compose up -d` with the updated file, recreating only the services that changed.
+  </Step>
+</Steps>
 
 <Callout type="info">
-  Dockerman reruns `docker compose config` after each save to verify the file. Invalid YAML blocks the save.
+  Compose files are saved directly to the project directory on your filesystem. You can version them with `git` or edit them with any external tool, and Dockerman picks up the changes next time you open the editor.
+</Callout>
+
+## Convert `docker run` to Compose
+
+Paste a `docker run` command and Dockerman converts it into a `compose.yaml` that you can save as a new stack.
+
+<Steps>
+  <Step>
+    ### Open the converter
+
+    Go to the Compose page and click **From docker run**, or search "run to compose" in [Spotlight](/en/docs/advanced/spotlight).
+  </Step>
+  <Step>
+    ### Paste the command
+
+    Paste a `docker run` command (multi-line `\` continuation is supported). The right panel shows a live YAML preview that updates as you edit.
+  </Step>
+  <Step>
+    ### Review the output
+
+    The converter handles common flags including `-p`, `-v`, `-e`, `--name`, `--restart`, `--network`, `--privileged`, `--cap-add`, and `--device`. Flags that the converter does not recognize are preserved as YAML comments so nothing is lost.
+  </Step>
+  <Step>
+    ### Save as a new stack
+
+    Click **Save as stack** to write the generated `compose.yaml` to your stacks directory and open it in the YAML editor for further tuning.
+  </Step>
+</Steps>
+
+<Callout type="warn">
+  The converter covers approximately 80% of `docker run` flags. Advanced flags like `--health-*` and `--ulimit` are preserved as comments. Review the output before deploying.
 </Callout>
 
 ## View logs across services
