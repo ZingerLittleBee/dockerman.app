@@ -1,0 +1,63 @@
+---
+title: Homelab
+description: Dockermanから離れることなく、セルフホストサービスの自動化、監視、メンテナンスを行います。
+---
+
+DockermanのHomelab機能を使用すると、セルフホストサービスを監視し、問題が発生したときに通知を受け取り、複数のツールを行き来することなく問題を修正できます。
+
+## Homelabモードの理由
+
+ほとんどのコンテナ管理はデスクで行われます。Homelabモードはそれ以外の時間をカバーします：離席中、深夜3時にサービスがクラッシュしたとき、または見ていない間に新しいイメージバージョンがリリースされたときのことです。
+
+Dockermanは**デスクトップファーストかつローカルファースト**です。管理コンテナをデプロイせず、管理ポートを公開しません。すべてがアプリ内で実行され、認証情報はシステムKeychainに保存され、Composeファイルは`git`や`docker compose` CLIが直接使用できるファイルシステム上に配置されます。
+
+## エンドツーエンドのワークフロー
+
+<Steps>
+  <Step>
+    ### 通知チャンネルの設定
+
+    [Telegram、ntfy、Gotify、Discord、または汎用webhook](/ja/docs/homelab/notifications)を接続し、離席中でもDockermanが連絡できるようにします。
+  </Step>
+  <Step>
+    ### アラートルールの作成
+
+    「コンテナが0以外のコードで終了したときに通知する」や「CPUが5分間90%を超え続けたらアラートする」などの[アラートルール](/ja/docs/homelab/alerts)を定義します。
+  </Step>
+  <Step>
+    ### イメージ更新の購読
+
+    重要なサービスの[イメージアップグレード監視](/ja/docs/homelab/image-watches)を有効にします。Dockermanはバックグラウンドでレジストリを確認し、新しいバージョンが利用可能になったときに通知を送信します。
+  </Step>
+  <Step>
+    ### 診断と修正
+
+    問題が発生したときは、ワンクリックで[診断バンドル](/ja/docs/homelab/diagnostic-bundle)を生成し、[組み込みエディタ](/ja/docs/docker/compose#composeyamlの編集)でCompose YAMLを編集し、修正を適用します。
+  </Step>
+</Steps>
+
+## 機能の概要
+
+<Cards>
+  <Card title="バックグラウンドタスク" href="/ja/docs/homelab/scheduler">
+    メインウィンドウを閉じても実行し続けるcronおよびインターバルスケジューリング。
+  </Card>
+  <Card title="通知" href="/ja/docs/homelab/notifications">
+    Telegram、ntfy、Gotify、Discord、Webhook、およびShoutrrr互換URLスキームを介したシステム通知。
+  </Card>
+  <Card title="アラートルール" href="/ja/docs/homelab/alerts">
+    コンテナ終了、ヘルスチェック、リソース閾値、再起動バーストをカバーする4種類のルールタイプ。
+  </Card>
+  <Card title="イメージアップグレード監視" href="/ja/docs/homelab/image-watches">
+    digest比較によるバックグラウンドレジストリポーリングと、新しいバージョンがリリースされたときのマルチチャネルプッシュ通知。
+  </Card>
+  <Card title="診断バンドル" href="/ja/docs/homelab/diagnostic-bundle">
+    コンテナまたはComposeスタック全体のinspect、events、logs、statsをワンクリックでzip化。
+  </Card>
+</Cards>
+
+## 実行を維持する方法
+
+Dockermanは**トレイ常駐**を使用します：メインウィンドウを閉じるとアプリがシステムトレイに移動し、バックグラウンドタスクは実行し続けます。トレイアイコンを終了すると、Dockermanはバックグラウンドタスクが停止することを通知します。
+
+完全なシステムサービス（launchd / systemd / Windows Service）は将来のリリースで予定されています。

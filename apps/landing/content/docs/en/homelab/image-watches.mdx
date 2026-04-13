@@ -1,0 +1,108 @@
+---
+title: Image Upgrade Watches
+description: Monitor container image registries in the background and get notified when a new version is available.
+---
+
+Image upgrade watches let Dockerman poll registries in the background and push a notification when a new image version is available. By default it **only notifies and never triggers an automatic upgrade**, so you stay in control.
+
+## How it works
+
+1. You subscribe to images you care about.
+2. The [background scheduler](/en/docs/homelab/scheduler) runs the `image_upgrade_check` task at a configurable interval (default: every 6 hours).
+3. For each subscribed image, Dockerman compares the local digest with the remote registry digest.
+4. When a new digest is found, Dockerman sends a notification through your configured [notification channels](/en/docs/homelab/notifications).
+
+## Subscribe to an image
+
+<Tabs items={['From a container', 'From a Compose stack']}>
+  <Tab>
+    Open the container's action menu (the same dropdown that has **Check for update** and **Upgrade**) and click **Watch for upgrades**.
+
+    The subscription is keyed to the host and image reference, so it survives container rebuilds.
+  </Tab>
+  <Tab>
+    Open the Compose stack's overflow menu and click **Watch all images for upgrades**. This subscribes every image in the stack at once.
+
+    To unsubscribe individual images later, use the dedicated watches page.
+  </Tab>
+</Tabs>
+
+## The Image Upgrade Watches page
+
+The dedicated page shows all your subscriptions in one place.
+
+**Top bar:**
+- **Check interval** dropdown — sets how often the scheduler runs (writes directly to the scheduler task, so there is one source of truth)
+- **Default channels** — choose which [notification channels](/en/docs/homelab/notifications) receive upgrade notifications
+- **Check all now** — trigger an immediate check for all subscriptions
+
+**Main table:**
+
+| Column | Description |
+| --- | --- |
+| Image | The image reference (e.g. `jellyfin/jellyfin:latest`) |
+| Containers | Which containers use this image on this host |
+| Status | Current check status (see below) |
+| Last check | When the last check ran and what it found |
+| Actions | Delete subscription, trigger manual check |
+
+Click a row to open the **history drawer** showing every past check with timestamps, digests, and whether a notification was sent.
+
+## Status states
+
+| Status | Meaning |
+| --- | --- |
+| `unknown` | No check has run yet |
+| `up_to_date` | Local and remote digests match |
+| `upgrade_available` | A newer digest was found on the registry |
+| `watchtower_managed` | All containers with this image have the Watchtower `enable=true` label, so Dockerman defers to Watchtower |
+| `orphaned` | No running containers use this image on this host (e.g. the stack was deleted) |
+| `error` | The check failed (registry unreachable, authentication error, rate limit, etc.) |
+
+## Notification messages
+
+When one or more upgrades are found in a single check run, Dockerman sends a single aggregated message:
+
+```
+Title: 3 image updates available on prod-nas
+
+Body:
+- jellyfin/jellyfin:latest -> a3f2e1 (1 container: jellyfin)
+- redis:7-alpine -> 8c91b4 (2 containers: cache, sessions)
+- grafana/grafana:latest -> 5e44aa (1 container: grafana)
+
+Open Dockerman: dockerman://
+```
+
+Clicking the deep link opens the Dockerman main window.
+
+### Notification cooldown
+
+Notifications are digest-based: Dockerman records the last digest it notified you about. It only sends a new notification when the remote digest changes again. Once all your containers catch up to the notified digest, the cooldown resets so the next registry update triggers a fresh notification.
+
+## Watchtower coexistence
+
+If you already run Watchtower, Dockerman detects the `com.centurylinklabs.watchtower.enable=true` label on containers and handles them accordingly:
+
+- **All containers labeled:** The subscription shows `watchtower_managed` status and stays silent.
+- **Mixed (some labeled, some not):** Dockerman filters out the Watchtower-managed containers and only notifies about the remaining ones.
+- **No labels:** Dockerman treats all containers normally.
+
+<Callout type="info">
+  Dockerman only recognizes the explicit `enable=true` label. If your Watchtower runs in default mode (watches everything without labels), Dockerman does not detect it. In that case you may receive duplicate notifications from both tools.
+</Callout>
+
+## Registry rate limits
+
+Dockerman deduplicates checks by image reference within a single run, so the same image is only queried once regardless of how many containers use it. When a registry returns a `Retry-After` header, Dockerman respects it. Without the header, a 15-minute default backoff applies. Subscriptions in backoff show the `error` status with a note about when the next retry will happen.
+
+## Unsubscribe
+
+Delete a subscription from the Image Upgrade Watches page. Once deleted, no further checks or notifications are sent for that image on that host.
+
+## Tips
+
+- Start by subscribing to the 3-5 images you care about most (e.g. your media server, database, reverse proxy).
+- Keep the default 6-hour interval unless you have a specific reason to poll more frequently. Shorter intervals increase registry API usage.
+- Use the **Check all now** button after adding new subscriptions to get an immediate status without waiting for the next scheduled run.
+- The upgrade notification tells you a new version exists. To actually upgrade, use the existing **Check for update** and **Upgrade** actions in the container menu.

@@ -1,0 +1,149 @@
+---
+title: Reglas de alerta
+description: Crea reglas de alerta tipadas para salidas de contenedores, health checks, umbrales de recursos y ráfagas de reinicio.
+---
+
+Las reglas de alerta conectan eventos de Docker y métricas de recursos a tus [canales de notificación](/es/docs/homelab/notifications). Cuando una regla se dispara, Dockerman transmite un mensaje a cada canal vinculado a esa regla.
+
+## Tipos de reglas
+
+Dockerman incluye cuatro tipos de reglas. Cada tipo tiene un formulario dedicado en la UI en lugar de una expresión de texto libre, por lo que la configuración es rápida y los errores son improbables.
+
+<Tabs items={['Salida de contenedor', 'Health unhealthy', 'Umbral de recursos', 'Ráfaga de reinicio']}>
+  <Tab>
+    ### Salida de contenedor (no-cero)
+
+    Se dispara cuando el evento `die` de un contenedor reporta un código de salida distinto de cero.
+
+    **Fuente de datos:** Eventos de Docker
+
+    **Caso de uso:** Detectar fallos inesperados, entrypoints fallidos o kills por OOM.
+
+    No se requieren campos adicionales más allá del selector de objetivo.
+  </Tab>
+  <Tab>
+    ### Health unhealthy
+
+    Se dispara cuando el estado de healthcheck de un contenedor cambia a `unhealthy` desde cualquier otro estado.
+
+    **Fuente de datos:** Eventos de Docker
+
+    **Caso de uso:** Detectar servicios degradados que siguen ejecutándose pero ya no pasan sus health checks.
+
+    No se requieren campos adicionales más allá del selector de objetivo.
+  </Tab>
+  <Tab>
+    ### Umbral de recursos
+
+    Se dispara cuando una métrica permanece por encima de un umbral durante una duración sostenida.
+
+    **Fuente de datos:** Almacén de series temporales de estadísticas
+
+    **Campos:**
+    | Campo | Descripción |
+    | --- | --- |
+    | Métrica | `cpu` o `mem_percent` |
+    | Operador | `>` o `>=` |
+    | Umbral | El valor porcentual para comparar |
+    | Duración | Cuántos segundos la métrica debe permanecer por encima del umbral antes de dispararse |
+
+    **Caso de uso:** Detectar fugas de memoria, CPU descontrolada o contenedores alcanzando sus límites de recursos.
+  </Tab>
+  <Tab>
+    ### Ráfaga de reinicio
+
+    Se dispara cuando un solo contenedor se reinicia más veces que un umbral dentro de una ventana de tiempo.
+
+    **Fuente de datos:** Eventos de Docker
+
+    **Campos:**
+    | Campo | Descripción |
+    | --- | --- |
+    | Conteo | Número mínimo de reinicios para activar |
+    | Ventana | Ventana de tiempo en segundos |
+
+    **Caso de uso:** Detectar escenarios de bucle de fallos donde un contenedor sigue reiniciándose y fallando.
+  </Tab>
+</Tabs>
+
+## Selector de objetivo
+
+Los cuatro tipos de reglas comparten el mismo selector de objetivo, por lo que eliges qué monitorear de manera consistente.
+
+| Alcance | Comportamiento |
+| --- | --- |
+| Todos los contenedores | La regla se aplica a cada contenedor en el host conectado |
+| Proyecto Compose | La regla se aplica a todos los contenedores pertenecientes a un proyecto Compose específico |
+| Contenedores específicos | La regla se aplica solo a los contenedores que seleccionas |
+
+## Crear una regla
+
+<Steps>
+  <Step>
+    ### Abrir la página de Alertas
+
+    Navega a la página de Alertas desde la barra lateral o [Spotlight](/es/docs/advanced/spotlight).
+  </Step>
+  <Step>
+    ### Haz clic en Agregar regla
+
+    Elige el tipo de regla y completa los campos del formulario.
+  </Step>
+  <Step>
+    ### Establecer el objetivo
+
+    Elige si esta regla monitorea todos los contenedores, un proyecto Compose o contenedores específicos.
+  </Step>
+  <Step>
+    ### Vincular canales de notificación
+
+    Selecciona uno o más [canales de notificación](/es/docs/homelab/notifications) que deberían recibir la alerta.
+  </Step>
+  <Step>
+    ### Configurar cooldown y severidad
+
+    Establece un período de cooldown para prevenir alertas repetidas, y elige un nivel de severidad para filtrado.
+  </Step>
+  <Step>
+    ### Guardar y habilitar
+
+    La regla comienza a evaluarse inmediatamente.
+  </Step>
+</Steps>
+
+## Cooldown y ventanas de silencio
+
+### Cooldown
+
+Después de que una regla se dispara, entra en un período de cooldown (configurable por regla). Durante el cooldown la regla no se dispara de nuevo, incluso si la condición permanece verdadera. Esto previene tormentas de notificaciones cuando múltiples contenedores fallan al mismo tiempo.
+
+### Ventanas de silencio
+
+Establece ventanas de tiempo cuando la regla no debería dispararse en absoluto, por ejemplo "02:00 - 05:00" para ventanas de mantenimiento planificado. La regla sigue evaluándose durante las ventanas de silencio, pero suprime las notificaciones.
+
+## Niveles de severidad
+
+Cada regla tiene una severidad: **info**, **warning** o **critical**. La severidad es metadata para filtrado y búsquedas de historial. No afecta el enrutamiento; todos los canales vinculados reciben cada alerta independientemente de la severidad.
+
+## Historial de alertas
+
+La página de Alertas incluye una pestaña de historial mostrando cada vez que una regla se disparó, con:
+
+- Timestamp
+- Nombre de regla y tipo
+- Contexto (nombre de contenedor, valor de métrica, código de salida, etc.)
+- Qué canales recibieron la notificación
+
+## Modelo de enrutamiento
+
+Cada regla se vincula directamente a una lista de canales de notificación. Cuando la regla se dispara, el mensaje va a cada canal en esa lista. No hay tabla de enrutamiento global ni mapeo de canales basado en severidad en esta versión.
+
+## Consejos
+
+<Callout type="info">
+  Comienza con una regla `container_exit_non_zero` apuntando a todos los contenedores y vinculada a tu canal de notificación principal. Captura el modo de fallo más común con configuración cero.
+</Callout>
+
+- Usa `resource_threshold` con una duración de al menos 60 segundos para evitar falsos positivos de picos breves.
+- Combina `restart_burst` con un conteo bajo (ej. 3 reinicios en 300 segundos) para detectar bucles de fallos temprano.
+- Revisa el historial de alertas periódicamente para ajustar períodos de cooldown. Si ves entradas repetidas para el mismo incidente, aumenta el cooldown.

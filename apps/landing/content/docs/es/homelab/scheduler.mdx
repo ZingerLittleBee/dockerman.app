@@ -1,0 +1,71 @@
+---
+title: Tareas en segundo plano
+description: Programa tareas cron e intervalos que siguen ejecutándose cuando la ventana principal está cerrada.
+---
+
+El programador de tareas en segundo plano ejecuta trabajos en una expresión cron o en un intervalo fijo, incluso cuando la ventana principal de Dockerman está cerrada. Es el motor detrás de la agregación de estadísticas, limpieza de retención y [verificaciones de actualización de imágenes](/es/docs/homelab/image-watches).
+
+## Cómo funciona
+
+El programador usa la bandeja del sistema para mantenerse activo. Cuando cierras la ventana principal, Dockerman se mueve a la bandeja y las tareas siguen ejecutándose. Cerrar el icono de la bandeja detiene todas las tareas en segundo plano, y Dockerman te lo informa antes de salir.
+
+## Tipos de tareas integrados
+
+Dockerman incluye los siguientes tipos de tareas. Cada uno está pre-registrado y puede habilitarse o configurarse desde la página de Tareas.
+
+| Tipo | Propósito | Programación por defecto |
+| --- | --- | --- |
+| `stats_aggregation` | Agrupa muestras de estadísticas crudas de 5 segundos en agregados de 5 minutos | Cada 30 minutos |
+| `stats_retention_prune` | Elimina muestras crudas expiradas (mayores a 1 hora) y agregados expirados (mayores a 7 días) | Cada 60 minutos |
+| `image_upgrade_check` | Verifica imágenes suscritas para nuevas versiones en sus registros | Cada 6 horas |
+
+Tipos adicionales como `auto_backup` y `auto_prune` están planificados para versiones futuras.
+
+## La página de Tareas
+
+Abre la página de Tareas para ver todas las tareas registradas de un vistazo.
+
+Cada fila muestra:
+
+- **Tipo** y una descripción legible
+- **Programación** (expresión cron o intervalo)
+- **Próxima ejecución** con cuenta regresiva
+- **Última ejecución** con hora y resultado (éxito, fallo con mensaje de error)
+- **Habilitado** toggle
+
+## Gestión de tareas
+
+### Cambiar la programación
+
+Edita la programación de cualquier tarea desde su fila. Puedes establecer una expresión cron (ej. `0 */2 * * *` para cada 2 horas) o un intervalo fijo en segundos.
+
+### Habilitar o deshabilitar
+
+Activa o desactiva una tarea. Las tareas deshabilitadas permanecen en la lista pero no se ejecutan hasta que se vuelvan a habilitar.
+
+### Ejecutar ahora
+
+Haz clic en **Ejecutar ahora** para activar una tarea inmediatamente, independientemente de su programación. La ejecución aparece en el historial de tareas como cualquier ejecución programada.
+
+### Ver historial
+
+Expande una fila de tarea para ver las últimas N ejecuciones con su hora de inicio, duración, estado y cualquier mensaje de error.
+
+## Almacenamiento de datos
+
+Las definiciones de tareas y el historial de ejecuciones se almacenan en la base de datos SQLite local.
+
+| Tabla | Contenido |
+| --- | --- |
+| `tasks` | ID de tarea, tipo, programación, flag habilitado, configuración y hora de creación |
+| `task_runs` | ID de ejecución, tarea padre, timestamps de inicio y fin, estado y mensajes de error |
+
+## Consejos
+
+<Callout type="info">
+  El programador solo se ejecuta mientras Dockerman está en la bandeja del sistema o la ventana principal está abierta. Si necesitas que las tareas sobrevivan a un cierre completo de la aplicación, un modo de servicio de sistema está planificado para una versión futura.
+</Callout>
+
+- Revisa la página de Tareas después de una instalación nueva para asegurarte de que `stats_aggregation` y `stats_retention_prune` estén habilitados. Están activos por defecto.
+- Si el uso de disco crece, acorta el intervalo de limpieza de retención o reduce la ventana de retención en la configuración.
+- La tarea `image_upgrade_check` se crea automáticamente cuando agregas tu primer [monitoreo de actualización de imagen](/es/docs/homelab/image-watches).

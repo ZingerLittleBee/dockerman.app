@@ -1,0 +1,63 @@
+---
+title: Homelab
+description: Automate, monitor, and maintain your self-hosted services without leaving Dockerman.
+---
+
+Dockerman's homelab features let you monitor your self-hosted services, get notified when things go wrong, and fix issues without juggling multiple tools.
+
+## Why homelab mode
+
+Most container management happens while you are at your desk. Homelab mode covers the rest: what happens when you step away, when a service crashes at 3 AM, or when a new image version drops while you are not looking.
+
+Dockerman is **desktop-first and local-first**. It does not deploy a management container and does not expose a management port. Everything runs inside the app, credentials stay in your system Keychain, and Compose files land on your filesystem where `git` and `docker compose` CLI can use them directly.
+
+## The end-to-end workflow
+
+<Steps>
+  <Step>
+    ### Set up notification channels
+
+    Connect [Telegram, ntfy, Gotify, Discord, or a generic webhook](/en/docs/homelab/notifications) so Dockerman can reach you when you are away.
+  </Step>
+  <Step>
+    ### Create alert rules
+
+    Define [alert rules](/en/docs/homelab/alerts) like "notify me when any container exits with a non-zero code" or "alert when CPU stays above 90% for 5 minutes."
+  </Step>
+  <Step>
+    ### Subscribe to image updates
+
+    Turn on [image upgrade watches](/en/docs/homelab/image-watches) for the services you care about. Dockerman checks registries in the background and pushes a notification when a new version is available.
+  </Step>
+  <Step>
+    ### Diagnose and fix
+
+    When something breaks, generate a [diagnostic bundle](/en/docs/homelab/diagnostic-bundle) with one click, edit the Compose YAML in the [built-in editor](/en/docs/docker/compose#edit-composeyaml), and apply the fix.
+  </Step>
+</Steps>
+
+## Features at a glance
+
+<Cards>
+  <Card title="Background Tasks" href="/en/docs/homelab/scheduler">
+    Cron and interval scheduling that keeps running when the main window is closed.
+  </Card>
+  <Card title="Notifications" href="/en/docs/homelab/notifications">
+    Telegram, ntfy, Gotify, Discord, Webhook, and system notifications through a Shoutrrr-compatible URL scheme.
+  </Card>
+  <Card title="Alert Rules" href="/en/docs/homelab/alerts">
+    Four rule types covering container exits, health checks, resource thresholds, and restart bursts.
+  </Card>
+  <Card title="Image Upgrade Watches" href="/en/docs/homelab/image-watches">
+    Background registry polling with digest comparison and multi-channel push when a new version lands.
+  </Card>
+  <Card title="Diagnostic Bundle" href="/en/docs/homelab/diagnostic-bundle">
+    One-click zip of inspect, events, logs, and stats for a container or an entire Compose stack.
+  </Card>
+</Cards>
+
+## How it stays running
+
+Dockerman uses **tray residence**: closing the main window sends the app to the system tray, and background tasks keep running. When you quit the tray icon, Dockerman tells you that background tasks will stop.
+
+A full system service (launchd / systemd / Windows Service) is planned for a future release.

@@ -1,0 +1,82 @@
+---
+title: 通知
+description: 通过 Telegram、ntfy、Gotify、Discord、Webhook 或系统通知接收告警。
+---
+
+Dockerman 可以通过多个渠道推送通知，让你知道当你不在桌前时发生了什么。渠道使用 **Shoutrrr 兼容的 URL 方案**，与 Watchtower、Beszel 和其他 homelab 工具使用的格式相同。
+
+## 支持的渠道
+
+| 渠道 | URL 格式 | 说明 |
+| --- | --- | --- |
+| Telegram | `telegram://token@telegram?chats=chat_id` | 从 BotFather 获取的 Bot token |
+| ntfy | `ntfy://ntfy.sh/topic` 或 `ntfy://user:pass@ntfy.sh/topic` | 自托管或使用 ntfy.sh |
+| Gotify | `gotify://gotify.example.com/token` | 自托管 Gotify 服务器 |
+| Discord | `discord://token@id` | Webhook URL 转换为 Shoutrrr 格式 |
+| Webhook | `generic://example.com/webhook` | 通用 JSON POST 到任意端点 |
+| 系统通知 | 内置，无需 URL | macOS、Windows 和 Linux 原生通知 |
+
+系统通知始终可用且默认启用。它们不计为"外部"渠道。
+
+## 添加通知渠道
+
+<Steps>
+  <Step>
+    ### 打开通知设置
+
+    从侧边栏或通过 [Spotlight](/zh/docs/advanced/spotlight) 进入通知页面。
+  </Step>
+  <Step>
+    ### 添加渠道
+
+    点击**添加渠道**，给它命名，然后粘贴 Shoutrrr URL。
+  </Step>
+  <Step>
+    ### 测试渠道
+
+    点击**测试**立即发送测试消息。如果消息到达，渠道就准备好了。
+  </Step>
+  <Step>
+    ### 保存
+
+    保存渠道。现在它可用于[告警规则](/zh/docs/homelab/alerts)和[镜像升级监控](/zh/docs/homelab/image-watches)。
+  </Step>
+</Steps>
+
+{/* TODO(screenshot): homelab/notifications-add - 添加通知渠道对话框 */}
+
+## 凭证安全
+
+Shoutrrr URL 的敏感部分（如 token 和密码）存储在你的系统 Keychain 中（macOS Keychain、Windows DPAPI 或 Linux Secret Service）。数据库只存储 URL 的脱敏版本，秘密被占位符替换。
+
+<Callout type="info">
+  Dockerman 永远不会将你的凭证发送到通知渠道以外的任何服务器。凭证在发送时从 Keychain 读取，且永远不会被记录。
+</Callout>
+
+## 通知的使用场景
+
+通知渠道被两个系统使用：
+
+<Cards>
+  <Card title="告警规则" href="/zh/docs/homelab/alerts">
+    每个告警规则绑定到一个或多个渠道。当规则触发时，它会广播到所有绑定的渠道。
+  </Card>
+  <Card title="镜像升级监控" href="/zh/docs/homelab/image-watches">
+    镜像监控使用全局默认渠道列表。当发现新镜像版本时，所有默认渠道都会收到通知。
+  </Card>
+</Cards>
+
+## 管理渠道
+
+在通知页面你可以：
+
+- **编辑**渠道的名称或 URL
+- **禁用**渠道而不删除它（禁用的渠道在发送时会被跳过）
+- **删除**渠道（引用它的告警规则将停止向它发送）
+- **重新测试**渠道
+
+## 提示
+
+- 如果你已经在 Watchtower 或 Beszel 中使用 Shoutrrr URL，可以将相同的 URL 粘贴到 Dockerman 中。
+- 对于 Discord，将你的 webhook URL（`https://discord.com/api/webhooks/ID/TOKEN`）转换为 Shoutrrr 格式：`discord://TOKEN@ID`。
+- 通用 webhook 渠道发送带有 `title` 和 `body` 字段的 JSON POST。使用它来集成任何接受 webhook 的服务。

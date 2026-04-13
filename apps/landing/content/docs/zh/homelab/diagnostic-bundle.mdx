@@ -1,0 +1,94 @@
+---
+title: 诊断包
+description: 为容器或 Compose 技术栈生成一键 zip 文件，包含 inspect 数据、events、logs 和 stats。
+---
+
+诊断包将调试容器或 Compose 技术栈所需的一切打包到一个 `.zip` 文件中。与朋友分享、发布到 issue 中，或保留供你自己参考。
+
+## 包中包含的内容
+
+<Files>
+  <Folder name="diagnostic-bundle.zip" defaultOpen>
+    <File name="manifest.json" />
+    <File name="system.json" />
+    <File name="events.json" />
+    <Folder name="container-name" defaultOpen>
+      <File name="inspect.json" />
+      <File name="logs.txt" />
+      <File name="stats.json" />
+    </Folder>
+  </Folder>
+</Files>
+
+| 文件 | 内容 |
+| --- | --- |
+| `manifest.json` | 生成时间戳、Dockerman 版本、主机类型、文件清单、脱敏计数及遇到的任何错误 |
+| `system.json` | Docker 版本和系统信息（排除敏感字段） |
+| `events.json` | 按选定时间窗口和目标容器过滤的 Docker 事件 |
+| `inspect.json` | 组合的容器、镜像、网络和卷 inspect 数据。环境变量默认被脱敏。包含 `State.Health`。 |
+| `logs.txt` | 选定时间窗口内的带时间戳容器日志 |
+| `stats.json` | 时间序列存储中的资源使用样本（原始 5 秒样本（如有），较长窗口回退到 5 分钟聚合，或时间序列数据不可用时使用当前快照） |
+
+当目标为 Compose 技术栈时，包中包含技术栈中每个容器的子目录。
+
+## 生成包
+
+<Tabs items={['从容器', '从 Compose 技术栈', '从 Spotlight']}>
+  <Tab>
+    打开容器的操作菜单，选择**诊断包**。
+  </Tab>
+  <Tab>
+    打开 Compose 技术栈的溢出菜单，选择**诊断包**。
+  </Tab>
+  <Tab>
+    打开 [Spotlight](/zh/docs/advanced/spotlight) 并搜索"diagnostic bundle"，然后选择目标。
+  </Tab>
+</Tabs>
+
+<Steps>
+  <Step>
+    ### 选择时间窗口
+
+    选择要包含 logs、events 和 stats 的时间范围。较长的时间窗口会产生更大的包。
+  </Step>
+  <Step>
+    ### 查看脱敏设置
+
+    默认情况下，匹配 `TOKEN`、`PASSWORD`、`SECRET`、`KEY`、`CREDENTIAL` 或 `AUTH`（不区分大小写）的环境变量会被替换为 `***REDACTED***`。如果你需要原始值，请关闭此选项。
+  </Step>
+  <Step>
+    ### 选择保存位置
+
+    选择 `.zip` 文件在本地文件系统的保存位置。
+  </Step>
+  <Step>
+    ### 等待生成
+
+    进度指示器显示打包状态。单个容器的生成通常需要不到 10 秒。
+  </Step>
+  <Step>
+    ### 打开结果
+
+    生成后，点击**在 Finder 中显示**（macOS）或等效按钮跳转到保存的文件。
+  </Step>
+</Steps>
+
+## 敏感数据脱敏
+
+默认情况下，匹配以下模式的环境变量值会被替换为 `***REDACTED***`：
+
+```
+(?i)(TOKEN|PASSWORD|SECRET|KEY|CREDENTIAL|AUTH)
+```
+
+这适用于包中的 `inspect.json` 文件。当你需要原始值进行自己的调试时，可以在包对话框中禁用脱敏。
+
+<Callout type="warn">
+  即使启用了脱敏，容器日志也可能包含应用程序打印的敏感数据。在公开分享之前请查看包内容。
+</Callout>
+
+## 提示
+
+- 在 GitHub issues 或社区论坛寻求帮助时使用诊断包。结构化格式使他人更容易理解你的设置。
+- 包中的 stats 数据取决于[后台任务调度器](/zh/docs/homelab/scheduler)是否已收集时间序列数据。如果调度器最近才启用，stats 部分可能只包含当前快照。
+- 对于包含许多容器的 Compose 技术栈，包可能会变得很大。使用较短的时间窗口来保持文件大小可管理。

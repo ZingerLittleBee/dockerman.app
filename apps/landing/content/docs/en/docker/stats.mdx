@@ -1,9 +1,9 @@
 ---
 title: Stats
-description: Real-time resource dashboards with ring gauges and sparkline charts for every container.
+description: Real-time and historical resource dashboards with ring gauges and sparkline charts for every container.
 ---
 
-Use this page as your real-time resource dashboard. Redesigned in v4.5.0, it combines ring gauges with sparkline charts so you can spot pressure quickly.
+Use this page as your resource dashboard. Redesigned in v4.5.0, it combines ring gauges with sparkline charts so you can spot pressure quickly. With historical stats, you can also look back at trends over the past 7 days.
 
 ## Overview dashboard
 
@@ -18,7 +18,7 @@ Ring gauges show instantaneous CPU and memory usage per container. The outer rin
 The four sparkline charts below each gauge row give you a compact history for each metric.
 
 - CPU percent
-- Memory in MB
+- Memory in MB (live ranges) or memory percent (historical ranges)
 - Network I/O in bytes per second for receive and transmit
 - Disk I/O in bytes per second for read and write
 
@@ -26,7 +26,18 @@ Hover a point to see the exact value for that moment.
 
 ## Time range selector
 
-Use the selector at the top to switch between 1h, 3h, 6h, 12h, and 24h. The selected range applies to both the sparklines and the ring gauge average.
+The selector at the top offers seven ranges split into two modes:
+
+| Range | Mode | Data source |
+| --- | --- | --- |
+| 1 min, 5 min, 15 min | Live | Real-time stream from the Docker daemon |
+| 1 hour, 6 hours, 24 hours, 7 days | Historical | Time series store (5-second raw samples for 1h, 5-minute aggregates for longer ranges) |
+
+Live ranges show data as it arrives from the Docker stats stream. Historical ranges query the time series database, which is populated by the [background task scheduler](/en/docs/homelab/scheduler).
+
+<Callout type="info">
+  Historical ranges require the `stats_aggregation` and `stats_retention_prune` background tasks to be enabled. They are on by default. Raw 5-second samples are retained for 1 hour; 5-minute aggregates are retained for 7 days.
+</Callout>
 
 ## Network interfaces and disk devices
 
@@ -37,5 +48,6 @@ Expand a container row when you want to break out network I/O by interface or di
 - Spiky CPU over 1h that flattens out over 24h usually means short-lived batch work, not a leak.
 - Memory that climbs over 24h and never drops is a strong leak signal.
 - Disk I/O spikes that line up with log growth often mean unrotated logs, so check [Logs](/en/docs/docker/logs).
+- Use the 7-day range to identify weekly patterns, such as backup jobs that spike resources on a schedule.
 
 {/* TODO(screenshot): stats/dashboard - Stats overview with ring gauges and sparklines */}

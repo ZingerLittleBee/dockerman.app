@@ -1,0 +1,12 @@
+{
+  "title": "Homelab",
+  "pages": [
+    "index",
+    "scheduler",
+    "notifications",
+    "alerts",
+    "image-watches",
+    "diagnostic-bundle"
+  ],
+  "defaultOpen": true
+}

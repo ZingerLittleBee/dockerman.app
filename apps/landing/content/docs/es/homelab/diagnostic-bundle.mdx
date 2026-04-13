@@ -1,0 +1,94 @@
+---
+title: Paquete de diagnóstico
+description: Genera un zip de un clic con datos de inspect, eventos, logs y estadísticas para un contenedor o stack Compose.
+---
+
+El paquete de diagnóstico empaqueta todo lo que necesitas para depurar un contenedor o stack Compose en un solo archivo `.zip`. Compártelo con un amigo, publícalo en un issue o guárdalo para tu propia referencia.
+
+## Qué contiene el paquete
+
+<Files>
+  <Folder name="diagnostic-bundle.zip" defaultOpen>
+    <File name="manifest.json" />
+    <File name="system.json" />
+    <File name="events.json" />
+    <Folder name="container-name" defaultOpen>
+      <File name="inspect.json" />
+      <File name="logs.txt" />
+      <File name="stats.json" />
+    </Folder>
+  </Folder>
+</Files>
+
+| Archivo | Contenido |
+| --- | --- |
+| `manifest.json` | Timestamp de generación, versión de Dockerman, tipo de host, inventario de archivos, conteo de redacción y cualquier error encontrado |
+| `system.json` | Versión de Docker e información del sistema (campos sensibles excluidos) |
+| `events.json` | Eventos de Docker filtrados por la ventana de tiempo seleccionada y contenedores objetivo |
+| `inspect.json` | Datos combinados de inspect de contenedor, imagen, red y volumen. Las variables de entorno se redactan por defecto. `State.Health` se incluye. |
+| `logs.txt` | Logs de contenedor con timestamps dentro de la ventana de tiempo seleccionada |
+| `stats.json` | Muestras de uso de recursos del almacén de series temporales (muestras crudas de 5 segundos cuando están disponibles, fallback a agregados de 5 minutos para ventanas más largas, o un snapshot actual si no hay datos de series temporales disponibles) |
+
+Cuando se apunta a un stack Compose, el paquete incluye un subdirectorio por contenedor en el stack.
+
+## Generar un paquete
+
+<Tabs items={['Desde un contenedor', 'Desde un stack Compose', 'Desde Spotlight']}>
+  <Tab>
+    Abre el menú de acciones del contenedor y selecciona **Paquete de diagnóstico**.
+  </Tab>
+  <Tab>
+    Abre el menú overflow del stack Compose y selecciona **Paquete de diagnóstico**.
+  </Tab>
+  <Tab>
+    Abre [Spotlight](/es/docs/advanced/spotlight) y busca "paquete de diagnóstico", luego selecciona el objetivo.
+  </Tab>
+</Tabs>
+
+<Steps>
+  <Step>
+    ### Elige la ventana de tiempo
+
+    Selecciona qué tan atrás incluir logs, eventos y estadísticas. Ventanas más largas producen paquetes más grandes.
+  </Step>
+  <Step>
+    ### Revisa la configuración de redacción
+
+    Las variables de entorno que coinciden con `TOKEN`, `PASSWORD`, `SECRET`, `KEY`, `CREDENTIAL` o `AUTH` (sin distinguir mayúsculas/minúsculas) se reemplazan con `***REDACTED***` por defecto. Desactívalo si necesitas los valores sin procesar.
+  </Step>
+  <Step>
+    ### Elige una ubicación de guardado
+
+    Elige dónde guardar el archivo `.zip` en tu sistema de archivos local.
+  </Step>
+  <Step>
+    ### Espera la generación
+
+    Un indicador de progreso muestra el estado de empaquetado. La generación típicamente toma menos de 10 segundos para un solo contenedor.
+  </Step>
+  <Step>
+    ### Abre el resultado
+
+    Después de la generación, haz clic en **Mostrar en Finder** (macOS) o el equivalente para ir al archivo guardado.
+  </Step>
+</Steps>
+
+## Redacción de datos sensibles
+
+Por defecto, los valores de variables de entorno que coinciden con el siguiente patrón se reemplazan con `***REDACTED***`:
+
+```
+(?i)(TOKEN|PASSWORD|SECRET|KEY|CREDENTIAL|AUTH)
+```
+
+Esto se aplica a los archivos `inspect.json` en el paquete. Puedes deshabilitar la redacción en el diálogo del paquete cuando necesites los valores sin procesar para tu propia depuración.
+
+<Callout type="warn">
+  Incluso con la redacción habilitada, los logs de contenedor pueden contener datos sensibles impresos por la aplicación. Revisa el paquete antes de compartirlo públicamente.
+</Callout>
+
+## Consejos
+
+- Usa paquetes de diagnóstico cuando pidas ayuda en issues de GitHub o foros de la comunidad. El formato estructurado facilita que otros entiendan tu configuración.
+- Los datos de estadísticas en el paquete dependen de que el [programador de tareas en segundo plano](/es/docs/homelab/scheduler) haya recolectado datos de series temporales. Si el programador fue habilitado recientemente, la sección de estadísticas puede contener solo un snapshot actual.
+- Para stacks Compose con muchos contenedores, los paquetes pueden crecer. Usa una ventana de tiempo más corta para mantener el tamaño del archivo manejable.

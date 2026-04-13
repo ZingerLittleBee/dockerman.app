@@ -1,0 +1,82 @@
+---
+title: Notifications
+description: Receive alerts through Telegram, ntfy, Gotify, Discord, Webhook, or system notifications.
+---
+
+Dockerman can push notifications through multiple channels so you know when something happens while you are away from your desk. Channels use a **Shoutrrr-compatible URL scheme**, the same format used by Watchtower, Beszel, and other homelab tools.
+
+## Supported channels
+
+| Channel | URL format | Notes |
+| --- | --- | --- |
+| Telegram | `telegram://token@telegram?chats=chat_id` | Bot token from BotFather |
+| ntfy | `ntfy://ntfy.sh/topic` or `ntfy://user:pass@ntfy.sh/topic` | Self-hosted or ntfy.sh |
+| Gotify | `gotify://gotify.example.com/token` | Self-hosted Gotify server |
+| Discord | `discord://token@id` | Webhook URL converted to Shoutrrr format |
+| Webhook | `generic://example.com/webhook` | Generic JSON POST to any endpoint |
+| System notification | Built-in, no URL needed | macOS, Windows, and Linux native notifications |
+
+System notifications are always available and enabled by default. They do not count as an "external" channel.
+
+## Add a notification channel
+
+<Steps>
+  <Step>
+    ### Open notification settings
+
+    Go to the Notifications page from the sidebar or via [Spotlight](/en/docs/advanced/spotlight).
+  </Step>
+  <Step>
+    ### Add a channel
+
+    Click **Add channel**, give it a name, and paste the Shoutrrr URL.
+  </Step>
+  <Step>
+    ### Test the channel
+
+    Click **Test** to send a test message immediately. If the message arrives, the channel is ready.
+  </Step>
+  <Step>
+    ### Save
+
+    Save the channel. It is now available for [alert rules](/en/docs/homelab/alerts) and [image upgrade watches](/en/docs/homelab/image-watches).
+  </Step>
+</Steps>
+
+{/* TODO(screenshot): homelab/notifications-add - Add notification channel dialog */}
+
+## Credential security
+
+Sensitive parts of the Shoutrrr URL, such as tokens and passwords, are stored in your system Keychain (macOS Keychain, Windows DPAPI, or Linux Secret Service). The database only stores a redacted version of the URL with secrets replaced by placeholders.
+
+<Callout type="info">
+  Dockerman never sends your credentials to any server other than the notification channel itself. Credentials are read from the Keychain at send time and are never logged.
+</Callout>
+
+## Where notifications are used
+
+Notification channels are consumed by two systems:
+
+<Cards>
+  <Card title="Alert Rules" href="/en/docs/homelab/alerts">
+    Each alert rule binds to one or more channels. When the rule fires, it broadcasts to all bound channels.
+  </Card>
+  <Card title="Image Upgrade Watches" href="/en/docs/homelab/image-watches">
+    Image watches use a global default channel list. When a new image version is found, all default channels receive the notification.
+  </Card>
+</Cards>
+
+## Managing channels
+
+From the Notifications page you can:
+
+- **Edit** a channel's name or URL
+- **Disable** a channel without deleting it (disabled channels are skipped during delivery)
+- **Delete** a channel (alert rules that referenced it will stop delivering to it)
+- **Re-test** a channel at any time
+
+## Tips
+
+- If you already use Shoutrrr URLs with Watchtower or Beszel, you can paste the same URL into Dockerman.
+- For Discord, convert your webhook URL (`https://discord.com/api/webhooks/ID/TOKEN`) to the Shoutrrr format: `discord://TOKEN@ID`.
+- The generic webhook channel sends a JSON POST with `title` and `body` fields. Use it to integrate with any service that accepts webhooks.
