@@ -203,7 +203,69 @@ function SystemRow() {
 }
 
 function ChartRow() {
-  return null
+  const cpu = useSparkline({
+    seed: [22, 28, 26, 30, 27, 31, 29, 33, 30, 28, 26, 31],
+    intervalMs: 1500,
+    volatility: 0.12,
+    min: 10,
+    max: 85,
+  })
+  const mem = useSparkline({
+    seed: [42, 44, 45, 46, 47, 46, 48, 49, 50, 49, 48, 50],
+    intervalMs: 1500,
+    volatility: 0.08,
+    min: 20,
+    max: 80,
+  })
+
+  return (
+    <div className="mt-3 grid grid-cols-2 gap-3">
+      <ChartCard stroke="#6366f1" title="CPU" value={`${Math.round(cpu[cpu.length - 1] ?? 0)}%`}>
+        <Sparkline data={cpu} height={120} stroke="#6366f1" strokeWidth={1.75} width={500} />
+      </ChartCard>
+      <ChartCard
+        stroke="#10b981"
+        title="Memory"
+        value={`${Math.round(mem[mem.length - 1] ?? 0)}%`}
+      >
+        <Sparkline
+          data={mem}
+          fill="#10b98122"
+          height={120}
+          stroke="#10b981"
+          strokeWidth={1.75}
+          width={500}
+        />
+      </ChartCard>
+    </div>
+  )
+}
+
+function ChartCard({
+  title,
+  value,
+  stroke,
+  children,
+}: {
+  title: string
+  value: string
+  stroke: string
+  children: React.ReactNode
+}) {
+  return (
+    <div className="rounded-[12px] border border-dm-line bg-dm-bg-elev p-4">
+      <div className="flex items-baseline justify-between">
+        <span className="text-[12px] text-dm-ink-3">{title}</span>
+        <span
+          className="font-semibold text-[20px]"
+          style={{ color: stroke, fontFamily: 'var(--font-dm-mono)' }}
+        >
+          {value}
+        </span>
+      </div>
+      <div className="mt-2 w-full">{children}</div>
+    </div>
+  )
 }
 
 function IoRow() {
