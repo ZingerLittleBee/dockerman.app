@@ -100,6 +100,162 @@
   "common": {
     "download": "ダウンロード"
   },
+  "featuresSection": {
+    "titleLead": "気にかけるあらゆるもの、",
+    "titleAccent": "キー一打で。",
+    "description": "コンテナ、イメージ、ボリューム、ネットワーク、Compose プロジェクト、Kubernetes ワークロード、Cloudflared トンネル — すべてを低遅延の単一 UI に。",
+    "cards": {
+      "palette": {
+        "title": "コマンドパレットこそがアプリ",
+        "body": "⌘; で全コンテナ・イメージ・Compose プロジェクト・ネットワーク・ボリューム・Pod・Service・直近の操作を横断するあいまい検索が開きます。メニューもタブも不要。"
+      },
+      "imageUpgrade": {
+        "title": "イメージ更新の検出",
+        "body": "ダイジェスト単位の差分。自動バックアップとロールバック付きのワンクリック更新。"
+      },
+      "podman": {
+        "title": "Docker と Podman を同じ UI で",
+        "body": "ランタイムを自動判別。Linux と macOS の Rootless ソケットを自動検出。"
+      },
+      "kubernetes": {
+        "title": "Kubernetes を横並びで",
+        "body": "kubeconfig を読み込むか、ローカルに k3d クラスターを起動。Deployment、Pod、CRD、Helm リリースを閲覧。あらゆるポート転送にローカル DNS が自動付与。"
+      },
+      "events": {
+        "title": "明確で見やすいイベント",
+        "body": "非ゼロ終了、OOM、ヘルスチェック失敗をデスクトップ通知。すべてのイベントはコピー可能・フィルタ可能・エクスポート可能。"
+      },
+      "cloudflared": {
+        "title": "ワンクリック公開トンネル",
+        "body": "Cloudflared で任意のコンテナポートを公開。コンテナ停止時に自動削除、クラッシュ後も復元。"
+      },
+      "logs": {
+        "title": "詰まらないログ",
+        "bodyPre": "仮想化ビューア、フォロー/一時停止、正規表現ハイライト、TXT/JSON 書き出しに対応。キーボードファースト — ",
+        "bodyMid": " で一時停止、",
+        "bodyPost": " で検索。"
+      },
+      "security": {
+        "title": "信頼できるイメージ",
+        "body": "Trivy による CVE スキャンを内蔵し、重大度フィルタとレビューに対応。プルート時にプライベートレジストリ資格を自動マッチ。任意のレジストリへ進捗表示付きでプッシュ。"
+      }
+    }
+  },
+  "modulesSection": {
+    "titleLead": "あなたが",
+    "titleAccent": "実際に",
+    "titleTrail": "毎日やっていることのために。",
+    "descriptionPre": "この 9 年間の Docker UI は、多くが Web 管理画面の移植のよう。Dockerman は、どのみち ",
+    "descriptionPost": " コマンドを叩く人のために設計されています。",
+    "modules": {
+      "containers": {
+        "chip": "最も使う",
+        "title": "ノイズを外して",
+        "titleEm": "インスペクト。",
+        "body": "統計、ログ、環境変数、マウント、プロセス、本物のターミナル、ファイルブラウザ — 行を離れずすべて操作可能。新しいイメージにコミットしたり、設定を作成ダイアログに複製したりも一声で。",
+        "bullets": [
+          "CPU / メモリ / ネット / ディスクのリングゲージとスパークライン",
+          "ボリュームとファイルシステム込みの容器バックアップ/復元",
+          "docker-run パーサ — コマンドを貼ればダイアログに"
+        ]
+      },
+      "compose": {
+        "chip": "新",
+        "title": "Compose プロジェクトを、",
+        "titleEm": "実体に沿ってグルーピング。",
+        "body": "フラット表示とプロジェクト別表示を切替。up / stop / restart / pull / remove のフルライフサイクル。profiles と dry-run を含むすべての Compose CLI フラグに対応。",
+        "bullets": [
+          "スタンドアロンコンテナは専用セクションに集約",
+          "env-file + file + profile をサポート",
+          "プロジェクトの状態が一目で把握可能"
+        ]
+      },
+      "images": {
+        "chip": "ワンクリック",
+        "title": "存在意義のある",
+        "titleEm": "レイヤーエクスプローラ。",
+        "body": "インタラクティブなサイズ分布、レイヤー毎の Dockerfile コマンド、Trivy による CVE スキャン、資格自動マッチ付きの任意レジストリへのプッシュ。分析結果は JSON で出力可能。",
+        "bullets": [
+          "色分けされた展開/折り畳み可能なレイヤーバー",
+          "Docker Hub 検索・タグ・README をインライン表示",
+          "ダイジェスト単位の更新とワンクリックロールバック"
+        ]
+      },
+      "system": {
+        "chip": "徹底",
+        "title": "あらゆるランタイム設定を、",
+        "titleEm": "公開かつ安全に。",
+        "body": "Docker Desktop なしで Windows の WSL2 エンジンを利用。ハートビート再接続付き SSH ソケット転送。プル時に一致するプライベートレジストリ資格。Wayland でもグローバルショートカット可。",
+        "bullets": [
+          "メニューバーのトレイにリアルタイム CPU / メモリ",
+          "非ゼロ終了・OOM のリアルタイム通知",
+          "ワンクリックのディスクプルーンとインタラクティブ内訳"
+        ]
+      }
+    }
+  },
+  "runtimeStrip": {
+    "label": "対応ランタイム"
+  },
+  "liveDashboard": {
+    "host": {
+      "name": "ローカルホスト",
+      "version": "docker · 28.5.2"
+    },
+    "sidebar": {
+      "main": {
+        "dashboard": "ダッシュボード",
+        "container": "コンテナ",
+        "image": "イメージ",
+        "build": "ビルド",
+        "network": "ネットワーク",
+        "volume": "ボリューム",
+        "events": "イベント",
+        "templates": "テンプレート"
+      },
+      "actionsHeader": "アクション",
+      "actions": {
+        "terminal": "ターミナル",
+        "process": "プロセス",
+        "inspect": "インスペクト",
+        "stats": "統計",
+        "logs": "ログ",
+        "file": "ファイル"
+      },
+      "containersHeader": "コンテナ",
+      "idle": "待機"
+    },
+    "main": {
+      "title": "ダッシュボード",
+      "chips": {
+        "autoRefresh": "自動更新 · 2 秒",
+        "connected": "接続済み"
+      },
+      "kpi": {
+        "containersTitle": "コンテナ",
+        "containersSubtitle": "8 稼働中 · 4 停止",
+        "imagesTitle": "イメージ",
+        "imagesSubtitle": "更新可能 3 件",
+        "totalSizeTitle": "イメージ合計サイズ",
+        "totalSizeSubtitle": "ディスク上",
+        "imagesInUseTitle": "使用中のイメージ",
+        "imagesInUseSubtitle": "47 件中"
+      },
+      "system": {
+        "dockerVersionTitle": "Docker バージョン",
+        "dockerVersionSubtitle": "安定版",
+        "storageDriverTitle": "ストレージドライバ",
+        "resourcesTitle": "システムリソース",
+        "osTitle": "OS"
+      },
+      "charts": {
+        "cpu": "CPU",
+        "memory": "メモリ",
+        "networkIo": "ネットワーク I/O",
+        "diskIo": "ディスク I/O"
+      }
+    }
+  },
   "pricing": {
     "badge": "価格",
     "title": "Dockerman ライセンス",

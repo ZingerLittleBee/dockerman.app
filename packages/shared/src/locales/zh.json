@@ -100,6 +100,162 @@
   "common": {
     "download": "下载"
   },
+  "featuresSection": {
+    "titleLead": "你关心的每一个对象，",
+    "titleAccent": "只差一次击键。",
+    "description": "容器、镜像、卷、网络、Compose 项目、Kubernetes 工作负载、Cloudflared 隧道 —— 全部汇聚于单一的低延迟界面。",
+    "cards": {
+      "palette": {
+        "title": "命令面板即应用",
+        "body": "⌘; 唤起通用模糊检索，一次覆盖所有容器、镜像、Compose 项目、网络、卷、Pod、Service 与最近操作。无菜单、无标签页、无翻找。"
+      },
+      "imageUpgrade": {
+        "title": "镜像升级检测",
+        "body": "摘要级差异对比。一键升级，自动备份与回滚。"
+      },
+      "podman": {
+        "title": "Docker 与 Podman，同一界面",
+        "body": "自动检测运行时。Linux 与 macOS 上自动发现 Rootless socket。"
+      },
+      "kubernetes": {
+        "title": "Kubernetes，并排陈列",
+        "body": "加载 kubeconfig，或一键启动本地 k3d 集群。浏览 Deployment、Pod、CRD、Helm Release。任意端口转发附带本地 DNS。"
+      },
+      "events": {
+        "title": "事件，清晰可读",
+        "body": "非零退出、OOM 与健康检查失败都会弹出桌面通知。每条事件可复制、可过滤、可导出。"
+      },
+      "cloudflared": {
+        "title": "一键公网隧道",
+        "body": "通过 Cloudflared 将任意容器端口暴露到公网。容器停止时自动回收，崩溃后持久化恢复。"
+      },
+      "logs": {
+        "title": "不会卡顿的日志",
+        "bodyPre": "虚拟化查看器，支持跟随/暂停、正则高亮、TXT/JSON 导出。键盘优先 —— ",
+        "bodyMid": " 暂停，",
+        "bodyPost": " 搜索。"
+      },
+      "security": {
+        "title": "值得信任的镜像",
+        "body": "内置 Trivy CVE 扫描，支持严重级过滤与审阅。私有仓库凭证在 pull 时自动匹配。推送到任意仓库并流式展示进度。"
+      }
+    }
+  },
+  "modulesSection": {
+    "titleLead": "为你每天",
+    "titleAccent": "真正",
+    "titleTrail": "在做的事打造。",
+    "descriptionPre": "九年的 Docker UI，大多数仍像 Web 管理面板的翻版。Dockerman 是为那些反正都会去敲 ",
+    "descriptionPost": " 命令的人设计的。",
+    "modules": {
+      "containers": {
+        "chip": "最常用",
+        "title": "检查容器，",
+        "titleEm": "不被干扰。",
+        "body": "状态、日志、环境变量、挂载、进程、一个真正的终端和文件浏览器 —— 不离开当前行即可全部调用。一条命令即可提交为新镜像，或把配置克隆到创建对话框。",
+        "bullets": [
+          "CPU、内存、网络、磁盘的环形仪表与迷你折线",
+          "带数据卷与文件系统的容器备份/恢复",
+          "docker-run 解析器 —— 粘贴命令，生成对话框"
+        ]
+      },
+      "compose": {
+        "chip": "新",
+        "title": "Compose 项目，",
+        "titleEm": "按真实归属分组。",
+        "body": "在平铺列表与按项目分组视图之间切换。完整生命周期：up、stop、restart、pull、remove。Compose CLI 的所有参数均已暴露，包括 profile 与 dry-run。",
+        "bullets": [
+          "独立容器自动折叠到专属分区",
+          "支持 env-file、file 与 profile",
+          "项目状态一目了然"
+        ]
+      },
+      "images": {
+        "chip": "一键",
+        "title": "真正",
+        "titleEm": "管用的层浏览器。",
+        "body": "交互式大小分布、逐层 Dockerfile 命令、基于 Trivy 的 CVE 扫描，可推送到任意仓库并自动匹配凭证。分析结果可导出为 JSON。",
+        "bullets": [
+          "按颜色分层的条带，支持展开/折叠",
+          "内嵌 Docker Hub 搜索、Tag 与 README",
+          "摘要级升级，一键回滚"
+        ]
+      },
+      "system": {
+        "chip": "深度",
+        "title": "每一个运行时旋钮，",
+        "titleEm": "开放且安全。",
+        "body": "Windows 上无需 Docker Desktop 即可使用 WSL2 引擎。SSH socket 转发带心跳重连。私有仓库凭证在 pull 时自动匹配。全局快捷键在 Wayland 下也可用。",
+        "bullets": [
+          "菜单栏托盘实时显示 CPU / 内存",
+          "非零退出与 OOM 的实时事件通知",
+          "一键磁盘清理，附交互式占用分解"
+        ]
+      }
+    }
+  },
+  "runtimeStrip": {
+    "label": "支持运行时"
+  },
+  "liveDashboard": {
+    "host": {
+      "name": "本地主机",
+      "version": "docker · 28.5.2"
+    },
+    "sidebar": {
+      "main": {
+        "dashboard": "仪表盘",
+        "container": "容器",
+        "image": "镜像",
+        "build": "构建",
+        "network": "网络",
+        "volume": "数据卷",
+        "events": "事件",
+        "templates": "模板"
+      },
+      "actionsHeader": "操作",
+      "actions": {
+        "terminal": "终端",
+        "process": "进程",
+        "inspect": "详情",
+        "stats": "统计",
+        "logs": "日志",
+        "file": "文件"
+      },
+      "containersHeader": "容器",
+      "idle": "空闲"
+    },
+    "main": {
+      "title": "仪表盘",
+      "chips": {
+        "autoRefresh": "自动刷新 · 2 秒",
+        "connected": "已连接"
+      },
+      "kpi": {
+        "containersTitle": "容器",
+        "containersSubtitle": "8 个运行中 · 4 个已停止",
+        "imagesTitle": "镜像",
+        "imagesSubtitle": "3 个可更新",
+        "totalSizeTitle": "镜像总大小",
+        "totalSizeSubtitle": "磁盘占用",
+        "imagesInUseTitle": "使用中的镜像",
+        "imagesInUseSubtitle": "共 47 个"
+      },
+      "system": {
+        "dockerVersionTitle": "Docker 版本",
+        "dockerVersionSubtitle": "稳定",
+        "storageDriverTitle": "存储驱动",
+        "resourcesTitle": "系统资源",
+        "osTitle": "操作系统"
+      },
+      "charts": {
+        "cpu": "CPU",
+        "memory": "内存",
+        "networkIo": "网络 I/O",
+        "diskIo": "磁盘 I/O"
+      }
+    }
+  },
   "pricing": {
     "badge": "定价",
     "title": "Dockerman 许可证",

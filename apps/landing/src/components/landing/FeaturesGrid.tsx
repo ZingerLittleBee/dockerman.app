@@ -1,26 +1,31 @@
+import type { Locale } from '@repo/shared/i18n'
+import { getTranslation } from '@repo/shared/i18n/server'
 import { PaletteViz } from './PaletteViz'
 
-export function FeaturesGrid() {
+export async function FeaturesGrid({ locale }: { locale: Locale }) {
+  const { t } = await getTranslation(locale)
   return (
     <section className="px-8 py-24" id="features">
       <div className="mx-auto max-w-[1240px]">
-        <SectionHead />
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-6 md:auto-rows-[minmax(200px,auto)]">
-          <PaletteCard />
-          <ImageUpgradeCard />
-          <PodmanCard />
-          <KubernetesCard />
-          <EventsCard />
-          <CloudflaredCard />
-          <LogsCard />
-          <SecurityCard />
+        <SectionHead t={t} />
+        <div className="grid grid-cols-1 gap-4 md:auto-rows-[minmax(200px,auto)] md:grid-cols-6">
+          <PaletteCard t={t} />
+          <ImageUpgradeCard t={t} />
+          <PodmanCard t={t} />
+          <KubernetesCard t={t} />
+          <EventsCard t={t} />
+          <CloudflaredCard t={t} />
+          <LogsCard t={t} />
+          <SecurityCard t={t} />
         </div>
       </div>
     </section>
   )
 }
 
-function SectionHead() {
+type TFn = (key: string, options?: Record<string, unknown>) => string
+
+function SectionHead({ t }: { t: TFn }) {
   return (
     <div className="mb-12 flex max-w-[780px] flex-col gap-[14px]">
       <div
@@ -30,14 +35,13 @@ function SectionHead() {
         <span className="text-dm-ink-4">// </span>features
       </div>
       <h2 className="m-0 font-bold text-[clamp(32px,4.5vw,56px)] text-dm-ink leading-[1.02] tracking-[-0.035em]">
-        Every object you care about,{' '}
+        {t('featuresSection.titleLead')}{' '}
         <em className="font-[var(--font-dm-display)] font-normal text-dm-ink-2 italic">
-          one keystroke away.
+          {t('featuresSection.titleAccent')}
         </em>
       </h2>
       <p className="m-0 max-w-[52ch] text-[17px] text-dm-ink-3 leading-[1.5]">
-        Containers, images, volumes, networks, compose projects, Kubernetes workloads, Cloudflared
-        tunnels — all surfaced in a single, low-latency interface.
+        {t('featuresSection.description')}
       </p>
     </div>
   )
@@ -51,7 +55,7 @@ const SHAPE_CLASSES: Record<CardShape, string> = {
   large: 'md:col-span-4 md:row-span-2',
   med: 'md:col-span-2 md:row-span-1',
   tall: 'md:col-span-2 md:row-span-2',
-  wide: 'md:col-span-2 md:row-span-1',
+  wide: 'md:col-span-2 md:row-span-1'
 }
 
 function FeatCard({
@@ -60,7 +64,7 @@ function FeatCard({
   iconColor = 'accent',
   title,
   children,
-  visual,
+  visual
 }: {
   shape: CardShape
   icon: React.ReactNode
@@ -74,18 +78,18 @@ function FeatCard({
     'accent-2': 'color-mix(in srgb, var(--color-dm-accent-2) 12%, transparent)',
     'accent-warm': 'color-mix(in srgb, var(--color-dm-accent-warm) 12%, transparent)',
     ok: 'color-mix(in srgb, var(--color-dm-ok) 12%, transparent)',
-    err: 'color-mix(in srgb, var(--color-dm-err) 12%, transparent)',
+    err: 'color-mix(in srgb, var(--color-dm-err) 12%, transparent)'
   }
   const iconFg: Record<string, string> = {
     accent: 'var(--color-dm-accent)',
     'accent-2': 'var(--color-dm-accent-2)',
     'accent-warm': 'var(--color-dm-accent-warm)',
     ok: 'var(--color-dm-ok)',
-    err: 'var(--color-dm-err)',
+    err: 'var(--color-dm-err)'
   }
   return (
     <article
-      className={`relative flex flex-col overflow-hidden rounded-[14px] border border-dm-line bg-dm-bg-elev p-6 transition-all hover:border-dm-line-strong hover:-translate-y-px ${SHAPE_CLASSES[shape]}`}
+      className={`relative flex flex-col overflow-hidden rounded-[14px] border border-dm-line bg-dm-bg-elev p-6 transition-all hover:-translate-y-px hover:border-dm-line-strong ${SHAPE_CLASSES[shape]}`}
     >
       <div
         className="mb-[14px] grid h-8 w-8 place-items-center rounded-[8px]"
@@ -95,15 +99,13 @@ function FeatCard({
       </div>
       <h3 className="mb-2 font-semibold text-[18px] text-dm-ink tracking-[-0.015em]">{title}</h3>
       <p className="m-0 text-[13.5px] text-dm-ink-3 leading-[1.5]">{children}</p>
-      {visual ? (
-        <div className="relative mt-auto min-h-[140px] pt-[18px]">{visual}</div>
-      ) : null}
+      {visual ? <div className="relative mt-auto min-h-[140px] pt-[18px]">{visual}</div> : null}
     </article>
   )
 }
 
 /* ---------- large: command palette ---------- */
-function PaletteCard() {
+function PaletteCard({ t }: { t: TFn }) {
   return (
     <FeatCard
       icon={
@@ -121,17 +123,16 @@ function PaletteCard() {
         </svg>
       }
       shape="large"
-      title="Command palette is the app"
+      title={t('featuresSection.cards.palette.title')}
       visual={<PaletteViz />}
     >
-      ⌘; opens a universal fuzzy finder across every container, image, compose project, network,
-      volume, Pod, Service, and recent action. No menus, no tabs, no hunting.
+      {t('featuresSection.cards.palette.body')}
     </FeatCard>
   )
 }
 
 /* ---------- med: image upgrades ---------- */
-function ImageUpgradeCard() {
+function ImageUpgradeCard({ t }: { t: TFn }) {
   return (
     <FeatCard
       icon={
@@ -148,15 +149,15 @@ function ImageUpgradeCard() {
         </svg>
       }
       shape="med"
-      title="Image upgrade detection"
+      title={t('featuresSection.cards.imageUpgrade.title')}
     >
-      Digest-level diffs. One-click upgrade with automatic backup and rollback.
+      {t('featuresSection.cards.imageUpgrade.body')}
     </FeatCard>
   )
 }
 
 /* ---------- med: docker & podman ---------- */
-function PodmanCard() {
+function PodmanCard({ t }: { t: TFn }) {
   return (
     <FeatCard
       icon={
@@ -175,15 +176,15 @@ function PodmanCard() {
       }
       iconColor="accent-warm"
       shape="med"
-      title="Docker & Podman, one UI"
+      title={t('featuresSection.cards.podman.title')}
     >
-      Automatic runtime detection. Rootless sockets discovered on Linux and macOS.
+      {t('featuresSection.cards.podman.body')}
     </FeatCard>
   )
 }
 
 /* ---------- tall: k8s ---------- */
-function KubernetesCard() {
+function KubernetesCard({ t }: { t: TFn }) {
   return (
     <FeatCard
       icon={
@@ -202,7 +203,7 @@ function KubernetesCard() {
       }
       iconColor="accent-2"
       shape="tall"
-      title="Kubernetes, side-by-side"
+      title={t('featuresSection.cards.kubernetes.title')}
       visual={
         <div className="flex flex-col gap-[6px]">
           <VizBadge state="running">deployment/web · 3/3 ready</VizBadge>
@@ -217,8 +218,7 @@ function KubernetesCard() {
         </div>
       }
     >
-      Load kubeconfigs or spin up a local k3d cluster. Browse Deployments, Pods, CRDs, Helm
-      releases. Port-forward anything with automatic local DNS.
+      {t('featuresSection.cards.kubernetes.body')}
     </FeatCard>
   )
 }
@@ -226,7 +226,7 @@ function KubernetesCard() {
 function VizBadge({
   children,
   state,
-  opacity = 1,
+  opacity = 1
 }: {
   children: React.ReactNode
   state: 'running' | 'paused' | 'stopped'
@@ -235,7 +235,7 @@ function VizBadge({
   const bg: Record<string, string> = {
     running: 'var(--color-dm-ok)',
     paused: 'var(--color-dm-warn)',
-    stopped: 'var(--color-dm-ink-4)',
+    stopped: 'var(--color-dm-ink-4)'
   }
   return (
     <span
@@ -249,7 +249,7 @@ function VizBadge({
           boxShadow:
             state === 'running'
               ? '0 0 8px color-mix(in srgb, var(--color-dm-ok) 60%, transparent)'
-              : undefined,
+              : undefined
         }}
       />
       {children}
@@ -258,7 +258,7 @@ function VizBadge({
 }
 
 /* ---------- wide: events ---------- */
-function EventsCard() {
+function EventsCard({ t }: { t: TFn }) {
   return (
     <FeatCard
       icon={
@@ -277,34 +277,39 @@ function EventsCard() {
       }
       iconColor="err"
       shape="wide"
-      title="Events, loud and legible"
+      title={t('featuresSection.cards.events.title')}
     >
-      Desktop notifications for non-zero exits, OOM kills, and failing health checks. Every event is
-      copyable, filterable, and exportable.
+      {t('featuresSection.cards.events.body')}
     </FeatCard>
   )
 }
 
 /* ---------- wide: cloudflared ---------- */
-function CloudflaredCard() {
+function CloudflaredCard({ t }: { t: TFn }) {
   return (
     <FeatCard
       icon={
-        <svg fill="none" height="16" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" width="16">
+        <svg
+          fill="none"
+          height="16"
+          stroke="currentColor"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width="16"
+        >
           <path d="M17.5 19a4.5 4.5 0 0 0 0-9 7 7 0 0 0-13.7 2.2A4 4 0 0 0 5 19h12.5z" />
         </svg>
       }
       shape="wide"
-      title="One-click public tunnels"
+      title={t('featuresSection.cards.cloudflared.title')}
     >
-      Expose any container port to the internet via Cloudflared. Tunnels auto-reap when containers
-      stop, and persist across crashes.
+      {t('featuresSection.cards.cloudflared.body')}
     </FeatCard>
   )
 }
 
 /* ---------- wide: logs ---------- */
-function LogsCard() {
+function LogsCard({ t }: { t: TFn }) {
   return (
     <FeatCard
       icon={
@@ -321,23 +326,23 @@ function LogsCard() {
         </svg>
       }
       shape="wide"
-      title="Logs that don't stall"
+      title={t('featuresSection.cards.logs.title')}
     >
-      Virtualized viewer with follow/pause, regex highlight, and TXT/JSON export. Keyboard-first —{' '}
+      {t('featuresSection.cards.logs.bodyPre')}
       <code className="rounded bg-dm-bg-soft px-[5px] py-[1px] font-[var(--font-dm-mono)] text-[11px]">
         P
-      </code>{' '}
-      pauses,{' '}
+      </code>
+      {t('featuresSection.cards.logs.bodyMid')}
       <code className="rounded bg-dm-bg-soft px-[5px] py-[1px] font-[var(--font-dm-mono)] text-[11px]">
         /
-      </code>{' '}
-      searches.
+      </code>
+      {t('featuresSection.cards.logs.bodyPost')}
     </FeatCard>
   )
 }
 
 /* ---------- wide: security ---------- */
-function SecurityCard() {
+function SecurityCard({ t }: { t: TFn }) {
   return (
     <FeatCard
       icon={
@@ -356,10 +361,9 @@ function SecurityCard() {
       }
       iconColor="ok"
       shape="wide"
-      title="Images you can trust"
+      title={t('featuresSection.cards.security.title')}
     >
-      Built-in Trivy CVE scanning with severity filtering and review. Private registry credentials
-      auto-match on pull. Push to any registry with streaming progress.
+      {t('featuresSection.cards.security.body')}
     </FeatCard>
   )
 }

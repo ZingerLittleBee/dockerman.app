@@ -1,21 +1,25 @@
 'use client'
 
+import type { Locale } from '@repo/shared/i18n'
+import { useTranslation } from '@repo/shared/i18n/client'
 import { Sparkline } from '@/components/ui/Sparkline'
 import { StatCard } from '@/components/ui/StatCard'
 import { useSparkline } from './hooks/useSparkline'
 
 const SIDEBAR_MAIN = [
-  'Dashboard',
-  'Container',
-  'Image',
-  'Build',
-  'Network',
-  'Volume',
-  'Events',
-  'Templates'
+  'dashboard',
+  'container',
+  'image',
+  'build',
+  'network',
+  'volume',
+  'events',
+  'templates'
 ] as const
 
-const SIDEBAR_ACTIONS = ['Terminal', 'Process', 'Inspect', 'Stats', 'Logs', 'File'] as const
+const SIDEBAR_ACTIONS = ['terminal', 'process', 'inspect', 'stats', 'logs', 'file'] as const
+
+type TFn = (key: string, options?: Record<string, unknown>) => string
 
 const MOCK_CONTAINERS = [
   { name: 'redis', img: 'redis:7', state: 'running' as const },
@@ -25,13 +29,14 @@ const MOCK_CONTAINERS = [
   { name: 'node', img: 'node:20-alpine', state: 'running' as const }
 ]
 
-export function LiveDashboard() {
+export function LiveDashboard({ locale }: { locale: Locale }) {
+  const { t } = useTranslation(locale)
   return (
     <div className="mx-auto mt-10 max-w-[1240px] overflow-hidden rounded-[14px] border border-dm-line-strong bg-dm-bg-elev shadow-[0_20px_60px_-20px_rgb(0_0_0_/_0.3)]">
       <Titlebar />
       <div className="grid grid-cols-[220px_1fr]">
-        <Sidebar />
-        <Main />
+        <Sidebar t={t} />
+        <Main t={t} />
       </div>
     </div>
   )
@@ -47,7 +52,7 @@ function Titlebar() {
   )
 }
 
-function Sidebar() {
+function Sidebar({ t }: { t: TFn }) {
   return (
     <aside className="border-dm-line border-r p-3 text-[13px]">
       <div className="mb-4 flex items-center gap-2 rounded-md bg-dm-bg-soft p-2">
@@ -55,34 +60,45 @@ function Sidebar() {
           L
         </div>
         <div className="flex flex-col">
-          <span className="text-dm-ink">Localhost</span>
-          <span className="text-[11px] text-dm-ink-3">docker · 28.5.2</span>
+          <span className="text-dm-ink">{t('liveDashboard.host.name')}</span>
+          <span className="text-[11px] text-dm-ink-3">{t('liveDashboard.host.version')}</span>
         </div>
       </div>
 
-      {SIDEBAR_MAIN.map((label, i) => (
-        <SideItem active={i === 0} key={label} label={label} />
+      {SIDEBAR_MAIN.map((key, i) => (
+        <SideItem
+          active={i === 0}
+          iconKey={key}
+          key={key}
+          label={t(`liveDashboard.sidebar.main.${key}`)}
+        />
       ))}
 
       <div className="mt-3 mb-1 px-2 font-[var(--font-dm-mono)] text-[10px] text-dm-ink-4 uppercase tracking-wider">
-        Actions
+        {t('liveDashboard.sidebar.actionsHeader')}
       </div>
-      {SIDEBAR_ACTIONS.map((label) => (
-        <SideItem key={label} label={label} />
+      {SIDEBAR_ACTIONS.map((key) => (
+        <SideItem iconKey={key} key={key} label={t(`liveDashboard.sidebar.actions.${key}`)} />
       ))}
 
       <div className="mt-3 mb-1 px-2 font-[var(--font-dm-mono)] text-[10px] text-dm-ink-4 uppercase tracking-wider">
-        Containers · {MOCK_CONTAINERS.length}
+        {t('liveDashboard.sidebar.containersHeader')} · {MOCK_CONTAINERS.length}
       </div>
       {MOCK_CONTAINERS.map((c) => (
-        <ContainerRow img={c.img} key={c.name} name={c.name} state={c.state} />
+        <ContainerRow
+          idleLabel={t('liveDashboard.sidebar.idle')}
+          img={c.img}
+          key={c.name}
+          name={c.name}
+          state={c.state}
+        />
       ))}
     </aside>
   )
 }
 
 const SIDE_ICONS: Record<string, React.ReactNode> = {
-  Dashboard: (
+  dashboard: (
     <>
       <rect height="7" rx="1" width="7" x="3" y="3" />
       <rect height="7" rx="1" width="7" x="14" y="3" />
@@ -90,67 +106,67 @@ const SIDE_ICONS: Record<string, React.ReactNode> = {
       <rect height="7" rx="1" width="7" x="14" y="14" />
     </>
   ),
-  Container: (
+  container: (
     <>
       <rect height="13" rx="2" width="18" x="3" y="7" />
       <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
     </>
   ),
-  Image: (
+  image: (
     <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
   ),
-  Build: (
+  build: (
     <>
       <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
       <path d="M14 2v6h6M10 13l-2 2 2 2M14 13l2 2-2 2" />
     </>
   ),
-  Network: (
+  network: (
     <>
       <circle cx="12" cy="12" r="3" />
       <path d="M3 12h6M15 12h6M12 3v6M12 15v6" />
     </>
   ),
-  Volume: (
+  volume: (
     <>
       <ellipse cx="12" cy="5" rx="9" ry="3" />
       <path d="M3 5v14a9 3 0 0 0 18 0V5" />
       <path d="M3 12a9 3 0 0 0 18 0" />
     </>
   ),
-  Events: (
+  events: (
     <>
       <circle cx="12" cy="12" r="9" />
       <path d="M12 7v5l3 2" />
     </>
   ),
-  Templates: (
+  templates: (
     <>
       <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
       <path d="M14 2v6h6M9 15h6M9 18h4" />
     </>
   ),
-  Terminal: (
+  terminal: (
     <>
       <rect height="16" rx="2" width="18" x="3" y="4" />
       <path d="M7 9l3 3-3 3M13 15h4" />
     </>
   ),
-  Process: (
+  process: (
     <>
       <rect height="16" rx="2" width="18" x="3" y="4" />
       <path d="M7 8h10M7 12h10M7 16h6" />
     </>
   ),
-  Inspect: (
+  inspect: (
     <>
       <circle cx="11" cy="11" r="7" />
       <path d="M21 21l-4.3-4.3" />
     </>
   ),
-  Stats: <path d="M3 20V10M9 20V4M15 20v-8M21 20V14" />,
-  Logs: <path d="M4 6h16M4 12h16M4 18h10" />,
-  File: (
+  stats: <path d="M3 20V10M9 20V4M15 20v-8M21 20V14" />,
+  logs: <path d="M4 6h16M4 12h16M4 18h10" />,
+  file: (
     <>
       <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
       <path d="M14 2v6h6" />
@@ -158,7 +174,15 @@ const SIDE_ICONS: Record<string, React.ReactNode> = {
   )
 }
 
-function SideItem({ label, active }: { label: string; active?: boolean }) {
+function SideItem({
+  label,
+  iconKey,
+  active
+}: {
+  label: string
+  iconKey: string
+  active?: boolean
+}) {
   return (
     <div
       className={`flex cursor-default items-center gap-2 rounded-md px-2 py-[6px] text-[12px] ${
@@ -173,7 +197,7 @@ function SideItem({ label, active }: { label: string; active?: boolean }) {
         strokeWidth={2}
         viewBox="0 0 24 24"
       >
-        {SIDE_ICONS[label]}
+        {SIDE_ICONS[iconKey]}
       </svg>
       {label}
     </div>
@@ -183,11 +207,13 @@ function SideItem({ label, active }: { label: string; active?: boolean }) {
 function ContainerRow({
   name,
   img,
-  state
+  state,
+  idleLabel
 }: {
   name: string
   img?: string
   state: 'running' | 'stopped'
+  idleLabel: string
 }) {
   return (
     <div className="flex items-center gap-2 rounded-md px-2 py-[6px] font-[var(--font-dm-mono)] text-[11.5px] text-dm-ink-2">
@@ -205,17 +231,18 @@ function ContainerRow({
         <span className="truncate text-dm-ink">{name}</span>
         {img ? <span className="truncate text-[10px] text-dm-ink-4">{img}</span> : null}
       </span>
-      {state === 'stopped' ? <span className="text-[10px] text-dm-ink-4">idle</span> : null}
+      {state === 'stopped' ? <span className="text-[10px] text-dm-ink-4">{idleLabel}</span> : null}
     </div>
   )
 }
 
-function Main() {
+function Main({ t }: { t: TFn }) {
   return (
     <div className="p-5">
       <div className="mb-[18px] flex items-center justify-between">
-        {/* main-title: 18px / 600 per Landing.html :346-348 (adjusted down slightly to 15px in prior iteration — bring back to design) */}
-        <div className="font-semibold text-[18px] text-dm-ink tracking-[-0.01em]">Dashboard</div>
+        <div className="font-semibold text-[18px] text-dm-ink tracking-[-0.01em]">
+          {t('liveDashboard.main.title')}
+        </div>
         <div className="flex items-center gap-2 font-[var(--font-dm-mono)] text-[11px]">
           <MainChip>
             <svg
@@ -229,7 +256,7 @@ function Main() {
               <circle cx="12" cy="12" r="9" />
               <path d="M12 7v5l3 2" />
             </svg>
-            auto-refresh · 2s
+            {t('liveDashboard.main.chips.autoRefresh')}
           </MainChip>
           <MainChip>
             <span
@@ -239,14 +266,14 @@ function Main() {
                 animation: 'dm-pulse 2.2s ease-in-out infinite'
               }}
             />
-            connected
+            {t('liveDashboard.main.chips.connected')}
           </MainChip>
         </div>
       </div>
-      <KpiRow />
-      <SystemRow />
-      <ChartRow />
-      <IoRow />
+      <KpiRow t={t} />
+      <SystemRow t={t} />
+      <ChartRow t={t} />
+      <IoRow t={t} />
     </div>
   )
 }
@@ -259,29 +286,49 @@ function MainChip({ children }: { children: React.ReactNode }) {
   )
 }
 
-function KpiRow() {
+function KpiRow({ t }: { t: TFn }) {
   return (
     <div className="grid grid-cols-4 gap-3">
-      <StatCard subtitle="8 running · 4 exited" title="Containers" value="12" />
-      <StatCard subtitle="3 updates available" title="Images" value="47" />
-      <StatCard subtitle="on disk" title="Total Image Size" value="18.4 GB" />
-      <StatCard subtitle="of 47" title="Images In Use" value="21" />
+      <StatCard
+        subtitle={t('liveDashboard.main.kpi.containersSubtitle')}
+        title={t('liveDashboard.main.kpi.containersTitle')}
+        value="12"
+      />
+      <StatCard
+        subtitle={t('liveDashboard.main.kpi.imagesSubtitle')}
+        title={t('liveDashboard.main.kpi.imagesTitle')}
+        value="47"
+      />
+      <StatCard
+        subtitle={t('liveDashboard.main.kpi.totalSizeSubtitle')}
+        title={t('liveDashboard.main.kpi.totalSizeTitle')}
+        value="18.4 GB"
+      />
+      <StatCard
+        subtitle={t('liveDashboard.main.kpi.imagesInUseSubtitle')}
+        title={t('liveDashboard.main.kpi.imagesInUseTitle')}
+        value="21"
+      />
     </div>
   )
 }
 
-function SystemRow() {
+function SystemRow({ t }: { t: TFn }) {
   return (
     <div className="mt-3 grid grid-cols-4 gap-3">
-      <StatCard subtitle="Stable" title="Docker Version" value="28.5.2" />
-      <StatCard title="Storage Driver" value="overlay2" />
-      <StatCard title="System Resources" value="8 CPU · 32 GB" />
-      <StatCard title="Operating System" value="macOS 14.5" />
+      <StatCard
+        subtitle={t('liveDashboard.main.system.dockerVersionSubtitle')}
+        title={t('liveDashboard.main.system.dockerVersionTitle')}
+        value="28.5.2"
+      />
+      <StatCard title={t('liveDashboard.main.system.storageDriverTitle')} value="overlay2" />
+      <StatCard title={t('liveDashboard.main.system.resourcesTitle')} value="8 CPU · 32 GB" />
+      <StatCard title={t('liveDashboard.main.system.osTitle')} value="macOS 14.5" />
     </div>
   )
 }
 
-function ChartRow() {
+function ChartRow({ t }: { t: TFn }) {
   const cpu = useSparkline({
     seed: [22, 28, 26, 30, 27, 31, 29, 33, 30, 28, 26, 31],
     intervalMs: 1500,
@@ -299,7 +346,11 @@ function ChartRow() {
 
   return (
     <div className="mt-3 grid grid-cols-2 gap-3">
-      <ChartCard stroke="#6366f1" title="CPU" value={`${Math.round(cpu[cpu.length - 1] ?? 0)}%`}>
+      <ChartCard
+        stroke="#6366f1"
+        title={t('liveDashboard.main.charts.cpu')}
+        value={`${Math.round(cpu[cpu.length - 1] ?? 0)}%`}
+      >
         <Sparkline
           className="block h-[120px] w-full"
           data={cpu}
@@ -309,7 +360,11 @@ function ChartRow() {
           width={500}
         />
       </ChartCard>
-      <ChartCard stroke="#10b981" title="Memory" value={`${Math.round(mem[mem.length - 1] ?? 0)}%`}>
+      <ChartCard
+        stroke="#10b981"
+        title={t('liveDashboard.main.charts.memory')}
+        value={`${Math.round(mem[mem.length - 1] ?? 0)}%`}
+      >
         <Sparkline
           className="block h-[120px] w-full"
           data={mem}
@@ -351,7 +406,7 @@ function ChartCard({
   )
 }
 
-function IoRow() {
+function IoRow({ t }: { t: TFn }) {
   const net = useSparkline({
     seed: [12, 18, 15, 22, 16, 24, 19, 28, 21, 26, 23, 29],
     intervalMs: 1500,
@@ -370,7 +425,7 @@ function IoRow() {
     <div className="mt-3 grid grid-cols-2 gap-3">
       <ChartCard
         stroke="#a855f7"
-        title="Network I/O"
+        title={t('liveDashboard.main.charts.networkIo')}
         value={`${(net[net.length - 1] ?? 0).toFixed(1)} MB/s`}
       >
         <Sparkline
@@ -385,7 +440,7 @@ function IoRow() {
       </ChartCard>
       <ChartCard
         stroke="#ec4899"
-        title="Disk I/O"
+        title={t('liveDashboard.main.charts.diskIo')}
         value={`${(disk[disk.length - 1] ?? 0).toFixed(1)} MB/s`}
       >
         <Sparkline

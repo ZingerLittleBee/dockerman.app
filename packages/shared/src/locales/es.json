@@ -100,6 +100,162 @@
   "common": {
     "download": "Descargar"
   },
+  "featuresSection": {
+    "titleLead": "Todo lo que te importa,",
+    "titleAccent": "a una tecla de distancia.",
+    "description": "Contenedores, imágenes, volúmenes, redes, proyectos Compose, cargas de Kubernetes, túneles Cloudflared — todo en una sola interfaz de baja latencia.",
+    "cards": {
+      "palette": {
+        "title": "La paleta de comandos es la app",
+        "body": "⌘; abre un buscador difuso universal sobre cada contenedor, imagen, proyecto Compose, red, volumen, Pod, Service y acción reciente. Sin menús, sin pestañas, sin rebuscar."
+      },
+      "imageUpgrade": {
+        "title": "Detección de actualizaciones de imagen",
+        "body": "Diffs a nivel de digest. Actualización en un clic con copia de seguridad automática y rollback."
+      },
+      "podman": {
+        "title": "Docker y Podman, una misma UI",
+        "body": "Detección automática del runtime. Sockets rootless descubiertos en Linux y macOS."
+      },
+      "kubernetes": {
+        "title": "Kubernetes, lado a lado",
+        "body": "Carga kubeconfigs o levanta un clúster k3d local. Explora Deployments, Pods, CRDs y releases de Helm. Port-forward con DNS local automático."
+      },
+      "events": {
+        "title": "Eventos, claros y legibles",
+        "body": "Notificaciones de escritorio para salidas distintas de cero, OOM y health checks fallidos. Cada evento es copiable, filtrable y exportable."
+      },
+      "cloudflared": {
+        "title": "Túneles públicos en un clic",
+        "body": "Expone cualquier puerto de contenedor a Internet vía Cloudflared. Los túneles se recuperan al detener el contenedor y persisten ante caídas."
+      },
+      "logs": {
+        "title": "Logs que no se atascan",
+        "bodyPre": "Visor virtualizado con follow/pausa, highlight por regex y exportación TXT/JSON. Teclado primero — ",
+        "bodyMid": " pausa, ",
+        "bodyPost": " busca."
+      },
+      "security": {
+        "title": "Imágenes de confianza",
+        "body": "Escaneo CVE con Trivy integrado, con filtro por severidad y revisión. Credenciales de registro privado que coinciden al hacer pull. Push a cualquier registro con progreso en vivo."
+      }
+    }
+  },
+  "modulesSection": {
+    "titleLead": "Construido para lo que",
+    "titleAccent": "realmente",
+    "titleTrail": "haces cada día.",
+    "descriptionPre": "Nueve años de UIs de Docker y la mayoría siguen pareciendo un port de un panel web. Dockerman está pensado para quien de todos modos iba a escribir el comando ",
+    "descriptionPost": ".",
+    "modules": {
+      "containers": {
+        "chip": "más usado",
+        "title": "Inspecciona sin el ",
+        "titleEm": "ruido.",
+        "body": "Stats, logs, env, mounts, procesos, un terminal real y un explorador de archivos — todo disponible sin salir de la fila. Commit a una nueva imagen o clona la config en un diálogo de creación con un solo comando.",
+        "bullets": [
+          "indicadores en anillo + sparklines para CPU, memoria, red y disco",
+          "backup/restore de contenedor con volúmenes y filesystem",
+          "parser de docker-run — pega un comando, obtén un diálogo"
+        ]
+      },
+      "compose": {
+        "chip": "nuevo",
+        "title": "Proyectos Compose, ",
+        "titleEm": "agrupados como viven.",
+        "body": "Alterna entre vista plana y agrupada por proyecto. Ciclo de vida completo: up, stop, restart, pull, remove. Todas las flags del CLI de Compose expuestas, incluidos profiles y dry-run.",
+        "bullets": [
+          "los contenedores independientes se pliegan en su propia sección",
+          "soporte de env-file + file + profile",
+          "estado del proyecto de un vistazo"
+        ]
+      },
+      "images": {
+        "chip": "1 clic",
+        "title": "Un explorador de capas que ",
+        "titleEm": "se gana su lugar.",
+        "body": "Distribución de tamaños interactiva, comandos Dockerfile por capa, escaneo CVE con Trivy y push a cualquier registro con auto-match de credenciales. Exporta el análisis a JSON.",
+        "bullets": [
+          "barra de capas por color con expandir/contraer",
+          "búsqueda de Docker Hub + tags + README en línea",
+          "actualización a nivel de digest con rollback en un clic"
+        ]
+      },
+      "system": {
+        "chip": "a fondo",
+        "title": "Cada ajuste del runtime, ",
+        "titleEm": "expuesto y seguro.",
+        "body": "Motor WSL2 en Windows sin Docker Desktop. Reenvío por SSH con reconexión por heartbeat. Credenciales privadas que coinciden al hacer pull. Atajos globales incluso en Wayland.",
+        "bullets": [
+          "bandeja con CPU / mem en vivo en la barra de menú",
+          "notificaciones en tiempo real de salidas distintas de cero y OOMs",
+          "limpieza de disco en un clic con desglose interactivo"
+        ]
+      }
+    }
+  },
+  "runtimeStrip": {
+    "label": "Compatible con"
+  },
+  "liveDashboard": {
+    "host": {
+      "name": "Localhost",
+      "version": "docker · 28.5.2"
+    },
+    "sidebar": {
+      "main": {
+        "dashboard": "Panel",
+        "container": "Contenedor",
+        "image": "Imagen",
+        "build": "Build",
+        "network": "Red",
+        "volume": "Volumen",
+        "events": "Eventos",
+        "templates": "Plantillas"
+      },
+      "actionsHeader": "Acciones",
+      "actions": {
+        "terminal": "Terminal",
+        "process": "Procesos",
+        "inspect": "Inspección",
+        "stats": "Stats",
+        "logs": "Logs",
+        "file": "Archivos"
+      },
+      "containersHeader": "Contenedores",
+      "idle": "inactivo"
+    },
+    "main": {
+      "title": "Panel",
+      "chips": {
+        "autoRefresh": "auto-refresh · 2 s",
+        "connected": "conectado"
+      },
+      "kpi": {
+        "containersTitle": "Contenedores",
+        "containersSubtitle": "8 en ejecución · 4 detenidos",
+        "imagesTitle": "Imágenes",
+        "imagesSubtitle": "3 actualizaciones disponibles",
+        "totalSizeTitle": "Tamaño total de imágenes",
+        "totalSizeSubtitle": "en disco",
+        "imagesInUseTitle": "Imágenes en uso",
+        "imagesInUseSubtitle": "de 47"
+      },
+      "system": {
+        "dockerVersionTitle": "Versión de Docker",
+        "dockerVersionSubtitle": "Estable",
+        "storageDriverTitle": "Driver de almacenamiento",
+        "resourcesTitle": "Recursos del sistema",
+        "osTitle": "Sistema operativo"
+      },
+      "charts": {
+        "cpu": "CPU",
+        "memory": "Memoria",
+        "networkIo": "E/S de red",
+        "diskIo": "E/S de disco"
+      }
+    }
+  },
   "pricing": {
     "badge": "precios",
     "title": "Licencia Dockerman",

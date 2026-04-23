@@ -10,7 +10,7 @@ import { RuntimeStrip } from '@/components/landing/RuntimeStrip'
 export const metadata: Metadata = {
   title: 'Dockerman — local-first Docker, Podman & Kubernetes',
   description:
-    'A local-first control surface for Docker, Podman and Kubernetes. Built in Rust and Tauri. Fast, precise, designed to stay out of your way.',
+    'A local-first control surface for Docker, Podman and Kubernetes. Built in Rust and Tauri. Fast, precise, designed to stay out of your way.'
 }
 
 export default async function LandingPage({ params }: { params: Promise<{ locale: string }> }) {
@@ -20,11 +20,11 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
     <main>
       <Hero locale={l} />
       <div className="relative px-8">
-        <LiveDashboard />
+        <LiveDashboard locale={l} />
       </div>
-      <RuntimeStrip />
-      <FeaturesGrid />
-      <ModulesSection />
+      <RuntimeStrip locale={l} />
+      <FeaturesGrid locale={l} />
+      <ModulesSection locale={l} />
       <CtaFinal locale={l} />
     </main>
   )

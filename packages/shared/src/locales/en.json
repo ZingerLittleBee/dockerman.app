@@ -100,6 +100,162 @@
   "common": {
     "download": "Download"
   },
+  "featuresSection": {
+    "titleLead": "Every object you care about,",
+    "titleAccent": "one keystroke away.",
+    "description": "Containers, images, volumes, networks, compose projects, Kubernetes workloads, Cloudflared tunnels — all surfaced in a single, low-latency interface.",
+    "cards": {
+      "palette": {
+        "title": "Command palette is the app",
+        "body": "⌘; opens a universal fuzzy finder across every container, image, compose project, network, volume, Pod, Service, and recent action. No menus, no tabs, no hunting."
+      },
+      "imageUpgrade": {
+        "title": "Image upgrade detection",
+        "body": "Digest-level diffs. One-click upgrade with automatic backup and rollback."
+      },
+      "podman": {
+        "title": "Docker & Podman, one UI",
+        "body": "Automatic runtime detection. Rootless sockets discovered on Linux and macOS."
+      },
+      "kubernetes": {
+        "title": "Kubernetes, side-by-side",
+        "body": "Load kubeconfigs or spin up a local k3d cluster. Browse Deployments, Pods, CRDs, Helm releases. Port-forward anything with automatic local DNS."
+      },
+      "events": {
+        "title": "Events, loud and legible",
+        "body": "Desktop notifications for non-zero exits, OOM kills, and failing health checks. Every event is copyable, filterable, and exportable."
+      },
+      "cloudflared": {
+        "title": "One-click public tunnels",
+        "body": "Expose any container port to the internet via Cloudflared. Tunnels auto-reap when containers stop, and persist across crashes."
+      },
+      "logs": {
+        "title": "Logs that don't stall",
+        "bodyPre": "Virtualized viewer with follow/pause, regex highlight, and TXT/JSON export. Keyboard-first — ",
+        "bodyMid": " pauses, ",
+        "bodyPost": " searches."
+      },
+      "security": {
+        "title": "Images you can trust",
+        "body": "Built-in Trivy CVE scanning with severity filtering and review. Private registry credentials auto-match on pull. Push to any registry with streaming progress."
+      }
+    }
+  },
+  "modulesSection": {
+    "titleLead": "Built for the things you",
+    "titleAccent": "actually",
+    "titleTrail": "do every day.",
+    "descriptionPre": "Nine years of Docker UIs and most still feel like a port of a web admin panel. Dockerman is designed for people who were going to run the ",
+    "descriptionPost": " command anyway.",
+    "modules": {
+      "containers": {
+        "chip": "most used",
+        "title": "Inspect without the ",
+        "titleEm": "noise.",
+        "body": "Stats, logs, env, mounts, processes, a real terminal, and a file browser — all available without leaving the row. Commit to a new image or clone the config into a create dialog with a single command.",
+        "bullets": [
+          "ring gauges + sparklines for CPU, memory, net, disk",
+          "container backup/restore with volumes and filesystem",
+          "docker-run parser — paste a command, get a dialog"
+        ]
+      },
+      "compose": {
+        "chip": "new",
+        "title": "Compose projects, ",
+        "titleEm": "grouped like they live.",
+        "body": "Toggle between flat list and grouped-by-project views. Full lifecycle: up, stop, restart, pull, remove. Every Compose CLI flag exposed, including profiles and dry-run.",
+        "bullets": [
+          "standalone containers collapse into their own section",
+          "env-file + file + profile support",
+          "project status at a glance"
+        ]
+      },
+      "images": {
+        "chip": "1-click",
+        "title": "A layer explorer that ",
+        "titleEm": "earns its place.",
+        "body": "Interactive size distribution, per-layer Dockerfile commands, CVE scanning via Trivy, and push to any registry with credential auto-match. Export analysis to JSON.",
+        "bullets": [
+          "color-coded layer bar with expand/collapse",
+          "Docker Hub search + tags + README inline",
+          "digest-level upgrade with one-click rollback"
+        ]
+      },
+      "system": {
+        "chip": "deep",
+        "title": "Every runtime knob, ",
+        "titleEm": "exposed and safe.",
+        "body": "WSL2 engine on Windows without Docker Desktop. SSH socket forwarding with heartbeat reconnect. Private registry credentials that match on pull. Global shortcuts even on Wayland.",
+        "bullets": [
+          "tray with live CPU / mem in the menu bar",
+          "real-time event notifications for non-zero exits, OOMs",
+          "one-click disk prune with an interactive breakdown"
+        ]
+      }
+    }
+  },
+  "runtimeStrip": {
+    "label": "Runs with"
+  },
+  "liveDashboard": {
+    "host": {
+      "name": "Localhost",
+      "version": "docker · 28.5.2"
+    },
+    "sidebar": {
+      "main": {
+        "dashboard": "Dashboard",
+        "container": "Container",
+        "image": "Image",
+        "build": "Build",
+        "network": "Network",
+        "volume": "Volume",
+        "events": "Events",
+        "templates": "Templates"
+      },
+      "actionsHeader": "Actions",
+      "actions": {
+        "terminal": "Terminal",
+        "process": "Process",
+        "inspect": "Inspect",
+        "stats": "Stats",
+        "logs": "Logs",
+        "file": "File"
+      },
+      "containersHeader": "Containers",
+      "idle": "idle"
+    },
+    "main": {
+      "title": "Dashboard",
+      "chips": {
+        "autoRefresh": "auto-refresh · 2s",
+        "connected": "connected"
+      },
+      "kpi": {
+        "containersTitle": "Containers",
+        "containersSubtitle": "8 running · 4 exited",
+        "imagesTitle": "Images",
+        "imagesSubtitle": "3 updates available",
+        "totalSizeTitle": "Total Image Size",
+        "totalSizeSubtitle": "on disk",
+        "imagesInUseTitle": "Images In Use",
+        "imagesInUseSubtitle": "of 47"
+      },
+      "system": {
+        "dockerVersionTitle": "Docker Version",
+        "dockerVersionSubtitle": "Stable",
+        "storageDriverTitle": "Storage Driver",
+        "resourcesTitle": "System Resources",
+        "osTitle": "Operating System"
+      },
+      "charts": {
+        "cpu": "CPU",
+        "memory": "Memory",
+        "networkIo": "Network I/O",
+        "diskIo": "Disk I/O"
+      }
+    }
+  },
   "pricing": {
     "badge": "pricing",
     "title": "Dockerman License",
