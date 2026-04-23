@@ -303,11 +303,6 @@ function ViewerTopbar({
         background: 'color-mix(in srgb, var(--color-dm-bg-soft) 60%, var(--color-dm-bg-elev))'
       }}
     >
-      <div className="flex gap-[6px]">
-        <span aria-hidden="true" className="h-[10px] w-[10px] rounded-full bg-[#ff5f57]" />
-        <span aria-hidden="true" className="h-[10px] w-[10px] rounded-full bg-[#febc2e]" />
-        <span aria-hidden="true" className="h-[10px] w-[10px] rounded-full bg-[#28c840]" />
-      </div>
       <div className="flex items-center gap-2 font-[var(--font-dm-mono)] text-[11.5px] text-dm-ink-3">
         <span>Dockerman</span>
         <span className="text-dm-ink-4">/</span>
