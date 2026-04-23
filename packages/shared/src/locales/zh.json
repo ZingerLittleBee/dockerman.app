@@ -1,15 +1,38 @@
 {
   "nav": {
-    "home": "首页",
+    "features": "特性",
+    "snapshot": "功能预览",
     "pricing": "定价",
+    "changelog": "更新日志",
+    "docs": "文档",
     "download": "下载",
-    "changelog": "更新日志"
+    "github": "GitHub",
+    "changeLanguage": "切换语言"
   },
   "hero": {
-    "title": "现代化 Docker",
-    "titleBreak": "管理更简单",
-    "description": "轻量、强大的 Docker 管理界面，专注于简洁和性能。",
-    "cta": "免费下载"
+    "eyebrow": "v5.1.0 — Podman 支持、Cloudflared 隧道、镜像升级检测",
+    "eyebrowTag": "新",
+    "headline1Lead": "Docker，用起来像",
+    "headline1Accent": "本地",
+    "headline2Lead": "Kubernetes，变得",
+    "headline2Accent": "轻松",
+    "description": "为 Docker、Podman 和 Kubernetes 打造的轻量级桌面客户端 —— 基于 Rust 与 Tauri。毫秒级启动，内存占用不到 30 MB。",
+    "downloadFor": {
+      "mac": "下载 macOS 版",
+      "windows": "下载 Windows 版",
+      "linux": "下载 Linux 版"
+    },
+    "copyAria": "复制：{{cmd}}",
+    "copied": "已复制",
+    "metaPrivacy": "本地优先 · 可关闭的匿名分析",
+    "metaVersion": "v5.1.0 · 2026 年 4 月 8 日",
+    "terminal": {
+      "tapping": "正在添加",
+      "downloading": "正在下载",
+      "installed": "安装完成",
+      "installedIn": "耗时 2.1s",
+      "launching": "· 正在启动 Dockerman…"
+    }
   },
   "features": {
     "badge": "桌面应用",
@@ -46,29 +69,32 @@
     ]
   },
   "cta": {
-    "title": "准备好开始了吗？",
-    "description": "使用轻量、强大的桌面应用开始管理您的 Docker 容器。",
-    "downloadButton": "下载桌面应用",
-    "learnMore": "想了解更多？",
-    "viewChangelog": "查看更新日志"
+    "titleLead": "打开托盘。",
+    "titleAccent": "发布你的容器。",
+    "description": "本地使用完全免费，无任何限制。付费许可解锁远程主机、团队功能与优先支持。",
+    "downloadButton": "下载 Dockerman",
+    "platformsBadge": "macOS · Win · Linux",
+    "reportIssue": "到 GitHub 反馈问题 →"
   },
   "footer": {
-    "description": "现代、轻量的 Docker 管理界面。用爱为全球开发者打造。",
-    "product": "产品",
-    "resources": "资源",
-    "company": "公司",
-    "legal": "法律",
-    "copyright": "Dockerman. 保留所有权利。",
-    "status": "所有系统正常运行",
+    "tagline": "现代、轻量的 Docker 与 Kubernetes 桌面客户端，基于 Rust + Tauri 构建。",
+    "columns": {
+      "product": "产品",
+      "docs": "文档",
+      "community": "社区"
+    },
+    "note": "本地优先 · 可关闭的匿名分析",
     "links": {
-      "pricing": "定价",
       "download": "下载",
+      "features": "特性",
       "changelog": "更新日志",
+      "pricing": "定价",
+      "gettingStarted": "快速开始",
+      "kubernetes": "Kubernetes",
+      "cliReference": "CLI 参考",
+      "faq": "常见问题",
       "github": "GitHub",
-      "about": "关于",
-      "privacy": "隐私政策",
-      "terms": "服务条款",
-      "dpa": "DPA"
+      "email": "邮件联系"
     }
   },
   "common": {

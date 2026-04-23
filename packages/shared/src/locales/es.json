@@ -1,15 +1,38 @@
 {
   "nav": {
-    "home": "Inicio",
+    "features": "Características",
+    "snapshot": "Vista previa",
     "pricing": "Precios",
+    "changelog": "Cambios",
+    "docs": "Docs",
     "download": "Descargar",
-    "changelog": "Historial de Cambios"
+    "github": "GitHub",
+    "changeLanguage": "Cambiar idioma"
   },
   "hero": {
-    "title": "Gestión Docker",
-    "titleBreak": "moderna simplificada",
-    "description": "Una UI ligera y potente para gestión Docker enfocada en simplicidad y rendimiento.",
-    "cta": "Descargar gratis"
+    "eyebrow": "v5.1.0 — soporte Podman, túneles Cloudflared, detección de actualizaciones de imagen",
+    "eyebrowTag": "NUEVO",
+    "headline1Lead": "Docker que se siente",
+    "headline1Accent": "local",
+    "headline2Lead": "Kubernetes que se siente",
+    "headline2Accent": "fácil",
+    "description": "Una UI de escritorio ligera para Docker, Podman y Kubernetes — hecha con Rust y Tauri. Arranca en ~0 ms y usa menos de 30 MB de memoria.",
+    "downloadFor": {
+      "mac": "Descargar para macOS",
+      "windows": "Descargar para Windows",
+      "linux": "Descargar para Linux"
+    },
+    "copyAria": "Copiar: {{cmd}}",
+    "copied": "Copiado",
+    "metaPrivacy": "local-first · analítica opcional",
+    "metaVersion": "v5.1.0 · 8 de abril de 2026",
+    "terminal": {
+      "tapping": "Añadiendo tap",
+      "downloading": "Descargando",
+      "installed": "Instalado",
+      "installedIn": "en 2.1 s",
+      "launching": "· iniciando Dockerman…"
+    }
   },
   "features": {
     "badge": "Aplicación de Escritorio",
@@ -46,29 +69,32 @@
     ]
   },
   "cta": {
-    "title": "¿Listo para empezar?",
-    "description": "Comienza a gestionar tus contenedores Docker con una experiencia de escritorio ligera y potente.",
-    "downloadButton": "Descargar para Escritorio",
-    "learnMore": "¿Quieres saber más?",
-    "viewChangelog": "Ver el Historial de Cambios"
+    "titleLead": "Abre la bandeja.",
+    "titleAccent": "Lanza contenedores.",
+    "description": "Gratis y sin restricciones para uso local. Una licencia de pago desbloquea hosts remotos, funciones de equipo y soporte prioritario.",
+    "downloadButton": "Descargar Dockerman",
+    "platformsBadge": "macOS · Win · Linux",
+    "reportIssue": "Reportar un problema en GitHub →"
   },
   "footer": {
-    "description": "Una UI moderna y ligera para gestión Docker. Construida con amor para desarrolladores alrededor del mundo.",
-    "product": "Producto",
-    "resources": "Recursos",
-    "company": "Empresa",
-    "legal": "Legal",
-    "copyright": "Dockerman. Todos los derechos reservados.",
-    "status": "Todos los sistemas operativos",
+    "tagline": "Un escritorio moderno y ligero para Docker y Kubernetes, hecho con Rust + Tauri.",
+    "columns": {
+      "product": "Producto",
+      "docs": "Docs",
+      "community": "Comunidad"
+    },
+    "note": "local-first · analítica opcional",
     "links": {
-      "pricing": "Precios",
       "download": "Descargar",
-      "changelog": "Historial de Cambios",
+      "features": "Características",
+      "changelog": "Cambios",
+      "pricing": "Precios",
+      "gettingStarted": "Primeros pasos",
+      "kubernetes": "Kubernetes",
+      "cliReference": "Referencia CLI",
+      "faq": "FAQ",
       "github": "GitHub",
-      "about": "Acerca de",
-      "privacy": "Privacidad",
-      "terms": "Términos",
-      "dpa": "DPA"
+      "email": "Correo"
     }
   },
   "common": {

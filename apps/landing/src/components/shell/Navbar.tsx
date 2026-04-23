@@ -1,23 +1,24 @@
 'use client'
 
-import type { Locale } from '@repo/shared/i18n'
 import { RiGithubFill } from '@remixicon/react'
+import type { Locale } from '@repo/shared/i18n'
+import { useTranslation } from '@repo/shared/i18n/client'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import ThemeSwitch from '@/components/ThemeSwitch'
 import { LocaleSwitch } from '@/components/shell/LocaleSwitch'
+import ThemeSwitch from '@/components/ThemeSwitch'
 
-// TODO(i18n): labels deferred per docs/superpowers/plans/2026-04-23-landing-redesign-plan.md — localize in Phase 6.
-const LINKS = [
-  { href: '/#features', label: 'Features', anchor: true },
-  { href: '/snapshot', label: 'Snapshot' },
-  { href: '/pricing', label: 'Pricing' },
-  { href: '/changelog', label: 'Changelog' },
-  { href: '/docs', label: 'Docs' },
+const LINKS: { href: string; labelKey: string; anchor?: boolean }[] = [
+  { href: '/#features', labelKey: 'nav.features', anchor: true },
+  { href: '/snapshot', labelKey: 'nav.snapshot' },
+  { href: '/pricing', labelKey: 'nav.pricing' },
+  { href: '/changelog', labelKey: 'nav.changelog' },
+  { href: '/docs', labelKey: 'nav.docs' }
 ]
 
 export function Navbar({ locale }: { locale: Locale }) {
   const pathname = usePathname()
+  const { t } = useTranslation(locale)
 
   const hrefFor = (href: string) => `/${locale}${href === '/' ? '' : href}`
 
@@ -34,7 +35,7 @@ export function Navbar({ locale }: { locale: Locale }) {
     <nav
       className="sticky top-0 z-50 border-dm-line border-b backdrop-blur-[14px]"
       style={{
-        background: 'color-mix(in srgb, var(--color-dm-bg) 80%, transparent)',
+        background: 'color-mix(in srgb, var(--color-dm-bg) 80%, transparent)'
       }}
     >
       <div className="mx-auto flex max-w-[1240px] items-center justify-between px-8 py-[14px]">
@@ -58,7 +59,7 @@ export function Navbar({ locale }: { locale: Locale }) {
               href={hrefFor(l.href)}
               key={l.href}
             >
-              {l.label}
+              {t(l.labelKey)}
             </Link>
           ))}
         </div>
@@ -67,7 +68,7 @@ export function Navbar({ locale }: { locale: Locale }) {
           <LocaleSwitch locale={locale} />
           <ThemeSwitch />
           <a
-            aria-label="GitHub"
+            aria-label={t('nav.github')}
             className="grid h-8 w-8 place-items-center rounded-md text-dm-ink-2 hover:bg-dm-bg-soft hover:text-dm-ink"
             href="https://github.com/ZingerLittleBee/dockerman.app"
             rel="noopener noreferrer"
@@ -79,7 +80,7 @@ export function Navbar({ locale }: { locale: Locale }) {
             className="inline-flex items-center gap-2 rounded-lg border border-dm-ink bg-dm-ink px-[14px] py-2 font-medium text-[13px] text-dm-bg transition-transform hover:-translate-y-px"
             href={hrefFor('/download')}
           >
-            Download
+            {t('nav.download')}
           </Link>
         </div>
       </div>
@@ -92,10 +93,8 @@ function BrandMark() {
     <span
       className="relative grid h-[26px] w-[26px] place-items-center overflow-hidden rounded-[7px] text-white"
       style={{
-        background:
-          'linear-gradient(135deg, var(--color-dm-accent), var(--color-dm-accent-2))',
-        boxShadow:
-          'inset 0 0 0 1px rgb(255 255 255 / 0.1), 0 4px 12px -4px var(--color-dm-accent)',
+        background: 'linear-gradient(135deg, var(--color-dm-accent), var(--color-dm-accent-2))',
+        boxShadow: 'inset 0 0 0 1px rgb(255 255 255 / 0.1), 0 4px 12px -4px var(--color-dm-accent)'
       }}
     >
       <svg

@@ -1,6 +1,7 @@
 'use client'
 
 import type { Locale } from '@repo/shared/i18n'
+import { useTranslation } from '@repo/shared/i18n/client'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { downloadsConfig } from '@/config/downloads'
@@ -9,13 +10,16 @@ const INSTALL_CMD = downloadsConfig.homebrewCommand
 
 type OS = 'mac' | 'windows' | 'linux'
 
-const OS_META: Record<OS, { label: string; size: string }> = {
-  mac: { label: 'Download for macOS', size: downloadsConfig.latest.installers.macos[0].size },
-  windows: {
-    label: 'Download for Windows',
-    size: downloadsConfig.latest.installers.windows[0].size
-  },
-  linux: { label: 'Download for Linux', size: downloadsConfig.latest.installers.linux[0].size }
+const OS_SIZE: Record<OS, string> = {
+  mac: downloadsConfig.latest.installers.macos[0].size,
+  windows: downloadsConfig.latest.installers.windows[0].size,
+  linux: downloadsConfig.latest.installers.linux[0].size
+}
+
+const OS_LABEL_KEY: Record<OS, string> = {
+  mac: 'hero.downloadFor.mac',
+  windows: 'hero.downloadFor.windows',
+  linux: 'hero.downloadFor.linux'
 }
 
 const WINDOWS_RE = /Win/i
@@ -37,6 +41,7 @@ function detectOS(): OS {
 }
 
 export function Hero({ locale }: { locale: Locale }) {
+  const { t } = useTranslation(locale)
   const [copied, setCopied] = useState(false)
   const [os, setOs] = useState<OS>('mac')
 
@@ -44,7 +49,8 @@ export function Hero({ locale }: { locale: Locale }) {
     setOs(detectOS())
   }, [])
 
-  const { label: downloadLabel, size: downloadSize } = OS_META[os]
+  const downloadLabel = t(OS_LABEL_KEY[os])
+  const downloadSize = OS_SIZE[os]
 
   const copyInstall = async () => {
     try {
@@ -67,7 +73,7 @@ export function Hero({ locale }: { locale: Locale }) {
         }}
       />
       <div className="relative mx-auto max-w-[1240px]">
-        <HeroStage />
+        <HeroStage locale={locale} />
         {/* Eyebrow: pulsing dot + version note + NEW tag */}
         <span className="inline-flex items-center gap-[10px] rounded-full border border-dm-line-strong bg-dm-bg-elev px-[10px] py-[5px] font-[var(--font-dm-mono)] text-[12px] text-dm-ink-2">
           <span
@@ -78,21 +84,20 @@ export function Hero({ locale }: { locale: Locale }) {
               animation: 'dm-pulse 2.2s ease-in-out infinite'
             }}
           />
-          <span>v5.1.0 — Podman support, Cloudflared tunnels, image-upgrade detection</span>
+          <span>{t('hero.eyebrow')}</span>
           <span className="rounded-full bg-dm-ink px-2 py-[2px] font-semibold text-[10px] text-dm-bg tracking-[0.04em]">
-            NEW
+            {t('hero.eyebrowTag')}
           </span>
         </span>
 
-        {/* Two-line headline with accent on `local` and `easy` */}
+        {/* Two-line headline with accent on the final word of each line */}
         <h1 className="mt-[22px] max-w-[14ch] font-bold text-[clamp(44px,7.2vw,96px)] text-dm-ink leading-[0.95] tracking-[-0.045em]">
-          Docker that feels <Accent>local</Accent>.<br />
-          Kubernetes that feels <Accent>easy</Accent>.
+          {t('hero.headline1Lead')} <Accent>{t('hero.headline1Accent')}</Accent>.<br />
+          {t('hero.headline2Lead')} <Accent>{t('hero.headline2Accent')}</Accent>.
         </h1>
 
         <p className="mt-6 max-w-[52ch] text-[18px] text-dm-ink-3 leading-[1.5]">
-          A lightweight desktop UI for Docker, Podman, and Kubernetes — built with Rust and Tauri.
-          Boots in ~0ms and lives in under 30 MB of memory.
+          {t('hero.description')}
         </p>
 
         <div className="mt-7 flex flex-wrap items-center gap-3">
@@ -124,7 +129,7 @@ export function Hero({ locale }: { locale: Locale }) {
 
           {/* Inline copy install command */}
           <button
-            aria-label={copied ? 'Copied' : `Copy: ${INSTALL_CMD}`}
+            aria-label={copied ? t('hero.copied') : t('hero.copyAria', { cmd: INSTALL_CMD })}
             className="inline-flex cursor-pointer items-center gap-[10px] rounded-[10px] border border-dm-line bg-dm-bg-elev px-[14px] py-[10px] pr-3 font-[var(--font-dm-mono)] text-[13px] text-dm-ink-2 transition-colors hover:border-dm-line-strong"
             onClick={copyInstall}
             type="button"
@@ -180,9 +185,9 @@ export function Hero({ locale }: { locale: Locale }) {
             <strong className="font-semibold text-dm-ink">Linux</strong>
           </span>
           <span className="h-[3px] w-[3px] rounded-full bg-dm-ink-4" />
-          <span>local-first · opt-out analytics</span>
+          <span>{t('hero.metaPrivacy')}</span>
           <span className="h-[3px] w-[3px] rounded-full bg-dm-ink-4" />
-          <span>v5.1.0 · Apr 8, 2026</span>
+          <span>{t('hero.metaVersion')}</span>
         </div>
       </div>
     </section>
@@ -208,7 +213,7 @@ const STAGE_CONTAINERS = [
   { name: 'traefik', img: 'traefik:v3', cpu: '1%', mem: '84 MB' }
 ] as const
 
-function HeroStage() {
+function HeroStage({ locale }: { locale: Locale }) {
   return (
     <div
       aria-hidden
@@ -223,7 +228,7 @@ function HeroStage() {
         }}
       />
 
-      <TerminalCard />
+      <TerminalCard locale={locale} />
 
       <div className="mt-3 flex flex-col gap-2">
         {STAGE_CONTAINERS.map((c, i) => (
@@ -233,6 +238,7 @@ function HeroStage() {
             img={c.img}
             key={c.name}
             mem={c.mem}
+            name={c.name}
           />
         ))}
       </div>
@@ -240,7 +246,8 @@ function HeroStage() {
   )
 }
 
-function TerminalCard() {
+function TerminalCard({ locale }: { locale: Locale }) {
+  const { t } = useTranslation(locale)
   return (
     <div
       className="overflow-hidden rounded-[14px] border border-dm-line-strong bg-dm-bg-elev"
@@ -285,12 +292,12 @@ function TerminalCard() {
         </div>
 
         <StageLine delayMs={STAGE_STEPS.tap}>
-          <span className="text-dm-ink-3">==&gt;</span> Tapping{' '}
+          <span className="text-dm-ink-3">==&gt;</span> {t('hero.terminal.tapping')}{' '}
           <span className="text-dm-ink">zingerlittlebee/tap</span>
         </StageLine>
 
         <StageLine delayMs={STAGE_STEPS.fetch}>
-          <span className="text-dm-ink-3">==&gt;</span> Downloading{' '}
+          <span className="text-dm-ink-3">==&gt;</span> {t('hero.terminal.downloading')}{' '}
           <span className="text-dm-ink">Dockerman</span>{' '}
           <span className="text-dm-ink-4">v5.1.0</span>
         </StageLine>
@@ -323,9 +330,9 @@ function TerminalCard() {
         {/* done */}
         <StageLine delayMs={STAGE_STEPS.done}>
           <span style={{ color: 'var(--color-dm-ok)' }}>✓</span>{' '}
-          <span className="text-dm-ink">Installed</span>{' '}
-          <span className="text-dm-ink-4">in 2.1s</span>
-          <span className="ml-2 text-dm-ink-4">· launching Dockerman…</span>
+          <span className="text-dm-ink">{t('hero.terminal.installed')}</span>{' '}
+          <span className="text-dm-ink-4">{t('hero.terminal.installedIn')}</span>
+          <span className="ml-2 text-dm-ink-4">{t('hero.terminal.launching')}</span>
         </StageLine>
       </div>
     </div>

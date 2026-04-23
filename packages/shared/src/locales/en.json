@@ -1,15 +1,38 @@
 {
   "nav": {
-    "home": "Home",
+    "features": "Features",
+    "snapshot": "Snapshot",
     "pricing": "Pricing",
+    "changelog": "Changelog",
+    "docs": "Docs",
     "download": "Download",
-    "changelog": "Changelog"
+    "github": "GitHub",
+    "changeLanguage": "Change language"
   },
   "hero": {
-    "title": "Modern Docker",
-    "titleBreak": "management simplified",
-    "description": "A lightweight, powerful Docker management UI focused on simplicity and performance.",
-    "cta": "Download for free"
+    "eyebrow": "v5.1.0 — Podman support, Cloudflared tunnels, image-upgrade detection",
+    "eyebrowTag": "NEW",
+    "headline1Lead": "Docker that feels",
+    "headline1Accent": "local",
+    "headline2Lead": "Kubernetes that feels",
+    "headline2Accent": "easy",
+    "description": "A lightweight desktop UI for Docker, Podman, and Kubernetes — built with Rust and Tauri. Boots in ~0ms and lives in under 30 MB of memory.",
+    "downloadFor": {
+      "mac": "Download for macOS",
+      "windows": "Download for Windows",
+      "linux": "Download for Linux"
+    },
+    "copyAria": "Copy: {{cmd}}",
+    "copied": "Copied",
+    "metaPrivacy": "local-first · opt-out analytics",
+    "metaVersion": "v5.1.0 · Apr 8, 2026",
+    "terminal": {
+      "tapping": "Tapping",
+      "downloading": "Downloading",
+      "installed": "Installed",
+      "installedIn": "in 2.1s",
+      "launching": "· launching Dockerman…"
+    }
   },
   "features": {
     "badge": "Desktop App",
@@ -46,29 +69,32 @@
     ]
   },
   "cta": {
-    "title": "Ready to get started?",
-    "description": "Start managing your Docker containers with a lightweight, powerful desktop experience.",
-    "downloadButton": "Download for Desktop",
-    "learnMore": "Want to learn more?",
-    "viewChangelog": "View the Changelog"
+    "titleLead": "Open the tray.",
+    "titleAccent": "Ship containers.",
+    "description": "Free and unrestricted for local use. A paid license unlocks remote hosts, team features, and priority support.",
+    "downloadButton": "Download Dockerman",
+    "platformsBadge": "macOS · Win · Linux",
+    "reportIssue": "Report an issue on GitHub →"
   },
   "footer": {
-    "description": "A modern, lightweight Docker management UI. Built with love for developers around the world.",
-    "product": "Product",
-    "resources": "Resources",
-    "company": "Company",
-    "legal": "Legal",
-    "copyright": "Dockerman. All rights reserved.",
-    "status": "All systems operational",
+    "tagline": "A modern, lightweight Docker & Kubernetes desktop, built with Rust + Tauri.",
+    "columns": {
+      "product": "Product",
+      "docs": "Docs",
+      "community": "Community"
+    },
+    "note": "local-first · opt-out analytics",
     "links": {
-      "pricing": "Pricing",
       "download": "Download",
+      "features": "Features",
       "changelog": "Changelog",
+      "pricing": "Pricing",
+      "gettingStarted": "Getting started",
+      "kubernetes": "Kubernetes",
+      "cliReference": "CLI reference",
+      "faq": "FAQ",
       "github": "GitHub",
-      "about": "About",
-      "privacy": "Privacy",
-      "terms": "Terms",
-      "dpa": "DPA"
+      "email": "Email"
     }
   },
   "common": {

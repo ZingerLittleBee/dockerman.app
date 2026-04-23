@@ -1,15 +1,38 @@
 {
   "nav": {
-    "home": "ホーム",
+    "features": "機能",
+    "snapshot": "スナップショット",
     "pricing": "価格",
+    "changelog": "変更履歴",
+    "docs": "ドキュメント",
     "download": "ダウンロード",
-    "changelog": "変更履歴"
+    "github": "GitHub",
+    "changeLanguage": "言語を変更"
   },
   "hero": {
-    "title": "モダンな Docker",
-    "titleBreak": "管理を簡単に",
-    "description": "シンプルさとパフォーマンスに焦点を当てた、軽量で強力な Docker 管理 UI。",
-    "cta": "無料でダウンロード"
+    "eyebrow": "v5.1.0 — Podman 対応、Cloudflared トンネル、イメージ更新検出",
+    "eyebrowTag": "NEW",
+    "headline1Lead": "Docker を",
+    "headline1Accent": "ローカルに",
+    "headline2Lead": "Kubernetes を",
+    "headline2Accent": "手軽に",
+    "description": "Docker、Podman、Kubernetes のための軽量デスクトップ UI。Rust と Tauri で構築。ほぼ瞬時に起動し、メモリ消費は 30 MB 未満。",
+    "downloadFor": {
+      "mac": "macOS 版をダウンロード",
+      "windows": "Windows 版をダウンロード",
+      "linux": "Linux 版をダウンロード"
+    },
+    "copyAria": "コピー：{{cmd}}",
+    "copied": "コピーしました",
+    "metaPrivacy": "ローカル優先 · オプトアウト可能な分析",
+    "metaVersion": "v5.1.0 · 2026 年 4 月 8 日",
+    "terminal": {
+      "tapping": "Tap 中",
+      "downloading": "ダウンロード中",
+      "installed": "インストール完了",
+      "installedIn": "2.1 秒",
+      "launching": "· Dockerman を起動中…"
+    }
   },
   "features": {
     "badge": "デスクトップアプリ",
@@ -46,29 +69,32 @@
     ]
   },
   "cta": {
-    "title": "始める準備はできましたか？",
-    "description": "軽量で強力なデスクトップアプリで Docker コンテナの管理を開始しましょう。",
-    "downloadButton": "デスクトップ版をダウンロード",
-    "learnMore": "詳細を知りたいですか？",
-    "viewChangelog": "変更履歴を見る"
+    "titleLead": "トレイを開く。",
+    "titleAccent": "コンテナを動かす。",
+    "description": "ローカル利用は完全無料・無制限。有償ライセンスでリモートホスト、チーム機能、優先サポートが利用できます。",
+    "downloadButton": "Dockerman をダウンロード",
+    "platformsBadge": "macOS · Win · Linux",
+    "reportIssue": "GitHub で問題を報告 →"
   },
   "footer": {
-    "description": "モダンで軽量な Docker 管理 UI。世界中の開発者のために愛を込めて作られました。",
-    "product": "製品",
-    "resources": "リソース",
-    "company": "会社",
-    "legal": "法的情報",
-    "copyright": "Dockerman. All rights reserved.",
-    "status": "すべてのシステムが正常に動作しています",
+    "tagline": "Rust + Tauri で構築された、モダンで軽量な Docker & Kubernetes デスクトップ。",
+    "columns": {
+      "product": "製品",
+      "docs": "ドキュメント",
+      "community": "コミュニティ"
+    },
+    "note": "ローカル優先 · オプトアウト可能な分析",
     "links": {
-      "pricing": "価格",
       "download": "ダウンロード",
+      "features": "機能",
       "changelog": "変更履歴",
+      "pricing": "価格",
+      "gettingStarted": "はじめに",
+      "kubernetes": "Kubernetes",
+      "cliReference": "CLI リファレンス",
+      "faq": "FAQ",
       "github": "GitHub",
-      "about": "会社概要",
-      "privacy": "プライバシーポリシー",
-      "terms": "利用規約",
-      "dpa": "DPA"
+      "email": "メール"
     }
   },
   "common": {

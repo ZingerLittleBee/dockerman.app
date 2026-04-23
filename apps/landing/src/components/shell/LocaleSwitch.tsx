@@ -1,6 +1,7 @@
 'use client'
 
 import { cookieName, type Locale, localeConfig, locales } from '@repo/shared/i18n'
+import { useTranslation } from '@repo/shared/i18n/client'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 
@@ -9,6 +10,7 @@ export function LocaleSwitch({ locale }: { locale: Locale }) {
   const ref = useRef<HTMLDivElement>(null)
   const router = useRouter()
   const pathname = usePathname()
+  const { t } = useTranslation(locale)
 
   useEffect(() => {
     if (!open) {
@@ -49,7 +51,7 @@ export function LocaleSwitch({ locale }: { locale: Locale }) {
       <button
         aria-expanded={open}
         aria-haspopup="menu"
-        aria-label="Change language"
+        aria-label={t('nav.changeLanguage')}
         className="grid h-8 w-8 cursor-pointer place-items-center rounded-md text-dm-ink-2 transition-colors hover:bg-dm-bg-soft hover:text-dm-ink"
         onClick={() => setOpen((o) => !o)}
         type="button"

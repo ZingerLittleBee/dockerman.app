@@ -1,7 +1,9 @@
 import type { Locale } from '@repo/shared/i18n'
+import { getTranslation } from '@repo/shared/i18n/server'
 import Link from 'next/link'
 
-export function CtaFinal({ locale }: { locale: Locale }) {
+export async function CtaFinal({ locale }: { locale: Locale }) {
+  const { t } = await getTranslation(locale)
   return (
     <section className="px-8">
       <div className="mx-auto my-24 max-w-[1240px]">
@@ -23,7 +25,7 @@ export function CtaFinal({ locale }: { locale: Locale }) {
             }}
           />
           <h2 className="relative m-0 font-bold text-[clamp(36px,5vw,64px)] text-dm-ink leading-[1.02] tracking-[-0.04em]">
-            Open the tray.{' '}
+            {t('cta.titleLead')}{' '}
             <em
               className="bg-clip-text font-[var(--font-dm-display)] font-normal text-transparent italic"
               style={{
@@ -31,21 +33,19 @@ export function CtaFinal({ locale }: { locale: Locale }) {
                   'linear-gradient(135deg, var(--color-dm-accent), var(--color-dm-accent-2))'
               }}
             >
-              Ship containers.
+              {t('cta.titleAccent')}
             </em>
           </h2>
           <p className="relative mx-auto mt-[18px] mb-8 max-w-[56ch] text-[17px] text-dm-ink-3">
-            Free and unrestricted for local use. A paid license unlocks remote hosts, team features,
-            and priority support.
+            {t('cta.description')}
           </p>
           <div className="relative flex flex-wrap justify-center gap-3">
             <Link
-              className="inline-flex items-center gap-[10px] rounded-[10px] border px-5 py-3 pr-[6px] font-semibold text-[14px] text-white no-underline transition-all hover:-translate-y-px"
+              className="inline-flex items-center gap-[10px] rounded-[10px] px-5 py-3 pr-[6px] font-semibold text-[14px] text-white no-underline transition-all hover:-translate-y-px"
               href={`/${locale}/download`}
               style={{
                 background:
                   'linear-gradient(135deg, var(--color-dm-accent), var(--color-dm-accent-2))',
-                borderColor: 'transparent',
                 boxShadow:
                   '0 10px 30px -10px color-mix(in srgb, var(--color-dm-accent-2) 60%, transparent)'
               }}
@@ -59,7 +59,7 @@ export function CtaFinal({ locale }: { locale: Locale }) {
               >
                 <path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 4v-2h14v2H5z" />
               </svg>
-              Download Dockerman
+              {t('cta.downloadButton')}
               <span
                 className="inline-flex items-center rounded-md px-[10px] py-1 font-[var(--font-dm-mono)] text-[11px]"
                 style={{
@@ -67,7 +67,7 @@ export function CtaFinal({ locale }: { locale: Locale }) {
                   opacity: 0.9
                 }}
               >
-                macOS · Win · Linux
+                {t('cta.platformsBadge')}
               </span>
             </Link>
             <a
@@ -76,7 +76,7 @@ export function CtaFinal({ locale }: { locale: Locale }) {
               rel="noopener noreferrer"
               target="_blank"
             >
-              Report an issue on GitHub →
+              {t('cta.reportIssue')}
             </a>
           </div>
         </div>

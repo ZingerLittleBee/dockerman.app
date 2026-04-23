@@ -1,12 +1,13 @@
 import type { Locale } from '@repo/shared/i18n'
+import { getTranslation } from '@repo/shared/i18n/server'
 import Link from 'next/link'
 
-export function Footer({ locale }: { locale: Locale }) {
+export async function Footer({ locale }: { locale: Locale }) {
+  const { t } = await getTranslation(locale)
   const prefix = (href: string) => `/${locale}${href === '/' ? '' : href}`
 
   return (
     <footer className="border-dm-line border-t py-12 text-[13px] text-dm-ink-3">
-      {/* TODO(i18n): labels deferred per Phase 6 of the landing redesign plan. */}
       <div className="mx-auto max-w-[1240px] px-8">
         <div className="flex flex-wrap items-start justify-between gap-10">
           {/* Brand column */}
@@ -17,55 +18,53 @@ export function Footer({ locale }: { locale: Locale }) {
                 Dockerman
               </span>
             </Link>
-            <p className="m-0 text-dm-ink-3">
-              A modern, lightweight Docker & Kubernetes desktop, built with Rust + Tauri.
-            </p>
+            <p className="m-0 text-dm-ink-3">{t('footer.tagline')}</p>
           </div>
 
           {/* Product */}
-          <FooterCol heading="Product">
+          <FooterCol heading={t('footer.columns.product')}>
             <Link className="hover:text-dm-ink" href={prefix('/download')}>
-              Download
+              {t('footer.links.download')}
             </Link>
             <Link className="hover:text-dm-ink" href={prefix('/#features')}>
-              Features
+              {t('footer.links.features')}
             </Link>
             <Link className="hover:text-dm-ink" href={prefix('/changelog')}>
-              Changelog
+              {t('footer.links.changelog')}
             </Link>
             <Link className="hover:text-dm-ink" href={prefix('/pricing')}>
-              Pricing
+              {t('footer.links.pricing')}
             </Link>
           </FooterCol>
 
           {/* Docs */}
-          <FooterCol heading="Docs">
+          <FooterCol heading={t('footer.columns.docs')}>
             <Link className="hover:text-dm-ink" href={prefix('/docs/getting-started')}>
-              Getting started
+              {t('footer.links.gettingStarted')}
             </Link>
             <Link className="hover:text-dm-ink" href={prefix('/docs/kubernetes')}>
-              Kubernetes
+              {t('footer.links.kubernetes')}
             </Link>
             <Link className="hover:text-dm-ink" href={prefix('/docs/cli')}>
-              CLI reference
+              {t('footer.links.cliReference')}
             </Link>
             <Link className="hover:text-dm-ink" href={prefix('/docs/faq')}>
-              FAQ
+              {t('footer.links.faq')}
             </Link>
           </FooterCol>
 
           {/* Community */}
-          <FooterCol heading="Community">
+          <FooterCol heading={t('footer.columns.community')}>
             <a
               className="hover:text-dm-ink"
               href="https://github.com/ZingerLittleBee/dockerman.app"
               rel="noopener noreferrer"
               target="_blank"
             >
-              GitHub
+              {t('footer.links.github')}
             </a>
             <a className="hover:text-dm-ink" href="mailto:support@dockerman.app">
-              Email
+              {t('footer.links.email')}
             </a>
           </FooterCol>
         </div>
@@ -73,7 +72,7 @@ export function Footer({ locale }: { locale: Locale }) {
         {/* Foot note: copyright + tagline */}
         <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-dm-line border-t pt-5 font-[var(--font-dm-mono)] text-[12px] text-dm-ink-4">
           <span>© {new Date().getFullYear()} Dockerman</span>
-          <span>local-first · opt-out analytics</span>
+          <span>{t('footer.note')}</span>
         </div>
       </div>
     </footer>
