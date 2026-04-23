@@ -152,6 +152,10 @@
         {
           "question": "需要更多设备？",
           "answer": "如果您需要超过 3 台设备的许可证，请联系 support@dockerman.app 获取定制报价。"
+        },
+        {
+          "question": "需要帮助？",
+          "answer": "还有其他问题，或者在使用许可证时遇到了问题？请发送邮件至 support@dockerman.app，我们会在一个工作日内回复您。"
         }
       ]
     }

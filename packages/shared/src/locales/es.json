@@ -152,6 +152,10 @@
         {
           "question": "¿Necesitas más dispositivos?",
           "answer": "Si necesitas licencias para más de 3 dispositivos, por favor contáctanos en support@dockerman.app para precios personalizados."
+        },
+        {
+          "question": "¿Necesitas ayuda?",
+          "answer": "¿Tienes alguna otra pregunta o un problema con tu licencia? Envíanos un correo a support@dockerman.app y te responderemos en un día hábil."
         }
       ]
     }

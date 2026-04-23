@@ -26,6 +26,26 @@ function isFaqItemArray(value: unknown): value is FaqItem[] {
   )
 }
 
+const EMAIL_RE_SPLIT = /([A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,})/gi
+const EMAIL_RE_TEST = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
+
+function renderAnswer(text: string) {
+  const parts = text.split(EMAIL_RE_SPLIT)
+  return parts.map((part, i) =>
+    EMAIL_RE_TEST.test(part) ? (
+      <a
+        className="text-dm-accent-2 underline underline-offset-2 hover:opacity-80"
+        href={`mailto:${part}`}
+        key={`${i}-${part}`}
+      >
+        {part}
+      </a>
+    ) : (
+      <span key={`${i}-t`}>{part}</span>
+    )
+  )
+}
+
 export function PricingFaq() {
   const { t } = useTranslation()
   const raw = t('pricing.faq.items', { returnObjects: true })
@@ -47,7 +67,7 @@ export function PricingFaq() {
                 {item.question}
               </AccordionTrigger>
               <AccordionContent className="text-[14px] text-dm-ink-2">
-                {item.answer}
+                {renderAnswer(item.answer)}
               </AccordionContent>
             </AccordionItem>
           ))}

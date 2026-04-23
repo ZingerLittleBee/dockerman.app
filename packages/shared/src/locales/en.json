@@ -152,6 +152,10 @@
         {
           "question": "Need more devices?",
           "answer": "If you need licenses for more than 3 devices, please contact us at support@dockerman.app for custom pricing."
+        },
+        {
+          "question": "Need help?",
+          "answer": "Have a question we didn't cover, or hit an issue with your license? Email us at support@dockerman.app and we'll get back to you within one business day."
         }
       ]
     }
