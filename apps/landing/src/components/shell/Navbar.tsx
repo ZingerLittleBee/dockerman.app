@@ -7,13 +7,12 @@ import { usePathname } from 'next/navigation'
 import ThemeSwitch from '@/components/ThemeSwitch'
 
 // TODO(i18n): labels deferred per docs/superpowers/plans/2026-04-23-landing-redesign-plan.md — localize in Phase 6.
-// Order mirrors Landing.html reference: Features / Modules / Docs / Changelog / Pricing.
 const LINKS = [
   { href: '/#features', label: 'Features', anchor: true },
   { href: '/snapshot', label: 'Snapshot' },
   { href: '/docs', label: 'Docs' },
-  { href: '/changelog', label: 'Changelog' },
   { href: '/pricing', label: 'Pricing' },
+  { href: '/changelog', label: 'Changelog' },
 ]
 
 export function Navbar({ locale }: { locale: Locale }) {
@@ -73,15 +72,6 @@ export function Navbar({ locale }: { locale: Locale }) {
             target="_blank"
           >
             <RiGithubFill className="h-4 w-4" />
-          </a>
-          {/* Ghost Sign in button per Landing.html line 783 */}
-          <a
-            className="hidden rounded-md bg-transparent px-3 py-[6px] text-[13px] text-dm-ink-2 hover:bg-dm-bg-soft hover:text-dm-ink md:inline-flex"
-            href="https://github.com/ZingerLittleBee/dockerman.app"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Sign in
           </a>
           <Link
             className="inline-flex items-center gap-2 rounded-lg border border-dm-ink bg-dm-ink px-[14px] py-2 font-medium text-[13px] text-dm-bg transition-transform hover:-translate-y-px"
