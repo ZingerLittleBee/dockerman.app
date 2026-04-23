@@ -1,11 +1,12 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { ChangelogEntryData } from '@/lib/changelog'
 
 export function ChangelogToc({ entries }: { entries: ChangelogEntryData[] }) {
   const [active, setActive] = useState(entries[0]?.id ?? '')
+  const navRef = useRef<HTMLElement | null>(null)
 
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -25,8 +26,33 @@ export function ChangelogToc({ entries }: { entries: ChangelogEntryData[] }) {
     return () => obs.disconnect()
   }, [entries])
 
+  // Keep the active entry inside the nav's own scroll viewport so long
+  // release lists don't leave the current version off-screen.
+  useEffect(() => {
+    const nav = navRef.current
+    if (!nav || !active) return
+    const link = nav.querySelector<HTMLAnchorElement>(`a[href="#${active}"]`)
+    if (!link) return
+    const linkTop = link.offsetTop
+    const linkBottom = linkTop + link.offsetHeight
+    const viewTop = nav.scrollTop
+    const viewBottom = viewTop + nav.clientHeight
+    const margin = 24
+    if (linkTop < viewTop + margin) {
+      nav.scrollTo({ top: Math.max(0, linkTop - margin), behavior: 'smooth' })
+    } else if (linkBottom > viewBottom - margin) {
+      nav.scrollTo({
+        top: linkBottom - nav.clientHeight + margin,
+        behavior: 'smooth',
+      })
+    }
+  }, [active])
+
   return (
-    <nav className="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto overscroll-contain pr-1 [scrollbar-color:var(--color-dm-line-strong)_transparent] [scrollbar-width:thin]">
+    <nav
+      ref={navRef}
+      className="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto overscroll-contain pr-1 [scrollbar-color:var(--color-dm-line-strong)_transparent] [scrollbar-width:thin]"
+    >
       <ul className="m-0 list-none border-dm-line border-l p-0">
         {entries.map((e) => {
           const isActive = active === e.id
