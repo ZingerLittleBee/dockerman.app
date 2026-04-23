@@ -248,10 +248,10 @@ export const pricingConfig = {
 
    Each card renders the installer(s) it is responsible for. For every installer we show:
    - filename + size
-   - a **per-artifact verification line** rendered from the config:
-     - `appleNotarized` → "Apple-signed & notarized"
-     - `tauriSig: true` → "Tauri updater signature: `{filename}.sig`"
-     - `none` → (no line; the `.deb` case today)
+   - a **per-artifact verification line** rendered from the typed `Verification` discriminator defined below:
+     - `kind: "apple-notarized"` → "Apple-signed & notarized"
+     - `kind: "tauri-sig"` → "Tauri updater signature: `{sigFilename}`" (rendered from the payload's `sigFilename` field, not inferred from the installer filename)
+     - `kind: "none"` → (no line rendered; the `.deb` case today)
 4. **IntegrityBar** — a single row with: (a) link to the GitHub release page for the current version (where all assets are published), (b) link to the public updater signing key used by Tauri's updater to verify `.sig` files. **SHA256SUMS, SBOM, and cosign attestations are not produced by the current pipeline** and are not referenced.
 5. **ReleasesTable** — last 8 versions with date + a link into `/changelog#release-{slug}`. Data sourced from `config/downloads.ts` with an explicit `asOf` timestamp. Future work may auto-fetch from the GitHub Releases API at build time; out of scope for this spec.
 6. **CtaFinal**.
@@ -315,9 +315,14 @@ export const downloadsConfig = {
         },
       ],
     },
-    // Not surfaced on the download page — kept here for reference only.
+    // Not surfaced on the download page — kept here so the hidden updater-channel
+    // asset is tracked alongside its signature. Shape mirrors InstallerAsset so
+    // there is one model for "file + its sig" across the whole config.
     updaterBundles: {
-      macos: "Dockerman.app.tar.gz",
+      macos: {
+        filename: "Dockerman.app.tar.gz",
+        sigFilename: "Dockerman.app.tar.gz.sig",
+      },
     },
   },
   history: [ /* last 8 versions: { version, date, summarySlug } */ ],
