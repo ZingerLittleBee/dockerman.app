@@ -1,0 +1,728 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Pricing — Dockerman</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script>
+  try {
+    const t = localStorage.getItem('dm-theme') || 'dark';
+    document.documentElement.classList.toggle('dark', t === 'dark');
+  } catch(e){}
+</script>
+<style>
+:root {
+  --bg: #fafaf9; --bg-elev: #ffffff; --bg-soft: #f4f4f2;
+  --line: rgba(0,0,0,0.08); --line-strong: rgba(0,0,0,0.14);
+  --ink: #0a0a0a; --ink-2: #3a3a3a; --ink-3: #6a6a6a; --ink-4: #9a9a98;
+  --accent: #6366f1; --accent-2: #8b5cf6; --accent-warm: #f97316;
+  --ok: #10b981; --warn: #f59e0b; --err: #ef4444;
+  --grid: rgba(0,0,0,0.05); --chip: color-mix(in srgb, #6366f1 14%, transparent);
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Geist Mono', 'JetBrains Mono', ui-monospace, monospace;
+}
+html.dark {
+  --bg: #070808; --bg-elev: #0e0f10; --bg-soft: #141516;
+  --line: rgba(255,255,255,0.08); --line-strong: rgba(255,255,255,0.14);
+  --ink: #f5f5f4; --ink-2: #c9c9c7; --ink-3: #8c8c8a; --ink-4: #5c5c5a;
+  --grid: rgba(255,255,255,0.04);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+.grid-bg {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse at 50% 15%, rgba(0,0,0,0.6), transparent 65%);
+}
+.wrap { max-width: 1140px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+section { position: relative; z-index: 1; }
+
+/* nav */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  background: color-mix(in srgb, var(--bg) 80%, transparent);
+  border-bottom: 1px solid var(--line);
+}
+.nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 14px 32px; max-width: 1240px; margin: 0 auto; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: -0.01em; font-size: 15px; color: var(--ink); text-decoration: none; }
+.brand-mark { width: 26px; height: 26px; border-radius: 7px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); display: grid; place-items: center; color: white; position: relative; box-shadow: 0 0 0 1px rgba(255,255,255,0.1) inset, 0 4px 12px -4px var(--accent); }
+.brand-mark svg { width: 16px; height: 16px; }
+.brand-mark::after { content: ""; position: absolute; inset: 3px; border-radius: 4px; background: radial-gradient(circle at 30% 25%, rgba(255,255,255,0.35), transparent 55%); }
+.eyebrow-tag { background: var(--ink); color: var(--bg); padding: 2px 8px; border-radius: 999px; font-size: 10px; letter-spacing: 0.04em; font-weight: 600; font-family: var(--font-mono); }
+.nav-links { display: flex; gap: 4px; align-items: center; font-size: 13px; }
+.nav-links a { color: var(--ink-2); text-decoration: none; padding: 6px 12px; border-radius: 6px; transition: all 0.15s; }
+.nav-links a:hover { color: var(--ink); background: var(--bg-soft); }
+.nav-links a.active { color: var(--ink); background: var(--bg-soft); font-weight: 500; }
+.nav-cta { display: flex; gap: 8px; align-items: center; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; text-decoration: none; cursor: pointer; border: 0; transition: all 0.15s; font-family: inherit; }
+.btn-ghost { color: var(--ink-2); background: transparent; }
+.btn-ghost:hover { background: var(--bg-soft); color: var(--ink); }
+.btn-primary { color: var(--bg); background: var(--ink); border: 1px solid var(--ink); }
+.btn-primary:hover { transform: translateY(-1px); }
+.icon-btn { width: 32px; height: 32px; display: grid; place-items: center; border-radius: 8px; color: var(--ink-2); background: transparent; border: 1px solid transparent; cursor: pointer; }
+.icon-btn:hover { background: var(--bg-soft); color: var(--ink); }
+
+/* hero */
+.hero { padding: 64px 0 40px; position: relative; }
+.hero-glow { position: absolute; left: 50%; top: 20px; transform: translateX(-50%); width: 900px; height: 420px; background: radial-gradient(ellipse at center top, color-mix(in srgb, var(--accent) 22%, transparent), transparent 60%); pointer-events: none; z-index: 0; filter: blur(40px); }
+.kicker { display: inline-flex; align-items: center; gap: 10px; padding: 5px 10px 5px 6px; border: 1px solid var(--line-strong); border-radius: 999px; font-size: 12px; color: var(--ink-2); background: var(--bg-elev); font-family: var(--font-mono); }
+.kicker .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--warn); box-shadow: 0 0 0 4px color-mix(in srgb, var(--warn) 30%, transparent); animation: pulse 2.2s ease-in-out infinite; }
+.kicker .tag { background: var(--warn); color: var(--bg); padding: 2px 8px; border-radius: 999px; font-size: 10px; font-weight: 600; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } }
+
+.hero-center { text-align: center; }
+.hero h1 { margin: 22px auto 0; font-size: clamp(48px, 7vw, 88px); line-height: 0.98; letter-spacing: -0.04em; font-weight: 700; max-width: 16ch; }
+.hero h1 em { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; background: linear-gradient(135deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; letter-spacing: -0.02em; }
+.hero .sub { margin: 22px auto 0; font-size: 18px; line-height: 1.5; color: var(--ink-3); max-width: 58ch; }
+
+/* countdown */
+.countdown-bar {
+  margin: 36px auto 0; max-width: 560px;
+  padding: 20px 24px; border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--warn) 30%, var(--line-strong));
+  background:
+    radial-gradient(ellipse at 10% 50%, color-mix(in srgb, var(--warn) 10%, transparent), transparent 60%),
+    var(--bg-elev);
+  display: flex; align-items: center; gap: 20px;
+}
+.countdown-bar .cb-icon {
+  width: 38px; height: 38px; border-radius: 9px;
+  background: color-mix(in srgb, var(--warn) 14%, transparent);
+  color: var(--warn); display: grid; place-items: center; flex-shrink: 0;
+}
+.countdown-bar .cb-copy { flex: 1; text-align: left; }
+.countdown-bar .cb-title { font-size: 13px; font-weight: 600; color: var(--ink); }
+.countdown-bar .cb-title .chip { background: var(--warn); color: #000; font-size: 10px; padding: 2px 7px; border-radius: 4px; font-family: var(--font-mono); font-weight: 700; letter-spacing: 0.04em; margin-left: 8px; }
+.countdown-bar .cb-sub { margin-top: 3px; font-size: 12px; color: var(--ink-3); font-family: var(--font-mono); }
+.countdown-timer { display: flex; gap: 6px; font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.countdown-timer .seg { min-width: 42px; padding: 6px 2px; border-radius: 7px; background: var(--ink); color: var(--bg); text-align: center; }
+.countdown-timer .seg .n { font-size: 18px; font-weight: 700; letter-spacing: -0.02em; line-height: 1; }
+.countdown-timer .seg .l { margin-top: 3px; font-size: 9px; color: color-mix(in srgb, var(--bg) 50%, var(--ink)); letter-spacing: 0.08em; text-transform: uppercase; }
+
+@media (max-width: 680px) {
+  .countdown-bar { flex-direction: column; text-align: center; }
+  .countdown-bar .cb-copy { text-align: center; }
+}
+
+/* billing toggle (decorative — all plans are lifetime) */
+.billing-toggle {
+  margin: 36px auto 0;
+  display: inline-flex; gap: 4px;
+  padding: 4px; border: 1px solid var(--line); border-radius: 999px;
+  background: var(--bg-elev);
+  font-family: var(--font-mono); font-size: 12px;
+}
+.billing-toggle .seg { padding: 7px 16px; border-radius: 999px; cursor: pointer; color: var(--ink-3); transition: all 0.15s; }
+.billing-toggle .seg.active { background: var(--ink); color: var(--bg); font-weight: 500; }
+.billing-toggle .seg .save { color: var(--ok); margin-left: 6px; font-size: 10.5px; }
+
+/* plans */
+.plans {
+  margin-top: 52px;
+  display: grid; grid-template-columns: 1fr 1.1fr 1fr; gap: 16px;
+  align-items: stretch;
+}
+@media (max-width: 980px) { .plans { grid-template-columns: 1fr; } }
+
+.plan {
+  position: relative;
+  border: 1px solid var(--line);
+  background: var(--bg-elev);
+  border-radius: 16px;
+  padding: 32px 28px;
+  display: flex; flex-direction: column;
+}
+.plan.highlighted {
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--line-strong));
+  background:
+    radial-gradient(ellipse at top, color-mix(in srgb, var(--accent) 10%, transparent), transparent 55%),
+    var(--bg-elev);
+  box-shadow: 0 25px 60px -25px color-mix(in srgb, var(--accent) 40%, transparent);
+  transform: translateY(-6px);
+}
+.plan .ribbon {
+  position: absolute; top: 18px; right: 18px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: white; font-size: 10.5px; font-weight: 700;
+  padding: 4px 10px; border-radius: 999px; letter-spacing: 0.04em; font-family: var(--font-mono);
+  text-transform: uppercase; box-shadow: 0 8px 20px -6px color-mix(in srgb, var(--accent) 50%, transparent);
+}
+.plan .t-label {
+  font-family: var(--font-mono); font-size: 11px; color: var(--ink-3);
+  letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600;
+}
+.plan .t-name {
+  margin-top: 10px; font-size: 26px; font-weight: 700; letter-spacing: -0.025em;
+}
+.plan .t-desc {
+  margin-top: 6px; font-size: 13px; color: var(--ink-3); line-height: 1.5;
+  min-height: 38px;
+}
+.plan .t-price-row {
+  margin-top: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--line);
+  display: flex; align-items: baseline; gap: 10px;
+}
+.plan .t-price {
+  font-size: 56px; font-weight: 700; letter-spacing: -0.04em;
+  line-height: 1; font-variant-numeric: tabular-nums;
+}
+.plan .t-price .cur { font-size: 24px; font-weight: 600; color: var(--ink-3); vertical-align: top; margin-right: 2px; }
+.plan .t-price-old {
+  font-family: var(--font-mono); font-size: 16px; color: var(--ink-4);
+  text-decoration: line-through; text-decoration-thickness: 1.5px;
+}
+.plan .t-freq {
+  font-size: 12px; color: var(--ink-3); font-family: var(--font-mono); letter-spacing: 0.02em;
+  margin-left: auto;
+}
+
+.plan .feats { margin: 20px 0 28px; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 11px; }
+.plan .feats li { display: flex; gap: 10px; align-items: flex-start; font-size: 13.5px; color: var(--ink-2); line-height: 1.5; }
+.plan .feats li.muted { color: var(--ink-4); text-decoration: line-through; text-decoration-thickness: 1px; text-decoration-color: var(--ink-4); }
+.plan .feats .ico {
+  flex-shrink: 0; width: 16px; height: 16px; border-radius: 4px;
+  display: grid; place-items: center;
+  background: color-mix(in srgb, var(--ok) 14%, transparent); color: var(--ok);
+  margin-top: 2px;
+}
+.plan .feats li.muted .ico { background: var(--bg-soft); color: var(--ink-4); }
+.plan .feats li .b { color: var(--ink); font-weight: 600; }
+
+.plan .cta {
+  margin-top: auto;
+  display: inline-flex; justify-content: center; align-items: center; gap: 8px;
+  padding: 13px 18px; border-radius: 10px;
+  font-size: 14px; font-weight: 600;
+  text-decoration: none; border: 1px solid var(--line); cursor: pointer;
+  transition: all 0.15s;
+}
+.plan .cta.primary {
+  background: linear-gradient(180deg, var(--accent), color-mix(in srgb, var(--accent) 80%, black));
+  color: white; border-color: transparent;
+  box-shadow: 0 10px 24px -8px color-mix(in srgb, var(--accent) 55%, transparent);
+}
+.plan .cta.primary:hover { transform: translateY(-1px); box-shadow: 0 14px 28px -8px color-mix(in srgb, var(--accent) 60%, transparent); }
+.plan .cta.ghost { background: transparent; color: var(--ink); border-color: var(--line-strong); }
+.plan .cta.ghost:hover { background: var(--bg-soft); }
+.plan .cta.disabled { background: var(--bg-soft); color: var(--ink-3); border-color: var(--line); cursor: not-allowed; }
+.plan .cta.disabled:hover { transform: none; }
+
+.plan .cta-note { margin-top: 12px; font-size: 11.5px; color: var(--ink-4); font-family: var(--font-mono); text-align: center; }
+
+/* comparison */
+.compare { padding: 100px 0 40px; }
+.section-head { margin-bottom: 36px; max-width: 680px; }
+.section-head .k { font-family: var(--font-mono); font-size: 12px; color: var(--accent); letter-spacing: 0.04em; }
+.section-head .k::before { content: "// "; color: var(--ink-4); }
+.section-head h2 { margin: 10px 0 12px; font-size: clamp(28px, 3.6vw, 40px); letter-spacing: -0.03em; line-height: 1.05; font-weight: 700; }
+.section-head h2 em { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; color: var(--ink-2); }
+.section-head p { margin: 0; color: var(--ink-3); font-size: 15.5px; line-height: 1.55; }
+
+.compare-table {
+  border: 1px solid var(--line); border-radius: 14px; overflow: hidden;
+  background: var(--bg-elev); font-size: 13.5px;
+}
+.compare-row {
+  display: grid; grid-template-columns: 2.2fr 1fr 1fr 1fr;
+  padding: 14px 22px; border-bottom: 1px solid var(--line);
+  align-items: center;
+}
+.compare-row:last-child { border-bottom: 0; }
+.compare-row.header {
+  background: var(--bg-soft);
+  font-family: var(--font-mono); font-size: 11.5px;
+  text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-3); font-weight: 600;
+}
+.compare-row.section-label {
+  background: var(--bg);
+  font-weight: 600; color: var(--ink-2); font-size: 12px;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  font-family: var(--font-mono);
+}
+.compare-row .cell { text-align: center; }
+.compare-row .cell.feat-name { text-align: left; color: var(--ink); font-weight: 500; font-size: 14px; letter-spacing: -0.005em; }
+.compare-row .cell.feat-name .desc { display: block; margin-top: 2px; color: var(--ink-4); font-size: 11.5px; font-weight: 400; font-family: var(--font-mono); }
+.compare-row .check { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 6px; background: color-mix(in srgb, var(--ok) 16%, transparent); color: var(--ok); }
+.compare-row .x { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 6px; background: var(--bg-soft); color: var(--ink-4); }
+.compare-row .txt { font-family: var(--font-mono); font-size: 12px; color: var(--ink-2); }
+
+@media (max-width: 820px) {
+  .compare-row { grid-template-columns: 1.5fr 1fr 1fr 1fr; padding: 12px 14px; font-size: 12.5px; }
+  .compare-row .cell.feat-name { font-size: 13px; }
+}
+
+/* FAQ */
+.faq-section { padding: 100px 0 40px; }
+.faq-list {
+  max-width: 760px; margin: 0 auto;
+  border-top: 1px solid var(--line);
+}
+.faq-item { border-bottom: 1px solid var(--line); }
+.faq-trigger {
+  width: 100%; display: flex; justify-content: space-between; align-items: center;
+  padding: 22px 4px; background: transparent; border: 0; cursor: pointer;
+  color: var(--ink); font-family: inherit; font-size: 16px; font-weight: 500;
+  text-align: left; letter-spacing: -0.01em; transition: color 0.15s;
+}
+.faq-trigger:hover { color: var(--accent); }
+.faq-trigger .plus { width: 22px; height: 22px; position: relative; flex-shrink: 0; margin-left: 20px; color: var(--ink-3); transition: transform 0.25s; }
+.faq-trigger .plus::before, .faq-trigger .plus::after { content: ""; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); background: currentColor; }
+.faq-trigger .plus::before { width: 12px; height: 1.5px; }
+.faq-trigger .plus::after { width: 1.5px; height: 12px; transition: transform 0.25s; }
+.faq-item.open .faq-trigger .plus::after { transform: translate(-50%,-50%) rotate(90deg); }
+.faq-item.open .faq-trigger .plus { color: var(--accent); transform: rotate(45deg); }
+.faq-content {
+  max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
+  color: var(--ink-3); font-size: 14.5px; line-height: 1.65;
+}
+.faq-item.open .faq-content { max-height: 400px; }
+.faq-content-inner { padding: 0 4px 22px; max-width: 68ch; }
+.faq-content-inner code { font-family: var(--font-mono); font-size: 13px; background: var(--bg-soft); padding: 1px 5px; border-radius: 4px; color: var(--ink-2); }
+
+/* testimonial-ish trust bar */
+.trust { padding: 40px 0 0; }
+.trust-row {
+  display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+  gap: 32px; padding: 24px 0;
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+}
+.trust-row .item {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono); font-size: 12px; color: var(--ink-3);
+}
+.trust-row .item svg { color: var(--ink-4); }
+.trust-row .item .n { color: var(--ink); font-weight: 600; font-size: 13px; font-variant-numeric: tabular-nums; }
+
+/* footer */
+footer { padding: 48px 0; border-top: 1px solid var(--line); margin-top: 80px; font-size: 13px; color: var(--ink-3); }
+.foot-row { display: flex; justify-content: space-between; gap: 40px; flex-wrap: wrap; align-items: center; }
+.foot-note { font-family: var(--font-mono); font-size: 12px; color: var(--ink-4); }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="Landing.html">
+      <div class="brand-mark">
+        <svg viewBox="0 0 32 32" fill="currentColor">
+          <path d="M28,12H20V4h8Zm-6-2h4V6H22Z"/>
+          <path d="M17,15V9H9V23H23V15Zm-6-4h4v4H11Zm4,10H11V17h4Zm6,0H17V17h4Z"/>
+          <path d="M26,28H6a2,2,0,0,1-2-2V6A2,2,0,0,1,6,4H16V6H6V26H26V16h2V26A2,2,0,0,1,26,28Z"/>
+        </svg>
+      </div>
+      <span>Dockerman</span>
+      <span class="eyebrow-tag">v5.1</span>
+    </a>
+    <div class="nav-links">
+      <a href="Landing.html">Features</a>
+      <a href="Landing.html#modules">Modules</a>
+      <a href="#">Docs</a>
+      <a href="#">Changelog</a>
+      <a class="active" href="Pricing.html">Pricing</a>
+      <a href="Download.html">Download</a>
+    </div>
+    <div class="nav-cta">
+      <button class="icon-btn" id="theme-toggle" aria-label="Toggle theme">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+      <a href="#" class="btn btn-ghost">Sign in</a>
+      <a href="#" class="btn btn-primary">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="wrap hero-center">
+    <div class="kicker">
+      <span class="dot"></span>
+      <span>Early Bird · 34% off · ends soon</span>
+      <span class="tag">LIMITED</span>
+    </div>
+
+    <h1>Pay once. Use <em>forever.</em></h1>
+
+    <p class="sub">
+      Free for local Docker. One flat, lifetime price for remote hosts, SSH, and multi-machine management.
+      No subscriptions. No seat math. No surprise invoices.
+    </p>
+
+    <!-- countdown -->
+    <div class="countdown-bar">
+      <div class="cb-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+      </div>
+      <div class="cb-copy">
+        <div class="cb-title">Early Bird pricing ends <span class="chip">MAY 15</span></div>
+        <div class="cb-sub">after that, 1-device $19 · 3-device $29</div>
+      </div>
+      <div class="countdown-timer" id="countdown">
+        <div class="seg"><div class="n" id="cd-d">22</div><div class="l">days</div></div>
+        <div class="seg"><div class="n" id="cd-h">08</div><div class="l">hrs</div></div>
+        <div class="seg"><div class="n" id="cd-m">42</div><div class="l">min</div></div>
+        <div class="seg"><div class="n" id="cd-s">19</div><div class="l">sec</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLANS -->
+<section>
+  <div class="wrap">
+    <div class="plans">
+      <!-- FREE -->
+      <div class="plan">
+        <div class="t-label">free</div>
+        <div class="t-name">Free</div>
+        <div class="t-desc">Every feature, no time limit. Local Docker and Podman only.</div>
+
+        <div class="t-price-row">
+          <div class="t-price"><span class="cur">$</span>0</div>
+          <div class="t-freq">forever · local only</div>
+        </div>
+
+        <ul class="feats">
+          <li><span class="ico"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>Container, image, volume, network</li>
+          <li><span class="ico"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>Compose projects & one-click deploy</li>
+          <li><span class="ico"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>Command palette, terminal, logs</li>
+          <li><span class="ico"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>Podman, Trivy scan, file browser</li>
+          <li><span class="ico"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>Light & dark themes, i18n (en/zh)</li>
+          <li class="muted"><span class="ico"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg></span>Remote hosts via SSH</li>
+          <li class="muted"><span class="ico"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg></span>Multi-host management</li>
+        </ul>
+
+        <a class="cta disabled" aria-disabled="true">Current plan</a>
+        <div class="cta-note">you're on this plan</div>
+      </div>
+
+      <!-- 3 DEVICES (highlighted) -->
+      <div class="plan highlighted">
+        <span class="ribbon">Most popular</span>
+        <div class="t-label">3 devices</div>
+        <div class="t-name">Team <em style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--ink-3);">or</em> multi-Mac</div>
+        <div class="t-desc">Best value for small teams or anyone running multiple machines. Transferable licenses.</div>
+
+        <div class="t-price-row">
+          <div class="t-price"><span class="cur">$</span>19</div>
+          <div class="t-price-old">$29</div>
+          <div class="t-freq">one-time · 3 devices</div>
+        </div>
+
+        <ul class="feats">
+          <li><span class="ico"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span><span class="b">Everything in Free</span></li>
+          <li><span class="ico"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span><span class="b">$6.33/device</span> — save $10 vs 1-device × 3</li>
+          <li><span class="ico"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>Remote Docker over SSH with heartbeat</li>
+          <li><span class="ico"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>Multi-host switching & bookmarks</li>
+          <li><span class="ico"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>Cloudflared tunnel management</li>
+          <li><span class="ico"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>Kubernetes cluster management</li>
+          <li><span class="ico"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>Lifetime updates & priority support</li>
+        </ul>
+
+        <a class="cta primary" href="#">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          Get Team — $19
+        </a>
+        <div class="cta-note">one payment, 30-day refund, lifetime updates</div>
+      </div>
+
+      <!-- 1 DEVICE -->
+      <div class="plan">
+        <div class="t-label">1 device</div>
+        <div class="t-name">Solo</div>
+        <div class="t-desc">For the individual developer. One license, one machine, everything unlocked.</div>
+
+        <div class="t-price-row">
+          <div class="t-price"><span class="cur">$</span>14</div>
+          <div class="t-price-old">$19</div>
+          <div class="t-freq">one-time · 1 device</div>
+        </div>
+
+        <ul class="feats">
+          <li><span class="ico"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span><span class="b">Everything in Free</span></li>
+          <li><span class="ico"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>Remote Docker over SSH</li>
+          <li><span class="ico"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>Multi-host management</li>
+          <li><span class="ico"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>Cloudflared tunnels</li>
+          <li><span class="ico"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>Kubernetes clusters</li>
+          <li><span class="ico"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>Lifetime updates</li>
+        </ul>
+
+        <a class="cta ghost" href="#">Get Solo — $14</a>
+        <div class="cta-note">one payment, 30-day refund</div>
+      </div>
+    </div>
+
+    <!-- trust bar -->
+    <div class="trust">
+      <div class="trust-row">
+        <div class="item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+          <span>Stripe secure checkout</span>
+        </div>
+        <div class="item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l9 4v6c0 5-3.5 9.5-9 10-5.5-.5-9-5-9-10V6l9-4z"/><path d="M9 12l2 2 4-4"/></svg>
+          <span>30-day refund, no questions</span>
+        </div>
+        <div class="item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg>
+          <span><span class="n">12,400+</span> developers</span>
+        </div>
+        <div class="item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.5 6.7L22 9.5l-5.5 5 1.5 7.5L12 18.5 6 22l1.5-7.5L2 9.5l7.5-.8z"/></svg>
+          <span><span class="n">2.1k</span> GitHub stars</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARE -->
+<section class="compare">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="k">compare plans</div>
+      <h2>What you get, <em>feature by feature.</em></h2>
+      <p>Every plan includes the full local experience. Paid tiers add remote hosts and priority support.</p>
+    </div>
+
+    <div class="compare-table">
+      <div class="compare-row header">
+        <div class="cell feat-name">Feature</div>
+        <div class="cell">Free</div>
+        <div class="cell" style="color:var(--accent);">Team</div>
+        <div class="cell">Solo</div>
+      </div>
+
+      <div class="compare-row section-label">
+        <div class="cell feat-name">Core</div>
+        <div class="cell"></div><div class="cell"></div><div class="cell"></div>
+      </div>
+      <div class="compare-row">
+        <div class="cell feat-name">Local Docker & Podman<span class="desc">containers · images · volumes · networks</span></div>
+        <div class="cell"><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span></div>
+        <div class="cell"><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span></div>
+        <div class="cell"><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span></div>
+      </div>
+      <div class="compare-row">
+        <div class="cell feat-name">Command palette<span class="desc">⌘; everywhere</span></div>
+        <div class="cell"><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span></div>
+        <div class="cell"><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span></div>
+        <div class="cell"><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span></div>
+      </div>
+      <div class="compare-row">
+        <div class="cell feat-name">Terminal, logs, file browser</div>
+        <div class="cell"><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span></div>
+        <div class="cell"><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span></div>
+        <div class="cell"><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span></div>
+      </div>
+      <div class="compare-row">
+        <div class="cell feat-name">Compose projects<span class="desc">docker-compose & docker-run parser</span></div>
+        <div class="cell"><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span></div>
+        <div class="cell"><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span></div>
+        <div class="cell"><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span></div>
+      </div>
+      <div class="compare-row">
+        <div class="cell feat-name">Trivy CVE scan + image registry</div>
+        <div class="cell"><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span></div>
+        <div class="cell"><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span></div>
+        <div class="cell"><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span></div>
+      </div>
+
+      <div class="compare-row section-label">
+        <div class="cell feat-name">Remote & Multi-host</div>
+        <div class="cell"></div><div class="cell"></div><div class="cell"></div>
+      </div>
+      <div class="compare-row">
+        <div class="cell feat-name">Remote Docker via SSH<span class="desc">socket forwarding with heartbeat reconnect</span></div>
+        <div class="cell"><span class="x"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg></span></div>
+        <div class="cell"><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span></div>
+        <div class="cell"><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span></div>
+      </div>
+      <div class="compare-row">
+        <div class="cell feat-name">Multi-host bookmarks & switcher</div>
+        <div class="cell"><span class="x"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg></span></div>
+        <div class="cell"><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span></div>
+        <div class="cell"><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span></div>
+      </div>
+      <div class="compare-row">
+        <div class="cell feat-name">Kubernetes clusters<span class="desc">pods · deployments · configmaps · events</span></div>
+        <div class="cell"><span class="x"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg></span></div>
+        <div class="cell"><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span></div>
+        <div class="cell"><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span></div>
+      </div>
+      <div class="compare-row">
+        <div class="cell feat-name">Cloudflared tunnels<span class="desc">one-click public URLs</span></div>
+        <div class="cell"><span class="x"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg></span></div>
+        <div class="cell"><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span></div>
+        <div class="cell"><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span></div>
+      </div>
+
+      <div class="compare-row section-label">
+        <div class="cell feat-name">License & support</div>
+        <div class="cell"></div><div class="cell"></div><div class="cell"></div>
+      </div>
+      <div class="compare-row">
+        <div class="cell feat-name">Devices</div>
+        <div class="cell"><span class="txt">unlimited</span></div>
+        <div class="cell"><span class="txt">3</span></div>
+        <div class="cell"><span class="txt">1</span></div>
+      </div>
+      <div class="compare-row">
+        <div class="cell feat-name">Lifetime updates</div>
+        <div class="cell"><span class="x"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg></span></div>
+        <div class="cell"><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span></div>
+        <div class="cell"><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span></div>
+      </div>
+      <div class="compare-row">
+        <div class="cell feat-name">Support</div>
+        <div class="cell"><span class="txt">community</span></div>
+        <div class="cell"><span class="txt" style="color:var(--accent);">priority · 24h</span></div>
+        <div class="cell"><span class="txt">email · 48h</span></div>
+      </div>
+      <div class="compare-row">
+        <div class="cell feat-name">Commercial use</div>
+        <div class="cell"><span class="x"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg></span></div>
+        <div class="cell"><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span></div>
+        <div class="cell"><span class="check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="wrap">
+    <div class="section-head" style="text-align:center; margin: 0 auto 36px;">
+      <div class="k" style="text-align:center;">faq</div>
+      <h2 style="text-align:center;">Questions, <em>answered.</em></h2>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-trigger">What does "lifetime updates" actually mean?<span class="plus"></span></button>
+        <div class="faq-content"><div class="faq-content-inner">A single payment unlocks every future update of Dockerman — major, minor, and patch — forever. No renewals, no annual fees, no surprise upgrade prompts. If we ship v6, v7, or v10, your license covers it.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger">Can I move my license to a new computer?<span class="plus"></span></button>
+        <div class="faq-content"><div class="faq-content-inner">Yes. Deactivate the old device in Settings → License, then activate your new machine. The Team plan covers 3 devices simultaneously — swap any of them at any time.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger">How do refunds work?<span class="plus"></span></button>
+        <div class="faq-content"><div class="faq-content-inner">30 days, no questions asked. Email <code>support@dockerman.app</code> and we'll refund you in full. We'd rather have you come back later than feel stuck.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger">Is Free genuinely free, or is it a trial?<span class="plus"></span></button>
+        <div class="faq-content"><div class="faq-content-inner">Genuinely free. No time limit, no feature throttling on local workflows. The paid tiers exist because remote hosts and multi-host management are significant engineering investments — and because we'd like to keep shipping.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger">Do I need a license for my homelab / personal side project?<span class="plus"></span></button>
+        <div class="faq-content"><div class="faq-content-inner">If your Docker runs on the same machine as Dockerman, no. If you SSH into a NAS, a homelab server, a Raspberry Pi, or a cloud VM — you'll want Solo or Team. Most homelab folks go with Team because they have ≥2 machines already.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger">Can I use this for work / my company?<span class="plus"></span></button>
+        <div class="faq-content"><div class="faq-content-inner">The paid plans (Solo and Team) include commercial use. For teams larger than 3, contact us at <code>sales@dockerman.app</code> for volume pricing. We offer PDF invoices, purchase orders, and W-9s on request.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger">What payment methods do you accept?<span class="plus"></span></button>
+        <div class="faq-content"><div class="faq-content-inner">Stripe secure checkout — all major credit cards, Apple Pay, Google Pay, and in supported countries: Alipay, WeChat Pay, SEPA, iDEAL. USD pricing; your bank handles the conversion.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger">What about privacy? Does it phone home?<span class="plus"></span></button>
+        <div class="faq-content"><div class="faq-content-inner">Dockerman is local-first. It does not upload container data, images, logs, or command history anywhere. License validation happens once at activation and periodically (signed, no payload). Anonymous crash reports are opt-in.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section style="padding: 80px 0 0;">
+  <div class="wrap">
+    <div style="text-align:center; padding: 60px 40px; border: 1px solid var(--line); border-radius: 20px; background: var(--bg-elev); position: relative; overflow: hidden;">
+      <div style="position:absolute; inset:0; background: radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 55%); pointer-events: none;"></div>
+      <h3 style="margin: 0; font-size: clamp(28px, 3.6vw, 40px); letter-spacing: -0.03em; line-height: 1.1; position:relative;">Ship containers. <em style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;background: linear-gradient(135deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent;">From anywhere.</em></h3>
+      <p style="margin: 16px auto 0; max-width: 52ch; color: var(--ink-3); font-size: 15px; position:relative;">Pay once, keep it forever. No seat math, no renewals, no upsells.</p>
+      <div style="margin-top: 28px; display:inline-flex; gap:10px; position:relative;">
+        <a href="#" class="cta primary" style="padding: 13px 22px; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; background: linear-gradient(180deg, var(--accent), color-mix(in srgb, var(--accent) 80%, black)); color: white; box-shadow: 0 10px 24px -8px color-mix(in srgb, var(--accent) 55%, transparent); display:inline-flex; align-items:center; gap:8px;">
+          Get Team — $19 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <a href="Download.html" class="btn btn-ghost" style="padding: 13px 22px; font-size: 14px;">or start free →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-row">
+      <a class="brand" href="Landing.html">
+        <div class="brand-mark">
+          <svg viewBox="0 0 32 32" fill="currentColor"><path d="M28,12H20V4h8Zm-6-2h4V6H22Z"/><path d="M17,15V9H9V23H23V15Zm-6-4h4v4H11Zm4,10H11V17h4Zm6,0H17V17h4Z"/><path d="M26,28H6a2,2,0,0,1-2-2V6A2,2,0,0,1,6,4H16V6H6V26H26V16h2V26A2,2,0,0,1,26,28Z"/></svg>
+        </div>
+        <span>Dockerman</span>
+      </a>
+      <span class="foot-note">© 2026 Dockerman · local-only · no telemetry</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// theme
+const root = document.documentElement;
+document.getElementById('theme-toggle').addEventListener('click', () => {
+  const next = root.classList.contains('dark') ? 'light' : 'dark';
+  root.classList.toggle('dark', next === 'dark');
+  try { localStorage.setItem('dm-theme', next); } catch(e){}
+});
+
+// FAQ accordion
+document.querySelectorAll('.faq-trigger').forEach(btn => {
+  btn.addEventListener('click', () => {
+    btn.parentElement.classList.toggle('open');
+  });
+});
+
+// countdown to May 15, 2026
+const deadline = new Date('2026-05-15T00:00:00').getTime();
+function tickCountdown() {
+  const now = Date.now();
+  const diff = Math.max(0, deadline - now);
+  const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const m = Math.floor((diff / (1000 * 60)) % 60);
+  const s = Math.floor((diff / 1000) % 60);
+  const pad = (n) => String(n).padStart(2, '0');
+  const $ = (id) => document.getElementById(id);
+  if ($('cd-d')) $('cd-d').textContent = pad(d);
+  if ($('cd-h')) $('cd-h').textContent = pad(h);
+  if ($('cd-m')) $('cd-m').textContent = pad(m);
+  if ($('cd-s')) $('cd-s').textContent = pad(s);
+}
+tickCountdown();
+setInterval(tickCountdown, 1000);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,865 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Changelog — Dockerman</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script>
+  try {
+    const t = localStorage.getItem('dm-theme') || 'dark';
+    document.documentElement.classList.toggle('dark', t === 'dark');
+  } catch(e){}
+</script>
+<style>
+:root {
+  --bg: #fafaf9; --bg-elev: #ffffff; --bg-soft: #f4f4f2;
+  --line: rgba(0,0,0,0.08); --line-strong: rgba(0,0,0,0.14);
+  --ink: #0a0a0a; --ink-2: #3a3a3a; --ink-3: #6a6a6a; --ink-4: #9a9a98;
+  --accent: #6366f1; --accent-2: #8b5cf6;
+  --ok: #10b981; --warn: #f59e0b; --err: #ef4444; --info: #3b82f6;
+  --grid: rgba(0,0,0,0.05);
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Geist Mono', 'JetBrains Mono', ui-monospace, monospace;
+  --font-serif: 'Instrument Serif', serif;
+}
+html.dark {
+  --bg: #070808; --bg-elev: #0e0f10; --bg-soft: #141516;
+  --line: rgba(255,255,255,0.08); --line-strong: rgba(255,255,255,0.14);
+  --ink: #f5f5f4; --ink-2: #c9c9c7; --ink-3: #8c8c8a; --ink-4: #5c5c5a;
+  --grid: rgba(255,255,255,0.04);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+.grid-bg {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse at 50% 15%, rgba(0,0,0,0.6), transparent 65%);
+}
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+section { position: relative; z-index: 1; }
+
+/* ─── nav ─── */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  background: color-mix(in srgb, var(--bg) 80%, transparent);
+  border-bottom: 1px solid var(--line);
+}
+.nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 14px 32px; max-width: 1240px; margin: 0 auto; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: -0.01em; font-size: 15px; color: var(--ink); text-decoration: none; }
+.brand-mark { width: 26px; height: 26px; border-radius: 7px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); display: grid; place-items: center; color: white; position: relative; box-shadow: 0 0 0 1px rgba(255,255,255,0.1) inset, 0 4px 12px -4px var(--accent); }
+.brand-mark svg { width: 16px; height: 16px; }
+.brand-mark::after { content: ""; position: absolute; inset: 3px; border-radius: 4px; background: radial-gradient(circle at 30% 25%, rgba(255,255,255,0.35), transparent 55%); }
+.eyebrow-tag { background: var(--ink); color: var(--bg); padding: 2px 8px; border-radius: 999px; font-size: 10px; letter-spacing: 0.04em; font-weight: 600; font-family: var(--font-mono); }
+.nav-links { display: flex; gap: 4px; align-items: center; font-size: 13px; }
+.nav-links a { color: var(--ink-2); text-decoration: none; padding: 6px 12px; border-radius: 6px; transition: all 0.15s; }
+.nav-links a:hover { color: var(--ink); background: var(--bg-soft); }
+.nav-links a.active { color: var(--ink); background: var(--bg-soft); font-weight: 500; }
+.nav-cta { display: flex; gap: 8px; align-items: center; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; text-decoration: none; cursor: pointer; border: 0; transition: all 0.15s; font-family: inherit; }
+.btn-ghost { color: var(--ink-2); background: transparent; }
+.btn-ghost:hover { background: var(--bg-soft); color: var(--ink); }
+.btn-primary { color: var(--bg); background: var(--ink); border: 1px solid var(--ink); }
+.btn-primary:hover { transform: translateY(-1px); }
+.icon-btn { width: 32px; height: 32px; display: grid; place-items: center; border-radius: 8px; color: var(--ink-2); background: transparent; border: 1px solid transparent; cursor: pointer; }
+.icon-btn:hover { background: var(--bg-soft); color: var(--ink); }
+
+/* ─── header ─── */
+.page-head { padding: 60px 0 28px; position: relative; }
+.page-head .kicker {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 5px 11px; border: 1px solid var(--line-strong); border-radius: 999px;
+  font-size: 11.5px; color: var(--ink-2); background: var(--bg-elev);
+  font-family: var(--font-mono); letter-spacing: 0.02em;
+}
+.page-head .kicker .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 3px color-mix(in srgb, var(--ok) 28%, transparent); }
+.page-head h1 { margin: 18px 0 0; font-size: clamp(40px, 5.6vw, 64px); line-height: 1; letter-spacing: -0.035em; font-weight: 700; max-width: 16ch; }
+.page-head h1 em { font-family: var(--font-serif); font-style: italic; font-weight: 400; background: linear-gradient(135deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; letter-spacing: -0.02em; }
+.page-head .sub { margin: 18px 0 0; font-size: 16.5px; color: var(--ink-3); max-width: 60ch; line-height: 1.55; }
+.page-head .toolbar {
+  margin-top: 28px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+  padding-bottom: 28px; border-bottom: 1px solid var(--line);
+}
+.search {
+  flex: 1; min-width: 280px; max-width: 480px;
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 14px; border: 1px solid var(--line-strong); border-radius: 10px;
+  background: var(--bg-elev);
+  font-family: var(--font-mono); font-size: 13px; color: var(--ink-2);
+}
+.search:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent); }
+.search svg { color: var(--ink-3); flex-shrink: 0; }
+.search input { flex: 1; border: 0; outline: 0; background: transparent; color: var(--ink); font-family: inherit; font-size: 13px; }
+.search input::placeholder { color: var(--ink-4); }
+.search .kbd { font-family: var(--font-mono); font-size: 10.5px; padding: 2px 6px; border-radius: 4px; border: 1px solid var(--line); color: var(--ink-3); background: var(--bg-soft); }
+.rss-link { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--ink-3); font-family: var(--font-mono); text-decoration: none; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg-elev); }
+.rss-link:hover { color: var(--warn); border-color: var(--warn); }
+
+/* ─── layout ─── */
+.layout { display: grid; grid-template-columns: 220px 1fr; gap: 72px; padding: 32px 0 80px; }
+@media (max-width: 960px) { .layout { grid-template-columns: 1fr; gap: 24px; } .toc { display: none; } }
+
+/* TOC */
+.toc { position: sticky; top: 96px; align-self: start; }
+.toc-label { font-family: var(--font-mono); font-size: 11px; color: var(--ink-4); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 14px; padding-left: 14px; }
+.toc ul { list-style: none; padding: 0; margin: 0; border-left: 1px solid var(--line); }
+.toc li a {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 14px; margin-left: -1px;
+  border-left: 1px solid transparent;
+  color: var(--ink-3); font-size: 13px; text-decoration: none;
+  font-family: var(--font-mono); transition: all 0.15s;
+}
+.toc li a:hover { color: var(--ink); }
+.toc li a.active { color: var(--ink); border-left-color: var(--accent); background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 8%, transparent), transparent); }
+.toc li a .v { font-weight: 600; }
+.toc li a .d { color: var(--ink-4); font-size: 11px; margin-left: auto; }
+.toc li a.active .d { color: var(--ink-3); }
+
+/* ─── release ─── */
+.releases { display: flex; flex-direction: column; gap: 80px; max-width: 760px; }
+
+.release { scroll-margin-top: 100px; }
+.release-meta {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  font-family: var(--font-mono); font-size: 12px;
+  margin-bottom: 20px;
+}
+.release-meta .version-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 5px 11px 5px 5px; border-radius: 999px;
+  background: var(--bg-elev); border: 1px solid var(--line-strong);
+  color: var(--ink); font-weight: 600; font-size: 12.5px;
+}
+.release-meta .version-pill .v-dot { width: 18px; height: 18px; border-radius: 50%; background: var(--ink-4); color: var(--bg); display: grid; place-items: center; font-size: 10px; font-weight: 700; }
+.release.latest .version-pill { border-color: color-mix(in srgb, var(--accent) 40%, var(--line-strong)); background: color-mix(in srgb, var(--accent) 10%, var(--bg-elev)); }
+.release.latest .version-pill .v-dot { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: white; box-shadow: 0 4px 10px -3px color-mix(in srgb, var(--accent) 50%, transparent); }
+.release-meta .date { color: var(--ink-3); }
+.release-meta .tag {
+  padding: 3px 8px; border-radius: 5px; font-size: 10.5px;
+  background: var(--bg-soft); color: var(--ink-3); letter-spacing: 0.05em; text-transform: uppercase; font-weight: 600;
+}
+.release-meta .tag.latest { background: var(--ok); color: #000; }
+.release-meta .tag.major { background: var(--accent); color: white; }
+.release-meta .tag.security { background: var(--err); color: white; }
+
+.release h2 {
+  font-size: clamp(30px, 3.6vw, 40px);
+  letter-spacing: -0.03em; line-height: 1.08; font-weight: 700;
+  margin: 0 0 16px; max-width: 22ch;
+}
+.release h2 em { font-family: var(--font-serif); font-style: italic; font-weight: 400; color: var(--ink-2); letter-spacing: -0.01em; }
+
+/* ─── MDX body ─── */
+.md-body { color: var(--ink-2); font-size: 15.5px; line-height: 1.72; }
+.md-body > * + * { margin-top: 1.1em; }
+.md-body .lede { font-size: 17px; color: var(--ink-2); line-height: 1.6; margin: 0 0 1.6em; }
+
+.md-body h3 {
+  font-size: 22px; letter-spacing: -0.022em; line-height: 1.25; font-weight: 700;
+  color: var(--ink); margin-top: 2em; margin-bottom: 0.5em;
+  display: flex; align-items: center; gap: 12px;
+}
+.md-body h3::before {
+  content: ""; width: 4px; height: 18px; border-radius: 2px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-2));
+}
+.md-body h4 {
+  font-size: 12px; font-weight: 600; color: var(--ink); margin: 1.6em 0 0.5em;
+  font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.08em;
+}
+.md-body p { margin: 0.9em 0; color: var(--ink-2); }
+.md-body p:first-child { margin-top: 0; }
+.md-body a { color: var(--accent); text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--accent) 40%, transparent); }
+.md-body a:hover { border-bottom-color: var(--accent); }
+.md-body strong { color: var(--ink); font-weight: 600; }
+.md-body em { font-family: var(--font-serif); font-style: italic; font-weight: 400; color: var(--ink); font-size: 1.06em; }
+.md-body code {
+  font-family: var(--font-mono); font-size: 13px;
+  background: var(--bg-soft); padding: 1px 6px; border-radius: 5px;
+  color: var(--ink); border: 1px solid var(--line);
+}
+
+.md-body ul, .md-body ol { margin: 1em 0; padding: 0; list-style: none; }
+.md-body ul li, .md-body ol li {
+  position: relative; padding: 4px 0 4px 26px;
+  color: var(--ink-2);
+}
+.md-body ul li::before {
+  content: "·"; position: absolute; left: 6px; top: 0;
+  color: var(--accent); font-weight: 700; font-size: 22px; line-height: 1.3;
+}
+.md-body ol { counter-reset: md-ol; }
+.md-body ol li { counter-increment: md-ol; padding-left: 34px; }
+.md-body ol li::before {
+  content: counter(md-ol);
+  position: absolute; left: 0; top: 7px;
+  font-family: var(--font-mono); font-size: 10.5px; font-weight: 600;
+  color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent);
+  width: 20px; height: 20px; border-radius: 5px;
+  display: grid; place-items: center;
+}
+.md-body li > ul { margin: 6px 0 2px; }
+
+/* pre code block */
+.md-body pre {
+  margin: 1.4em 0; padding: 16px 18px;
+  background: var(--bg-soft); border: 1px solid var(--line);
+  border-radius: 10px; overflow-x: auto;
+  font-family: var(--font-mono); font-size: 12.5px; line-height: 1.65;
+  color: var(--ink-2);
+  position: relative;
+}
+.md-body pre::before {
+  content: attr(data-lang);
+  position: absolute; top: 8px; right: 12px;
+  font-size: 10px; color: var(--ink-4); letter-spacing: 0.08em; text-transform: uppercase;
+}
+.md-body pre code { background: transparent; padding: 0; border: 0; font-size: inherit; color: inherit; }
+.md-body pre .c-kw { color: var(--accent-2); }
+.md-body pre .c-str { color: var(--ok); }
+.md-body pre .c-cm { color: var(--ink-4); font-style: italic; }
+.md-body pre .c-nm { color: var(--warn); }
+
+/* blockquote */
+.md-body blockquote {
+  margin: 1.6em 0; padding: 14px 20px;
+  border-left: 3px solid var(--accent);
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
+  border-radius: 0 8px 8px 0;
+  color: var(--ink-2);
+  font-family: var(--font-serif); font-size: 17px; line-height: 1.55;
+}
+.md-body blockquote cite { display: block; margin-top: 8px; color: var(--ink-4); font-family: var(--font-mono); font-size: 11.5px; font-style: normal; letter-spacing: 0.03em; }
+
+/* callouts */
+.md-callout {
+  margin: 1.6em 0; padding: 14px 18px;
+  border: 1px solid var(--line); border-radius: 10px;
+  background: var(--bg-elev);
+  display: grid; grid-template-columns: 22px 1fr; gap: 14px;
+  align-items: flex-start; font-size: 14.5px; line-height: 1.6;
+}
+.md-callout .md-callout-ico { width: 22px; height: 22px; border-radius: 6px; display: grid; place-items: center; margin-top: 1px; }
+.md-callout.note { border-color: color-mix(in srgb, var(--info) 30%, var(--line)); }
+.md-callout.note .md-callout-ico { background: color-mix(in srgb, var(--info) 14%, transparent); color: var(--info); }
+.md-callout.tip { border-color: color-mix(in srgb, var(--ok) 30%, var(--line)); }
+.md-callout.tip .md-callout-ico { background: color-mix(in srgb, var(--ok) 14%, transparent); color: var(--ok); }
+.md-callout.warn { border-color: color-mix(in srgb, var(--warn) 30%, var(--line)); }
+.md-callout.warn .md-callout-ico { background: color-mix(in srgb, var(--warn) 14%, transparent); color: var(--warn); }
+.md-callout .md-callout-body { color: var(--ink-2); }
+.md-callout .md-callout-body strong { display: block; color: var(--ink); margin-bottom: 2px; font-size: 13.5px; }
+.md-callout .md-callout-body > :first-child { margin-top: 0; }
+.md-callout .md-callout-body > :last-child { margin-bottom: 0; }
+
+/* figure / image */
+.md-figure {
+  margin: 1.8em 0;
+  border: 1px solid var(--line); border-radius: 12px; overflow: hidden;
+  background: var(--bg-elev);
+}
+.md-figure .md-fig-frame {
+  aspect-ratio: 16 / 9;
+  background: linear-gradient(180deg, var(--bg-soft), var(--bg));
+  position: relative; overflow: hidden;
+  font-family: var(--font-mono);
+}
+.md-figure figcaption {
+  padding: 10px 16px; border-top: 1px solid var(--line);
+  background: var(--bg-elev);
+  font-size: 12.5px; color: var(--ink-3); font-family: var(--font-mono);
+}
+.md-figure figcaption .fc-num { color: var(--ink-4); }
+.md-figure figcaption .fc-num::before { content: "fig. "; }
+
+/* screenshot mockups */
+.ss { position: absolute; inset: 0; display: flex; }
+.ss-sidebar {
+  width: 150px; padding: 14px 10px; border-right: 1px solid var(--line);
+  display: flex; flex-direction: column; gap: 4px; font-size: 10.5px; color: var(--ink-3);
+  background: color-mix(in srgb, var(--bg-elev) 60%, var(--bg));
+}
+.ss-sidebar .ssh { color: var(--ink-4); font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; margin: 8px 6px 4px; }
+.ss-sidebar .ssi { display: flex; align-items: center; gap: 8px; padding: 5px 8px; border-radius: 5px; }
+.ss-sidebar .ssi.active { background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); font-weight: 600; }
+.ss-sidebar .ssi .b { width: 5px; height: 5px; border-radius: 50%; background: var(--ink-4); }
+.ss-sidebar .ssi.active .b { background: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent); }
+.ss-main { flex: 1; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.ss-topbar { display: flex; align-items: center; gap: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--line); font-size: 10.5px; color: var(--ink-2); }
+.ss-topbar .pill { padding: 3px 8px; border-radius: 5px; background: var(--bg-soft); color: var(--ink); font-weight: 600; font-size: 9.5px; }
+.ss-topbar .chip { padding: 2px 7px; border-radius: 4px; font-size: 9px; background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); font-weight: 600; letter-spacing: 0.04em; }
+.ss-topbar .sp { flex: 1; }
+.ss-topbar .engine-sw {
+  display: inline-flex; align-items: center; gap: 6px; padding: 4px 9px; border-radius: 5px;
+  border: 1px solid color-mix(in srgb, var(--accent-2) 40%, var(--line-strong));
+  background: color-mix(in srgb, var(--accent-2) 10%, var(--bg-elev));
+  color: var(--accent-2); font-weight: 600; font-size: 9.5px;
+}
+.ss-topbar .engine-sw .eg-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-2); }
+.ss-row {
+  display: grid; grid-template-columns: 1fr auto auto auto; gap: 12px;
+  padding: 7px 10px; border-radius: 6px; background: var(--bg-elev); border: 1px solid var(--line);
+  font-size: 10px; align-items: center;
+}
+.ss-row.on { border-color: color-mix(in srgb, var(--ok) 35%, var(--line-strong)); }
+.ss-row .n { color: var(--ink); font-weight: 600; }
+.ss-row .tg { font-size: 9px; color: var(--ink-4); margin-left: 6px; }
+.ss-row .badge { padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: 600; }
+.ss-row .badge.ok { background: color-mix(in srgb, var(--ok) 14%, transparent); color: var(--ok); }
+.ss-row .badge.warn { background: color-mix(in srgb, var(--warn) 14%, transparent); color: var(--warn); }
+.ss-row .spark { width: 44px; height: 14px; color: var(--ok); }
+
+.ss-trivy { padding: 12px 16px; display: flex; flex-direction: column; gap: 6px; font-size: 10px; overflow: hidden; }
+.ss-trivy-title { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--ink); font-weight: 600; padding-bottom: 8px; border-bottom: 1px solid var(--line); margin-bottom: 4px; }
+.ss-trivy-title .img { padding: 2px 8px; background: var(--bg-soft); border-radius: 4px; font-family: var(--font-mono); font-size: 9.5px; color: var(--ink-2); font-weight: 500; }
+.ss-trivy-row { display: grid; grid-template-columns: 92px 1fr auto auto; gap: 10px; padding: 4px 8px; border-radius: 4px; align-items: center; background: var(--bg-elev); border: 1px solid var(--line); }
+.ss-trivy-row .cve { font-family: var(--font-mono); font-size: 9.5px; color: var(--ink-2); }
+.ss-trivy-row .pkg { color: var(--ink-3); font-family: var(--font-mono); font-size: 9.5px; }
+.ss-trivy-row .fix {
+  font-family: var(--font-mono); font-size: 9px; color: var(--ok);
+  padding: 2px 6px; border-radius: 3px;
+  background: color-mix(in srgb, var(--ok) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ok) 30%, transparent);
+}
+.ss-trivy-row .sev { padding: 2px 7px; border-radius: 3px; font-size: 9px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+.ss-trivy-row .sev.h { background: var(--err); color: white; }
+.ss-trivy-row .sev.m { background: var(--warn); color: #000; }
+.ss-trivy-row .sev.l { background: var(--info); color: white; }
+
+/* divider between releases */
+.rel-divider { height: 1px; background: linear-gradient(90deg, transparent, var(--line-strong) 25%, var(--line-strong) 75%, transparent); margin: 0; }
+
+/* archive note */
+.archive-note {
+  margin-top: 32px; padding: 22px; border: 1px dashed var(--line-strong); border-radius: 12px;
+  color: var(--ink-3); font-size: 13px; line-height: 1.6;
+  background: var(--bg-elev);
+}
+.archive-note a { color: var(--accent); text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--accent) 40%, transparent); }
+
+/* ─── footer ─── */
+footer { padding: 48px 0; border-top: 1px solid var(--line); margin-top: 40px; font-size: 13px; color: var(--ink-3); }
+.foot-row { display: flex; justify-content: space-between; gap: 40px; flex-wrap: wrap; align-items: center; }
+.foot-note { font-family: var(--font-mono); font-size: 12px; color: var(--ink-4); }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="Landing.html">
+      <div class="brand-mark">
+        <svg viewBox="0 0 32 32" fill="currentColor">
+          <path d="M28,12H20V4h8Zm-6-2h4V6H22Z"/>
+          <path d="M17,15V9H9V23H23V15Zm-6-4h4v4H11Zm4,10H11V17h4Zm6,0H17V17h4Z"/>
+          <path d="M26,28H6a2,2,0,0,1-2-2V6A2,2,0,0,1,6,4H16V6H6V26H26V16h2V26A2,2,0,0,1,26,28Z"/>
+        </svg>
+      </div>
+      <span>Dockerman</span>
+      <span class="eyebrow-tag">v5.1</span>
+    </a>
+    <div class="nav-links">
+      <a href="Landing.html">Features</a>
+      <a href="Landing.html#modules">Modules</a>
+      <a href="#">Docs</a>
+      <a class="active" href="Changelog.html">Changelog</a>
+      <a href="Pricing.html">Pricing</a>
+      <a href="Download.html">Download</a>
+    </div>
+    <div class="nav-cta">
+      <button class="icon-btn" id="theme-toggle" aria-label="Toggle theme">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+      <a href="#" class="btn btn-ghost">Sign in</a>
+      <a href="#" class="btn btn-primary">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<section class="page-head">
+  <div class="wrap">
+    <span class="kicker"><span class="dot"></span>Shipping every 2–3 weeks</span>
+    <h1>Every commit, <em>in plain English.</em></h1>
+    <p class="sub">Written in MDX. New releases show up here, at the top. Subscribe to the RSS feed or bookmark this page — you'll notice when something changes.</p>
+
+    <div class="toolbar">
+      <div class="search">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input id="filter-input" placeholder="Filter by keyword or version…" autocomplete="off" />
+        <span class="kbd">⌘ K</span>
+      </div>
+      <a class="rss-link" href="#">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1.5" fill="currentColor"/></svg>
+        RSS
+      </a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="layout">
+
+      <aside class="toc">
+        <div class="toc-label">Releases</div>
+        <ul id="toc-list">
+          <li><a href="#v5-1-0" class="active"><span class="v">v5.1.0</span><span class="d">Apr 18</span></a></li>
+          <li><a href="#v5-0-4"><span class="v">v5.0.4</span><span class="d">Apr 02</span></a></li>
+          <li><a href="#v5-0-0"><span class="v">v5.0.0</span><span class="d">Mar 11</span></a></li>
+          <li><a href="#v4-8-0"><span class="v">v4.8.0</span><span class="d">Feb 14</span></a></li>
+          <li><a href="#v4-6-2"><span class="v">v4.6.2</span><span class="d">Jan 22</span></a></li>
+          <li><a href="#v4-5-0"><span class="v">v4.5.0</span><span class="d">Jan 06</span></a></li>
+          <li><a href="#v4-0-0"><span class="v">v4.0.0</span><span class="d">Nov 19</span></a></li>
+        </ul>
+      </aside>
+
+      <div class="releases" id="releases">
+
+        <!-- ─── v5.1.0 — LATEST ─── -->
+        <article class="release latest" id="v5-1-0" data-version="5.1.0">
+          <div class="release-meta">
+            <span class="version-pill"><span class="v-dot">5</span>v5.1.0</span>
+            <span class="date">April 18, 2026</span>
+            <span class="tag latest">latest</span>
+          </div>
+          <h2>Podman, properly. <em>Plus a faster engine swap.</em></h2>
+
+          <div class="md-body">
+            <p class="lede">First-class Podman support across every surface, a rebuilt engine selector that remembers your last pick per-project, and a Trivy pane that now shows fix versions inline. We also quietly deleted 600 lines of legacy IPC code — you should feel it.</p>
+
+            <h3>First-class Podman, everywhere</h3>
+            <p>
+              Since v4, Podman support has been a thin compatibility layer — the renderer spoke Docker, and we translated underneath. <strong>v5.1 removes the translation.</strong>
+              Containers, images, volumes, networks, the terminal, the stats pane — all of it now speaks libpod directly when you're on a Podman engine.
+            </p>
+
+            <p>You'll notice three practical differences:</p>
+            <ul>
+              <li>Rootless mounts actually show the <em>mapped</em> path, not the host one.</li>
+              <li>Quadlet <code>.container</code> and <code>.network</code> files appear inline in the Compose pane.</li>
+              <li>Stats are pulled from the libpod events stream — no more 2-second polling lag.</li>
+            </ul>
+
+            <figure class="md-figure">
+              <div class="md-fig-frame">
+                <div class="ss">
+                  <div class="ss-sidebar">
+                    <div class="ssh">engine</div>
+                    <div class="ssi active"><span class="b"></span>podman · rootless</div>
+                    <div class="ssh">workload</div>
+                    <div class="ssi"><span class="b"></span>Container</div>
+                    <div class="ssi"><span class="b"></span>Image</div>
+                    <div class="ssi"><span class="b"></span>Volume</div>
+                    <div class="ssi"><span class="b"></span>Network</div>
+                    <div class="ssi"><span class="b"></span>Quadlet</div>
+                  </div>
+                  <div class="ss-main">
+                    <div class="ss-topbar">
+                      <span class="pill">Containers</span>
+                      <span class="chip">NEW · podman-native</span>
+                      <span class="sp"></span>
+                      <span class="engine-sw"><span class="eg-dot"></span>podman 5.0.1</span>
+                    </div>
+                    <div class="ss-row on">
+                      <div><span class="n">caddy</span><span class="tg">quadlet</span></div>
+                      <span class="badge ok">running</span>
+                      <svg class="spark" viewBox="0 0 44 14" fill="none"><polyline points="0,9 6,7 12,10 18,5 24,8 30,4 36,7 44,5" stroke="currentColor" stroke-width="1.3"/></svg>
+                      <span style="font-family:var(--font-mono);font-size:9px;color:var(--ink-3);">12m</span>
+                    </div>
+                    <div class="ss-row on">
+                      <div><span class="n">postgres-16</span><span class="tg">rootless</span></div>
+                      <span class="badge ok">running</span>
+                      <svg class="spark" viewBox="0 0 44 14" fill="none"><polyline points="0,6 6,8 12,6 18,7 24,5 30,6 36,7 44,5" stroke="currentColor" stroke-width="1.3"/></svg>
+                      <span style="font-family:var(--font-mono);font-size:9px;color:var(--ink-3);">4h</span>
+                    </div>
+                    <div class="ss-row">
+                      <div><span class="n">redis-cache</span><span class="tg">quadlet</span></div>
+                      <span class="badge warn">paused</span>
+                      <svg class="spark" viewBox="0 0 44 14" fill="none" style="color:var(--ink-4);"><polyline points="0,7 6,7 12,7 18,7 24,7 30,7 36,7 44,7" stroke="currentColor" stroke-width="1.3"/></svg>
+                      <span style="font-family:var(--font-mono);font-size:9px;color:var(--ink-3);">—</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <figcaption><span class="fc-num">1</span> Engine selector in the titlebar. Per-project persistence means you won't accidentally <code>podman pull</code> into your Docker daemon.</figcaption>
+            </figure>
+
+            <div class="md-callout tip">
+              <div class="md-callout-ico">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 2v8M12 22v-4M20 12h-4M8 12H4M17.5 6.5l-2.8 2.8M9.3 14.7l-2.8 2.8M17.5 17.5l-2.8-2.8M9.3 9.3L6.5 6.5"/></svg>
+              </div>
+              <div class="md-callout-body">
+                <strong>Migrating from the Docker-compat shim?</strong>
+                Run <code>dockerman migrate --engine=podman</code> once — it rewrites your saved connections and re-indexes Quadlet files in the background.
+              </div>
+            </div>
+
+            <h3>Trivy scan now shows <em>what to do next</em></h3>
+            <p>
+              CVE lists are only useful if you know how to act on them. The Image pane pulls the <code>fixed-in</code> version from the Trivy database and shows it inline, with a one-click <strong>upgrade &amp; rebuild</strong> action that rewrites your Dockerfile and triggers a build.
+            </p>
+
+            <figure class="md-figure">
+              <div class="md-fig-frame">
+                <div class="ss-trivy">
+                  <div class="ss-trivy-title">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l9 4v6c0 5-3.5 9.5-9 10-5.5-.5-9-5-9-10V6l9-4z"/></svg>
+                    Trivy scan
+                    <span class="img">node:20-alpine3.18</span>
+                    <span style="margin-left:auto;color:var(--ink-4);font-size:9.5px;font-family:var(--font-mono);">14 vulnerabilities</span>
+                  </div>
+                  <div class="ss-trivy-row">
+                    <span class="cve">CVE-2026-0401</span>
+                    <span class="pkg">libssl3 · 3.1.4-r1</span>
+                    <span class="fix">fix: 3.1.7-r0</span>
+                    <span class="sev h">high</span>
+                  </div>
+                  <div class="ss-trivy-row">
+                    <span class="cve">CVE-2026-0388</span>
+                    <span class="pkg">curl · 8.4.0-r0</span>
+                    <span class="fix">fix: 8.6.0-r1</span>
+                    <span class="sev h">high</span>
+                  </div>
+                  <div class="ss-trivy-row">
+                    <span class="cve">CVE-2026-0212</span>
+                    <span class="pkg">git · 2.43.0-r0</span>
+                    <span class="fix">fix: 2.43.4-r0</span>
+                    <span class="sev m">med</span>
+                  </div>
+                  <div class="ss-trivy-row">
+                    <span class="cve">CVE-2025-9177</span>
+                    <span class="pkg">busybox · 1.36.1-r15</span>
+                    <span class="fix">fix: 1.36.1-r17</span>
+                    <span class="sev l">low</span>
+                  </div>
+                </div>
+              </div>
+              <figcaption><span class="fc-num">2</span> Fix versions pulled straight from the <code>trivy-db</code>. Click any row to open the advisory.</figcaption>
+            </figure>
+
+            <h3>New shortcuts &amp; palette recency</h3>
+            <p>The command palette (<code>⌘;</code>) now remembers what you used this session and floats those actions to the top. For everything else, raw muscle memory still wins:</p>
+
+            <pre data-lang="shortcuts"><code><span class="c-kw">⌘,</span>        <span class="c-cm">// open Settings</span>
+<span class="c-kw">⌘E</span>        <span class="c-cm">// switch engine (docker · podman · ssh host)</span>
+<span class="c-kw">⌘R</span>        <span class="c-cm">// restart focused container</span>
+<span class="c-kw">⌘⇧L</span>       <span class="c-cm">// open logs in a new pane</span>
+<span class="c-kw">⌘K</span>  <span class="c-nm">then</span> <span class="c-str">"cve"</span>   <span class="c-cm">// jump to the Trivy scan pane</span></code></pre>
+
+            <div class="md-callout warn">
+              <div class="md-callout-ico">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 9v4M12 17h.01M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+              </div>
+              <div class="md-callout-body">
+                <strong>Breaking change on Linux</strong>
+                The legacy IPC bridge is gone. If you ran Dockerman against a <em>remote-only</em> Podman socket over the old bridge, update to <code>ssh://</code> connections — we published a <a href="#">migration guide</a>.
+              </div>
+            </div>
+
+            <h3>Everything else</h3>
+            <ul>
+              <li>Image upgrade detection polls every 30 min with one-click pull &amp; recreate.</li>
+              <li>Cloudflared tunnel health pings are now a live sparkline.</li>
+              <li>Kubernetes ConfigMap diff viewer (side-by-side or unified).</li>
+              <li>Stats pane refresh bumped from 2s → 1.5s.</li>
+              <li>Dark theme contrast raised across Events and Logs to meet WCAG AA.</li>
+              <li>Fixed: SSH heartbeat leaking goroutines on flapping connections. Terminal cursor on Wayland blur. WSL2 detection on Windows 11 24H2. <code>NO_PROXY</code> respected by the Trivy pane. <code>extends:</code> with relative paths in Compose. Big drag-uploads no longer freezing the UI. K8s Event timestamps now update live.</li>
+              <li>Removed: the legacy IPC bridge (600 lines, all of it sad) and the <code>docker-machine</code> detector (unused since v4.0).</li>
+            </ul>
+
+            <blockquote>
+              "Startup is 40% faster on a cold boot; the renderer shed 22MB of resident memory on my 60-container machine."
+              <cite>— internal benchmark, M2 Pro / macOS 15.4</cite>
+            </blockquote>
+          </div>
+        </article>
+
+        <div class="rel-divider"></div>
+
+        <!-- ─── v5.0.4 ─── -->
+        <article class="release" id="v5-0-4" data-version="5.0.4">
+          <div class="release-meta">
+            <span class="version-pill"><span class="v-dot">5</span>v5.0.4</span>
+            <span class="date">April 02, 2026</span>
+            <span class="tag security">security</span>
+          </div>
+          <h2>Patch week, <em>no drama.</em></h2>
+
+          <div class="md-body">
+            <p class="lede">A quick security rollup plus a handful of fixes that crept in after v5.0.0. If you're on v5, update.</p>
+
+            <div class="md-callout warn">
+              <div class="md-callout-ico">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+              </div>
+              <div class="md-callout-body">
+                <strong>Contains security fixes</strong>
+                CVE-2026-1401 and CVE-2026-1588 are patched in the bundled <code>curl</code> and <code>git</code>. Updating is recommended for everyone on v5.0.x.
+              </div>
+            </div>
+
+            <h4>Fixed</h4>
+            <ul>
+              <li>Bundled <code>curl</code> and <code>git</code> upgraded (CVE-2026-1401, CVE-2026-1588).</li>
+              <li>Compose: <code>env_file</code> with multiple paths now merges correctly.</li>
+              <li>Command palette: fuzzy search no longer greedy-matches on spaces.</li>
+              <li>macOS: code-signing warning on first launch for Apple Silicon builds.</li>
+              <li>Image pane: tag autocomplete wasn't debounced; registry calls were flooding.</li>
+              <li>Kubernetes: pod logs truncated at 64KB even when the server offered more.</li>
+            </ul>
+
+            <h4>Changed</h4>
+            <ul>
+              <li>Auto-update check runs every 6 hours instead of every 2 — less chatty.</li>
+              <li>Log viewer now word-wraps by default; toggleable per pane.</li>
+            </ul>
+          </div>
+        </article>
+
+        <div class="rel-divider"></div>
+
+        <!-- ─── v5.0.0 ─── -->
+        <article class="release" id="v5-0-0" data-version="5.0.0">
+          <div class="release-meta">
+            <span class="version-pill"><span class="v-dot">5</span>v5.0.0</span>
+            <span class="date">March 11, 2026</span>
+            <span class="tag major">major</span>
+          </div>
+          <h2>A full rewrite of the engine layer. <em>And a command palette.</em></h2>
+
+          <div class="md-body">
+            <p class="lede">Five months in the works. The engine abstraction that used to live in the renderer moved to a sandboxed worker process with typed IPC — startup is 2.3× faster, memory is down ~40% on busy machines, and every future engine (Podman, containerd, BuildKit-only) now plugs in without a renderer refactor.</p>
+
+            <h3>Why we rewrote it</h3>
+            <p>
+              v4's engine layer was a <em>single giant singleton</em> that lived in the renderer, called Docker's socket directly, and held every container's state in memory. It worked fine for a laptop with 10 containers. It did not work fine for a homelab with 80.
+            </p>
+            <p>
+              v5 splits the engine into a sandboxed Rust worker with a typed IPC surface. The renderer subscribes to the <em>slice</em> of state it cares about — the container you're looking at, the logs you asked for — and nothing else. On a 60-container machine, idle memory dropped from 380MB to 230MB.
+            </p>
+
+            <div class="md-callout note">
+              <div class="md-callout-ico">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>
+              </div>
+              <div class="md-callout-body">
+                <strong>Upgrading from v4?</strong>
+                Your connection bookmarks, compose projects, and license all migrate automatically on first launch. If you've scripted against <code>~/.config/dockerman/state.json</code>, that path is now <code>state/engine.db</code> (SQLite).
+              </div>
+            </div>
+
+            <h3>What's new</h3>
+            <ul>
+              <li>Command palette (<code>⌘;</code>) — every action, every object, every setting.</li>
+              <li>Kubernetes as a first-class module (clusters, pods, deployments, services, configmaps).</li>
+              <li>Cloudflared tunnel management with one-click public URLs.</li>
+              <li>Multi-host bookmarks with a titlebar switcher.</li>
+              <li>Trivy CVE scanning inside the Image pane.</li>
+              <li>Image registry credential manager (Docker Hub, GHCR, GCR, ECR, private).</li>
+              <li>Inline Compose &amp; <code>docker run</code> parser with validation.</li>
+              <li>New Events pane with filters, search, and replay.</li>
+            </ul>
+
+            <h3>Removed</h3>
+            <ul>
+              <li>Legacy v3 "quick actions" bar — the command palette replaces it.</li>
+              <li>Built-in Portainer-style dashboard. It never matched the real app's data model.</li>
+              <li>The old blue-only theme. You can set <code>accent: blue</code> in Settings if you miss it.</li>
+            </ul>
+          </div>
+        </article>
+
+        <div class="rel-divider"></div>
+
+        <!-- ─── v4.8.0 ─── -->
+        <article class="release" id="v4-8-0" data-version="4.8.0">
+          <div class="release-meta">
+            <span class="version-pill"><span class="v-dot">4</span>v4.8.0</span>
+            <span class="date">February 14, 2026</span>
+          </div>
+          <h2>Remote Docker over SSH, <em>for real this time.</em></h2>
+
+          <div class="md-body">
+            <p class="lede">Socket forwarding with a heartbeat reconnect, exponential backoff, and a status chip in the titlebar. Plus long-overdue polish on the file browser and volume inspector.</p>
+
+            <h4>What's new</h4>
+            <ul>
+              <li>Remote Docker via SSH with automatic socket forwarding.</li>
+              <li>Titlebar connection status chip — green / amber / red, with the reason.</li>
+              <li>File browser: recursive download as <code>.tar.gz</code>.</li>
+              <li>Volume inspector shows the mount graph across containers.</li>
+            </ul>
+
+            <h4>Fixed</h4>
+            <ul>
+              <li>Terminal: paste with newlines no longer splits into two commands.</li>
+              <li>Events: container <code>die</code> events were double-counted.</li>
+              <li>Windows installer left a stale service on uninstall.</li>
+              <li>Network view: bridge networks sometimes showed the wrong gateway.</li>
+            </ul>
+          </div>
+        </article>
+
+        <div class="rel-divider"></div>
+
+        <!-- ─── v4.6.2 ─── -->
+        <article class="release" id="v4-6-2" data-version="4.6.2">
+          <div class="release-meta">
+            <span class="version-pill"><span class="v-dot">4</span>v4.6.2</span>
+            <span class="date">January 22, 2026</span>
+          </div>
+          <h2>Patch. <em>Mostly logs.</em></h2>
+
+          <div class="md-body">
+            <p class="lede">Log viewer rewrite that actually handles a 50MB log without the fans spinning.</p>
+
+            <ul>
+              <li><strong>Log viewer</strong>: virtualized rendering — 50MB logs scroll smoothly.</li>
+              <li>Proper ANSI color handling for Docker's own <code>buildx</code> output.</li>
+              <li>Search-within-logs now highlights all matches, not just the first.</li>
+              <li>Fixed: logs could stall on containers with <code>tty: true</code> and no output.</li>
+              <li>Fixed: copy-selection in the terminal stripped trailing spaces.</li>
+            </ul>
+          </div>
+        </article>
+
+        <div class="rel-divider"></div>
+
+        <!-- ─── v4.5.0 ─── -->
+        <article class="release" id="v4-5-0" data-version="4.5.0">
+          <div class="release-meta">
+            <span class="version-pill"><span class="v-dot">4</span>v4.5.0</span>
+            <span class="date">January 06, 2026</span>
+          </div>
+          <h2>Compose project view, <em>and better stats.</em></h2>
+
+          <div class="md-body">
+            <p class="lede">Projects group containers by their Compose file. Stats gained per-process breakdowns. And we stopped asking about telemetry — we don't collect any.</p>
+
+            <ul>
+              <li>Compose project grouping on the container list.</li>
+              <li>Per-process CPU / memory breakdown in the Stats pane.</li>
+              <li>Shortcut: <code>⌘R</code> to restart the focused container.</li>
+              <li>Removed the telemetry toggle — we never sent anything, so why keep it.</li>
+            </ul>
+          </div>
+        </article>
+
+        <div class="rel-divider"></div>
+
+        <!-- ─── v4.0.0 ─── -->
+        <article class="release" id="v4-0-0" data-version="4.0.0">
+          <div class="release-meta">
+            <span class="version-pill"><span class="v-dot">4</span>v4.0.0</span>
+            <span class="date">November 19, 2025</span>
+            <span class="tag major">major</span>
+          </div>
+          <h2>The native rewrite. <em>Goodbye, Electron.</em></h2>
+
+          <div class="md-body">
+            <p class="lede">v4 ships as native Tauri on every platform. The whole app is ~38MB down from 180MB. Memory at idle: 84MB instead of 420MB. If you remember v3 feeling slow, v4 will feel unrecognizable.</p>
+
+            <h4>The numbers that matter</h4>
+            <ol>
+              <li><strong>Install size:</strong> 180MB → 38MB. Most of that is the dropped Chromium runtime.</li>
+              <li><strong>Idle memory:</strong> 420MB → 84MB on an M2 Mac with 20 containers.</li>
+              <li><strong>Cold start:</strong> 1.8s → 0.6s to first render; 2.4s → 1.1s to interactive.</li>
+            </ol>
+
+            <div class="md-callout tip">
+              <div class="md-callout-ico">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div class="md-callout-body">
+                <strong>Your v3 license works.</strong>
+                No re-purchase, no re-activation. Just install v4 and it picks up your existing license key.
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <div class="archive-note">
+          Looking for older releases? <a href="#">Browse the v3 archive</a> — or read the <a href="#">v4 migration guide</a> if you're upgrading from v3.
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-row">
+      <a class="brand" href="Landing.html">
+        <div class="brand-mark">
+          <svg viewBox="0 0 32 32" fill="currentColor"><path d="M28,12H20V4h8Zm-6-2h4V6H22Z"/><path d="M17,15V9H9V23H23V15Zm-6-4h4v4H11Zm4,10H11V17h4Zm6,0H17V17h4Z"/><path d="M26,28H6a2,2,0,0,1-2-2V6A2,2,0,0,1,6,4H16V6H6V26H26V16h2V26A2,2,0,0,1,26,28Z"/></svg>
+        </div>
+        <span>Dockerman</span>
+      </a>
+      <span class="foot-note">© 2026 Dockerman · local-only · no telemetry</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// theme
+const root = document.documentElement;
+document.getElementById('theme-toggle').addEventListener('click', () => {
+  const next = root.classList.contains('dark') ? 'light' : 'dark';
+  root.classList.toggle('dark', next === 'dark');
+  try { localStorage.setItem('dm-theme', next); } catch(e){}
+});
+
+// keyword filter — hides whole releases that don't contain the query
+const input = document.getElementById('filter-input');
+function applyFilter() {
+  const q = input.value.trim().toLowerCase();
+  document.querySelectorAll('.release').forEach(rel => {
+    const hay = (rel.textContent + ' ' + rel.dataset.version).toLowerCase();
+    const show = !q || hay.includes(q);
+    rel.style.display = show ? '' : 'none';
+    const prev = rel.previousElementSibling;
+    if (prev && prev.classList.contains('rel-divider')) prev.style.display = show ? '' : 'none';
+  });
+}
+input.addEventListener('input', applyFilter);
+
+// ⌘K / Ctrl+K focus
+window.addEventListener('keydown', (e) => {
+  if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+    e.preventDefault();
+    input.focus(); input.select();
+  }
+});
+
+// Scrollspy
+const releases = document.querySelectorAll('.release');
+const tocLinks = document.querySelectorAll('#toc-list a');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      tocLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+    }
+  });
+}, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+releases.forEach(r => observer.observe(r));
+</script>
+
+</body>
+</html>

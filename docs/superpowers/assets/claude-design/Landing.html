@@ -1,0 +1,1137 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Dockerman — local-first Docker & Kubernetes, in ~30MB</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+<script>
+  // set theme early to avoid flash
+  try {
+    const t = localStorage.getItem('dm-theme') || 'dark';
+    document.documentElement.classList.toggle('dark', t === 'dark');
+  } catch(e){}
+</script>
+
+<style>
+:root {
+  --bg: #fafaf9;
+  --bg-elev: #ffffff;
+  --bg-soft: #f4f4f2;
+  --line: rgba(0,0,0,0.08);
+  --line-strong: rgba(0,0,0,0.14);
+  --ink: #0a0a0a;
+  --ink-2: #3a3a3a;
+  --ink-3: #6a6a6a;
+  --ink-4: #9a9a98;
+  --accent: #14b8a6;      /* teal */
+  --accent-2: #6366f1;    /* indigo — picked up from the dashboard */
+  --accent-warm: #f97316;
+  --ok: #10b981;
+  --warn: #f59e0b;
+  --err: #ef4444;
+  --grid: rgba(0,0,0,0.05);
+  --chip: rgba(20,184,166,0.10);
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Geist Mono', 'JetBrains Mono', ui-monospace, monospace;
+  --font-display: 'Inter', system-ui, sans-serif;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow-card: 0 1px 2px rgba(0,0,0,0.04), 0 0 0 1px rgba(0,0,0,0.05);
+}
+html.dark {
+  --bg: #070808;
+  --bg-elev: #0e0f10;
+  --bg-soft: #141516;
+  --line: rgba(255,255,255,0.08);
+  --line-strong: rgba(255,255,255,0.14);
+  --ink: #f5f5f4;
+  --ink-2: #c9c9c7;
+  --ink-3: #8c8c8a;
+  --ink-4: #5c5c5a;
+  --grid: rgba(255,255,255,0.04);
+  --chip: rgba(20,184,166,0.12);
+  --shadow-card: 0 1px 2px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.05);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "ss01", "cv11";
+  overflow-x: hidden;
+}
+
+/* ---------- background grid ---------- */
+.grid-bg {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse at 50% 30%, rgba(0,0,0,0.7), transparent 70%);
+}
+
+/* ---------- layout ---------- */
+.wrap { max-width: 1240px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+section { position: relative; z-index: 1; }
+
+/* ---------- nav ---------- */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  background: color-mix(in srgb, var(--bg) 80%, transparent);
+  border-bottom: 1px solid var(--line);
+}
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 32px; max-width: 1240px; margin: 0 auto;
+}
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: -0.01em; font-size: 15px; }
+.brand-mark {
+  width: 26px; height: 26px; border-radius: 7px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  display: grid; place-items: center; color: white;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.1) inset, 0 4px 12px -4px var(--accent);
+  position: relative;
+}
+.brand-mark svg { width: 16px; height: 16px; }
+.brand-mark::after {
+  content: ""; position: absolute; inset: 3px; border-radius: 4px;
+  background: radial-gradient(circle at 30% 25%, rgba(255,255,255,0.35), transparent 55%);
+}
+
+.nav-links { display: flex; gap: 4px; align-items: center; font-size: 13px; color: var(--ink-2); }
+.nav-links a {
+  color: var(--ink-2); text-decoration: none;
+  padding: 6px 12px; border-radius: 6px; transition: all 0.15s;
+}
+.nav-links a:hover { color: var(--ink); background: var(--bg-soft); }
+
+.nav-cta { display: flex; gap: 8px; align-items: center; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 14px; border-radius: 8px; font-size: 13px; font-weight: 500;
+  text-decoration: none; cursor: pointer; border: 0; transition: all 0.15s;
+  font-family: inherit;
+}
+.btn-ghost { color: var(--ink-2); background: transparent; }
+.btn-ghost:hover { background: var(--bg-soft); color: var(--ink); }
+.btn-outline {
+  color: var(--ink); background: var(--bg-elev);
+  border: 1px solid var(--line-strong);
+}
+.btn-outline:hover { background: var(--bg-soft); }
+.btn-primary {
+  color: #fff; background: var(--ink);
+  border: 1px solid var(--ink);
+}
+html.dark .btn-primary { color: var(--bg); background: var(--ink); border-color: var(--ink); }
+.btn-primary:hover { transform: translateY(-1px); }
+
+.icon-btn {
+  width: 32px; height: 32px; display: grid; place-items: center;
+  border-radius: 8px; color: var(--ink-2); background: transparent;
+  border: 1px solid transparent; cursor: pointer;
+}
+.icon-btn:hover { background: var(--bg-soft); color: var(--ink); }
+
+/* ---------- hero ---------- */
+.hero { padding: 64px 0 32px; position: relative; }
+.hero-glow {
+  position: absolute; left: 50%; top: 0; transform: translateX(-50%);
+  width: 900px; height: 500px;
+  background: radial-gradient(ellipse at center top,
+    color-mix(in srgb, var(--accent) 25%, transparent),
+    transparent 60%);
+  pointer-events: none; z-index: 0;
+  filter: blur(40px);
+}
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 5px 10px 5px 6px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  font-size: 12px; color: var(--ink-2);
+  background: var(--bg-elev);
+  font-family: var(--font-mono);
+}
+.eyebrow .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--ok);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--ok) 30%, transparent);
+  animation: pulse 2.2s ease-in-out infinite;
+}
+.eyebrow-tag {
+  background: var(--ink); color: var(--bg);
+  padding: 2px 8px; border-radius: 999px;
+  font-size: 10px; letter-spacing: 0.04em; font-weight: 600;
+}
+html.dark .eyebrow-tag { background: var(--ink); color: var(--bg); }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.hero-title {
+  margin: 22px 0 0;
+  font-size: clamp(44px, 7.2vw, 96px);
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+  font-weight: 700;
+  max-width: 14ch;
+}
+.hero-title .accent {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  font-style: italic;
+  font-family: 'Instrument Serif', serif;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.hero-sub {
+  margin: 24px 0 0;
+  font-size: 18px; line-height: 1.5;
+  color: var(--ink-3); max-width: 52ch;
+}
+
+.hero-ctas { display: flex; gap: 12px; margin-top: 28px; align-items: center; flex-wrap: wrap; }
+.btn-lg { padding: 12px 20px; font-size: 14px; border-radius: 10px; }
+.btn-download {
+  background: var(--ink); color: var(--bg);
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 12px 6px 12px 20px; border-radius: 10px;
+  border: 1px solid var(--ink);
+  font-weight: 600; font-size: 14px; text-decoration: none;
+  transition: all 0.15s;
+}
+.btn-download:hover { transform: translateY(-1px); box-shadow: 0 10px 30px -10px color-mix(in srgb, var(--ink) 50%, transparent); }
+.btn-download .plat {
+  display: inline-flex; gap: 6px; align-items: center;
+  padding: 4px 10px; border-radius: 6px;
+  background: color-mix(in srgb, var(--bg) 20%, transparent);
+  font-size: 11px; font-family: var(--font-mono); opacity: 0.7;
+}
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 18px; border-radius: 10px;
+  color: var(--ink-2); background: transparent;
+  border: 1px solid var(--line-strong);
+  font-size: 14px; font-weight: 500; text-decoration: none; transition: all 0.15s;
+}
+.btn-secondary:hover { background: var(--bg-soft); color: var(--ink); }
+
+.install-cmd {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 10px 12px 10px 14px; border-radius: 10px;
+  background: var(--bg-elev); border: 1px solid var(--line);
+  font-family: var(--font-mono); font-size: 13px; color: var(--ink-2);
+  cursor: pointer;
+}
+.install-cmd .prompt { color: var(--accent); }
+.install-cmd:hover { border-color: var(--line-strong); }
+.install-cmd .copy-ic {
+  width: 22px; height: 22px; display: grid; place-items: center;
+  border-radius: 4px; color: var(--ink-3); background: var(--bg-soft);
+}
+
+/* meta strip */
+.meta-strip {
+  display: flex; gap: 24px; margin-top: 40px; flex-wrap: wrap;
+  font-size: 12px; color: var(--ink-3); font-family: var(--font-mono);
+}
+.meta-strip .item { display: inline-flex; align-items: center; gap: 8px; }
+.meta-strip .item strong { color: var(--ink); font-weight: 600; }
+.meta-strip .dot-sep { width: 3px; height: 3px; background: var(--ink-4); border-radius: 50%; }
+
+/* ---------- hero app preview ---------- */
+.app-frame {
+  margin-top: 56px;
+  border-radius: 14px;
+  border: 1px solid var(--line-strong);
+  background: var(--bg-elev);
+  box-shadow:
+    0 50px 100px -20px rgba(0,0,0,0.3),
+    0 30px 60px -30px color-mix(in srgb, var(--accent-2) 30%, transparent),
+    0 0 0 1px var(--line);
+  overflow: hidden;
+  position: relative;
+  transform-style: preserve-3d;
+}
+html.dark .app-frame {
+  box-shadow:
+    0 50px 100px -20px rgba(0,0,0,0.6),
+    0 30px 80px -20px color-mix(in srgb, var(--accent-2) 20%, transparent),
+    0 0 0 1px rgba(255,255,255,0.06);
+}
+
+.app-titlebar {
+  display: flex; align-items: center; padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-soft);
+  gap: 14px;
+}
+.traffic { display: flex; gap: 7px; }
+.traffic span { width: 12px; height: 12px; border-radius: 50%; display: block; }
+.traffic .r { background: #ff5f57; }
+.traffic .y { background: #febc2e; }
+.traffic .g { background: #28c840; }
+.app-title {
+  font-family: var(--font-mono); font-size: 11.5px;
+  color: var(--ink-3); letter-spacing: 0.02em;
+}
+.app-title .dim { color: var(--ink-4); }
+
+.app-body { display: grid; grid-template-columns: 220px 1fr; min-height: 560px; }
+
+/* sidebar */
+.app-sidebar {
+  border-right: 1px solid var(--line);
+  background: var(--bg-elev);
+  padding: 14px 10px;
+  font-size: 12.5px;
+}
+.sidebar-header {
+  display: flex; align-items: center; gap: 8px; padding: 8px 8px 12px;
+  border-bottom: 1px solid var(--line); margin-bottom: 10px;
+}
+.sidebar-host {
+  display: flex; flex-direction: column;
+}
+.sidebar-host .name { font-weight: 600; font-size: 12.5px; }
+.sidebar-host .sub { font-size: 10.5px; color: var(--ink-3); font-family: var(--font-mono); }
+.host-avatar {
+  width: 24px; height: 24px; border-radius: 6px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  display: grid; place-items: center; color: white; font-size: 11px; font-weight: 700;
+}
+
+.side-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 6px 8px; border-radius: 6px; color: var(--ink-2);
+  cursor: pointer; transition: all 0.12s;
+}
+.side-item:hover { background: var(--bg-soft); color: var(--ink); }
+.side-item.active { background: color-mix(in srgb, var(--accent) 15%, transparent); color: var(--accent); font-weight: 500; }
+.side-item .ic { width: 14px; height: 14px; }
+.side-label {
+  padding: 16px 10px 6px; font-size: 10px; font-weight: 600;
+  color: var(--ink-4); letter-spacing: 0.06em; text-transform: uppercase;
+}
+.side-badge {
+  margin-left: auto; font-size: 10px; font-family: var(--font-mono);
+  color: var(--ink-3); background: var(--bg-soft);
+  padding: 1px 5px; border-radius: 4px;
+}
+.side-item.active .side-badge { background: color-mix(in srgb, var(--accent) 20%, transparent); color: var(--accent); }
+
+/* main panel */
+.app-main { padding: 18px 20px; background: var(--bg); overflow: hidden; }
+.main-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 18px;
+}
+.main-title {
+  font-size: 15px; font-weight: 600; letter-spacing: -0.01em;
+}
+.main-chips { display: flex; gap: 8px; font-family: var(--font-mono); font-size: 11px; }
+.main-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 8px; border-radius: 6px;
+  background: var(--bg-elev); border: 1px solid var(--line); color: var(--ink-3);
+}
+.main-chip .ic { width: 11px; height: 11px; }
+
+/* kpi grid */
+.kpi-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+  margin-bottom: 10px;
+}
+.kpi {
+  padding: 12px 13px; border-radius: 10px;
+  background: var(--bg-elev); border: 1px solid var(--line);
+  position: relative; overflow: hidden;
+}
+.kpi .label {
+  font-size: 10.5px; color: var(--ink-3); font-weight: 500;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.kpi .label .ic {
+  width: 12px; height: 12px; color: var(--ink-4);
+}
+.kpi .value {
+  margin-top: 6px;
+  font-size: 22px; font-weight: 700; letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  transition: color 0.2s;
+}
+.kpi .sub {
+  margin-top: 2px; font-size: 10.5px; color: var(--ink-3);
+  font-family: var(--font-mono);
+}
+
+.chart-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  margin-top: 10px;
+}
+.chart-card {
+  padding: 14px 15px; border-radius: 10px;
+  background: var(--bg-elev); border: 1px solid var(--line);
+}
+.chart-card .c-head {
+  display: flex; justify-content: space-between; align-items: center;
+}
+.chart-card .c-title {
+  font-size: 11.5px; color: var(--ink-2); font-weight: 600;
+}
+.chart-card .c-value {
+  margin-top: 4px; font-size: 20px; font-weight: 700; letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.chart-card .c-value .u { font-size: 12px; color: var(--ink-3); font-weight: 500; margin-left: 2px; }
+
+.chart-area { height: 90px; margin-top: 8px; position: relative; }
+.chart-area svg { width: 100%; height: 100%; overflow: visible; }
+
+.io-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;
+}
+
+/* container list below */
+.cl-head {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 6px 2px; margin-top: 14px; margin-bottom: 6px;
+}
+.cl-head .title {
+  font-size: 11px; font-weight: 600; color: var(--ink-3);
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+.cl-row {
+  display: grid; grid-template-columns: 14px 1fr 90px 70px 60px;
+  gap: 12px; align-items: center;
+  padding: 8px 10px; font-size: 12px;
+  border-radius: 8px; border: 1px solid var(--line);
+  background: var(--bg-elev);
+  margin-bottom: 4px;
+  font-family: var(--font-mono);
+  transition: all 0.12s;
+}
+.cl-row:hover { border-color: var(--line-strong); background: var(--bg-soft); }
+.cl-dot { width: 8px; height: 8px; border-radius: 50%; }
+.cl-dot.running { background: var(--ok); box-shadow: 0 0 8px color-mix(in srgb, var(--ok) 60%, transparent); }
+.cl-dot.paused { background: var(--warn); }
+.cl-dot.stopped { background: var(--ink-4); }
+.cl-name { font-weight: 500; color: var(--ink); }
+.cl-name .ghost { color: var(--ink-4); margin-right: 6px; }
+.cl-meta { color: var(--ink-3); font-size: 11px; }
+.cl-spark { width: 80px; height: 22px; }
+
+/* ---------- sections ---------- */
+.section-head {
+  display: flex; flex-direction: column; gap: 14px;
+  margin-bottom: 48px; max-width: 780px;
+}
+.section-head .kicker {
+  font-family: var(--font-mono); font-size: 12px;
+  color: var(--accent); letter-spacing: 0.04em;
+}
+.section-head .kicker::before { content: "// "; color: var(--ink-4); }
+.section-head h2 {
+  margin: 0; font-size: clamp(32px, 4.5vw, 56px);
+  letter-spacing: -0.035em; line-height: 1.02; font-weight: 700;
+}
+.section-head h2 em {
+  font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400;
+  color: var(--ink-2);
+}
+.section-head p {
+  margin: 0; font-size: 17px; color: var(--ink-3); line-height: 1.5; max-width: 52ch;
+}
+
+/* metrics strip */
+.metrics {
+  padding: 64px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  margin-top: 80px;
+}
+.metrics-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+}
+.metric-cell {
+  padding: 8px 28px 8px 0;
+  border-right: 1px solid var(--line);
+}
+.metric-cell:last-child { border-right: 0; padding-right: 0; }
+.metric-cell .num {
+  font-size: clamp(40px, 5vw, 64px);
+  font-weight: 700; letter-spacing: -0.04em;
+  line-height: 1;
+  background: linear-gradient(180deg, var(--ink) 0%, var(--ink-3) 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  font-variant-numeric: tabular-nums;
+}
+.metric-cell .num .u { font-size: 0.55em; color: var(--ink-4); font-weight: 500; margin-left: 2px; background: none; -webkit-text-fill-color: var(--ink-4); }
+.metric-cell .label {
+  margin-top: 12px; font-size: 12px; color: var(--ink-3);
+  font-family: var(--font-mono); letter-spacing: 0.02em;
+}
+.metric-cell .desc { margin-top: 4px; font-size: 13px; color: var(--ink-2); line-height: 1.4; }
+
+/* features mosaic */
+.features { padding: 120px 0 40px; }
+.feat-grid {
+  display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px;
+  grid-auto-rows: minmax(200px, auto);
+}
+.feat {
+  border-radius: 14px;
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  padding: 24px;
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column;
+  transition: all 0.2s;
+}
+.feat:hover { border-color: var(--line-strong); transform: translateY(-1px); }
+.feat h3 {
+  margin: 0 0 8px; font-size: 18px; letter-spacing: -0.015em; font-weight: 600;
+}
+.feat p { margin: 0; font-size: 13.5px; color: var(--ink-3); line-height: 1.5; }
+.feat .feat-icon {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  color: var(--accent);
+  display: grid; place-items: center; margin-bottom: 14px;
+}
+.feat .feat-icon svg { width: 16px; height: 16px; }
+
+.feat .visual {
+  margin-top: auto; padding-top: 18px; min-height: 140px;
+  position: relative;
+}
+
+/* feature grid placement */
+.feat.large { grid-column: span 4; grid-row: span 2; }
+.feat.med { grid-column: span 2; grid-row: span 1; }
+.feat.tall { grid-column: span 2; grid-row: span 2; }
+.feat.wide { grid-column: span 2; grid-row: span 1; }
+
+@media (max-width: 900px) {
+  .feat, .feat.large, .feat.med, .feat.tall, .feat.wide {
+    grid-column: span 6; grid-row: span 1;
+  }
+}
+
+/* feature visuals */
+.viz-terminal {
+  border-radius: 8px; background: #0a0b0c; border: 1px solid #1e1f20;
+  padding: 12px 14px; font-family: var(--font-mono); font-size: 12px;
+  color: #b4b4b4; line-height: 1.7;
+  overflow: hidden; box-shadow: 0 20px 40px -20px rgba(0,0,0,0.6);
+}
+.viz-terminal .row { white-space: nowrap; }
+.viz-terminal .prompt { color: var(--accent); }
+.viz-terminal .cmd { color: #f0f0f0; }
+.viz-terminal .out { color: #6a6a6a; }
+.viz-terminal .ok { color: var(--ok); }
+.viz-terminal .caret {
+  display: inline-block; width: 8px; height: 14px;
+  background: var(--accent); vertical-align: middle;
+  animation: blink 1s steps(1) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+.viz-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 3px 8px; border-radius: 6px;
+  font-family: var(--font-mono); font-size: 10.5px;
+  background: var(--bg-soft); color: var(--ink-2);
+  border: 1px solid var(--line);
+}
+
+/* docker object cards */
+.viz-objects { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.obj-card {
+  border-radius: 8px; border: 1px solid var(--line);
+  background: var(--bg-soft);
+  padding: 10px; font-size: 11px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.obj-card .name { font-family: var(--font-mono); font-weight: 600; font-size: 11px; color: var(--ink); }
+.obj-card .tag { font-size: 10px; color: var(--ink-3); font-family: var(--font-mono); }
+.obj-card .mini-meter {
+  height: 3px; border-radius: 2px; background: var(--line);
+  overflow: hidden; margin-top: 4px;
+}
+.obj-card .mini-meter div {
+  height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  border-radius: 2px;
+}
+
+/* module strip */
+.modules { padding: 120px 0; }
+.mod-list {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 48px;
+}
+.mod {
+  border-top: 1px solid var(--line); padding: 40px 0 0;
+}
+.mod-num {
+  font-family: var(--font-mono); font-size: 12px; color: var(--ink-4);
+  display: flex; justify-content: space-between; align-items: center;
+  padding-bottom: 18px;
+}
+.mod-num .chip {
+  padding: 3px 8px; border-radius: 999px;
+  background: var(--chip); color: var(--accent);
+  font-weight: 600;
+}
+.mod h3 { margin: 0 0 10px; font-size: 24px; letter-spacing: -0.02em; font-weight: 600; }
+.mod h3 em { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; color: var(--ink-2); }
+.mod p { margin: 0; color: var(--ink-3); line-height: 1.55; font-size: 14.5px; }
+.mod-bullets {
+  list-style: none; padding: 0; margin: 18px 0 0;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.mod-bullets li {
+  display: flex; gap: 10px; align-items: center;
+  font-size: 13px; color: var(--ink-2); font-family: var(--font-mono);
+}
+.mod-bullets li::before {
+  content: ""; width: 6px; height: 1px; background: var(--accent);
+}
+
+/* CTA */
+.cta-section {
+  margin: 120px 0 80px;
+  border-radius: 24px;
+  border: 1px solid var(--line-strong);
+  background:
+    radial-gradient(ellipse at top right, color-mix(in srgb, var(--accent-2) 15%, transparent), transparent 50%),
+    radial-gradient(ellipse at bottom left, color-mix(in srgb, var(--accent) 15%, transparent), transparent 50%),
+    var(--bg-elev);
+  padding: 80px 48px;
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+.cta-section::before {
+  content: ""; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.5; pointer-events: none;
+}
+.cta-section h2 {
+  margin: 0; font-size: clamp(36px, 5vw, 64px);
+  letter-spacing: -0.04em; line-height: 1.02; font-weight: 700;
+  position: relative;
+}
+.cta-section h2 em {
+  font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.cta-section p {
+  margin: 18px auto 32px; font-size: 17px; color: var(--ink-3);
+  max-width: 56ch; position: relative;
+}
+.cta-ctas { display: flex; gap: 12px; justify-content: center; position: relative; }
+
+/* footer */
+footer {
+  padding: 48px 0;
+  border-top: 1px solid var(--line);
+  font-size: 13px; color: var(--ink-3);
+}
+.foot-row {
+  display: flex; justify-content: space-between; gap: 40px;
+  flex-wrap: wrap; align-items: start;
+}
+.foot-col { display: flex; flex-direction: column; gap: 10px; }
+.foot-col .h { color: var(--ink); font-weight: 600; font-size: 12px; margin-bottom: 4px; }
+.foot-col a { color: var(--ink-3); text-decoration: none; }
+.foot-col a:hover { color: var(--ink); }
+.foot-note {
+  margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line);
+  display: flex; justify-content: space-between; font-size: 12px;
+  color: var(--ink-4); font-family: var(--font-mono);
+}
+
+/* ---------- tweaks panel ---------- */
+#tweaks {
+  position: fixed; bottom: 20px; right: 20px;
+  width: 300px; border-radius: 12px;
+  background: var(--bg-elev);
+  border: 1px solid var(--line-strong);
+  padding: 16px; z-index: 100;
+  box-shadow: 0 20px 40px -10px rgba(0,0,0,0.3);
+  display: none;
+  font-size: 13px;
+}
+#tweaks.visible { display: block; }
+#tweaks h4 {
+  margin: 0 0 12px; font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-3);
+  display: flex; align-items: center; gap: 8px;
+}
+#tweaks h4::before {
+  content: ""; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent);
+}
+#tweaks .tw-row { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+#tweaks .tw-row label { font-size: 11px; color: var(--ink-3); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.04em; }
+#tweaks .tw-opts { display: flex; gap: 4px; flex-wrap: wrap; }
+#tweaks .tw-opt {
+  padding: 6px 10px; border-radius: 6px;
+  background: var(--bg-soft); border: 1px solid var(--line);
+  cursor: pointer; font-size: 11px; font-family: var(--font-mono);
+  color: var(--ink-2); flex: 1; text-align: center;
+}
+#tweaks .tw-opt.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+#tweaks .tw-opt .sw {
+  display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px;
+  vertical-align: middle;
+}
+
+/* variant: industrial (mono everything) */
+body.v-industrial { --font-sans: var(--font-mono); letter-spacing: -0.005em; }
+body.v-industrial .hero-title, body.v-industrial h2, body.v-industrial h3 { font-family: var(--font-mono); font-weight: 700; letter-spacing: -0.03em; }
+body.v-industrial .hero-title .accent,
+body.v-industrial h2 em,
+body.v-industrial .mod h3 em,
+body.v-industrial .cta-section h2 em {
+  font-family: var(--font-mono); font-style: normal; font-weight: 400;
+  color: var(--accent); -webkit-text-fill-color: var(--accent);
+  background: none;
+}
+
+/* variant: editorial (serif display) */
+body.v-editorial { --font-display: 'Instrument Serif', serif; }
+body.v-editorial .hero-title,
+body.v-editorial .section-head h2,
+body.v-editorial .cta-section h2,
+body.v-editorial .mod h3 {
+  font-family: 'Instrument Serif', serif;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+body.v-editorial .hero-title .accent,
+body.v-editorial h2 em,
+body.v-editorial .mod h3 em,
+body.v-editorial .cta-section h2 em {
+  font-style: italic;
+}
+
+/* responsive */
+@media (max-width: 820px) {
+  .nav-links { display: none; }
+  .app-body { grid-template-columns: 1fr; }
+  .app-sidebar { display: none; }
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  .chart-grid, .io-row { grid-template-columns: 1fr; }
+  .metrics-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .metric-cell { border-right: 0; padding-right: 0; }
+  .mod-list { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<!-- ============ NAV ============ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M28,12H20V4h8Zm-6-2h4V6H22Z"/>
+          <path d="M17,15V9H9V23H23V15Zm-6-4h4v4H11Zm4,10H11V17h4Zm6,0H17V17h4Z"/>
+          <path d="M26,28H6a2,2,0,0,1-2-2V6A2,2,0,0,1,6,4H16V6H6V26H26V16h2V26A2,2,0,0,1,26,28Z"/>
+        </svg>
+      </div>
+      <span>Dockerman</span>
+      <span class="eyebrow-tag" style="margin-left:2px;">v5.1</span>
+    </div>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#modules">Modules</a>
+      <a href="#docs">Docs</a>
+      <a href="#changelog">Changelog</a>
+      <a href="#pricing">Pricing</a>
+    </div>
+    <div class="nav-cta">
+      <button class="icon-btn" id="theme-toggle" aria-label="Toggle theme">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+      <a href="#" class="btn btn-ghost">Sign in</a>
+      <a href="#download" class="btn btn-primary">Download</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="wrap">
+    <div class="eyebrow">
+      <span class="dot"></span>
+      <span>v5.1.0 — Podman support, Cloudflared tunnels, image-upgrade detection</span>
+      <span class="eyebrow-tag">NEW</span>
+    </div>
+
+    <h1 class="hero-title">
+      Docker that feels <span class="accent">local</span>.<br>
+      Kubernetes that feels <span class="accent">easy</span>.
+    </h1>
+
+    <p class="hero-sub">
+      A lightweight desktop UI for Docker, Podman, and Kubernetes — built with Rust and Tauri.
+      Boots in ~0ms, lives in under 30 MB of memory, never phones home.
+    </p>
+
+    <div class="hero-ctas">
+      <a href="#download" class="btn-download">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 4v-2h14v2H5z"/></svg>
+        Download for macOS
+        <span class="plat">↓ 18MB</span>
+      </a>
+      <div class="install-cmd" onclick="copyInstall(this)">
+        <span class="prompt">$</span>
+        <span>brew install --cask dockerman</span>
+        <span class="copy-ic">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        </span>
+      </div>
+    </div>
+
+    <div class="meta-strip">
+      <div class="item"><strong>macOS</strong></div>
+      <div class="dot-sep"></div>
+      <div class="item"><strong>Windows</strong></div>
+      <div class="dot-sep"></div>
+      <div class="item"><strong>Linux</strong></div>
+      <div class="dot-sep"></div>
+      <div class="item">MIT licensed</div>
+      <div class="dot-sep"></div>
+      <div class="item">v5.1.0 · Apr 8, 2026</div>
+    </div>
+
+    <!-- live dashboard preview -->
+    <div id="live-dash"></div>
+
+  </div>
+</section>
+
+<!-- ============ METRICS ============ -->
+<section class="metrics">
+  <div class="wrap">
+    <div class="metrics-grid">
+      <div class="metric-cell">
+        <div class="num">~0<span class="u">ms</span></div>
+        <div class="label">cold start</div>
+        <div class="desc">From tray click to an interactive dashboard, no splash screen.</div>
+      </div>
+      <div class="metric-cell">
+        <div class="num">18<span class="u">MB</span></div>
+        <div class="label">download</div>
+        <div class="desc">A native binary, not a bundled browser. Install in seconds.</div>
+      </div>
+      <div class="metric-cell">
+        <div class="num">&lt;30<span class="u">MB</span></div>
+        <div class="label">resident memory</div>
+        <div class="desc">Idle overhead lower than most menu bar apps.</div>
+      </div>
+      <div class="metric-cell">
+        <div class="num">100<span class="u">%</span></div>
+        <div class="label">local-only</div>
+        <div class="desc">Runs against your daemon. No accounts, no telemetry by default.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURES ============ -->
+<section class="features" id="features">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">features</div>
+      <h2>Every object you care about, <em>one keystroke away.</em></h2>
+      <p>Containers, images, volumes, networks, compose projects, Kubernetes workloads, Cloudflared tunnels — all surfaced in a single, low-latency interface.</p>
+    </div>
+
+    <div class="feat-grid">
+      <!-- large: command palette -->
+      <div class="feat large">
+        <div class="feat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9l3 3-3 3M13 15h4"/></svg>
+        </div>
+        <h3>Command palette is the app</h3>
+        <p>⌘; opens a universal fuzzy finder across every container, image, compose project, network, volume, Pod, Service, and recent action. No menus, no tabs, no hunting.</p>
+
+        <div class="visual" id="palette-viz"></div>
+      </div>
+
+      <!-- med: image upgrades -->
+      <div class="feat med">
+        <div class="feat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 4v12M7 9l5-5 5 5M5 20h14"/></svg>
+        </div>
+        <h3>Image upgrade detection</h3>
+        <p>Digest-level diffs. One-click upgrade with automatic backup and rollback.</p>
+      </div>
+
+      <!-- med: podman -->
+      <div class="feat med">
+        <div class="feat-icon" style="background: color-mix(in srgb, var(--accent-warm) 12%, transparent); color: var(--accent-warm);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 8h16v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8z"/><path d="M8 8V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v3"/></svg>
+        </div>
+        <h3>Docker & Podman, one UI</h3>
+        <p>Automatic runtime detection. Rootless sockets discovered on Linux and macOS.</p>
+      </div>
+
+      <!-- tall: k8s -->
+      <div class="feat tall">
+        <div class="feat-icon" style="background: color-mix(in srgb, var(--accent-2) 12%, transparent); color: var(--accent-2);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2l9 5v10l-9 5-9-5V7z"/><path d="M12 12l9-5M12 12L3 7M12 12v10"/></svg>
+        </div>
+        <h3>Kubernetes, side-by-side</h3>
+        <p>Load kubeconfigs or spin up a local k3d cluster. Browse Deployments, Pods, CRDs, Helm releases. Port-forward anything with automatic local DNS.</p>
+
+        <div class="visual">
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <div class="viz-badge"><span class="cl-dot running"></span>deployment/web · 3/3 ready</div>
+            <div class="viz-badge"><span class="cl-dot running"></span>service/api · forwarded :8080</div>
+            <div class="viz-badge"><span class="cl-dot running"></span>pod/worker-7d4f · 2d 14h</div>
+            <div class="viz-badge" style="opacity:.7"><span class="cl-dot paused"></span>cronjob/backup · waiting</div>
+            <div class="viz-badge" style="opacity:.5"><span class="cl-dot stopped"></span>statefulset/db · 1/1</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- wide: events -->
+      <div class="feat wide">
+        <div class="feat-icon" style="background: color-mix(in srgb, var(--err) 12%, transparent); color: var(--err);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.86a2 2 0 0 1 3.4 0l8.94 15A2 2 0 0 1 20.93 22H3.07a2 2 0 0 1-1.71-3.14l8.94-15z"/></svg>
+        </div>
+        <h3>Events, loud and legible</h3>
+        <p>Desktop notifications for non-zero exits, OOM kills, and failing health checks. Every event is copyable, filterable, and exportable.</p>
+      </div>
+
+      <!-- wide: cloudflared -->
+      <div class="feat wide">
+        <div class="feat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.5 19a4.5 4.5 0 0 0 0-9 7 7 0 0 0-13.7 2.2A4 4 0 0 0 5 19h12.5z"/></svg>
+        </div>
+        <h3>One-click public tunnels</h3>
+        <p>Expose any container port to the internet via Cloudflared. Tunnels auto-reap when containers stop, and persist across crashes.</p>
+      </div>
+
+      <!-- wide: logs -->
+      <div class="feat wide">
+        <div class="feat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+        </div>
+        <h3>Logs that don't stall</h3>
+        <p>Virtualized viewer with follow/pause, regex highlight, and TXT/JSON export. Keyboard-first — <code style="font-family:var(--font-mono);font-size:11px;padding:1px 5px;background:var(--bg-soft);border-radius:4px;">P</code> pauses, <code style="font-family:var(--font-mono);font-size:11px;padding:1px 5px;background:var(--bg-soft);border-radius:4px;">/</code> searches.</p>
+      </div>
+
+      <!-- wide: security -->
+      <div class="feat wide">
+        <div class="feat-icon" style="background: color-mix(in srgb, var(--ok) 12%, transparent); color: var(--ok);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2l9 4v6c0 5-3.5 9.5-9 10-5.5-.5-9-5-9-10V6l9-4z"/><path d="M9 12l2 2 4-4"/></svg>
+        </div>
+        <h3>Images you can trust</h3>
+        <p>Built-in Trivy CVE scanning with severity filtering and review. Private registry credentials auto-match on pull. Push to any registry with streaming progress.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MODULES ============ -->
+<section class="modules" id="modules">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">modules</div>
+      <h2>Built for the things you <em>actually</em> do every day.</h2>
+      <p>Nine years of Docker UIs and most still feel like a port of a web admin panel. Dockerman is designed for people who were going to run the <code style="font-family:var(--font-mono);font-size:14px;padding:1px 6px;background:var(--bg-soft);border-radius:4px;">docker</code> command anyway.</p>
+    </div>
+
+    <div class="mod-list">
+      <div class="mod">
+        <div class="mod-num"><span>01 / containers</span><span class="chip">most used</span></div>
+        <h3>Inspect without the <em>noise.</em></h3>
+        <p>Stats, logs, env, mounts, processes, a real terminal, and a file browser — all available without leaving the row. Commit to a new image or clone the config into a create dialog with a single command.</p>
+        <ul class="mod-bullets">
+          <li>ring gauges + sparklines for CPU, memory, net, disk</li>
+          <li>container backup/restore with volumes and filesystem</li>
+          <li>docker-run parser — paste a command, get a dialog</li>
+        </ul>
+      </div>
+
+      <div class="mod">
+        <div class="mod-num"><span>02 / compose</span><span class="chip">new</span></div>
+        <h3>Compose projects, <em>grouped like they live.</em></h3>
+        <p>Toggle between flat list and grouped-by-project views. Full lifecycle: up, stop, restart, pull, remove. Every Compose CLI flag exposed, including profiles and dry-run.</p>
+        <ul class="mod-bullets">
+          <li>standalone containers collapse into their own section</li>
+          <li>env-file + file + profile support</li>
+          <li>project status at a glance</li>
+        </ul>
+      </div>
+
+      <div class="mod">
+        <div class="mod-num"><span>03 / images</span><span class="chip">1-click</span></div>
+        <h3>A layer explorer that <em>earns its place.</em></h3>
+        <p>Interactive size distribution, per-layer Dockerfile commands, CVE scanning via Trivy, and push to any registry with credential auto-match. Export analysis to JSON.</p>
+        <ul class="mod-bullets">
+          <li>color-coded layer bar with expand/collapse</li>
+          <li>Docker Hub search + tags + README inline</li>
+          <li>digest-level upgrade with one-click rollback</li>
+        </ul>
+      </div>
+
+      <div class="mod">
+        <div class="mod-num"><span>04 / system</span><span class="chip">deep</span></div>
+        <h3>Every runtime knob, <em>exposed and safe.</em></h3>
+        <p>WSL2 engine on Windows without Docker Desktop. SSH socket forwarding with heartbeat reconnect. Private registry credentials that match on pull. Global shortcuts even on Wayland.</p>
+        <ul class="mod-bullets">
+          <li>tray with live CPU / mem in the menu bar</li>
+          <li>real-time event notifications for non-zero exits, OOMs</li>
+          <li>one-click disk prune with an interactive breakdown</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="wrap">
+  <div class="cta-section" id="download">
+    <h2>Open the tray. <em>Ship containers.</em></h2>
+    <p>Free for personal and non-commercial use. Paid license unlocks remote hosts, team features, and priority support.</p>
+    <div class="cta-ctas">
+      <a href="#" class="btn-download">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 4v-2h14v2H5z"/></svg>
+        Download Dockerman
+        <span class="plat">macOS · Win · Linux</span>
+      </a>
+      <a href="#" class="btn-secondary">View on GitHub →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-row">
+      <div class="foot-col" style="max-width:300px;">
+        <div class="brand">
+          <div class="brand-mark">
+            <svg viewBox="0 0 32 32" fill="currentColor"><path d="M28,12H20V4h8Zm-6-2h4V6H22Z"/><path d="M17,15V9H9V23H23V15Zm-6-4h4v4H11Zm4,10H11V17h4Zm6,0H17V17h4Z"/><path d="M26,28H6a2,2,0,0,1-2-2V6A2,2,0,0,1,6,4H16V6H6V26H26V16h2V26A2,2,0,0,1,26,28Z"/></svg>
+          </div>
+          <span>Dockerman</span>
+        </div>
+        <p style="margin:0; color:var(--ink-3);">A modern, lightweight Docker & Kubernetes desktop, built with Rust + Tauri.</p>
+      </div>
+      <div class="foot-col">
+        <span class="h">Product</span>
+        <a href="#">Download</a>
+        <a href="#">Features</a>
+        <a href="#">Changelog</a>
+        <a href="#">Pricing</a>
+      </div>
+      <div class="foot-col">
+        <span class="h">Docs</span>
+        <a href="#">Getting started</a>
+        <a href="#">Kubernetes</a>
+        <a href="#">CLI reference</a>
+        <a href="#">FAQ</a>
+      </div>
+      <div class="foot-col">
+        <span class="h">Community</span>
+        <a href="#">GitHub</a>
+        <a href="#">Discord</a>
+        <a href="#">Twitter</a>
+        <a href="#">Email</a>
+      </div>
+    </div>
+    <div class="foot-note">
+      <span>© 2026 Dockerman · MIT licensed</span>
+      <span>local-only · no telemetry · made in the terminal</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ TWEAKS ============ -->
+<div id="tweaks">
+  <h4>Tweaks</h4>
+
+  <div class="tw-row">
+    <label>style direction</label>
+    <div class="tw-opts" data-key="style">
+      <div class="tw-opt active" data-value="default">default</div>
+      <div class="tw-opt" data-value="industrial">mono</div>
+      <div class="tw-opt" data-value="editorial">serif</div>
+    </div>
+  </div>
+
+  <div class="tw-row">
+    <label>accent</label>
+    <div class="tw-opts" data-key="accent">
+      <div class="tw-opt active" data-value="teal"><span class="sw" style="background:#14b8a6"></span>teal</div>
+      <div class="tw-opt" data-value="indigo"><span class="sw" style="background:#6366f1"></span>indigo</div>
+      <div class="tw-opt" data-value="amber"><span class="sw" style="background:#f59e0b"></span>amber</div>
+      <div class="tw-opt" data-value="rose"><span class="sw" style="background:#f43f5e"></span>rose</div>
+    </div>
+  </div>
+
+  <div class="tw-row">
+    <label>theme</label>
+    <div class="tw-opts" data-key="theme">
+      <div class="tw-opt" data-value="light">light</div>
+      <div class="tw-opt active" data-value="dark">dark</div>
+    </div>
+  </div>
+
+  <div class="tw-row">
+    <label>decorative grid</label>
+    <div class="tw-opts" data-key="grid">
+      <div class="tw-opt active" data-value="on">on</div>
+      <div class="tw-opt" data-value="off">off</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Default tweak values — persisted by the host via EDITMODE markers
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "style": "default",
+  "accent": "indigo",
+  "theme": "light",
+  "grid": "on"
+}/*EDITMODE-END*/;
+</script>
+
+<script src="live-dash.js"></script>
+<script src="palette.js"></script>
+<script src="main.js"></script>
+
+</body>
+</html>
