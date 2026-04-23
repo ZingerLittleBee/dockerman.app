@@ -5,6 +5,7 @@ import { Inter } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
 import AgentationClient from '@/components/AgentationClient'
+import { ThemeScript } from '@/components/shell/ThemeScript'
 import { siteConfig } from './siteConfig'
 
 const inter = Inter({
@@ -82,6 +83,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <ThemeScript />
         {process.env.NODE_ENV === 'development' && (
           <Script
             crossOrigin="anonymous"

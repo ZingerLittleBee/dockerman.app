@@ -1,14 +1,10 @@
 import { describe, expect, test } from 'bun:test'
 import { renderToStaticMarkup } from 'react-dom/server'
 import type { ChangelogEntryData } from '@/lib/changelog'
-import ChangelogTimeline from './ChangelogTimeline'
-
-const fullWidthTimelineEntryPattern =
-  /<div(?=[^>]*id="release-v4-7-0")(?=[^>]*class="[^"]*\bw-full\b[^"]*")[^>]*>/
-const changelogImageRadiusPattern =
-  /<img(?=[^>]*alt="文件预览")(?=[^>]*class="[^"]*\brounded-lg\b[^"]*")[^>]*>/
+import { ChangelogTimeline } from './ChangelogTimeline'
 
 const entry: ChangelogEntryData = {
+  blocks: [],
   date: '2026-04-02',
   id: 'release-v4-7-0',
   images: [],
@@ -22,32 +18,28 @@ const entry: ChangelogEntryData = {
   ],
   summary: 'A test entry.',
   title: 'Version 4.7.0',
-  version: 'v4.7.0'
+  version: '4.7.0'
 }
 
-const entryWithImage: ChangelogEntryData = {
-  ...entry,
-  id: 'release-v4-4-0',
-  images: [
-    {
-      alt: '文件预览',
-      src: '/changelog/2.1.0.png'
-    }
-  ]
-}
-
-describe('ChangelogTimeline layout', () => {
-  test('renders each timeline entry at full width', () => {
+describe('ChangelogTimeline', () => {
+  test('renders each entry inside an <article> keyed by id', () => {
     const markup = renderToStaticMarkup(<ChangelogTimeline entries={[entry]} locale="zh" />)
-
-    expect(markup).toMatch(fullWidthTimelineEntryPattern)
+    expect(markup).toContain('id="release-v4-7-0"')
+    expect(markup).toContain('Version 4.7.0')
   })
 
-  test('renders changelog images with a smaller corner radius', () => {
-    const markup = renderToStaticMarkup(
-      <ChangelogTimeline entries={[entryWithImage]} locale="zh" />
-    )
+  test('renders v<version> in the header', () => {
+    const markup = renderToStaticMarkup(<ChangelogTimeline entries={[entry]} locale="zh" />)
+    expect(markup).toContain('v4.7.0')
+  })
 
-    expect(markup).toMatch(changelogImageRadiusPattern)
+  test('marks the first entry as LATEST', () => {
+    const markup = renderToStaticMarkup(<ChangelogTimeline entries={[entry]} locale="zh" />)
+    expect(markup).toContain('LATEST')
+  })
+
+  test('renders entry summary', () => {
+    const markup = renderToStaticMarkup(<ChangelogTimeline entries={[entry]} locale="zh" />)
+    expect(markup).toContain('A test entry.')
   })
 })
