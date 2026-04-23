@@ -12,32 +12,17 @@ const SIDEBAR_MAIN = [
   'Network',
   'Volume',
   'Events',
-  'Templates',
+  'Templates'
 ] as const
 
 const SIDEBAR_ACTIONS = ['Terminal', 'Process', 'Inspect', 'Stats', 'Logs', 'File'] as const
 
 const MOCK_CONTAINERS = [
-  { name: 'redis', img: 'redis:7', state: 'running' as const, seed: [30, 32, 28, 34, 31, 30, 33] },
-  {
-    name: 'postgres',
-    img: 'postgres:16',
-    state: 'running' as const,
-    seed: [45, 48, 46, 50, 49, 47, 51],
-  },
-  {
-    name: 'traefik',
-    img: 'traefik:v3',
-    state: 'running' as const,
-    seed: [12, 14, 13, 15, 13, 14, 16],
-  },
-  { name: 'plex', img: 'plexinc/pms:latest', state: 'stopped' as const, seed: [] as number[] },
-  {
-    name: 'node',
-    img: 'node:20-alpine',
-    state: 'running' as const,
-    seed: [18, 20, 22, 19, 21, 23, 20],
-  },
+  { name: 'redis', img: 'redis:7', state: 'running' as const },
+  { name: 'postgres', img: 'postgres:16', state: 'running' as const },
+  { name: 'traefik', img: 'traefik:v3', state: 'running' as const },
+  { name: 'plex', img: 'plexinc/pms:latest', state: 'stopped' as const },
+  { name: 'node', img: 'node:20-alpine', state: 'running' as const }
 ]
 
 export function LiveDashboard() {
@@ -90,7 +75,7 @@ function Sidebar() {
         Containers · {MOCK_CONTAINERS.length}
       </div>
       {MOCK_CONTAINERS.map((c) => (
-        <ContainerRow img={c.img} key={c.name} name={c.name} seed={c.seed} state={c.state} />
+        <ContainerRow img={c.img} key={c.name} name={c.name} state={c.state} />
       ))}
     </aside>
   )
@@ -170,7 +155,7 @@ const SIDE_ICONS: Record<string, React.ReactNode> = {
       <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
       <path d="M14 2v6h6" />
     </>
-  ),
+  )
 }
 
 function SideItem({ label, active }: { label: string; active?: boolean }) {
@@ -198,39 +183,29 @@ function SideItem({ label, active }: { label: string; active?: boolean }) {
 function ContainerRow({
   name,
   img,
-  state,
-  seed,
+  state
 }: {
   name: string
   img?: string
   state: 'running' | 'stopped'
-  seed: number[]
 }) {
-  const data = useSparkline({
-    seed: seed.length > 0 ? seed : [0],
-    intervalMs: 1500,
-    volatility: 0.2,
-    min: 5,
-    max: 80,
-    enabled: state === 'running',
-  })
   return (
     <div className="flex items-center gap-2 rounded-md px-2 py-[6px] font-[var(--font-dm-mono)] text-[11.5px] text-dm-ink-2">
       <span
         className="h-[6px] w-[6px] rounded-full"
         style={{
           background: state === 'running' ? 'var(--color-dm-ok)' : 'var(--color-dm-ink-4)',
+          boxShadow:
+            state === 'running'
+              ? '0 0 8px color-mix(in srgb, var(--color-dm-ok) 60%, transparent)'
+              : undefined
         }}
       />
       <span className="flex flex-1 flex-col overflow-hidden leading-tight">
         <span className="truncate text-dm-ink">{name}</span>
         {img ? <span className="truncate text-[10px] text-dm-ink-4">{img}</span> : null}
       </span>
-      {state === 'running' ? (
-        <Sparkline data={data} height={16} stroke="var(--color-dm-ok)" width={44} />
-      ) : (
-        <span className="text-[10px] text-dm-ink-4">idle</span>
-      )}
+      {state === 'stopped' ? <span className="text-[10px] text-dm-ink-4">idle</span> : null}
     </div>
   )
 }
@@ -261,7 +236,7 @@ function Main() {
               className="h-[6px] w-[6px] rounded-full"
               style={{
                 background: 'var(--color-dm-ok)',
-                animation: 'dm-pulse 2.2s ease-in-out infinite',
+                animation: 'dm-pulse 2.2s ease-in-out infinite'
               }}
             />
             connected
@@ -312,27 +287,31 @@ function ChartRow() {
     intervalMs: 1500,
     volatility: 0.12,
     min: 10,
-    max: 85,
+    max: 85
   })
   const mem = useSparkline({
     seed: [42, 44, 45, 46, 47, 46, 48, 49, 50, 49, 48, 50],
     intervalMs: 1500,
     volatility: 0.08,
     min: 20,
-    max: 80,
+    max: 80
   })
 
   return (
     <div className="mt-3 grid grid-cols-2 gap-3">
       <ChartCard stroke="#6366f1" title="CPU" value={`${Math.round(cpu[cpu.length - 1] ?? 0)}%`}>
-        <Sparkline data={cpu} height={120} stroke="#6366f1" strokeWidth={1.75} width={500} />
-      </ChartCard>
-      <ChartCard
-        stroke="#10b981"
-        title="Memory"
-        value={`${Math.round(mem[mem.length - 1] ?? 0)}%`}
-      >
         <Sparkline
+          className="block h-[120px] w-full"
+          data={cpu}
+          height={120}
+          stroke="#6366f1"
+          strokeWidth={1.75}
+          width={500}
+        />
+      </ChartCard>
+      <ChartCard stroke="#10b981" title="Memory" value={`${Math.round(mem[mem.length - 1] ?? 0)}%`}>
+        <Sparkline
+          className="block h-[120px] w-full"
           data={mem}
           fill="#10b98122"
           height={120}
@@ -349,7 +328,7 @@ function ChartCard({
   title,
   value,
   stroke,
-  children,
+  children
 }: {
   title: string
   value: string
@@ -378,14 +357,14 @@ function IoRow() {
     intervalMs: 1500,
     volatility: 0.2,
     min: 5,
-    max: 60,
+    max: 60
   })
   const disk = useSparkline({
     seed: [8, 10, 12, 9, 14, 11, 15, 12, 10, 13, 16, 11],
     intervalMs: 1500,
     volatility: 0.15,
     min: 2,
-    max: 40,
+    max: 40
   })
   return (
     <div className="mt-3 grid grid-cols-2 gap-3">
@@ -395,6 +374,7 @@ function IoRow() {
         value={`${(net[net.length - 1] ?? 0).toFixed(1)} MB/s`}
       >
         <Sparkline
+          className="block h-[100px] w-full"
           data={net}
           fill="#a855f722"
           height={100}
@@ -409,6 +389,7 @@ function IoRow() {
         value={`${(disk[disk.length - 1] ?? 0).toFixed(1)} MB/s`}
       >
         <Sparkline
+          className="block h-[100px] w-full"
           data={disk}
           fill="#ec489922"
           height={100}
