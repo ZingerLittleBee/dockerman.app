@@ -173,6 +173,32 @@
 }
 
 @layer base {
+  /* Suppress the @tailwindcss/forms default blue focus ring — its color
+     (Tailwind blue-600) doesn't match our dm-accent-2 indigo, and its
+     hard 0-radius border looks off against our rounded inputs. Components
+     that need a focus affordance style it themselves (usually on a wrapping
+     label) with dm-* tokens. Selectors mirror the ones the plugin targets
+     so specificity wins. */
+  [type="text"]:focus,
+  [type="email"]:focus,
+  [type="url"]:focus,
+  [type="password"]:focus,
+  [type="number"]:focus,
+  [type="date"]:focus,
+  [type="datetime-local"]:focus,
+  [type="month"]:focus,
+  [type="search"]:focus,
+  [type="tel"]:focus,
+  [type="time"]:focus,
+  [type="week"]:focus,
+  [multiple]:focus,
+  input:not([type]):focus,
+  textarea:focus,
+  select:focus {
+    box-shadow: none;
+    border-color: inherit;
+  }
+
   :where(.dark) {
     --color-dm-bg: #070808;
     --color-dm-bg-elev: #0e0f10;
