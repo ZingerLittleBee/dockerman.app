@@ -1,6 +1,7 @@
 'use client'
 
 import { Sparkline } from '@/components/ui-dm/Sparkline'
+import { StatCard } from '@/components/ui-dm/StatCard'
 import { useSparkline } from './hooks/useSparkline'
 
 const SIDEBAR_MAIN = [
@@ -180,11 +181,25 @@ function Main() {
 }
 
 function KpiRow() {
-  return null
+  return (
+    <div className="grid grid-cols-4 gap-3">
+      <StatCard subtitle="8 running · 4 exited" title="Containers" value="12" />
+      <StatCard subtitle="3 updates available" title="Images" value="47" />
+      <StatCard subtitle="on disk" title="Total Image Size" value="18.4 GB" />
+      <StatCard subtitle="of 47" title="Images In Use" value="21" />
+    </div>
+  )
 }
 
 function SystemRow() {
-  return null
+  return (
+    <div className="mt-3 grid grid-cols-4 gap-3">
+      <StatCard subtitle="Stable" title="Docker Version" value="28.5.2" />
+      <StatCard title="Storage Driver" value="overlay2" />
+      <StatCard title="System Resources" value="8 CPU · 32 GB" />
+      <StatCard title="Operating System" value="macOS 14.5" />
+    </div>
+  )
 }
 
 function ChartRow() {
