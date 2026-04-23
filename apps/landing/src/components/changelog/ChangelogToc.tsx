@@ -26,7 +26,7 @@ export function ChangelogToc({ entries }: { entries: ChangelogEntryData[] }) {
   }, [entries])
 
   return (
-    <nav className="sticky top-24">
+    <nav className="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto overscroll-contain pr-1 [scrollbar-color:var(--color-dm-line-strong)_transparent] [scrollbar-width:thin]">
       <ul className="m-0 list-none border-dm-line border-l p-0">
         {entries.map((e) => {
           const isActive = active === e.id
