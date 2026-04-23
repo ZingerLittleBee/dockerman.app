@@ -83,7 +83,7 @@ export function ComparisonTable() {
                   </td>
                 </tr>,
                 ...group.rows.map((r) => (
-                  <tr className="border-dm-line border-t" key={r.label}>
+                  <tr className="border-dm-line border-t" key={`${group.title}-${r.label}`}>
                     <td className="px-4 py-3 text-dm-ink-2">{r.label}</td>
                     <td className="px-4 py-3 text-center">
                       <Mark on={r.free} />

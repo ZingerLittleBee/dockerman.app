@@ -13,9 +13,23 @@ interface FaqItem {
   answer: string
 }
 
+function isFaqItemArray(value: unknown): value is FaqItem[] {
+  return (
+    Array.isArray(value) &&
+    value.every(
+      (v) =>
+        typeof v === 'object' &&
+        v !== null &&
+        typeof (v as FaqItem).question === 'string' &&
+        typeof (v as FaqItem).answer === 'string'
+    )
+  )
+}
+
 export function PricingFaq() {
   const { t } = useTranslation()
-  const items = t('pricing.faq.items', { returnObjects: true }) as unknown as FaqItem[]
+  const raw = t('pricing.faq.items', { returnObjects: true })
+  const items = isFaqItemArray(raw) ? raw : []
   const title = t('pricing.faq.title')
 
   return (
