@@ -203,7 +203,7 @@ Fixed-position layer, z-index 0, pointer-events none. Two orthogonal gradients a
    - **Team** — $19 (was $29), 3 devices, indigo glow highlight, "Most popular" badge
    - **Solo** — $14 (was $19), 1 device
    All three share feature list; Team/Solo adds remote SSH + multi-host + lifetime updates.
-4. **TrustBar** — Stripe badge / **14-day money-back guarantee** (matches the existing FAQ copy in `packages/shared/src/locales/en.json:150` — do **not** change the refund window in this redesign; any policy change is out of scope) / user count / GitHub star count. Every metric is sourced from `config/pricing.ts` with a required `asOf` ISO date written alongside, so stale numbers show up as a line-diff in PRs.
+4. **TrustBar** — Stripe badge / **14-day money-back guarantee** (matches the existing FAQ copy in `packages/shared/src/locales/en.json:150` — do **not** change the refund window in this redesign; any policy change is out of scope) / user count / GitHub star count. Numeric values are sourced from `config/pricing.ts` with a required `asOf` ISO date. **Prose (the FAQ answer about refunds) stays in the existing locale files under `pricing.faq.items[]` as an array entry** — the pricing page reads that array today (`apps/landing/src/app/[locale]/(main)/pricing/page.tsx:67`) and the redesign does not change the shape. The config carries the number; locale carries the sentence.
 5. **ComparisonTable** — three row groups: Core / Remote & Multi-host / License & support. ✓/— symbols per column.
 6. **PricingFaq** — 8 Q&A using Radix Accordion (already in deps). FAQ copy pulled from existing locale files where possible.
 7. **CtaFinal**.
@@ -218,7 +218,12 @@ export const pricingConfig = {
     team:  { priceEarlyBird: 19, priceRegular: 29, devices: 3 },
     solo:  { priceEarlyBird: 14, priceRegular: 19, devices: 1 },
   },
-  refund: { days: 14, copyKey: "pricing.faq.refund.answer" },
+  refund: {
+    days: 14,
+    // FAQ prose stays in packages/shared/src/locales/{locale}.json under
+    // pricing.faq.items[] (an array, no keyed lookup). The TrustBar renders
+    // just the short "{days}-day money-back guarantee" copy from this number.
+  },
   trust: {
     asOf: "2026-04-23",
     users: 12400,
@@ -235,43 +240,91 @@ export const pricingConfig = {
    brew install --cask zingerlittlebee/tap/dockerman
    ```
    Winget and Flatpak cards are explicitly dropped — neither is supported by the release pipeline.
-3. **Three PlatformCards** (equal width), artifacts aligned with what the release pipeline actually produces (`app.dockerman/upload/src/platform.ts`):
-   - **macOS** — `.dmg` Apple Silicon (`aarch64`) + `.dmg` Intel (`x64`), min macOS 11
-   - **Windows** — `.msi` + `.exe` (NSIS setup), min Windows 10/11
-   - **Linux** — `.AppImage` + `.deb` (x86_64). **No `.rpm`.**
-   Each card lists the real artifact filenames with file sizes; the per-card signing footer line points to the matching Tauri updater `.sig` file that ships alongside every artifact.
-4. **IntegrityBar** — one link to the GitHub release page for the current version (where all assets + per-asset `.sig` signatures are published), and one link to the public updater signing key used by Tauri's updater. **SHA256SUMS, SBOM, and cosign attestations are not produced by the current pipeline** and are therefore not referenced.
-5. **ReleasesTable** — last 8 versions with date + a link into `/changelog#release-{slug}`. Data sourced from `config/downloads.ts` with an explicit `asOf` timestamp in the config file; future work may derive it from the GitHub Releases API at build time.
+3. **Three PlatformCards** (equal width). **Sole canonical source for artifact names is `app.dockerman/upload/src/platform.ts`** (the release pipeline). The current site in `apps/landing/src/app/[locale]/(main)/download/page.tsx:25+` is an incomplete subset and must not be used as a reference. Actual artifacts per the pipeline as of 2026-04-23:
+
+   - **macOS** — one **universal** DMG `Dockerman_${v}_universal.dmg` (Apple Silicon + Intel in a single build; signed + notarized by Apple, no Tauri `.sig` companion). Power-user updater bundle `Dockerman.app.tar.gz` (with `.tar.gz.sig`) is published but **not surfaced** on the download page.
+   - **Windows** — two installers: `.msi` (`Dockerman_${v}_x64_en-US.msi`) and `.exe` NSIS setup (`Dockerman_${v}_x64-setup.exe`). **Both** have companion Tauri `.sig` files.
+   - **Linux** — two packages: `.AppImage` (`Dockerman_${v}_amd64.AppImage`, has `.sig`) and `.deb` (`Dockerman_${v}_amd64.deb`, **no `.sig`** — the pipeline does not emit one). No `.rpm`, no `.snap`, no Flatpak.
+
+   Each card renders the installer(s) it is responsible for. For every installer we show:
+   - filename + size
+   - a **per-artifact verification line** rendered from the config:
+     - `appleNotarized` → "Apple-signed & notarized"
+     - `tauriSig: true` → "Tauri updater signature: `{filename}.sig`"
+     - `none` → (no line; the `.deb` case today)
+4. **IntegrityBar** — a single row with: (a) link to the GitHub release page for the current version (where all assets are published), (b) link to the public updater signing key used by Tauri's updater to verify `.sig` files. **SHA256SUMS, SBOM, and cosign attestations are not produced by the current pipeline** and are not referenced.
+5. **ReleasesTable** — last 8 versions with date + a link into `/changelog#release-{slug}`. Data sourced from `config/downloads.ts` with an explicit `asOf` timestamp. Future work may auto-fetch from the GitHub Releases API at build time; out of scope for this spec.
 6. **CtaFinal**.
 
-**Data source for download metadata** (`config/downloads.ts`):
+**Data source for download metadata** (`config/downloads.ts`) — the shape below intentionally separates "installer assets" (what the user clicks) from "updater-verifiable signatures" (Tauri `.sig` companions) so we never claim a signature exists where the pipeline produces none:
 
 ```ts
+type Verification =
+  | { kind: "apple-notarized" }
+  | { kind: "tauri-sig"; sigFilename: string }
+  | { kind: "none" };
+
+interface InstallerAsset {
+  filename: string;         // literal filename from platform.ts
+  label: string;            // user-facing label on the button (e.g. "Universal (Apple Silicon & Intel)")
+  size: string;             // "134 MB" — hand-maintained per release
+  verification: Verification;
+}
+
 export const downloadsConfig = {
-  asOf: "2026-04-23",             // bump whenever this file is updated
+  asOf: "2026-04-23",        // ISO date, bumped any time this file is edited
   latest: {
     version: "5.1.0",
     releaseDate: "2026-04-08",
-    platforms: {
+    releaseUrl: "https://github.com/mandocker/app.dockerman/releases/tag/v5.1.0",
+    installers: {
       macos: [
-        { arch: "aarch64", filename: "Dockerman_5.1.0_aarch64.dmg", size: "…" },
-        { arch: "x64",     filename: "Dockerman_5.1.0_x64.dmg",     size: "…" },
+        {
+          filename: "Dockerman_5.1.0_universal.dmg",
+          label: "Universal (Apple Silicon & Intel)",
+          size: "…",
+          verification: { kind: "apple-notarized" },
+        },
       ],
       windows: [
-        { kind: "msi",  filename: "Dockerman_5.1.0_x64_en-US.msi",  size: "…" },
-        { kind: "nsis", filename: "Dockerman_5.1.0_x64-setup.exe",  size: "…" },
+        {
+          filename: "Dockerman_5.1.0_x64-setup.exe",
+          label: "Windows x64 (installer)",
+          size: "…",
+          verification: { kind: "tauri-sig", sigFilename: "Dockerman_5.1.0_x64-setup.exe.sig" },
+        },
+        {
+          filename: "Dockerman_5.1.0_x64_en-US.msi",
+          label: "Windows x64 (MSI, for admins)",
+          size: "…",
+          verification: { kind: "tauri-sig", sigFilename: "Dockerman_5.1.0_x64_en-US.msi.sig" },
+        },
       ],
       linux: [
-        { kind: "appimage", filename: "dockerman_5.1.0_amd64.AppImage", size: "…" },
-        { kind: "deb",      filename: "dockerman_5.1.0_amd64.deb",       size: "…" },
+        {
+          filename: "Dockerman_5.1.0_amd64.AppImage",
+          label: "AppImage (x86_64)",
+          size: "…",
+          verification: { kind: "tauri-sig", sigFilename: "Dockerman_5.1.0_amd64.AppImage.sig" },
+        },
+        {
+          filename: "Dockerman_5.1.0_amd64.deb",
+          label: "Debian / Ubuntu (x86_64)",
+          size: "…",
+          verification: { kind: "none" },
+        },
       ],
     },
+    // Not surfaced on the download page — kept here for reference only.
+    updaterBundles: {
+      macos: "Dockerman.app.tar.gz",
+    },
   },
-  history: [ /* last 8 versions, version + date + summary slug */ ],
+  history: [ /* last 8 versions: { version, date, summarySlug } */ ],
 };
 ```
 
-Implementation detail left to the plan: either check the real filenames in `apps/landing/src/app/[locale]/(main)/download/page.tsx:129+` and mirror them, or read `app.dockerman/upload/src/platform.ts` as the canonical source. The spec fixes the shape; the plan picks the source.
+Any future change to the pipeline (new platform, new installer, removed signature) must be reflected first in `config/downloads.ts` — the spec does not tolerate drift between what the card claims and what users actually receive.
 
 ### Changelog (`/changelog`)
 
