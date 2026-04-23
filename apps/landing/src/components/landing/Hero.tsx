@@ -98,12 +98,11 @@ export function Hero({ locale }: { locale: Locale }) {
         <div className="mt-7 flex flex-wrap items-center gap-3">
           {/* Gradient download button */}
           <Link
-            className="inline-flex items-center gap-[10px] rounded-[10px] border px-5 py-3 pr-[6px] font-semibold text-[14px] text-white no-underline transition-all hover:-translate-y-px"
+            className="inline-flex items-center gap-[10px] rounded-[10px] px-5 py-3 pr-[6px] font-semibold text-[14px] text-white no-underline transition-all hover:-translate-y-px"
             href={`/${locale}/download`}
             style={{
               background:
                 'linear-gradient(135deg, var(--color-dm-accent), var(--color-dm-accent-2))',
-              borderColor: 'transparent',
               boxShadow:
                 '0 10px 30px -10px color-mix(in srgb, var(--color-dm-accent-2) 60%, transparent)'
             }}
