@@ -9,9 +9,17 @@ import { ReleasesTable } from '@/components/download/ReleasesTable'
 import { CtaFinal } from '@/components/landing/CtaFinal'
 import { downloadsConfig } from '@/config/downloads'
 
-export const metadata: Metadata = {
-  title: 'Download — Dockerman',
-  description: 'Download Dockerman for macOS, Windows, and Linux. A single, native 18 MB binary.'
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params
+  const { t } = await getTranslation(locale as Locale)
+  return {
+    title: t('meta.download.title'),
+    description: t('meta.download.description')
+  }
 }
 
 const MacIcon = (
@@ -36,7 +44,18 @@ export default async function DownloadPage({ params }: { params: Promise<{ local
   const { locale } = await params
   const l = locale as Locale
   const { t } = await getTranslation(l)
-  const { installers } = downloadsConfig.latest
+  const resolveAssets = (platform: 'macos' | 'windows' | 'linux') =>
+    downloadsConfig.latest.installers[platform].map((a) => ({
+      filename: a.filename,
+      label: t(a.labelKey),
+      size: a.size,
+      verification: a.verification
+    }))
+  const installers = {
+    macos: resolveAssets('macos'),
+    windows: resolveAssets('windows'),
+    linux: resolveAssets('linux')
+  }
   const platformStrings = {
     recommended: t('download.platforms.recommended'),
     appleNotarized: t('download.verification.appleNotarized'),

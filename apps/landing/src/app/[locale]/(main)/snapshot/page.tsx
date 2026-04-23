@@ -6,10 +6,17 @@ import { SnapshotHero } from '@/components/snapshot/SnapshotHero'
 import { SnapshotShowcase } from '@/components/snapshot/SnapshotShowcase'
 import { resolveSnapshotModules } from '@/config/snapshot'
 
-export const metadata: Metadata = {
-  title: 'Snapshot — Dockerman',
-  description:
-    "A tour of Dockerman's 18 core modules — dashboard, terminal, logs, images, volumes, Kubernetes, and everything in between."
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params
+  const { t } = await getTranslation(locale as Locale)
+  return {
+    title: t('meta.snapshot.title'),
+    description: t('meta.snapshot.description')
+  }
 }
 
 export default async function SnapshotPage({ params }: { params: Promise<{ locale: string }> }) {

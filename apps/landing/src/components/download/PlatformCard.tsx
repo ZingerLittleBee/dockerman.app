@@ -1,4 +1,11 @@
-import { downloadsConfig, type InstallerAsset, type Verification } from '@/config/downloads'
+import { downloadsConfig, type Verification } from '@/config/downloads'
+
+export interface ResolvedInstallerAsset {
+  filename: string
+  label: string
+  size: string
+  verification: Verification
+}
 
 export interface PlatformStrings {
   recommended: string
@@ -24,7 +31,7 @@ function verificationLabel(v: Verification, strings: PlatformStrings): string | 
 export interface PlatformCardProps {
   title: string
   minSpec: string
-  assets: InstallerAsset[]
+  assets: ResolvedInstallerAsset[]
   icon: React.ReactNode
   strings: PlatformStrings
   featured?: boolean

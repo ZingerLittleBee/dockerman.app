@@ -23,7 +23,7 @@ export default function ChangelogPageContent({ copy, entries, locale }: Props) {
         e.version,
         e.title,
         e.summary,
-        ...e.sections.flatMap((s) => s.items.map((i) => i.content)),
+        ...e.sections.flatMap((s) => s.items.map((i) => i.content))
       ]
         .join(' ')
         .toLowerCase()
@@ -42,18 +42,14 @@ export default function ChangelogPageContent({ copy, entries, locale }: Props) {
               className="h-[6px] w-[6px] rounded-full"
               style={{
                 background: 'var(--color-dm-ok)',
-                boxShadow: '0 0 0 3px color-mix(in srgb, var(--color-dm-ok) 28%, transparent)',
+                boxShadow: '0 0 0 3px color-mix(in srgb, var(--color-dm-ok) 28%, transparent)'
               }}
             />
             {copy.badge}
           </span>
 
           <h1 className="mt-[18px] max-w-[16ch] font-bold text-[clamp(40px,5.6vw,64px)] text-dm-ink leading-none tracking-[-0.035em]">
-            {copy.title.split(',').length > 1 ? (
-              <TitleWithAccent title={copy.title} />
-            ) : (
-              copy.title
-            )}
+            {copy.title.split(',').length > 1 ? <TitleWithAccent title={copy.title} /> : copy.title}
           </h1>
 
           <p className="mt-[18px] max-w-[60ch] text-[16.5px] text-dm-ink-3 leading-[1.55]">
@@ -62,7 +58,7 @@ export default function ChangelogPageContent({ copy, entries, locale }: Props) {
 
           {/* toolbar */}
           <div className="mt-7 flex flex-wrap items-center gap-[10px] border-dm-line border-b pb-7">
-            <ChangelogSearch onQuery={setQuery} />
+            <ChangelogSearch locale={locale} onQuery={setQuery} />
             <a
               className="ml-auto inline-flex items-center gap-[6px] rounded-[8px] border border-dm-line bg-dm-bg-elev px-[10px] py-2 font-[var(--font-dm-mono)] text-[12px] text-dm-ink-3 no-underline hover:border-[var(--color-dm-warn)] hover:text-[var(--color-dm-warn)]"
               href="/api/changelog/rss"
@@ -87,11 +83,9 @@ export default function ChangelogPageContent({ copy, entries, locale }: Props) {
       {/* Layout: 220px TOC + releases */}
       <section className="px-8 pb-20">
         <div className="mx-auto max-w-[1280px]">
-          <div className="grid gap-6 md:grid-cols-[240px_minmax(0,1fr)] md:gap-[80px] pt-8">
+          <div className="grid gap-6 pt-8 md:grid-cols-[240px_minmax(0,1fr)] md:gap-[80px]">
             <aside className="hidden md:block">
-              <div
-                className="mb-[14px] pl-[14px] font-[var(--font-dm-mono)] text-[11px] text-dm-ink-4 uppercase tracking-[0.08em]"
-              >
+              <div className="mb-[14px] pl-[14px] font-[var(--font-dm-mono)] text-[11px] text-dm-ink-4 uppercase tracking-[0.08em]">
                 Releases
               </div>
               <ChangelogToc entries={filtered} />
@@ -119,9 +113,8 @@ function TitleWithAccent({ title }: { title: string }) {
       <em
         className="bg-clip-text font-[var(--font-dm-display)] font-normal text-transparent italic"
         style={{
-          backgroundImage:
-            'linear-gradient(135deg, var(--color-dm-accent-2), #8b5cf6)',
-          letterSpacing: '-0.02em',
+          backgroundImage: 'linear-gradient(135deg, var(--color-dm-accent-2), #8b5cf6)',
+          letterSpacing: '-0.02em'
         }}
       >
         {tail}

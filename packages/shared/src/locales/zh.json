@@ -471,6 +471,15 @@
       "success": "订阅成功，下一次版本发布时我们会邮件通知您。",
       "fallbackSuccess": "正在打开你的邮件客户端以确认订阅。",
       "error": "订阅失败，请稍后再试。"
+    },
+    "callout": {
+      "note": "说明",
+      "tip": "提示",
+      "warn": "警告"
+    },
+    "search": {
+      "placeholder": "按关键词或版本过滤…",
+      "ariaLabel": "按关键词或版本过滤"
     }
   },
   "about": {
@@ -584,6 +593,20 @@
         "release-v4-5-0": "容器文件浏览器、带语法高亮的原地编辑",
         "release-v4-2-0": "命令面板 (⌘;)、带实时 CPU/内存的系统托盘、事件通知",
         "release-v4-0-0": "Compose 项目分组、docker-run 命令解析器、重新设计的统计页面"
+      }
+    },
+    "installers": {
+      "macos": {
+        "universal": "通用版 (Apple Silicon 与 Intel)"
+      },
+      "windows": {
+        "installer": "Windows x64 (安装程序)",
+        "msi": "Windows x64 (MSI,面向管理员)"
+      },
+      "linux": {
+        "appimage": "AppImage (x86_64)",
+        "deb": "Debian / Ubuntu (x86_64)",
+        "rpm": "Fedora / RHEL (x86_64)"
       }
     }
   },
@@ -934,6 +957,24 @@
         "title": "联系方式",
         "content": "如有任何关于数据处理的问题或行使您的权利，请通过以下方式联系我们："
       }
+    }
+  },
+  "meta": {
+    "home": {
+      "title": "Dockerman — 本地优先的 Docker、Podman 与 Kubernetes",
+      "description": "面向 Docker、Podman 与 Kubernetes 的本地优先控制台。基于 Rust 与 Tauri 构建。快速、精确,不打扰你的工作流。"
+    },
+    "pricing": {
+      "title": "定价 — Dockerman",
+      "description": "一次付费,永久使用。本地 Docker 免费。远程主机、SSH 与多机管理一次付费、终身使用。"
+    },
+    "snapshot": {
+      "title": "截图 — Dockerman",
+      "description": "一次遍历 Dockerman 的 18 个核心模块 — 仪表盘、终端、日志、镜像、存储卷、Kubernetes,以及之间的一切。"
+    },
+    "download": {
+      "title": "下载 — Dockerman",
+      "description": "为 macOS、Windows 和 Linux 下载 Dockerman。单个原生 18 MB 二进制文件。"
     }
   }
 }

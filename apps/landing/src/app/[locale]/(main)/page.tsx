@@ -1,4 +1,5 @@
 import type { Locale } from '@repo/shared/i18n'
+import { getTranslation } from '@repo/shared/i18n/server'
 import type { Metadata } from 'next'
 import { CtaFinal } from '@/components/landing/CtaFinal'
 import { FeaturesGrid } from '@/components/landing/FeaturesGrid'
@@ -7,10 +8,17 @@ import { LiveDashboard } from '@/components/landing/LiveDashboard'
 import { ModulesSection } from '@/components/landing/ModulesSection'
 import { RuntimeStrip } from '@/components/landing/RuntimeStrip'
 
-export const metadata: Metadata = {
-  title: 'Dockerman — local-first Docker, Podman & Kubernetes',
-  description:
-    'A local-first control surface for Docker, Podman and Kubernetes. Built in Rust and Tauri. Fast, precise, designed to stay out of your way.'
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params
+  const { t } = await getTranslation(locale as Locale)
+  return {
+    title: t('meta.home.title'),
+    description: t('meta.home.description')
+  }
 }
 
 export default async function LandingPage({ params }: { params: Promise<{ locale: string }> }) {

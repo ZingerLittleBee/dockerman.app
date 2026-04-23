@@ -1,8 +1,8 @@
 'use client'
 
+import { useTranslation } from '@repo/shared/i18n/client'
 import Balancer from 'react-wrap-balancer'
 import { Badge } from '@/components/Badge'
-import { useTranslation } from '@repo/shared/i18n/client'
 
 export default function Privacy() {
   const { t } = useTranslation()

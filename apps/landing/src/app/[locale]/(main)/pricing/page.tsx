@@ -9,10 +9,17 @@ import { PricingHero } from '@/components/pricing/PricingHero'
 import { TrustBar } from '@/components/pricing/TrustBar'
 import { pricingConfig } from '@/config/pricing'
 
-export const metadata: Metadata = {
-  title: 'Pricing — Dockerman',
-  description:
-    'Pay once. Use forever. Free for local Docker. One flat, lifetime price for remote hosts, SSH, and multi-machine management.'
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params
+  const { t } = await getTranslation(locale as Locale)
+  return {
+    title: t('meta.pricing.title'),
+    description: t('meta.pricing.description')
+  }
 }
 
 export default async function PricingPage({ params }: { params: Promise<{ locale: string }> }) {

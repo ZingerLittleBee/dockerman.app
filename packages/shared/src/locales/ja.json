@@ -471,6 +471,15 @@
       "success": "購読しました。次のリリースでメールを送信します。",
       "fallbackSuccess": "購読を確認するためにメールアプリを開いています。",
       "error": "購読に失敗しました。もう一度お試しください。"
+    },
+    "callout": {
+      "note": "ノート",
+      "tip": "ヒント",
+      "warn": "警告"
+    },
+    "search": {
+      "placeholder": "キーワードまたはバージョンで絞り込み…",
+      "ariaLabel": "キーワードまたはバージョンで絞り込み"
     }
   },
   "about": {
@@ -584,6 +593,20 @@
         "release-v4-5-0": "コンテナファイルブラウザ、シンタックスハイライト付きのインライン編集",
         "release-v4-2-0": "コマンドパレット (⌘;)、リアルタイム CPU/メモリ表示のトレイ、イベント通知",
         "release-v4-0-0": "Compose プロジェクトのグルーピング、docker-run パーサー、統計ページ刷新"
+      }
+    },
+    "installers": {
+      "macos": {
+        "universal": "ユニバーサル (Apple Silicon & Intel)"
+      },
+      "windows": {
+        "installer": "Windows x64 (インストーラー)",
+        "msi": "Windows x64 (MSI、管理者向け)"
+      },
+      "linux": {
+        "appimage": "AppImage (x86_64)",
+        "deb": "Debian / Ubuntu (x86_64)",
+        "rpm": "Fedora / RHEL (x86_64)"
       }
     }
   },
@@ -934,6 +957,24 @@
         "title": "お問い合わせ",
         "content": "データ処理に関するご質問や、権利の行使については、以下までお問い合わせください："
       }
+    }
+  },
+  "meta": {
+    "home": {
+      "title": "Dockerman — ローカルファーストの Docker、Podman、Kubernetes",
+      "description": "Docker、Podman、Kubernetes のためのローカルファーストなコントロール画面。Rust と Tauri で構築。高速、正確、ワークフローを邪魔しない設計。"
+    },
+    "pricing": {
+      "title": "価格 — Dockerman",
+      "description": "一度払えば、ずっと使える。ローカル Docker は無料。リモートホスト、SSH、マルチマシン管理は一括払いで生涯利用可能。"
+    },
+    "snapshot": {
+      "title": "スナップショット — Dockerman",
+      "description": "Dockerman の 18 コアモジュールを一巡 — ダッシュボード、ターミナル、ログ、イメージ、ボリューム、Kubernetes、そしてその間のすべて。"
+    },
+    "download": {
+      "title": "ダウンロード — Dockerman",
+      "description": "macOS、Windows、Linux 用の Dockerman をダウンロード。ネイティブな 18 MB のシングルバイナリ。"
     }
   }
 }

@@ -5,7 +5,7 @@ export type Verification =
 
 export interface InstallerAsset {
   filename: string
-  label: string
+  labelKey: string
   size: string
   verification: Verification
 }
@@ -58,7 +58,7 @@ export const downloadsConfig: {
       macos: [
         {
           filename: `Dockerman_${VERSION}_universal.dmg`,
-          label: 'Universal (Apple Silicon & Intel)',
+          labelKey: 'download.installers.macos.universal',
           size: '43 MB',
           verification: { kind: 'apple-notarized' }
         }
@@ -66,7 +66,7 @@ export const downloadsConfig: {
       windows: [
         {
           filename: `Dockerman_${VERSION}_x64-setup.exe`,
-          label: 'Windows x64 (installer)',
+          labelKey: 'download.installers.windows.installer',
           size: '18 MB',
           verification: {
             kind: 'tauri-sig',
@@ -75,7 +75,7 @@ export const downloadsConfig: {
         },
         {
           filename: `Dockerman_${VERSION}_x64_en-US.msi`,
-          label: 'Windows x64 (MSI, for admins)',
+          labelKey: 'download.installers.windows.msi',
           size: '25 MB',
           verification: {
             kind: 'tauri-sig',
@@ -86,7 +86,7 @@ export const downloadsConfig: {
       linux: [
         {
           filename: `Dockerman_${VERSION}_amd64.AppImage`,
-          label: 'AppImage (x86_64)',
+          labelKey: 'download.installers.linux.appimage',
           size: '93 MB',
           verification: {
             kind: 'tauri-sig',
@@ -95,13 +95,13 @@ export const downloadsConfig: {
         },
         {
           filename: `Dockerman_${VERSION}_amd64.deb`,
-          label: 'Debian / Ubuntu (x86_64)',
+          labelKey: 'download.installers.linux.deb',
           size: '24 MB',
           verification: { kind: 'none' }
         },
         {
           filename: `Dockerman-${VERSION}-1.x86_64.rpm`,
-          label: 'Fedora / RHEL (x86_64)',
+          labelKey: 'download.installers.linux.rpm',
           size: '24 MB',
           verification: {
             kind: 'tauri-sig',

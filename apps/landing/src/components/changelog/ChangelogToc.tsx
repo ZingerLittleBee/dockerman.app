@@ -30,7 +30,7 @@ export function ChangelogToc({ entries }: { entries: ChangelogEntryData[] }) {
   // release lists don't leave the current version off-screen.
   useEffect(() => {
     const nav = navRef.current
-    if (!nav || !active) return
+    if (!(nav && active)) return
     const link = nav.querySelector<HTMLAnchorElement>(`a[href="#${active}"]`)
     if (!link) return
     const linkTop = link.offsetTop
@@ -43,15 +43,15 @@ export function ChangelogToc({ entries }: { entries: ChangelogEntryData[] }) {
     } else if (linkBottom > viewBottom - margin) {
       nav.scrollTo({
         top: linkBottom - nav.clientHeight + margin,
-        behavior: 'smooth',
+        behavior: 'smooth'
       })
     }
   }, [active])
 
   return (
     <nav
-      ref={navRef}
       className="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto overscroll-contain pr-1 [scrollbar-color:var(--color-dm-line-strong)_transparent] [scrollbar-width:thin]"
+      ref={navRef}
     >
       <ul className="m-0 list-none border-dm-line border-l p-0">
         {entries.map((e) => {
@@ -66,7 +66,7 @@ export function ChangelogToc({ entries }: { entries: ChangelogEntryData[] }) {
                   borderLeftColor: isActive ? 'var(--color-dm-accent-2)' : 'transparent',
                   backgroundImage: isActive
                     ? 'linear-gradient(90deg, color-mix(in srgb, var(--color-dm-accent-2) 8%, transparent), transparent)'
-                    : undefined,
+                    : undefined
                 }}
                 title={`v${e.version} · ${formatShortDate(e.date)}`}
               >
@@ -74,7 +74,7 @@ export function ChangelogToc({ entries }: { entries: ChangelogEntryData[] }) {
                 <span
                   className="shrink-0 text-[11px]"
                   style={{
-                    color: isActive ? 'var(--color-dm-ink-3)' : 'var(--color-dm-ink-4)',
+                    color: isActive ? 'var(--color-dm-ink-3)' : 'var(--color-dm-ink-4)'
                   }}
                 >
                   {formatShortDate(e.date)}
@@ -104,7 +104,7 @@ function formatShortDate(iso: string): string {
       'Sep',
       'Oct',
       'Nov',
-      'Dec',
+      'Dec'
     ]
     return `${months[d.getUTCMonth()]} ${String(d.getUTCDate()).padStart(2, '0')}`
   } catch {

@@ -8,19 +8,19 @@ interface ChangelogTimelineProps {
   locale: Locale
 }
 
-export function ChangelogTimeline({ entries, locale: _locale }: ChangelogTimelineProps) {
+export function ChangelogTimeline({ entries, locale }: ChangelogTimelineProps) {
   return (
     <div className="flex min-w-0 flex-col gap-20">
       {entries.map((entry, i) => (
         <div key={entry.id}>
-          <ReleaseArticle entry={entry} isLatest={i === 0} />
+          <ReleaseArticle entry={entry} isLatest={i === 0} locale={locale} />
           {i < entries.length - 1 ? (
             <div
               aria-hidden="true"
               className="mt-20 h-px"
               style={{
                 background:
-                  'linear-gradient(90deg, transparent, var(--color-dm-line-strong) 25%, var(--color-dm-line-strong) 75%, transparent)',
+                  'linear-gradient(90deg, transparent, var(--color-dm-line-strong) 25%, var(--color-dm-line-strong) 75%, transparent)'
               }}
             />
           ) : null}
@@ -30,13 +30,21 @@ export function ChangelogTimeline({ entries, locale: _locale }: ChangelogTimelin
   )
 }
 
-function ReleaseArticle({ entry, isLatest }: { entry: ChangelogEntryData; isLatest: boolean }) {
+function ReleaseArticle({
+  entry,
+  isLatest,
+  locale
+}: {
+  entry: ChangelogEntryData
+  isLatest: boolean
+  locale: Locale
+}) {
   // Extract major version for the circle badge: "5.1.0" -> "5".
   const major = entry.version.split('.')[0] ?? ''
   return (
     <article className="scroll-mt-[100px]" id={entry.id}>
       <div className="mb-5 flex flex-wrap items-center gap-3 font-[var(--font-dm-mono)] text-[12px]">
-        <VersionPill major={major} version={entry.version} highlighted={isLatest} />
+        <VersionPill highlighted={isLatest} major={major} version={entry.version} />
         <span className="text-dm-ink-3">{entry.date}</span>
         {isLatest ? (
           <span
@@ -55,7 +63,7 @@ function ReleaseArticle({ entry, isLatest }: { entry: ChangelogEntryData; isLate
       ) : null}
 
       {/* Blocks (Callouts + Figures) render first, in source order. */}
-      <Blocks blocks={entry.blocks} />
+      <Blocks blocks={entry.blocks} locale={locale} />
 
       {/* Sections render as headings + bullet lists. */}
       <div className="md-body flex flex-col gap-8">
@@ -70,7 +78,7 @@ function ReleaseArticle({ entry, isLatest }: { entry: ChangelogEntryData; isLate
 function VersionPill({
   major,
   version,
-  highlighted,
+  highlighted
 }: {
   major: string
   version: string
@@ -85,11 +93,11 @@ function VersionPill({
               borderColor:
                 'color-mix(in srgb, var(--color-dm-accent-2) 40%, var(--color-dm-line-strong))',
               background:
-                'color-mix(in srgb, var(--color-dm-accent-2) 10%, var(--color-dm-bg-elev))',
+                'color-mix(in srgb, var(--color-dm-accent-2) 10%, var(--color-dm-bg-elev))'
             }
           : {
               borderColor: 'var(--color-dm-line-strong)',
-              background: 'var(--color-dm-bg-elev)',
+              background: 'var(--color-dm-bg-elev)'
             }
       }
     >
@@ -98,10 +106,9 @@ function VersionPill({
         style={
           highlighted
             ? {
-                background:
-                  'linear-gradient(135deg, var(--color-dm-accent-2), #8b5cf6)',
+                background: 'linear-gradient(135deg, var(--color-dm-accent-2), #8b5cf6)',
                 boxShadow:
-                  '0 4px 10px -3px color-mix(in srgb, var(--color-dm-accent-2) 50%, transparent)',
+                  '0 4px 10px -3px color-mix(in srgb, var(--color-dm-accent-2) 50%, transparent)'
               }
             : { background: 'var(--color-dm-ink-4)' }
         }
@@ -142,13 +149,13 @@ function TitleMaybeAccent({ title }: { title: string }) {
   return <>{title}</>
 }
 
-function Blocks({ blocks }: { blocks: ChangelogBlock[] }) {
+function Blocks({ blocks, locale }: { blocks: ChangelogBlock[]; locale: Locale }) {
   if (blocks.length === 0) return null
   return (
     <div className="mb-6">
       {blocks.map((b, i) =>
         b.kind === 'callout' ? (
-          <ChangelogCallout body={b.body} key={i} type={b.type} />
+          <ChangelogCallout body={b.body} key={i} locale={locale} type={b.type} />
         ) : (
           <ChangelogFigure caption={b.caption} key={i} src={b.src} />
         )
@@ -165,18 +172,14 @@ function SectionBlock({ section }: { section: ChangelogSection }) {
           aria-hidden="true"
           className="inline-block h-[18px] w-[4px] rounded-[2px]"
           style={{
-            background:
-              'linear-gradient(180deg, var(--color-dm-accent-2), #8b5cf6)',
+            background: 'linear-gradient(180deg, var(--color-dm-accent-2), #8b5cf6)'
           }}
         />
         {section.title}
       </h3>
       <ul className="m-0 list-none p-0">
         {section.items.map((item, i) => (
-          <li
-            className="relative py-[4px] pl-[26px] text-[14px] text-dm-ink-2"
-            key={i}
-          >
+          <li className="relative py-[4px] pl-[26px] text-[14px] text-dm-ink-2" key={i}>
             <span
               aria-hidden="true"
               className="absolute top-0 left-[6px] font-bold text-[22px] leading-[1.3]"

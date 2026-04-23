@@ -471,6 +471,15 @@
       "success": "Estás suscrito. Te enviaremos un correo en el próximo lanzamiento.",
       "fallbackSuccess": "Tu aplicación de correo se está abriendo para confirmar la suscripción.",
       "error": "La suscripción falló. Por favor intenta de nuevo."
+    },
+    "callout": {
+      "note": "Nota",
+      "tip": "Consejo",
+      "warn": "Advertencia"
+    },
+    "search": {
+      "placeholder": "Filtrar por palabra clave o versión…",
+      "ariaLabel": "Filtrar por palabra clave o versión"
     }
   },
   "about": {
@@ -584,6 +593,20 @@
         "release-v4-5-0": "Explorador de archivos del contenedor, edición in-place con resaltado de sintaxis",
         "release-v4-2-0": "Paleta de comandos (⌘;), tray con CPU/mem en vivo, notificaciones de evento",
         "release-v4-0-0": "Agrupación de proyectos Compose, parser de docker-run, página de stats rediseñada"
+      }
+    },
+    "installers": {
+      "macos": {
+        "universal": "Universal (Apple Silicon e Intel)"
+      },
+      "windows": {
+        "installer": "Windows x64 (instalador)",
+        "msi": "Windows x64 (MSI, para admins)"
+      },
+      "linux": {
+        "appimage": "AppImage (x86_64)",
+        "deb": "Debian / Ubuntu (x86_64)",
+        "rpm": "Fedora / RHEL (x86_64)"
       }
     }
   },
@@ -934,6 +957,24 @@
         "title": "Contacto",
         "content": "Para cualquier pregunta sobre el procesamiento de datos o para ejercer tus derechos, por favor contáctanos en"
       }
+    }
+  },
+  "meta": {
+    "home": {
+      "title": "Dockerman — Docker, Podman y Kubernetes local-first",
+      "description": "Una superficie de control local-first para Docker, Podman y Kubernetes. Construido en Rust y Tauri. Rápido, preciso, diseñado para no estorbar."
+    },
+    "pricing": {
+      "title": "Precios — Dockerman",
+      "description": "Paga una vez. Úsalo para siempre. Gratis para Docker local. Un pago único y de por vida para hosts remotos, SSH y gestión multi-máquina."
+    },
+    "snapshot": {
+      "title": "Snapshot — Dockerman",
+      "description": "Un recorrido por los 18 módulos principales de Dockerman — panel, terminal, logs, imágenes, volúmenes, Kubernetes y todo lo demás."
+    },
+    "download": {
+      "title": "Descargar — Dockerman",
+      "description": "Descarga Dockerman para macOS, Windows y Linux. Un único binario nativo de 18 MB."
     }
   }
 }

@@ -471,6 +471,15 @@
       "success": "You're subscribed. We'll email you on the next release.",
       "fallbackSuccess": "Your mail app is opening to confirm the subscription.",
       "error": "Subscription failed. Please try again."
+    },
+    "callout": {
+      "note": "Note",
+      "tip": "Tip",
+      "warn": "Warning"
+    },
+    "search": {
+      "placeholder": "Filter by keyword or version…",
+      "ariaLabel": "Filter by keyword or version"
     }
   },
   "about": {
@@ -584,6 +593,20 @@
         "release-v4-5-0": "Container file browser, in-place editing with syntax highlighting",
         "release-v4-2-0": "Command palette (⌘;), system tray with live CPU/mem, event notifications",
         "release-v4-0-0": "Compose project grouping, docker-run command parser, redesigned stats page"
+      }
+    },
+    "installers": {
+      "macos": {
+        "universal": "Universal (Apple Silicon & Intel)"
+      },
+      "windows": {
+        "installer": "Windows x64 (installer)",
+        "msi": "Windows x64 (MSI, for admins)"
+      },
+      "linux": {
+        "appimage": "AppImage (x86_64)",
+        "deb": "Debian / Ubuntu (x86_64)",
+        "rpm": "Fedora / RHEL (x86_64)"
       }
     }
   },
@@ -934,6 +957,24 @@
         "title": "Contact",
         "content": "For any questions about data processing or to exercise your rights, please contact us at"
       }
+    }
+  },
+  "meta": {
+    "home": {
+      "title": "Dockerman — local-first Docker, Podman & Kubernetes",
+      "description": "A local-first control surface for Docker, Podman and Kubernetes. Built in Rust and Tauri. Fast, precise, designed to stay out of your way."
+    },
+    "pricing": {
+      "title": "Pricing — Dockerman",
+      "description": "Pay once. Use forever. Free for local Docker. One flat, lifetime price for remote hosts, SSH, and multi-machine management."
+    },
+    "snapshot": {
+      "title": "Snapshot — Dockerman",
+      "description": "A tour of Dockerman's 18 core modules — dashboard, terminal, logs, images, volumes, Kubernetes, and everything in between."
+    },
+    "download": {
+      "title": "Download — Dockerman",
+      "description": "Download Dockerman for macOS, Windows, and Linux. A single, native 18 MB binary."
     }
   }
 }
