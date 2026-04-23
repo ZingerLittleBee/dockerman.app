@@ -21,7 +21,7 @@ export default async function PricingPage({
 }) {
   const { locale } = await params
   const l = locale as Locale
-  const { plans, earlyBirdDeadlineUtc } = pricingConfig
+  const { plans, earlyBirdDeadlineUtc, refund } = pricingConfig
   const isActive = new Date(earlyBirdDeadlineUtc).getTime() > Date.now()
 
   const teamPrice = isActive ? plans.team.priceEarlyBird : plans.team.priceRegular
@@ -115,7 +115,7 @@ export default async function PricingPage({
             <PlanCard
               ctaHref="/checkout/team"
               ctaLabel={`Get Team — $${teamPrice}`}
-              ctaNote="one payment, 30-day refund, lifetime updates"
+              ctaNote={`one payment, ${refund.days}-day refund, lifetime updates`}
               ctaVariant="primary"
               description="Best value for small teams or anyone running multiple machines. Transferable licenses."
               features={[
@@ -157,7 +157,7 @@ export default async function PricingPage({
             <PlanCard
               ctaHref="/checkout/solo"
               ctaLabel={`Get Solo — $${soloPrice}`}
-              ctaNote="one payment, 30-day refund"
+              ctaNote={`one payment, ${refund.days}-day refund`}
               ctaVariant="ghost"
               description="For the individual developer. One license, one machine, everything unlocked."
               features={[

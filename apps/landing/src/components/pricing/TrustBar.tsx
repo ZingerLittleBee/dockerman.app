@@ -47,7 +47,10 @@ export function TrustBar() {
             >
               <path d="M12 2v20M2 12h20" />
             </svg>
-            <span>
+            <span
+              className="cursor-help underline decoration-dm-ink-4/40 decoration-dotted underline-offset-[3px]"
+              title={`Estimated from ${pricingConfig.trust.usersEstimatedFrom}`}
+            >
               <Num>{pricingConfig.trust.users.toLocaleString()}+</Num> developers
             </span>
           </Item>
@@ -62,7 +65,7 @@ export function TrustBar() {
               <path d="M12 2l2.5 6.7L22 9.5l-5.5 5 1.5 7.5L12 18.5 6 22l1.5-7.5L2 9.5l7.5-.8z" />
             </svg>
             <span>
-              <Num>{pricingConfig.trust.githubStars.toLocaleString()}</Num> GitHub stars
+              <Num>{pricingConfig.trust.githubStars.toLocaleString()}+</Num> GitHub stars
             </span>
           </Item>
         </div>
