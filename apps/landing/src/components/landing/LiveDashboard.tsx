@@ -96,6 +96,83 @@ function Sidebar() {
   )
 }
 
+const SIDE_ICONS: Record<string, React.ReactNode> = {
+  Dashboard: (
+    <>
+      <rect height="7" rx="1" width="7" x="3" y="3" />
+      <rect height="7" rx="1" width="7" x="14" y="3" />
+      <rect height="7" rx="1" width="7" x="3" y="14" />
+      <rect height="7" rx="1" width="7" x="14" y="14" />
+    </>
+  ),
+  Container: (
+    <>
+      <rect height="13" rx="2" width="18" x="3" y="7" />
+      <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+    </>
+  ),
+  Image: (
+    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+  ),
+  Build: (
+    <>
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <path d="M14 2v6h6M10 13l-2 2 2 2M14 13l2 2-2 2" />
+    </>
+  ),
+  Network: (
+    <>
+      <circle cx="12" cy="12" r="3" />
+      <path d="M3 12h6M15 12h6M12 3v6M12 15v6" />
+    </>
+  ),
+  Volume: (
+    <>
+      <ellipse cx="12" cy="5" rx="9" ry="3" />
+      <path d="M3 5v14a9 3 0 0 0 18 0V5" />
+      <path d="M3 12a9 3 0 0 0 18 0" />
+    </>
+  ),
+  Events: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7v5l3 2" />
+    </>
+  ),
+  Templates: (
+    <>
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <path d="M14 2v6h6M9 15h6M9 18h4" />
+    </>
+  ),
+  Terminal: (
+    <>
+      <rect height="16" rx="2" width="18" x="3" y="4" />
+      <path d="M7 9l3 3-3 3M13 15h4" />
+    </>
+  ),
+  Process: (
+    <>
+      <rect height="16" rx="2" width="18" x="3" y="4" />
+      <path d="M7 8h10M7 12h10M7 16h6" />
+    </>
+  ),
+  Inspect: (
+    <>
+      <circle cx="11" cy="11" r="7" />
+      <path d="M21 21l-4.3-4.3" />
+    </>
+  ),
+  Stats: <path d="M3 20V10M9 20V4M15 20v-8M21 20V14" />,
+  Logs: <path d="M4 6h16M4 12h16M4 18h10" />,
+  File: (
+    <>
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <path d="M14 2v6h6" />
+    </>
+  ),
+}
+
 function SideItem({ label, active }: { label: string; active?: boolean }) {
   return (
     <div
@@ -110,11 +187,8 @@ function SideItem({ label, active }: { label: string; active?: boolean }) {
         strokeWidth={2}
         viewBox="0 0 24 24"
       >
-        {/* Placeholder generic square; fidelity pass (Task 2.15) replaces with per-label icons. */}
-        <rect height="7" rx="1" width="7" x="3" y="3" />
-        <rect height="7" rx="1" width="7" x="14" y="3" />
-        <rect height="7" rx="1" width="7" x="3" y="14" />
-        <rect height="7" rx="1" width="7" x="14" y="14" />
+        <title>{label}</title>
+        {SIDE_ICONS[label]}
       </svg>
       {label}
     </div>
