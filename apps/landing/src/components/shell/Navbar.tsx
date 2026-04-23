@@ -10,9 +10,9 @@ import ThemeSwitch from '@/components/ThemeSwitch'
 const LINKS = [
   { href: '/#features', label: 'Features', anchor: true },
   { href: '/snapshot', label: 'Snapshot' },
-  { href: '/docs', label: 'Docs' },
   { href: '/pricing', label: 'Pricing' },
   { href: '/changelog', label: 'Changelog' },
+  { href: '/docs', label: 'Docs' },
 ]
 
 export function Navbar({ locale }: { locale: Locale }) {
