@@ -18,7 +18,7 @@ export function TrustBar() {
               <rect height="10" rx="2" width="16" x="4" y="11" />
               <path d="M8 11V7a4 4 0 0 1 8 0v4" />
             </svg>
-            <span>Stripe secure checkout</span>
+            <span>Secure checkout</span>
           </Item>
           <Item>
             <svg
