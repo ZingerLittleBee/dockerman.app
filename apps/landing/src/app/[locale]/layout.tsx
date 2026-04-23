@@ -4,7 +4,6 @@ import { type Locale, locales } from '@repo/shared/i18n'
 import { RootProvider } from 'fumadocs-ui/provider/next'
 import { Geist_Mono, Instrument_Serif, Inter } from 'next/font/google'
 import { siteConfig } from '@/app/siteConfig'
-import { ThemeScript } from '@/components/shell/ThemeScript'
 import { provider } from '@/lib/i18n/fumadocs-ui'
 
 const inter = Inter({
@@ -80,7 +79,6 @@ export default async function LocaleLayout({
   return (
     <RootProvider i18n={provider(locale)}>
       <I18nProvider locale={locale}>
-        <ThemeScript />
         <div
           className={`${inter.variable} ${geistMono.variable} ${instrumentSerif.variable} contents`}
         >

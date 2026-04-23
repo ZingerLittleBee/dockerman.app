@@ -1,10 +1,12 @@
+import type { Locale } from '@repo/shared/i18n'
 import Link from 'next/link'
 
-export function Footer({ locale }: { locale: string }) {
+export function Footer({ locale }: { locale: Locale }) {
   const prefix = (href: string) => `/${locale}${href === '/' ? '' : href}`
 
   return (
     <footer className="border-dm-line border-t py-12 text-[13px] text-dm-ink-3">
+      {/* TODO(i18n): labels deferred per Phase 6 of the landing redesign plan. */}
       <div className="mx-auto grid max-w-[1240px] gap-10 px-8 md:grid-cols-4">
         <div className="md:col-span-2">
           <div className="font-bold text-[15px] text-dm-ink">Dockerman</div>

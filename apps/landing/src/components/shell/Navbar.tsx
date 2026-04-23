@@ -1,10 +1,12 @@
 'use client'
 
+import type { Locale } from '@repo/shared/i18n'
 import { RiGithubFill } from '@remixicon/react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import ThemeSwitch from '@/components/ThemeSwitch'
 
+// TODO(i18n): labels deferred per docs/superpowers/plans/2026-04-23-landing-redesign-plan.md — localize in Phase 6.
 const LINKS = [
   { href: '/', label: 'Features' },
   { href: '/pricing', label: 'Pricing' },
@@ -13,7 +15,7 @@ const LINKS = [
   { href: '/changelog', label: 'Changelog' }
 ]
 
-export function Navbar({ locale }: { locale: string }) {
+export function Navbar({ locale }: { locale: Locale }) {
   const pathname = usePathname()
 
   const hrefFor = (href: string) => `/${locale}${href === '/' ? '' : href}`

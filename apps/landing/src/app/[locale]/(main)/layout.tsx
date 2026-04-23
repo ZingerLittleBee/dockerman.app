@@ -1,4 +1,5 @@
 import { LenisProvider } from '@repo/shared/components/LenisProvider'
+import type { Locale } from '@repo/shared/i18n'
 import type { ReactNode } from 'react'
 import { Footer } from '@/components/shell/Footer'
 import { GridBackground } from '@/components/shell/GridBackground'
@@ -11,13 +12,16 @@ export default async function MainLayout({
   children: ReactNode
   params: Promise<{ locale: string }>
 }) {
-  const { locale } = await params
+  const { locale: rawLocale } = await params
+  const locale = rawLocale as Locale
   return (
     <LenisProvider>
       <GridBackground />
-      <Navbar locale={locale} />
-      <div className="relative z-10">{children}</div>
-      <Footer locale={locale} />
+      <div className="relative z-10">
+        <Navbar locale={locale} />
+        {children}
+        <Footer locale={locale} />
+      </div>
     </LenisProvider>
   )
 }
