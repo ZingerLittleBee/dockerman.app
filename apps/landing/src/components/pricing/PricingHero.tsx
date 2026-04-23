@@ -1,27 +1,52 @@
-import { Pill } from '@/components/ui/Pill'
-
 export function PricingHero() {
   return (
-    <section className="px-8 pt-16 pb-8">
-      <div className="mx-auto max-w-[1240px]">
-        <Pill>Early bird · 30% off until June 30</Pill>
-        <h1 className="mt-5 max-w-[18ch] font-bold text-[clamp(40px,6vw,72px)] text-dm-ink leading-[0.95] tracking-[-0.04em]">
-          Simple pricing,{' '}
+    <section className="relative px-8 pt-16 pb-10">
+      <div
+        aria-hidden
+        className="-translate-x-1/2 -z-[1] pointer-events-none absolute top-5 left-1/2 h-[420px] w-[900px] blur-[40px]"
+        style={{
+          background:
+            'radial-gradient(ellipse at center top, color-mix(in srgb, var(--color-dm-accent-2) 22%, transparent), transparent 60%)',
+        }}
+      />
+      <div className="mx-auto max-w-[1140px] text-center">
+        {/* kicker with warn dot + LIMITED tag */}
+        <span className="inline-flex items-center gap-[10px] rounded-full border border-dm-line-strong bg-dm-bg-elev py-[5px] pr-[10px] pl-[6px] font-[var(--font-dm-mono)] text-[12px] text-dm-ink-2">
           <span
-            className="italic"
+            className="h-[6px] w-[6px] rounded-full"
             style={{
-              fontFamily: 'var(--font-dm-display)',
+              background: 'var(--color-dm-warn)',
+              boxShadow: '0 0 0 4px color-mix(in srgb, var(--color-dm-warn) 30%, transparent)',
+              animation: 'dm-pulse 2.2s ease-in-out infinite',
+            }}
+          />
+          <span>Early Bird · 34% off · ends soon</span>
+          <span
+            className="rounded-full px-2 py-[2px] font-semibold text-[10px]"
+            style={{ background: 'var(--color-dm-warn)', color: 'var(--color-dm-bg)' }}
+          >
+            LIMITED
+          </span>
+        </span>
+
+        <h1 className="mx-auto mt-[22px] max-w-[16ch] font-bold text-[clamp(48px,7vw,88px)] text-dm-ink leading-[0.98] tracking-[-0.04em]">
+          Pay once. Use{' '}
+          <em
+            className="bg-clip-text font-[var(--font-dm-display)] font-normal text-transparent italic"
+            style={{
               backgroundImage:
-                'linear-gradient(135deg, var(--color-dm-accent) 0%, var(--color-dm-accent-2) 100%)',
-              WebkitBackgroundClip: 'text',
-              backgroundClip: 'text',
-              color: 'transparent',
-              fontWeight: 400
+                'linear-gradient(135deg, var(--color-dm-accent-2), #8b5cf6)',
+              letterSpacing: '-0.02em',
             }}
           >
-            no seats, no surveillance.
-          </span>
+            forever.
+          </em>
         </h1>
+
+        <p className="mx-auto mt-[22px] max-w-[58ch] text-[18px] text-dm-ink-3 leading-[1.5]">
+          Free for local Docker. One flat, lifetime price for remote hosts, SSH, and multi-machine
+          management. No subscriptions. No seat math. No surprise invoices.
+        </p>
       </div>
     </section>
   )

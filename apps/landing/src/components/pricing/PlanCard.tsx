@@ -1,66 +1,190 @@
 import type { ReactNode } from 'react'
 
+export interface PlanFeature {
+  label: ReactNode
+  included?: boolean
+}
+
 export interface PlanCardProps {
-  name: string
-  price: ReactNode
-  priceSuffix?: string
+  label: string
+  name: ReactNode
+  description: string
+  price: number | string
   strikePrice?: string
-  tagline: string
-  features: string[]
+  freq: string
+  features: PlanFeature[]
   ctaLabel: string
   ctaHref: string
-  highlight?: boolean
-  highlightLabel?: string
+  ctaVariant?: 'primary' | 'ghost' | 'disabled'
+  ctaNote?: string
+  highlighted?: boolean
+  ribbon?: string
 }
 
 export function PlanCard(p: PlanCardProps) {
+  const {
+    label,
+    name,
+    description,
+    price,
+    strikePrice,
+    freq,
+    features,
+    ctaLabel,
+    ctaHref,
+    ctaVariant = 'ghost',
+    ctaNote,
+    highlighted,
+    ribbon,
+  } = p
+
   return (
     <article
-      className={`relative flex flex-col rounded-[16px] border p-6 ${
-        p.highlight
-          ? 'border-transparent bg-dm-bg-elev shadow-[0_0_0_1.5px_var(--color-dm-accent-2),0_30px_60px_-20px_var(--color-dm-accent-2)]'
-          : 'border-dm-line bg-dm-bg-elev'
-      }`}
+      className={
+        highlighted
+          ? 'relative flex flex-col rounded-[16px] border p-8'
+          : 'flex flex-col rounded-[16px] border border-dm-line bg-dm-bg-elev p-8'
+      }
+      style={
+        highlighted
+          ? {
+              borderColor:
+                'color-mix(in srgb, var(--color-dm-accent-2) 40%, var(--color-dm-line-strong))',
+              backgroundImage: `radial-gradient(ellipse at top, color-mix(in srgb, var(--color-dm-accent-2) 10%, transparent), transparent 55%)`,
+              backgroundColor: 'var(--color-dm-bg-elev)',
+              boxShadow:
+                '0 25px 60px -25px color-mix(in srgb, var(--color-dm-accent-2) 40%, transparent)',
+              transform: 'translateY(-6px)',
+            }
+          : undefined
+      }
     >
-      {p.highlight && p.highlightLabel && (
+      {ribbon ? (
         <span
-          className="-top-3 absolute left-6 rounded-full border border-dm-line-strong bg-dm-ink px-3 py-[3px] font-semibold font-[var(--font-dm-mono)] text-[11px] text-dm-bg tracking-wide"
+          className="absolute top-[18px] right-[18px] rounded-full px-[10px] py-1 font-[var(--font-dm-mono)] font-bold text-[10.5px] text-white uppercase tracking-[0.04em]"
+          style={{
+            background:
+              'linear-gradient(135deg, var(--color-dm-accent-2), #8b5cf6)',
+            boxShadow:
+              '0 8px 20px -6px color-mix(in srgb, var(--color-dm-accent-2) 50%, transparent)',
+          }}
         >
-          {p.highlightLabel}
+          {ribbon}
         </span>
-      )}
-      <div className="text-[13px] text-dm-ink-3">{p.name}</div>
-      <div className="mt-3 flex items-baseline gap-2">
-        <div className="font-bold font-[var(--font-dm-mono)] text-[48px] text-dm-ink leading-none tracking-[-0.03em]">
-          {p.price}
-        </div>
-        {p.priceSuffix && <div className="text-[13px] text-dm-ink-3">{p.priceSuffix}</div>}
-        {p.strikePrice && (
-          <div className="text-[13px] text-dm-ink-4 line-through">{p.strikePrice}</div>
-        )}
+      ) : null}
+
+      <div className="font-[var(--font-dm-mono)] font-semibold text-[11px] text-dm-ink-3 uppercase tracking-[0.1em]">
+        {label}
       </div>
-      <p className="mt-2 text-[13px] text-dm-ink-2">{p.tagline}</p>
-      <ul className="mt-6 flex-1 space-y-3 text-[14px] text-dm-ink-2">
-        {p.features.map((f) => (
-          <li className="flex items-start gap-2" key={f}>
-            <span
-              className="mt-[6px] h-[6px] w-[6px] rounded-full"
-              style={{ background: 'var(--color-dm-accent)' }}
-            />
-            <span>{f}</span>
-          </li>
-        ))}
+      <div className="mt-[10px] font-bold text-[26px] tracking-[-0.025em]">{name}</div>
+      <div className="mt-[6px] min-h-[38px] text-[13px] text-dm-ink-3 leading-[1.5]">
+        {description}
+      </div>
+
+      <div className="mt-6 flex items-baseline gap-[10px] border-dm-line border-b pb-6">
+        <div className="font-bold text-[56px] leading-none tracking-[-0.04em] tabular-nums">
+          <span className="mr-[2px] align-top font-semibold text-[24px] text-dm-ink-3">$</span>
+          {price}
+        </div>
+        {strikePrice ? (
+          <div
+            className="font-[var(--font-dm-mono)] text-[16px] text-dm-ink-4 line-through"
+            style={{ textDecorationThickness: '1.5px' }}
+          >
+            {strikePrice}
+          </div>
+        ) : null}
+        <div className="ml-auto font-[var(--font-dm-mono)] text-[12px] text-dm-ink-3 tracking-[0.02em]">
+          {freq}
+        </div>
+      </div>
+
+      <ul className="m-0 mt-5 mb-7 flex list-none flex-col gap-[11px] p-0">
+        {features.map((f, i) => {
+          const muted = f.included === false
+          return (
+            <li
+              className={`flex items-start gap-[10px] text-[13.5px] leading-[1.5] ${
+                muted ? 'line-through' : ''
+              }`}
+              key={`${i}-${typeof f.label === 'string' ? f.label : ''}`}
+              style={{
+                color: muted ? 'var(--color-dm-ink-4)' : 'var(--color-dm-ink-2)',
+                textDecorationThickness: muted ? '1px' : undefined,
+                textDecorationColor: muted ? 'var(--color-dm-ink-4)' : undefined,
+              }}
+            >
+              <span
+                aria-hidden="true"
+                className="mt-[2px] grid h-4 w-4 flex-shrink-0 place-items-center rounded"
+                style={{
+                  background: muted
+                    ? 'var(--color-dm-bg-soft)'
+                    : 'color-mix(in srgb, var(--color-dm-ok) 14%, transparent)',
+                  color: muted ? 'var(--color-dm-ink-4)' : 'var(--color-dm-ok)',
+                }}
+              >
+                {muted ? (
+                  <svg fill="none" height="10" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24" width="10">
+                    <line x1="6" x2="18" y1="6" y2="18" />
+                    <line x1="6" x2="18" y1="18" y2="6" />
+                  </svg>
+                ) : (
+                  <svg fill="none" height="10" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24" width="10">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                )}
+              </span>
+              <span>{f.label}</span>
+            </li>
+          )
+        })}
       </ul>
+
       <a
-        className={`mt-8 block rounded-lg px-4 py-[10px] text-center font-medium text-[14px] ${
-          p.highlight
-            ? 'bg-dm-ink text-dm-bg'
-            : 'border border-dm-line-strong text-dm-ink hover:bg-dm-bg-soft'
+        aria-disabled={ctaVariant === 'disabled' || undefined}
+        className={`mt-auto inline-flex cursor-pointer items-center justify-center gap-2 rounded-[10px] px-[18px] py-[13px] font-semibold text-[14px] no-underline transition-all ${
+          ctaVariant === 'primary'
+            ? 'text-white hover:-translate-y-px'
+            : ctaVariant === 'disabled'
+              ? 'cursor-not-allowed border border-dm-line bg-dm-bg-soft text-dm-ink-3'
+              : 'border border-dm-line-strong bg-transparent text-dm-ink hover:bg-dm-bg-soft'
         }`}
-        href={p.ctaHref}
+        href={ctaVariant === 'disabled' ? undefined : ctaHref}
+        style={
+          ctaVariant === 'primary'
+            ? {
+                background:
+                  'linear-gradient(180deg, var(--color-dm-accent-2), color-mix(in srgb, var(--color-dm-accent-2) 80%, black))',
+                borderColor: 'transparent',
+                boxShadow:
+                  '0 10px 24px -8px color-mix(in srgb, var(--color-dm-accent-2) 55%, transparent)',
+              }
+            : undefined
+        }
       >
-        {p.ctaLabel}
+        {ctaVariant === 'primary' ? (
+          <svg
+            aria-hidden="true"
+            fill="none"
+            height="14"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeWidth="2.5"
+            viewBox="0 0 24 24"
+            width="14"
+          >
+            <path d="M5 12h14M13 5l7 7-7 7" />
+          </svg>
+        ) : null}
+        {ctaLabel}
       </a>
+
+      {ctaNote ? (
+        <div className="mt-3 text-center font-[var(--font-dm-mono)] text-[11.5px] text-dm-ink-4">
+          {ctaNote}
+        </div>
+      ) : null}
     </article>
   )
 }

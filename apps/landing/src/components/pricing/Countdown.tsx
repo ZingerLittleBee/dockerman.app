@@ -9,7 +9,7 @@ export function diff(targetMs: number, nowMs: number) {
     hours: Math.floor((ms % 86_400_000) / 3_600_000),
     minutes: Math.floor((ms % 3_600_000) / 60_000),
     seconds: Math.floor((ms % 60_000) / 1000),
-    expired: ms === 0
+    expired: ms === 0,
   }
 }
 
@@ -33,18 +33,25 @@ export function Countdown({ deadlineUtc }: { deadlineUtc: string }) {
 
   const cells: Array<[string, number]> = [
     ['days', d.days],
-    ['hours', d.hours],
-    ['minutes', d.minutes],
-    ['seconds', d.seconds]
+    ['hrs', d.hours],
+    ['min', d.minutes],
+    ['sec', d.seconds],
   ]
   return (
-    <div className="flex items-center gap-4 font-[var(--font-dm-mono)]">
+    <div className="flex gap-[6px] font-[var(--font-dm-mono)] tabular-nums">
       {cells.map(([label, v]) => (
-        <div className="text-center" key={label}>
-          <div className="font-bold text-[28px] text-dm-ink">
+        <div
+          className="min-w-[42px] rounded-[7px] px-[2px] py-[6px] text-center"
+          key={label}
+          style={{ background: 'var(--color-dm-ink)', color: 'var(--color-dm-bg)' }}
+        >
+          <div className="font-bold text-[18px] leading-none tracking-[-0.02em]">
             {v.toString().padStart(2, '0')}
           </div>
-          <div className="mt-1 text-[11px] text-dm-ink-3 uppercase tracking-wider">
+          <div
+            className="mt-[3px] text-[9px] uppercase tracking-[0.08em]"
+            style={{ color: 'color-mix(in srgb, var(--color-dm-bg) 50%, var(--color-dm-ink))' }}
+          >
             {label}
           </div>
         </div>
