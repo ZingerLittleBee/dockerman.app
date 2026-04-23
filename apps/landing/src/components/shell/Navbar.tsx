@@ -10,7 +10,7 @@ import ThemeSwitch from '@/components/ThemeSwitch'
 // Order mirrors Landing.html reference: Features / Modules / Docs / Changelog / Pricing.
 const LINKS = [
   { href: '/#features', label: 'Features', anchor: true },
-  { href: '/#modules', label: 'Modules', anchor: true },
+  { href: '/snapshot', label: 'Snapshot' },
   { href: '/docs', label: 'Docs' },
   { href: '/changelog', label: 'Changelog' },
   { href: '/pricing', label: 'Pricing' },
