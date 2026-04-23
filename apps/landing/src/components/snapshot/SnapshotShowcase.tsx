@@ -6,6 +6,7 @@ import { SNAPSHOT_MODULES } from '@/config/snapshot'
 import { ModuleIcon } from './ModuleIcon'
 
 const TOTAL = SNAPSHOT_MODULES.length
+const DESKTOP_MQ = '(min-width: 768px)'
 
 export function SnapshotShowcase() {
   const [active, setActive] = useState(0)
@@ -13,14 +14,53 @@ export function SnapshotShowcase() {
   const [lightbox, setLightbox] = useState(false)
   const railRef = useRef<HTMLElement | null>(null)
   const mobRef = useRef<HTMLDivElement | null>(null)
+  const sentinelRefs = useRef<(HTMLDivElement | null)[]>([])
 
-  const go = useCallback((next: number) => {
-    const n = ((next % TOTAL) + TOTAL) % TOTAL
+  const setActiveSync = useCallback((n: number) => {
     setActive((cur) => {
       setPrev(cur)
       return n
     })
   }, [])
+
+  const go = useCallback(
+    (next: number) => {
+      const n = ((next % TOTAL) + TOTAL) % TOTAL
+      const sentinel = sentinelRefs.current.at(n) ?? null
+      const isDesktop = typeof window !== 'undefined' && window.matchMedia(DESKTOP_MQ).matches
+      if (sentinel && isDesktop) {
+        sentinel.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        return
+      }
+      setActiveSync(n)
+    },
+    [setActiveSync]
+  )
+
+  // Scroll-driven active index on md+ — pin the viewer, let sentinels crossing
+  // the viewport center advance the slide.
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    if (!window.matchMedia(DESKTOP_MQ).matches) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            const idx = Number(entry.target.getAttribute('data-i'))
+            if (!Number.isNaN(idx)) setActiveSync(idx)
+          }
+        }
+      },
+      { rootMargin: '-50% 0px -50% 0px', threshold: 0 }
+    )
+
+    for (const el of sentinelRefs.current) {
+      if (el) observer.observe(el)
+    }
+
+    return () => observer.disconnect()
+  }, [setActiveSync])
 
   // Deep-link on load.
   useEffect(() => {
@@ -128,32 +168,54 @@ export function SnapshotShowcase() {
             ))}
           </aside>
 
-          {/* Viewer */}
+          {/* Viewer column */}
           <div className="relative">
-            <div
-              className="relative overflow-hidden rounded-[16px] border border-dm-line-strong bg-dm-bg-elev"
-              style={{ boxShadow: '0 20px 40px -20px rgb(0 0 0 / 0.35)' }}
-            >
-              <ViewerTopbar
-                active={active}
-                label={current.label}
-                onNext={() => go(active + 1)}
-                onPrev={() => go(active - 1)}
-                onZoom={() => setLightbox(true)}
-                pager={n}
-              />
-              <Stage active={active} onZoom={() => setLightbox(true)} prev={prev} />
+            {/* Sentinels (md+ only): each 70vh, stacked to build the scroll track
+                that drives the active slide via IntersectionObserver. */}
+            <div aria-hidden="true" className="pointer-events-none hidden md:block">
+              {SNAPSHOT_MODULES.map((m, i) => (
+                <div
+                  className="h-[70vh]"
+                  data-i={i}
+                  key={`sentinel-${m.key}`}
+                  ref={(el) => {
+                    sentinelRefs.current[i] = el
+                  }}
+                />
+              ))}
             </div>
 
-            <CaptionStrip
-              descHtml={current.desc}
-              em={current.em}
-              label={current.label}
-              onCopyLink={() => {
-                const url = `${window.location.href.split('#')[0]}#${current.key}`
-                navigator.clipboard?.writeText(url).catch(() => undefined)
-              }}
-            />
+            {/* Viewer + caption: on md+ an absolute overlay with a sticky child
+                pins the viewer for the length of the sentinel track; on mobile
+                it falls back to normal block flow. */}
+            <div className="md:absolute md:inset-0">
+              <div className="md:sticky md:top-[84px]">
+                <div
+                  className="relative overflow-hidden rounded-[16px] border border-dm-line-strong bg-dm-bg-elev"
+                  style={{ boxShadow: '0 20px 40px -20px rgb(0 0 0 / 0.35)' }}
+                >
+                  <ViewerTopbar
+                    active={active}
+                    label={current.label}
+                    onNext={() => go(active + 1)}
+                    onPrev={() => go(active - 1)}
+                    onZoom={() => setLightbox(true)}
+                    pager={n}
+                  />
+                  <Stage active={active} onZoom={() => setLightbox(true)} prev={prev} />
+                </div>
+
+                <CaptionStrip
+                  descHtml={current.desc}
+                  em={current.em}
+                  label={current.label}
+                  onCopyLink={() => {
+                    const url = `${window.location.href.split('#')[0]}#${current.key}`
+                    navigator.clipboard?.writeText(url).catch(() => undefined)
+                  }}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
