@@ -33,10 +33,17 @@ export function SnapshotHero() {
             style={{
               backgroundImage:
                 'linear-gradient(135deg, var(--color-dm-accent), var(--color-dm-accent-2))',
-              paddingInlineEnd: '0.18em',
-              marginInlineEnd: '-0.18em',
-              paddingBlockEnd: '0.18em',
-              marginBlockEnd: '-0.18em'
+              // Italic glyphs (e.g. `l`, `y`, `f`) overshoot the tight
+              // `leading-[0.98]` line box. Without room, the gradient paint
+              // area (background-clip: text) clips their tops/descenders.
+              // box-decoration-break: clone makes the padding apply to every
+              // line fragment, so wrapping (`every` + `surface.`) paints cleanly.
+              paddingInline: '0.18em',
+              marginInline: '-0.18em',
+              paddingBlock: '0.18em',
+              marginBlock: '-0.18em',
+              WebkitBoxDecorationBreak: 'clone',
+              boxDecorationBreak: 'clone'
             }}
           >
             every surface.
