@@ -10,7 +10,7 @@ interface ChangelogTimelineProps {
 
 export function ChangelogTimeline({ entries, locale: _locale }: ChangelogTimelineProps) {
   return (
-    <div className="flex max-w-[760px] flex-col gap-20">
+    <div className="flex min-w-0 flex-col gap-20">
       {entries.map((entry, i) => (
         <div key={entry.id}>
           <ReleaseArticle entry={entry} isLatest={i === 0} />

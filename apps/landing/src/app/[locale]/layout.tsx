@@ -77,7 +77,10 @@ export default async function LocaleLayout({
   const locale = rawLocale as Locale
 
   return (
-    <RootProvider i18n={provider(locale)}>
+    <RootProvider
+      i18n={provider(locale)}
+      theme={{ defaultTheme: 'dark', enableSystem: false, attribute: 'class' }}
+    >
       <I18nProvider locale={locale}>
         <div
           className={`${inter.variable} ${geistMono.variable} ${instrumentSerif.variable} contents`}
