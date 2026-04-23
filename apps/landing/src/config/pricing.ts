@@ -1,5 +1,5 @@
 export const pricingConfig = {
-  earlyBirdDeadlineUtc: '2026-06-30T23:59:59Z',
+  earlyBirdDeadlineUtc: '2026-04-30T23:59:59Z',
   plans: {
     free: { price: 0 },
     team: { priceEarlyBird: 19, priceRegular: 29, devices: 3 },
