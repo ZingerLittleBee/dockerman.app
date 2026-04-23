@@ -4,12 +4,12 @@ import Link from 'next/link'
 export function CtaFinal({ locale }: { locale: Locale }) {
   return (
     <section className="px-8">
-      <div className="mx-auto max-w-[1240px] my-24">
+      <div className="mx-auto my-24 max-w-[1240px]">
         <div
           className="relative overflow-hidden rounded-[24px] border border-dm-line-strong bg-dm-bg-elev px-12 py-20 text-center"
           style={{
             backgroundImage: `radial-gradient(ellipse at top right, color-mix(in srgb, var(--color-dm-accent-2) 15%, transparent), transparent 50%),
-              radial-gradient(ellipse at bottom left, color-mix(in srgb, var(--color-dm-accent) 15%, transparent), transparent 50%)`,
+              radial-gradient(ellipse at bottom left, color-mix(in srgb, var(--color-dm-accent) 15%, transparent), transparent 50%)`
           }}
         >
           {/* decorative grid overlay */}
@@ -19,24 +19,24 @@ export function CtaFinal({ locale }: { locale: Locale }) {
             style={{
               backgroundImage: `linear-gradient(var(--color-dm-grid) 1px, transparent 1px),
                 linear-gradient(90deg, var(--color-dm-grid) 1px, transparent 1px)`,
-              backgroundSize: '40px 40px',
+              backgroundSize: '40px 40px'
             }}
           />
           <h2 className="relative m-0 font-bold text-[clamp(36px,5vw,64px)] text-dm-ink leading-[1.02] tracking-[-0.04em]">
             Open the tray.{' '}
             <em
-              className="bg-clip-text font-[var(--font-dm-display)] font-normal italic text-transparent"
+              className="bg-clip-text font-[var(--font-dm-display)] font-normal text-transparent italic"
               style={{
                 backgroundImage:
-                  'linear-gradient(135deg, var(--color-dm-accent), var(--color-dm-accent-2))',
+                  'linear-gradient(135deg, var(--color-dm-accent), var(--color-dm-accent-2))'
               }}
             >
               Ship containers.
             </em>
           </h2>
           <p className="relative mx-auto mt-[18px] mb-8 max-w-[56ch] text-[17px] text-dm-ink-3">
-            Free for personal and non-commercial use. Paid license unlocks remote hosts, team
-            features, and priority support.
+            Free and unrestricted for local use. A paid license unlocks remote hosts, team features,
+            and priority support.
           </p>
           <div className="relative flex flex-wrap justify-center gap-3">
             <Link
@@ -47,7 +47,7 @@ export function CtaFinal({ locale }: { locale: Locale }) {
                   'linear-gradient(135deg, var(--color-dm-accent), var(--color-dm-accent-2))',
                 borderColor: 'transparent',
                 boxShadow:
-                  '0 10px 30px -10px color-mix(in srgb, var(--color-dm-accent-2) 60%, transparent)',
+                  '0 10px 30px -10px color-mix(in srgb, var(--color-dm-accent-2) 60%, transparent)'
               }}
             >
               <svg
@@ -64,7 +64,7 @@ export function CtaFinal({ locale }: { locale: Locale }) {
                 className="inline-flex items-center rounded-md px-[10px] py-1 font-[var(--font-dm-mono)] text-[11px]"
                 style={{
                   background: 'rgb(255 255 255 / 0.18)',
-                  opacity: 0.9,
+                  opacity: 0.9
                 }}
               >
                 macOS · Win · Linux

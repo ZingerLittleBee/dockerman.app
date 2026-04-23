@@ -88,21 +88,15 @@ export function Footer({ locale }: { locale: Locale }) {
 
         {/* Foot note: copyright + tagline */}
         <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-dm-line border-t pt-5 font-[var(--font-dm-mono)] text-[12px] text-dm-ink-4">
-          <span>© {new Date().getFullYear()} Dockerman · MIT licensed</span>
-          <span>local-only · no telemetry · made in the terminal</span>
+          <span>© {new Date().getFullYear()} Dockerman</span>
+          <span>local-first · opt-out analytics</span>
         </div>
       </div>
     </footer>
   )
 }
 
-function FooterCol({
-  heading,
-  children,
-}: {
-  heading: string
-  children: React.ReactNode
-}) {
+function FooterCol({ heading, children }: { heading: string; children: React.ReactNode }) {
   return (
     <div className="flex flex-col gap-[10px]">
       <span className="mb-1 font-semibold text-[12px] text-dm-ink">{heading}</span>
@@ -116,10 +110,8 @@ function BrandMark() {
     <span
       className="relative grid h-[26px] w-[26px] place-items-center overflow-hidden rounded-[7px] text-white"
       style={{
-        background:
-          'linear-gradient(135deg, var(--color-dm-accent), var(--color-dm-accent-2))',
-        boxShadow:
-          'inset 0 0 0 1px rgb(255 255 255 / 0.1), 0 4px 12px -4px var(--color-dm-accent)',
+        background: 'linear-gradient(135deg, var(--color-dm-accent), var(--color-dm-accent-2))',
+        boxShadow: 'inset 0 0 0 1px rgb(255 255 255 / 0.1), 0 4px 12px -4px var(--color-dm-accent)'
       }}
     >
       <svg

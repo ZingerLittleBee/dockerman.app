@@ -2,12 +2,49 @@
 
 import type { Locale } from '@repo/shared/i18n'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { downloadsConfig } from '@/config/downloads'
 
-const INSTALL_CMD = 'brew install --cask dockerman'
+const INSTALL_CMD = downloadsConfig.homebrewCommand
+
+type OS = 'mac' | 'windows' | 'linux'
+
+const OS_META: Record<OS, { label: string; size: string }> = {
+  mac: { label: 'Download for macOS', size: downloadsConfig.latest.installers.macos[0].size },
+  windows: {
+    label: 'Download for Windows',
+    size: downloadsConfig.latest.installers.windows[0].size
+  },
+  linux: { label: 'Download for Linux', size: downloadsConfig.latest.installers.linux[0].size }
+}
+
+const WINDOWS_RE = /Win/i
+const LINUX_RE = /Linux/i
+const ANDROID_RE = /Android/i
+
+function detectOS(): OS {
+  if (typeof navigator === 'undefined') {
+    return 'mac'
+  }
+  const ua = navigator.userAgent
+  if (WINDOWS_RE.test(ua)) {
+    return 'windows'
+  }
+  if (LINUX_RE.test(ua) && !ANDROID_RE.test(ua)) {
+    return 'linux'
+  }
+  return 'mac'
+}
 
 export function Hero({ locale }: { locale: Locale }) {
   const [copied, setCopied] = useState(false)
+  const [os, setOs] = useState<OS>('mac')
+
+  useEffect(() => {
+    setOs(detectOS())
+  }, [])
+
+  const { label: downloadLabel, size: downloadSize } = OS_META[os]
 
   const copyInstall = async () => {
     try {
@@ -23,23 +60,21 @@ export function Hero({ locale }: { locale: Locale }) {
     <section className="relative px-8 pt-16 pb-8">
       <div
         aria-hidden
-        className="-translate-x-1/2 -z-[1] pointer-events-none absolute top-0 left-1/2 h-[500px] w-[900px] blur-[40px]"
+        className="pointer-events-none absolute top-0 left-1/2 -z-[1] h-[500px] w-[900px] -translate-x-1/2 blur-[40px]"
         style={{
           background:
-            'radial-gradient(ellipse at center top, color-mix(in srgb, var(--color-dm-accent) 25%, transparent), transparent 60%)',
+            'radial-gradient(ellipse at center top, color-mix(in srgb, var(--color-dm-accent) 25%, transparent), transparent 60%)'
         }}
       />
       <div className="mx-auto max-w-[1240px]">
         {/* Eyebrow: pulsing dot + version note + NEW tag */}
-        <span
-          className="inline-flex items-center gap-[10px] rounded-full border border-dm-line-strong bg-dm-bg-elev py-[5px] pr-[10px] pl-[6px] font-[var(--font-dm-mono)] text-[12px] text-dm-ink-2"
-        >
+        <span className="inline-flex items-center gap-[10px] rounded-full border border-dm-line-strong bg-dm-bg-elev py-[5px] pr-[10px] pl-[6px] font-[var(--font-dm-mono)] text-[12px] text-dm-ink-2">
           <span
             className="h-[6px] w-[6px] rounded-full"
             style={{
               background: 'var(--color-dm-ok)',
               boxShadow: '0 0 0 4px color-mix(in srgb, var(--color-dm-ok) 30%, transparent)',
-              animation: 'dm-pulse 2.2s ease-in-out infinite',
+              animation: 'dm-pulse 2.2s ease-in-out infinite'
             }}
           />
           <span>v5.1.0 — Podman support, Cloudflared tunnels, image-upgrade detection</span>
@@ -56,7 +91,7 @@ export function Hero({ locale }: { locale: Locale }) {
 
         <p className="mt-6 max-w-[52ch] text-[18px] text-dm-ink-3 leading-[1.5]">
           A lightweight desktop UI for Docker, Podman, and Kubernetes — built with Rust and Tauri.
-          Boots in ~0ms, lives in under 30 MB of memory, never phones home.
+          Boots in ~0ms and lives in under 30 MB of memory.
         </p>
 
         <div className="mt-7 flex flex-wrap items-center gap-3">
@@ -68,27 +103,22 @@ export function Hero({ locale }: { locale: Locale }) {
               background:
                 'linear-gradient(135deg, var(--color-dm-accent), var(--color-dm-accent-2))',
               borderColor: 'transparent',
-              boxShadow: '0 10px 30px -10px color-mix(in srgb, var(--color-dm-accent-2) 60%, transparent)',
+              boxShadow:
+                '0 10px 30px -10px color-mix(in srgb, var(--color-dm-accent-2) 60%, transparent)'
             }}
           >
-            <svg
-              aria-hidden="true"
-              fill="currentColor"
-              height="14"
-              viewBox="0 0 24 24"
-              width="14"
-            >
+            <svg aria-hidden="true" fill="currentColor" height="14" viewBox="0 0 24 24" width="14">
               <path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 4v-2h14v2H5z" />
             </svg>
-            Download for macOS
+            {downloadLabel}
             <span
               className="inline-flex items-center gap-[6px] rounded-md px-[10px] py-1 font-[var(--font-dm-mono)] text-[11px]"
               style={{
                 background: 'rgb(255 255 255 / 0.18)',
-                opacity: 0.9,
+                opacity: 0.9
               }}
             >
-              ↓ 18MB
+              ↓ {downloadSize}
             </span>
           </Link>
 
@@ -150,7 +180,7 @@ export function Hero({ locale }: { locale: Locale }) {
             <strong className="font-semibold text-dm-ink">Linux</strong>
           </span>
           <span className="h-[3px] w-[3px] rounded-full bg-dm-ink-4" />
-          <span>MIT licensed</span>
+          <span>local-first · opt-out analytics</span>
           <span className="h-[3px] w-[3px] rounded-full bg-dm-ink-4" />
           <span>v5.1.0 · Apr 8, 2026</span>
         </div>
@@ -162,7 +192,7 @@ export function Hero({ locale }: { locale: Locale }) {
 function Accent({ children }: { children: React.ReactNode }) {
   return (
     <span
-      className="bg-clip-text italic text-transparent"
+      className="bg-clip-text text-transparent italic"
       style={{
         fontFamily: 'var(--font-dm-display)',
         fontWeight: 400,
@@ -178,7 +208,7 @@ function Accent({ children }: { children: React.ReactNode }) {
         paddingInlineEnd: '0.18em',
         marginInlineEnd: '-0.18em',
         paddingBlockEnd: '0.18em',
-        marginBlockEnd: '-0.18em',
+        marginBlockEnd: '-0.18em'
       }}
     >
       {children}
