@@ -7,12 +7,13 @@ import { usePathname } from 'next/navigation'
 import ThemeSwitch from '@/components/ThemeSwitch'
 
 // TODO(i18n): labels deferred per docs/superpowers/plans/2026-04-23-landing-redesign-plan.md — localize in Phase 6.
+// Order mirrors Landing.html reference: Features / Modules / Docs / Changelog / Pricing.
 const LINKS = [
-  { href: '/', label: 'Features' },
-  { href: '/pricing', label: 'Pricing' },
-  { href: '/download', label: 'Download' },
+  { href: '/#features', label: 'Features', anchor: true },
+  { href: '/#modules', label: 'Modules', anchor: true },
   { href: '/docs', label: 'Docs' },
-  { href: '/changelog', label: 'Changelog' }
+  { href: '/changelog', label: 'Changelog' },
+  { href: '/pricing', label: 'Pricing' },
 ]
 
 export function Navbar({ locale }: { locale: Locale }) {
@@ -20,7 +21,8 @@ export function Navbar({ locale }: { locale: Locale }) {
 
   const hrefFor = (href: string) => `/${locale}${href === '/' ? '' : href}`
 
-  const isActive = (href: string) => {
+  const isActive = (href: string, anchor?: boolean) => {
+    if (anchor) return false
     const full = hrefFor(href)
     if (href === '/') {
       return pathname === full || pathname === `/${locale}`
@@ -32,7 +34,7 @@ export function Navbar({ locale }: { locale: Locale }) {
     <nav
       className="sticky top-0 z-50 border-dm-line border-b backdrop-blur-[14px]"
       style={{
-        background: 'color-mix(in srgb, var(--color-dm-bg) 80%, transparent)'
+        background: 'color-mix(in srgb, var(--color-dm-bg) 80%, transparent)',
       }}
     >
       <div className="mx-auto flex max-w-[1240px] items-center justify-between px-8 py-[14px]">
@@ -42,13 +44,16 @@ export function Navbar({ locale }: { locale: Locale }) {
         >
           <BrandMark />
           <span>Dockerman</span>
+          <span className="ml-[2px] rounded-full bg-dm-ink px-2 py-[2px] font-semibold text-[10px] text-dm-bg tracking-[0.04em]">
+            v5.1
+          </span>
         </Link>
 
         <div className="hidden items-center gap-1 text-[13px] text-dm-ink-2 md:flex">
           {LINKS.map((l) => (
             <Link
               className={`rounded-md px-3 py-[6px] transition-colors hover:bg-dm-bg-soft hover:text-dm-ink ${
-                isActive(l.href) ? 'text-dm-ink' : ''
+                isActive(l.href, l.anchor) ? 'text-dm-ink' : ''
               }`}
               href={hrefFor(l.href)}
               key={l.href}
@@ -68,6 +73,15 @@ export function Navbar({ locale }: { locale: Locale }) {
             target="_blank"
           >
             <RiGithubFill className="h-4 w-4" />
+          </a>
+          {/* Ghost Sign in button per Landing.html line 783 */}
+          <a
+            className="hidden rounded-md bg-transparent px-3 py-[6px] text-[13px] text-dm-ink-2 hover:bg-dm-bg-soft hover:text-dm-ink md:inline-flex"
+            href="https://github.com/ZingerLittleBee/dockerman.app"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Sign in
           </a>
           <Link
             className="inline-flex items-center gap-2 rounded-lg border border-dm-ink bg-dm-ink px-[14px] py-2 font-medium text-[13px] text-dm-bg transition-transform hover:-translate-y-px"
@@ -89,7 +103,7 @@ function BrandMark() {
         background:
           'linear-gradient(135deg, var(--color-dm-accent), var(--color-dm-accent-2))',
         boxShadow:
-          'inset 0 0 0 1px rgb(255 255 255 / 0.1), 0 4px 12px -4px var(--color-dm-accent)'
+          'inset 0 0 0 1px rgb(255 255 255 / 0.1), 0 4px 12px -4px var(--color-dm-accent)',
       }}
     >
       <svg

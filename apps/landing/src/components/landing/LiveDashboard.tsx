@@ -90,7 +90,7 @@ function Sidebar() {
         Containers · {MOCK_CONTAINERS.length}
       </div>
       {MOCK_CONTAINERS.map((c) => (
-        <ContainerRow key={c.name} name={c.name} seed={c.seed} state={c.state} />
+        <ContainerRow img={c.img} key={c.name} name={c.name} seed={c.seed} state={c.state} />
       ))}
     </aside>
   )
@@ -197,10 +197,12 @@ function SideItem({ label, active }: { label: string; active?: boolean }) {
 
 function ContainerRow({
   name,
+  img,
   state,
   seed,
 }: {
   name: string
+  img?: string
   state: 'running' | 'stopped'
   seed: number[]
 }) {
@@ -213,16 +215,19 @@ function ContainerRow({
     enabled: state === 'running',
   })
   return (
-    <div className="flex items-center gap-2 rounded-md px-2 py-[6px] text-[12px] text-dm-ink-2">
+    <div className="flex items-center gap-2 rounded-md px-2 py-[6px] font-[var(--font-dm-mono)] text-[11.5px] text-dm-ink-2">
       <span
         className="h-[6px] w-[6px] rounded-full"
         style={{
           background: state === 'running' ? 'var(--color-dm-ok)' : 'var(--color-dm-ink-4)',
         }}
       />
-      <span className="flex-1 truncate">{name}</span>
+      <span className="flex flex-1 flex-col overflow-hidden leading-tight">
+        <span className="truncate text-dm-ink">{name}</span>
+        {img ? <span className="truncate text-[10px] text-dm-ink-4">{img}</span> : null}
+      </span>
       {state === 'running' ? (
-        <Sparkline data={data} height={16} stroke="var(--color-dm-ok)" width={60} />
+        <Sparkline data={data} height={16} stroke="var(--color-dm-ok)" width={44} />
       ) : (
         <span className="text-[10px] text-dm-ink-4">idle</span>
       )}
@@ -233,17 +238,34 @@ function ContainerRow({
 function Main() {
   return (
     <div className="p-5">
-      <div className="mb-5 flex items-center justify-between">
-        <div className="font-semibold text-[16px] text-dm-ink">Dashboard</div>
-        <div className="flex items-center gap-2 text-[11px] text-dm-ink-3">
-          <span
-            className="h-[6px] w-[6px] rounded-full"
-            style={{
-              background: 'var(--color-dm-ok)',
-              animation: 'dm-pulse 2.2s ease-in-out infinite',
-            }}
-          />
-          live
+      <div className="mb-[18px] flex items-center justify-between">
+        {/* main-title: 18px / 600 per Landing.html :346-348 (adjusted down slightly to 15px in prior iteration — bring back to design) */}
+        <div className="font-semibold text-[18px] text-dm-ink tracking-[-0.01em]">Dashboard</div>
+        <div className="flex items-center gap-2 font-[var(--font-dm-mono)] text-[11px]">
+          <MainChip>
+            <svg
+              aria-hidden="true"
+              className="h-[11px] w-[11px]"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+            >
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 7v5l3 2" />
+            </svg>
+            auto-refresh · 2s
+          </MainChip>
+          <MainChip>
+            <span
+              className="h-[6px] w-[6px] rounded-full"
+              style={{
+                background: 'var(--color-dm-ok)',
+                animation: 'dm-pulse 2.2s ease-in-out infinite',
+              }}
+            />
+            connected
+          </MainChip>
         </div>
       </div>
       <KpiRow />
@@ -251,6 +273,14 @@ function Main() {
       <ChartRow />
       <IoRow />
     </div>
+  )
+}
+
+function MainChip({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="inline-flex items-center gap-[6px] rounded-md border border-dm-line bg-dm-bg-elev px-2 py-1 text-dm-ink-3">
+      {children}
+    </span>
   )
 }
 
