@@ -23,7 +23,7 @@ describe('changelog parser', () => {
   })
 
   test('returns empty blocks array when no new tags are present', () => {
-    const body = `## Title\n\nlede\n\n### Features\n\n- x`
+    const body = '## Title\n\nlede\n\n### Features\n\n- x'
     const entry = parseEntry('1.0.0', '2026-04-23', body)
     expect(entry.blocks).toEqual([])
   })
