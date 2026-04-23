@@ -510,24 +510,81 @@
     }
   },
   "download": {
-    "badge": "下载",
-    "title": "下载适合您平台的版本",
-    "description": "选择与您系统匹配的版本。所有下载都可在",
-    "releasesPage": "发布页面",
-    "homebrew": "使用 Homebrew 安装",
-    "comingSoon": "即将推出",
-    "preview": "预览版",
-    "platforms": {
-      "macos": "macOS",
-      "windows": "Windows",
-      "linux": "Linux"
+    "hero": {
+      "kickerStable": "v{{version}} · {{date}} · 最新稳定版",
+      "kickerTag": "新版",
+      "titleLead": "下载 Dockerman,",
+      "titleAccent": "适配每种桌面。",
+      "descriptionPre": "单个原生 18 MB 二进制文件。代码签名、已公证、可复现构建。在 ",
+      "descriptionLink": "发布页面",
+      "descriptionPost": " 浏览历史版本,或使用下方的 SHA-256 清单验证校验和。",
+      "meta": {
+        "version": "版本",
+        "released": "发布日期",
+        "size": "大小",
+        "platforms": "平台",
+        "platformsValue": "macOS · Windows · Linux"
+      }
     },
-    "options": {
-      "universal": "通用版 (Apple silicon/Intel)",
-      "windows64": "Windows (64位)",
-      "appimage": "AppImage (64位)",
-      "deb": "Debian / Ubuntu",
-      "rpm": "Red Hat / Fedora"
+    "platforms": {
+      "kicker": "直接下载",
+      "titleLead": "直接获取",
+      "titleAccent": "二进制文件",
+      "titleTrail": "。",
+      "descriptionPre": "macOS 和 Windows 均已代码签名。所有构建产物均有 SLSA 认证,可从 ",
+      "descriptionMid": " 分支的发布标签处复现。",
+      "recommended": "推荐",
+      "macos": {
+        "title": "macOS",
+        "minSpec": "macOS 11 Big Sur 或更高版本 · Apple Silicon + Intel",
+        "notarized": "已公证",
+        "signingCert": "签名证书 →"
+      },
+      "windows": {
+        "title": "Windows",
+        "minSpec": "Windows 10 · 11 · 支持 WSL2",
+        "evSigned": "EV 签名",
+        "wsl2": "WSL2 指南 →"
+      },
+      "linux": {
+        "title": "Linux",
+        "minSpec": "glibc 2.28+ · x86_64 与 arm64",
+        "aur": "AUR 可用",
+        "wayland": "Wayland 说明 →"
+      }
+    },
+    "verification": {
+      "appleNotarized": "苹果签名并公证",
+      "tauriSig": "Tauri 更新器签名"
+    },
+    "homebrew": {
+      "title": "Homebrew",
+      "subtitle": "macOS · Linux",
+      "tag": "cask · 推荐"
+    },
+    "integrity": {
+      "lead": "验证你的下载。",
+      "bodyPre": " 所有构建产物均经过 SHA-256 校验,并由发布密钥 ",
+      "bodyPost": " 使用 cosign 签名。"
+    },
+    "releases": {
+      "kicker": "历史",
+      "titleLead": "历史",
+      "titleAccent": "版本。",
+      "description": "如有需要可固定到旧版本标签。每个发布版本都永久在线保留。",
+      "latest": "最新",
+      "notesLink": "说明 →",
+      "fallbackNote": "发布说明",
+      "notes": {
+        "release-v5-1-0": "Podman 支持、Cloudflared 隧道、镜像升级检测、容器备份与恢复",
+        "release-v5-0-4": "修复 WSL2 socket 转发的严重问题;改进磁盘使用分析",
+        "release-v5-0-0": "完整 Kubernetes 管理、Helm 支持、本地 DNS 端口转发",
+        "release-v4-8-0": "Trivy 安全扫描、镜像推送自动匹配凭据",
+        "release-v4-6-2": "托盘改进、本地化修复",
+        "release-v4-5-0": "容器文件浏览器、带语法高亮的原地编辑",
+        "release-v4-2-0": "命令面板 (⌘;)、带实时 CPU/内存的系统托盘、事件通知",
+        "release-v4-0-0": "Compose 项目分组、docker-run 命令解析器、重新设计的统计页面"
+      }
     }
   },
   "snapshot": {

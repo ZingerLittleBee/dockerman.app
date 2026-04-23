@@ -1,11 +1,17 @@
 import { downloadsConfig, type InstallerAsset, type Verification } from '@/config/downloads'
 
-function verificationLabel(v: Verification): string | null {
+export interface PlatformStrings {
+  recommended: string
+  appleNotarized: string
+  tauriSig: string
+}
+
+function verificationLabel(v: Verification, strings: PlatformStrings): string | null {
   switch (v.kind) {
     case 'apple-notarized':
-      return 'Apple-signed & notarized'
+      return strings.appleNotarized
     case 'tauri-sig':
-      return 'Tauri updater signature'
+      return strings.tauriSig
     case 'none':
       return null
     default: {
@@ -20,8 +26,9 @@ export interface PlatformCardProps {
   minSpec: string
   assets: InstallerAsset[]
   icon: React.ReactNode
+  strings: PlatformStrings
   featured?: boolean
-  footLinks?: Array<{ label: string; href: string }>
+  footLinks?: { label: string; href: string }[]
 }
 
 export function PlatformCard({
@@ -31,6 +38,7 @@ export function PlatformCard({
   icon,
   featured,
   footLinks,
+  strings
 }: PlatformCardProps) {
   return (
     <article
@@ -40,18 +48,17 @@ export function PlatformCard({
           ? {
               borderColor:
                 'color-mix(in srgb, var(--color-dm-accent-2) 30%, var(--color-dm-line-strong))',
-              backgroundImage: `radial-gradient(ellipse at top right, color-mix(in srgb, var(--color-dm-accent-2) 10%, transparent), transparent 55%)`,
+              backgroundImage:
+                'radial-gradient(ellipse at top right, color-mix(in srgb, var(--color-dm-accent-2) 10%, transparent), transparent 55%)',
               backgroundColor: 'var(--color-dm-bg-elev)',
               boxShadow:
-                '0 20px 50px -20px color-mix(in srgb, var(--color-dm-accent-2) 25%, transparent)',
+                '0 20px 50px -20px color-mix(in srgb, var(--color-dm-accent-2) 25%, transparent)'
             }
           : { borderColor: 'var(--color-dm-line)', backgroundColor: 'var(--color-dm-bg-elev)' }
       }
     >
       <div className="flex items-center gap-[14px]">
-        <div
-          className="grid h-12 w-12 flex-shrink-0 place-items-center rounded-[12px] border border-dm-line bg-dm-bg-soft text-dm-ink"
-        >
+        <div className="grid h-12 w-12 flex-shrink-0 place-items-center rounded-[12px] border border-dm-line bg-dm-bg-soft text-dm-ink">
           {icon}
         </div>
         <div>
@@ -65,20 +72,20 @@ export function PlatformCard({
             className="ml-auto rounded-full px-2 py-[3px] font-[var(--font-dm-mono)] font-semibold text-[10.5px] uppercase tracking-[0.02em]"
             style={{
               background: 'color-mix(in srgb, var(--color-dm-accent-2) 14%, transparent)',
-              color: 'var(--color-dm-accent-2)',
+              color: 'var(--color-dm-accent-2)'
             }}
           >
-            recommended
+            {strings.recommended}
           </span>
         ) : null}
       </div>
 
       <div className="flex flex-col gap-2">
         {assets.map((a) => {
-          const vLabel = verificationLabel(a.verification)
+          const vLabel = verificationLabel(a.verification, strings)
           return (
             <a
-              className="group relative flex items-center gap-3 rounded-[10px] border border-dm-line bg-dm-bg px-[14px] py-3 text-dm-ink no-underline transition-all hover:border-[color:color-mix(in_srgb,var(--color-dm-accent-2)_40%,var(--color-dm-line-strong))] hover:translate-x-[2px] hover:bg-dm-bg-elev"
+              className="group relative flex items-center gap-3 rounded-[10px] border border-dm-line bg-dm-bg px-[14px] py-3 text-dm-ink no-underline transition-all hover:translate-x-[2px] hover:border-[color:color-mix(in_srgb,var(--color-dm-accent-2)_40%,var(--color-dm-line-strong))] hover:bg-dm-bg-elev"
               download
               href={`${downloadsConfig.assetsBaseUrl}/${a.filename}`}
               key={a.filename}
@@ -102,7 +109,7 @@ export function PlatformCard({
                   {vLabel ? ` · ${vLabel}` : ''}
                 </div>
               </div>
-              <span className="flex-shrink-0 whitespace-nowrap rounded px-[7px] py-[3px] font-[var(--font-dm-mono)] text-[11px] text-dm-ink-3 bg-dm-bg-soft">
+              <span className="flex-shrink-0 whitespace-nowrap rounded bg-dm-bg-soft px-[7px] py-[3px] font-[var(--font-dm-mono)] text-[11px] text-dm-ink-3">
                 {a.size}
               </span>
             </a>

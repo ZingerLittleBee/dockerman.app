@@ -510,24 +510,81 @@
     }
   },
   "download": {
-    "badge": "download",
-    "title": "Download for your platform",
-    "description": "Choose the version that matches your system. All downloads are available on",
-    "releasesPage": "Releases Page",
-    "homebrew": "Install with Homebrew",
-    "comingSoon": "Coming Soon",
-    "preview": "Preview",
-    "platforms": {
-      "macos": "macOS",
-      "windows": "Windows",
-      "linux": "Linux"
+    "hero": {
+      "kickerStable": "v{{version}} · {{date}} · latest stable",
+      "kickerTag": "NEW",
+      "titleLead": "Download Dockerman for",
+      "titleAccent": "every desktop.",
+      "descriptionPre": "A single, native 18 MB binary. Code-signed, notarized, and reproducible. Browse older builds on the ",
+      "descriptionLink": "releases page",
+      "descriptionPost": " or verify checksums with the SHA-256 manifest below.",
+      "meta": {
+        "version": "version",
+        "released": "released",
+        "size": "size",
+        "platforms": "platforms",
+        "platformsValue": "macOS · Win · Linux"
+      }
     },
-    "options": {
-      "universal": "Universal (Apple silicon/Intel)",
-      "windows64": "Windows (64-bit)",
-      "appimage": "AppImage (64-bit)",
-      "deb": "Debian / Ubuntu",
-      "rpm": "Red Hat / Fedora"
+    "platforms": {
+      "kicker": "direct downloads",
+      "titleLead": "Grab a",
+      "titleAccent": "binary",
+      "titleTrail": "directly.",
+      "descriptionPre": "Code-signed on macOS and Windows. All artifacts are SLSA-attested and reproducible from the ",
+      "descriptionMid": " branch at the release tag.",
+      "recommended": "recommended",
+      "macos": {
+        "title": "macOS",
+        "minSpec": "macOS 11 Big Sur or later · Apple Silicon + Intel",
+        "notarized": "notarized",
+        "signingCert": "signing cert →"
+      },
+      "windows": {
+        "title": "Windows",
+        "minSpec": "Windows 10 · 11 · WSL2 supported",
+        "evSigned": "EV signed",
+        "wsl2": "WSL2 guide →"
+      },
+      "linux": {
+        "title": "Linux",
+        "minSpec": "glibc 2.28+ · x86_64 & arm64",
+        "aur": "AUR available",
+        "wayland": "Wayland notes →"
+      }
+    },
+    "verification": {
+      "appleNotarized": "Apple-signed & notarized",
+      "tauriSig": "Tauri updater signature"
+    },
+    "homebrew": {
+      "title": "Homebrew",
+      "subtitle": "macOS · Linux",
+      "tag": "cask · recommended"
+    },
+    "integrity": {
+      "lead": "Verify your download.",
+      "bodyPre": " All artifacts are SHA-256 checksummed and cosign-signed by release key ",
+      "bodyPost": "."
+    },
+    "releases": {
+      "kicker": "history",
+      "titleLead": "Previous",
+      "titleAccent": "releases.",
+      "description": "Pin to an older tag if you need it. Every release is kept online indefinitely.",
+      "latest": "LATEST",
+      "notesLink": "notes →",
+      "fallbackNote": "Release notes",
+      "notes": {
+        "release-v5-1-0": "Podman support, Cloudflared tunnels, image-upgrade detection, container backup/restore",
+        "release-v5-0-4": "Critical fix for WSL2 socket forwarding; improved disk usage breakdown",
+        "release-v5-0-0": "Full Kubernetes management, Helm support, port-forwarding with local DNS",
+        "release-v4-8-0": "Trivy security scanning, image push with credential auto-match",
+        "release-v4-6-2": "Tray improvements, locale fixes",
+        "release-v4-5-0": "Container file browser, in-place editing with syntax highlighting",
+        "release-v4-2-0": "Command palette (⌘;), system tray with live CPU/mem, event notifications",
+        "release-v4-0-0": "Compose project grouping, docker-run command parser, redesigned stats page"
+      }
     }
   },
   "snapshot": {

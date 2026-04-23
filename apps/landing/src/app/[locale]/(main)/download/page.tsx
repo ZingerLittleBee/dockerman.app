@@ -1,4 +1,5 @@
 import type { Locale } from '@repo/shared/i18n'
+import { getTranslation } from '@repo/shared/i18n/server'
 import type { Metadata } from 'next'
 import { DownloadHero } from '@/components/download/DownloadHero'
 import { HomebrewBlock } from '@/components/download/HomebrewBlock'
@@ -10,7 +11,7 @@ import { downloadsConfig } from '@/config/downloads'
 
 export const metadata: Metadata = {
   title: 'Download — Dockerman',
-  description: 'Download Dockerman for macOS, Windows, and Linux. A single, native 18 MB binary.',
+  description: 'Download Dockerman for macOS, Windows, and Linux. A single, native 18 MB binary.'
 }
 
 const MacIcon = (
@@ -34,13 +35,18 @@ const LinuxIcon = (
 export default async function DownloadPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   const l = locale as Locale
+  const { t } = await getTranslation(l)
   const { installers } = downloadsConfig.latest
+  const platformStrings = {
+    recommended: t('download.platforms.recommended'),
+    appleNotarized: t('download.verification.appleNotarized'),
+    tauriSig: t('download.verification.tauriSig')
+  }
 
   return (
     <main>
-      <DownloadHero />
+      <DownloadHero locale={l} />
 
-      {/* Platforms section */}
       <section className="px-8 pt-20 pb-10">
         <div className="mx-auto max-w-[1140px]">
           <div className="mb-8 max-w-[680px]">
@@ -48,64 +54,79 @@ export default async function DownloadPage({ params }: { params: Promise<{ local
               className="font-[var(--font-dm-mono)] text-[12px] tracking-[0.04em]"
               style={{ color: 'var(--color-dm-accent-2)' }}
             >
-              <span className="text-dm-ink-4">// </span>direct downloads
+              <span className="text-dm-ink-4">// </span>
+              {t('download.platforms.kicker')}
             </div>
             <h2 className="mx-0 mt-[10px] mb-3 font-bold text-[clamp(28px,3.6vw,40px)] text-dm-ink leading-[1.05] tracking-[-0.03em]">
-              Grab a{' '}
+              {t('download.platforms.titleLead')}{' '}
               <em className="font-[var(--font-dm-display)] font-normal text-dm-ink-2 italic">
-                binary
+                {t('download.platforms.titleAccent')}
               </em>{' '}
-              directly.
+              {t('download.platforms.titleTrail')}
             </h2>
             <p className="m-0 text-[15.5px] text-dm-ink-3 leading-[1.55]">
-              Code-signed on macOS and Windows. All artifacts are SLSA-attested and reproducible
-              from the{' '}
+              {t('download.platforms.descriptionPre')}
               <code className="rounded bg-dm-bg-soft px-[5px] py-[1px] font-[var(--font-dm-mono)] text-[14px]">
                 main
-              </code>{' '}
-              branch at the release tag.
+              </code>
+              {t('download.platforms.descriptionMid')}
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-[14px] lg:grid-cols-3 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-[14px] md:grid-cols-2 lg:grid-cols-3">
             <PlatformCard
               assets={installers.macos}
               featured
               footLinks={[
-                { label: 'notarized', href: downloadsConfig.latest.releaseUrl },
-                { label: 'signing cert →', href: downloadsConfig.updaterPublicKeyUrl },
+                {
+                  label: t('download.platforms.macos.notarized'),
+                  href: downloadsConfig.latest.releaseUrl
+                },
+                {
+                  label: t('download.platforms.macos.signingCert'),
+                  href: downloadsConfig.updaterPublicKeyUrl
+                }
               ]}
               icon={MacIcon}
-              minSpec="macOS 11 Big Sur or later · Apple Silicon + Intel"
-              title="macOS"
+              minSpec={t('download.platforms.macos.minSpec')}
+              strings={platformStrings}
+              title={t('download.platforms.macos.title')}
             />
             <PlatformCard
               assets={installers.windows}
               footLinks={[
-                { label: 'EV signed', href: downloadsConfig.latest.releaseUrl },
-                { label: 'WSL2 guide →', href: `/${l}/docs` },
+                {
+                  label: t('download.platforms.windows.evSigned'),
+                  href: downloadsConfig.latest.releaseUrl
+                },
+                { label: t('download.platforms.windows.wsl2'), href: `/${l}/docs` }
               ]}
               icon={WindowsIcon}
-              minSpec="Windows 10 · 11 · WSL2 supported"
-              title="Windows"
+              minSpec={t('download.platforms.windows.minSpec')}
+              strings={platformStrings}
+              title={t('download.platforms.windows.title')}
             />
             <PlatformCard
               assets={installers.linux}
               footLinks={[
-                { label: 'AUR available', href: downloadsConfig.latest.releaseUrl },
-                { label: 'Wayland notes →', href: `/${l}/docs` },
+                {
+                  label: t('download.platforms.linux.aur'),
+                  href: downloadsConfig.latest.releaseUrl
+                },
+                { label: t('download.platforms.linux.wayland'), href: `/${l}/docs` }
               ]}
               icon={LinuxIcon}
-              minSpec="glibc 2.28+ · x86_64 & arm64"
-              title="Linux"
+              minSpec={t('download.platforms.linux.minSpec')}
+              strings={platformStrings}
+              title={t('download.platforms.linux.title')}
             />
           </div>
 
-          <IntegrityBar />
+          <IntegrityBar locale={l} />
         </div>
       </section>
 
-      <HomebrewBlock />
+      <HomebrewBlock locale={l} />
 
       <ReleasesTable locale={l} />
       <CtaFinal locale={l} />

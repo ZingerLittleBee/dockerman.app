@@ -1,6 +1,9 @@
+import type { Locale } from '@repo/shared/i18n'
+import { getTranslation } from '@repo/shared/i18n/server'
 import { downloadsConfig } from '@/config/downloads'
 
-export function IntegrityBar() {
+export async function IntegrityBar({ locale }: { locale: Locale }) {
+  const { t } = await getTranslation(locale)
   const { latest, updaterPublicKeyUrl } = downloadsConfig
   return (
     <section className="px-8">
@@ -10,7 +13,7 @@ export function IntegrityBar() {
             className="grid h-8 w-8 flex-shrink-0 place-items-center rounded-[8px]"
             style={{
               background: 'color-mix(in srgb, var(--color-dm-ok) 12%, transparent)',
-              color: 'var(--color-dm-ok)',
+              color: 'var(--color-dm-ok)'
             }}
           >
             <svg
@@ -27,12 +30,12 @@ export function IntegrityBar() {
             </svg>
           </div>
           <div className="flex-1 text-dm-ink-2">
-            <strong className="font-semibold text-dm-ink">Verify your download.</strong> All
-            artifacts are SHA-256 checksummed and cosign-signed by release key{' '}
+            <strong className="font-semibold text-dm-ink">{t('download.integrity.lead')}</strong>
+            {t('download.integrity.bodyPre')}
             <code className="rounded bg-dm-bg-soft px-[5px] py-[1px] font-[var(--font-dm-mono)] text-[11.5px]">
               0x7F·3C·A2·1E
             </code>
-            .
+            {t('download.integrity.bodyPost')}
           </div>
           <div className="flex gap-[14px] font-[var(--font-dm-mono)] text-[12px]">
             <IntegrityLink href={`${latest.releaseUrl}#SHA256SUMS`}>SHA256SUMS</IntegrityLink>

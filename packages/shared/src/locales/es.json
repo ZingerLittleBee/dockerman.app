@@ -510,24 +510,81 @@
     }
   },
   "download": {
-    "badge": "descargar",
-    "title": "Descarga para tu plataforma",
-    "description": "Elige la versión que coincida con tu sistema. Todas las descargas están disponibles en la",
-    "releasesPage": "Página de Lanzamientos",
-    "homebrew": "Instalar con Homebrew",
-    "comingSoon": "Próximamente",
-    "preview": "Vista Previa",
-    "platforms": {
-      "macos": "macOS",
-      "windows": "Windows",
-      "linux": "Linux"
+    "hero": {
+      "kickerStable": "v{{version}} · {{date}} · última estable",
+      "kickerTag": "NUEVO",
+      "titleLead": "Descarga Dockerman para",
+      "titleAccent": "cada escritorio.",
+      "descriptionPre": "Un único binario nativo de 18 MB. Firmado, notarizado y reproducible. Explora builds anteriores en la ",
+      "descriptionLink": "página de releases",
+      "descriptionPost": " o verifica las sumas con el manifiesto SHA-256 de abajo.",
+      "meta": {
+        "version": "versión",
+        "released": "publicado",
+        "size": "tamaño",
+        "platforms": "plataformas",
+        "platformsValue": "macOS · Win · Linux"
+      }
     },
-    "options": {
-      "universal": "Universal (Apple silicon/Intel)",
-      "windows64": "Windows (64-bit)",
-      "appimage": "AppImage (64-bit)",
-      "deb": "Debian / Ubuntu",
-      "rpm": "Red Hat / Fedora"
+    "platforms": {
+      "kicker": "descargas directas",
+      "titleLead": "Consigue un",
+      "titleAccent": "binario",
+      "titleTrail": "directamente.",
+      "descriptionPre": "Firmado en macOS y Windows. Todos los artefactos tienen atestación SLSA y son reproducibles desde la rama ",
+      "descriptionMid": " en el tag de release.",
+      "recommended": "recomendado",
+      "macos": {
+        "title": "macOS",
+        "minSpec": "macOS 11 Big Sur o posterior · Apple Silicon + Intel",
+        "notarized": "notarizado",
+        "signingCert": "cert. de firma →"
+      },
+      "windows": {
+        "title": "Windows",
+        "minSpec": "Windows 10 · 11 · compatible con WSL2",
+        "evSigned": "firma EV",
+        "wsl2": "guía WSL2 →"
+      },
+      "linux": {
+        "title": "Linux",
+        "minSpec": "glibc 2.28+ · x86_64 y arm64",
+        "aur": "disponible en AUR",
+        "wayland": "notas Wayland →"
+      }
+    },
+    "verification": {
+      "appleNotarized": "Firmado y notarizado por Apple",
+      "tauriSig": "Firma del actualizador Tauri"
+    },
+    "homebrew": {
+      "title": "Homebrew",
+      "subtitle": "macOS · Linux",
+      "tag": "cask · recomendado"
+    },
+    "integrity": {
+      "lead": "Verifica tu descarga.",
+      "bodyPre": " Todos los artefactos llevan suma SHA-256 y están firmados con cosign por la clave de release ",
+      "bodyPost": "."
+    },
+    "releases": {
+      "kicker": "historial",
+      "titleLead": "Releases",
+      "titleAccent": "anteriores.",
+      "description": "Ancla a un tag anterior si lo necesitas. Cada release se mantiene en línea indefinidamente.",
+      "latest": "ÚLTIMO",
+      "notesLink": "notas →",
+      "fallbackNote": "Notas de release",
+      "notes": {
+        "release-v5-1-0": "Soporte Podman, túneles Cloudflared, detección de actualización de imágenes, backup/restore de contenedor",
+        "release-v5-0-4": "Arreglo crítico del forwarding de socket WSL2; mejora del desglose de uso de disco",
+        "release-v5-0-0": "Gestión completa de Kubernetes, soporte Helm, port-forward con DNS local",
+        "release-v4-8-0": "Escaneo de seguridad Trivy, push de imagen con auto-match de credenciales",
+        "release-v4-6-2": "Mejoras en tray, arreglos de locale",
+        "release-v4-5-0": "Explorador de archivos del contenedor, edición in-place con resaltado de sintaxis",
+        "release-v4-2-0": "Paleta de comandos (⌘;), tray con CPU/mem en vivo, notificaciones de evento",
+        "release-v4-0-0": "Agrupación de proyectos Compose, parser de docker-run, página de stats rediseñada"
+      }
     }
   },
   "snapshot": {

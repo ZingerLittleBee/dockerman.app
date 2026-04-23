@@ -510,24 +510,81 @@
     }
   },
   "download": {
-    "badge": "ダウンロード",
-    "title": "プラットフォームに合ったバージョンをダウンロード",
-    "description": "システムに合ったバージョンを選択してください。すべてのダウンロードは",
-    "releasesPage": "リリースページ",
-    "homebrew": "Homebrew でインストール",
-    "comingSoon": "近日公開",
-    "preview": "プレビュー",
-    "platforms": {
-      "macos": "macOS",
-      "windows": "Windows",
-      "linux": "Linux"
+    "hero": {
+      "kickerStable": "v{{version}} · {{date}} · 最新安定版",
+      "kickerTag": "NEW",
+      "titleLead": "Dockerman をダウンロード、",
+      "titleAccent": "すべてのデスクトップへ。",
+      "descriptionPre": "ネイティブな 18 MB のシングルバイナリ。コード署名、公証、再現可能。 ",
+      "descriptionLink": "リリースページ",
+      "descriptionPost": " で過去のビルドを確認、または下記の SHA-256 マニフェストでチェックサムを検証できます。",
+      "meta": {
+        "version": "バージョン",
+        "released": "リリース日",
+        "size": "サイズ",
+        "platforms": "プラットフォーム",
+        "platformsValue": "macOS · Win · Linux"
+      }
     },
-    "options": {
-      "universal": "ユニバーサル (Apple silicon/Intel)",
-      "windows64": "Windows (64ビット)",
-      "appimage": "AppImage (64ビット)",
-      "deb": "Debian / Ubuntu",
-      "rpm": "Red Hat / Fedora"
+    "platforms": {
+      "kicker": "ダイレクトダウンロード",
+      "titleLead": "",
+      "titleAccent": "バイナリ",
+      "titleTrail": "を直接取得。",
+      "descriptionPre": "macOS と Windows でコード署名済み。すべての成果物は SLSA 証明付きで、 ",
+      "descriptionMid": " ブランチのリリースタグから再現可能です。",
+      "recommended": "推奨",
+      "macos": {
+        "title": "macOS",
+        "minSpec": "macOS 11 Big Sur 以降 · Apple Silicon + Intel",
+        "notarized": "公証済み",
+        "signingCert": "署名証明書 →"
+      },
+      "windows": {
+        "title": "Windows",
+        "minSpec": "Windows 10 · 11 · WSL2 対応",
+        "evSigned": "EV 署名",
+        "wsl2": "WSL2 ガイド →"
+      },
+      "linux": {
+        "title": "Linux",
+        "minSpec": "glibc 2.28+ · x86_64 と arm64",
+        "aur": "AUR で利用可",
+        "wayland": "Wayland ノート →"
+      }
+    },
+    "verification": {
+      "appleNotarized": "Apple 署名 & 公証済み",
+      "tauriSig": "Tauri アップデータ署名"
+    },
+    "homebrew": {
+      "title": "Homebrew",
+      "subtitle": "macOS · Linux",
+      "tag": "cask · 推奨"
+    },
+    "integrity": {
+      "lead": "ダウンロードを検証。",
+      "bodyPre": " すべての成果物は SHA-256 チェックサム付きで、リリースキー ",
+      "bodyPost": " により cosign 署名されています。"
+    },
+    "releases": {
+      "kicker": "履歴",
+      "titleLead": "過去の",
+      "titleAccent": "リリース。",
+      "description": "必要であれば古いタグに固定できます。すべてのリリースはオンラインで無期限に保持されます。",
+      "latest": "最新",
+      "notesLink": "ノート →",
+      "fallbackNote": "リリースノート",
+      "notes": {
+        "release-v5-1-0": "Podman 対応、Cloudflared トンネル、イメージ更新検知、コンテナバックアップ/リストア",
+        "release-v5-0-4": "WSL2 ソケット転送の重大修正、ディスク使用量内訳の改善",
+        "release-v5-0-0": "完全な Kubernetes 管理、Helm 対応、ローカル DNS によるポートフォワード",
+        "release-v4-8-0": "Trivy セキュリティスキャン、認証情報自動マッチによるイメージプッシュ",
+        "release-v4-6-2": "トレイの改善、ロケール修正",
+        "release-v4-5-0": "コンテナファイルブラウザ、シンタックスハイライト付きのインライン編集",
+        "release-v4-2-0": "コマンドパレット (⌘;)、リアルタイム CPU/メモリ表示のトレイ、イベント通知",
+        "release-v4-0-0": "Compose プロジェクトのグルーピング、docker-run パーサー、統計ページ刷新"
+      }
     }
   },
   "snapshot": {
