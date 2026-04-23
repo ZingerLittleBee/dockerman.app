@@ -145,6 +145,9 @@ function parseItem(rawItem: string): ChangelogItem {
 }
 
 export function parseEntry(version: string, date: string, body: string): ChangelogEntryData {
+  // MDX sources historically include a leading "v" (e.g. "v5.1.0"). Strip it
+  // so renderers can add the prefix themselves and avoid "vv5.1.0".
+  const normalizedVersion = version.replace(/^v/i, '')
   const blocks: ChangelogBlock[] = []
 
   // Callouts and Figures are collected in source order so the renderer
@@ -237,12 +240,12 @@ export function parseEntry(version: string, date: string, body: string): Changel
   return {
     blocks,
     date,
-    id: `release-${createId(version)}`,
+    id: `release-${createId(normalizedVersion)}`,
     images,
     sections,
     summary: normalizeInlineText(summaryLines.join(' ')),
     title,
-    version
+    version: normalizedVersion
   }
 }
 

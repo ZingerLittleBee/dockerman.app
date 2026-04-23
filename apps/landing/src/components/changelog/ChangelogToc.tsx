@@ -33,7 +33,7 @@ export function ChangelogToc({ entries }: { entries: ChangelogEntryData[] }) {
           return (
             <li key={e.id}>
               <Link
-                className="-ml-px flex items-center gap-[10px] border-l px-[14px] py-2 font-[var(--font-dm-mono)] text-[13px] no-underline transition-colors"
+                className="-ml-px flex min-w-0 items-center gap-[10px] border-l px-[14px] py-2 font-[var(--font-dm-mono)] text-[13px] no-underline transition-colors"
                 href={`#${e.id}`}
                 style={{
                   color: isActive ? 'var(--color-dm-ink)' : 'var(--color-dm-ink-3)',
@@ -42,10 +42,11 @@ export function ChangelogToc({ entries }: { entries: ChangelogEntryData[] }) {
                     ? 'linear-gradient(90deg, color-mix(in srgb, var(--color-dm-accent-2) 8%, transparent), transparent)'
                     : undefined,
                 }}
+                title={`v${e.version} · ${formatShortDate(e.date)}`}
               >
-                <span className="font-semibold">v{e.version}</span>
+                <span className="min-w-0 flex-1 truncate font-semibold">v{e.version}</span>
                 <span
-                  className="ml-auto text-[11px]"
+                  className="shrink-0 text-[11px]"
                   style={{
                     color: isActive ? 'var(--color-dm-ink-3)' : 'var(--color-dm-ink-4)',
                   }}
