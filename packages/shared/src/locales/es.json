@@ -257,46 +257,162 @@
     }
   },
   "pricing": {
-    "badge": "precios",
-    "title": "Licencia Dockerman",
-    "subtitle": "Local Gratis, Remoto Pago",
-    "description": "Precios simples. Sin suscripciones. Paga una vez, úsala para siempre.",
-    "earlyBird": "Precio de Lanzamiento - Solo los primeros 100",
-    "deadline": "El precio de lanzamiento termina el 1 de abril",
+    "hero": {
+      "eyebrow": "Early Bird · 34% de descuento · termina pronto",
+      "eyebrowTag": "LIMITADO",
+      "titleLead": "Paga una vez. Úsalo",
+      "titleAccent": "para siempre.",
+      "description": "Gratis para Docker local. Un pago único y de por vida para hosts remotos, SSH y gestión multi-máquina. Sin suscripciones. Sin cálculos por asiento. Sin facturas sorpresa."
+    },
     "countdown": {
-      "days": "Días",
-      "hours": "Horas",
-      "minutes": "Min",
-      "seconds": "Seg",
-      "expired": "El precio de lanzamiento ha terminado"
+      "days": "días",
+      "hrs": "hrs",
+      "min": "min",
+      "sec": "seg",
+      "endsLead": "El precio Early Bird termina",
+      "endsDate": "30 JUN",
+      "afterNote": "después: 1 dispositivo ${{solo}} · {{devices}} dispositivos ${{team}}"
     },
-    "updatePolicy": "Actualizaciones de por vida",
     "plans": {
-      "oneDevice": "Para 1 dispositivo macOS/Windows",
-      "threeDevices": "Para 3 dispositivos macOS/Windows",
-      "threeDevicesSaving": "55% de descuento comparado con la licencia de un dispositivo"
+      "free": {
+        "label": "gratis",
+        "name": "Free",
+        "description": "Todas las funciones, sin límite de tiempo. Solo Docker y Podman locales.",
+        "freq": "para siempre · solo local",
+        "cta": "Plan actual",
+        "ctaNote": "estás en este plan",
+        "features": {
+          "coreSet": "Contenedor, imagen, volumen, red",
+          "compose": "Proyectos Compose y despliegue con un clic",
+          "palette": "Paleta de comandos, terminal, logs",
+          "podmanTrivy": "Podman, escaneo Trivy, explorador de archivos",
+          "themesI18n": "Temas claro y oscuro, i18n (en/zh/ja/es)",
+          "remoteSsh": "Hosts remotos vía SSH",
+          "multiHost": "Gestión multi-host"
+        }
+      },
+      "team": {
+        "label": "{{devices}} dispositivos",
+        "nameLead": "Team",
+        "nameAccent": "o",
+        "nameTrail": "multi-dispositivo",
+        "description": "La mejor opción para equipos pequeños o quien usa varias máquinas. Licencias transferibles.",
+        "freq": "pago único · {{devices}} dispositivos",
+        "cta": "Obtener Team — ${{price}}",
+        "ctaNote": "un pago, reembolso de {{days}} días, actualizaciones de por vida",
+        "ribbon": "Más popular",
+        "features": {
+          "everythingFree": "Todo lo de Free",
+          "perDevice": "${{perDevice}}/dispositivo",
+          "perDeviceSavings": " — ahorra $10 vs 1-dispositivo × {{devices}}",
+          "remote": "Docker remoto sobre SSH con heartbeat",
+          "multiHost": "Cambio multi-host y marcadores",
+          "cloudflared": "Gestión de túneles Cloudflared",
+          "k8s": "Gestión de clústeres Kubernetes",
+          "updates": "Actualizaciones de por vida y soporte prioritario"
+        }
+      },
+      "solo": {
+        "label": "1 dispositivo",
+        "name": "Solo",
+        "description": "Para el desarrollador individual. Una licencia, una máquina, todo desbloqueado.",
+        "freq": "pago único · 1 dispositivo",
+        "cta": "Obtener Solo — ${{price}}",
+        "ctaNote": "un pago, reembolso de {{days}} días",
+        "features": {
+          "everythingFree": "Todo lo de Free",
+          "remote": "Docker remoto sobre SSH",
+          "multiHost": "Gestión multi-host",
+          "cloudflared": "Túneles Cloudflared",
+          "k8s": "Clústeres Kubernetes",
+          "updates": "Actualizaciones de por vida"
+        }
+      }
     },
-    "features": {
-      "crossPlatform": "Soporte para macOS, Windows y Linux",
-      "containerManagement": "Gestión del ciclo de vida de contenedores",
-      "imageManagement": "Gestión y construcción de imágenes",
-      "volumeManagement": "Gestión de volúmenes",
-      "networkManagement": "Gestión de redes",
-      "realTimeMonitoring": "Monitoreo de recursos en tiempo real",
-      "integratedTerminal": "Acceso a terminal integrada",
-      "logViewer": "Visor de logs con filtrado",
-      "fileBrowser": "Explorador de archivos de contenedores",
-      "composeSupport": "Soporte para Docker Compose",
-      "darkMode": "Soporte para modo oscuro",
-      "localDockerOnly": "Soporte para host remoto",
-      "everythingInFree": "Todo en la versión Gratis",
-      "remoteViaSSH": "Host remoto vía SSH",
-      "multiHostManagement": "Gestión multi-host",
-      "lifetimeUpdates": "Todas las actualizaciones futuras incluidas"
+    "trust": {
+      "secure": "Pago seguro",
+      "refund": "Reembolso de {{days}} días, sin preguntas",
+      "users": "{{value}}+ desarrolladores",
+      "usersEstimatedFrom": "Estimado desde {{date}}",
+      "stars": "{{value}}+ estrellas en GitHub"
     },
-    "cta": {
-      "currentPlan": "Plan Actual",
-      "upgradeNow": "Actualizar Ahora"
+    "compare": {
+      "titleLead": "Lo que obtienes,",
+      "titleAccent": "función por función.",
+      "description": "Todos los planes incluyen la experiencia local completa. Los planes pagos añaden hosts remotos y soporte prioritario.",
+      "columns": {
+        "feature": "Función",
+        "free": "Free",
+        "team": "Team",
+        "solo": "Solo"
+      },
+      "groups": {
+        "core": "Núcleo",
+        "remote": "Remoto y multi-host",
+        "license": "Licencia y soporte"
+      },
+      "rows": {
+        "localDocker": {
+          "label": "Docker y Podman locales",
+          "desc": "contenedores · imágenes · volúmenes · redes"
+        },
+        "palette": {
+          "label": "Paleta de comandos",
+          "desc": "⌘; en cualquier lugar"
+        },
+        "terminal": {
+          "label": "Terminal, logs, explorador de archivos"
+        },
+        "compose": {
+          "label": "Proyectos Compose",
+          "desc": "analizador de docker-compose y docker-run"
+        },
+        "trivy": {
+          "label": "Escaneo Trivy CVE + registro de imágenes"
+        },
+        "remoteSsh": {
+          "label": "Docker remoto vía SSH",
+          "desc": "reenvío de socket con reconexión por heartbeat"
+        },
+        "bookmarks": {
+          "label": "Marcadores y selector multi-host"
+        },
+        "k8s": {
+          "label": "Clústeres Kubernetes",
+          "desc": "pods · deployments · configmaps · events"
+        },
+        "cloudflared": {
+          "label": "Túneles Cloudflared",
+          "desc": "URLs públicas con un clic"
+        },
+        "devices": {
+          "label": "Dispositivos"
+        },
+        "updates": {
+          "label": "Actualizaciones de por vida"
+        },
+        "support": {
+          "label": "Soporte"
+        },
+        "commercial": {
+          "label": "Uso comercial"
+        }
+      },
+      "values": {
+        "unlimited": "ilimitado",
+        "community": "comunidad",
+        "priority": "prioritario · 24h",
+        "email": "correo · 48h",
+        "included": "incluido",
+        "notIncluded": "no incluido"
+      }
+    },
+    "finalCta": {
+      "titleLead": "Despliega contenedores.",
+      "titleAccent": "Desde cualquier lugar.",
+      "description": "Paga una vez, quédatelo para siempre. Sin cálculos por asiento, sin renovaciones, sin upsells.",
+      "ctaTeam": "Obtener Team — ${{price}}",
+      "ctaFree": "o empieza gratis →"
     },
     "success": {
       "title": "¡Pago Exitoso!",

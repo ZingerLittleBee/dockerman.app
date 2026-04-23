@@ -257,46 +257,162 @@
     }
   },
   "pricing": {
-    "badge": "定价",
-    "title": "Dockerman 许可证",
-    "subtitle": "本地免费，远程付费",
-    "description": "简单定价，无需订阅。一次付费，永久拥有。",
-    "earlyBird": "早鸟价 · 仅限前 100 份",
-    "deadline": "早鸟价截止至 4 月 1 日",
+    "hero": {
+      "eyebrow": "早鸟优惠 · 立减 34% · 即将结束",
+      "eyebrowTag": "限时",
+      "titleLead": "一次购买，",
+      "titleAccent": "永久使用。",
+      "description": "本地 Docker 管理免费。远程主机、SSH 和多机管理仅需一次付费，终身使用。无订阅，无席位计算，无意外账单。"
+    },
     "countdown": {
       "days": "天",
-      "hours": "时",
-      "minutes": "分",
-      "seconds": "秒",
-      "expired": "早鸟优惠已结束"
+      "hrs": "小时",
+      "min": "分",
+      "sec": "秒",
+      "endsLead": "早鸟价即将结束",
+      "endsDate": "6 月 30 日",
+      "afterNote": "之后价格：1 设备 ${{solo}} · {{devices}} 设备 ${{team}}"
     },
-    "updatePolicy": "终身免费更新",
     "plans": {
-      "oneDevice": "适用于 1 台 macOS/Windows 设备",
-      "threeDevices": "适用于 3 台 macOS/Windows 设备",
-      "threeDevicesSaving": "相比单设备许可证立省 55%"
+      "free": {
+        "label": "免费",
+        "name": "Free",
+        "description": "全部功能，永不过期。仅支持本地 Docker 与 Podman。",
+        "freq": "永久 · 仅限本地",
+        "cta": "当前方案",
+        "ctaNote": "您正在使用此方案",
+        "features": {
+          "coreSet": "容器、镜像、存储卷、网络",
+          "compose": "Compose 项目与一键部署",
+          "palette": "命令面板、终端、日志",
+          "podmanTrivy": "Podman、Trivy 扫描、文件浏览器",
+          "themesI18n": "浅色/深色主题，多语言 (en/zh/ja/es)",
+          "remoteSsh": "通过 SSH 连接远程主机",
+          "multiHost": "多主机管理"
+        }
+      },
+      "team": {
+        "label": "{{devices}} 台设备",
+        "nameLead": "Team",
+        "nameAccent": "或",
+        "nameTrail": "多设备",
+        "description": "最适合小团队或运行多台机器的用户。许可证可转移。",
+        "freq": "一次付费 · {{devices}} 台设备",
+        "cta": "购买 Team — ${{price}}",
+        "ctaNote": "一次付费，{{days}} 天退款保证，终身更新",
+        "ribbon": "最受欢迎",
+        "features": {
+          "everythingFree": "包含 Free 的全部功能",
+          "perDevice": "${{perDevice}}/设备",
+          "perDeviceSavings": " — 相比单设备 × {{devices}} 便宜 10 美元",
+          "remote": "通过 SSH 管理远程 Docker,支持心跳重连",
+          "multiHost": "多主机切换与书签",
+          "cloudflared": "Cloudflared 隧道管理",
+          "k8s": "Kubernetes 集群管理",
+          "updates": "终身更新与优先支持"
+        }
+      },
+      "solo": {
+        "label": "1 台设备",
+        "name": "Solo",
+        "description": "为独立开发者而生。一个许可证,一台机器,全部功能解锁。",
+        "freq": "一次付费 · 1 台设备",
+        "cta": "购买 Solo — ${{price}}",
+        "ctaNote": "一次付费,{{days}} 天退款保证",
+        "features": {
+          "everythingFree": "包含 Free 的全部功能",
+          "remote": "通过 SSH 管理远程 Docker",
+          "multiHost": "多主机管理",
+          "cloudflared": "Cloudflared 隧道",
+          "k8s": "Kubernetes 集群",
+          "updates": "终身更新"
+        }
+      }
     },
-    "features": {
-      "crossPlatform": "支持 macOS、Windows 和 Linux",
-      "containerManagement": "容器生命周期管理",
-      "imageManagement": "镜像管理与构建",
-      "volumeManagement": "卷管理",
-      "networkManagement": "网络管理",
-      "realTimeMonitoring": "实时资源监控",
-      "integratedTerminal": "集成终端访问",
-      "logViewer": "日志查看器（含过滤）",
-      "fileBrowser": "容器文件浏览器",
-      "composeSupport": "Docker Compose 支持",
-      "darkMode": "深色模式支持",
-      "localDockerOnly": "远程主机支持",
-      "everythingInFree": "包含免费版所有功能",
-      "remoteViaSSH": "通过 SSH 连接远程主机",
-      "multiHostManagement": "多主机管理",
-      "lifetimeUpdates": "享受以后所有更新内容"
+    "trust": {
+      "secure": "安全结账",
+      "refund": "{{days}} 天无条件退款",
+      "users": "{{value}}+ 开发者",
+      "usersEstimatedFrom": "估算起始日期:{{date}}",
+      "stars": "{{value}}+ GitHub Stars"
     },
-    "cta": {
-      "currentPlan": "当前版本",
-      "upgradeNow": "立即升级"
+    "compare": {
+      "titleLead": "逐项对比,",
+      "titleAccent": "一目了然。",
+      "description": "每个方案都包含完整的本地体验。付费版增加远程主机与优先支持。",
+      "columns": {
+        "feature": "功能",
+        "free": "Free",
+        "team": "Team",
+        "solo": "Solo"
+      },
+      "groups": {
+        "core": "核心功能",
+        "remote": "远程与多主机",
+        "license": "许可证与支持"
+      },
+      "rows": {
+        "localDocker": {
+          "label": "本地 Docker 与 Podman",
+          "desc": "容器 · 镜像 · 存储卷 · 网络"
+        },
+        "palette": {
+          "label": "命令面板",
+          "desc": "⌘; 随处可用"
+        },
+        "terminal": {
+          "label": "终端、日志、文件浏览器"
+        },
+        "compose": {
+          "label": "Compose 项目",
+          "desc": "docker-compose 与 docker-run 解析器"
+        },
+        "trivy": {
+          "label": "Trivy CVE 扫描 + 镜像仓库"
+        },
+        "remoteSsh": {
+          "label": "通过 SSH 管理远程 Docker",
+          "desc": "socket 转发,心跳自动重连"
+        },
+        "bookmarks": {
+          "label": "多主机书签与切换器"
+        },
+        "k8s": {
+          "label": "Kubernetes 集群",
+          "desc": "Pod · Deployment · ConfigMap · Event"
+        },
+        "cloudflared": {
+          "label": "Cloudflared 隧道",
+          "desc": "一键生成公网 URL"
+        },
+        "devices": {
+          "label": "设备数"
+        },
+        "updates": {
+          "label": "终身更新"
+        },
+        "support": {
+          "label": "技术支持"
+        },
+        "commercial": {
+          "label": "商业用途"
+        }
+      },
+      "values": {
+        "unlimited": "不限",
+        "community": "社区",
+        "priority": "优先 · 24 小时",
+        "email": "邮件 · 48 小时",
+        "included": "包含",
+        "notIncluded": "不包含"
+      }
+    },
+    "finalCta": {
+      "titleLead": "发布容器,",
+      "titleAccent": "随处可达。",
+      "description": "一次付费,永久使用。无席位计算,无续订,无推销。",
+      "ctaTeam": "购买 Team — ${{price}}",
+      "ctaFree": "或免费开始 →"
     },
     "success": {
       "title": "支付成功！",

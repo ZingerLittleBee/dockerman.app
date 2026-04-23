@@ -1,5 +1,7 @@
 'use client'
 
+import type { Locale } from '@repo/shared/i18n'
+import { useTranslation } from '@repo/shared/i18n/client'
 import { useEffect, useState } from 'react'
 
 export function diff(targetMs: number, nowMs: number) {
@@ -9,11 +11,12 @@ export function diff(targetMs: number, nowMs: number) {
     hours: Math.floor((ms % 86_400_000) / 3_600_000),
     minutes: Math.floor((ms % 3_600_000) / 60_000),
     seconds: Math.floor((ms % 60_000) / 1000),
-    expired: ms === 0,
+    expired: ms === 0
   }
 }
 
-export function Countdown({ deadlineUtc }: { deadlineUtc: string }) {
+export function Countdown({ deadlineUtc, locale }: { deadlineUtc: string; locale: Locale }) {
+  const { t } = useTranslation(locale)
   const target = new Date(deadlineUtc).getTime()
   const [mounted, setMounted] = useState(false)
   const [now, setNow] = useState(0)
@@ -32,10 +35,10 @@ export function Countdown({ deadlineUtc }: { deadlineUtc: string }) {
   if (d.expired) return null
 
   const cells: Array<[string, number]> = [
-    ['days', d.days],
-    ['hrs', d.hours],
-    ['min', d.minutes],
-    ['sec', d.seconds],
+    [t('pricing.countdown.days'), d.days],
+    [t('pricing.countdown.hrs'), d.hours],
+    [t('pricing.countdown.min'), d.minutes],
+    [t('pricing.countdown.sec'), d.seconds]
   ]
   return (
     <div className="flex gap-[6px] font-[var(--font-dm-mono)] tabular-nums">

@@ -35,7 +35,7 @@ export function PlanCard(p: PlanCardProps) {
     ctaVariant = 'ghost',
     ctaNote,
     highlighted,
-    ribbon,
+    ribbon
   } = p
 
   return (
@@ -50,11 +50,12 @@ export function PlanCard(p: PlanCardProps) {
           ? {
               borderColor:
                 'color-mix(in srgb, var(--color-dm-accent-2) 40%, var(--color-dm-line-strong))',
-              backgroundImage: `radial-gradient(ellipse at top, color-mix(in srgb, var(--color-dm-accent-2) 10%, transparent), transparent 55%)`,
+              backgroundImage:
+                'radial-gradient(ellipse at top, color-mix(in srgb, var(--color-dm-accent-2) 10%, transparent), transparent 55%)',
               backgroundColor: 'var(--color-dm-bg-elev)',
               boxShadow:
                 '0 25px 60px -25px color-mix(in srgb, var(--color-dm-accent-2) 40%, transparent)',
-              transform: 'translateY(-6px)',
+              transform: 'translateY(-6px)'
             }
           : undefined
       }
@@ -63,10 +64,9 @@ export function PlanCard(p: PlanCardProps) {
         <span
           className="absolute top-[18px] right-[18px] rounded-full px-[10px] py-1 font-[var(--font-dm-mono)] font-bold text-[10.5px] text-white uppercase tracking-[0.04em]"
           style={{
-            background:
-              'linear-gradient(135deg, var(--color-dm-accent-2), #8b5cf6)',
+            background: 'linear-gradient(135deg, var(--color-dm-accent-2), #8b5cf6)',
             boxShadow:
-              '0 8px 20px -6px color-mix(in srgb, var(--color-dm-accent-2) 50%, transparent)',
+              '0 8px 20px -6px color-mix(in srgb, var(--color-dm-accent-2) 50%, transparent)'
           }}
         >
           {ribbon}
@@ -82,7 +82,7 @@ export function PlanCard(p: PlanCardProps) {
       </div>
 
       <div className="mt-6 flex items-baseline gap-[10px] border-dm-line border-b pb-6">
-        <div className="font-bold text-[56px] leading-none tracking-[-0.04em] tabular-nums">
+        <div className="font-bold text-[56px] tabular-nums leading-none tracking-[-0.04em]">
           <span className="mr-[2px] align-top font-semibold text-[24px] text-dm-ink-3">$</span>
           {price}
         </div>
@@ -111,7 +111,7 @@ export function PlanCard(p: PlanCardProps) {
               style={{
                 color: muted ? 'var(--color-dm-ink-4)' : 'var(--color-dm-ink-2)',
                 textDecorationThickness: muted ? '1px' : undefined,
-                textDecorationColor: muted ? 'var(--color-dm-ink-4)' : undefined,
+                textDecorationColor: muted ? 'var(--color-dm-ink-4)' : undefined
               }}
             >
               <span
@@ -121,16 +121,30 @@ export function PlanCard(p: PlanCardProps) {
                   background: muted
                     ? 'var(--color-dm-bg-soft)'
                     : 'color-mix(in srgb, var(--color-dm-ok) 14%, transparent)',
-                  color: muted ? 'var(--color-dm-ink-4)' : 'var(--color-dm-ok)',
+                  color: muted ? 'var(--color-dm-ink-4)' : 'var(--color-dm-ok)'
                 }}
               >
                 {muted ? (
-                  <svg fill="none" height="10" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24" width="10">
+                  <svg
+                    fill="none"
+                    height="10"
+                    stroke="currentColor"
+                    strokeWidth="3"
+                    viewBox="0 0 24 24"
+                    width="10"
+                  >
                     <line x1="6" x2="18" y1="6" y2="18" />
                     <line x1="6" x2="18" y1="18" y2="6" />
                   </svg>
                 ) : (
-                  <svg fill="none" height="10" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24" width="10">
+                  <svg
+                    fill="none"
+                    height="10"
+                    stroke="currentColor"
+                    strokeWidth="3"
+                    viewBox="0 0 24 24"
+                    width="10"
+                  >
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
                 )}
@@ -158,7 +172,7 @@ export function PlanCard(p: PlanCardProps) {
                   'linear-gradient(180deg, var(--color-dm-accent-2), color-mix(in srgb, var(--color-dm-accent-2) 80%, black))',
                 borderColor: 'transparent',
                 boxShadow:
-                  '0 10px 24px -8px color-mix(in srgb, var(--color-dm-accent-2) 55%, transparent)',
+                  '0 10px 24px -8px color-mix(in srgb, var(--color-dm-accent-2) 55%, transparent)'
               }
             : undefined
         }

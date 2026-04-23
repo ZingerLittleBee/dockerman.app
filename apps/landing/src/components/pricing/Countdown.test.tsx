@@ -28,12 +28,12 @@ describe('Countdown diff()', () => {
 
 describe('Countdown component', () => {
   test('renders empty markup on the server (mounted gate)', () => {
-    const html = renderToStaticMarkup(<Countdown deadlineUtc="2100-01-01T00:00:00Z" />)
+    const html = renderToStaticMarkup(<Countdown deadlineUtc="2100-01-01T00:00:00Z" locale="en" />)
     expect(html).toBe('')
   })
 
   test('renders empty markup when deadline is already past', () => {
-    const html = renderToStaticMarkup(<Countdown deadlineUtc="1970-01-01T00:00:00Z" />)
+    const html = renderToStaticMarkup(<Countdown deadlineUtc="1970-01-01T00:00:00Z" locale="en" />)
     expect(html).toBe('')
   })
 })

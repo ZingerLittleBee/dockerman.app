@@ -1,9 +1,9 @@
 'use client'
 
 import { RiCheckboxCircleFill, RiMailLine } from '@remixicon/react'
+import { useLocale, useTranslation } from '@repo/shared/i18n/client'
 import Link from 'next/link'
 import { Button } from '@/components/Button'
-import { useLocale, useTranslation } from '@repo/shared/i18n/client'
 
 export default function PricingSuccess() {
   const { t } = useTranslation()

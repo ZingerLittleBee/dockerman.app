@@ -257,46 +257,162 @@
     }
   },
   "pricing": {
-    "badge": "pricing",
-    "title": "Dockerman License",
-    "subtitle": "Local Free, Remote Paid",
-    "description": "Simple pricing. No subscriptions. Pay once, own it forever.",
-    "earlyBird": "Early Bird - First 100 Only",
-    "deadline": "Early bird pricing ends April 1",
+    "hero": {
+      "eyebrow": "Early Bird · 34% off · ends soon",
+      "eyebrowTag": "LIMITED",
+      "titleLead": "Pay once. Use",
+      "titleAccent": "forever.",
+      "description": "Free for local Docker. One flat, lifetime price for remote hosts, SSH, and multi-machine management. No subscriptions. No seat math. No surprise invoices."
+    },
     "countdown": {
-      "days": "Days",
-      "hours": "Hours",
-      "minutes": "Min",
-      "seconds": "Sec",
-      "expired": "Early bird pricing has ended"
+      "days": "days",
+      "hrs": "hrs",
+      "min": "min",
+      "sec": "sec",
+      "endsLead": "Early Bird pricing ends",
+      "endsDate": "JUN 30",
+      "afterNote": "after that, 1-device ${{solo}} · {{devices}}-device ${{team}}"
     },
-    "updatePolicy": "Lifetime updates",
     "plans": {
-      "oneDevice": "For 1 macOS/Windows device",
-      "threeDevices": "For 3 macOS/Windows devices",
-      "threeDevicesSaving": "55% off compared to one device license"
+      "free": {
+        "label": "free",
+        "name": "Free",
+        "description": "Every feature, no time limit. Local Docker and Podman only.",
+        "freq": "forever · local only",
+        "cta": "Current plan",
+        "ctaNote": "you're on this plan",
+        "features": {
+          "coreSet": "Container, image, volume, network",
+          "compose": "Compose projects & one-click deploy",
+          "palette": "Command palette, terminal, logs",
+          "podmanTrivy": "Podman, Trivy scan, file browser",
+          "themesI18n": "Light & dark themes, i18n (en/zh/ja/es)",
+          "remoteSsh": "Remote hosts via SSH",
+          "multiHost": "Multi-host management"
+        }
+      },
+      "team": {
+        "label": "{{devices}} devices",
+        "nameLead": "Team",
+        "nameAccent": "or",
+        "nameTrail": "multi-device",
+        "description": "Best value for small teams or anyone running multiple machines. Transferable licenses.",
+        "freq": "one-time · {{devices}} devices",
+        "cta": "Get Team — ${{price}}",
+        "ctaNote": "one payment, {{days}}-day refund, lifetime updates",
+        "ribbon": "Most popular",
+        "features": {
+          "everythingFree": "Everything in Free",
+          "perDevice": "${{perDevice}}/device",
+          "perDeviceSavings": " — save $10 vs 1-device × {{devices}}",
+          "remote": "Remote Docker over SSH with heartbeat",
+          "multiHost": "Multi-host switching & bookmarks",
+          "cloudflared": "Cloudflared tunnel management",
+          "k8s": "Kubernetes cluster management",
+          "updates": "Lifetime updates & priority support"
+        }
+      },
+      "solo": {
+        "label": "1 device",
+        "name": "Solo",
+        "description": "For the individual developer. One license, one machine, everything unlocked.",
+        "freq": "one-time · 1 device",
+        "cta": "Get Solo — ${{price}}",
+        "ctaNote": "one payment, {{days}}-day refund",
+        "features": {
+          "everythingFree": "Everything in Free",
+          "remote": "Remote Docker over SSH",
+          "multiHost": "Multi-host management",
+          "cloudflared": "Cloudflared tunnels",
+          "k8s": "Kubernetes clusters",
+          "updates": "Lifetime updates"
+        }
+      }
     },
-    "features": {
-      "crossPlatform": "macOS, Windows & Linux support",
-      "containerManagement": "Container lifecycle management",
-      "imageManagement": "Image management & build",
-      "volumeManagement": "Volume management",
-      "networkManagement": "Network management",
-      "realTimeMonitoring": "Real-time resource monitoring",
-      "integratedTerminal": "Integrated terminal access",
-      "logViewer": "Log viewer with filtering",
-      "fileBrowser": "Container file browser",
-      "composeSupport": "Docker Compose support",
-      "darkMode": "Dark mode support",
-      "localDockerOnly": "Remote host support",
-      "everythingInFree": "Everything in Free",
-      "remoteViaSSH": "Remote host via SSH",
-      "multiHostManagement": "Multi-host management",
-      "lifetimeUpdates": "All future updates included"
+    "trust": {
+      "secure": "Secure checkout",
+      "refund": "{{days}}-day refund, no questions",
+      "users": "{{value}}+ developers",
+      "usersEstimatedFrom": "Estimated from {{date}}",
+      "stars": "{{value}}+ GitHub stars"
     },
-    "cta": {
-      "currentPlan": "Current Plan",
-      "upgradeNow": "Upgrade Now"
+    "compare": {
+      "titleLead": "What you get,",
+      "titleAccent": "feature by feature.",
+      "description": "Every plan includes the full local experience. Paid tiers add remote hosts and priority support.",
+      "columns": {
+        "feature": "Feature",
+        "free": "Free",
+        "team": "Team",
+        "solo": "Solo"
+      },
+      "groups": {
+        "core": "Core",
+        "remote": "Remote & Multi-host",
+        "license": "License & support"
+      },
+      "rows": {
+        "localDocker": {
+          "label": "Local Docker & Podman",
+          "desc": "containers · images · volumes · networks"
+        },
+        "palette": {
+          "label": "Command palette",
+          "desc": "⌘; everywhere"
+        },
+        "terminal": {
+          "label": "Terminal, logs, file browser"
+        },
+        "compose": {
+          "label": "Compose projects",
+          "desc": "docker-compose & docker-run parser"
+        },
+        "trivy": {
+          "label": "Trivy CVE scan + image registry"
+        },
+        "remoteSsh": {
+          "label": "Remote Docker via SSH",
+          "desc": "socket forwarding with heartbeat reconnect"
+        },
+        "bookmarks": {
+          "label": "Multi-host bookmarks & switcher"
+        },
+        "k8s": {
+          "label": "Kubernetes clusters",
+          "desc": "pods · deployments · configmaps · events"
+        },
+        "cloudflared": {
+          "label": "Cloudflared tunnels",
+          "desc": "one-click public URLs"
+        },
+        "devices": {
+          "label": "Devices"
+        },
+        "updates": {
+          "label": "Lifetime updates"
+        },
+        "support": {
+          "label": "Support"
+        },
+        "commercial": {
+          "label": "Commercial use"
+        }
+      },
+      "values": {
+        "unlimited": "unlimited",
+        "community": "community",
+        "priority": "priority · 24h",
+        "email": "email · 48h",
+        "included": "included",
+        "notIncluded": "not included"
+      }
+    },
+    "finalCta": {
+      "titleLead": "Ship containers.",
+      "titleAccent": "From anywhere.",
+      "description": "Pay once, keep it forever. No seat math, no renewals, no upsells.",
+      "ctaTeam": "Get Team — ${{price}}",
+      "ctaFree": "or start free →"
     },
     "success": {
       "title": "Payment Successful!",

@@ -257,46 +257,162 @@
     }
   },
   "pricing": {
-    "badge": "価格",
-    "title": "Dockerman ライセンス",
-    "subtitle": "ローカルは無料、リモートは有料",
-    "description": "シンプルな価格設定。サブスクリプションなし。一度購入すれば永久にご利用いただけます。",
-    "earlyBird": "アーリーバード - 先着 100 名様のみ",
-    "deadline": "アーリーバード価格は 4 月 1 日まで",
+    "hero": {
+      "eyebrow": "早期購入 · 34% OFF · まもなく終了",
+      "eyebrowTag": "期間限定",
+      "titleLead": "一度払えば、",
+      "titleAccent": "ずっと使える。",
+      "description": "ローカル Docker は無料。リモートホスト、SSH、マルチマシン管理は一度きりの買い切り価格で生涯利用可能。サブスクなし、シート計算なし、想定外の請求もなし。"
+    },
     "countdown": {
       "days": "日",
-      "hours": "時間",
-      "minutes": "分",
-      "seconds": "秒",
-      "expired": "アーリーバード価格は終了しました"
+      "hrs": "時間",
+      "min": "分",
+      "sec": "秒",
+      "endsLead": "早期購入価格の終了まで",
+      "endsDate": "6月30日",
+      "afterNote": "終了後:1 デバイス ${{solo}} · {{devices}} デバイス ${{team}}"
     },
-    "updatePolicy": "生涯無料アップデート",
     "plans": {
-      "oneDevice": "1 台の macOS/Windows デバイス用",
-      "threeDevices": "3 台の macOS/Windows デバイス用",
-      "threeDevicesSaving": "単体ライセンスと比較して 55% お得"
+      "free": {
+        "label": "無料",
+        "name": "Free",
+        "description": "全機能、期限なし。ローカル Docker と Podman のみ。",
+        "freq": "永久 · ローカル限定",
+        "cta": "現在のプラン",
+        "ctaNote": "このプランをご利用中です",
+        "features": {
+          "coreSet": "コンテナ、イメージ、ボリューム、ネットワーク",
+          "compose": "Compose プロジェクトとワンクリックデプロイ",
+          "palette": "コマンドパレット、ターミナル、ログ",
+          "podmanTrivy": "Podman、Trivy スキャン、ファイルブラウザ",
+          "themesI18n": "ライト/ダークテーマ、多言語 (en/zh/ja/es)",
+          "remoteSsh": "SSH 経由のリモートホスト",
+          "multiHost": "マルチホスト管理"
+        }
+      },
+      "team": {
+        "label": "{{devices}} デバイス",
+        "nameLead": "Team",
+        "nameAccent": "または",
+        "nameTrail": "マルチデバイス",
+        "description": "小規模チームや複数マシンを扱う方に最適。ライセンスは譲渡可能。",
+        "freq": "一括払い · {{devices}} デバイス",
+        "cta": "Team を購入 — ${{price}}",
+        "ctaNote": "一括払い、{{days}} 日間返金保証、生涯アップデート",
+        "ribbon": "人気 No.1",
+        "features": {
+          "everythingFree": "Free のすべての機能",
+          "perDevice": "${{perDevice}}/デバイス",
+          "perDeviceSavings": " — 1 デバイス × {{devices}} より $10 お得",
+          "remote": "SSH 経由のリモート Docker(ハートビート対応)",
+          "multiHost": "マルチホスト切り替えとブックマーク",
+          "cloudflared": "Cloudflared トンネル管理",
+          "k8s": "Kubernetes クラスター管理",
+          "updates": "生涯アップデートと優先サポート"
+        }
+      },
+      "solo": {
+        "label": "1 デバイス",
+        "name": "Solo",
+        "description": "個人開発者向け。1 ライセンス、1 台のマシンで全機能解放。",
+        "freq": "一括払い · 1 デバイス",
+        "cta": "Solo を購入 — ${{price}}",
+        "ctaNote": "一括払い、{{days}} 日間返金保証",
+        "features": {
+          "everythingFree": "Free のすべての機能",
+          "remote": "SSH 経由のリモート Docker",
+          "multiHost": "マルチホスト管理",
+          "cloudflared": "Cloudflared トンネル",
+          "k8s": "Kubernetes クラスター",
+          "updates": "生涯アップデート"
+        }
+      }
     },
-    "features": {
-      "crossPlatform": "macOS、Windows、Linux 対応",
-      "containerManagement": "コンテナライフサイクル管理",
-      "imageManagement": "イメージ管理とビルド",
-      "volumeManagement": "ボリューム管理",
-      "networkManagement": "ネットワーク管理",
-      "realTimeMonitoring": "リアルタイムリソース監視",
-      "integratedTerminal": "統合ターミナルアクセス",
-      "logViewer": "フィルタリング付きログビューア",
-      "fileBrowser": "コンテナファイルブラウザ",
-      "composeSupport": "Docker Compose 対応",
-      "darkMode": "ダークモード対応",
-      "localDockerOnly": "リモートホスト対応",
-      "everythingInFree": "無料版のすべての機能",
-      "remoteViaSSH": "SSH 経由のリモートホスト接続",
-      "multiHostManagement": "マルチホスト管理",
-      "lifetimeUpdates": "今後のすべてのアップデートを含む"
+    "trust": {
+      "secure": "安全な決済",
+      "refund": "{{days}} 日間無条件返金",
+      "users": "{{value}}+ 人の開発者",
+      "usersEstimatedFrom": "推定開始日:{{date}}",
+      "stars": "{{value}}+ GitHub スター"
     },
-    "cta": {
-      "currentPlan": "現在のプラン",
-      "upgradeNow": "今すぐアップグレード"
+    "compare": {
+      "titleLead": "機能ごとに、",
+      "titleAccent": "一目瞭然。",
+      "description": "すべてのプランにローカル機能を完全収録。有料プランはリモートホストと優先サポートを追加。",
+      "columns": {
+        "feature": "機能",
+        "free": "Free",
+        "team": "Team",
+        "solo": "Solo"
+      },
+      "groups": {
+        "core": "コア機能",
+        "remote": "リモート & マルチホスト",
+        "license": "ライセンス & サポート"
+      },
+      "rows": {
+        "localDocker": {
+          "label": "ローカル Docker と Podman",
+          "desc": "コンテナ · イメージ · ボリューム · ネットワーク"
+        },
+        "palette": {
+          "label": "コマンドパレット",
+          "desc": "⌘; どこでも呼び出し"
+        },
+        "terminal": {
+          "label": "ターミナル、ログ、ファイルブラウザ"
+        },
+        "compose": {
+          "label": "Compose プロジェクト",
+          "desc": "docker-compose と docker-run パーサー"
+        },
+        "trivy": {
+          "label": "Trivy CVE スキャン + イメージレジストリ"
+        },
+        "remoteSsh": {
+          "label": "SSH 経由のリモート Docker",
+          "desc": "ソケット転送とハートビート再接続"
+        },
+        "bookmarks": {
+          "label": "マルチホストブックマークと切り替え"
+        },
+        "k8s": {
+          "label": "Kubernetes クラスター",
+          "desc": "Pod · Deployment · ConfigMap · Event"
+        },
+        "cloudflared": {
+          "label": "Cloudflared トンネル",
+          "desc": "ワンクリック公開 URL"
+        },
+        "devices": {
+          "label": "デバイス数"
+        },
+        "updates": {
+          "label": "生涯アップデート"
+        },
+        "support": {
+          "label": "サポート"
+        },
+        "commercial": {
+          "label": "商用利用"
+        }
+      },
+      "values": {
+        "unlimited": "無制限",
+        "community": "コミュニティ",
+        "priority": "優先 · 24 時間",
+        "email": "メール · 48 時間",
+        "included": "含む",
+        "notIncluded": "含まない"
+      }
+    },
+    "finalCta": {
+      "titleLead": "コンテナを、",
+      "titleAccent": "どこからでも。",
+      "description": "一度払えば、ずっと使える。シート計算なし、更新料なし、アップセルなし。",
+      "ctaTeam": "Team を購入 — ${{price}}",
+      "ctaFree": "または無料で始める →"
     },
     "success": {
       "title": "支払いが完了しました！",
