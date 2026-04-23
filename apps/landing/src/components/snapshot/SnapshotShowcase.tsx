@@ -373,7 +373,6 @@ function Stage({ active, onZoom, prev }: { active: number; onZoom: () => void; p
       style={{ aspectRatio: '2400 / 1600' }}
       type="button"
     >
-      <StageBadge active={active} />
       {SNAPSHOT_MODULES.map((m, i) => {
         const isActive = i === active
         const isPrev = i === prev && prev !== active
@@ -449,34 +448,6 @@ function Slide({
         </div>
       </div>
     </div>
-  )
-}
-
-function StageBadge({ active }: { active: number }) {
-  const m = SNAPSHOT_MODULES[active]
-  const n = String(active + 1).padStart(2, '0')
-  return (
-    <span
-      aria-hidden="true"
-      className="pointer-events-none absolute top-5 left-5 z-[3] flex items-center gap-[10px] rounded-full border border-dm-line-strong py-[9px] pr-[14px] pl-[9px] font-semibold text-[13px] text-dm-ink tracking-[-0.005em] backdrop-blur-[10px]"
-      style={{
-        background: 'color-mix(in srgb, var(--color-dm-bg-elev) 88%, transparent)',
-        boxShadow: '0 6px 18px -8px rgb(0 0 0 / 0.3)'
-      }}
-    >
-      <span
-        className="grid h-[26px] w-[26px] place-items-center rounded-full text-white"
-        style={{
-          background: 'linear-gradient(135deg, var(--color-dm-accent), var(--color-dm-accent-2))'
-        }}
-      >
-        <ModuleIcon className="h-[14px] w-[14px]" icon={m.icon} />
-      </span>
-      <span>{m.label}</span>
-      <span className="ml-1 border-dm-line border-l pl-[10px] font-[var(--font-dm-mono)] font-medium text-[10.5px] text-dm-ink-4">
-        {n} / {TOTAL}
-      </span>
-    </span>
   )
 }
 
