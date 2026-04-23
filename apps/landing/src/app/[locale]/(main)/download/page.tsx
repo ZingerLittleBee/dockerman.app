@@ -39,7 +39,6 @@ export default async function DownloadPage({ params }: { params: Promise<{ local
   return (
     <main>
       <DownloadHero />
-      <HomebrewBlock />
 
       {/* Platforms section */}
       <section className="px-8 pt-20 pb-10">
@@ -52,7 +51,7 @@ export default async function DownloadPage({ params }: { params: Promise<{ local
               <span className="text-dm-ink-4">// </span>direct downloads
             </div>
             <h2 className="mx-0 mt-[10px] mb-3 font-bold text-[clamp(28px,3.6vw,40px)] text-dm-ink leading-[1.05] tracking-[-0.03em]">
-              Or grab a{' '}
+              Grab a{' '}
               <em className="font-[var(--font-dm-display)] font-normal text-dm-ink-2 italic">
                 binary
               </em>{' '}
@@ -105,6 +104,8 @@ export default async function DownloadPage({ params }: { params: Promise<{ local
           <IntegrityBar />
         </div>
       </section>
+
+      <HomebrewBlock />
 
       <ReleasesTable locale={l} />
       <CtaFinal locale={l} />
