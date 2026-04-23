@@ -2,13 +2,39 @@
 
 import Image from 'next/image'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { SNAPSHOT_MODULES } from '@/config/snapshot'
+import type { SnapshotModule } from '@/config/snapshot'
 import { ModuleIcon } from './ModuleIcon'
 
-const TOTAL = SNAPSHOT_MODULES.length
 const DESKTOP_MQ = '(min-width: 768px)'
 
-export function SnapshotShowcase() {
+export interface ShowcaseStrings {
+  allModules: string
+  moduleTabsAria: string
+  moduleNavAria: string
+  openLightbox: string
+  prev: string
+  next: string
+  zoom: string
+  close: string
+  docs: string
+  copyLink: string
+  copied: string
+  screenshotMissing: string
+  screenshotMissingShort: string
+}
+
+export interface ShowcaseModule extends SnapshotModule {
+  showLabel: string
+}
+
+export function SnapshotShowcase({
+  modules,
+  strings
+}: {
+  modules: ShowcaseModule[]
+  strings: ShowcaseStrings
+}) {
+  const total = modules.length
   const [active, setActive] = useState(0)
   const [prev, setPrev] = useState(0)
   const [lightbox, setLightbox] = useState(false)
@@ -19,8 +45,6 @@ export function SnapshotShowcase() {
 
   const closeLightbox = useCallback(() => {
     setLightbox(false)
-    // Drop focus from the stage trigger so the image doesn't keep a focus ring
-    // after a pointer-driven close. Keyboard users still get focus-visible.
     stageRef.current?.blur()
   }, [])
 
@@ -33,7 +57,7 @@ export function SnapshotShowcase() {
 
   const go = useCallback(
     (next: number) => {
-      const n = ((next % TOTAL) + TOTAL) % TOTAL
+      const n = ((next % total) + total) % total
       const sentinel = sentinelRefs.current.at(n) ?? null
       const isDesktop = typeof window !== 'undefined' && window.matchMedia(DESKTOP_MQ).matches
       if (sentinel && isDesktop) {
@@ -42,11 +66,9 @@ export function SnapshotShowcase() {
       }
       setActiveSync(n)
     },
-    [setActiveSync]
+    [setActiveSync, total]
   )
 
-  // Scroll-driven active index on md+ — pin the viewer, let sentinels crossing
-  // the viewport center advance the slide.
   useEffect(() => {
     if (typeof window === 'undefined') return
     if (!window.matchMedia(DESKTOP_MQ).matches) return
@@ -70,15 +92,13 @@ export function SnapshotShowcase() {
     return () => observer.disconnect()
   }, [setActiveSync])
 
-  // Deep-link on load.
   useEffect(() => {
     const hash = window.location.hash.slice(1)
     if (!hash) return
-    const idx = SNAPSHOT_MODULES.findIndex((m) => m.key === hash)
+    const idx = modules.findIndex((m) => m.key === hash)
     if (idx >= 0) go(idx)
-  }, [go])
+  }, [go, modules])
 
-  // Keep the active item visible inside rail/mob-tabs.
   useEffect(() => {
     const nav = railRef.current
     if (nav && window.innerWidth > 1080) {
@@ -103,7 +123,6 @@ export function SnapshotShowcase() {
     }
   }, [active])
 
-  // Keyboard nav.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (lightbox) {
@@ -122,7 +141,7 @@ export function SnapshotShowcase() {
     return () => window.removeEventListener('keydown', onKey)
   }, [active, closeLightbox, go, lightbox])
 
-  const current = SNAPSHOT_MODULES[active]
+  const current = modules[active]
   const n = String(active + 1).padStart(2, '0')
 
   return (
@@ -130,14 +149,14 @@ export function SnapshotShowcase() {
       <div className="mx-auto max-w-[1320px]">
         {/* Mobile tab rail */}
         <div
-          aria-label="Module tabs"
+          aria-label={strings.moduleTabsAria}
           className="-mx-8 mb-5 flex gap-2 overflow-x-auto px-8 pb-4 [scrollbar-width:none] md:hidden [&::-webkit-scrollbar]:hidden"
           ref={mobRef}
           role="tablist"
         >
-          {SNAPSHOT_MODULES.map((m, i) => (
+          {modules.map((m, i) => (
             <button
-              aria-label={`Show ${m.label}`}
+              aria-label={m.showLabel}
               className={`flex shrink-0 items-center gap-[7px] rounded-full border px-3 py-[8px] font-medium text-[13px] transition-colors ${
                 i === active
                   ? 'border-dm-ink bg-dm-ink text-dm-bg'
@@ -157,14 +176,14 @@ export function SnapshotShowcase() {
         <div className="grid grid-cols-1 items-start gap-10 md:grid-cols-[280px_minmax(0,1fr)]">
           {/* Rail */}
           <aside
-            aria-label="Module navigation"
+            aria-label={strings.moduleNavAria}
             className="sticky top-[84px] hidden max-h-[calc(100vh-110px)] flex-col gap-[2px] overflow-y-auto pr-[10px] [scrollbar-color:var(--color-dm-line-strong)_transparent] [scrollbar-width:thin] md:flex"
             ref={railRef}
           >
             <div className="px-3 pb-[10px] font-[var(--font-dm-mono)] font-semibold text-[10.5px] text-dm-ink-4 uppercase tracking-[0.1em]">
-              All modules
+              {strings.allModules}
             </div>
-            {SNAPSHOT_MODULES.map((m, i) => (
+            {modules.map((m, i) => (
               <RailItem
                 active={i === active}
                 icon={m.icon}
@@ -178,10 +197,8 @@ export function SnapshotShowcase() {
 
           {/* Viewer column */}
           <div className="relative">
-            {/* Sentinels (md+ only): each 70vh, stacked to build the scroll track
-                that drives the active slide via IntersectionObserver. */}
             <div aria-hidden="true" className="pointer-events-none hidden md:block">
-              {SNAPSHOT_MODULES.map((m, i) => (
+              {modules.map((m, i) => (
                 <div
                   className="h-[70vh]"
                   data-i={i}
@@ -193,9 +210,6 @@ export function SnapshotShowcase() {
               ))}
             </div>
 
-            {/* Viewer + caption: on md+ an absolute overlay with a sticky child
-                pins the viewer for the length of the sentinel track; on mobile
-                it falls back to normal block flow. */}
             <div className="md:absolute md:inset-0">
               <div className="md:sticky md:top-[84px]">
                 <div
@@ -209,11 +223,16 @@ export function SnapshotShowcase() {
                     onPrev={() => go(active - 1)}
                     onZoom={() => setLightbox(true)}
                     pager={n}
+                    strings={strings}
+                    total={total}
                   />
                   <Stage
                     active={active}
+                    modules={modules}
                     onZoom={() => setLightbox(true)}
                     prev={prev}
+                    screenshotMissing={strings.screenshotMissing}
+                    stageOpenLabel={strings.openLightbox}
                     stageRef={stageRef}
                   />
                 </div>
@@ -226,6 +245,7 @@ export function SnapshotShowcase() {
                     const url = `${window.location.href.split('#')[0]}#${current.key}`
                     navigator.clipboard?.writeText(url).catch(() => undefined)
                   }}
+                  strings={strings}
                 />
               </div>
             </div>
@@ -233,7 +253,15 @@ export function SnapshotShowcase() {
         </div>
       </div>
 
-      {lightbox && <Lightbox active={active} onClose={closeLightbox} />}
+      {lightbox && (
+        <Lightbox
+          active={active}
+          modules={modules}
+          onClose={closeLightbox}
+          screenshotMissingShort={strings.screenshotMissingShort}
+          title={strings.close}
+        />
+      )}
     </section>
   )
 }
@@ -248,7 +276,7 @@ function RailItem({
   active: boolean
   index: number
   label: string
-  icon: (typeof SNAPSHOT_MODULES)[number]['icon']
+  icon: SnapshotModule['icon']
   onSelect: () => void
 }) {
   const num = String(index + 1).padStart(2, '0')
@@ -300,7 +328,9 @@ function ViewerTopbar({
   onNext,
   onPrev,
   onZoom,
-  pager
+  pager,
+  strings,
+  total
 }: {
   active: number
   label: string
@@ -308,6 +338,8 @@ function ViewerTopbar({
   onPrev: () => void
   onZoom: () => void
   pager: string
+  strings: ShowcaseStrings
+  total: number
 }) {
   return (
     <div
@@ -323,19 +355,18 @@ function ViewerTopbar({
       </div>
       <div className="ml-auto flex items-center gap-2">
         <span className="rounded-[5px] border border-dm-line bg-dm-bg-soft px-[10px] py-1 font-[var(--font-dm-mono)] text-[11px] text-dm-ink-3">
-          <span className="font-semibold text-dm-ink">{pager}</span> / {TOTAL}
+          <span className="font-semibold text-dm-ink">{pager}</span> / {total}
         </span>
-        <TopbarBtn ariaLabel="Previous" onClick={onPrev}>
+        <TopbarBtn ariaLabel={strings.prev} onClick={onPrev}>
           <path d="M15 18l-6-6 6-6" />
         </TopbarBtn>
-        <TopbarBtn ariaLabel="Next" onClick={onNext}>
+        <TopbarBtn ariaLabel={strings.next} onClick={onNext}>
           <path d="M9 18l6-6-6-6" />
         </TopbarBtn>
-        <TopbarBtn ariaLabel="Zoom" onClick={onZoom}>
+        <TopbarBtn ariaLabel={strings.zoom} onClick={onZoom}>
           <path d="M15 3h6v6M14 10l7-7M9 21H3v-6M10 14l-7 7" />
         </TopbarBtn>
       </div>
-      {/* keep active reference for focus management (unused visually) */}
       <span className="sr-only">{active}</span>
     </div>
   )
@@ -374,28 +405,43 @@ function TopbarBtn({
 
 function Stage({
   active,
+  modules,
   onZoom,
   prev,
+  screenshotMissing,
+  stageOpenLabel,
   stageRef
 }: {
   active: number
+  modules: SnapshotModule[]
   onZoom: () => void
   prev: number
+  screenshotMissing: string
+  stageOpenLabel: string
   stageRef: React.RefObject<HTMLButtonElement | null>
 }) {
   return (
     <button
-      aria-label="Open in lightbox"
+      aria-label={stageOpenLabel}
       className="relative block w-full cursor-zoom-in overflow-hidden bg-dm-bg-soft focus:outline-none focus-visible:outline-2 focus-visible:outline-dm-accent focus-visible:outline-offset-[-2px]"
       onClick={onZoom}
       ref={stageRef}
       style={{ aspectRatio: '2400 / 1600' }}
       type="button"
     >
-      {SNAPSHOT_MODULES.map((m, i) => {
+      {modules.map((m, i) => {
         const isActive = i === active
         const isPrev = i === prev && prev !== active
-        return <Slide active={isActive} alt={m.label} key={m.key} prev={isPrev} src={m.src} />
+        return (
+          <Slide
+            active={isActive}
+            alt={m.label}
+            key={m.key}
+            missing={screenshotMissing}
+            prev={isPrev}
+            src={m.src}
+          />
+        )
       })}
     </button>
   )
@@ -404,11 +450,13 @@ function Stage({
 function Slide({
   active,
   alt,
+  missing,
   prev,
   src
 }: {
   active: boolean
   alt: string
+  missing: string
   prev: boolean
   src: string | null
 }) {
@@ -462,9 +510,7 @@ function Slide({
         <div className="font-[var(--font-sans)] font-semibold text-[15px] text-dm-ink-2 tracking-[-0.01em]">
           {alt}
         </div>
-        <div className="mx-auto mt-1 max-w-[36ch] text-dm-ink-4 leading-[1.5]">
-          Screenshot not bundled — see the live app for a full walkthrough.
-        </div>
+        <div className="mx-auto mt-1 max-w-[36ch] text-dm-ink-4 leading-[1.5]">{missing}</div>
       </div>
     </div>
   )
@@ -474,12 +520,14 @@ function CaptionStrip({
   em,
   onCopyLink,
   descHtml,
-  label
+  label,
+  strings
 }: {
   em: string
   onCopyLink: () => void
   descHtml: string
   label: string
+  strings: ShowcaseStrings
 }) {
   const [copied, setCopied] = useState(false)
   return (
@@ -496,7 +544,7 @@ function CaptionStrip({
         </h3>
         <p
           className="m-0 mt-1 max-w-[70ch] text-[14px] text-dm-ink-3 leading-[1.55] [&_code]:rounded [&_code]:bg-dm-bg-soft [&_code]:px-[5px] [&_code]:py-[1px] [&_code]:font-[var(--font-dm-mono)] [&_code]:text-[13px]"
-          // biome-ignore lint/security/noDangerouslySetInnerHtml: copy is authored by us in config/snapshot.ts and only contains <code> tags.
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: copy is authored by us in locales/*.json and only contains <code> tags.
           dangerouslySetInnerHTML={{ __html: descHtml }}
         />
       </div>
@@ -518,7 +566,7 @@ function CaptionStrip({
             <path d="M16 4v4h4" />
             <path d="M8 12h8M8 16h8" />
           </svg>
-          Docs
+          {strings.docs}
         </a>
         <button
           className="inline-flex cursor-pointer items-center gap-[7px] rounded-[8px] border border-dm-line bg-dm-bg-soft px-3 py-[7px] font-medium text-[12.5px] text-dm-ink-2 transition-colors hover:border-dm-line-strong hover:bg-dm-bg-elev hover:text-dm-ink"
@@ -540,15 +588,27 @@ function CaptionStrip({
           >
             <path d="M10 6h9a1 1 0 0 1 1 1v11M6 10h8a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1z" />
           </svg>
-          {copied ? 'Copied!' : 'Copy link'}
+          {copied ? strings.copied : strings.copyLink}
         </button>
       </div>
     </div>
   )
 }
 
-function Lightbox({ active, onClose }: { active: number; onClose: () => void }) {
-  const m = SNAPSHOT_MODULES[active]
+function Lightbox({
+  active,
+  modules,
+  onClose,
+  screenshotMissingShort,
+  title
+}: {
+  active: number
+  modules: SnapshotModule[]
+  onClose: () => void
+  screenshotMissingShort: string
+  title: string
+}) {
+  const m = modules[active]
   const n = String(active + 1).padStart(2, '0')
   return (
     <div
@@ -559,7 +619,7 @@ function Lightbox({ active, onClose }: { active: number; onClose: () => void }) 
       style={{ background: 'rgb(0 0 0 / 0.92)' }}
     >
       <button
-        aria-label="Close"
+        aria-label={title}
         className="absolute top-5 right-5 grid h-10 w-10 cursor-pointer place-items-center rounded-full border-0 text-white"
         onClick={(e) => {
           e.stopPropagation()
@@ -597,7 +657,7 @@ function Lightbox({ active, onClose }: { active: number; onClose: () => void }) 
           onClick={(e) => e.stopPropagation()}
         >
           <div className="font-[var(--font-sans)] font-semibold text-[18px]">{m.label}</div>
-          <div className="text-dm-ink-4">Screenshot not bundled in this preview.</div>
+          <div className="text-dm-ink-4">{screenshotMissingShort}</div>
         </div>
       )}
       <div

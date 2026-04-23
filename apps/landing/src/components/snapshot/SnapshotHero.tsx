@@ -1,7 +1,10 @@
-import { SNAPSHOT_MODULES } from '@/config/snapshot'
+import type { Locale } from '@repo/shared/i18n'
+import { getTranslation } from '@repo/shared/i18n/server'
+import { SNAPSHOT_MODULE_COUNT } from '@/config/snapshot'
 
-export function SnapshotHero() {
-  const count = SNAPSHOT_MODULES.length
+export async function SnapshotHero({ locale }: { locale: Locale }) {
+  const { t } = await getTranslation(locale)
+  const count = SNAPSHOT_MODULE_COUNT
   return (
     <section className="relative px-8 pt-14 pb-8">
       <div
@@ -23,21 +26,16 @@ export function SnapshotHero() {
           >
             {count}
           </span>
-          <span>modules · one window</span>
+          <span>{t('snapshot.hero.kickerLabel')}</span>
         </span>
 
         <h1 className="mt-[18px] max-w-[16ch] font-bold text-[clamp(44px,6.2vw,84px)] text-dm-ink leading-[0.98] tracking-[-0.04em]">
-          Every screen,{' '}
+          {t('snapshot.hero.titleLead')}{' '}
           <em
             className="bg-clip-text font-[var(--font-dm-display)] font-normal text-transparent italic tracking-[-0.02em]"
             style={{
               backgroundImage:
                 'linear-gradient(135deg, var(--color-dm-accent), var(--color-dm-accent-2))',
-              // Italic glyphs (e.g. `l`, `y`, `f`) overshoot the tight
-              // `leading-[0.98]` line box. Without room, the gradient paint
-              // area (background-clip: text) clips their tops/descenders.
-              // box-decoration-break: clone makes the padding apply to every
-              // line fragment, so wrapping (`every` + `surface.`) paints cleanly.
               paddingInline: '0.18em',
               marginInline: '-0.18em',
               paddingBlock: '0.18em',
@@ -46,25 +44,27 @@ export function SnapshotHero() {
               boxDecorationBreak: 'clone'
             }}
           >
-            every surface.
+            {t('snapshot.hero.titleAccent')}
           </em>
         </h1>
 
         <p className="mt-[22px] max-w-[62ch] text-[17px] text-dm-ink-3 leading-[1.55]">
-          A tour of Dockerman’s {count} core modules — dashboard, terminal, logs, images, volumes,
-          Kubernetes, and everything in between. Click a module to preview, or press{' '}
-          <strong className="text-dm-ink">↑/↓</strong> to walk through them.
+          {t('snapshot.hero.descriptionPre')}
+          {count}
+          {t('snapshot.hero.descriptionMid')}
+          <strong className="text-dm-ink">↑/↓</strong>
+          {t('snapshot.hero.descriptionPost')}
         </p>
 
         <div className="mt-8 flex flex-wrap items-center gap-7 rounded-[12px] border border-dm-line bg-dm-bg-elev px-[22px] py-[18px] font-[var(--font-dm-mono)] text-[12px] text-dm-ink-3">
-          <MetaField label="Modules" value={String(count)} />
+          <MetaField label={t('snapshot.hero.metaModules')} value={String(count)} />
           <MetaSep />
-          <MetaField label="Build" value="v5.1.0" />
+          <MetaField label={t('snapshot.hero.metaBuild')} value="v5.1.0" />
           <MetaSep />
-          <MetaField label="Captured at" value="2400 × 1600" />
+          <MetaField label={t('snapshot.hero.metaCaptured')} value="2400 × 1600" />
           <div className="ml-auto flex items-center gap-[10px]">
             <span className="text-[10.5px] text-dm-ink-4 uppercase tracking-[0.08em]">
-              Shortcut
+              {t('snapshot.hero.shortcutLabel')}
             </span>
             <Key>↑</Key>
             <Key>↓</Key>

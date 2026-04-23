@@ -531,46 +531,147 @@
     }
   },
   "snapshot": {
-    "badge": "パワフル",
-    "title": "Docker 管理、",
-    "titleBreak": "シンプルに",
-    "description": "シンプルさとパフォーマンスに焦点を当てた、モダンで軽量な Docker 管理 UI。クロスプラットフォームのデスクトップ統合でコンテナを監視および管理します。",
-    "tabs": {
-      "dashboard": "ダッシュボード",
-      "terminal": "ターミナル",
-      "processes": "プロセス",
-      "inspect": "検査",
-      "stats": "統計",
-      "logs": "ログ",
-      "ssh": "SSH",
-      "build": "ビルド",
-      "events": "イベント",
-      "file": "コンテナファイル",
-      "imageAnalysis": "イメージ分析",
-      "compose": "Compose",
-      "volumeBrowse": "ボリュームブラウズ",
-      "storage": "ストレージ",
-      "filePreview": "ファイルプレビュー",
-      "dockerHub": "Docker Hub",
-      "imageSecurity": "イメージセキュリティ",
-      "kubernetes": "Kubernetes"
+    "hero": {
+      "kickerLabel": "モジュール · 一つの窓",
+      "titleLead": "すべての画面、",
+      "titleAccent": "すべての面。",
+      "descriptionPre": "Dockerman の ",
+      "descriptionMid": " コアモジュールを一巡 — ダッシュボード、ターミナル、ログ、イメージ、ボリューム、Kubernetes、そしてその間のすべて。モジュールをクリックしてプレビュー、または ",
+      "descriptionPost": " で順番に閲覧できます。",
+      "shortcutLabel": "ショートカット",
+      "metaModules": "モジュール数",
+      "metaBuild": "ビルド",
+      "metaCaptured": "キャプチャ解像度"
     },
-    "features": {
-      "realTimeMonitoring": {
-        "name": "リアルタイム監視",
-        "description": "強力なパフォーマンスで、コンテナの CPU、メモリ、ネットワーク、I/O メトリクスをリアルタイムで監視します。"
+    "showcase": {
+      "allModules": "すべてのモジュール",
+      "moduleTabsAria": "モジュールタブ",
+      "moduleNavAria": "モジュールナビゲーション",
+      "showModule": "{{label}} を表示",
+      "openLightbox": "ライトボックスで開く",
+      "prev": "前へ",
+      "next": "次へ",
+      "zoom": "ズーム",
+      "close": "閉じる",
+      "docs": "ドキュメント",
+      "copyLink": "リンクをコピー",
+      "copied": "コピーしました!",
+      "screenshotMissing": "スクリーンショットは同梱されていません — 実際のアプリで全機能をご覧ください。",
+      "screenshotMissingShort": "このプレビューにはスクリーンショットが同梱されていません。"
+    },
+    "featuresStrip": {
+      "kicker": "スクリーンショットには映らないもの",
+      "titleLead": "表面がアプリ。",
+      "titleAccent": "本質はその下。",
+      "features": {
+        "realTime": {
+          "title": "リアルタイム監視",
+          "body": "すべてのペインが libpod または docker.sock のイベントストリームを購読 — ポーリングなし、古いデータもなし。スパークラインは 1.5 秒ごとに更新。"
+        },
+        "containerMgmt": {
+          "title": "コンテナ管理",
+          "body": "作成、検査、exec、diff、commit、save。Docker が公開するすべてのプリミティブに、キーボードショートカットとコンテキストアクションで対応。"
+        },
+        "remote": {
+          "title": "リモート接続",
+          "body": "Docker over SSH、WSL2、Colima、Podman ソケットに対応。ホストをブックマーク、タイトルバーから切り替え — エンジンピッカーはプロジェクトごとに記憶。"
+        },
+        "nativePerf": {
+          "title": "ネイティブ性能",
+          "body": "Rust + Tauri。インストール 38 MB、M2 で 20 コンテナ稼働時アイドル 84 MB。Chromium も Electron も 400 MB の悲しいタブもなし。"
+        }
+      }
+    },
+    "modules": {
+      "dashboard": {
+        "label": "ダッシュボード",
+        "em": "すべてが一目で。",
+        "desc": "アクティブなエンジン上のコンテナ、イメージ、ボリューム、ネットワークを 1 画面に集約。ライブ統計はその場で更新され、任意のオブジェクトへワンクリックで深リンク可能。"
       },
-      "containerManagement": {
-        "name": "コンテナ管理",
-        "description": "直感的なインターフェースでコンテナを起動、停止、検査、管理します。統合ターミナルとプロセスリストにアクセスします。"
+      "terminal": {
+        "label": "ターミナル",
+        "em": "本物のシェル、おもちゃじゃない。",
+        "desc": "任意の実行中コンテナへの完全な xterm.js シェル。ANSI カラー、選択でコピー、改行セーフなペースト、コンテナ再起動後も残るスクロールバック。"
       },
-      "remoteConnectivity": {
-        "name": "リモート接続",
-        "description": "SSH を介してリモート Docker インスタンスに安全に接続します。単一のインターフェースから複数のホスト上のコンテナを管理します。"
+      "processes": {
+        "label": "プロセス",
+        "em": "より行儀の良い ps。",
+        "desc": "コンテナごとの <code>ps</code>、CPU とメモリ列はソート可能。<code>SIGTERM → SIGKILL</code> をタイマーで送るシグナル選択も搭載。"
       },
-      "powerfulPerformance": {
-        "name": "強力なパフォーマンス",
-        "description": "Tauri で構築され、高速な起動と最小限のリソース使用量を実現しながら Docker 環境を管理します。"
+      "inspect": {
+        "label": "Inspect",
+        "em": "JSON、読みやすく。",
+        "desc": "<code>docker inspect</code> の全キーをグループ化して検索可能。値を JSON でコピー、生の出力をサイドペインで比較。"
+      },
+      "stats": {
+        "label": "統計",
+        "em": "ピクセルに見合うチャート。",
+        "desc": "コンテナ別の CPU、メモリ、ネットワーク、ブロック I/O チャート。プロセス単位の内訳、任意区間のズーム、事後分析用の CSV 出力。"
+      },
+      "logs": {
+        "label": "ログ",
+        "em": "50 MB でも滑らか。",
+        "desc": "仮想化ログビューア — 50 MB のファイルも滑らかにスクロール。ANSI 対応、正規表現検索、多重マッチハイライト、本当に止まる一時停止。"
+      },
+      "ssh": {
+        "label": "SSH",
+        "em": "リモートもローカルのように。",
+        "desc": "SSH 経由の Docker、ソケット自動転送、ハートビート再接続、バックオフ対応。タイトルバーのステータスチップで原因が一目瞭然。"
+      },
+      "build": {
+        "label": "ビルド履歴",
+        "em": "すべてのステップ、すべての秒。",
+        "desc": "実行した全イメージビルド、キャッシュヒット率、ステップ所要時間、当時の <code>Dockerfile</code> を保存。"
+      },
+      "events": {
+        "label": "イベント",
+        "em": "バスをついに読みやすく。",
+        "desc": "Docker イベントバスを可読化。オブジェクト、種別、時間窓でフィルタ。直近 1 時間のリプレイ、表形式エクスポートで本番障害を解析。"
+      },
+      "file": {
+        "label": "ファイルブラウザ",
+        "em": "クリック可能な rootfs。",
+        "desc": "実行中コンテナのファイルシステムを巡回。アップロード、ダウンロード、イメージとの差分、ディレクトリを <code>.tar.gz</code> で再帰エクスポート。"
+      },
+      "filePreview": {
+        "label": "ファイルプレビュー",
+        "em": "シェル不要のプレビュー。",
+        "desc": "テキスト、JSON、YAML、画像、PDF のインラインプレビュー。10 MB までシンタックスハイライト、拡張子が嘘でも形式を自動判定。"
+      },
+      "imageAnalysis": {
+        "label": "イメージ分析",
+        "em": "本当に見えるレイヤー。",
+        "desc": "レイヤーエクスプローラー — クリックで追加内容を確認、インタラクティブなサイズ分布、Dockerfile 復元、イメージごとの効率スコア。"
+      },
+      "compose": {
+        "label": "Compose",
+        "em": "コンテナだけでなくプロジェクト。",
+        "desc": "Compose プロジェクトをコンテナ一覧でグループ化。Up、Down、Pull、Recreate — 常用アクションをワンクリックで。Quadlet ファイルもインライン表示。"
+      },
+      "volumeBrowse": {
+        "label": "ボリューム閲覧",
+        "em": "ボリュームの中身は?",
+        "desc": "シェルを接続せずに名前付きボリュームの内容を巡回。マウントグラフで各ボリュームを使っているコンテナが一目瞭然。"
+      },
+      "storage": {
+        "label": "ストレージ",
+        "em": "領収書付きのプルーン。",
+        "desc": "レイヤー、ボリューム、ビルドキャッシュ別のディスク使用量。ワンクリック <code>docker system prune</code> が削除予定を教えてくれる。"
+      },
+      "dockerHub": {
+        "label": "Docker Hub",
+        "em": "ブラウザ不要の検索。",
+        "desc": "アプリを離れずに公式レジストリを検索。プル前にダウンロード数、サイズ推移、タグ、最新タグの Trivy スキャンを確認。"
+      },
+      "imageSecurity": {
+        "label": "イメージセキュリティ",
+        "em": "修正ボタン付きの CVE。",
+        "desc": "全イメージに Trivy スキャンをインラインで。CVE ID、深刻度、パッケージ、修正バージョンまで — ワンクリックでアップグレード & リビルド。"
+      },
+      "kubernetes": {
+        "label": "Kubernetes",
+        "em": "クラスター、一枚の窓で。",
+        "desc": "クラスター、ネームスペース、Pod、Deployment、Service、ConfigMap。本当に読める ConfigMap 差分ビューア(並列またはユニファイド)。"
       }
     }
   },

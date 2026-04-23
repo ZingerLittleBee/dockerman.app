@@ -531,46 +531,147 @@
     }
   },
   "snapshot": {
-    "badge": "POTENTE",
-    "title": "Gestión Docker,",
-    "titleBreak": "Simplificada",
-    "description": "Una UI moderna y ligera para gestión Docker enfocada en simplicidad y rendimiento. Monitorea y gestiona tus contenedores con integración multiplataforma de escritorio.",
-    "tabs": {
-      "dashboard": "Panel",
-      "terminal": "Terminal",
-      "processes": "Procesos",
-      "inspect": "Inspeccionar",
-      "stats": "Estadísticas",
-      "logs": "Logs",
-      "ssh": "SSH",
-      "build": "Construir",
-      "events": "Eventos",
-      "file": "Archivos del Contenedor",
-      "imageAnalysis": "Análisis de Imagen",
-      "compose": "Compose",
-      "volumeBrowse": "Explorar Volúmenes",
-      "storage": "Almacenamiento",
-      "filePreview": "Vista Previa de Archivo",
-      "dockerHub": "Docker Hub",
-      "imageSecurity": "Seguridad de Imagen",
-      "kubernetes": "Kubernetes"
+    "hero": {
+      "kickerLabel": "módulos · una ventana",
+      "titleLead": "Cada pantalla,",
+      "titleAccent": "cada superficie.",
+      "descriptionPre": "Un recorrido por los ",
+      "descriptionMid": " módulos principales de Dockerman — panel, terminal, logs, imágenes, volúmenes, Kubernetes y todo lo demás. Haz clic en un módulo para previsualizar, o pulsa ",
+      "descriptionPost": " para recorrerlos.",
+      "shortcutLabel": "Atajo",
+      "metaModules": "Módulos",
+      "metaBuild": "Build",
+      "metaCaptured": "Capturado en"
     },
-    "features": {
-      "realTimeMonitoring": {
-        "name": "Monitoreo en Tiempo Real",
-        "description": "Monitorea métricas de CPU, memoria, red y E/S de contenedores en tiempo real con rendimiento potente."
+    "showcase": {
+      "allModules": "Todos los módulos",
+      "moduleTabsAria": "Pestañas de módulos",
+      "moduleNavAria": "Navegación de módulos",
+      "showModule": "Mostrar {{label}}",
+      "openLightbox": "Abrir en lightbox",
+      "prev": "Anterior",
+      "next": "Siguiente",
+      "zoom": "Zoom",
+      "close": "Cerrar",
+      "docs": "Docs",
+      "copyLink": "Copiar enlace",
+      "copied": "¡Copiado!",
+      "screenshotMissing": "Captura no incluida — consulta la app en vivo para el recorrido completo.",
+      "screenshotMissingShort": "Captura no incluida en esta previsualización."
+    },
+    "featuresStrip": {
+      "kicker": "Lo que las capturas no muestran",
+      "titleLead": "La superficie es la app.",
+      "titleAccent": "La sustancia está debajo.",
+      "features": {
+        "realTime": {
+          "title": "Monitorización en tiempo real",
+          "body": "Cada panel se suscribe a un stream de eventos de libpod o docker.sock — sin polling, sin datos obsoletos. Las sparklines laten cada 1,5 s."
+        },
+        "containerMgmt": {
+          "title": "Gestión de contenedores",
+          "body": "Crear, inspeccionar, exec, diff, commit, save. Cada primitiva que Docker expone, presentada con atajos de teclado y acciones contextuales."
+        },
+        "remote": {
+          "title": "Conectividad remota",
+          "body": "Docker sobre SSH, WSL2, Colima y sockets Podman. Marca hosts, cambia desde la barra de título — tu selector de motor recuerda por proyecto."
+        },
+        "nativePerf": {
+          "title": "Rendimiento nativo",
+          "body": "Rust + Tauri. 38 MB de instalación, 84 MB ocioso en un M2 con 20 contenedores. Sin Chromium, sin Electron, sin una triste pestaña de 400 MB."
+        }
+      }
+    },
+    "modules": {
+      "dashboard": {
+        "label": "Panel",
+        "em": "todo, de un vistazo.",
+        "desc": "Vista consolidada de cada contenedor, imagen, volumen y red en el motor activo. Las estadísticas en vivo se actualizan en el sitio y puedes enlazar directamente a cualquier objeto con un clic."
       },
-      "containerManagement": {
-        "name": "Gestión de Contenedores",
-        "description": "Inicia, detén, inspecciona y gestiona contenedores con una interfaz intuitiva. Accede a la terminal integrada y lista de procesos."
+      "terminal": {
+        "label": "Terminal",
+        "em": "una shell real, no un juguete.",
+        "desc": "Shell xterm.js completa hacia cualquier contenedor en ejecución. Colores ANSI, copiar al seleccionar, saltos de línea seguros al pegar y un scrollback que sobrevive a reinicios."
       },
-      "remoteConnectivity": {
-        "name": "Conectividad Remota",
-        "description": "Conecta a instancias Docker remotas de forma segura vía SSH. Gestiona contenedores en múltiples hosts desde una sola interfaz."
+      "processes": {
+        "label": "Procesos",
+        "em": "ps con mejores modales.",
+        "desc": "<code>ps</code> por contenedor con columnas de CPU y memoria ordenables, y un desplegable de señales que envía <code>SIGTERM → SIGKILL</code> con temporizador."
       },
-      "powerfulPerformance": {
-        "name": "Rendimiento Potente",
-        "description": "Construida con Tauri para un inicio rápido como un rayo y uso mínimo de recursos mientras gestionas tu entorno Docker."
+      "inspect": {
+        "label": "Inspect",
+        "em": "el JSON, legible.",
+        "desc": "Cada clave de <code>docker inspect</code>, agrupada y buscable. Copia cualquier valor como JSON, o abre el output crudo en un panel lateral para comparar."
+      },
+      "stats": {
+        "label": "Estadísticas",
+        "em": "gráficos que valen sus píxeles.",
+        "desc": "Gráficos de CPU, memoria, red y E/S por contenedor. Desgloses por proceso, zoom a cualquier ventana, exporta CSV para una autopsia."
+      },
+      "logs": {
+        "label": "Logs",
+        "em": "50 MB, fluido.",
+        "desc": "Visor de logs virtualizado — archivos de 50 MB se desplazan con fluidez. Soporta ANSI, búsqueda regex, resaltado multi-coincidencia y pausa al desplazar que realmente pausa."
+      },
+      "ssh": {
+        "label": "SSH",
+        "em": "remoto como si fuera local.",
+        "desc": "Docker sobre SSH con reenvío automático de socket, reconexión por heartbeat y backoff. El chip de estado en la barra de título te dice exactamente qué falló."
+      },
+      "build": {
+        "label": "Historial de build",
+        "em": "cada paso, cada segundo.",
+        "desc": "Cada build de imagen que hayas lanzado, con ratios de caché, tiempos por paso y el <code>Dockerfile</code> exacto tal como estaba en ese momento."
+      },
+      "events": {
+        "label": "Eventos",
+        "em": "el bus, por fin legible.",
+        "desc": "El bus de eventos de Docker, legible. Filtra por objeto, tipo o ventana temporal; repite la última hora; exporta como tabla cuando algo falle en producción."
+      },
+      "file": {
+        "label": "Explorador de archivos",
+        "em": "rootfs, pero clicable.",
+        "desc": "Recorre el sistema de archivos de un contenedor en ejecución. Sube, descarga, compara contra la imagen y exporta un directorio recursivamente como <code>.tar.gz</code>."
+      },
+      "filePreview": {
+        "label": "Vista previa",
+        "em": "previsualizar sin shell.",
+        "desc": "Vista previa en línea para texto, JSON, YAML, imágenes y PDFs. Resaltado de sintaxis hasta 10 MB; detecta el formato cuando la extensión miente."
+      },
+      "imageAnalysis": {
+        "label": "Análisis de imagen",
+        "em": "capas que puedes ver.",
+        "desc": "Explorador de capas — haz clic para ver lo que añadió, distribución de tamaños interactiva, reconstrucción del Dockerfile y puntuación de eficiencia por imagen."
+      },
+      "compose": {
+        "label": "Compose",
+        "em": "proyectos, no solo contenedores.",
+        "desc": "Proyectos Compose agrupados en la lista de contenedores. Up, down, pull, recreate — las acciones comunes, un clic. Los archivos Quadlet también se renderizan en línea."
+      },
+      "volumeBrowse": {
+        "label": "Navegar volumen",
+        "em": "¿qué hay en el volumen?",
+        "desc": "Recorre el contenido de un volumen nombrado sin adjuntar una shell. La vista de grafo de montajes muestra qué contenedores usan cada volumen."
+      },
+      "storage": {
+        "label": "Almacenamiento",
+        "em": "podar con recibos.",
+        "desc": "Uso de disco por capa, volumen y caché de build, con un <code>docker system prune</code> de un clic que te dice exactamente qué va a borrar."
+      },
+      "dockerHub": {
+        "label": "Docker Hub",
+        "em": "buscar sin el navegador.",
+        "desc": "Busca el registro público sin salir de la app. Ve descargas, tendencia de tamaño, tags y un escaneo Trivy del último tag antes de hacer pull."
+      },
+      "imageSecurity": {
+        "label": "Seguridad de imagen",
+        "em": "CVEs con botón de arreglar.",
+        "desc": "Escaneo Trivy en línea para cada imagen. ID de CVE, severidad, paquete y versión exacta con el fix — con una acción de un clic para actualizar y reconstruir."
+      },
+      "kubernetes": {
+        "label": "Kubernetes",
+        "em": "el clúster, una ventana.",
+        "desc": "Clústeres, namespaces, pods, deployments, services, ConfigMaps. Un visor de diferencias de ConfigMap (lado a lado o unificado) que realmente es legible."
       }
     }
   },

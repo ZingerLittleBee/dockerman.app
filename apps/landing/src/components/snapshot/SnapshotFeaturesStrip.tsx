@@ -1,42 +1,39 @@
-const FEATURES = [
+import type { Locale } from '@repo/shared/i18n'
+import { getTranslation } from '@repo/shared/i18n/server'
+
+type FeatureKey = 'realTime' | 'containerMgmt' | 'remote' | 'nativePerf'
+
+interface FeatureDef {
+  key: FeatureKey
+  num: string
+  paths?: string[]
+  path?: string
+}
+
+const FEATURES: FeatureDef[] = [
+  { key: 'realTime', num: '01', path: 'M3 12l4-4 3 3 5-8 3 6h3' },
+  { key: 'containerMgmt', num: '02', path: 'M4 8h4l2 3 4-6 2 3h4M4 16h16' },
   {
-    num: '01',
-    title: 'Real-time monitoring',
-    body: 'Every pane subscribes to a libpod or docker.sock event stream — no polling, no stale data. Sparklines tick every 1.5 s.',
-    path: 'M3 12l4-4 3 3 5-8 3 6h3'
-  },
-  {
-    num: '02',
-    title: 'Container management',
-    body: 'Create, inspect, exec, diff, commit, save. Every primitive docker exposes, surfaced with keyboard shortcuts and contextual actions.',
-    path: 'M4 8h4l2 3 4-6 2 3h4M4 16h16'
-  },
-  {
+    key: 'remote',
     num: '03',
-    title: 'Remote connectivity',
-    body: 'Docker over SSH, WSL2, Colima, and Podman sockets. Bookmark hosts, switch from the titlebar — your engine picker remembers per-project.',
     paths: ['circle', 'M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18']
   },
-  {
-    num: '04',
-    title: 'Native performance',
-    body: 'Rust + Tauri. 38 MB install, 84 MB idle on an M2 with 20 containers. No Chromium, no Electron overhead, no 400 MB sad tab.',
-    path: 'M12 2l9 4v6c0 5-3.5 9.5-9 10-5.5-.5-9-5-9-10V6l9-4z'
-  }
-] as const
+  { key: 'nativePerf', num: '04', path: 'M12 2l9 4v6c0 5-3.5 9.5-9 10-5.5-.5-9-5-9-10V6l9-4z' }
+]
 
-export function SnapshotFeaturesStrip() {
+export async function SnapshotFeaturesStrip({ locale }: { locale: Locale }) {
+  const { t } = await getTranslation(locale)
   return (
     <section className="border-dm-line border-t px-8 pt-16 pb-10">
       <div className="mx-auto max-w-[1320px]">
         <div className="mb-4 flex items-center gap-[14px] font-[var(--font-dm-mono)] font-semibold text-[11px] text-dm-ink-4 uppercase tracking-[0.1em]">
-          What the screenshots miss
+          {t('snapshot.featuresStrip.kicker')}
           <span aria-hidden="true" className="h-px max-w-[300px] flex-1 bg-dm-line" />
         </div>
         <h2 className="m-0 mb-10 max-w-[22ch] font-bold text-[clamp(28px,3.2vw,40px)] text-dm-ink leading-[1.08] tracking-[-0.028em]">
-          The surface is the app.{' '}
+          {t('snapshot.featuresStrip.titleLead')}{' '}
           <em className="font-[var(--font-dm-display)] font-normal text-dm-ink-2 italic">
-            The substance is underneath.
+            {t('snapshot.featuresStrip.titleAccent')}
           </em>
         </h2>
 
@@ -63,7 +60,7 @@ export function SnapshotFeaturesStrip() {
                   strokeWidth={2}
                   viewBox="0 0 24 24"
                 >
-                  {'paths' in f ? (
+                  {f.paths ? (
                     <>
                       <circle cx="12" cy="12" r="9" />
                       <path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" />
@@ -77,9 +74,11 @@ export function SnapshotFeaturesStrip() {
                 {f.num}
               </div>
               <h4 className="m-0 mb-2 font-bold text-[16.5px] text-dm-ink tracking-[-0.015em]">
-                {f.title}
+                {t(`snapshot.featuresStrip.features.${f.key}.title`)}
               </h4>
-              <p className="m-0 text-[13.5px] text-dm-ink-3 leading-[1.55]">{f.body}</p>
+              <p className="m-0 text-[13.5px] text-dm-ink-3 leading-[1.55]">
+                {t(`snapshot.featuresStrip.features.${f.key}.body`)}
+              </p>
             </article>
           ))}
         </div>

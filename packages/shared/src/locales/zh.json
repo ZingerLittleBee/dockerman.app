@@ -531,46 +531,147 @@
     }
   },
   "snapshot": {
-    "badge": "强大功能",
-    "title": "Docker 管理，",
-    "titleBreak": "化繁为简",
-    "description": "现代、轻量的 Docker 管理界面，专注于简洁和性能。通过跨平台桌面集成监控和管理您的容器。",
-    "tabs": {
-      "dashboard": "仪表盘",
-      "terminal": "终端",
-      "processes": "进程",
-      "inspect": "检查",
-      "stats": "统计",
-      "logs": "日志",
-      "ssh": "SSH",
-      "build": "构建",
-      "events": "事件",
-      "file": "容器文件",
-      "imageAnalysis": "镜像分析",
-      "compose": "编排",
-      "volumeBrowse": "卷浏览",
-      "storage": "存储",
-      "filePreview": "文件预览",
-      "dockerHub": "Docker Hub",
-      "imageSecurity": "镜像安全",
-      "kubernetes": "Kubernetes"
+    "hero": {
+      "kickerLabel": "模块 · 一窗尽览",
+      "titleLead": "每一屏幕,",
+      "titleAccent": "每一界面。",
+      "descriptionPre": "一次遍历 Dockerman 的 ",
+      "descriptionMid": " 个核心模块 — 仪表盘、终端、日志、镜像、存储卷、Kubernetes,以及之间的一切。点击模块预览,或按 ",
+      "descriptionPost": " 逐个浏览。",
+      "shortcutLabel": "快捷键",
+      "metaModules": "模块数",
+      "metaBuild": "版本",
+      "metaCaptured": "截图尺寸"
     },
-    "features": {
-      "realTimeMonitoring": {
-        "name": "实时监控",
-        "description": "以强大的性能实时监控容器的 CPU、内存、网络和 I/O 指标。"
+    "showcase": {
+      "allModules": "全部模块",
+      "moduleTabsAria": "模块标签",
+      "moduleNavAria": "模块导航",
+      "showModule": "查看 {{label}}",
+      "openLightbox": "在灯箱中打开",
+      "prev": "上一个",
+      "next": "下一个",
+      "zoom": "放大",
+      "close": "关闭",
+      "docs": "文档",
+      "copyLink": "复制链接",
+      "copied": "已复制!",
+      "screenshotMissing": "截图未打包 — 请在应用内查看完整体验。",
+      "screenshotMissingShort": "此预览未打包该截图。"
+    },
+    "featuresStrip": {
+      "kicker": "截图没告诉你的",
+      "titleLead": "表面是应用。",
+      "titleAccent": "实质在其下。",
+      "features": {
+        "realTime": {
+          "title": "实时监控",
+          "body": "每个面板都订阅 libpod 或 docker.sock 事件流 — 无需轮询,数据永远新鲜。火花图每 1.5 秒刷新。"
+        },
+        "containerMgmt": {
+          "title": "容器管理",
+          "body": "创建、检查、执行、差分、提交、保存。Docker 暴露的每一个原语,都配备键盘快捷键与上下文操作。"
+        },
+        "remote": {
+          "title": "远程连接",
+          "body": "支持 SSH、WSL2、Colima 与 Podman socket。书签化主机、从标题栏切换 — 引擎选择器会按项目记忆。"
+        },
+        "nativePerf": {
+          "title": "原生性能",
+          "body": "Rust + Tauri。安装包 38 MB,在 M2 上运行 20 个容器仅占 84 MB 空闲内存。无 Chromium、无 Electron 开销、无 400 MB 悲伤标签页。"
+        }
+      }
+    },
+    "modules": {
+      "dashboard": {
+        "label": "仪表盘",
+        "em": "一目了然。",
+        "desc": "将当前引擎上的每个容器、镜像、存储卷和网络汇总在一个视图中。实时指标原地刷新,点击即可深链到任意对象。"
       },
-      "containerManagement": {
-        "name": "容器管理",
-        "description": "通过直观的界面启动、停止、检查和管理容器。访问集成终端和进程列表。"
+      "terminal": {
+        "label": "终端",
+        "em": "真正的 Shell,不是玩具。",
+        "desc": "为任意运行中的容器打开完整的 xterm.js 终端。ANSI 颜色、选中即复制、粘贴安全换行,历史记录可跨容器重启保留。"
       },
-      "remoteConnectivity": {
-        "name": "远程连接",
-        "description": "通过 SSH 安全连接远程 Docker 实例。从单一界面管理多个主机上的容器。"
+      "processes": {
+        "label": "进程",
+        "em": "更好的 ps 体验。",
+        "desc": "每个容器的 <code>ps</code> 视图,CPU 与内存列可排序,并配备定时执行 <code>SIGTERM → SIGKILL</code> 的信号下拉菜单。"
       },
-      "powerfulPerformance": {
-        "name": "强大性能",
-        "description": "基于 Tauri 构建，实现闪电般的启动速度和极低的资源占用，同时管理您的 Docker 环境。"
+      "inspect": {
+        "label": "检查",
+        "em": "JSON,清晰可读。",
+        "desc": "<code>docker inspect</code> 的每个字段都分组可搜。一键复制值为 JSON,或在侧栏打开原始输出进行对比。"
+      },
+      "stats": {
+        "label": "统计",
+        "em": "值得每个像素的图表。",
+        "desc": "每个容器的 CPU、内存、网络和块 I/O 图表。进程级别细分、任意区间缩放、导出 CSV 以便事后分析。"
+      },
+      "logs": {
+        "label": "日志",
+        "em": "50 MB,依然流畅。",
+        "desc": "虚拟化日志查看器 — 50 MB 文件滑动流畅。支持 ANSI、正则搜索、多匹配高亮,滚动时真正会暂停刷新。"
+      },
+      "ssh": {
+        "label": "SSH",
+        "em": "远程如本地。",
+        "desc": "通过 SSH 管理 Docker,自动转发 socket、心跳重连、指数退避。标题栏状态提示告诉你哪里出了问题。"
+      },
+      "build": {
+        "label": "构建历史",
+        "em": "每一步,每一秒。",
+        "desc": "记录每一次镜像构建,包括缓存命中率、步骤耗时,以及当时使用的 <code>Dockerfile</code>。"
+      },
+      "events": {
+        "label": "事件",
+        "em": "事件总线,终于可读。",
+        "desc": "Docker 事件总线,一目了然。按对象、类型或时间窗口过滤;回放最近一小时;出问题时导出为表格。"
+      },
+      "file": {
+        "label": "文件浏览器",
+        "em": "可点击的 rootfs。",
+        "desc": "浏览运行中容器的文件系统。上传、下载、与镜像差分,将目录递归导出为 <code>.tar.gz</code>。"
+      },
+      "filePreview": {
+        "label": "文件预览",
+        "em": "无需 Shell 的预览。",
+        "desc": "内联预览文本、JSON、YAML、图片和 PDF。10 MB 以内语法高亮,扩展名不准时可自动识别格式。"
+      },
+      "imageAnalysis": {
+        "label": "镜像分析",
+        "em": "真正可见的层。",
+        "desc": "镜像层浏览器 — 点击层即可查看其新增内容,交互式大小分布、Dockerfile 还原与每个镜像的效率评分。"
+      },
+      "compose": {
+        "label": "Compose",
+        "em": "项目,不止是容器。",
+        "desc": "Compose 项目在容器列表中分组展示。up、down、pull、recreate — 常用操作一键完成,Quadlet 文件也能内联渲染。"
+      },
+      "volumeBrowse": {
+        "label": "存储卷浏览",
+        "em": "存储卷里有什么?",
+        "desc": "无需挂载 Shell 即可浏览命名存储卷的内容。挂载关系图显示每个存储卷当前被哪些容器使用。"
+      },
+      "storage": {
+        "label": "存储",
+        "em": "带回执的清理。",
+        "desc": "按层、存储卷和构建缓存查看磁盘占用,一键执行 <code>docker system prune</code>,清理前告诉你要删除哪些内容。"
+      },
+      "dockerHub": {
+        "label": "Docker Hub",
+        "em": "无需浏览器的搜索。",
+        "desc": "不离开应用即可搜索公共镜像仓库。拉取前查看下载量、体积趋势、标签以及最新标签的 Trivy 扫描结果。"
+      },
+      "imageSecurity": {
+        "label": "镜像安全",
+        "em": "带修复按钮的 CVE。",
+        "desc": "为每个镜像内联 Trivy 扫描。CVE 编号、严重程度、软件包与精确的修复版本 — 一键升级并重建。"
+      },
+      "kubernetes": {
+        "label": "Kubernetes",
+        "em": "集群,一窗尽览。",
+        "desc": "集群、命名空间、Pod、Deployment、Service、ConfigMap。真正可读的 ConfigMap 差分查看器(并排或统一模式)。"
       }
     }
   },
