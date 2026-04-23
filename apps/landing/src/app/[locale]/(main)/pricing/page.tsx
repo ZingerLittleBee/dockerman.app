@@ -145,7 +145,7 @@ export default async function PricingPage({
                   <em className="font-[var(--font-dm-display)] font-normal text-dm-ink-3 italic">
                     or
                   </em>{' '}
-                  multi-Mac
+                  multi-device
                 </>
               }
               price={teamPrice}
