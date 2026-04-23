@@ -165,7 +165,8 @@
   --color-dm-err: #ef4444;
   --color-dm-grid: rgb(0 0 0 / 0.05);
 
-  --font-dm-mono: var(--font-geist-mono), "JetBrains Mono", ui-monospace, monospace;
+  --font-dm-mono:
+    var(--font-geist-mono), "JetBrains Mono", ui-monospace, monospace;
   --font-dm-display: var(--font-instrument-serif), serif;
 
   --radius-dm: 12px;
@@ -213,8 +214,63 @@
   }
 
   @keyframes dm-pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  @keyframes dm-type {
+    from {
+      width: 0;
+    }
+    to {
+      width: var(--dm-type-chars, 100%);
+    }
+  }
+
+  @keyframes dm-caret {
+    0%,
+    50% {
+      border-right-color: var(--color-dm-accent);
+    }
+    50.01%,
+    100% {
+      border-right-color: transparent;
+    }
+  }
+
+  @keyframes dm-reveal-up {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes dm-progress {
+    from {
+      width: 0;
+    }
+    to {
+      width: var(--dm-progress, 67%);
+    }
+  }
+
+  @keyframes dm-spark {
+    0%,
+    100% {
+      transform: scaleY(0.4);
+    }
+    50% {
+      transform: scaleY(1);
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {

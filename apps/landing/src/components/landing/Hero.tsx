@@ -57,7 +57,7 @@ export function Hero({ locale }: { locale: Locale }) {
   }
 
   return (
-    <section className="relative px-8 pt-16 pb-8">
+    <section className="relative overflow-hidden px-8 pt-16 pb-8">
       <div
         aria-hidden
         className="pointer-events-none absolute top-0 left-1/2 -z-[1] h-[500px] w-[900px] -translate-x-1/2 blur-[40px]"
@@ -66,7 +66,8 @@ export function Hero({ locale }: { locale: Locale }) {
             'radial-gradient(ellipse at center top, color-mix(in srgb, var(--color-dm-accent) 25%, transparent), transparent 60%)'
         }}
       />
-      <div className="mx-auto max-w-[1240px]">
+      <div className="relative mx-auto max-w-[1240px]">
+        <HeroStage />
         {/* Eyebrow: pulsing dot + version note + NEW tag */}
         <span className="inline-flex items-center gap-[10px] rounded-full border border-dm-line-strong bg-dm-bg-elev py-[5px] pr-[10px] pl-[6px] font-[var(--font-dm-mono)] text-[12px] text-dm-ink-2">
           <span
@@ -186,6 +187,246 @@ export function Hero({ locale }: { locale: Locale }) {
         </div>
       </div>
     </section>
+  )
+}
+
+const TYPE_CMD = INSTALL_CMD
+const TYPE_DURATION_MS = 2200
+const STAGE_STEP_MS = 480
+
+const STAGE_STEPS = {
+  cmd: 0,
+  tap: TYPE_DURATION_MS + 120,
+  fetch: TYPE_DURATION_MS + 120 + STAGE_STEP_MS,
+  progress: TYPE_DURATION_MS + 120 + STAGE_STEP_MS * 2,
+  done: TYPE_DURATION_MS + 120 + STAGE_STEP_MS * 2 + 1200,
+  cardsStart: TYPE_DURATION_MS + 120 + STAGE_STEP_MS * 2 + 1500
+} as const
+
+const STAGE_CONTAINERS = [
+  { name: 'redis', img: 'redis:7', cpu: '2%', mem: '48 MB' },
+  { name: 'postgres', img: 'postgres:16', cpu: '7%', mem: '214 MB' },
+  { name: 'traefik', img: 'traefik:v3', cpu: '1%', mem: '84 MB' }
+] as const
+
+function HeroStage() {
+  return (
+    <div
+      aria-hidden
+      className="dm-animated pointer-events-none absolute top-[92px] right-0 hidden w-[440px] xl:block"
+    >
+      {/* ambient glow behind the stage */}
+      <div
+        className="absolute inset-0 -z-[1] blur-[60px]"
+        style={{
+          background:
+            'radial-gradient(ellipse at 70% 40%, color-mix(in srgb, var(--color-dm-accent-2) 22%, transparent), transparent 60%)'
+        }}
+      />
+
+      <TerminalCard />
+
+      <div className="mt-3 flex flex-col gap-2">
+        {STAGE_CONTAINERS.map((c, i) => (
+          <ContainerMini
+            cpu={c.cpu}
+            delayMs={STAGE_STEPS.cardsStart + i * 220}
+            img={c.img}
+            key={c.name}
+            mem={c.mem}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function TerminalCard() {
+  return (
+    <div
+      className="overflow-hidden rounded-[14px] border border-dm-line-strong bg-dm-bg-elev"
+      style={{ boxShadow: '0 20px 40px -20px rgb(0 0 0 / 0.35)' }}
+    >
+      {/* chrome */}
+      <div className="flex h-[32px] items-center justify-between border-dm-line border-b px-4">
+        <span className="font-[var(--font-dm-mono)] text-[11px] text-dm-ink-3">
+          <span className="text-dm-ink-4">~/</span>downloads
+        </span>
+        <span className="inline-flex items-center gap-[6px] font-[var(--font-dm-mono)] text-[10.5px] text-dm-ink-3">
+          <span
+            className="h-[6px] w-[6px] rounded-full"
+            style={{
+              background: 'var(--color-dm-ok)',
+              boxShadow: '0 0 0 3px color-mix(in srgb, var(--color-dm-ok) 30%, transparent)',
+              animation: 'dm-pulse 2.2s ease-in-out infinite'
+            }}
+          />
+          live
+        </span>
+      </div>
+
+      {/* body */}
+      <div className="px-4 py-[14px] font-[var(--font-dm-mono)] text-[12.5px] text-dm-ink-2 leading-[1.65]">
+        {/* prompt + typing */}
+        <div className="flex items-center gap-[8px]">
+          <span style={{ color: 'var(--color-dm-accent)' }}>$</span>
+          <span
+            className="inline-block overflow-hidden whitespace-nowrap text-dm-ink"
+            style={{
+              borderRight: '1.5px solid var(--color-dm-accent)',
+              paddingRight: '2px',
+              width: '0',
+              animation: `dm-type ${TYPE_DURATION_MS}ms steps(${TYPE_CMD.length}, end) forwards, dm-caret 900ms steps(1) infinite`,
+              // `ch` keeps the reveal aligned to monospace glyph advances
+              ['--dm-type-chars' as string]: `${TYPE_CMD.length}ch`
+            }}
+          >
+            {TYPE_CMD}
+          </span>
+        </div>
+
+        <StageLine delayMs={STAGE_STEPS.tap}>
+          <span className="text-dm-ink-3">==&gt;</span> Tapping{' '}
+          <span className="text-dm-ink">zingerlittlebee/tap</span>
+        </StageLine>
+
+        <StageLine delayMs={STAGE_STEPS.fetch}>
+          <span className="text-dm-ink-3">==&gt;</span> Downloading{' '}
+          <span className="text-dm-ink">Dockerman</span>{' '}
+          <span className="text-dm-ink-4">v5.1.0</span>
+        </StageLine>
+
+        {/* progress */}
+        <StageLine className="mt-[2px]" delayMs={STAGE_STEPS.progress}>
+          <span className="inline-flex items-center gap-[10px]">
+            <span
+              className="relative block h-[6px] w-[200px] overflow-hidden rounded-full"
+              style={{ background: 'var(--color-dm-bg-soft)' }}
+            >
+              <span
+                className="absolute inset-y-0 left-0 block rounded-full"
+                style={{
+                  width: '0',
+                  background:
+                    'linear-gradient(90deg, var(--color-dm-accent), var(--color-dm-accent-2))',
+                  animation: 'dm-progress 1200ms cubic-bezier(0.22, 1, 0.36, 1) forwards',
+                  animationDelay: `${STAGE_STEPS.progress}ms`,
+                  ['--dm-progress' as string]: '92%'
+                }}
+              />
+            </span>
+            <span className="font-[var(--font-dm-mono)] text-[11.5px] text-dm-ink-3">
+              26 / 28.4 MB
+            </span>
+          </span>
+        </StageLine>
+
+        {/* done */}
+        <StageLine delayMs={STAGE_STEPS.done}>
+          <span style={{ color: 'var(--color-dm-ok)' }}>✓</span>{' '}
+          <span className="text-dm-ink">Installed</span>{' '}
+          <span className="text-dm-ink-4">in 2.1s</span>
+          <span className="ml-2 text-dm-ink-4">· launching Dockerman…</span>
+        </StageLine>
+      </div>
+    </div>
+  )
+}
+
+function StageLine({
+  delayMs,
+  children,
+  className = ''
+}: {
+  delayMs: number
+  children: React.ReactNode
+  className?: string
+}) {
+  return (
+    <div
+      className={className}
+      style={{
+        opacity: 0,
+        animation: 'dm-reveal-up 420ms cubic-bezier(0.22, 1, 0.36, 1) forwards',
+        animationDelay: `${delayMs}ms`
+      }}
+    >
+      {children}
+    </div>
+  )
+}
+
+function ContainerMini({
+  name,
+  img,
+  cpu,
+  mem,
+  delayMs
+}: {
+  name: string
+  img: string
+  cpu: string
+  mem: string
+  delayMs: number
+}) {
+  return (
+    <div
+      className="flex items-center gap-3 rounded-[10px] border border-dm-line bg-dm-bg-elev px-[14px] py-[10px]"
+      style={{
+        opacity: 0,
+        animation: 'dm-reveal-up 480ms cubic-bezier(0.22, 1, 0.36, 1) forwards',
+        animationDelay: `${delayMs}ms`
+      }}
+    >
+      <span
+        className="h-[6px] w-[6px] shrink-0 rounded-full"
+        style={{
+          background: 'var(--color-dm-ok)',
+          boxShadow: '0 0 0 3px color-mix(in srgb, var(--color-dm-ok) 28%, transparent)',
+          animation: 'dm-pulse 2.2s ease-in-out infinite'
+        }}
+      />
+      <span className="flex min-w-0 flex-1 items-baseline gap-2">
+        <span className="truncate font-semibold text-[13px] text-dm-ink">{name}</span>
+        <span className="truncate font-[var(--font-dm-mono)] text-[11px] text-dm-ink-4">{img}</span>
+      </span>
+      <MiniBars delayMs={delayMs + 200} />
+      <span className="font-[var(--font-dm-mono)] text-[11px] text-dm-ink-3 tabular-nums">
+        {cpu}
+      </span>
+      <span className="font-[var(--font-dm-mono)] text-[11px] text-dm-ink-4 tabular-nums">
+        {mem}
+      </span>
+    </div>
+  )
+}
+
+const MINI_BARS = [
+  { id: 'a', h: 0.55 },
+  { id: 'b', h: 0.8 },
+  { id: 'c', h: 0.45 },
+  { id: 'd', h: 0.92 },
+  { id: 'e', h: 0.6 },
+  { id: 'f', h: 0.78 },
+  { id: 'g', h: 0.5 }
+] as const
+
+function MiniBars({ delayMs }: { delayMs: number }) {
+  return (
+    <span className="flex h-[14px] items-end gap-[2px]">
+      {MINI_BARS.map((bar, i) => (
+        <span
+          className="block w-[2px] origin-bottom rounded-[1px]"
+          key={bar.id}
+          style={{
+            height: `${bar.h * 100}%`,
+            background: 'var(--color-dm-accent)',
+            opacity: 0.7,
+            animation: `dm-spark 1800ms ease-in-out ${delayMs + i * 90}ms infinite`
+          }}
+        />
+      ))}
+    </span>
   )
 }
 
