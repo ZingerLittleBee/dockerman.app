@@ -311,12 +311,12 @@ function TerminalCard() {
                     'linear-gradient(90deg, var(--color-dm-accent), var(--color-dm-accent-2))',
                   animation: 'dm-progress 1200ms cubic-bezier(0.22, 1, 0.36, 1) forwards',
                   animationDelay: `${STAGE_STEPS.progress}ms`,
-                  ['--dm-progress' as string]: '92%'
+                  ['--dm-progress' as string]: '100%'
                 }}
               />
             </span>
             <span className="font-[var(--font-dm-mono)] text-[11.5px] text-dm-ink-3">
-              26 / 28.4 MB
+              28.4 / 28.4 MB
             </span>
           </span>
         </StageLine>
