@@ -5,6 +5,7 @@ import { RiGithubFill } from '@remixicon/react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import ThemeSwitch from '@/components/ThemeSwitch'
+import { LocaleSwitch } from '@/components/shell/LocaleSwitch'
 
 // TODO(i18n): labels deferred per docs/superpowers/plans/2026-04-23-landing-redesign-plan.md — localize in Phase 6.
 const LINKS = [
@@ -63,6 +64,7 @@ export function Navbar({ locale }: { locale: Locale }) {
         </div>
 
         <div className="flex items-center gap-2">
+          <LocaleSwitch locale={locale} />
           <ThemeSwitch />
           <a
             aria-label="GitHub"
