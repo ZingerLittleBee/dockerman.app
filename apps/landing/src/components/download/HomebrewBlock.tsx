@@ -9,6 +9,7 @@ export function HomebrewBlock() {
   const cmd = downloadsConfig.homebrewCommand;
 
   const onCopy = async () => {
+    if (!navigator.clipboard?.writeText) return;
     try {
       await navigator.clipboard.writeText(cmd);
       setCopied(true);

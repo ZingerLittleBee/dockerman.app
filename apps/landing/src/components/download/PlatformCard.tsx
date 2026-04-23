@@ -1,9 +1,18 @@
 import { downloadsConfig, type InstallerAsset, type Verification } from "@/config/downloads";
 
 function renderVerification(v: Verification): string | null {
-  if (v.kind === "apple-notarized") return "Apple-signed & notarized";
-  if (v.kind === "tauri-sig") return `Tauri updater signature: ${v.sigFilename}`;
-  return null;
+  switch (v.kind) {
+    case "apple-notarized":
+      return "Apple-signed & notarized";
+    case "tauri-sig":
+      return `Tauri updater signature: ${v.sigFilename}`;
+    case "none":
+      return null;
+    default: {
+      const _exhaustive: never = v;
+      return _exhaustive;
+    }
+  }
 }
 
 export function PlatformCard({
