@@ -72,11 +72,11 @@ export function CtaFinal({ locale }: { locale: Locale }) {
             </Link>
             <a
               className="inline-flex items-center gap-2 rounded-[10px] border border-dm-line-strong bg-transparent px-[18px] py-3 font-medium text-[14px] text-dm-ink-2 transition-colors hover:bg-dm-bg-soft hover:text-dm-ink"
-              href="https://github.com/ZingerLittleBee/dockerman.app"
+              href="https://github.com/ZingerLittleBee/dockerman.app/issues/new"
               rel="noopener noreferrer"
               target="_blank"
             >
-              View on GitHub →
+              Report an issue on GitHub →
             </a>
           </div>
         </div>
