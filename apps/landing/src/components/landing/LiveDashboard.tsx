@@ -269,5 +269,50 @@ function ChartCard({
 }
 
 function IoRow() {
-  return null
+  const net = useSparkline({
+    seed: [12, 18, 15, 22, 16, 24, 19, 28, 21, 26, 23, 29],
+    intervalMs: 1500,
+    volatility: 0.2,
+    min: 5,
+    max: 60,
+  })
+  const disk = useSparkline({
+    seed: [8, 10, 12, 9, 14, 11, 15, 12, 10, 13, 16, 11],
+    intervalMs: 1500,
+    volatility: 0.15,
+    min: 2,
+    max: 40,
+  })
+  return (
+    <div className="mt-3 grid grid-cols-2 gap-3">
+      <ChartCard
+        stroke="#a855f7"
+        title="Network I/O"
+        value={`${(net[net.length - 1] ?? 0).toFixed(1)} MB/s`}
+      >
+        <Sparkline
+          data={net}
+          fill="#a855f722"
+          height={100}
+          stroke="#a855f7"
+          strokeWidth={1.5}
+          width={500}
+        />
+      </ChartCard>
+      <ChartCard
+        stroke="#ec4899"
+        title="Disk I/O"
+        value={`${(disk[disk.length - 1] ?? 0).toFixed(1)} MB/s`}
+      >
+        <Sparkline
+          data={disk}
+          fill="#ec489922"
+          height={100}
+          stroke="#ec4899"
+          strokeWidth={1.5}
+          width={500}
+        />
+      </ChartCard>
+    </div>
+  )
 }
