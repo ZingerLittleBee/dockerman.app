@@ -15,6 +15,14 @@ export function SnapshotShowcase() {
   const railRef = useRef<HTMLElement | null>(null)
   const mobRef = useRef<HTMLDivElement | null>(null)
   const sentinelRefs = useRef<(HTMLDivElement | null)[]>([])
+  const stageRef = useRef<HTMLButtonElement | null>(null)
+
+  const closeLightbox = useCallback(() => {
+    setLightbox(false)
+    // Drop focus from the stage trigger so the image doesn't keep a focus ring
+    // after a pointer-driven close. Keyboard users still get focus-visible.
+    stageRef.current?.blur()
+  }, [])
 
   const setActiveSync = useCallback((n: number) => {
     setActive((cur) => {
@@ -99,7 +107,7 @@ export function SnapshotShowcase() {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (lightbox) {
-        if (e.key === 'Escape') setLightbox(false)
+        if (e.key === 'Escape') closeLightbox()
         return
       }
       if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === 'j') {
@@ -112,7 +120,7 @@ export function SnapshotShowcase() {
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [active, go, lightbox])
+  }, [active, closeLightbox, go, lightbox])
 
   const current = SNAPSHOT_MODULES[active]
   const n = String(active + 1).padStart(2, '0')
@@ -202,7 +210,12 @@ export function SnapshotShowcase() {
                     onZoom={() => setLightbox(true)}
                     pager={n}
                   />
-                  <Stage active={active} onZoom={() => setLightbox(true)} prev={prev} />
+                  <Stage
+                    active={active}
+                    onZoom={() => setLightbox(true)}
+                    prev={prev}
+                    stageRef={stageRef}
+                  />
                 </div>
 
                 <CaptionStrip
@@ -220,7 +233,7 @@ export function SnapshotShowcase() {
         </div>
       </div>
 
-      {lightbox && <Lightbox active={active} onClose={() => setLightbox(false)} />}
+      {lightbox && <Lightbox active={active} onClose={closeLightbox} />}
     </section>
   )
 }
@@ -359,12 +372,23 @@ function TopbarBtn({
   )
 }
 
-function Stage({ active, onZoom, prev }: { active: number; onZoom: () => void; prev: number }) {
+function Stage({
+  active,
+  onZoom,
+  prev,
+  stageRef
+}: {
+  active: number
+  onZoom: () => void
+  prev: number
+  stageRef: React.RefObject<HTMLButtonElement | null>
+}) {
   return (
     <button
       aria-label="Open in lightbox"
-      className="relative block w-full cursor-zoom-in overflow-hidden bg-dm-bg-soft"
+      className="relative block w-full cursor-zoom-in overflow-hidden bg-dm-bg-soft focus:outline-none focus-visible:outline-2 focus-visible:outline-dm-accent focus-visible:outline-offset-[-2px]"
       onClick={onZoom}
+      ref={stageRef}
       style={{ aspectRatio: '2400 / 1600' }}
       type="button"
     >
