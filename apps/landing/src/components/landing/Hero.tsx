@@ -1,6 +1,6 @@
 import type { Locale } from '@repo/shared/i18n'
 import Link from 'next/link'
-import { Pill } from '@/components/ui-dm/Pill'
+import { Pill } from '@/components/ui/Pill'
 
 export function Hero({ locale }: { locale: Locale }) {
   return (

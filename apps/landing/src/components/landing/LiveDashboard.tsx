@@ -1,7 +1,7 @@
 'use client'
 
-import { Sparkline } from '@/components/ui-dm/Sparkline'
-import { StatCard } from '@/components/ui-dm/StatCard'
+import { Sparkline } from '@/components/ui/Sparkline'
+import { StatCard } from '@/components/ui/StatCard'
 import { useSparkline } from './hooks/useSparkline'
 
 const SIDEBAR_MAIN = [

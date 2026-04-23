@@ -1,4 +1,4 @@
-import { Pill } from '@/components/ui-dm/Pill'
+import { Pill } from '@/components/ui/Pill'
 
 export function PricingHero() {
   return (
