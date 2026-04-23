@@ -44,7 +44,7 @@ export function Navbar({ locale }: { locale: Locale }) {
           <BrandMark />
           <span>Dockerman</span>
           <span className="ml-[2px] rounded-full bg-dm-ink px-2 py-[2px] font-semibold text-[10px] text-dm-bg tracking-[0.04em]">
-            v5.1
+            v5.1.0
           </span>
         </Link>
 
