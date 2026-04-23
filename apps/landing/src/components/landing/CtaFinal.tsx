@@ -7,10 +7,7 @@ export function CtaFinal({ locale }: { locale: Locale }) {
       <div className="mx-auto max-w-[1240px] rounded-[20px] border border-dm-line bg-dm-bg-elev px-10 py-16 text-center">
         <h2 className="font-bold text-[40px] text-dm-ink leading-[1.05] tracking-[-0.03em]">
           Ready to tame{' '}
-          <span
-            className="italic"
-            style={{ fontFamily: 'var(--font-dm-display)', color: 'var(--color-dm-accent)' }}
-          >
+          <span className="font-[var(--font-dm-display)] text-dm-accent italic">
             your containers?
           </span>
         </h2>

@@ -19,6 +19,7 @@ export function useSparkline({
   max = 100,
   enabled = true,
 }: Options) {
+  // seed is initial-only: changing seed across renders won't reset state.
   const [data, setData] = useState<number[]>(seed)
   const dataRef = useRef(seed)
 

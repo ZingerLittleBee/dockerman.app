@@ -3,10 +3,7 @@ export function FeaturesGrid() {
     <section className="px-8 py-16">
       <div className="mx-auto max-w-[1240px]">
         <div className="mb-10 max-w-[52ch]">
-          <div
-            className="font-[var(--font-dm-mono)] text-[11px] text-dm-accent uppercase tracking-wider"
-            style={{ color: 'var(--color-dm-accent)' }}
-          >
+          <div className="font-[var(--font-dm-mono)] text-[11px] text-dm-accent uppercase tracking-wider">
             Features
           </div>
           <h2 className="mt-2 font-bold text-[42px] text-dm-ink leading-[1.05] tracking-[-0.03em]">
@@ -30,7 +27,7 @@ export function FeaturesGrid() {
 function PaletteCard() {
   return (
     <article className="col-span-4 row-span-2 rounded-[14px] border border-dm-line bg-dm-bg-elev p-6">
-      <div className="text-[12px] text-dm-ink-3" style={{ fontFamily: 'var(--font-dm-mono)' }}>
+      <div className="font-[var(--font-dm-mono)] text-[12px] text-dm-ink-3">
         ⌘K · Command palette
       </div>
       <h3 className="mt-2 font-bold text-[24px] text-dm-ink">Everything, one keystroke away.</h3>
@@ -45,7 +42,7 @@ function PaletteCard() {
 function DockerPodmanCard() {
   return (
     <article className="col-span-2 rounded-[14px] border border-dm-line bg-dm-bg-elev p-5">
-      <div className="text-[12px] text-dm-ink-3" style={{ fontFamily: 'var(--font-dm-mono)' }}>
+      <div className="font-[var(--font-dm-mono)] text-[12px] text-dm-ink-3">
         Runtime
       </div>
       <h3 className="mt-2 font-semibold text-[17px] text-dm-ink">Docker or Podman. Your pick.</h3>
@@ -59,7 +56,7 @@ function DockerPodmanCard() {
 function EventsCard() {
   return (
     <article className="col-span-2 rounded-[14px] border border-dm-line bg-dm-bg-elev p-5">
-      <div className="text-[12px] text-dm-ink-3" style={{ fontFamily: 'var(--font-dm-mono)' }}>
+      <div className="font-[var(--font-dm-mono)] text-[12px] text-dm-ink-3">
         Events
       </div>
       <h3 className="mt-2 font-semibold text-[17px] text-dm-ink">Events, loud and legible.</h3>
@@ -73,7 +70,7 @@ function EventsCard() {
 function PodmanNativeCard() {
   return (
     <article className="col-span-2 rounded-[14px] border border-dm-line bg-dm-bg-elev p-5">
-      <div className="text-[12px] text-dm-ink-3" style={{ fontFamily: 'var(--font-dm-mono)' }}>
+      <div className="font-[var(--font-dm-mono)] text-[12px] text-dm-ink-3">
         Podman
       </div>
       <h3 className="mt-2 font-semibold text-[17px] text-dm-ink">First-class Podman.</h3>
@@ -87,7 +84,7 @@ function PodmanNativeCard() {
 function ImageUpgradeCard() {
   return (
     <article className="col-span-2 rounded-[14px] border border-dm-line bg-dm-bg-elev p-5">
-      <div className="text-[12px] text-dm-ink-3" style={{ fontFamily: 'var(--font-dm-mono)' }}>
+      <div className="font-[var(--font-dm-mono)] text-[12px] text-dm-ink-3">
         Upgrades
       </div>
       <h3 className="mt-2 font-semibold text-[17px] text-dm-ink">Image upgrade, with rollback.</h3>
@@ -101,7 +98,7 @@ function ImageUpgradeCard() {
 function TrivyCard() {
   return (
     <article className="col-span-2 rounded-[14px] border border-dm-line bg-dm-bg-elev p-5">
-      <div className="text-[12px] text-dm-ink-3" style={{ fontFamily: 'var(--font-dm-mono)' }}>
+      <div className="font-[var(--font-dm-mono)] text-[12px] text-dm-ink-3">
         Security
       </div>
       <h3 className="mt-2 font-semibold text-[17px] text-dm-ink">Images you can trust.</h3>

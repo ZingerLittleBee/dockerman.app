@@ -181,13 +181,13 @@ function SideItem({ label, active }: { label: string; active?: boolean }) {
       }`}
     >
       <svg
+        aria-hidden="true"
         className="h-4 w-4"
         fill="none"
         stroke="currentColor"
         strokeWidth={2}
         viewBox="0 0 24 24"
       >
-        <title>{label}</title>
         {SIDE_ICONS[label]}
       </svg>
       {label}
@@ -331,8 +331,8 @@ function ChartCard({
       <div className="flex items-baseline justify-between">
         <span className="text-[12px] text-dm-ink-3">{title}</span>
         <span
-          className="font-semibold text-[20px]"
-          style={{ color: stroke, fontFamily: 'var(--font-dm-mono)' }}
+          className="font-[var(--font-dm-mono)] font-semibold text-[20px]"
+          style={{ color: stroke }}
         >
           {value}
         </span>

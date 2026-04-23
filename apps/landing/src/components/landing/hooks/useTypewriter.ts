@@ -24,6 +24,7 @@ export function useTypewriter({
       typeof window !== 'undefined' &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (reducedMotion) {
+      setLineIdx(0)
       setCharIdx(lines[0].length)
       return
     }

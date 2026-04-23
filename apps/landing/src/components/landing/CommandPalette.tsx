@@ -10,10 +10,7 @@ export function CommandPalette() {
   return (
     <div className="pointer-events-none absolute top-24 right-10 z-10 w-[380px] max-w-[90vw] rounded-[14px] border border-dm-line-strong bg-dm-bg-elev p-3 shadow-[0_30px_60px_-20px_rgb(0_0_0_/_0.4)]">
       <div className="mb-3 flex items-center gap-2 text-[11px] text-dm-ink-3">
-        <span
-          className="rounded-md border border-dm-line bg-dm-bg-soft px-[6px] py-[1px] font-semibold"
-          style={{ fontFamily: 'var(--font-dm-mono)' }}
-        >
+        <span className="rounded-md border border-dm-line bg-dm-bg-soft px-[6px] py-[1px] font-[var(--font-dm-mono)] font-semibold">
           ⌘K
         </span>
         Command palette
@@ -38,10 +35,7 @@ export function CommandPalette() {
 function HintRow({ kbd, hint }: { kbd: string; hint: string }) {
   return (
     <div className="flex items-center gap-2">
-      <span
-        className="rounded-md border border-dm-line bg-dm-bg-soft px-[6px] py-[1px]"
-        style={{ fontFamily: 'var(--font-dm-mono)' }}
-      >
+      <span className="rounded-md border border-dm-line bg-dm-bg-soft px-[6px] py-[1px] font-[var(--font-dm-mono)]">
         {kbd}
       </span>
       <span>{hint}</span>

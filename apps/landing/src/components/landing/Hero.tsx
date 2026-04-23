@@ -63,10 +63,7 @@ export function Hero({ locale }: { locale: Locale }) {
             { k: '100%', v: 'Local-first' },
           ].map((s) => (
             <div key={s.v}>
-              <div
-                className="font-bold text-[24px] text-dm-ink tracking-[-0.02em]"
-                style={{ fontFamily: 'var(--font-dm-mono)' }}
-              >
+              <div className="font-[var(--font-dm-mono)] font-bold text-[24px] text-dm-ink tracking-[-0.02em]">
                 {s.k}
               </div>
               <div className="mt-1 text-[12px] text-dm-ink-3">{s.v}</div>
