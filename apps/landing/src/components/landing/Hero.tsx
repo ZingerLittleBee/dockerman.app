@@ -162,18 +162,23 @@ export function Hero({ locale }: { locale: Locale }) {
 function Accent({ children }: { children: React.ReactNode }) {
   return (
     <span
-      className="inline-block bg-clip-text italic text-transparent"
+      className="bg-clip-text italic text-transparent"
       style={{
         fontFamily: 'var(--font-dm-display)',
         fontWeight: 400,
         letterSpacing: '-0.02em',
         backgroundImage:
           'linear-gradient(135deg, var(--color-dm-accent) 0%, var(--color-dm-accent-2) 100%)',
-        // Italic glyphs (especially `l`, `y`) overshoot their advance width.
-        // Extend the paint box so the gradient covers the overshoot, but
-        // compensate with negative margin so the trailing "." stays put.
+        // The heading uses leading-[0.95] + background-clip:text. Italic
+        // glyphs overshoot their advance width (l, y) and extend beyond
+        // the tight line box (y descender). Extending padding on both
+        // axes grows the gradient's paint area to cover those pixels;
+        // matching negative margins keep surrounding text (. and the
+        // next line) in place.
         paddingInlineEnd: '0.18em',
         marginInlineEnd: '-0.18em',
+        paddingBlockEnd: '0.18em',
+        marginBlockEnd: '-0.18em',
       }}
     >
       {children}
