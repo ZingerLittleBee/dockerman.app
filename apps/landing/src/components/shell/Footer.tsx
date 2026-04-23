@@ -64,23 +64,7 @@ export function Footer({ locale }: { locale: Locale }) {
             >
               GitHub
             </a>
-            <a
-              className="hover:text-dm-ink"
-              href="https://discord.gg/dockerman"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              Discord
-            </a>
-            <a
-              className="hover:text-dm-ink"
-              href="https://twitter.com/dockerman_app"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              Twitter
-            </a>
-            <a className="hover:text-dm-ink" href="mailto:hello@dockerman.app">
+            <a className="hover:text-dm-ink" href="mailto:support@dockerman.app">
               Email
             </a>
           </FooterCol>
