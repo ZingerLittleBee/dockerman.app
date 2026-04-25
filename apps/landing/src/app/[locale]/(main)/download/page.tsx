@@ -1,6 +1,7 @@
 import type { Locale } from '@repo/shared/i18n'
 import { getTranslation } from '@repo/shared/i18n/server'
 import type { Metadata } from 'next'
+import { headers } from 'next/headers'
 import { DownloadHero } from '@/components/download/DownloadHero'
 import { HomebrewBlock } from '@/components/download/HomebrewBlock'
 import { IntegrityBar } from '@/components/download/IntegrityBar'
@@ -40,6 +41,15 @@ const LinuxIcon = (
   </svg>
 )
 
+async function detectPlatform(): Promise<'macos' | 'windows' | 'linux'> {
+  const h = await headers()
+  const ua = h.get('user-agent') ?? ''
+  if (/Windows/i.test(ua)) return 'windows'
+  if (/Mac OS X|Macintosh|iPhone|iPad/i.test(ua)) return 'macos'
+  if (/Linux/i.test(ua) && !/Android/i.test(ua)) return 'linux'
+  return 'macos'
+}
+
 export default async function DownloadPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   const l = locale as Locale
@@ -61,6 +71,7 @@ export default async function DownloadPage({ params }: { params: Promise<{ local
     appleNotarized: t('download.verification.appleNotarized'),
     tauriSig: t('download.verification.tauriSig')
   }
+  const detectedPlatform = await detectPlatform()
 
   return (
     <main>
@@ -95,7 +106,7 @@ export default async function DownloadPage({ params }: { params: Promise<{ local
           <div className="grid grid-cols-1 gap-[14px] md:grid-cols-2 lg:grid-cols-3">
             <PlatformCard
               assets={installers.macos}
-              featured
+              featured={detectedPlatform === 'macos'}
               icon={MacIcon}
               minSpec={t('download.platforms.macos.minSpec')}
               strings={platformStrings}
@@ -103,6 +114,7 @@ export default async function DownloadPage({ params }: { params: Promise<{ local
             />
             <PlatformCard
               assets={installers.windows}
+              featured={detectedPlatform === 'windows'}
               icon={WindowsIcon}
               minSpec={t('download.platforms.windows.minSpec')}
               strings={platformStrings}
@@ -110,6 +122,7 @@ export default async function DownloadPage({ params }: { params: Promise<{ local
             />
             <PlatformCard
               assets={installers.linux}
+              featured={detectedPlatform === 'linux'}
               icon={LinuxIcon}
               minSpec={t('download.platforms.linux.minSpec')}
               strings={platformStrings}

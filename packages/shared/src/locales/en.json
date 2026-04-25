@@ -552,7 +552,7 @@
       },
       "linux": {
         "title": "Linux",
-        "minSpec": "glibc 2.28+ · x86_64 & arm64"
+        "minSpec": "glibc 2.28+ · x86_64"
       }
     },
     "verification": {
