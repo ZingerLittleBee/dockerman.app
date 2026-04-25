@@ -10,11 +10,6 @@ export interface InstallerAsset {
   verification: Verification
 }
 
-export interface UpdaterBundle {
-  filename: string
-  sigFilename: string
-}
-
 export interface DownloadsLatest {
   version: string
   releaseDate: string
@@ -23,9 +18,6 @@ export interface DownloadsLatest {
     macos: InstallerAsset[]
     windows: InstallerAsset[]
     linux: InstallerAsset[]
-  }
-  updaterBundles: {
-    macos: UpdaterBundle
   }
 }
 
@@ -43,12 +35,10 @@ export const downloadsConfig: {
   latest: DownloadsLatest
   history: DownloadsHistoryEntry[]
   assetsBaseUrl: string
-  updaterPublicKeyUrl: string
   homebrewCommand: string
 } = {
   asOf: '2026-04-23',
   assetsBaseUrl: `https://github.com/ZingerLittleBee/dockerman.app/releases/download/app-v${VERSION}`,
-  updaterPublicKeyUrl: 'https://github.com/ZingerLittleBee/dockerman.app#updater-key',
   homebrewCommand: 'brew install --cask zingerlittlebee/tap/dockerman',
   latest: {
     version: VERSION,
@@ -59,7 +49,7 @@ export const downloadsConfig: {
         {
           filename: `Dockerman_${VERSION}_universal.dmg`,
           labelKey: 'download.installers.macos.universal',
-          size: '43 MB',
+          size: '45 MB',
           verification: { kind: 'apple-notarized' }
         }
       ],
@@ -87,7 +77,7 @@ export const downloadsConfig: {
         {
           filename: `Dockerman_${VERSION}_amd64.AppImage`,
           labelKey: 'download.installers.linux.appimage',
-          size: '93 MB',
+          size: '98 MB',
           verification: {
             kind: 'tauri-sig',
             sigFilename: `Dockerman_${VERSION}_amd64.AppImage.sig`
@@ -96,25 +86,19 @@ export const downloadsConfig: {
         {
           filename: `Dockerman_${VERSION}_amd64.deb`,
           labelKey: 'download.installers.linux.deb',
-          size: '24 MB',
+          size: '25 MB',
           verification: { kind: 'none' }
         },
         {
           filename: `Dockerman-${VERSION}-1.x86_64.rpm`,
           labelKey: 'download.installers.linux.rpm',
-          size: '24 MB',
+          size: '25 MB',
           verification: {
             kind: 'tauri-sig',
             sigFilename: `Dockerman-${VERSION}-1.x86_64.rpm.sig`
           }
         }
       ]
-    },
-    updaterBundles: {
-      macos: {
-        filename: 'Dockerman.app.tar.gz',
-        sigFilename: 'Dockerman.app.tar.gz.sig'
-      }
     }
   },
   history: [
