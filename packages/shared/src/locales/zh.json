@@ -81,7 +81,8 @@
     "columns": {
       "product": "产品",
       "docs": "文档",
-      "community": "社区"
+      "community": "社区",
+      "legal": "法律条款"
     },
     "note": "本地优先 · 可关闭的匿名分析",
     "links": {
@@ -94,7 +95,10 @@
       "homelab": "家庭实验室",
       "troubleshooting": "故障排查",
       "github": "GitHub",
-      "email": "邮件联系"
+      "email": "邮件联系",
+      "privacy": "隐私政策",
+      "terms": "服务条款",
+      "dpa": "数据处理协议"
     }
   },
   "common": {
@@ -791,6 +795,9 @@
   "privacy": {
     "badge": "隐私",
     "title": "隐私政策",
+    "titleLead": "隐私",
+    "titleAccent": "政策。",
+    "lastUpdated": "2026-04-25",
     "description": "我们非常重视您的隐私。以下是我们如何处理您的数据。",
     "sections": {
       "dataCollection": {
@@ -837,6 +844,9 @@
   "terms": {
     "badge": "条款",
     "title": "使用条款",
+    "titleLead": "使用",
+    "titleAccent": "条款。",
+    "lastUpdated": "2026-04-25",
     "description": "使用 Dockerman 前请仔细阅读这些条款。使用 Dockerman 即表示您同意这些条款。",
     "sections": {
       "acceptance": {
@@ -884,6 +894,9 @@
   "dpa": {
     "badge": "DPA",
     "title": "数据处理协议",
+    "titleLead": "数据处理",
+    "titleAccent": "协议。",
+    "lastUpdated": "2026-04-25",
     "description": "本协议概述了 Dockerman 如何处理和保护您的数据。",
     "sections": {
       "overview": {

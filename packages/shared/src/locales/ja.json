@@ -81,7 +81,8 @@
     "columns": {
       "product": "製品",
       "docs": "ドキュメント",
-      "community": "コミュニティ"
+      "community": "コミュニティ",
+      "legal": "法的事項"
     },
     "note": "ローカル優先 · オプトアウト可能な分析",
     "links": {
@@ -94,7 +95,10 @@
       "homelab": "ホームラボ",
       "troubleshooting": "トラブルシューティング",
       "github": "GitHub",
-      "email": "メール"
+      "email": "メール",
+      "privacy": "プライバシー",
+      "terms": "利用規約",
+      "dpa": "データ処理"
     }
   },
   "common": {
@@ -788,6 +792,9 @@
   "privacy": {
     "badge": "プライバシー",
     "title": "プライバシーポリシー",
+    "titleLead": "プライバシー",
+    "titleAccent": "ポリシー。",
+    "lastUpdated": "2026-04-25",
     "description": "私たちはあなたのプライバシーを真剣に受け止めています。以下は、データの取り扱い方法です。",
     "sections": {
       "dataCollection": {
@@ -834,6 +841,9 @@
   "terms": {
     "badge": "規約",
     "title": "利用規約",
+    "titleLead": "利用",
+    "titleAccent": "規約。",
+    "lastUpdated": "2026-04-25",
     "description": "Dockerman を使用する前に、これらの規約を注意深くお読みください。Dockerman を使用することで、これらの規約に同意したことになります。",
     "sections": {
       "acceptance": {
@@ -881,6 +891,9 @@
   "dpa": {
     "badge": "DPA",
     "title": "データ処理契約",
+    "titleLead": "データ処理",
+    "titleAccent": "契約。",
+    "lastUpdated": "2026-04-25",
     "description": "本契約は、Dockerman がデータをどのように処理し保護するかを概説します。",
     "sections": {
       "overview": {

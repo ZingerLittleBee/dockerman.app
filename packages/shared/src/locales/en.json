@@ -81,7 +81,8 @@
     "columns": {
       "product": "Product",
       "docs": "Docs",
-      "community": "Community"
+      "community": "Community",
+      "legal": "Legal"
     },
     "note": "local-first · opt-out analytics",
     "links": {
@@ -94,7 +95,10 @@
       "homelab": "Homelab",
       "troubleshooting": "Troubleshooting",
       "github": "GitHub",
-      "email": "Email"
+      "email": "Email",
+      "privacy": "Privacy",
+      "terms": "Terms",
+      "dpa": "Data Processing"
     }
   },
   "common": {
@@ -791,6 +795,9 @@
   "privacy": {
     "badge": "privacy",
     "title": "Privacy Policy",
+    "titleLead": "Privacy",
+    "titleAccent": "Policy.",
+    "lastUpdated": "2026-04-25",
     "description": "We take your privacy seriously. Here's how we handle your data.",
     "sections": {
       "dataCollection": {
@@ -837,6 +844,9 @@
   "terms": {
     "badge": "terms",
     "title": "Terms of Use",
+    "titleLead": "Terms of",
+    "titleAccent": "Use.",
+    "lastUpdated": "2026-04-25",
     "description": "Please read these terms carefully before using Dockerman. By using Dockerman, you agree to these terms.",
     "sections": {
       "acceptance": {
@@ -884,6 +894,9 @@
   "dpa": {
     "badge": "DPA",
     "title": "Data Processing Agreement",
+    "titleLead": "Data Processing",
+    "titleAccent": "Agreement.",
+    "lastUpdated": "2026-04-25",
     "description": "This agreement outlines how Dockerman processes and protects your data.",
     "sections": {
       "overview": {

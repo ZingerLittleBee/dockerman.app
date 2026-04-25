@@ -63,9 +63,25 @@ export async function Footer({ locale }: { locale: Locale }) {
             >
               {t('footer.links.github')}
             </a>
-            <a className="hover:text-dm-ink" href="mailto:support@dockerman.app">
-              {t('footer.links.email')}
+            <a
+              className="font-[var(--font-dm-mono)] text-[12.5px] hover:text-dm-ink"
+              href="mailto:support@dockerman.app"
+            >
+              support@dockerman.app
             </a>
+          </FooterCol>
+
+          {/* Legal */}
+          <FooterCol heading={t('footer.columns.legal')}>
+            <Link className="hover:text-dm-ink" href={prefix('/privacy')}>
+              {t('footer.links.privacy')}
+            </Link>
+            <Link className="hover:text-dm-ink" href={prefix('/terms')}>
+              {t('footer.links.terms')}
+            </Link>
+            <Link className="hover:text-dm-ink" href={prefix('/dpa')}>
+              {t('footer.links.dpa')}
+            </Link>
           </FooterCol>
         </div>
 
