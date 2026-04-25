@@ -69,7 +69,7 @@ function buildGroups(t: TFn): GroupDef[] {
         {
           key: 'support',
           free: t('pricing.compare.values.community'),
-          team: { text: t('pricing.compare.values.priority'), accent: true },
+          team: t('pricing.compare.values.email'),
           solo: t('pricing.compare.values.email')
         },
         { key: 'commercial', free: false, team: true, solo: true }

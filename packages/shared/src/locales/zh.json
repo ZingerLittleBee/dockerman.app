@@ -91,8 +91,8 @@
       "pricing": "定价",
       "gettingStarted": "快速开始",
       "kubernetes": "Kubernetes",
-      "cliReference": "CLI 参考",
-      "faq": "常见问题",
+      "homelab": "家庭实验室",
+      "troubleshooting": "故障排查",
       "github": "GitHub",
       "email": "邮件联系"
     }
@@ -309,7 +309,7 @@
           "multiHost": "多主机切换与书签",
           "cloudflared": "Cloudflared 隧道管理",
           "k8s": "Kubernetes 集群管理",
-          "updates": "终身更新与优先支持"
+          "updates": "终身更新"
         }
       },
       "solo": {
@@ -332,8 +332,8 @@
     "trust": {
       "secure": "安全结账",
       "refund": "{{days}} 天无条件退款",
-      "users": "{{value}}+ 开发者",
-      "usersEstimatedFrom": "估算起始日期:{{date}}",
+      "downloads": "每月下载 {{value}}+",
+      "downloadsEstimatedFrom": "过去 30 天 R2 下载请求估算",
       "stars": "{{value}}+ GitHub Stars"
     },
     "compare": {
@@ -401,7 +401,6 @@
       "values": {
         "unlimited": "不限",
         "community": "社区",
-        "priority": "优先 · 24 小时",
         "email": "邮件 · 48 小时",
         "included": "包含",
         "notIncluded": "不包含"

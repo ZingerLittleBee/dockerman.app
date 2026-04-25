@@ -42,14 +42,14 @@ export async function Footer({ locale }: { locale: Locale }) {
             <Link className="hover:text-dm-ink" href={prefix('/docs/getting-started')}>
               {t('footer.links.gettingStarted')}
             </Link>
-            <Link className="hover:text-dm-ink" href={prefix('/docs/kubernetes')}>
+            <Link className="hover:text-dm-ink" href={prefix('/docs/kubernetes/overview')}>
               {t('footer.links.kubernetes')}
             </Link>
-            <Link className="hover:text-dm-ink" href={prefix('/docs/cli')}>
-              {t('footer.links.cliReference')}
+            <Link className="hover:text-dm-ink" href={prefix('/docs/homelab')}>
+              {t('footer.links.homelab')}
             </Link>
-            <Link className="hover:text-dm-ink" href={prefix('/docs/faq')}>
-              {t('footer.links.faq')}
+            <Link className="hover:text-dm-ink" href={prefix('/docs/reference/troubleshooting')}>
+              {t('footer.links.troubleshooting')}
             </Link>
           </FooterCol>
 

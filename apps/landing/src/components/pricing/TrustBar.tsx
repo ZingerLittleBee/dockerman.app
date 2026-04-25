@@ -1,5 +1,6 @@
 import type { Locale } from '@repo/shared/i18n'
 import { getTranslation } from '@repo/shared/i18n/server'
+import { Tooltip } from '@/components/Tooltip'
 import { pricingConfig } from '@/config/pricing'
 
 export async function TrustBar({ locale }: { locale: Locale }) {
@@ -43,23 +44,30 @@ export async function TrustBar({ locale }: { locale: Locale }) {
               fill="none"
               height="14"
               stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               strokeWidth="2"
               style={{ color: 'var(--color-dm-ink-4)' }}
               viewBox="0 0 24 24"
               width="14"
             >
-              <path d="M12 2v20M2 12h20" />
+              <path d="M12 3v12" />
+              <path d="M7 10l5 5 5-5" />
+              <path d="M5 21h14" />
             </svg>
-            <span
-              className="cursor-help underline decoration-dm-ink-4/40 decoration-dotted underline-offset-[3px]"
-              title={t('pricing.trust.usersEstimatedFrom', {
-                date: pricingConfig.trust.usersEstimatedFrom
+            <Tooltip
+              content={t('pricing.trust.downloadsEstimatedFrom', {
+                source: pricingConfig.trust.downloadsEstimatedFrom
               })}
+              side="top"
+              triggerAsChild
             >
-              {t('pricing.trust.users', {
-                value: pricingConfig.trust.users.toLocaleString()
-              })}
-            </span>
+              <span className="cursor-help underline decoration-dm-ink-4/40 decoration-dotted underline-offset-[3px]">
+                {t('pricing.trust.downloads', {
+                  value: pricingConfig.trust.monthlyDownloads.toLocaleString()
+                })}
+              </span>
+            </Tooltip>
           </Item>
           <Item>
             <svg

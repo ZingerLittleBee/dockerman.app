@@ -91,8 +91,8 @@
       "pricing": "価格",
       "gettingStarted": "はじめに",
       "kubernetes": "Kubernetes",
-      "cliReference": "CLI リファレンス",
-      "faq": "FAQ",
+      "homelab": "ホームラボ",
+      "troubleshooting": "トラブルシューティング",
       "github": "GitHub",
       "email": "メール"
     }
@@ -309,7 +309,7 @@
           "multiHost": "マルチホスト切り替えとブックマーク",
           "cloudflared": "Cloudflared トンネル管理",
           "k8s": "Kubernetes クラスター管理",
-          "updates": "生涯アップデートと優先サポート"
+          "updates": "生涯アップデート"
         }
       },
       "solo": {
@@ -332,8 +332,8 @@
     "trust": {
       "secure": "安全な決済",
       "refund": "{{days}} 日間無条件返金",
-      "users": "{{value}}+ 人の開発者",
-      "usersEstimatedFrom": "推定開始日:{{date}}",
+      "downloads": "月間ダウンロード {{value}}+",
+      "downloadsEstimatedFrom": "過去 30 日間の R2 ダウンロードリクエストから推定",
       "stars": "{{value}}+ GitHub スター"
     },
     "compare": {
@@ -401,7 +401,6 @@
       "values": {
         "unlimited": "無制限",
         "community": "コミュニティ",
-        "priority": "優先 · 24 時間",
         "email": "メール · 48 時間",
         "included": "含む",
         "notIncluded": "含まない"

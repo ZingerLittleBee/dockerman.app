@@ -32,7 +32,10 @@ export async function PricingHero({ locale }: { locale: Locale }) {
           </span>
         </span>
 
-        <h1 className="mx-auto mt-[22px] max-w-[16ch] font-bold text-[clamp(48px,7vw,88px)] text-dm-ink leading-[0.98] tracking-[-0.04em]">
+        <h1
+          className="mx-auto mt-[22px] font-bold text-[clamp(48px,7vw,88px)] text-dm-ink leading-[0.98] tracking-[-0.04em]"
+          style={{ maxWidth: locale === 'zh' || locale === 'ja' ? 'none' : '16ch' }}
+        >
           {t('pricing.hero.titleLead')}{' '}
           <em
             className="bg-clip-text font-[var(--font-dm-display)] font-normal text-transparent italic"

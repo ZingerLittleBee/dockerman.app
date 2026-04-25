@@ -91,8 +91,8 @@
       "pricing": "Precios",
       "gettingStarted": "Primeros pasos",
       "kubernetes": "Kubernetes",
-      "cliReference": "Referencia CLI",
-      "faq": "FAQ",
+      "homelab": "Homelab",
+      "troubleshooting": "Solución de problemas",
       "github": "GitHub",
       "email": "Correo"
     }
@@ -309,7 +309,7 @@
           "multiHost": "Cambio multi-host y marcadores",
           "cloudflared": "Gestión de túneles Cloudflared",
           "k8s": "Gestión de clústeres Kubernetes",
-          "updates": "Actualizaciones de por vida y soporte prioritario"
+          "updates": "Actualizaciones de por vida"
         }
       },
       "solo": {
@@ -332,8 +332,8 @@
     "trust": {
       "secure": "Pago seguro",
       "refund": "Reembolso de {{days}} días, sin preguntas",
-      "users": "{{value}}+ desarrolladores",
-      "usersEstimatedFrom": "Estimado desde {{date}}",
+      "downloads": "{{value}}+ descargas / mes",
+      "downloadsEstimatedFrom": "Estimado a partir de las descargas de R2 en los últimos 30 días",
       "stars": "{{value}}+ estrellas en GitHub"
     },
     "compare": {
@@ -401,7 +401,6 @@
       "values": {
         "unlimited": "ilimitado",
         "community": "comunidad",
-        "priority": "prioritario · 24h",
         "email": "correo · 48h",
         "included": "incluido",
         "notIncluded": "no incluido"

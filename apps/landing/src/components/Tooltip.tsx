@@ -56,7 +56,7 @@ const Tooltip = React.forwardRef<React.ElementRef<typeof TooltipPrimitives.Conte
               align="center"
               className={cx(
                 // base
-                'max-w-60 select-none rounded-md px-2.5 py-1.5 text-sm leading-5 shadow-md',
+                'z-50 max-w-60 select-none rounded-md px-2.5 py-1.5 text-sm leading-5 shadow-md',
                 // text color
                 'text-gray-50 dark:text-gray-900',
                 // background color

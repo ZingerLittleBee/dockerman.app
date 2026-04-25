@@ -11,8 +11,8 @@ export const pricingConfig = {
   },
   trust: {
     asOf: '2026-04-23',
-    users: 12_400,
-    usersEstimatedFrom: 'S3 installer download count',
+    monthlyDownloads: 15_000,
+    downloadsEstimatedFrom: 'R2 GET requests, last 30 days',
     githubStars: 300
   }
 } as const
