@@ -61,7 +61,7 @@ export default function ChangelogPageContent({ copy, entries, locale }: Props) {
             <ChangelogSearch locale={locale} onQuery={setQuery} />
             <a
               className="ml-auto inline-flex items-center gap-[6px] rounded-[8px] border border-dm-line bg-dm-bg-elev px-[10px] py-2 font-[var(--font-dm-mono)] text-[12px] text-dm-ink-3 no-underline hover:border-[var(--color-dm-warn)] hover:text-[var(--color-dm-warn)]"
-              href="/api/changelog/rss"
+              href={`/api/changelog/rss?locale=${locale}`}
             >
               <svg
                 fill="none"
