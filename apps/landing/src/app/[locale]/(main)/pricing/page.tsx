@@ -38,10 +38,10 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
       <PricingHero locale={l} />
 
       {/* Countdown bar */}
-      <section className="px-8 pb-10">
+      <section className="px-5 pb-10 sm:px-8">
         <div className="mx-auto mt-2 max-w-[560px]">
           <div
-            className="flex flex-wrap items-center gap-5 rounded-[14px] border p-5"
+            className="flex flex-col items-center gap-4 rounded-[14px] border p-4 text-center sm:flex-row sm:flex-wrap sm:gap-5 sm:p-5 sm:text-left"
             style={{
               borderColor:
                 'color-mix(in srgb, var(--color-dm-warn) 30%, var(--color-dm-line-strong))',
@@ -69,11 +69,11 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
                 <path d="M12 7v5l3 2" />
               </svg>
             </div>
-            <div className="flex-1 text-left">
+            <div className="flex-1 sm:min-w-[200px]">
               <div className="font-semibold text-[13px] text-dm-ink">
                 {t('pricing.countdown.endsLead')}{' '}
                 <span
-                  className="ml-2 rounded px-[7px] py-[2px] font-[var(--font-dm-mono)] font-bold text-[10px] tracking-[0.04em]"
+                  className="ml-2 inline-block rounded px-[7px] py-[2px] font-[var(--font-dm-mono)] font-bold text-[10px] tracking-[0.04em]"
                   style={{ background: 'var(--color-dm-warn)', color: '#000' }}
                 >
                   {t('pricing.countdown.endsDate')}
@@ -93,11 +93,11 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
       </section>
 
       {/* Plans */}
-      <section className="px-8">
+      <section className="px-5 sm:px-8">
         <div className="mx-auto max-w-[1140px]">
           <div
             className="grid items-stretch gap-4"
-            style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' }}
+            style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))' }}
           >
             {/* Free */}
             <PlanCard
@@ -210,9 +210,9 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
       <PricingFaq />
 
       {/* Final CTA */}
-      <section className="px-8 pt-20">
+      <section className="px-5 pt-16 sm:px-8 sm:pt-20">
         <div className="mx-auto max-w-[1140px]">
-          <div className="relative overflow-hidden rounded-[20px] border border-dm-line bg-dm-bg-elev px-10 py-16 text-center">
+          <div className="relative overflow-hidden rounded-[20px] border border-dm-line bg-dm-bg-elev px-6 py-12 text-center sm:px-10 sm:py-16">
             <div
               aria-hidden="true"
               className="pointer-events-none absolute inset-0"

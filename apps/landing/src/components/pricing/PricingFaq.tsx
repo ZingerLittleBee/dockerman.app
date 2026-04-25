@@ -53,7 +53,7 @@ export function PricingFaq() {
   const title = t('pricing.faq.title')
 
   return (
-    <section className="px-8 py-16">
+    <section className="px-5 py-12 sm:px-8 sm:py-16">
       <div className="mx-auto max-w-[820px]">
         <h2 className="font-bold text-[28px] text-dm-ink tracking-[-0.02em]">{title}</h2>
         <Accordion className="mt-6" collapsible type="single">

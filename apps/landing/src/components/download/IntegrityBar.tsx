@@ -6,9 +6,9 @@ export async function IntegrityBar({ locale }: { locale: Locale }) {
   const { t } = await getTranslation(locale)
   const { latest } = downloadsConfig
   return (
-    <section className="px-8">
+    <section className="px-5 sm:px-8">
       <div className="mx-auto mt-10 max-w-[1140px]">
-        <div className="flex flex-wrap items-center gap-[18px] rounded-[12px] border border-dm-line bg-dm-bg-elev p-[18px_22px] text-[13px]">
+        <div className="flex flex-wrap items-center gap-4 rounded-[12px] border border-dm-line bg-dm-bg-elev px-4 py-4 text-[13px] sm:gap-[18px] sm:px-[22px] sm:py-[18px]">
           <div
             className="grid h-8 w-8 flex-shrink-0 place-items-center rounded-[8px]"
             style={{

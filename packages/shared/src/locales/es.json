@@ -7,7 +7,9 @@
     "docs": "Docs",
     "download": "Descargar",
     "github": "GitHub",
-    "changeLanguage": "Cambiar idioma"
+    "changeLanguage": "Cambiar idioma",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú"
   },
   "hero": {
     "eyebrow": "v5.1.0 — soporte Podman, túneles Cloudflared, detección de actualizaciones de imagen",

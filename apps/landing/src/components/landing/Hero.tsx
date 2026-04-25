@@ -63,7 +63,7 @@ export function Hero({ locale }: { locale: Locale }) {
   }
 
   return (
-    <section className="relative overflow-hidden px-8 pt-16 pb-8">
+    <section className="relative overflow-hidden px-5 pt-12 pb-8 sm:px-8 sm:pt-16">
       <div
         aria-hidden
         className="pointer-events-none absolute top-0 left-1/2 -z-[1] h-[500px] w-[900px] -translate-x-1/2 blur-[40px]"
@@ -130,12 +130,12 @@ export function Hero({ locale }: { locale: Locale }) {
           {/* Inline copy install command */}
           <button
             aria-label={copied ? t('hero.copied') : t('hero.copyAria', { cmd: INSTALL_CMD })}
-            className="inline-flex cursor-pointer items-center gap-[10px] rounded-[10px] border border-dm-line bg-dm-bg-elev px-[14px] py-[10px] pr-3 font-[var(--font-dm-mono)] text-[13px] text-dm-ink-2 transition-colors hover:border-dm-line-strong"
+            className="inline-flex max-w-full cursor-pointer items-center gap-[10px] rounded-[10px] border border-dm-line bg-dm-bg-elev px-[12px] py-[10px] pr-3 font-[var(--font-dm-mono)] text-[11.5px] text-dm-ink-2 transition-colors hover:border-dm-line-strong sm:px-[14px] sm:text-[13px]"
             onClick={copyInstall}
             type="button"
           >
             <span style={{ color: 'var(--color-dm-accent)' }}>$</span>
-            <span>{INSTALL_CMD}</span>
+            <span className="overflow-hidden text-ellipsis whitespace-nowrap">{INSTALL_CMD}</span>
             <span
               aria-hidden="true"
               className="grid h-[22px] w-[22px] place-items-center rounded text-dm-ink-3"

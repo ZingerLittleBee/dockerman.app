@@ -146,12 +146,12 @@ export function SnapshotShowcase({
   const n = String(active + 1).padStart(2, '0')
 
   return (
-    <section className="px-8 pt-12 pb-20">
+    <section className="px-5 pt-10 pb-16 sm:px-8 sm:pt-12 sm:pb-20">
       <div className="mx-auto max-w-[1320px]">
         {/* Mobile tab rail */}
         <div
           aria-label={strings.moduleTabsAria}
-          className="-mx-8 mb-5 flex gap-2 overflow-x-auto px-8 pb-4 [scrollbar-width:none] md:hidden [&::-webkit-scrollbar]:hidden"
+          className="-mx-5 mb-5 flex gap-2 overflow-x-auto px-5 pb-4 [scrollbar-width:none] sm:-mx-8 sm:px-8 md:hidden [&::-webkit-scrollbar]:hidden"
           ref={mobRef}
           role="tablist"
         >
@@ -532,7 +532,7 @@ function CaptionStrip({
 }) {
   const [copied, setCopied] = useState(false)
   return (
-    <div className="mt-6 grid grid-cols-1 items-center gap-6 rounded-[14px] border border-dm-line bg-dm-bg-elev px-[26px] py-[22px] md:grid-cols-[1fr_auto]">
+    <div className="mt-6 grid grid-cols-1 items-center gap-5 rounded-[14px] border border-dm-line bg-dm-bg-elev px-5 py-5 sm:gap-6 sm:px-[26px] sm:py-[22px] md:grid-cols-[1fr_auto]">
       <div>
         <h3 className="m-0 font-bold text-[22px] text-dm-ink tracking-[-0.022em]">
           {label} —{' '}

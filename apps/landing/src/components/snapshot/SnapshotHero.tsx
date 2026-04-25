@@ -6,7 +6,7 @@ export async function SnapshotHero({ locale }: { locale: Locale }) {
   const { t } = await getTranslation(locale)
   const count = SNAPSHOT_MODULE_COUNT
   return (
-    <section className="relative px-8 pt-14 pb-8">
+    <section className="relative overflow-hidden px-5 pt-10 pb-8 sm:px-8 sm:pt-14">
       <div
         aria-hidden
         className="pointer-events-none absolute top-0 left-1/2 -z-[1] h-[420px] w-[900px] -translate-x-1/2 blur-[40px]"
@@ -56,7 +56,7 @@ export async function SnapshotHero({ locale }: { locale: Locale }) {
           {t('snapshot.hero.descriptionPost')}
         </p>
 
-        <div className="mt-8 flex flex-wrap items-center gap-7 rounded-[12px] border border-dm-line bg-dm-bg-elev px-[22px] py-[18px] font-[var(--font-dm-mono)] text-[12px] text-dm-ink-3">
+        <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3 rounded-[12px] border border-dm-line bg-dm-bg-elev px-4 py-4 font-[var(--font-dm-mono)] text-[12px] text-dm-ink-3 sm:gap-7 sm:px-[22px] sm:py-[18px]">
           <MetaField label={t('snapshot.hero.metaModules')} value={String(count)} />
           <MetaSep />
           <MetaField label={t('snapshot.hero.metaBuild')} value="v5.1.0" />

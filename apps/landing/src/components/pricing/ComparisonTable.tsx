@@ -136,7 +136,7 @@ export async function ComparisonTable({ locale }: { locale: Locale }) {
   const { t } = await getTranslation(locale)
   const groups = buildGroups(t)
   return (
-    <section className="px-8 pt-24 pb-10">
+    <section className="px-5 pt-16 pb-10 sm:px-8 sm:pt-24">
       <div className="mx-auto max-w-[1140px]">
         <div className="mb-9 max-w-[680px]">
           <div
@@ -158,8 +158,8 @@ export async function ComparisonTable({ locale }: { locale: Locale }) {
 
         <div className="overflow-hidden rounded-[14px] border border-dm-line bg-dm-bg-elev text-[13.5px]">
           <div
-            className="grid items-center border-dm-line border-b bg-dm-bg-soft px-[22px] py-[14px] font-[var(--font-dm-mono)] font-semibold text-[11.5px] text-dm-ink-3 uppercase tracking-[0.06em]"
-            style={{ gridTemplateColumns: '2.2fr 1fr 1fr 1fr' }}
+            className="grid items-center gap-1 border-dm-line border-b bg-dm-bg-soft px-3 py-[14px] font-[var(--font-dm-mono)] font-semibold text-[11px] text-dm-ink-3 uppercase tracking-[0.06em] sm:gap-0 sm:px-[22px] sm:text-[11.5px]"
+            style={{ gridTemplateColumns: 'minmax(0, 2.2fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr)' }}
           >
             <div className="text-left">{t('pricing.compare.columns.feature')}</div>
             <div className="text-center">{t('pricing.compare.columns.free')}</div>
@@ -172,8 +172,8 @@ export async function ComparisonTable({ locale }: { locale: Locale }) {
           {groups.map((group) => (
             <div key={group.key}>
               <div
-                className="grid items-center border-dm-line border-b bg-dm-bg px-[22px] py-[14px] font-[var(--font-dm-mono)] font-semibold text-[12px] text-dm-ink-2 uppercase tracking-[0.08em]"
-                style={{ gridTemplateColumns: '2.2fr 1fr 1fr 1fr' }}
+                className="grid items-center border-dm-line border-b bg-dm-bg px-3 py-[12px] font-[var(--font-dm-mono)] font-semibold text-[11.5px] text-dm-ink-2 uppercase tracking-[0.08em] sm:px-[22px] sm:py-[14px] sm:text-[12px]"
+                style={{ gridTemplateColumns: 'minmax(0, 2.2fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr)' }}
               >
                 <div className="text-left">{t(`pricing.compare.groups.${group.key}`)}</div>
                 <div />
@@ -182,16 +182,16 @@ export async function ComparisonTable({ locale }: { locale: Locale }) {
               </div>
               {group.rows.map((r) => (
                 <div
-                  className="grid items-center border-dm-line border-b px-[22px] py-[14px] last:border-b-0"
+                  className="grid items-center gap-1 border-dm-line border-b px-3 py-[12px] last:border-b-0 sm:gap-0 sm:px-[22px] sm:py-[14px]"
                   key={`${group.key}-${r.key}`}
-                  style={{ gridTemplateColumns: '2.2fr 1fr 1fr 1fr' }}
+                  style={{ gridTemplateColumns: 'minmax(0, 2.2fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr)' }}
                 >
-                  <div className="text-left">
-                    <div className="font-medium text-[14px] text-dm-ink tracking-[-0.005em]">
+                  <div className="min-w-0 text-left">
+                    <div className="font-medium text-[12.5px] text-dm-ink tracking-[-0.005em] sm:text-[14px]">
                       {t(`pricing.compare.rows.${r.key}.label`)}
                     </div>
                     {r.hasDesc ? (
-                      <div className="mt-[2px] font-[var(--font-dm-mono)] text-[11.5px] text-dm-ink-4">
+                      <div className="mt-[2px] hidden font-[var(--font-dm-mono)] text-[11.5px] text-dm-ink-4 sm:block">
                         {t(`pricing.compare.rows.${r.key}.desc`)}
                       </div>
                     ) : null}

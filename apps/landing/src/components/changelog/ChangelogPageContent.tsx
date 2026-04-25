@@ -34,7 +34,7 @@ export default function ChangelogPageContent({ copy, entries, locale }: Props) {
   return (
     <>
       {/* page-head: kicker + italic-accent title + sub + toolbar */}
-      <section className="relative px-8 pt-16 pb-7">
+      <section className="relative overflow-hidden px-5 pt-12 pb-6 sm:px-8 sm:pt-16 sm:pb-7">
         <div className="mx-auto max-w-[1280px]">
           {/* kicker */}
           <span className="inline-flex items-center gap-2 rounded-full border border-dm-line-strong bg-dm-bg-elev px-[11px] py-[5px] font-[var(--font-dm-mono)] text-[11.5px] text-dm-ink-2 tracking-[0.02em]">
@@ -81,7 +81,7 @@ export default function ChangelogPageContent({ copy, entries, locale }: Props) {
       </section>
 
       {/* Layout: 220px TOC + releases */}
-      <section className="px-8 pb-20">
+      <section className="px-5 pb-16 sm:px-8 sm:pb-20">
         <div className="mx-auto max-w-[1280px]">
           <div className="grid gap-6 pt-8 md:grid-cols-[240px_minmax(0,1fr)] md:gap-[80px]">
             <aside className="hidden md:block">
