@@ -1,245 +1,198 @@
-'use client'
-
 import type { Locale } from '@repo/shared/i18n'
-import Image from 'next/image'
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger
-} from '@/components/Accordion'
-import type { ChangelogEntryData, ChangelogItem, ChangelogSectionTone } from '@/lib/changelog'
+import type { ChangelogBlock, ChangelogEntryData, ChangelogSection } from '@/lib/changelog'
+import { ChangelogCallout } from './ChangelogCallout'
+import { ChangelogFigure } from './ChangelogFigure'
 
 interface ChangelogTimelineProps {
   entries: ChangelogEntryData[]
   locale: Locale
 }
 
-const sectionLabels = {
-  en: {
-    bugfix: 'Bug Fixes',
-    feature: 'New',
-    improvement: 'Updates',
-    localization: 'Localization',
-    other: 'Changes',
-    performance: 'Performance'
-  },
-  zh: {
-    bugfix: '修复',
-    feature: '新功能',
-    improvement: '改进',
-    localization: '国际化',
-    other: '更新',
-    performance: '性能'
-  },
-  ja: {
-    bugfix: 'バグ修正',
-    feature: '新機能',
-    improvement: 'アップデート',
-    localization: 'ローカリゼーション',
-    other: '変更',
-    performance: 'パフォーマンス'
-  },
-  es: {
-    bugfix: 'Correcciones',
-    feature: 'Nuevo',
-    improvement: 'Actualizaciones',
-    localization: 'Localización',
-    other: 'Cambios',
-    performance: 'Rendimiento'
-  }
-} as const
-
-function formatInlineText(content: string) {
-  return content.split(/(`[^`]+`)/g).map((segment, index) => {
-    if (!segment) {
-      return null
-    }
-
-    if (segment.startsWith('`') && segment.endsWith('`')) {
-      return (
-        <code
-          className="rounded bg-gray-900 px-1.5 py-0.5 font-medium text-[0.92em] text-white dark:bg-white dark:text-gray-950"
-          key={`${content}-${index}`}
-        >
-          {segment.slice(1, -1)}
-        </code>
-      )
-    }
-
-    return <span key={`${content}-${index}`}>{segment}</span>
-  })
+export function ChangelogTimeline({ entries, locale }: ChangelogTimelineProps) {
+  return (
+    <div className="flex min-w-0 flex-col gap-20">
+      {entries.map((entry, i) => (
+        <div key={entry.id}>
+          <ReleaseArticle entry={entry} isLatest={i === 0} locale={locale} />
+          {i < entries.length - 1 ? (
+            <div
+              aria-hidden="true"
+              className="mt-20 h-px"
+              style={{
+                background:
+                  'linear-gradient(90deg, transparent, var(--color-dm-line-strong) 25%, var(--color-dm-line-strong) 75%, transparent)'
+              }}
+            />
+          ) : null}
+        </div>
+      ))}
+    </div>
+  )
 }
 
-function getToneBadge(tone: ChangelogSectionTone, locale: Locale) {
-  switch (tone) {
-    case 'feature':
-      return {
-        className:
-          'border-none h-6 rounded-sm bg-green-600/10 text-green-600 dark:bg-green-400/10 dark:text-green-400',
-        label: sectionLabels[locale].feature
-      }
-    case 'improvement':
-      return {
-        className:
-          'border-none h-6 rounded-sm bg-sky-600/10 text-sky-600 dark:bg-sky-400/10 dark:text-sky-400',
-        label: sectionLabels[locale].improvement
-      }
-    case 'bugfix':
-      return {
-        className:
-          'border-none h-6 rounded-sm bg-amber-600/10 text-amber-600 dark:bg-orange-400/10 dark:text-orange-400',
-        label: sectionLabels[locale].bugfix
-      }
-    case 'performance':
-      return {
-        className:
-          'border-none h-6 rounded-sm bg-fuchsia-600/10 text-fuchsia-600 dark:bg-fuchsia-400/10 dark:text-fuchsia-400',
-        label: sectionLabels[locale].performance
-      }
-    case 'localization':
-      return {
-        className:
-          'border-none h-6 rounded-sm bg-pink-600/10 text-pink-600 dark:bg-pink-400/10 dark:text-pink-400',
-        label: sectionLabels[locale].localization
-      }
-    default:
-      return {
-        className:
-          'border-none h-6 rounded-sm bg-gray-600/10 text-gray-600 dark:bg-gray-400/10 dark:text-gray-300',
-        label: sectionLabels[locale].other
-      }
-  }
+function ReleaseArticle({
+  entry,
+  isLatest,
+  locale
+}: {
+  entry: ChangelogEntryData
+  isLatest: boolean
+  locale: Locale
+}) {
+  // Extract major version for the circle badge: "5.1.0" -> "5".
+  const major = entry.version.split('.')[0] ?? ''
+  return (
+    <article className="scroll-mt-[100px]" id={entry.id}>
+      <div className="mb-5 flex flex-wrap items-center gap-3 font-[var(--font-dm-mono)] text-[12px]">
+        <VersionPill highlighted={isLatest} major={major} version={entry.version} />
+        <span className="text-dm-ink-3">{entry.date}</span>
+        {isLatest ? (
+          <span
+            className="rounded px-2 py-[3px] font-semibold text-[10.5px] uppercase tracking-[0.05em]"
+            style={{ background: 'var(--color-dm-ok)', color: '#000' }}
+          >
+            LATEST
+          </span>
+        ) : null}
+      </div>
+      <h2 className="m-0 mb-4 max-w-[22ch] font-bold text-[clamp(30px,3.6vw,40px)] text-dm-ink leading-[1.08] tracking-[-0.03em]">
+        <TitleMaybeAccent title={entry.title} />
+      </h2>
+      {entry.summary ? (
+        <p className="mb-6 max-w-[70ch] text-[16px] text-dm-ink-2">{entry.summary}</p>
+      ) : null}
+
+      {/* Blocks (Callouts + Figures) render first, in source order. */}
+      <Blocks blocks={entry.blocks} locale={locale} />
+
+      {/* Sections render as headings + bullet lists. */}
+      <div className="md-body flex flex-col gap-8">
+        {entry.sections.map((s) => (
+          <SectionBlock key={s.id} section={s} />
+        ))}
+      </div>
+    </article>
+  )
 }
 
-function renderListItem(item: ChangelogItem) {
-  if (item.label && item.description) {
+function VersionPill({
+  major,
+  version,
+  highlighted
+}: {
+  major: string
+  version: string
+  highlighted: boolean
+}) {
+  return (
+    <span
+      className="inline-flex items-center gap-2 rounded-full border px-[11px] py-[5px] pl-[5px] font-semibold text-[12.5px] text-dm-ink"
+      style={
+        highlighted
+          ? {
+              borderColor:
+                'color-mix(in srgb, var(--color-dm-accent-2) 40%, var(--color-dm-line-strong))',
+              background:
+                'color-mix(in srgb, var(--color-dm-accent-2) 10%, var(--color-dm-bg-elev))'
+            }
+          : {
+              borderColor: 'var(--color-dm-line-strong)',
+              background: 'var(--color-dm-bg-elev)'
+            }
+      }
+    >
+      <span
+        className="grid h-[18px] w-[18px] place-items-center rounded-full font-bold text-[10px] text-white"
+        style={
+          highlighted
+            ? {
+                background: 'linear-gradient(135deg, var(--color-dm-accent-2), #8b5cf6)',
+                boxShadow:
+                  '0 4px 10px -3px color-mix(in srgb, var(--color-dm-accent-2) 50%, transparent)'
+              }
+            : { background: 'var(--color-dm-ink-4)' }
+        }
+      >
+        {major}
+      </span>
+      v{version}
+    </span>
+  )
+}
+
+/**
+ * Render the portion after a period as italic-serif accent, when present.
+ * e.g. "Podman, properly. Plus a faster engine swap." becomes
+ *      "Podman, properly. <em>Plus a faster engine swap.</em>".
+ * We skip version-style numbers (e.g. "Version 4.7.0") by requiring that
+ * the character before the period is not a digit and the tail is non-trivial.
+ */
+function TitleMaybeAccent({ title }: { title: string }) {
+  // find first period that is preceded by a non-digit and followed by space+letters
+  for (let idx = 0; idx < title.length; idx++) {
+    if (title[idx] !== '.') continue
+    const prev = title[idx - 1] ?? ''
+    if (/\d/.test(prev)) continue
+    if (idx === title.length - 1) continue
+    const tail = title.slice(idx + 1).trim()
+    if (tail.length === 0) continue
+    const head = title.slice(0, idx + 1)
     return (
       <>
-        {item.icon ? <span className="mr-1.5">{item.icon}</span> : null}
-        <span className="font-medium text-gray-900 dark:text-gray-100">
-          {formatInlineText(item.label)}
-        </span>
-        {': '}
-        {formatInlineText(item.description)}
+        {head}{' '}
+        <em className="font-[var(--font-dm-display)] font-normal text-dm-ink-2 italic tracking-[-0.01em]">
+          {tail}
+        </em>
       </>
     )
   }
-
-  return (
-    <>
-      {item.icon ? <span className="mr-1.5">{item.icon}</span> : null}
-      {formatInlineText(item.content)}
-    </>
-  )
+  return <>{title}</>
 }
 
-function TimelineEntry({
-  defaultSectionIds,
-  entry,
-  isLast,
-  locale
-}: {
-  defaultSectionIds: string[]
-  entry: ChangelogEntryData
-  isLast: boolean
-  locale: Locale
-}) {
+function Blocks({ blocks, locale }: { blocks: ChangelogBlock[]; locale: Locale }) {
+  if (blocks.length === 0) return null
   return (
-    <div className="relative flex w-full scroll-mt-24 justify-end gap-2" id={entry.id}>
-      <div className="sticky top-24 hidden w-36 flex-col items-end gap-2 self-start pb-4 md:flex">
-        <span className="inline-flex rounded-sm bg-indigo-50 px-2.5 py-1 font-medium text-indigo-700 text-sm ring-1 ring-indigo-700/10 dark:bg-indigo-500/20 dark:text-indigo-300 dark:ring-indigo-400/10">
-          {entry.version}
-        </span>
-        <div className="text-right font-medium text-gray-500 text-sm dark:text-gray-400">
-          {entry.date}
-        </div>
-      </div>
-
-      <div className="flex flex-col items-center gap-2">
-        <div className="sticky top-24 flex size-6 items-center justify-center">
-          <span className="flex size-[18px] items-center justify-center rounded-full bg-indigo-500/15 dark:bg-indigo-400/20">
-            <span className="size-3 rounded-full bg-indigo-600 dark:bg-indigo-400" />
-          </span>
-        </div>
-        {isLast ? null : (
-          <span className="w-px flex-1 border border-gray-200 dark:border-gray-800" />
-        )}
-      </div>
-
-      <div className="flex flex-1 flex-col gap-4 pb-11 pl-3 md:pl-6 lg:pl-9">
-        <div className="flex flex-col gap-2 md:hidden">
-          <span className="inline-flex w-fit rounded-sm bg-indigo-50 px-2.5 py-1 font-medium text-indigo-700 text-sm ring-1 ring-indigo-700/10 dark:bg-indigo-500/20 dark:text-indigo-300 dark:ring-indigo-400/10">
-            {entry.version}
-          </span>
-          <div className="font-medium text-gray-600 text-sm dark:text-gray-400">{entry.date}</div>
-        </div>
-
-        <div className="space-y-3">
-          <h2 className="font-semibold text-gray-950 text-xl dark:text-gray-50">{entry.title}</h2>
-          <p className="text-gray-600 text-sm leading-7 dark:text-gray-400">
-            {formatInlineText(entry.summary)}
-          </p>
-        </div>
-
-        {entry.images.length > 0 ? (
-          <div className={entry.images.length > 1 ? 'grid gap-4 md:grid-cols-2' : ''}>
-            {entry.images.map((image) => (
-              <Image
-                alt={image.alt}
-                className="overflow-hidden rounded-lg shadow-black/15 shadow-md ring-1 ring-gray-200/50 dark:ring-gray-800"
-                height={675}
-                key={`${entry.id}-${image.src}`}
-                src={image.src}
-                width={1200}
-              />
-            ))}
-          </div>
-        ) : null}
-
-        <Accordion className="-mt-4 mb-0 w-full" defaultValue={defaultSectionIds} type="multiple">
-          {entry.sections.map((section) => {
-            const badge = getToneBadge(section.tone, locale)
-
-            return (
-              <AccordionItem key={section.id} value={section.id}>
-                <AccordionTrigger className="hover:no-underline [&>svg]:size-6">
-                  <span
-                    className={`inline-flex items-center px-2.5 ${badge.className} font-medium text-xs`}
-                  >
-                    {badge.label}
-                  </span>
-                </AccordionTrigger>
-                <AccordionContent className="text-gray-600 dark:text-gray-400">
-                  <ul className="list-inside list-disc space-y-3 text-sm">
-                    {section.items.map((item) => (
-                      <li key={`${section.id}-${item.content}`}>{renderListItem(item)}</li>
-                    ))}
-                  </ul>
-                </AccordionContent>
-              </AccordionItem>
-            )
-          })}
-        </Accordion>
-      </div>
+    <div className="mb-6">
+      {blocks.map((b, i) =>
+        b.kind === 'callout' ? (
+          <ChangelogCallout body={b.body} key={i} locale={locale} type={b.type} />
+        ) : (
+          <ChangelogFigure caption={b.caption} key={i} src={b.src} />
+        )
+      )}
     </div>
   )
 }
 
-export default function ChangelogTimeline({ entries, locale }: ChangelogTimelineProps) {
+function SectionBlock({ section }: { section: ChangelogSection }) {
   return (
-    <div className="flex w-full flex-col">
-      {entries.map((entry, index) => (
-        <TimelineEntry
-          defaultSectionIds={
-            index === 0 ? entry.sections.slice(0, 1).map((section) => section.id) : []
-          }
-          entry={entry}
-          isLast={index === entries.length - 1}
-          key={entry.id}
-          locale={locale}
+    <section>
+      <h3 className="mt-4 mb-3 flex items-center gap-3 font-bold text-[22px] text-dm-ink leading-[1.25] tracking-[-0.022em]">
+        <span
+          aria-hidden="true"
+          className="inline-block h-[18px] w-[4px] rounded-[2px]"
+          style={{
+            background: 'linear-gradient(180deg, var(--color-dm-accent-2), #8b5cf6)'
+          }}
         />
-      ))}
-    </div>
+        {section.title}
+      </h3>
+      <ul className="m-0 list-none p-0">
+        {section.items.map((item, i) => (
+          <li className="relative py-[4px] pl-[26px] text-[14px] text-dm-ink-2" key={i}>
+            <span
+              aria-hidden="true"
+              className="absolute top-0 left-[6px] font-bold text-[22px] leading-[1.3]"
+              style={{ color: 'var(--color-dm-accent-2)' }}
+            >
+              ·
+            </span>
+            {item.icon && <span className="mr-1">{item.icon}</span>}
+            {item.label && <strong className="text-dm-ink">{item.label}: </strong>}
+            <span>{item.description ?? (item.label ? '' : item.content)}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
   )
 }

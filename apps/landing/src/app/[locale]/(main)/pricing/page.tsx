@@ -1,221 +1,272 @@
-'use client'
+import type { Locale } from '@repo/shared/i18n'
+import { getTranslation } from '@repo/shared/i18n/server'
+import type { Metadata } from 'next'
+import { ComparisonTable } from '@/components/pricing/ComparisonTable'
+import { Countdown } from '@/components/pricing/Countdown'
+import { PlanCard } from '@/components/pricing/PlanCard'
+import { PricingFaq } from '@/components/pricing/PricingFaq'
+import { PricingHero } from '@/components/pricing/PricingHero'
+import { TrustBar } from '@/components/pricing/TrustBar'
+import { pricingConfig } from '@/config/pricing'
 
-import { useEffect, useState } from 'react'
-import Balancer from 'react-wrap-balancer'
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger
-} from '@/components/Accordion'
-import { Badge } from '@/components/Badge'
-import { PricingCard } from '@/components/ui/PricingCard'
-import { useLocale, useTranslation } from '@repo/shared/i18n/client'
-
-const DEADLINE = new Date('2026-04-01T00:00:00')
-
-function useCountdown(target: Date) {
-  const [timeLeft, setTimeLeft] = useState(() => {
-    const diff = target.getTime() - Date.now()
-    return diff > 0 ? diff : 0
-  })
-
-  useEffect(() => {
-    if (timeLeft <= 0) return
-    const timer = setInterval(() => {
-      const diff = target.getTime() - Date.now()
-      setTimeLeft(diff > 0 ? diff : 0)
-    }, 1000)
-    return () => clearInterval(timer)
-  }, [target, timeLeft])
-
-  const seconds = Math.floor((timeLeft / 1000) % 60)
-  const minutes = Math.floor((timeLeft / 1000 / 60) % 60)
-  const hours = Math.floor((timeLeft / 1000 / 60 / 60) % 24)
-  const days = Math.floor(timeLeft / 1000 / 60 / 60 / 24)
-
-  return { days, hours, minutes, seconds, expired: timeLeft <= 0 }
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params
+  const { t } = await getTranslation(locale as Locale)
+  return {
+    title: t('meta.pricing.title'),
+    description: t('meta.pricing.description')
+  }
 }
 
-export default function Pricing() {
-  const { t } = useTranslation()
-  const locale = useLocale()
-  const countdown = useCountdown(DEADLINE)
+export default async function PricingPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
+  const l = locale as Locale
+  const { t } = await getTranslation(l)
+  const { plans, earlyBirdDeadlineUtc, refund } = pricingConfig
+  const isActive = new Date(earlyBirdDeadlineUtc).getTime() > Date.now()
 
-  const freeFeatures = [
-    t('pricing.features.containerManagement'),
-    t('pricing.features.imageManagement'),
-    t('pricing.features.volumeManagement'),
-    t('pricing.features.networkManagement'),
-    t('pricing.features.realTimeMonitoring'),
-    t('pricing.features.integratedTerminal'),
-    t('pricing.features.logViewer'),
-    t('pricing.features.fileBrowser'),
-    t('pricing.features.composeSupport'),
-    t('pricing.features.darkMode')
-  ]
-
-  const freeExcludedFeatures = [t('pricing.features.localDockerOnly')]
-
-  const proFeatures = [
-    t('pricing.features.everythingInFree'),
-    t('pricing.features.remoteViaSSH'),
-    t('pricing.features.multiHostManagement'),
-    t('pricing.features.lifetimeUpdates')
-  ]
-
-  const faqs = t('pricing.faq.items', { returnObjects: true }) as Array<{
-    question: string
-    answer: string
-  }>
-
-  useEffect(() => {
-    import('posthog-js').then(({ default: posthog }) => {
-      posthog.capture('pricing_plan_viewed', { locale })
-    })
-  }, [locale])
+  const teamPrice = isActive ? plans.team.priceEarlyBird : plans.team.priceRegular
+  const soloPrice = isActive ? plans.solo.priceEarlyBird : plans.solo.priceRegular
+  const perDevice = (teamPrice / plans.team.devices).toFixed(2)
 
   return (
-    <div className="mt-36 flex flex-col overflow-hidden px-3 pb-16">
-      <section
-        aria-labelledby="pricing-overview"
-        className="animate-slide-up-fade text-center"
-        style={{
-          animationDuration: '600ms',
-          animationFillMode: 'backwards'
-        }}
-      >
-        <div className="flex justify-center">
-          <Badge>{t('pricing.badge')}</Badge>
-        </div>
-        <h1
-          className="mt-2 inline-block bg-gradient-to-br from-gray-900 to-gray-800 bg-clip-text py-2 font-bold text-4xl text-transparent tracking-tighter sm:text-6xl md:text-6xl dark:from-gray-50 dark:to-gray-300"
-          id="pricing-overview"
-        >
-          <Balancer>{t('pricing.title')}</Balancer>
-        </h1>
-        <p className="mt-2 text-gray-600 text-xl dark:text-gray-400">{t('pricing.subtitle')}</p>
-        <p className="mx-auto mt-4 max-w-xl text-gray-500 text-lg dark:text-gray-500">
-          {t('pricing.description')}
-        </p>
-      </section>
+    <main>
+      <PricingHero locale={l} />
 
-      {!countdown.expired && (
-        <section
-          className="mx-auto mt-10 w-full max-w-xl animate-slide-up-fade text-center"
-          style={{
-            animationDuration: '600ms',
-            animationDelay: '200ms',
-            animationFillMode: 'backwards'
-          }}
-        >
-          <p className="mb-4 font-medium text-orange-600 text-sm dark:text-orange-400">
-            🔥 {t('pricing.deadline')}
-          </p>
-          <div className="flex justify-center gap-3">
-            {(
-              [
-                [countdown.days, t('pricing.countdown.days')],
-                [countdown.hours, t('pricing.countdown.hours')],
-                [countdown.minutes, t('pricing.countdown.minutes')],
-                [countdown.seconds, t('pricing.countdown.seconds')]
-              ] as const
-            ).map(([value, label]) => (
-              <div
-                className="flex min-w-[4rem] flex-col items-center rounded-xl bg-gray-900 px-3 py-2.5 shadow-lg dark:bg-white/10"
-                key={label}
+      {/* Countdown bar */}
+      <section className="px-8 pb-10">
+        <div className="mx-auto mt-2 max-w-[560px]">
+          <div
+            className="flex flex-wrap items-center gap-5 rounded-[14px] border p-5"
+            style={{
+              borderColor:
+                'color-mix(in srgb, var(--color-dm-warn) 30%, var(--color-dm-line-strong))',
+              backgroundImage:
+                'radial-gradient(ellipse at 10% 50%, color-mix(in srgb, var(--color-dm-warn) 10%, transparent), transparent 60%)',
+              backgroundColor: 'var(--color-dm-bg-elev)'
+            }}
+          >
+            <div
+              className="grid h-[38px] w-[38px] flex-shrink-0 place-items-center rounded-[9px]"
+              style={{
+                background: 'color-mix(in srgb, var(--color-dm-warn) 14%, transparent)',
+                color: 'var(--color-dm-warn)'
+              }}
+            >
+              <svg
+                fill="none"
+                height="18"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width="18"
               >
-                <span className="font-bold text-2xl text-white tabular-nums sm:text-3xl">
-                  {String(value).padStart(2, '0')}
-                </span>
-                <span className="mt-0.5 text-gray-400 text-xs uppercase tracking-wider">
-                  {label}
+                <circle cx="12" cy="12" r="9" />
+                <path d="M12 7v5l3 2" />
+              </svg>
+            </div>
+            <div className="flex-1 text-left">
+              <div className="font-semibold text-[13px] text-dm-ink">
+                {t('pricing.countdown.endsLead')}{' '}
+                <span
+                  className="ml-2 rounded px-[7px] py-[2px] font-[var(--font-dm-mono)] font-bold text-[10px] tracking-[0.04em]"
+                  style={{ background: 'var(--color-dm-warn)', color: '#000' }}
+                >
+                  {t('pricing.countdown.endsDate')}
                 </span>
               </div>
-            ))}
+              <div className="mt-[3px] font-[var(--font-dm-mono)] text-[12px] text-dm-ink-3">
+                {t('pricing.countdown.afterNote', {
+                  solo: plans.solo.priceRegular,
+                  devices: plans.team.devices,
+                  team: plans.team.priceRegular
+                })}
+              </div>
+            </div>
+            <Countdown deadlineUtc={earlyBirdDeadlineUtc} locale={l} />
           </div>
-        </section>
-      )}
-
-      <section className="mx-auto mt-16 grid w-full max-w-5xl gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        <PricingCard
-          ctaText={t('pricing.cta.currentPlan')}
-          disabled
-          excludedFeatures={freeExcludedFeatures}
-          features={freeFeatures}
-          price={0}
-          title="FREE"
-        />
-
-        <PricingCard
-          badgeText={t('pricing.earlyBird')}
-          ctaHref={`/api/checkout?plan=3-devices&locale=${locale}`}
-          ctaText={t('pricing.cta.upgradeNow')}
-          description={t('pricing.plans.threeDevices')}
-          features={[
-            t('pricing.features.everythingInFree'),
-            t('pricing.plans.threeDevicesSaving'),
-            t('pricing.features.remoteViaSSH'),
-            t('pricing.features.multiHostManagement'),
-            t('pricing.features.lifetimeUpdates')
-          ]}
-          highlighted
-          originalPrice={29}
-          plan="3-devices"
-          price={19}
-          title="3 DEVICES"
-        />
-
-        <PricingCard
-          badgeText={t('pricing.earlyBird')}
-          ctaHref={`/api/checkout?plan=1-device&locale=${locale}`}
-          ctaText={t('pricing.cta.upgradeNow')}
-          description={t('pricing.plans.oneDevice')}
-          features={proFeatures}
-          originalPrice={19}
-          plan="1-device"
-          price={14}
-          title="1 DEVICE"
-        />
+        </div>
       </section>
 
-      <section aria-labelledby="pricing-faq" className="mx-auto mt-20 w-full max-w-3xl">
-        <h2
-          className="scroll-my-24 bg-gradient-to-br from-gray-900 to-gray-800 bg-clip-text py-2 text-center font-bold text-2xl text-transparent tracking-tighter lg:text-3xl dark:from-gray-50 dark:to-gray-300"
-          id="pricing-faq"
-        >
-          {t('pricing.faq.title')}
-        </h2>
-        <Accordion
-          className="mt-8"
-          onValueChange={(values: string[]) => {
-            if (values.length > 0) {
-              const lastValue = values.at(-1)
-              const faqIndex = faqs.findIndex((f) => f.question === lastValue)
-              import('posthog-js').then(({ default: posthog }) => {
-                posthog.capture('pricing_faq_expanded', {
-                  question: lastValue,
-                  faq_index: faqIndex
-                })
-              })
-            }
-          }}
-          type="multiple"
-        >
-          {faqs.map((item) => (
-            <AccordionItem
-              className="py-3 first:pt-0 first:pb-3"
-              key={item.question}
-              value={item.question}
-            >
-              <AccordionTrigger>{item.question}</AccordionTrigger>
-              <AccordionContent className="text-gray-600 dark:text-gray-400">
-                {item.answer}
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+      {/* Plans */}
+      <section className="px-8">
+        <div className="mx-auto max-w-[1140px]">
+          <div
+            className="grid items-stretch gap-4"
+            style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' }}
+          >
+            {/* Free */}
+            <PlanCard
+              ctaHref={`/${l}/download`}
+              ctaLabel={t('pricing.plans.free.cta')}
+              ctaNote={t('pricing.plans.free.ctaNote')}
+              ctaVariant="disabled"
+              description={t('pricing.plans.free.description')}
+              features={[
+                { label: t('pricing.plans.free.features.coreSet') },
+                { label: t('pricing.plans.free.features.compose') },
+                { label: t('pricing.plans.free.features.palette') },
+                { label: t('pricing.plans.free.features.podmanTrivy') },
+                { label: t('pricing.plans.free.features.themesI18n') },
+                { label: t('pricing.plans.free.features.remoteSsh'), included: false },
+                { label: t('pricing.plans.free.features.multiHost'), included: false }
+              ]}
+              freq={t('pricing.plans.free.freq')}
+              label={t('pricing.plans.free.label')}
+              name={t('pricing.plans.free.name')}
+              price={0}
+            />
+
+            {/* Team (highlighted) */}
+            <PlanCard
+              ctaHref="/checkout/team"
+              ctaLabel={t('pricing.plans.team.cta', { price: teamPrice })}
+              ctaNote={t('pricing.plans.team.ctaNote', { days: refund.days })}
+              ctaVariant="primary"
+              description={t('pricing.plans.team.description')}
+              features={[
+                {
+                  label: (
+                    <span className="font-semibold text-dm-ink">
+                      {t('pricing.plans.team.features.everythingFree')}
+                    </span>
+                  )
+                },
+                {
+                  label: (
+                    <>
+                      <span className="font-semibold text-dm-ink">
+                        {t('pricing.plans.team.features.perDevice', { perDevice })}
+                      </span>
+                      {t('pricing.plans.team.features.perDeviceSavings', {
+                        devices: plans.team.devices
+                      })}
+                    </>
+                  )
+                },
+                { label: t('pricing.plans.team.features.remote') },
+                { label: t('pricing.plans.team.features.multiHost') },
+                { label: t('pricing.plans.team.features.cloudflared') },
+                { label: t('pricing.plans.team.features.k8s') },
+                { label: t('pricing.plans.team.features.updates') }
+              ]}
+              freq={t('pricing.plans.team.freq', { devices: plans.team.devices })}
+              highlighted
+              label={t('pricing.plans.team.label', { devices: plans.team.devices })}
+              name={
+                <>
+                  {t('pricing.plans.team.nameLead')}{' '}
+                  <em className="font-[var(--font-dm-display)] font-normal text-dm-ink-3 italic">
+                    {t('pricing.plans.team.nameAccent')}
+                  </em>{' '}
+                  {t('pricing.plans.team.nameTrail')}
+                </>
+              }
+              price={teamPrice}
+              ribbon={t('pricing.plans.team.ribbon')}
+              strikePrice={isActive ? `$${plans.team.priceRegular}` : undefined}
+            />
+
+            {/* Solo */}
+            <PlanCard
+              ctaHref="/checkout/solo"
+              ctaLabel={t('pricing.plans.solo.cta', { price: soloPrice })}
+              ctaNote={t('pricing.plans.solo.ctaNote', { days: refund.days })}
+              ctaVariant="ghost"
+              description={t('pricing.plans.solo.description')}
+              features={[
+                {
+                  label: (
+                    <span className="font-semibold text-dm-ink">
+                      {t('pricing.plans.solo.features.everythingFree')}
+                    </span>
+                  )
+                },
+                { label: t('pricing.plans.solo.features.remote') },
+                { label: t('pricing.plans.solo.features.multiHost') },
+                { label: t('pricing.plans.solo.features.cloudflared') },
+                { label: t('pricing.plans.solo.features.k8s') },
+                { label: t('pricing.plans.solo.features.updates') }
+              ]}
+              freq={t('pricing.plans.solo.freq')}
+              label={t('pricing.plans.solo.label')}
+              name={t('pricing.plans.solo.name')}
+              price={soloPrice}
+              strikePrice={isActive ? `$${plans.solo.priceRegular}` : undefined}
+            />
+          </div>
+
+          <TrustBar locale={l} />
+        </div>
       </section>
-    </div>
+
+      <ComparisonTable locale={l} />
+      <PricingFaq />
+
+      {/* Final CTA */}
+      <section className="px-8 pt-20">
+        <div className="mx-auto max-w-[1140px]">
+          <div className="relative overflow-hidden rounded-[20px] border border-dm-line bg-dm-bg-elev px-10 py-16 text-center">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0"
+              style={{
+                background:
+                  'radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--color-dm-accent-2) 10%, transparent), transparent 55%)'
+              }}
+            />
+            <h3 className="relative m-0 font-bold text-[clamp(28px,3.6vw,40px)] text-dm-ink leading-[1.1] tracking-[-0.03em]">
+              {t('pricing.finalCta.titleLead')}{' '}
+              <em
+                className="bg-clip-text font-[var(--font-dm-display)] font-normal text-transparent italic"
+                style={{
+                  backgroundImage: 'linear-gradient(135deg, var(--color-dm-accent-2), #8b5cf6)'
+                }}
+              >
+                {t('pricing.finalCta.titleAccent')}
+              </em>
+            </h3>
+            <p className="relative mx-auto mt-4 max-w-[52ch] text-[15px] text-dm-ink-3">
+              {t('pricing.finalCta.description')}
+            </p>
+            <div className="relative mt-7 inline-flex flex-wrap items-center justify-center gap-[10px]">
+              <a
+                className="inline-flex items-center gap-2 rounded-[10px] px-[22px] py-[13px] font-semibold text-[14px] text-white no-underline transition-transform hover:-translate-y-px"
+                href="/checkout/team"
+                style={{
+                  background:
+                    'linear-gradient(180deg, var(--color-dm-accent-2), color-mix(in srgb, var(--color-dm-accent-2) 80%, black))',
+                  boxShadow:
+                    '0 10px 24px -8px color-mix(in srgb, var(--color-dm-accent-2) 55%, transparent)'
+                }}
+              >
+                {t('pricing.finalCta.ctaTeam', { price: teamPrice })}
+                <svg
+                  fill="none"
+                  height="14"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeWidth="2.5"
+                  viewBox="0 0 24 24"
+                  width="14"
+                >
+                  <path d="M5 12h14M13 5l7 7-7 7" />
+                </svg>
+              </a>
+              <a
+                className="inline-flex items-center px-[22px] py-[13px] font-medium text-[14px] text-dm-ink-2 transition-colors hover:text-dm-ink"
+                href={`/${l}/download`}
+              >
+                {t('pricing.finalCta.ctaFree')}
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   )
 }

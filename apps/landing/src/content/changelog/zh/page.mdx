@@ -1,3 +1,31 @@
+<ChangelogEntry version="v5.1.0" date="2026年4月8日">
+## Podman 运行时支持
+
+本次发布引入对 Podman 运行时的一等公民支持，与 Docker 并列，提供自动运行时检测、按主机的偏好选择，以及可扩展的能力系统用于未来的功能门控。
+
+### ✨ 新功能
+
+- 🐙 <Bold>Podman 支持：</Bold>与 Docker 并列的 Podman 运行时一等公民支持
+  - 🔍 运行时检测：通过 API 探测自动识别 Docker、Podman 或兼容运行时
+  - ⚙️ 运行时偏好：按主机与全局的运行时偏好选择器（Auto / Docker / Podman）
+  - 🔌 Socket 解析：在 Linux 与 macOS 上自动发现 Podman rootless / rootful socket
+  - 🌐 远程 SSH 探测：远程 SSH 主机的运行时感知 socket 解析
+  - 🏷️ 运行时徽标：侧边栏主机切换器以彩色徽标显示检测到的运行时类型
+  - 📊 仪表盘集成：系统信息卡显示运行时类型
+  - 🔧 连接反馈：连接成功的终端输出中展示检测到的运行时
+  - 🚫 Compose 门控：连接到 Podman 时自动隐藏栈模板与 Compose 操作
+  - 🔎 Spotlight 感知：命令面板在连接 Podman 时跳过 Compose 数据
+  - 🧩 能力层：可扩展的运行时能力系统，便于未来的功能门控
+
+### 🔧 改进
+
+- 🔄 <Bold>运行时切换处理：</Bold>在 Docker 与 Podman 主机间切换时，模板页面动态刷新
+- 🛡️ <Bold>Spotlight 隔离：</Bold>Spotlight 窗口的运行时检查直接通过 Tauri 命令，不影响 store 状态
+
+<ChangelogImage src="/screenshots/podman.png" alt="Podman 运行时仪表盘" />
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v5.0.0" date="2026年4月7日">
 ## Kubernetes 支持与云隧道
 

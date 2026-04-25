@@ -2,8 +2,31 @@ import { AnalyticsTracker } from '@repo/shared/components/AnalyticsTracker'
 import { I18nProvider } from '@repo/shared/components/I18nProvider'
 import { type Locale, locales } from '@repo/shared/i18n'
 import { RootProvider } from 'fumadocs-ui/provider/next'
+import { Geist_Mono, Instrument_Serif, Inter } from 'next/font/google'
 import { siteConfig } from '@/app/siteConfig'
 import { provider } from '@/lib/i18n/fumadocs-ui'
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+  weight: ['400', '500', '600', '700', '800']
+})
+
+const geistMono = Geist_Mono({
+  subsets: ['latin'],
+  variable: '--font-geist-mono',
+  display: 'swap',
+  weight: ['400', '500', '600', '700']
+})
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ['latin'],
+  variable: '--font-instrument-serif',
+  display: 'swap',
+  weight: '400',
+  style: ['italic', 'normal']
+})
 
 export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }))
@@ -54,10 +77,17 @@ export default async function LocaleLayout({
   const locale = rawLocale as Locale
 
   return (
-    <RootProvider i18n={provider(locale)}>
+    <RootProvider
+      i18n={provider(locale)}
+      theme={{ defaultTheme: 'dark', enableSystem: false, attribute: 'class' }}
+    >
       <I18nProvider locale={locale}>
-        <AnalyticsTracker />
-        {children}
+        <div
+          className={`${inter.variable} ${geistMono.variable} ${instrumentSerif.variable} contents`}
+        >
+          <AnalyticsTracker />
+          {children}
+        </div>
       </I18nProvider>
     </RootProvider>
   )

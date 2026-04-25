@@ -32,7 +32,24 @@ export interface ChangelogImageAsset {
   src: string
 }
 
+export type ChangelogCalloutType = 'note' | 'tip' | 'warn'
+
+export interface ChangelogCallout {
+  kind: 'callout'
+  type: ChangelogCalloutType
+  body: string
+}
+
+export interface ChangelogFigure {
+  kind: 'figure'
+  src: string
+  caption: string
+}
+
+export type ChangelogBlock = ChangelogCallout | ChangelogFigure
+
 export interface ChangelogEntryData {
+  blocks: ChangelogBlock[]
   date: string
   id: string
   images: ChangelogImageAsset[]
@@ -45,6 +62,8 @@ export interface ChangelogEntryData {
 const entryPattern =
   /<ChangelogEntry\s+version="([^"]+)"\s+date="([^"]+)"[^>]*>([\s\S]*?)<\/ChangelogEntry>/g
 const imagePattern = /<ChangelogImage\s+src="([^"]+)"\s+alt="([^"]+)"\s*\/>/g
+const calloutPattern = /<Callout\s+type="(note|tip|warn)">([\s\S]*?)<\/Callout>/g
+const figurePattern = /<Figure\s+src="([^"]+)"\s+caption="([^"]+)"\s*\/>/g
 const leadingColonPattern = /^[:：]\s*/
 const richItemPattern = /^(.*?)<Bold>(.*?)<\/Bold>\s*(.*)$/
 const slugBoundaryPattern = /^-+|-+$/g
@@ -125,9 +144,27 @@ function parseItem(rawItem: string): ChangelogItem {
   }
 }
 
-function parseEntry(version: string, date: string, body: string): ChangelogEntryData {
-  const images = Array.from(body.matchAll(imagePattern), ([, src, alt]) => ({ alt, src }))
-  const lines = body.split('\n').filter((line) => !line.includes('<ChangelogImage'))
+export function parseEntry(version: string, date: string, body: string): ChangelogEntryData {
+  // MDX sources historically include a leading "v" (e.g. "v5.1.0"). Strip it
+  // so renderers can add the prefix themselves and avoid "vv5.1.0".
+  const normalizedVersion = version.replace(/^v/i, '')
+  const blocks: ChangelogBlock[] = []
+
+  // Callouts and Figures are collected in source order so the renderer
+  // can splice them between sections. They are also stripped from the
+  // line-based section parsing below.
+  const withoutBlocks = body
+    .replace(calloutPattern, (_, type, inner) => {
+      blocks.push({ body: inner.trim(), kind: 'callout', type: type as ChangelogCalloutType })
+      return ''
+    })
+    .replace(figurePattern, (_, src, caption) => {
+      blocks.push({ caption, kind: 'figure', src })
+      return ''
+    })
+
+  const images = Array.from(withoutBlocks.matchAll(imagePattern), ([, src, alt]) => ({ alt, src }))
+  const lines = withoutBlocks.split('\n').filter((line) => !line.includes('<ChangelogImage'))
 
   let title = ''
   const summaryLines: string[] = []
@@ -201,13 +238,14 @@ function parseEntry(version: string, date: string, body: string): ChangelogEntry
   flushSection()
 
   return {
+    blocks,
     date,
-    id: `release-${createId(version)}`,
+    id: `release-${createId(normalizedVersion)}`,
     images,
     sections,
     summary: normalizeInlineText(summaryLines.join(' ')),
     title,
-    version
+    version: normalizedVersion
   }
 }
 

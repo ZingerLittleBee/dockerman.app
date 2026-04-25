@@ -1,0 +1,619 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Download Dockerman — v5.1.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script>
+  try {
+    const t = localStorage.getItem('dm-theme') || 'dark';
+    document.documentElement.classList.toggle('dark', t === 'dark');
+  } catch(e){}
+</script>
+<style>
+:root {
+  --bg: #fafaf9; --bg-elev: #ffffff; --bg-soft: #f4f4f2;
+  --line: rgba(0,0,0,0.08); --line-strong: rgba(0,0,0,0.14);
+  --ink: #0a0a0a; --ink-2: #3a3a3a; --ink-3: #6a6a6a; --ink-4: #9a9a98;
+  --accent: #6366f1; --accent-2: #8b5cf6; --accent-warm: #f97316;
+  --ok: #10b981; --warn: #f59e0b; --err: #ef4444;
+  --grid: rgba(0,0,0,0.05); --chip: color-mix(in srgb, #6366f1 14%, transparent);
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Geist Mono', 'JetBrains Mono', ui-monospace, monospace;
+  --shadow-card: 0 1px 2px rgba(0,0,0,0.04), 0 0 0 1px rgba(0,0,0,0.05);
+}
+html.dark {
+  --bg: #070808; --bg-elev: #0e0f10; --bg-soft: #141516;
+  --line: rgba(255,255,255,0.08); --line-strong: rgba(255,255,255,0.14);
+  --ink: #f5f5f4; --ink-2: #c9c9c7; --ink-3: #8c8c8a; --ink-4: #5c5c5a;
+  --grid: rgba(255,255,255,0.04);
+  --shadow-card: 0 1px 2px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.05);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+.grid-bg {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse at 50% 20%, rgba(0,0,0,0.6), transparent 70%);
+}
+.wrap { max-width: 1140px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+section { position: relative; z-index: 1; }
+
+/* nav */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  background: color-mix(in srgb, var(--bg) 80%, transparent);
+  border-bottom: 1px solid var(--line);
+}
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 32px; max-width: 1240px; margin: 0 auto;
+}
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: -0.01em; font-size: 15px; color: var(--ink); text-decoration: none; }
+.brand-mark {
+  width: 26px; height: 26px; border-radius: 7px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  display: grid; place-items: center; color: white; position: relative;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.1) inset, 0 4px 12px -4px var(--accent);
+}
+.brand-mark svg { width: 16px; height: 16px; }
+.brand-mark::after {
+  content: ""; position: absolute; inset: 3px; border-radius: 4px;
+  background: radial-gradient(circle at 30% 25%, rgba(255,255,255,0.35), transparent 55%);
+}
+.eyebrow-tag { background: var(--ink); color: var(--bg); padding: 2px 8px; border-radius: 999px; font-size: 10px; letter-spacing: 0.04em; font-weight: 600; font-family: var(--font-mono); }
+.nav-links { display: flex; gap: 4px; align-items: center; font-size: 13px; }
+.nav-links a { color: var(--ink-2); text-decoration: none; padding: 6px 12px; border-radius: 6px; transition: all 0.15s; }
+.nav-links a:hover { color: var(--ink); background: var(--bg-soft); }
+.nav-links a.active { color: var(--ink); background: var(--bg-soft); font-weight: 500; }
+.nav-cta { display: flex; gap: 8px; align-items: center; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; text-decoration: none; cursor: pointer; border: 0; transition: all 0.15s; font-family: inherit; }
+.btn-ghost { color: var(--ink-2); background: transparent; }
+.btn-ghost:hover { background: var(--bg-soft); color: var(--ink); }
+.btn-primary { color: var(--bg); background: var(--ink); border: 1px solid var(--ink); }
+.btn-primary:hover { transform: translateY(-1px); }
+.icon-btn { width: 32px; height: 32px; display: grid; place-items: center; border-radius: 8px; color: var(--ink-2); background: transparent; border: 1px solid transparent; cursor: pointer; }
+.icon-btn:hover { background: var(--bg-soft); color: var(--ink); }
+
+/* hero */
+.hero { padding: 56px 0 40px; position: relative; }
+.hero-glow {
+  position: absolute; left: 50%; top: 0; transform: translateX(-50%);
+  width: 900px; height: 420px;
+  background: radial-gradient(ellipse at center top, color-mix(in srgb, var(--accent) 22%, transparent), transparent 60%);
+  pointer-events: none; z-index: 0; filter: blur(40px);
+}
+.kicker {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 5px 10px 5px 6px;
+  border: 1px solid var(--line-strong); border-radius: 999px;
+  font-size: 12px; color: var(--ink-2); background: var(--bg-elev);
+  font-family: var(--font-mono);
+}
+.kicker .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 4px color-mix(in srgb, var(--ok) 30%, transparent); animation: pulse 2.2s ease-in-out infinite; }
+.kicker .tag { background: var(--ink); color: var(--bg); padding: 2px 8px; border-radius: 999px; font-size: 10px; font-weight: 600; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+.hero h1 {
+  margin: 22px 0 0;
+  font-size: clamp(44px, 6.4vw, 80px);
+  line-height: 0.98; letter-spacing: -0.04em; font-weight: 700;
+  max-width: 16ch;
+}
+.hero h1 em {
+  font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  letter-spacing: -0.02em;
+}
+.hero p {
+  margin: 22px 0 0;
+  font-size: 17px; line-height: 1.5; color: var(--ink-3); max-width: 60ch;
+}
+.hero p a { color: var(--accent); text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--accent) 40%, transparent); }
+.hero p a:hover { border-bottom-color: var(--accent); }
+
+/* release meta */
+.release-meta {
+  margin-top: 40px;
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  border: 1px solid var(--line); border-radius: 14px;
+  background: var(--bg-elev); overflow: hidden;
+}
+.release-meta .cell {
+  padding: 18px 22px; border-right: 1px solid var(--line);
+}
+.release-meta .cell:last-child { border-right: 0; }
+.release-meta .label { font-size: 11px; color: var(--ink-4); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.05em; }
+.release-meta .value { margin-top: 4px; font-size: 16px; font-weight: 600; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+.release-meta .value .mono { font-family: var(--font-mono); font-size: 14px; color: var(--ink-2); font-weight: 500; }
+
+@media (max-width: 780px) {
+  .release-meta { grid-template-columns: repeat(2, 1fr); }
+  .release-meta .cell { border-right: 0; border-bottom: 1px solid var(--line); }
+  .release-meta .cell:nth-child(2n) { border-right: 0; }
+  .release-meta .cell:nth-last-child(-n+2) { border-bottom: 0; }
+}
+
+/* package managers */
+.pkg-row {
+  margin-top: 32px;
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;
+}
+.pkg-row.pkg-row-solo { grid-template-columns: minmax(0, 620px); }
+.pkg {
+  padding: 16px 18px; border-radius: 12px;
+  background: var(--bg-elev); border: 1px solid var(--line);
+  display: flex; flex-direction: column; gap: 10px;
+  transition: all 0.15s;
+}
+.pkg:hover { border-color: var(--line-strong); }
+.pkg .head { display: flex; align-items: center; gap: 10px; }
+.pkg .logo {
+  width: 28px; height: 28px; border-radius: 7px;
+  background: var(--bg-soft); border: 1px solid var(--line);
+  display: grid; place-items: center; color: var(--ink-2);
+}
+.pkg .logo svg { width: 14px; height: 14px; }
+.pkg .name { font-weight: 600; font-size: 13px; letter-spacing: -0.01em; }
+.pkg .sub { font-size: 11px; color: var(--ink-4); font-family: var(--font-mono); margin-left: auto; }
+.pkg .cmd {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 12px; border-radius: 8px;
+  background: var(--bg-soft); border: 1px solid var(--line);
+  font-family: var(--font-mono); font-size: 12px; color: var(--ink-2);
+  cursor: pointer;
+}
+.pkg .cmd .prompt { color: var(--accent); }
+.pkg .cmd code { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--ink); font-family: inherit; font-size: 12px; }
+.pkg .cmd .copy {
+  width: 22px; height: 22px; display: grid; place-items: center;
+  border-radius: 4px; color: var(--ink-3); background: var(--bg-elev);
+  flex-shrink: 0;
+}
+@media (max-width: 780px) { .pkg-row { grid-template-columns: 1fr; } }
+
+/* platforms */
+.platforms {
+  padding: 80px 0 40px;
+}
+.section-head { margin-bottom: 32px; max-width: 680px; }
+.section-head .k { font-family: var(--font-mono); font-size: 12px; color: var(--accent); letter-spacing: 0.04em; }
+.section-head .k::before { content: "// "; color: var(--ink-4); }
+.section-head h2 { margin: 10px 0 12px; font-size: clamp(28px, 3.6vw, 40px); letter-spacing: -0.03em; line-height: 1.05; font-weight: 700; }
+.section-head h2 em { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; color: var(--ink-2); }
+.section-head p { margin: 0; color: var(--ink-3); font-size: 15.5px; line-height: 1.55; }
+
+.plat-grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px;
+}
+@media (max-width: 1040px) { .plat-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 680px) { .plat-grid { grid-template-columns: 1fr; } }
+
+.plat {
+  position: relative; overflow: hidden;
+  border-radius: 14px; border: 1px solid var(--line);
+  background: var(--bg-elev);
+  padding: 24px;
+  display: flex; flex-direction: column; gap: 18px;
+  transition: all 0.18s;
+}
+.plat:hover { border-color: var(--line-strong); transform: translateY(-1px); }
+.plat.featured {
+  border-color: color-mix(in srgb, var(--accent) 30%, var(--line-strong));
+  background:
+    radial-gradient(ellipse at top right, color-mix(in srgb, var(--accent) 10%, transparent), transparent 55%),
+    var(--bg-elev);
+  box-shadow: 0 20px 50px -20px color-mix(in srgb, var(--accent) 25%, transparent);
+}
+.plat .top { display: flex; align-items: center; gap: 14px; }
+.plat .pico {
+  width: 48px; height: 48px; border-radius: 12px;
+  background: var(--bg-soft); border: 1px solid var(--line);
+  display: grid; place-items: center; color: var(--ink);
+  flex-shrink: 0;
+}
+.plat .pico svg { width: 26px; height: 26px; }
+.plat .title-row .name { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; }
+.plat .title-row .meta { margin-top: 2px; font-size: 11.5px; color: var(--ink-4); font-family: var(--font-mono); }
+.plat .pill { margin-left: auto; background: var(--chip); color: var(--accent); font-size: 10.5px; font-family: var(--font-mono); padding: 3px 8px; border-radius: 999px; letter-spacing: 0.02em; text-transform: uppercase; font-weight: 600; }
+
+.plat .opts { display: flex; flex-direction: column; gap: 8px; }
+.plat .opt {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 14px; border-radius: 10px;
+  border: 1px solid var(--line); background: var(--bg);
+  text-decoration: none; color: var(--ink);
+  transition: all 0.15s; position: relative;
+}
+.plat .opt:hover { border-color: color-mix(in srgb, var(--accent) 40%, var(--line-strong)); background: var(--bg-elev); transform: translateX(2px); }
+.plat .opt .dl-icon { color: var(--ink-3); transition: color 0.15s, transform 0.15s; }
+.plat .opt:hover .dl-icon { color: var(--accent); transform: translateY(1px); }
+.plat .opt .lbl { flex: 1; }
+.plat .opt .lbl .n { font-size: 13.5px; font-weight: 600; letter-spacing: -0.005em; }
+.plat .opt .lbl .f { margin-top: 2px; font-family: var(--font-mono); font-size: 11px; color: var(--ink-4); }
+.plat .opt .size { font-family: var(--font-mono); font-size: 11px; color: var(--ink-3); padding: 3px 7px; border-radius: 4px; background: var(--bg-soft); white-space: nowrap; flex-shrink: 0; }
+.plat .opt .lbl { min-width: 0; }
+.plat .opt .lbl .f { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.plat .foot {
+  margin-top: auto; padding-top: 6px;
+  display: flex; gap: 14px; font-size: 11.5px; color: var(--ink-4); font-family: var(--font-mono);
+}
+.plat .foot a { color: var(--ink-3); text-decoration: none; border-bottom: 1px dashed var(--line-strong); }
+.plat .foot a:hover { color: var(--ink); }
+
+/* checksums bar */
+.integrity {
+  margin-top: 40px; padding: 18px 22px;
+  border: 1px solid var(--line); border-radius: 12px;
+  background: var(--bg-elev);
+  display: flex; align-items: center; gap: 18px;
+  font-size: 13px;
+}
+.integrity .ico { width: 32px; height: 32px; border-radius: 8px; background: color-mix(in srgb, var(--ok) 12%, transparent); color: var(--ok); display: grid; place-items: center; flex-shrink: 0; }
+.integrity .txt { flex: 1; color: var(--ink-2); }
+.integrity .txt strong { color: var(--ink); font-weight: 600; }
+.integrity .links { display: flex; gap: 14px; font-size: 12px; font-family: var(--font-mono); }
+.integrity .links a { color: var(--ink-3); text-decoration: none; padding: 6px 10px; border-radius: 6px; border: 1px solid var(--line); background: var(--bg); }
+.integrity .links a:hover { color: var(--ink); border-color: var(--line-strong); }
+
+/* previous versions */
+.versions { padding: 80px 0 40px; }
+.ver-list {
+  border: 1px solid var(--line); border-radius: 14px;
+  background: var(--bg-elev); overflow: hidden;
+}
+.ver-row {
+  display: grid; grid-template-columns: 120px 1fr 180px 80px;
+  gap: 16px; align-items: center;
+  padding: 14px 22px;
+  border-bottom: 1px solid var(--line);
+  transition: background 0.1s;
+}
+.ver-row:last-child { border-bottom: 0; }
+.ver-row:hover { background: var(--bg-soft); }
+.ver-row .v { font-family: var(--font-mono); font-size: 13px; font-weight: 600; letter-spacing: -0.01em; }
+.ver-row .v .latest { background: var(--chip); color: var(--accent); font-size: 9.5px; padding: 2px 6px; border-radius: 4px; margin-left: 8px; font-weight: 700; letter-spacing: 0.04em; }
+.ver-row .notes { font-size: 13px; color: var(--ink-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ver-row .date { font-family: var(--font-mono); font-size: 12px; color: var(--ink-4); }
+.ver-row .link { font-size: 12px; color: var(--ink-3); text-decoration: none; text-align: right; font-family: var(--font-mono); }
+.ver-row .link:hover { color: var(--accent); }
+@media (max-width: 780px) { .ver-row { grid-template-columns: 100px 1fr 80px; } .ver-row .notes { display: none; } }
+
+/* footer */
+footer { padding: 48px 0; border-top: 1px solid var(--line); margin-top: 80px; font-size: 13px; color: var(--ink-3); }
+.foot-row { display: flex; justify-content: space-between; gap: 40px; flex-wrap: wrap; align-items: center; }
+.foot-note { font-family: var(--font-mono); font-size: 12px; color: var(--ink-4); }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="Landing.html">
+      <div class="brand-mark">
+        <svg viewBox="0 0 32 32" fill="currentColor">
+          <path d="M28,12H20V4h8Zm-6-2h4V6H22Z"/>
+          <path d="M17,15V9H9V23H23V15Zm-6-4h4v4H11Zm4,10H11V17h4Zm6,0H17V17h4Z"/>
+          <path d="M26,28H6a2,2,0,0,1-2-2V6A2,2,0,0,1,6,4H16V6H6V26H26V16h2V26A2,2,0,0,1,26,28Z"/>
+        </svg>
+      </div>
+      <span>Dockerman</span>
+      <span class="eyebrow-tag">v5.1</span>
+    </a>
+    <div class="nav-links">
+      <a href="Landing.html">Features</a>
+      <a href="Landing.html#modules">Modules</a>
+      <a href="#">Docs</a>
+      <a href="#">Changelog</a>
+      <a href="#">Pricing</a>
+      <a class="active" href="Download.html">Download</a>
+    </div>
+    <div class="nav-cta">
+      <button class="icon-btn" id="theme-toggle" aria-label="Toggle theme">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+      <a href="#" class="btn btn-ghost">Sign in</a>
+      <a href="#" class="btn btn-primary">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="wrap">
+    <div class="kicker">
+      <span class="dot"></span>
+      <span>v5.1.0 · Apr 8, 2026 · latest stable</span>
+      <span class="tag">NEW</span>
+    </div>
+
+    <h1>Download Dockerman for <em>every desktop.</em></h1>
+
+    <p>
+      A single, native 18&nbsp;MB binary. Code-signed, notarized, and reproducible.
+      Browse older builds on the <a href="#">releases page</a> or verify checksums with the SHA-256 manifest below.
+    </p>
+
+    <div class="release-meta">
+      <div class="cell">
+        <div class="label">version</div>
+        <div class="value"><span class="mono">v5.1.0</span></div>
+      </div>
+      <div class="cell">
+        <div class="label">released</div>
+        <div class="value">Apr 8, 2026</div>
+      </div>
+      <div class="cell">
+        <div class="label">size</div>
+        <div class="value">~18 MB</div>
+      </div>
+      <div class="cell">
+        <div class="label">platforms</div>
+        <div class="value">macOS · Win · Linux</div>
+      </div>
+    </div>
+
+    <!-- package managers -->
+    <div class="pkg-row pkg-row-solo">
+      <div class="pkg">
+        <div class="head">
+          <div class="logo">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 4c-1 0-2 .5-2.5 1.5C15 6.5 14 7 13 7H6.5C4 7 3 9 4 11c.5 1 2 2 3 2h7c1 0 2 1 2 2v2c0 1 .5 2 1.5 2.5S19 20 20 20c1.5 0 2-1 2-2V6c0-1-.5-2-1.5-2.5S19 3 18 4zm-9 9a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/></svg>
+          </div>
+          <div>
+            <div class="name">Homebrew</div>
+            <div style="font-size:11px;color:var(--ink-4);">macOS · Linux</div>
+          </div>
+          <div class="sub">cask · recommended</div>
+        </div>
+        <div class="cmd" onclick="cpy(this, 'brew install --cask zingerlittlebee/tap/dockerman')">
+          <span class="prompt">$</span>
+          <code>brew install --cask zingerlittlebee/tap/dockerman</code>
+          <span class="copy"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLATFORMS -->
+<section class="platforms">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="k">direct downloads</div>
+      <h2>Or grab a <em>binary</em> directly.</h2>
+      <p>Code-signed on macOS and Windows. All artifacts are SLSA-attested and reproducible from the <code style="font-family:var(--font-mono);background:var(--bg-soft);padding:1px 5px;border-radius:4px;font-size:14px;">main</code> branch at the release tag.</p>
+    </div>
+
+    <div class="plat-grid">
+      <!-- macOS (featured — because client is on macOS) -->
+      <div class="plat featured">
+        <div class="top">
+          <div class="pico">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 13.15c0-2.45 2-3.63 2.09-3.68-1.14-1.66-2.91-1.89-3.55-1.92-1.51-.15-2.95.89-3.72.89-.77 0-1.95-.87-3.2-.85-1.65.03-3.17.96-4.02 2.44-1.72 2.97-.44 7.37 1.24 9.78.82 1.18 1.79 2.51 3.07 2.46 1.24-.05 1.71-.8 3.2-.8 1.5 0 1.92.8 3.22.77 1.33-.02 2.17-1.2 2.98-2.39.94-1.37 1.33-2.7 1.35-2.77-.03-.01-2.6-1-2.66-3.93zM14.94 5.85c.68-.82 1.14-1.96 1.01-3.1-.98.04-2.17.65-2.87 1.47-.63.73-1.18 1.89-1.03 3.01 1.09.08 2.21-.55 2.89-1.38z"/></svg>
+          </div>
+          <div class="title-row">
+            <div class="name">macOS</div>
+            <div class="meta">macOS 11 Big Sur or later · Apple Silicon + Intel</div>
+          </div>
+          <div class="pill">recommended</div>
+        </div>
+
+        <div class="opts">
+          <a class="opt" href="#" download>
+            <svg class="dl-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            <div class="lbl">
+              <div class="n">Universal Installer</div>
+              <div class="f">Dockerman_5.1.0_universal.dmg · arm64 + x86_64</div>
+            </div>
+            <div class="size">18.2 MB</div>
+          </a>
+          <a class="opt" href="#" download>
+            <svg class="dl-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            <div class="lbl">
+              <div class="n">Apple Silicon only</div>
+              <div class="f">Dockerman_5.1.0_aarch64.dmg</div>
+            </div>
+            <div class="size">12.8 MB</div>
+          </a>
+        </div>
+
+        <div class="foot">
+          <a href="#">notarized</a>
+          <a href="#">signing cert →</a>
+        </div>
+      </div>
+
+      <!-- Windows -->
+      <div class="plat">
+        <div class="top">
+          <div class="pico">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 5.5L10.5 4.5v7H3zM11.5 4.3L21 3v8.5H11.5zM3 12.5H10.5V19.5L3 18.5zM11.5 12.5H21V21L11.5 19.7z"/></svg>
+          </div>
+          <div class="title-row">
+            <div class="name">Windows</div>
+            <div class="meta">Windows 10 · 11 · WSL2 supported</div>
+          </div>
+        </div>
+        <div class="opts">
+          <a class="opt" href="#" download>
+            <svg class="dl-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            <div class="lbl">
+              <div class="n">Installer (x64)</div>
+              <div class="f">Dockerman_5.1.0_x64-setup.exe</div>
+            </div>
+            <div class="size">19.1 MB</div>
+          </a>
+          <a class="opt" href="#" download>
+            <svg class="dl-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            <div class="lbl">
+              <div class="n">MSI (x64)</div>
+              <div class="f">Dockerman_5.1.0_x64_en-US.msi</div>
+            </div>
+            <div class="size">19.0 MB</div>
+          </a>
+          <a class="opt" href="#" download>
+            <svg class="dl-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            <div class="lbl">
+              <div class="n">ARM64</div>
+              <div class="f">Dockerman_5.1.0_arm64-setup.exe</div>
+            </div>
+            <div class="size">17.8 MB</div>
+          </a>
+        </div>
+        <div class="foot">
+          <a href="#">EV signed</a>
+          <a href="#">WSL2 guide →</a>
+        </div>
+      </div>
+
+      <!-- Linux -->
+      <div class="plat">
+        <div class="top">
+          <div class="pico">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c-2 0-3 2-3 4 0 1 .2 2 .5 3l-1 2c-1 2-2 4-2 6 0 2 1 4 3 4h5c2 0 3-2 3-4 0-2-1-4-2-6l-1-2c.3-1 .5-2 .5-3 0-2-1-4-3-4zm-2 4c0-1 .5-2 1-2 .5 0 1 .5 1 1 0 .5-.5 1-1 1s-1 0-1-0z"/></svg>
+          </div>
+          <div class="title-row">
+            <div class="name">Linux</div>
+            <div class="meta">glibc 2.28+ · x86_64 & arm64</div>
+          </div>
+        </div>
+        <div class="opts">
+          <a class="opt" href="#" download>
+            <svg class="dl-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            <div class="lbl">
+              <div class="n">AppImage</div>
+              <div class="f">Dockerman_5.1.0_amd64.AppImage</div>
+            </div>
+            <div class="size">21.4 MB</div>
+          </a>
+          <a class="opt" href="#" download>
+            <svg class="dl-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            <div class="lbl">
+              <div class="n">Debian / Ubuntu</div>
+              <div class="f">dockerman_5.1.0_amd64.deb</div>
+            </div>
+            <div class="size">18.6 MB</div>
+          </a>
+          <a class="opt" href="#" download>
+            <svg class="dl-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            <div class="lbl">
+              <div class="n">Fedora / RHEL</div>
+              <div class="f">dockerman-5.1.0-1.x86_64.rpm</div>
+            </div>
+            <div class="size">18.7 MB</div>
+          </a>
+        </div>
+        <div class="foot">
+          <a href="#">AUR available</a>
+          <a href="#">Wayland notes →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- integrity -->
+    <div class="integrity">
+      <div class="ico">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2l9 4v6c0 5-3.5 9.5-9 10-5.5-.5-9-5-9-10V6l9-4z"/><path d="M9 12l2 2 4-4"/></svg>
+      </div>
+      <div class="txt">
+        <strong>Verify your download.</strong> All artifacts are SHA-256 checksummed and cosign-signed by release key <code style="font-family:var(--font-mono);font-size:11.5px;padding:1px 5px;border-radius:4px;background:var(--bg-soft);">0x7F·3C·A2·1E</code>.
+      </div>
+      <div class="links">
+        <a href="#">SHA256SUMS</a>
+        <a href="#">SHA256SUMS.sig</a>
+        <a href="#">SBOM</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PREVIOUS VERSIONS -->
+<section class="versions">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="k">history</div>
+      <h2>Previous <em>releases.</em></h2>
+      <p>Pin to an older tag if you need it. Every release is kept online indefinitely.</p>
+    </div>
+
+    <div class="ver-list" id="ver-list">
+      <!-- filled by JS -->
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-row">
+      <a class="brand" href="Landing.html">
+        <div class="brand-mark">
+          <svg viewBox="0 0 32 32" fill="currentColor"><path d="M28,12H20V4h8Zm-6-2h4V6H22Z"/><path d="M17,15V9H9V23H23V15Zm-6-4h4v4H11Zm4,10H11V17h4Zm6,0H17V17h4Z"/><path d="M26,28H6a2,2,0,0,1-2-2V6A2,2,0,0,1,6,4H16V6H6V26H26V16h2V26A2,2,0,0,1,26,28Z"/></svg>
+        </div>
+        <span>Dockerman</span>
+      </a>
+      <span class="foot-note">© 2026 Dockerman · local-only · no telemetry</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// copy helper
+function cpy(el, text){
+  try { navigator.clipboard.writeText(text); } catch(e){}
+  const copy = el.querySelector('.copy');
+  const original = copy.innerHTML;
+  copy.innerHTML = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+  setTimeout(() => { copy.innerHTML = original; }, 1400);
+}
+
+// theme
+const root = document.documentElement;
+document.getElementById('theme-toggle').addEventListener('click', () => {
+  const next = root.classList.contains('dark') ? 'light' : 'dark';
+  root.classList.toggle('dark', next === 'dark');
+  try { localStorage.setItem('dm-theme', next); } catch(e){}
+});
+
+// version list
+const versions = [
+  { v: '5.1.0', date: 'Apr 8, 2026', notes: 'Podman support, Cloudflared tunnels, image-upgrade detection, container backup/restore', latest: true },
+  { v: '5.0.2', date: 'Mar 14, 2026', notes: 'Critical fix for WSL2 socket forwarding; improved disk usage breakdown' },
+  { v: '5.0.0', date: 'Feb 22, 2026', notes: 'Full Kubernetes management, Helm support, port-forwarding with local DNS' },
+  { v: '4.8.1', date: 'Jan 19, 2026', notes: 'Trivy security scanning, image push with credential auto-match' },
+  { v: '4.7.0', date: 'Dec 11, 2025', notes: 'Compose project grouping, docker-run command parser, redesigned stats page' },
+  { v: '4.6.0', date: 'Nov 4, 2025', notes: 'Command palette (⌘;), system tray with live CPU/mem, event notifications' },
+  { v: '4.5.2', date: 'Oct 7, 2025', notes: 'Container file browser, in-place editing with syntax highlighting' },
+  { v: '4.4.0', date: 'Sep 2, 2025', notes: 'Initial Docker Hub browser, SSH socket forwarding, i18n (en/zh)' },
+];
+const host = document.getElementById('ver-list');
+host.innerHTML = versions.map(x => `
+  <div class="ver-row">
+    <div class="v">v${x.v}${x.latest ? '<span class="latest">LATEST</span>' : ''}</div>
+    <div class="notes">${x.notes}</div>
+    <div class="date">${x.date}</div>
+    <a class="link" href="#">download →</a>
+  </div>
+`).join('');
+</script>
+
+</body>
+</html>

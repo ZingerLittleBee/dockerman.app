@@ -1,11 +1,11 @@
 'use client'
 
 import { RiGithubFill, RiTwitterXFill } from '@remixicon/react'
+import { useTranslation } from '@repo/shared/i18n/client'
 import Image from 'next/image'
 import Balancer from 'react-wrap-balancer'
 import { Badge } from '@/components/Badge'
 import { Button } from '@/components/Button'
-import { useTranslation } from '@repo/shared/i18n/client'
 
 const TEAM_MEMBERS = [
   {

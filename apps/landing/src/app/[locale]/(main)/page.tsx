@@ -1,29 +1,39 @@
 import type { Locale } from '@repo/shared/i18n'
-import CtaSectionLazy from '@/components/ui/CtaSectionLazy'
-import FaqsLazy from '@/components/ui/FaqsLazy'
-import Features from '@/components/ui/Features'
-import GlobalLazy from '@/components/ui/GlobalLazy'
-import Hero from '@/components/ui/Hero'
-import HeroImage from '@/components/ui/HeroImage'
-import KubernetesLazy from '@/components/ui/KubernetesLazy'
-import SnapshotPlaygroundLazy from '@/components/ui/SnapshotPlaygroundLazy'
+import { getTranslation } from '@repo/shared/i18n/server'
+import type { Metadata } from 'next'
+import { CtaFinal } from '@/components/landing/CtaFinal'
+import { FeaturesGrid } from '@/components/landing/FeaturesGrid'
+import { Hero } from '@/components/landing/Hero'
+import { LiveDashboard } from '@/components/landing/LiveDashboard'
+import { ModulesSection } from '@/components/landing/ModulesSection'
+import { RuntimeStrip } from '@/components/landing/RuntimeStrip'
 
-export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
   const { locale } = await params
+  const { t } = await getTranslation(locale as Locale)
+  return {
+    title: t('meta.home.title'),
+    description: t('meta.home.description')
+  }
+}
 
+export default async function LandingPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
+  const l = locale as Locale
   return (
-    <main className="flex flex-col overflow-hidden">
-      <Hero>
-        <HeroImage />
-      </Hero>
-      <KubernetesLazy />
-      <GlobalLazy />
-      <SnapshotPlaygroundLazy />
-      <Features locale={locale as Locale} />
-      <div className="mx-auto mt-36 max-w-6xl px-3">
-        <FaqsLazy />
+    <main>
+      <Hero locale={l} />
+      <div className="relative px-8">
+        <LiveDashboard locale={l} />
       </div>
-      <CtaSectionLazy />
+      <RuntimeStrip locale={l} />
+      <FeaturesGrid locale={l} />
+      <ModulesSection locale={l} />
+      <CtaFinal locale={l} />
     </main>
   )
 }

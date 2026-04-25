@@ -1,15 +1,38 @@
 {
   "nav": {
-    "home": "Home",
+    "features": "Features",
+    "snapshot": "Snapshot",
     "pricing": "Pricing",
+    "changelog": "Changelog",
+    "docs": "Docs",
     "download": "Download",
-    "changelog": "Changelog"
+    "github": "GitHub",
+    "changeLanguage": "Change language"
   },
   "hero": {
-    "title": "Modern Docker",
-    "titleBreak": "management simplified",
-    "description": "A lightweight, powerful Docker management UI focused on simplicity and performance.",
-    "cta": "Download for free"
+    "eyebrow": "v5.1.0 — Podman support, Cloudflared tunnels, image-upgrade detection",
+    "eyebrowTag": "NEW",
+    "headline1Lead": "Docker that feels",
+    "headline1Accent": "local",
+    "headline2Lead": "Kubernetes that feels",
+    "headline2Accent": "easy",
+    "description": "A lightweight desktop UI for Docker, Podman, and Kubernetes — built with Rust and Tauri. Boots in ~0ms and lives in under 30 MB of memory.",
+    "downloadFor": {
+      "mac": "Download for macOS",
+      "windows": "Download for Windows",
+      "linux": "Download for Linux"
+    },
+    "copyAria": "Copy: {{cmd}}",
+    "copied": "Copied",
+    "metaPrivacy": "local-first · opt-out analytics",
+    "metaVersion": "v5.1.0 · Apr 8, 2026",
+    "terminal": {
+      "tapping": "Tapping",
+      "downloading": "Downloading",
+      "installed": "Installed",
+      "installedIn": "in 2.1s",
+      "launching": "· launching Dockerman…"
+    }
   },
   "features": {
     "badge": "Desktop App",
@@ -46,75 +69,353 @@
     ]
   },
   "cta": {
-    "title": "Ready to get started?",
-    "description": "Start managing your Docker containers with a lightweight, powerful desktop experience.",
-    "downloadButton": "Download for Desktop",
-    "learnMore": "Want to learn more?",
-    "viewChangelog": "View the Changelog"
+    "titleLead": "Open the tray.",
+    "titleAccent": "Ship containers.",
+    "description": "Free and unrestricted for local use. Upgrade to unlock remote hosts and Kubernetes management.",
+    "downloadButton": "Download Dockerman",
+    "platformsBadge": "macOS · Win · Linux",
+    "reportIssue": "Report an issue on GitHub →"
   },
   "footer": {
-    "description": "A modern, lightweight Docker management UI. Built with love for developers around the world.",
-    "product": "Product",
-    "resources": "Resources",
-    "company": "Company",
-    "legal": "Legal",
-    "copyright": "Dockerman. All rights reserved.",
-    "status": "All systems operational",
+    "tagline": "A modern, lightweight Docker & Kubernetes desktop, built with Rust + Tauri.",
+    "columns": {
+      "product": "Product",
+      "docs": "Docs",
+      "community": "Community",
+      "legal": "Legal"
+    },
+    "note": "local-first · opt-out analytics",
     "links": {
-      "pricing": "Pricing",
       "download": "Download",
+      "features": "Features",
       "changelog": "Changelog",
+      "pricing": "Pricing",
+      "gettingStarted": "Getting started",
+      "kubernetes": "Kubernetes",
+      "homelab": "Homelab",
+      "troubleshooting": "Troubleshooting",
       "github": "GitHub",
-      "about": "About",
+      "email": "Email",
       "privacy": "Privacy",
       "terms": "Terms",
-      "dpa": "DPA"
+      "dpa": "Data Processing"
     }
   },
   "common": {
     "download": "Download"
   },
+  "featuresSection": {
+    "titleLead": "Every object you care about,",
+    "titleAccent": "one keystroke away.",
+    "description": "Containers, images, volumes, networks, compose projects, Kubernetes workloads, Cloudflared tunnels — all surfaced in a single, low-latency interface.",
+    "cards": {
+      "palette": {
+        "title": "Command palette is the app",
+        "body": "⌘; opens a universal fuzzy finder across every container, image, compose project, network, volume, Pod, Service, and recent action. No menus, no tabs, no hunting."
+      },
+      "imageUpgrade": {
+        "title": "Image upgrade detection",
+        "body": "Digest-level diffs. One-click upgrade with automatic backup and rollback."
+      },
+      "podman": {
+        "title": "Docker & Podman, one UI",
+        "body": "Automatic runtime detection. Rootless sockets discovered on Linux and macOS."
+      },
+      "kubernetes": {
+        "title": "Kubernetes, side-by-side",
+        "body": "Load kubeconfigs or spin up a local k3d cluster. Browse Deployments, Pods, CRDs, Helm releases. Port-forward anything with automatic local DNS."
+      },
+      "events": {
+        "title": "Events, loud and legible",
+        "body": "Desktop notifications for non-zero exits, OOM kills, and failing health checks. Every event is copyable, filterable, and exportable."
+      },
+      "cloudflared": {
+        "title": "One-click public tunnels",
+        "body": "Expose any container port to the internet via Cloudflared. Tunnels auto-reap when containers stop, and persist across crashes."
+      },
+      "logs": {
+        "title": "Logs that don't stall",
+        "bodyPre": "Virtualized viewer with follow/pause, regex highlight, and TXT/JSON export. Keyboard-first — ",
+        "bodyMid": " pauses, ",
+        "bodyPost": " searches."
+      },
+      "security": {
+        "title": "Images you can trust",
+        "body": "Built-in Trivy CVE scanning with severity filtering and review. Private registry credentials auto-match on pull. Push to any registry with streaming progress."
+      }
+    }
+  },
+  "modulesSection": {
+    "titleLead": "Built for the things you",
+    "titleAccent": "actually",
+    "titleTrail": "do every day.",
+    "descriptionPre": "Nine years of Docker UIs and most still feel like a port of a web admin panel. Dockerman is designed for people who were going to run the ",
+    "descriptionPost": " command anyway.",
+    "modules": {
+      "containers": {
+        "chip": "most used",
+        "title": "Inspect without the ",
+        "titleEm": "noise.",
+        "body": "Stats, logs, env, mounts, processes, a real terminal, and a file browser — all available without leaving the row. Commit to a new image or clone the config into a create dialog with a single command.",
+        "bullets": [
+          "ring gauges + sparklines for CPU, memory, net, disk",
+          "container backup/restore with volumes and filesystem",
+          "docker-run parser — paste a command, get a dialog"
+        ]
+      },
+      "compose": {
+        "chip": "new",
+        "title": "Compose projects, ",
+        "titleEm": "grouped like they live.",
+        "body": "Toggle between flat list and grouped-by-project views. Full lifecycle: up, stop, restart, pull, remove. Every Compose CLI flag exposed, including profiles and dry-run.",
+        "bullets": [
+          "standalone containers collapse into their own section",
+          "env-file + file + profile support",
+          "project status at a glance"
+        ]
+      },
+      "images": {
+        "chip": "1-click",
+        "title": "A layer explorer that ",
+        "titleEm": "earns its place.",
+        "body": "Interactive size distribution, per-layer Dockerfile commands, CVE scanning via Trivy, and push to any registry with credential auto-match. Export analysis to JSON.",
+        "bullets": [
+          "color-coded layer bar with expand/collapse",
+          "Docker Hub search + tags + README inline",
+          "digest-level upgrade with one-click rollback"
+        ]
+      },
+      "system": {
+        "chip": "deep",
+        "title": "Every runtime knob, ",
+        "titleEm": "exposed and safe.",
+        "body": "WSL2 engine on Windows without Docker Desktop. SSH socket forwarding with heartbeat reconnect. Private registry credentials that match on pull. Global shortcuts even on Wayland.",
+        "bullets": [
+          "tray with live CPU / mem in the menu bar",
+          "real-time event notifications for non-zero exits, OOMs",
+          "one-click disk prune with an interactive breakdown"
+        ]
+      }
+    }
+  },
+  "runtimeStrip": {
+    "label": "Runs with"
+  },
+  "liveDashboard": {
+    "host": {
+      "name": "Localhost",
+      "version": "docker · 28.5.2"
+    },
+    "sidebar": {
+      "main": {
+        "dashboard": "Dashboard",
+        "container": "Container",
+        "image": "Image",
+        "build": "Build",
+        "network": "Network",
+        "volume": "Volume",
+        "events": "Events",
+        "templates": "Templates"
+      },
+      "actionsHeader": "Actions",
+      "actions": {
+        "terminal": "Terminal",
+        "process": "Process",
+        "inspect": "Inspect",
+        "stats": "Stats",
+        "logs": "Logs",
+        "file": "File"
+      },
+      "containersHeader": "Containers",
+      "idle": "idle"
+    },
+    "main": {
+      "title": "Dashboard",
+      "chips": {
+        "autoRefresh": "auto-refresh · 2s",
+        "connected": "connected"
+      },
+      "kpi": {
+        "containersTitle": "Containers",
+        "containersSubtitle": "8 running · 4 exited",
+        "imagesTitle": "Images",
+        "imagesSubtitle": "3 updates available",
+        "totalSizeTitle": "Total Image Size",
+        "totalSizeSubtitle": "on disk",
+        "imagesInUseTitle": "Images In Use",
+        "imagesInUseSubtitle": "of 47"
+      },
+      "system": {
+        "dockerVersionTitle": "Docker Version",
+        "dockerVersionSubtitle": "Stable",
+        "storageDriverTitle": "Storage Driver",
+        "resourcesTitle": "System Resources",
+        "osTitle": "Operating System"
+      },
+      "charts": {
+        "cpu": "CPU",
+        "memory": "Memory",
+        "networkIo": "Network I/O",
+        "diskIo": "Disk I/O"
+      }
+    }
+  },
   "pricing": {
-    "badge": "pricing",
-    "title": "Dockerman License",
-    "subtitle": "Local Free, Remote Paid",
-    "description": "Simple pricing. No subscriptions. Pay once, own it forever.",
-    "earlyBird": "Early Bird - First 100 Only",
-    "deadline": "Early bird pricing ends April 1",
+    "hero": {
+      "eyebrow": "Early Bird · 34% off · ends soon",
+      "eyebrowTag": "LIMITED",
+      "titleLead": "Pay once. Use",
+      "titleAccent": "forever.",
+      "description": "Free for local Docker. One flat, lifetime price for remote hosts, SSH, and multi-machine management. No subscriptions. No seat math. No surprise invoices."
+    },
     "countdown": {
-      "days": "Days",
-      "hours": "Hours",
-      "minutes": "Min",
-      "seconds": "Sec",
-      "expired": "Early bird pricing has ended"
+      "days": "days",
+      "hrs": "hrs",
+      "min": "min",
+      "sec": "sec",
+      "endsLead": "Early Bird pricing ends",
+      "endsDate": "JUN 30",
+      "afterNote": "after that, 1-device ${{solo}} · {{devices}}-device ${{team}}"
     },
-    "updatePolicy": "Lifetime updates",
     "plans": {
-      "oneDevice": "For 1 macOS/Windows device",
-      "threeDevices": "For 3 macOS/Windows devices",
-      "threeDevicesSaving": "55% off compared to one device license"
+      "free": {
+        "label": "free",
+        "name": "Free",
+        "description": "Every feature, no time limit. Local Docker and Podman only.",
+        "freq": "forever · local only",
+        "cta": "Current plan",
+        "ctaNote": "you're on this plan",
+        "features": {
+          "coreSet": "Container, image, volume, network",
+          "compose": "Compose projects & one-click deploy",
+          "palette": "Command palette, terminal, logs",
+          "podmanTrivy": "Podman, Trivy scan, file browser",
+          "themesI18n": "Light & dark themes, i18n (en/zh/ja/es)",
+          "remoteSsh": "Remote hosts via SSH",
+          "multiHost": "Multi-host management"
+        }
+      },
+      "team": {
+        "label": "{{devices}} devices",
+        "nameLead": "Team",
+        "nameAccent": "or",
+        "nameTrail": "multi-device",
+        "description": "Best value for small teams or anyone running multiple machines. Transferable licenses.",
+        "freq": "one-time · {{devices}} devices",
+        "cta": "Get Team — ${{price}}",
+        "ctaNote": "one payment, {{days}}-day refund, lifetime updates",
+        "ribbon": "Most popular",
+        "features": {
+          "everythingFree": "Everything in Free",
+          "perDevice": "${{perDevice}}/device",
+          "perDeviceSavings": " — save $10 vs 1-device × {{devices}}",
+          "remote": "Remote Docker over SSH with heartbeat",
+          "multiHost": "Multi-host switching & bookmarks",
+          "cloudflared": "Cloudflared tunnel management",
+          "k8s": "Kubernetes cluster management",
+          "updates": "Lifetime updates"
+        }
+      },
+      "solo": {
+        "label": "1 device",
+        "name": "Solo",
+        "description": "For the individual user. One license, one machine, everything unlocked.",
+        "freq": "one-time · 1 device",
+        "cta": "Get Solo — ${{price}}",
+        "ctaNote": "one payment, {{days}}-day refund",
+        "features": {
+          "everythingFree": "Everything in Free",
+          "remote": "Remote Docker over SSH",
+          "multiHost": "Multi-host management",
+          "cloudflared": "Cloudflared tunnels",
+          "k8s": "Kubernetes clusters",
+          "updates": "Lifetime updates"
+        }
+      }
     },
-    "features": {
-      "crossPlatform": "macOS, Windows & Linux support",
-      "containerManagement": "Container lifecycle management",
-      "imageManagement": "Image management & build",
-      "volumeManagement": "Volume management",
-      "networkManagement": "Network management",
-      "realTimeMonitoring": "Real-time resource monitoring",
-      "integratedTerminal": "Integrated terminal access",
-      "logViewer": "Log viewer with filtering",
-      "fileBrowser": "Container file browser",
-      "composeSupport": "Docker Compose support",
-      "darkMode": "Dark mode support",
-      "localDockerOnly": "Remote host support",
-      "everythingInFree": "Everything in Free",
-      "remoteViaSSH": "Remote host via SSH",
-      "multiHostManagement": "Multi-host management",
-      "lifetimeUpdates": "All future updates included"
+    "trust": {
+      "secure": "Secure checkout",
+      "refund": "{{days}}-day refund, no questions",
+      "downloads": "{{value}}+ downloads / month",
+      "downloadsEstimatedFrom": "Estimated from R2 GET requests, last 30 days",
+      "stars": "{{value}}+ GitHub stars"
     },
-    "cta": {
-      "currentPlan": "Current Plan",
-      "upgradeNow": "Upgrade Now"
+    "compare": {
+      "titleLead": "What you get,",
+      "titleAccent": "feature by feature.",
+      "description": "Every plan includes the full local experience. Paid tiers add remote hosts and priority support.",
+      "columns": {
+        "feature": "Feature",
+        "free": "Free",
+        "team": "Team",
+        "solo": "Solo"
+      },
+      "groups": {
+        "core": "Core",
+        "remote": "Remote & Multi-host",
+        "license": "License & support"
+      },
+      "rows": {
+        "localDocker": {
+          "label": "Local Docker & Podman",
+          "desc": "containers · images · volumes · networks"
+        },
+        "palette": {
+          "label": "Command palette",
+          "desc": "⌘; everywhere"
+        },
+        "terminal": {
+          "label": "Terminal, logs, file browser"
+        },
+        "compose": {
+          "label": "Compose projects",
+          "desc": "docker-compose & docker-run parser"
+        },
+        "trivy": {
+          "label": "Trivy CVE scan + image registry"
+        },
+        "remoteSsh": {
+          "label": "Remote Docker via SSH",
+          "desc": "socket forwarding with heartbeat reconnect"
+        },
+        "bookmarks": {
+          "label": "Multi-host bookmarks & switcher"
+        },
+        "k8s": {
+          "label": "Kubernetes clusters",
+          "desc": "pods · deployments · configmaps · events"
+        },
+        "cloudflared": {
+          "label": "Cloudflared tunnels",
+          "desc": "one-click public URLs"
+        },
+        "devices": {
+          "label": "Devices"
+        },
+        "updates": {
+          "label": "Lifetime updates"
+        },
+        "support": {
+          "label": "Support"
+        },
+        "commercial": {
+          "label": "Commercial use"
+        }
+      },
+      "values": {
+        "unlimited": "unlimited",
+        "community": "community",
+        "email": "email · 48h",
+        "included": "included",
+        "notIncluded": "not included"
+      }
+    },
+    "finalCta": {
+      "titleLead": "Ship containers.",
+      "titleAccent": "From anywhere.",
+      "description": "Pay once, keep it forever. No seat math, no renewals, no upsells.",
+      "ctaTeam": "Get Team — ${{price}}",
+      "ctaFree": "or start free →"
     },
     "success": {
       "title": "Payment Successful!",
@@ -152,6 +453,10 @@
         {
           "question": "Need more devices?",
           "answer": "If you need licenses for more than 3 devices, please contact us at support@dockerman.app for custom pricing."
+        },
+        {
+          "question": "Need help?",
+          "answer": "Have a question we didn't cover, or hit an issue with your license? Email us at support@dockerman.app and we'll get back to you within one business day."
         }
       ]
     }
@@ -169,6 +474,15 @@
       "success": "You're subscribed. We'll email you on the next release.",
       "fallbackSuccess": "Your mail app is opening to confirm the subscription.",
       "error": "Subscription failed. Please try again."
+    },
+    "callout": {
+      "note": "Note",
+      "tip": "Tip",
+      "warn": "Warning"
+    },
+    "search": {
+      "placeholder": "Filter by keyword or version…",
+      "ariaLabel": "Filter by keyword or version"
     }
   },
   "about": {
@@ -208,67 +522,233 @@
     }
   },
   "download": {
-    "badge": "download",
-    "title": "Download for your platform",
-    "description": "Choose the version that matches your system. All downloads are available on",
-    "releasesPage": "Releases Page",
-    "homebrew": "Install with Homebrew",
-    "comingSoon": "Coming Soon",
-    "preview": "Preview",
-    "platforms": {
-      "macos": "macOS",
-      "windows": "Windows",
-      "linux": "Linux"
+    "hero": {
+      "kickerStable": "v{{version}} · {{date}} · latest stable",
+      "kickerTag": "NEW",
+      "titleLead": "Download Dockerman for",
+      "titleAccent": "every desktop.",
+      "descriptionPre": "A single, native 18 MB binary. Code-signed and notarized. Browse older builds on the ",
+      "descriptionLink": "releases page",
+      "descriptionPost": " or verify checksums with the SHA-256 manifest below.",
+      "meta": {
+        "version": "version",
+        "released": "released",
+        "size": "size",
+        "platforms": "platforms",
+        "platformsValue": "macOS · Win · Linux"
+      }
     },
-    "options": {
-      "universal": "Universal (Apple silicon/Intel)",
-      "windows64": "Windows (64-bit)",
-      "appimage": "AppImage (64-bit)",
-      "deb": "Debian / Ubuntu",
-      "rpm": "Red Hat / Fedora"
+    "platforms": {
+      "kicker": "direct downloads",
+      "titleLead": "Grab a",
+      "titleAccent": "binary",
+      "titleTrail": "directly.",
+      "descriptionPre": "Code-signed on macOS and Windows. All artifacts are SLSA-attested and reproducible from the ",
+      "descriptionMid": " branch at the release tag.",
+      "recommended": "recommended",
+      "macos": {
+        "title": "macOS",
+        "minSpec": "macOS 11 Big Sur or later · Apple Silicon + Intel"
+      },
+      "windows": {
+        "title": "Windows",
+        "minSpec": "Windows 10 · 11 · WSL2 supported"
+      },
+      "linux": {
+        "title": "Linux",
+        "minSpec": "glibc 2.28+ · x86_64"
+      }
+    },
+    "verification": {
+      "appleNotarized": "Apple-signed & notarized",
+      "tauriSig": "Tauri updater signature"
+    },
+    "homebrew": {
+      "title": "Homebrew",
+      "subtitle": "macOS · Linux",
+      "tag": "cask · recommended"
+    },
+    "integrity": {
+      "lead": "Verify your download.",
+      "body": " macOS builds are Apple-signed and notarized. Windows and Linux installers ship with an updater signature (.sig).",
+      "releasePage": "View release →"
+    },
+    "releases": {
+      "kicker": "history",
+      "titleLead": "Previous",
+      "titleAccent": "releases.",
+      "description": "Pin to an older tag if you need it. Every release is kept online indefinitely.",
+      "latest": "LATEST",
+      "notesLink": "notes →",
+      "fallbackNote": "Release notes",
+      "notes": {
+        "release-5-1-0": "Podman runtime support",
+        "release-5-0-0": "Kubernetes support & cloud tunnels",
+        "release-4-8-0": "Container backup & restore",
+        "release-4-7-0": "Image combobox & port search",
+        "release-4-6-0": "Docker Hub browser & security scanning",
+        "release-4-5-0": "Stats page redesign",
+        "release-4-4-0": "File preview & multi-select",
+        "release-4-3-0": "WSL2 Docker engine & performance boost"
+      }
+    },
+    "installers": {
+      "macos": {
+        "universal": "Universal (Apple Silicon & Intel)"
+      },
+      "windows": {
+        "installer": "Windows x64 (installer)",
+        "msi": "Windows x64 (MSI, for admins)"
+      },
+      "linux": {
+        "appimage": "AppImage (x86_64)",
+        "deb": "Debian / Ubuntu (x86_64)",
+        "rpm": "Fedora / RHEL (x86_64)"
+      }
     }
   },
   "snapshot": {
-    "badge": "POWERFUL",
-    "title": "Docker Management,",
-    "titleBreak": "Simplified",
-    "description": "A modern, lightweight Docker management UI that focuses on simplicity and performance. Monitor and manage your containers with cross-platform desktop integration.",
-    "tabs": {
-      "dashboard": "Dashboard",
-      "terminal": "Terminal",
-      "processes": "Processes",
-      "inspect": "Inspect",
-      "stats": "Stats",
-      "logs": "Logs",
-      "ssh": "SSH",
-      "build": "Build",
-      "events": "Events",
-      "file": "Container File",
-      "imageAnalysis": "Image Analysis",
-      "compose": "Compose",
-      "volumeBrowse": "Volume Browse",
-      "storage": "Storage",
-      "filePreview": "File Preview",
-      "dockerHub": "Docker Hub",
-      "imageSecurity": "Image Security",
-      "kubernetes": "Kubernetes"
+    "hero": {
+      "kickerLabel": "modules · one window",
+      "titleLead": "Every screen,",
+      "titleAccent": "every surface.",
+      "descriptionPre": "A tour of Dockerman’s ",
+      "descriptionMid": " core modules — dashboard, terminal, logs, images, volumes, Kubernetes, and everything in between. Click a module to preview, or press ",
+      "descriptionPost": " to walk through them.",
+      "shortcutLabel": "Shortcut",
+      "metaModules": "Modules",
+      "metaBuild": "Build",
+      "metaCaptured": "Captured at"
     },
-    "features": {
-      "realTimeMonitoring": {
-        "name": "Real-time Monitoring",
-        "description": "Monitor container CPU, memory, network, and I/O metrics in real-time with powerful performance."
+    "showcase": {
+      "allModules": "All modules",
+      "moduleTabsAria": "Module tabs",
+      "moduleNavAria": "Module navigation",
+      "showModule": "Show {{label}}",
+      "openLightbox": "Open in lightbox",
+      "prev": "Previous",
+      "next": "Next",
+      "zoom": "Zoom",
+      "close": "Close",
+      "docs": "Docs",
+      "copyLink": "Copy link",
+      "copied": "Copied!",
+      "screenshotMissing": "Screenshot not bundled — see the live app for a full walkthrough.",
+      "screenshotMissingShort": "Screenshot not bundled in this preview."
+    },
+    "featuresStrip": {
+      "kicker": "What the screenshots miss",
+      "titleLead": "The surface is the app.",
+      "titleAccent": "The substance is underneath.",
+      "features": {
+        "realTime": {
+          "title": "Real-time monitoring",
+          "body": "Every pane subscribes to a libpod or docker.sock event stream — no polling, no stale data. Sparklines tick every 1.5 s."
+        },
+        "containerMgmt": {
+          "title": "Container management",
+          "body": "Create, inspect, exec, diff, commit, save. Every primitive docker exposes, surfaced with keyboard shortcuts and contextual actions."
+        },
+        "remote": {
+          "title": "Remote connectivity",
+          "body": "Docker over SSH, WSL2, Colima, and Podman sockets. Bookmark hosts, switch from the titlebar — your engine picker remembers per-project."
+        },
+        "nativePerf": {
+          "title": "Native performance",
+          "body": "Rust + Tauri. 38 MB install, 84 MB idle on an M2 with 20 containers. No Chromium, no Electron overhead, no 400 MB sad tab."
+        }
+      }
+    },
+    "modules": {
+      "dashboard": {
+        "label": "Dashboard",
+        "em": "everything, at a glance.",
+        "desc": "A consolidated view of every container, image, volume, and network on the active engine. Live stats tick in-place, and you can deep-link into any object with one click."
       },
-      "containerManagement": {
-        "name": "Container Management",
-        "description": "Start, stop, inspect, and manage containers with an intuitive interface. Access integrated terminal and process list."
+      "terminal": {
+        "label": "Terminal",
+        "em": "a real shell, not a toy.",
+        "desc": "Full xterm.js shell into any running container. ANSI colors, copy-on-select, paste-safe newlines, and a scrollback that survives container restarts."
       },
-      "remoteConnectivity": {
-        "name": "Remote Connectivity",
-        "description": "Connect to remote Docker instances securely via SSH. Manage containers across multiple hosts from a single interface."
+      "processes": {
+        "label": "Processes",
+        "em": "ps with better manners.",
+        "desc": "Per-container <code>ps</code> with CPU and memory columns you can sort, and a kill/signal dropdown that speaks <code>SIGTERM → SIGKILL</code> on a timer."
       },
-      "powerfulPerformance": {
-        "name": "Powerful Performance",
-        "description": "Built with Tauri for lightning-fast startup and minimal resource usage while managing your Docker environment."
+      "inspect": {
+        "label": "Inspect",
+        "em": "the JSON, legible.",
+        "desc": "Every key from <code>docker inspect</code>, grouped and searchable. Copy any value as JSON, or open the raw output in a side pane for comparison."
+      },
+      "stats": {
+        "label": "Stats",
+        "em": "charts that earn their pixels.",
+        "desc": "Per-container CPU, memory, network, and block I/O charts. Process-level breakdowns, zoom to any window, export CSV for a post-mortem."
+      },
+      "logs": {
+        "label": "Logs",
+        "em": "50 MB, smooth.",
+        "desc": "Virtualized log viewer — 50 MB files scroll smoothly. ANSI-aware, regex search, multi-match highlight, and pause-on-scroll that actually pauses."
+      },
+      "ssh": {
+        "label": "SSH",
+        "em": "remote like it’s local.",
+        "desc": "Docker over SSH with automatic socket forwarding, heartbeat reconnect, and backoff. Titlebar status chip tells you exactly what broke."
+      },
+      "build": {
+        "label": "Build history",
+        "em": "every step, every second.",
+        "desc": "Every image build you’ve kicked off, with cache-hit ratios, step timings, and the exact <code>Dockerfile</code> as it existed at build time."
+      },
+      "events": {
+        "label": "Events",
+        "em": "the bus, finally readable.",
+        "desc": "The Docker event bus, legible. Filter by object, type, or time window; replay the last hour; export as a table when something breaks in production."
+      },
+      "file": {
+        "label": "File browser",
+        "em": "rootfs, but clickable.",
+        "desc": "Walk a running container’s filesystem. Upload, download, diff against the image, and recursively export a directory as <code>.tar.gz</code>."
+      },
+      "filePreview": {
+        "label": "File preview",
+        "em": "preview without the shell.",
+        "desc": "Inline preview for text, JSON, YAML, images, and PDFs. Syntax highlighting up to 10 MB; auto-detects the format when the extension lies."
+      },
+      "imageAnalysis": {
+        "label": "Image analysis",
+        "em": "layers you can actually see.",
+        "desc": "Layer explorer — click a layer to see what it added, interactive size distribution, Dockerfile reconstruction, and efficiency score per image."
+      },
+      "compose": {
+        "label": "Compose",
+        "em": "projects, not just containers.",
+        "desc": "Compose projects grouped on the container list. Up, down, pull, recreate — the common actions, one click. Quadlet files render inline too."
+      },
+      "volumeBrowse": {
+        "label": "Volume browse",
+        "em": "what’s in the volume?",
+        "desc": "Walk a named volume’s contents without attaching a shell. Mount-graph view shows every container currently using each volume."
+      },
+      "storage": {
+        "label": "Storage",
+        "em": "prune with receipts.",
+        "desc": "Disk usage by layer, volume, and build cache, with a one-click <code>docker system prune</code> that tells you exactly what it’s about to delete."
+      },
+      "dockerHub": {
+        "label": "Docker Hub",
+        "em": "search without the browser.",
+        "desc": "Search the public registry without leaving the app. See downloads, size trend, tags, and a Trivy scan of the latest tag before you pull."
+      },
+      "imageSecurity": {
+        "label": "Image security",
+        "em": "CVEs with a fix button.",
+        "desc": "Trivy scan inline on every image. CVE ID, severity, package, and the exact fixed-in version — with a one-click upgrade &amp; rebuild action."
+      },
+      "kubernetes": {
+        "label": "Kubernetes",
+        "em": "the cluster, one window.",
+        "desc": "Clusters, namespaces, pods, deployments, services, ConfigMaps. A ConfigMap diff viewer (side-by-side or unified) that’s actually readable."
       }
     }
   },
@@ -315,6 +795,9 @@
   "privacy": {
     "badge": "privacy",
     "title": "Privacy Policy",
+    "titleLead": "Privacy",
+    "titleAccent": "Policy.",
+    "lastUpdated": "2026-04-25",
     "description": "We take your privacy seriously. Here's how we handle your data.",
     "sections": {
       "dataCollection": {
@@ -361,6 +844,9 @@
   "terms": {
     "badge": "terms",
     "title": "Terms of Use",
+    "titleLead": "Terms of",
+    "titleAccent": "Use.",
+    "lastUpdated": "2026-04-25",
     "description": "Please read these terms carefully before using Dockerman. By using Dockerman, you agree to these terms.",
     "sections": {
       "acceptance": {
@@ -408,6 +894,9 @@
   "dpa": {
     "badge": "DPA",
     "title": "Data Processing Agreement",
+    "titleLead": "Data Processing",
+    "titleAccent": "Agreement.",
+    "lastUpdated": "2026-04-25",
     "description": "This agreement outlines how Dockerman processes and protects your data.",
     "sections": {
       "overview": {
@@ -474,6 +963,24 @@
         "title": "Contact",
         "content": "For any questions about data processing or to exercise your rights, please contact us at"
       }
+    }
+  },
+  "meta": {
+    "home": {
+      "title": "Dockerman — local-first Docker, Podman & Kubernetes",
+      "description": "A local-first control surface for Docker, Podman and Kubernetes. Built in Rust and Tauri. Fast, precise, designed to stay out of your way."
+    },
+    "pricing": {
+      "title": "Pricing — Dockerman",
+      "description": "Pay once. Use forever. Free for local Docker. One flat, lifetime price for remote hosts, SSH, and multi-machine management."
+    },
+    "snapshot": {
+      "title": "Snapshot — Dockerman",
+      "description": "A tour of Dockerman's 18 core modules — dashboard, terminal, logs, images, volumes, Kubernetes, and everything in between."
+    },
+    "download": {
+      "title": "Download — Dockerman",
+      "description": "Download Dockerman for macOS, Windows, and Linux. A single, native 18 MB binary."
     }
   }
 }

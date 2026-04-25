@@ -1,3 +1,31 @@
+<ChangelogEntry version="v5.1.0" date="2026年4月8日">
+## Podman ランタイムサポート
+
+本リリースでは Docker と並ぶ第一級の Podman ランタイムサポートを導入。自動ランタイム検出、ホスト単位の優先設定、将来の機能ゲートに使える拡張可能な capabilities システムを提供します。
+
+### ✨ 新機能
+
+- 🐙 <Bold>Podman サポート：</Bold>Docker と並ぶ第一級の Podman ランタイムサポート
+  - 🔍 ランタイム検出：API プロービングにより Docker / Podman / 互換ランタイムを自動判別
+  - ⚙️ ランタイム設定：ホスト単位とグローバルでの優先選択（Auto / Docker / Podman）
+  - 🔌 ソケット解決：Linux と macOS で Podman rootless / rootful ソケットを自動検出
+  - 🌐 リモート SSH プロービング：リモート SSH ホストでもランタイム対応のソケット解決
+  - 🏷️ ランタイムバッジ：サイドバーのホスト切替に色分けバッジでランタイム種別を表示
+  - 📊 ダッシュボード統合：システム情報カードにランタイム種別を表示
+  - 🔧 接続フィードバック：接続成功時のターミナル出力に検出ランタイムを表示
+  - 🚫 Compose ゲート：Podman 接続時にスタックテンプレートと Compose アクションを自動非表示
+  - 🔎 Spotlight 対応：コマンドパレットは Podman 接続時に Compose データをスキップ
+  - 🧩 Capabilities レイヤー：将来の機能ゲートに使える拡張可能なランタイム capabilities
+
+### 🔧 改善
+
+- 🔄 <Bold>ランタイム切替対応：</Bold>Docker と Podman の切替時にテンプレートページを動的更新
+- 🛡️ <Bold>Spotlight 分離：</Bold>Spotlight のランタイムチェックは store への副作用なしに Tauri コマンドを直接利用
+
+<ChangelogImage src="/screenshots/podman.png" alt="Podman ランタイムダッシュボード" />
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v5.0.0" date="2026年4月7日">
 ## Kubernetes サポートとクラウドトンネル
 
