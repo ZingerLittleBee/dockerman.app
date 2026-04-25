@@ -315,7 +315,7 @@
       "solo": {
         "label": "1 台设备",
         "name": "Solo",
-        "description": "为独立开发者而生。一个许可证,一台机器,全部功能解锁。",
+        "description": "为个人用户而生。一个许可证,一台机器,全部功能解锁。",
         "freq": "一次付费 · 1 台设备",
         "cta": "购买 Solo — ${{price}}",
         "ctaNote": "一次付费,{{days}} 天退款保证",
