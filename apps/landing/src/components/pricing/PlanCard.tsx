@@ -15,6 +15,7 @@ export interface PlanCardProps {
   features: PlanFeature[]
   ctaLabel: string
   ctaHref: string
+  ctaTarget?: '_blank' | '_self'
   ctaVariant?: 'primary' | 'ghost' | 'disabled'
   ctaNote?: string
   highlighted?: boolean
@@ -32,6 +33,7 @@ export function PlanCard(p: PlanCardProps) {
     features,
     ctaLabel,
     ctaHref,
+    ctaTarget,
     ctaVariant = 'ghost',
     ctaNote,
     highlighted,
@@ -165,6 +167,8 @@ export function PlanCard(p: PlanCardProps) {
               : 'border border-dm-line-strong bg-transparent text-dm-ink hover:bg-dm-bg-soft'
         }`}
         href={ctaVariant === 'disabled' ? undefined : ctaHref}
+        rel={ctaTarget === '_blank' ? 'noopener noreferrer' : undefined}
+        target={ctaVariant === 'disabled' ? undefined : ctaTarget}
         style={
           ctaVariant === 'primary'
             ? {

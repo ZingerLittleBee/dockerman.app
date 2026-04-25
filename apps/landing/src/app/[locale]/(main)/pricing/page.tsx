@@ -126,6 +126,7 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
               ctaHref={`/api/checkout?plan=3-devices&locale=${l}`}
               ctaLabel={t('pricing.plans.team.cta', { price: teamPrice })}
               ctaNote={t('pricing.plans.team.ctaNote', { days: refund.days })}
+              ctaTarget="_blank"
               ctaVariant="primary"
               description={t('pricing.plans.team.description')}
               features={[
@@ -176,6 +177,7 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
               ctaHref={`/api/checkout?plan=1-device&locale=${l}`}
               ctaLabel={t('pricing.plans.solo.cta', { price: soloPrice })}
               ctaNote={t('pricing.plans.solo.ctaNote', { days: refund.days })}
+              ctaTarget="_blank"
               ctaVariant="ghost"
               description={t('pricing.plans.solo.description')}
               features={[
@@ -237,6 +239,8 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
               <a
                 className="inline-flex items-center gap-2 rounded-[10px] px-[22px] py-[13px] font-semibold text-[14px] text-white no-underline transition-transform hover:-translate-y-px"
                 href={`/api/checkout?plan=3-devices&locale=${l}`}
+                rel="noopener noreferrer"
+                target="_blank"
                 style={{
                   background:
                     'linear-gradient(180deg, var(--color-dm-accent-2), color-mix(in srgb, var(--color-dm-accent-2) 80%, black))',

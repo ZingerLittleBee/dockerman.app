@@ -2,8 +2,8 @@ export const pricingConfig = {
   earlyBirdDeadlineUtc: '2026-04-30T23:59:59Z',
   plans: {
     free: { price: 0 },
-    team: { priceEarlyBird: 19, priceRegular: 29, devices: 3 },
-    solo: { priceEarlyBird: 14, priceRegular: 19, devices: 1 }
+    team: { priceEarlyBird: 18.86, priceRegular: 29, devices: 3 },
+    solo: { priceEarlyBird: 13.87, priceRegular: 19, devices: 1 }
   },
   refund: {
     days: 14
