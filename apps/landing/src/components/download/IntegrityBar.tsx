@@ -4,7 +4,7 @@ import { downloadsConfig } from '@/config/downloads'
 
 export async function IntegrityBar({ locale }: { locale: Locale }) {
   const { t } = await getTranslation(locale)
-  const { latest, updaterPublicKeyUrl } = downloadsConfig
+  const { latest } = downloadsConfig
   return (
     <section className="px-8">
       <div className="mx-auto mt-10 max-w-[1140px]">
@@ -31,18 +31,12 @@ export async function IntegrityBar({ locale }: { locale: Locale }) {
           </div>
           <div className="flex-1 text-dm-ink-2">
             <strong className="font-semibold text-dm-ink">{t('download.integrity.lead')}</strong>
-            {t('download.integrity.bodyPre')}
-            <code className="rounded bg-dm-bg-soft px-[5px] py-[1px] font-[var(--font-dm-mono)] text-[11.5px]">
-              0x7F·3C·A2·1E
-            </code>
-            {t('download.integrity.bodyPost')}
+            {t('download.integrity.body')}
           </div>
           <div className="flex gap-[14px] font-[var(--font-dm-mono)] text-[12px]">
-            <IntegrityLink href={`${latest.releaseUrl}#SHA256SUMS`}>SHA256SUMS</IntegrityLink>
-            <IntegrityLink href={`${latest.releaseUrl}#SHA256SUMS.sig`}>
-              SHA256SUMS.sig
+            <IntegrityLink href={latest.releaseUrl}>
+              {t('download.integrity.releasePage')}
             </IntegrityLink>
-            <IntegrityLink href={updaterPublicKeyUrl}>SBOM</IntegrityLink>
           </div>
         </div>
       </div>

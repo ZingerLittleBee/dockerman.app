@@ -523,7 +523,7 @@
       "kickerTag": "NEW",
       "titleLead": "Download Dockerman for",
       "titleAccent": "every desktop.",
-      "descriptionPre": "A single, native 18 MB binary. Code-signed, notarized, and reproducible. Browse older builds on the ",
+      "descriptionPre": "A single, native 18 MB binary. Code-signed and notarized. Browse older builds on the ",
       "descriptionLink": "releases page",
       "descriptionPost": " or verify checksums with the SHA-256 manifest below.",
       "meta": {
@@ -566,8 +566,8 @@
     },
     "integrity": {
       "lead": "Verify your download.",
-      "bodyPre": " All artifacts are SHA-256 checksummed and cosign-signed by release key ",
-      "bodyPost": "."
+      "body": " macOS builds are Apple-signed and notarized. Windows and Linux installers ship with an updater signature (.sig).",
+      "releasePage": "View release →"
     },
     "releases": {
       "kicker": "history",
@@ -578,14 +578,14 @@
       "notesLink": "notes →",
       "fallbackNote": "Release notes",
       "notes": {
-        "release-v5-1-0": "Podman support, Cloudflared tunnels, image-upgrade detection, container backup/restore",
-        "release-v5-0-4": "Critical fix for WSL2 socket forwarding; improved disk usage breakdown",
-        "release-v5-0-0": "Full Kubernetes management, Helm support, port-forwarding with local DNS",
-        "release-v4-8-0": "Trivy security scanning, image push with credential auto-match",
-        "release-v4-6-2": "Tray improvements, locale fixes",
-        "release-v4-5-0": "Container file browser, in-place editing with syntax highlighting",
-        "release-v4-2-0": "Command palette (⌘;), system tray with live CPU/mem, event notifications",
-        "release-v4-0-0": "Compose project grouping, docker-run command parser, redesigned stats page"
+        "release-5-1-0": "Podman runtime support",
+        "release-5-0-0": "Kubernetes support & cloud tunnels",
+        "release-4-8-0": "Container backup & restore",
+        "release-4-7-0": "Image combobox & port search",
+        "release-4-6-0": "Docker Hub browser & security scanning",
+        "release-4-5-0": "Stats page redesign",
+        "release-4-4-0": "File preview & multi-select",
+        "release-4-3-0": "WSL2 Docker engine & performance boost"
       }
     },
     "installers": {

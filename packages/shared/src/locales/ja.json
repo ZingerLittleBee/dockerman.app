@@ -523,7 +523,7 @@
       "kickerTag": "NEW",
       "titleLead": "Dockerman をダウンロード、",
       "titleAccent": "すべてのデスクトップへ。",
-      "descriptionPre": "ネイティブな 18 MB のシングルバイナリ。コード署名、公証、再現可能。 ",
+      "descriptionPre": "ネイティブな 18 MB のシングルバイナリ。コード署名、公証済み。 ",
       "descriptionLink": "リリースページ",
       "descriptionPost": " で過去のビルドを確認、または下記の SHA-256 マニフェストでチェックサムを検証できます。",
       "meta": {
@@ -566,8 +566,8 @@
     },
     "integrity": {
       "lead": "ダウンロードを検証。",
-      "bodyPre": " すべての成果物は SHA-256 チェックサム付きで、リリースキー ",
-      "bodyPost": " により cosign 署名されています。"
+      "body": " macOS ビルドは Apple により署名・公証済み。Windows と Linux のインストーラには更新器の署名 (.sig) が付属しています。",
+      "releasePage": "リリースを見る →"
     },
     "releases": {
       "kicker": "履歴",
@@ -578,14 +578,11 @@
       "notesLink": "ノート →",
       "fallbackNote": "リリースノート",
       "notes": {
-        "release-v5-1-0": "Podman 対応、Cloudflared トンネル、イメージ更新検知、コンテナバックアップ/リストア",
-        "release-v5-0-4": "WSL2 ソケット転送の重大修正、ディスク使用量内訳の改善",
-        "release-v5-0-0": "完全な Kubernetes 管理、Helm 対応、ローカル DNS によるポートフォワード",
-        "release-v4-8-0": "Trivy セキュリティスキャン、認証情報自動マッチによるイメージプッシュ",
-        "release-v4-6-2": "トレイの改善、ロケール修正",
-        "release-v4-5-0": "コンテナファイルブラウザ、シンタックスハイライト付きのインライン編集",
-        "release-v4-2-0": "コマンドパレット (⌘;)、リアルタイム CPU/メモリ表示のトレイ、イベント通知",
-        "release-v4-0-0": "Compose プロジェクトのグルーピング、docker-run パーサー、統計ページ刷新"
+        "release-5-1-0": "Podman ランタイムサポート",
+        "release-5-0-0": "Kubernetes サポートとクラウドトンネル",
+        "release-4-8-0": "コンテナのバックアップと復元",
+        "release-4-7-0": "イメージコンボボックスとポート検索",
+        "release-4-6-0": "Docker Hub ブラウザとセキュリティスキャン"
       }
     },
     "installers": {

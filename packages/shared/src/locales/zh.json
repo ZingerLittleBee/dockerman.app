@@ -523,7 +523,7 @@
       "kickerTag": "新版",
       "titleLead": "下载 Dockerman,",
       "titleAccent": "适配每种桌面。",
-      "descriptionPre": "单个原生 18 MB 二进制文件。代码签名、已公证、可复现构建。在 ",
+      "descriptionPre": "单个原生 18 MB 二进制文件。代码签名、已公证。在 ",
       "descriptionLink": "发布页面",
       "descriptionPost": " 浏览历史版本,或使用下方的 SHA-256 清单验证校验和。",
       "meta": {
@@ -566,8 +566,8 @@
     },
     "integrity": {
       "lead": "验证你的下载。",
-      "bodyPre": " 所有构建产物均经过 SHA-256 校验,并由发布密钥 ",
-      "bodyPost": " 使用 cosign 签名。"
+      "body": " macOS 安装包由 Apple 签名并公证，Windows 与 Linux 安装包附带更新器签名 (.sig)。",
+      "releasePage": "前往 Release →"
     },
     "releases": {
       "kicker": "历史",
@@ -578,14 +578,14 @@
       "notesLink": "说明 →",
       "fallbackNote": "发布说明",
       "notes": {
-        "release-v5-1-0": "Podman 支持、Cloudflared 隧道、镜像升级检测、容器备份与恢复",
-        "release-v5-0-4": "修复 WSL2 socket 转发的严重问题;改进磁盘使用分析",
-        "release-v5-0-0": "完整 Kubernetes 管理、Helm 支持、本地 DNS 端口转发",
-        "release-v4-8-0": "Trivy 安全扫描、镜像推送自动匹配凭据",
-        "release-v4-6-2": "托盘改进、本地化修复",
-        "release-v4-5-0": "容器文件浏览器、带语法高亮的原地编辑",
-        "release-v4-2-0": "命令面板 (⌘;)、带实时 CPU/内存的系统托盘、事件通知",
-        "release-v4-0-0": "Compose 项目分组、docker-run 命令解析器、重新设计的统计页面"
+        "release-5-1-0": "Podman 运行时支持",
+        "release-5-0-0": "Kubernetes 支持与云隧道",
+        "release-4-8-0": "容器备份与恢复",
+        "release-4-7-0": "镜像搜索框与端口搜索",
+        "release-4-6-0": "Docker Hub 浏览与安全扫描",
+        "release-4-5-0": "统计页面重新设计",
+        "release-4-4-0": "文件预览与多选操作",
+        "release-4-3-0": "WSL2 Docker 引擎与性能提升"
       }
     },
     "installers": {

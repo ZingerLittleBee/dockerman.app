@@ -34,8 +34,12 @@ export async function DownloadHero({ locale }: { locale: Locale }) {
           </span>
         </span>
 
-        <h1 className="mt-[22px] max-w-[16ch] font-bold text-[clamp(44px,6.4vw,80px)] text-dm-ink leading-[0.98] tracking-[-0.04em]">
-          {t('download.hero.titleLead')}{' '}
+        <h1
+          className="mt-[22px] font-bold text-[clamp(44px,6.4vw,80px)] text-dm-ink leading-[0.98] tracking-[-0.04em]"
+          style={{ maxWidth: locale === 'zh' || locale === 'ja' ? 'none' : '16ch' }}
+        >
+          {t('download.hero.titleLead')}
+          {locale === 'zh' || locale === 'ja' ? <br /> : ' '}
           <em
             className="bg-clip-text font-[var(--font-dm-display)] font-normal text-transparent italic"
             style={{

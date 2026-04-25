@@ -118,13 +118,13 @@ export const downloadsConfig: {
     }
   },
   history: [
-    { version: '5.1.0', date: '2026-04-08', summarySlug: 'release-v5-1-0' },
-    { version: '5.0.4', date: '2026-03-18', summarySlug: 'release-v5-0-4' },
-    { version: '5.0.0', date: '2026-02-20', summarySlug: 'release-v5-0-0' },
-    { version: '4.8.0', date: '2026-01-10', summarySlug: 'release-v4-8-0' },
-    { version: '4.6.2', date: '2025-12-02', summarySlug: 'release-v4-6-2' },
-    { version: '4.5.0', date: '2025-10-15', summarySlug: 'release-v4-5-0' },
-    { version: '4.2.0', date: '2025-08-22', summarySlug: 'release-v4-2-0' },
-    { version: '4.0.0', date: '2025-06-30', summarySlug: 'release-v4-0-0' }
+    { version: '5.1.0', date: '2026-04-08', summarySlug: 'release-5-1-0' },
+    { version: '5.0.0', date: '2026-04-07', summarySlug: 'release-5-0-0' },
+    { version: '4.8.0', date: '2026-03-31', summarySlug: 'release-4-8-0' },
+    { version: '4.7.0', date: '2026-03-29', summarySlug: 'release-4-7-0' },
+    { version: '4.6.0', date: '2026-03-26', summarySlug: 'release-4-6-0' },
+    { version: '4.5.0', date: '2026-03-21', summarySlug: 'release-4-5-0' },
+    { version: '4.4.0', date: '2026-03-11', summarySlug: 'release-4-4-0' },
+    { version: '4.3.0', date: '2026-03-08', summarySlug: 'release-4-3-0' }
   ]
 }

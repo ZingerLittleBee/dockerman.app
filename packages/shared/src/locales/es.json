@@ -523,7 +523,7 @@
       "kickerTag": "NUEVO",
       "titleLead": "Descarga Dockerman para",
       "titleAccent": "cada escritorio.",
-      "descriptionPre": "Un único binario nativo de 18 MB. Firmado, notarizado y reproducible. Explora builds anteriores en la ",
+      "descriptionPre": "Un único binario nativo de 18 MB. Firmado y notarizado. Explora builds anteriores en la ",
       "descriptionLink": "página de releases",
       "descriptionPost": " o verifica las sumas con el manifiesto SHA-256 de abajo.",
       "meta": {
@@ -566,8 +566,8 @@
     },
     "integrity": {
       "lead": "Verifica tu descarga.",
-      "bodyPre": " Todos los artefactos llevan suma SHA-256 y están firmados con cosign por la clave de release ",
-      "bodyPost": "."
+      "body": " Las builds de macOS están firmadas y notarizadas por Apple. Los instaladores de Windows y Linux incluyen una firma del actualizador (.sig).",
+      "releasePage": "Ver release →"
     },
     "releases": {
       "kicker": "historial",
@@ -578,14 +578,11 @@
       "notesLink": "notas →",
       "fallbackNote": "Notas de release",
       "notes": {
-        "release-v5-1-0": "Soporte Podman, túneles Cloudflared, detección de actualización de imágenes, backup/restore de contenedor",
-        "release-v5-0-4": "Arreglo crítico del forwarding de socket WSL2; mejora del desglose de uso de disco",
-        "release-v5-0-0": "Gestión completa de Kubernetes, soporte Helm, port-forward con DNS local",
-        "release-v4-8-0": "Escaneo de seguridad Trivy, push de imagen con auto-match de credenciales",
-        "release-v4-6-2": "Mejoras en tray, arreglos de locale",
-        "release-v4-5-0": "Explorador de archivos del contenedor, edición in-place con resaltado de sintaxis",
-        "release-v4-2-0": "Paleta de comandos (⌘;), tray con CPU/mem en vivo, notificaciones de evento",
-        "release-v4-0-0": "Agrupación de proyectos Compose, parser de docker-run, página de stats rediseñada"
+        "release-5-1-0": "Soporte del runtime Podman",
+        "release-5-0-0": "Soporte de Kubernetes y túneles en la nube",
+        "release-4-8-0": "Respaldo y restauración de contenedores",
+        "release-4-7-0": "Combobox de imágenes y búsqueda por puerto",
+        "release-4-6-0": "Navegador de Docker Hub y escaneo de seguridad"
       }
     },
     "installers": {
