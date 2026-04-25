@@ -36,7 +36,7 @@ export async function CtaFinal({ locale }: { locale: Locale }) {
               {t('cta.titleAccent')}
             </em>
           </h2>
-          <p className="relative mx-auto mt-[18px] mb-8 max-w-[56ch] text-[17px] text-dm-ink-3">
+          <p className="relative mx-auto mt-[18px] mb-8 max-w-[68ch] text-[17px] text-dm-ink-3">
             {t('cta.description')}
           </p>
           <div className="relative flex flex-wrap justify-center gap-3">

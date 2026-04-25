@@ -76,7 +76,7 @@ export function PlatformCard({
         </div>
         {featured ? (
           <span
-            className="ml-auto rounded-full px-2 py-[3px] font-[var(--font-dm-mono)] font-semibold text-[10.5px] uppercase tracking-[0.02em]"
+            className="ml-auto inline-block min-w-[72px] rounded-full px-2 py-[3px] text-center font-[var(--font-dm-mono)] font-semibold text-[10.5px] uppercase tracking-[0.02em]"
             style={{
               background: 'color-mix(in srgb, var(--color-dm-accent-2) 14%, transparent)',
               color: 'var(--color-dm-accent-2)'
@@ -90,6 +90,9 @@ export function PlatformCard({
       <div className="flex flex-col gap-2">
         {assets.map((a) => {
           const vLabel = verificationLabel(a.verification, strings)
+          const parenMatch = a.label.match(/^(.+?)\s*\((.+)\)\s*$/)
+          const labelMain = parenMatch ? parenMatch[1] : a.label
+          const labelSub = parenMatch ? parenMatch[2] : null
           return (
             <a
               className="group relative flex items-center gap-3 rounded-[10px] border border-dm-line bg-dm-bg px-[14px] py-3 text-dm-ink no-underline transition-all hover:translate-x-[2px] hover:border-[color:color-mix(in_srgb,var(--color-dm-accent-2)_40%,var(--color-dm-line-strong))] hover:bg-dm-bg-elev"
@@ -110,7 +113,10 @@ export function PlatformCard({
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
               </svg>
               <div className="min-w-0 flex-1">
-                <div className="font-semibold text-[13.5px] tracking-[-0.005em]">{a.label}</div>
+                <div className="font-semibold text-[13.5px] tracking-[-0.005em]">{labelMain}</div>
+                {labelSub ? (
+                  <div className="mt-[1px] text-[12px] text-dm-ink-3">{labelSub}</div>
+                ) : null}
                 <div className="mt-[2px] truncate font-[var(--font-dm-mono)] text-[11px] text-dm-ink-4">
                   {a.filename}
                   {vLabel ? ` · ${vLabel}` : ''}

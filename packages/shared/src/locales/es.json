@@ -71,7 +71,7 @@
   "cta": {
     "titleLead": "Abre la bandeja.",
     "titleAccent": "Lanza contenedores.",
-    "description": "Gratis y sin restricciones para uso local. Una licencia de pago desbloquea hosts remotos, funciones de equipo y soporte prioritario.",
+    "description": "Gratis y sin restricciones para uso local. Actualiza para desbloquear hosts remotos y gestión de Kubernetes.",
     "downloadButton": "Descargar Dockerman",
     "platformsBadge": "macOS · Win · Linux",
     "reportIssue": "Reportar un problema en GitHub →"
@@ -544,21 +544,15 @@
       "recommended": "recomendado",
       "macos": {
         "title": "macOS",
-        "minSpec": "macOS 11 Big Sur o posterior · Apple Silicon + Intel",
-        "notarized": "notarizado",
-        "signingCert": "cert. de firma →"
+        "minSpec": "macOS 11 Big Sur o posterior · Apple Silicon + Intel"
       },
       "windows": {
         "title": "Windows",
-        "minSpec": "Windows 10 · 11 · compatible con WSL2",
-        "evSigned": "firma EV",
-        "wsl2": "guía WSL2 →"
+        "minSpec": "Windows 10 · 11 · compatible con WSL2"
       },
       "linux": {
         "title": "Linux",
-        "minSpec": "glibc 2.28+ · x86_64 y arm64",
-        "aur": "disponible en AUR",
-        "wayland": "notas Wayland →"
+        "minSpec": "glibc 2.28+ · x86_64 y arm64"
       }
     },
     "verification": {

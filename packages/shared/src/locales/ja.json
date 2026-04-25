@@ -71,7 +71,7 @@
   "cta": {
     "titleLead": "トレイを開く。",
     "titleAccent": "コンテナを動かす。",
-    "description": "ローカル利用は完全無料・無制限。有償ライセンスでリモートホスト、チーム機能、優先サポートが利用できます。",
+    "description": "ローカル利用は完全無料・無制限。アップグレードでリモートホストと Kubernetes 管理が利用できます。",
     "downloadButton": "Dockerman をダウンロード",
     "platformsBadge": "macOS · Win · Linux",
     "reportIssue": "GitHub で問題を報告 →"
@@ -544,21 +544,15 @@
       "recommended": "推奨",
       "macos": {
         "title": "macOS",
-        "minSpec": "macOS 11 Big Sur 以降 · Apple Silicon + Intel",
-        "notarized": "公証済み",
-        "signingCert": "署名証明書 →"
+        "minSpec": "macOS 11 Big Sur 以降 · Apple Silicon + Intel"
       },
       "windows": {
         "title": "Windows",
-        "minSpec": "Windows 10 · 11 · WSL2 対応",
-        "evSigned": "EV 署名",
-        "wsl2": "WSL2 ガイド →"
+        "minSpec": "Windows 10 · 11 · WSL2 対応"
       },
       "linux": {
         "title": "Linux",
-        "minSpec": "glibc 2.28+ · x86_64 と arm64",
-        "aur": "AUR で利用可",
-        "wayland": "Wayland ノート →"
+        "minSpec": "glibc 2.28+ · x86_64 と arm64"
       }
     },
     "verification": {

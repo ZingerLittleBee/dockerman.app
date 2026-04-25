@@ -71,7 +71,7 @@
   "cta": {
     "titleLead": "Open the tray.",
     "titleAccent": "Ship containers.",
-    "description": "Free and unrestricted for local use. A paid license unlocks remote hosts, team features, and priority support.",
+    "description": "Free and unrestricted for local use. Upgrade to unlock remote hosts and Kubernetes management.",
     "downloadButton": "Download Dockerman",
     "platformsBadge": "macOS · Win · Linux",
     "reportIssue": "Report an issue on GitHub →"
@@ -544,21 +544,15 @@
       "recommended": "recommended",
       "macos": {
         "title": "macOS",
-        "minSpec": "macOS 11 Big Sur or later · Apple Silicon + Intel",
-        "notarized": "notarized",
-        "signingCert": "signing cert →"
+        "minSpec": "macOS 11 Big Sur or later · Apple Silicon + Intel"
       },
       "windows": {
         "title": "Windows",
-        "minSpec": "Windows 10 · 11 · WSL2 supported",
-        "evSigned": "EV signed",
-        "wsl2": "WSL2 guide →"
+        "minSpec": "Windows 10 · 11 · WSL2 supported"
       },
       "linux": {
         "title": "Linux",
-        "minSpec": "glibc 2.28+ · x86_64 & arm64",
-        "aur": "AUR available",
-        "wayland": "Wayland notes →"
+        "minSpec": "glibc 2.28+ · x86_64 & arm64"
       }
     },
     "verification": {

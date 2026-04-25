@@ -71,7 +71,7 @@
   "cta": {
     "titleLead": "打开托盘。",
     "titleAccent": "发布你的容器。",
-    "description": "本地使用完全免费，无任何限制。付费许可解锁远程主机、团队功能与优先支持。",
+    "description": "本地使用完全免费，无任何限制。升级即可解锁远程主机与 Kubernetes 管理。",
     "downloadButton": "下载 Dockerman",
     "platformsBadge": "macOS · Win · Linux",
     "reportIssue": "到 GitHub 反馈问题 →"
@@ -544,21 +544,15 @@
       "recommended": "推荐",
       "macos": {
         "title": "macOS",
-        "minSpec": "macOS 11 Big Sur 或更高版本 · Apple Silicon + Intel",
-        "notarized": "已公证",
-        "signingCert": "签名证书 →"
+        "minSpec": "macOS 11 Big Sur 或更高版本 · Apple Silicon + Intel"
       },
       "windows": {
         "title": "Windows",
-        "minSpec": "Windows 10 · 11 · 支持 WSL2",
-        "evSigned": "EV 签名",
-        "wsl2": "WSL2 指南 →"
+        "minSpec": "Windows 10 · 11 · 支持 WSL2"
       },
       "linux": {
         "title": "Linux",
-        "minSpec": "glibc 2.28+ · x86_64 与 arm64",
-        "aur": "AUR 可用",
-        "wayland": "Wayland 说明 →"
+        "minSpec": "glibc 2.28+ · x86_64 与 arm64"
       }
     },
     "verification": {

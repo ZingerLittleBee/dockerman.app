@@ -96,16 +96,6 @@ export default async function DownloadPage({ params }: { params: Promise<{ local
             <PlatformCard
               assets={installers.macos}
               featured
-              footLinks={[
-                {
-                  label: t('download.platforms.macos.notarized'),
-                  href: downloadsConfig.latest.releaseUrl
-                },
-                {
-                  label: t('download.platforms.macos.signingCert'),
-                  href: downloadsConfig.updaterPublicKeyUrl
-                }
-              ]}
               icon={MacIcon}
               minSpec={t('download.platforms.macos.minSpec')}
               strings={platformStrings}
@@ -113,13 +103,6 @@ export default async function DownloadPage({ params }: { params: Promise<{ local
             />
             <PlatformCard
               assets={installers.windows}
-              footLinks={[
-                {
-                  label: t('download.platforms.windows.evSigned'),
-                  href: downloadsConfig.latest.releaseUrl
-                },
-                { label: t('download.platforms.windows.wsl2'), href: `/${l}/docs` }
-              ]}
               icon={WindowsIcon}
               minSpec={t('download.platforms.windows.minSpec')}
               strings={platformStrings}
@@ -127,13 +110,6 @@ export default async function DownloadPage({ params }: { params: Promise<{ local
             />
             <PlatformCard
               assets={installers.linux}
-              footLinks={[
-                {
-                  label: t('download.platforms.linux.aur'),
-                  href: downloadsConfig.latest.releaseUrl
-                },
-                { label: t('download.platforms.linux.wayland'), href: `/${l}/docs` }
-              ]}
               icon={LinuxIcon}
               minSpec={t('download.platforms.linux.minSpec')}
               strings={platformStrings}
