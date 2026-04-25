@@ -4,7 +4,7 @@ import { getTranslation } from '@repo/shared/i18n/server'
 export async function PricingHero({ locale }: { locale: Locale }) {
   const { t } = await getTranslation(locale)
   return (
-    <section className="relative px-8 pt-16 pb-10">
+    <section className="relative overflow-hidden px-5 pt-12 pb-8 sm:px-8 sm:pt-16 sm:pb-10">
       <div
         aria-hidden
         className="pointer-events-none absolute top-5 left-1/2 -z-[1] h-[420px] w-[900px] -translate-x-1/2 blur-[40px]"

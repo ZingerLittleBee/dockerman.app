@@ -6,7 +6,7 @@ import { downloadsConfig } from '@/config/downloads'
 export async function ReleasesTable({ locale }: { locale: Locale }) {
   const { t } = await getTranslation(locale)
   return (
-    <section className="px-8 pt-20 pb-10">
+    <section className="px-5 pt-12 pb-8 sm:px-8 sm:pt-20 sm:pb-10">
       <div className="mx-auto max-w-[1140px]">
         <div className="mb-8 max-w-[680px]">
           <div
@@ -34,9 +34,8 @@ export async function ReleasesTable({ locale }: { locale: Locale }) {
             const note = translated === noteKey ? t('download.releases.fallbackNote') : translated
             return (
               <div
-                className="grid items-center gap-4 border-dm-line border-b px-[22px] py-[14px] last:border-b-0 hover:bg-dm-bg-soft"
+                className="grid grid-cols-[1fr_auto_auto] items-center gap-3 border-dm-line border-b px-4 py-[12px] last:border-b-0 hover:bg-dm-bg-soft sm:grid-cols-[120px_1fr_180px_80px] sm:gap-4 sm:px-[22px] sm:py-[14px]"
                 key={h.version}
-                style={{ gridTemplateColumns: '120px 1fr 180px 80px' }}
               >
                 <div className="font-[var(--font-dm-mono)] font-semibold text-[13px] tracking-[-0.01em]">
                   v{h.version}

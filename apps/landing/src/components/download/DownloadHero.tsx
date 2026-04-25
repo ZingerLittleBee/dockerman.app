@@ -7,7 +7,7 @@ export async function DownloadHero({ locale }: { locale: Locale }) {
   const { latest } = downloadsConfig
   const releaseDate = formatDate(latest.releaseDate, locale)
   return (
-    <section className="relative px-8 pt-14 pb-10">
+    <section className="relative overflow-hidden px-5 pt-10 pb-8 sm:px-8 sm:pt-14 sm:pb-10">
       <div
         aria-hidden
         className="pointer-events-none absolute top-0 left-1/2 -z-[1] h-[420px] w-[900px] -translate-x-1/2 blur-[40px]"

@@ -24,7 +24,7 @@ const FEATURES: FeatureDef[] = [
 export async function SnapshotFeaturesStrip({ locale }: { locale: Locale }) {
   const { t } = await getTranslation(locale)
   return (
-    <section className="border-dm-line border-t px-8 pt-16 pb-10">
+    <section className="border-dm-line border-t px-5 pt-12 pb-10 sm:px-8 sm:pt-16">
       <div className="mx-auto max-w-[1320px]">
         <div className="mb-4 flex items-center gap-[14px] font-[var(--font-dm-mono)] font-semibold text-[11px] text-dm-ink-4 uppercase tracking-[0.1em]">
           {t('snapshot.featuresStrip.kicker')}

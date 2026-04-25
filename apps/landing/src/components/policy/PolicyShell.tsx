@@ -14,7 +14,7 @@ export function PolicyHero({
   lastUpdated: string
 }) {
   return (
-    <section className="relative px-8 pt-24 pb-12">
+    <section className="relative overflow-hidden px-5 pt-16 pb-10 sm:px-8 sm:pt-24 sm:pb-12">
       <div
         aria-hidden
         className="pointer-events-none absolute top-10 left-1/2 -z-[1] h-[360px] w-[820px] -translate-x-1/2 blur-[40px]"
@@ -73,7 +73,7 @@ export function PolicySection({
 }) {
   const idx = String(index).padStart(2, '0')
   return (
-    <article className="rounded-[14px] border border-dm-line bg-dm-bg-elev p-7">
+    <article className="rounded-[14px] border border-dm-line bg-dm-bg-elev p-5 sm:p-7">
       <div className="flex items-center gap-3">
         <span className="rounded-[6px] border border-dm-line bg-dm-bg-soft px-[8px] py-[3px] font-[var(--font-dm-mono)] text-[11px] text-dm-ink-3 tracking-[0.04em]">
           {idx}
@@ -139,7 +139,7 @@ export function PolicyContact({ intro }: { intro: string }) {
 
 export function PolicyBody({ children }: { children: ReactNode }) {
   return (
-    <section className="px-8 pb-20">
+    <section className="px-5 pb-16 sm:px-8 sm:pb-20">
       <div className="mx-auto flex max-w-[820px] flex-col gap-5">{children}</div>
     </section>
   )

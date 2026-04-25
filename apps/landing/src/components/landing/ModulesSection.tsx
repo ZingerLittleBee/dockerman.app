@@ -14,9 +14,9 @@ export async function ModulesSection({ locale }: { locale: Locale }) {
   const { t } = await getTranslation(locale)
 
   return (
-    <section className="px-8 py-24" id="modules">
+    <section className="px-5 py-16 sm:px-8 sm:py-24" id="modules">
       <div className="mx-auto max-w-[1240px]">
-        <div className="mb-12 flex max-w-[780px] flex-col gap-[14px]">
+        <div className="mb-10 flex max-w-[780px] flex-col gap-[14px] sm:mb-12">
           <div
             className="font-[var(--font-dm-mono)] text-[12px] tracking-[0.04em]"
             style={{ color: 'var(--color-dm-accent)' }}
@@ -39,13 +39,13 @@ export async function ModulesSection({ locale }: { locale: Locale }) {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-x-12 gap-y-12 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-x-12 gap-y-10 md:grid-cols-2 md:gap-y-12">
           {MODULE_KEYS.map((key) => {
             const bullets = t(`modulesSection.modules.${key}.bullets`, {
               returnObjects: true
             }) as string[]
             return (
-              <article className="border-dm-line border-t pt-10" key={key}>
+              <article className="border-dm-line border-t pt-8 sm:pt-10" key={key}>
                 <div className="flex items-center justify-between pb-[18px] font-[var(--font-dm-mono)] text-[12px] text-dm-ink-4">
                   <span>{MODULE_NUMS[key]}</span>
                   <span

@@ -6,9 +6,9 @@ import { pricingConfig } from '@/config/pricing'
 export async function TrustBar({ locale }: { locale: Locale }) {
   const { t } = await getTranslation(locale)
   return (
-    <section className="px-8">
+    <section>
       <div className="mx-auto max-w-[1140px]">
-        <div className="flex flex-wrap items-center justify-center gap-8 border-dm-line border-y py-6">
+        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 border-dm-line border-y py-5 sm:gap-8 sm:py-6">
           <Item>
             <svg
               fill="none"

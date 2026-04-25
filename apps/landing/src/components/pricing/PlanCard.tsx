@@ -44,8 +44,8 @@ export function PlanCard(p: PlanCardProps) {
     <article
       className={
         highlighted
-          ? 'relative flex flex-col rounded-[16px] border p-8'
-          : 'flex flex-col rounded-[16px] border border-dm-line bg-dm-bg-elev p-8'
+          ? 'relative flex flex-col rounded-[16px] border p-6 sm:p-8'
+          : 'flex flex-col rounded-[16px] border border-dm-line bg-dm-bg-elev p-6 sm:p-8'
       }
       style={
         highlighted

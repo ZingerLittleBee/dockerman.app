@@ -5,10 +5,10 @@ import Link from 'next/link'
 export async function CtaFinal({ locale }: { locale: Locale }) {
   const { t } = await getTranslation(locale)
   return (
-    <section className="px-8">
-      <div className="mx-auto my-24 max-w-[1240px]">
+    <section className="px-5 sm:px-8">
+      <div className="mx-auto my-16 max-w-[1240px] sm:my-24">
         <div
-          className="relative overflow-hidden rounded-[24px] border border-dm-line-strong bg-dm-bg-elev px-12 py-20 text-center"
+          className="relative overflow-hidden rounded-[24px] border border-dm-line-strong bg-dm-bg-elev px-6 py-12 text-center sm:px-12 sm:py-20"
           style={{
             backgroundImage: `radial-gradient(ellipse at top right, color-mix(in srgb, var(--color-dm-accent-2) 15%, transparent), transparent 50%),
               radial-gradient(ellipse at bottom left, color-mix(in srgb, var(--color-dm-accent) 15%, transparent), transparent 50%)`

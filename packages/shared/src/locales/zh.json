@@ -7,7 +7,9 @@
     "docs": "文档",
     "download": "下载",
     "github": "GitHub",
-    "changeLanguage": "切换语言"
+    "changeLanguage": "切换语言",
+    "openMenu": "打开菜单",
+    "closeMenu": "关闭菜单"
   },
   "hero": {
     "eyebrow": "v5.1.0 — Podman 支持、Cloudflared 隧道、镜像升级检测",

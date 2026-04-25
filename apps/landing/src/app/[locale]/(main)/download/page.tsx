@@ -77,7 +77,7 @@ export default async function DownloadPage({ params }: { params: Promise<{ local
     <main>
       <DownloadHero locale={l} />
 
-      <section className="px-8 pt-20 pb-10">
+      <section className="px-5 pt-12 pb-8 sm:px-8 sm:pt-20 sm:pb-10">
         <div className="mx-auto max-w-[1140px]">
           <div className="mb-8 max-w-[680px]">
             <div

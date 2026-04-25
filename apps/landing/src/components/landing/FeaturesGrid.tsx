@@ -5,7 +5,7 @@ import { PaletteViz } from './PaletteViz'
 export async function FeaturesGrid({ locale }: { locale: Locale }) {
   const { t } = await getTranslation(locale)
   return (
-    <section className="px-8 py-24" id="features">
+    <section className="px-5 py-16 sm:px-8 sm:py-24" id="features">
       <div className="mx-auto max-w-[1240px]">
         <SectionHead t={t} />
         <div className="grid grid-cols-1 gap-4 md:auto-rows-[minmax(200px,auto)] md:grid-cols-6">
@@ -27,7 +27,7 @@ type TFn = (key: string, options?: Record<string, unknown>) => string
 
 function SectionHead({ t }: { t: TFn }) {
   return (
-    <div className="mb-12 flex max-w-[780px] flex-col gap-[14px]">
+    <div className="mb-10 flex max-w-[780px] flex-col gap-[14px] sm:mb-12">
       <div
         className="font-[var(--font-dm-mono)] text-[12px] tracking-[0.04em]"
         style={{ color: 'var(--color-dm-accent)' }}
@@ -89,7 +89,7 @@ function FeatCard({
   }
   return (
     <article
-      className={`relative flex flex-col overflow-hidden rounded-[14px] border border-dm-line bg-dm-bg-elev p-6 transition-all hover:-translate-y-px hover:border-dm-line-strong ${SHAPE_CLASSES[shape]}`}
+      className={`relative flex flex-col overflow-hidden rounded-[14px] border border-dm-line bg-dm-bg-elev p-5 transition-all hover:-translate-y-px hover:border-dm-line-strong sm:p-6 ${SHAPE_CLASSES[shape]}`}
     >
       <div
         className="mb-[14px] grid h-8 w-8 place-items-center rounded-[8px]"

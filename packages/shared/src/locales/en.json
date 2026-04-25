@@ -7,7 +7,9 @@
     "docs": "Docs",
     "download": "Download",
     "github": "GitHub",
-    "changeLanguage": "Change language"
+    "changeLanguage": "Change language",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
   },
   "hero": {
     "eyebrow": "v5.1.0 — Podman support, Cloudflared tunnels, image-upgrade detection",

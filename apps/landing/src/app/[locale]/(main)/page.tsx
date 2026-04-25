@@ -27,7 +27,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
   return (
     <main>
       <Hero locale={l} />
-      <div className="relative px-8">
+      <div className="relative hidden px-5 md:block md:px-8">
         <LiveDashboard locale={l} />
       </div>
       <RuntimeStrip locale={l} />

@@ -7,8 +7,8 @@ export async function Footer({ locale }: { locale: Locale }) {
   const prefix = (href: string) => `/${locale}${href === '/' ? '' : href}`
 
   return (
-    <footer className="border-dm-line border-t py-12 text-[13px] text-dm-ink-3">
-      <div className="mx-auto max-w-[1240px] px-8">
+    <footer className="border-dm-line border-t py-10 text-[13px] text-dm-ink-3 sm:py-12">
+      <div className="mx-auto max-w-[1240px] px-5 sm:px-8">
         <div className="flex flex-wrap items-start justify-between gap-10">
           {/* Brand column */}
           <div className="flex max-w-[300px] flex-col gap-[10px]">

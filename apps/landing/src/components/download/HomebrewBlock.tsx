@@ -21,10 +21,10 @@ export function HomebrewBlock({ locale }: { locale: Locale }) {
   }
 
   return (
-    <section className="px-8">
+    <section className="px-5 sm:px-8">
       <div className="mx-auto max-w-[1140px]">
-        <div className="grid">
-          <div className="mx-auto flex w-full max-w-[620px] flex-col gap-[10px] rounded-[12px] border border-dm-line bg-dm-bg-elev p-[16px_18px]">
+        <div className="grid grid-cols-1">
+          <div className="mx-auto flex w-full min-w-0 max-w-[620px] flex-col gap-[10px] rounded-[12px] border border-dm-line bg-dm-bg-elev p-[16px_18px]">
             <div className="flex items-center gap-[10px]">
               <div className="grid h-7 w-7 place-items-center rounded-[7px] border border-dm-line bg-dm-bg-soft text-dm-ink-2">
                 <svg fill="currentColor" height="14" viewBox="0 0 24 24" width="14">
@@ -47,7 +47,7 @@ export function HomebrewBlock({ locale }: { locale: Locale }) {
               type="button"
             >
               <span style={{ color: 'var(--color-dm-accent-2)' }}>$</span>
-              <code className="flex-1 overflow-hidden truncate text-dm-ink">{cmd}</code>
+              <code className="min-w-0 flex-1 overflow-hidden truncate text-dm-ink">{cmd}</code>
               <span
                 aria-hidden="true"
                 className="grid h-[22px] w-[22px] flex-shrink-0 place-items-center rounded bg-dm-bg-elev text-dm-ink-3"
