@@ -17,6 +17,7 @@ export interface ShowcaseStrings {
   zoom: string
   close: string
   docs: string
+  docsHref: string
   copyLink: string
   copied: string
   screenshotMissing: string
@@ -551,7 +552,7 @@ function CaptionStrip({
       <div className="flex gap-2">
         <a
           className="inline-flex cursor-pointer items-center gap-[7px] rounded-[8px] border border-dm-line bg-dm-bg-soft px-3 py-[7px] font-medium text-[12.5px] text-dm-ink-2 transition-colors hover:border-dm-line-strong hover:bg-dm-bg-elev hover:text-dm-ink"
-          href="/docs"
+          href={strings.docsHref}
         >
           <svg
             aria-hidden="true"

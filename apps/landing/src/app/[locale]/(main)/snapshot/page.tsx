@@ -37,6 +37,7 @@ export default async function SnapshotPage({ params }: { params: Promise<{ local
     zoom: t('snapshot.showcase.zoom'),
     close: t('snapshot.showcase.close'),
     docs: t('snapshot.showcase.docs'),
+    docsHref: `/${l}/docs`,
     copyLink: t('snapshot.showcase.copyLink'),
     copied: t('snapshot.showcase.copied'),
     screenshotMissing: t('snapshot.showcase.screenshotMissing'),
