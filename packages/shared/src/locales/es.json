@@ -315,7 +315,7 @@
       "solo": {
         "label": "1 dispositivo",
         "name": "Solo",
-        "description": "Para el desarrollador individual. Una licencia, una máquina, todo desbloqueado.",
+        "description": "Para el usuario individual. Una licencia, una máquina, todo desbloqueado.",
         "freq": "pago único · 1 dispositivo",
         "cta": "Obtener Solo — ${{price}}",
         "ctaNote": "un pago, reembolso de {{days}} días",

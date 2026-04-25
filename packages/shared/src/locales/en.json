@@ -315,7 +315,7 @@
       "solo": {
         "label": "1 device",
         "name": "Solo",
-        "description": "For the individual developer. One license, one machine, everything unlocked.",
+        "description": "For the individual user. One license, one machine, everything unlocked.",
         "freq": "one-time · 1 device",
         "cta": "Get Solo — ${{price}}",
         "ctaNote": "one payment, {{days}}-day refund",
