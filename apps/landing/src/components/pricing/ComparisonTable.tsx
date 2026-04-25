@@ -65,14 +65,14 @@ function buildGroups(t: TFn): GroupDef[] {
           team: String(pricingConfig.plans.team.devices),
           solo: '1'
         },
-        { key: 'updates', free: false, team: true, solo: true },
+        { key: 'updates', free: true, team: true, solo: true },
         {
           key: 'support',
           free: t('pricing.compare.values.community'),
           team: t('pricing.compare.values.email'),
           solo: t('pricing.compare.values.email')
         },
-        { key: 'commercial', free: false, team: true, solo: true }
+        { key: 'commercial', free: true, team: true, solo: true }
       ]
     }
   ]
