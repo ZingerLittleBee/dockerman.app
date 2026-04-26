@@ -5,256 +5,74 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 [![Version](https://img.shields.io/badge/version-v5.2.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.2.0)
 [![Release Date](https://img.shields.io/badge/release%20date-Apr%2026%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.2.0)
 
-一个现代、轻量级的 Docker 管理界面，使用 Tauri 和 Rust 构建。
-专注于简洁性和性能的 Docker 容器管理工具。
+一个原生桌面端 Docker **与** Kubernetes 管理工具，基于 Tauri + Rust。启动快、占用低、完全本地运行——数据不出本机。
 
-- 🚀 快速启动，资源占用极低
-- 💻 基于 Tauri 的强大性能
-- 🎯 简洁、专注的界面设计
-- 📊 实时容器监控
-- 🔒 本地运行，安全可靠
-- 🌙 全面的深色模式支持
-- 🌐 国际化 (i18n) 支持
-
-![Dashboard Screenshot](apps/landing/public/screenshots/readme/dashboard.png)
+![Dashboard](apps/landing/public/screenshots/readme/dashboard.png)
 ![Kubernetes](apps/landing/public/screenshots/readme/k8s.png)
-![Dashboard Dark Screenshot](apps/landing/public/screenshots/readme/dark.png)
-![Terminal Screenshot](apps/landing/public/screenshots/readme/terminal.png)
-![Process List Screenshot](apps/landing/public/screenshots/readme/process.png)
-![inspect Screenshot](apps/landing/public/screenshots/readme/inspect.png)
-![stats Screenshot](apps/landing/public/screenshots/readme/stats.png)
-![logs Screenshot](apps/landing/public/screenshots/readme/logs.png)
-![ssh Screenshot](apps/landing/public/screenshots/readme/ssh.png)
-![build Screenshot](apps/landing/public/screenshots/readme/build-log.png)
-![build History Screenshot](apps/landing/public/screenshots/readme/build-log-history.png)
-![file system](apps/landing/public/screenshots/readme/file.png)
-![file preview](apps/landing/public/screenshots/readme/file-preview.png)
-![Termin Settings](apps/landing/public/screenshots/readme/terminal-settings.png)
-![Image Analysis](apps/landing/public/screenshots/readme/image-analysis.png)
-![Compose Screenshot](apps/landing/public/screenshots/readme/compose.png)
-![Event Screenshot](apps/landing/public/screenshots/readme/event.png)
-![Volume Browse Screenshot](apps/landing/public/screenshots/readme/volume-browse.png)
-![Storage Screenshot](apps/landing/public/screenshots/readme/storage.png)
-![Command Palette](apps/landing/public/screenshots/readme/cmd.png)
-![Docker Hub](apps/landing/public/screenshots/readme/dockerhub.png)
-![Image Security](apps/landing/public/screenshots/readme/image-security.png)
 
-## 功能特性
+## 亮点
 
-### Kubernetes 管理
+- 🐳 **容器与镜像** — 全生命周期、Compose 支持、备份与恢复（含绑定挂载）、镜像升级检测
+- ☸️ **Kubernetes** — 多集群、主流资源、Helm、端口转发、带 dry-run 的 YAML 编辑器
+- 🖥️ **内置工具** — 终端、带搜索的日志查看器、CPU/内存历史、可编辑文件浏览器
+- 🔔 **镜像升级监控** — 后台订阅服务，更新时桌面通知
+- ☁️ **Cloudflared 隧道** — 一键生成公网 URL，自动清理
+- 🐙 **Podman 与 WSL2 引擎** — Docker Desktop 的一流替代方案
+- 🌐 多语言：English、中文、日本語、Español，全面深色模式
 
-- ☸️ 与 Docker 并行的完整 Kubernetes 管理
-- 🚀 通过 kubeconfig 连接集群或使用 k3d 创建本地集群（自动安装）
-- 🔀 多集群切换，与 Docker 主机相互独立
-- 📦 工作负载：Deployments、StatefulSets、DaemonSets、Jobs、CronJobs、ReplicaSets、Pods
-- 🌐 网络：Services、Ingresses、Endpoints、NetworkPolicies
-- 🔧 配置与存储：ConfigMaps、Secrets、PVCs、StorageClasses
-- 🔐 RBAC：Roles、ClusterRoles、Bindings、ServiceAccounts
-- 🧩 自定义资源定义（CRDs）浏览和实例管理
-- 📝 内置 YAML 编辑器，支持深层链接和 dry-run 预览
-- 🖥️ 节点、持久卷、命名空间专属管理页
-- 📣 可过滤的集群事件浏览
-- ⎈ Helm 支持：releases、仓库、chart 搜索和安装
-- 🔗 Pods、Services 和 Deployments 端口转发，支持本地域名映射
-- 🌍 转发服务自动本地 DNS 注册
-- 🛠️ 调试助手，诊断 Pod 和集群问题
-- 🧭 资源层级面包屑导航
-- 📊 集群概览页 CPU 与内存使用卡片
-- 💥 卡死 Pod 强制删除
-- 🛡️ 类型化 403 处理，列表视图显式呈现权限错误
+## 容器与镜像
 
-### Cloudflared 隧道
+无需切到命令行即可完成全部操作：
 
-- ☁️ 一键将本地容器端口暴露到互联网
-- 📋 侧边栏专用隧道列表，支持批量操作
-- 🔄 容器停止/销毁时自动清理隧道
-- 💾 崩溃后持久化隧道恢复
+- 按 Compose 项目分组或平铺浏览容器；按名称、端口、状态快速过滤
+- 用引导式表单创建，或粘贴 `docker run` 命令——并在内置编辑器中转换为 Compose YAML
+- 实时日志，支持关键词/正则搜索与大小写切换；CPU/内存历史曲线，最多 6 容器并列对比
+- 可定制主题的终端、进程列表，文件浏览器支持就地编辑、预览（文本/代码/图片/PDF/视频）以及文件夹上传下载
+- 整体备份与恢复——配置、文件系统、卷以及支持的绑定挂载
+- 镜像构建（Dockerfile 或解析命令）、推送到私有仓库、Docker Hub 搜索、Trivy 安全扫描、按层大小分析
+- 后台镜像升级监控，支持按通道订阅、仓库凭证解析与 `dockerman://` 深链
 
-### Podman 支持
+![容器日志](apps/landing/public/screenshots/readme/logs.png)
+![镜像分析](apps/landing/public/screenshots/readme/image-analysis.png)
 
-- 🐙 与 Docker 并行的一流 Podman 运行时支持
-- 🔍 通过 API 探测自动检测运行时类型
-- ⚙️ 每主机和全局运行时偏好选择器（自动 / Docker / Podman）
-- 🔌 Linux 和 macOS 上自动发现 Podman rootless/rootful socket
-- 🏷️ 侧边栏主机切换器显示运行时类型彩色徽章
-- 🚫 Podman 运行时自动隐藏 Compose 相关操作
-- 🧩 可扩展的运行时能力系统，支持功能门控
+## Kubernetes
 
-### 镜像升级检测
+提供与 `kubectl` 相当的能力，但完全可视化：
 
-- 🔄 自动检测容器镜像是否有可用更新
-- 🏷️ 容器列表上的升级徽章，基于摘要比对
-- 🖱️ 一键升级，拉取镜像并重建容器
-- 🔁 一键回滚，升级前自动备份
-- 🔔 后台镜像升级监控订阅服务，含订阅页面与通知
-- 🔗 `dockerman://` 深链处理升级提醒
+- 通过 kubeconfig 连接，或一键创建本地 k3d 集群（自动安装）；多集群切换与 Docker 主机相互独立
+- 工作负载、网络、配置与存储、RBAC、CRDs——以及节点、持久卷、命名空间专属页面
+- 可过滤的集群事件浏览，集群概览页 CPU 与内存卡片
+- 内置 YAML 编辑器，支持深层链接路由与服务端 dry-run 预览
+- Helm releases、仓库与 chart 安装
+- Pods/Services/Deployments 端口转发，转发服务自动本地 DNS 注册
+- 调试助手定位 Pod 异常；卡死 Pod 强制删除
+- 类型化 403 处理，列表层面显式呈现权限错误
 
-### 仪表盘概览
+## 不止 Docker
 
-- 📊 容器和镜像统计一目了然
-- 💾 镜像总大小监控
-- 🔄 实时容器状态更新
-- 📈 资源使用可视化
-- 🖥️ 系统信息展示（Docker 版本、操作系统、架构、资源限制）
-- ⚡ 并行化容器统计查询，仪表盘加载更快
+- **Cloudflared 隧道** — 一键暴露任意容器端口；容器停止/销毁自动清理，崩溃后可恢复
+- **Podman** — 自动检测运行时，支持按主机偏好与 Compose 类操作的功能门控
+- **Windows WSL2 引擎** — 无需 Docker Desktop；Alpine 一键安装，自动崩溃恢复，支持镜像源
+- **远程守护进程** — 自定义 socket、TCP 或 SSH 转发，心跳重连与每主机延迟显示
 
-### 存储
+## 运维与体验
 
-- 💾 Docker 磁盘用量分布（镜像、容器、卷、构建缓存），支持交互式图表
-- 🧹 一键系统清理
+- 🚨 预置告警规则（restart loop、容器崩溃）以及包含容器/时间/规则名称的近期告警列表
+- 🧰 一键诊断包（日志、inspect、主机状态），便于上报排障
+- 📝 可视化 `.env` 编辑器，保留注释并原子化应用
+- 🔍 全局命令面板（Cmd/Ctrl+;）与系统托盘实时显示 CPU/内存
+- 🔐 私有仓库凭证管理，拉取时自动匹配
+- 🔑 远程主机功能的许可证激活
 
-### 容器管理
+## 为什么够快
 
-- 📊 容器信息仪表盘，环境变量、挂载点和资源限制显示在独立面板中
-- ❤️ 健康检查状态与 CPU 和内存并排显示
-- 🔌 容器端口列，多端口时弹出下拉框
-- 📋 详细的容器列表，带状态指示器
-- 🔍 容器列表支持快速搜索，实时过滤并可一键清除（支持按端口号、协议和端口映射搜索）
-- 🖼️ 容器创建对话框支持可搜索的镜像组合框
-- 🐳 Docker Compose 视图
-  - 支持平铺列表和按 Compose 项目分组视图切换
-  - Compose 项目卡片，显示状态指示器和运行中的容器数量
-  - 可折叠的独立容器区域，用于非 Compose 容器
-  - 完整的 Compose 生命周期管理（启动、停止、重启、拉取、删除）
-  - 支持所有 Docker Compose CLI 选项（file、env-file、profile、progress、dry-run）
-  - 基于 Monaco 的 Compose YAML 编辑器，后端命令应用变更
-  - Docker Run → Compose 转换器，提供专属页面与菜单入口
-- 🐳 容器创建对话框，支持双输入模式
-  - 表单配置，引导式设置
-  - Docker 命令输入模式，支持解析
-  - Docker Run 命令导入和解析，增强 UI 集成
-- ⏸️ 容器暂停/恢复，支持三态菜单
-- 📦 容器提交，将容器状态保存为新镜像
-- 🐑 容器克隆，将配置复制到创建对话框
-- 💾 容器备份与恢复，完整归档配置、文件系统、卷与绑定挂载
-- 🔍 容器详情检查
-  - 端口映射
-  - 网络设置
-  - 挂载点
-  - 容器标签
-- 📊 资源监控，全新设计的统计页面
-  - 环形仪表盘显示 CPU 和内存使用率
-  - 迷你图表展示 CPU、内存、网络 I/O 和磁盘 I/O
-  - 七档时间范围 CPU/内存历史曲线
-  - 多容器统计对比（最多 6 个容器并列）
-  - 可折叠详情面板查看网络接口和磁盘设备
-  - 图表悬停提示显示格式化数值
-- 💻 集成终端访问
-  - 终端主题选择器，支持颜色主题自定义
-  - 可配置默认 shell 和用户
-- 📝 进程列表查看
-- 📋 统一日志查看器，Docker 容器和 Kubernetes Pods 共享
-- 📜 实时日志查看器
-  - 虚拟化日志列表，支持跟踪/暂停和加载更多历史
-  - 日志搜索：关键词高亮、正则、区分大小写切换、匹配项导航
-  - 统一日志工具栏：时间范围预设、tail 行数、查询过滤
-  - 导出日志为 TXT/JSON，复制过滤结果
-  - 日志最新优先排序，与事件页面保持一致
-  - 键盘快捷键（`P` 暂停、`/` 搜索、`g` 最新、`G` 最旧），带页面提示
-- 📂 容器文件浏览器
-  - 动态加载的文件树导航
-  - 文件夹上传和下载支持
-  - 单文件上传和下载，保留文件权限
-  - 符号链接支持和大目录分页
-  - 文件/文件夹操作的右键菜单
-  - 文件预览，支持文本、代码、图片、Markdown、PDF、视频和音频
-  - 就地编辑，支持语法高亮
-  - 右键菜单删除文件和文件夹
-  - 多选批量下载、删除和复制路径
+基于 Tauri + Rust 构建的原生桌面应用——不是 Electron，也不是浏览器标签页。完全本地运行，无遥测，核心功能不依赖远程服务。
 
-### Docker 事件
+## 更多截图
 
-- 🔔 实时 Docker 事件监听
-- 🔔 容器异常事件桌面通知（非零退出码、OOM 终止、健康检查失败）
-- 🔍 全面的事件过滤和搜索
-- 📋 JSON 详情对话框，用于检查事件数据
-- ⚡ 操作按钮，支持复制 JSON 和删除选项
-- ⌨️ 键盘快捷键（`P` 暂停、`/` 搜索、`g` 最新、`G` 最旧），带页面提示
-
-### 模板管理
-
-- 🧩 Stack 模板支持，包含迁移、UI 和 API 集成
-
-### 镜像管理
-
-- 📦 镜像列表，包含大小和标签信息
-- 🗑️ 批量操作：镜像、网络、卷的多选批量删除
-- 🏗️ 镜像构建
-  - 从 Dockerfile 构建
-  - 支持构建参数和标签
-  - 实时构建日志流
-  - 历史日志回放
-  - Docker 构建命令生成和解析功能
-  - 从构建历史中重建，自动填充参数
-  - 无需重新配置即可重试失败的构建
-- 🚀 镜像推送到仓库，支持流式进度和凭证管理
-- 🔍 Docker Hub 浏览器，支持镜像搜索、详情、README 和标签
-- 🛡️ Trivy 安全扫描，支持漏洞过滤和查看
-- 📉 镜像大小分析
-  - 详细的镜像层大小拆解分析
-  - 交互式的大小分布条，通过颜色块可视化各层比例
-  - 支持展开/收起查看完整的 Dockerfile 构建命令
-  - 可折叠的分布面板，支持紧凑视图
-  - 导出层分析为 JSON 或复制到剪贴板
-- 🐳 大型镜像导出/导入使用流式 I/O
-- 🕒 创建时间追踪
-- 🔍 详细的镜像检查
-- 📊 使用统计
-  - 总数统计
-  - 大小分析
-  - 使用追踪
-
-### 网络管理
-
-- 🔍 网络列表支持快速搜索（名称、ID、驱动、状态）
-
-### 卷管理
-
-- 📂 卷文件浏览器，支持上传和下载
-- 🔍 卷列表支持快速搜索，实时过滤并可一键清除
-
-### 告警与诊断
-
-- 🚨 内置 restart-loop 与容器崩溃告警规则，带删除保护与恢复默认
-- 📋 近期告警列表，显示容器、本地时间与规则名称
-- 🧰 一键诊断包，打包日志、inspect 与主机状态
-- 📝 .env 可视化编辑器，支持键值编辑、注释保留与原子 Save & Apply
-- 🗄️ 系统任务管理，包含调度器快照与对内置任务的锁定控制
-
-### 应用日志查看器
-
-- 📋 自定义 HTML 日志查看器，支持关键词搜索、级别过滤、详情对话框和导出功能
-
-### 命令面板与系统托盘
-
-- 🔍 全局命令面板（Cmd+; / Ctrl+;），快速访问容器、镜像、Compose 项目、网络和卷
-- 🖥️ 系统托盘图标，显示连接状态、资源统计和快捷操作
-- 📊 可选的实时 CPU 和内存统计，直接显示在 macOS 菜单栏
-- 🙈 macOS 上关闭主窗口时 Dock 图标自动隐藏
-- ⌨️ 可配置的全局键盘快捷键，用于呼出命令面板
-
-### 系统集成
-
-- ⌨️ Wayland 全局键盘快捷键支持（通过 XDG Desktop Portal）
-- 🔌 原生 Docker 守护进程连接
-  - 自定义 Docker socket 路径支持
-  - TCP 连接支持，连接远程 Docker 守护进程
-  - SSH socket 转发，支持远程连接
-  - SSH 隧道故障心跳检测与自动重连
-- 🪟 WSL2 Docker 引擎（无需 Docker Desktop）
-  - 一键安装向导，使用 Alpine 发行版
-  - 自动崩溃恢复与退避策略
-  - WSL2 发行版资源监控
-  - 守护进程配置编辑器，支持镜像源配置
-  - Docker Desktop 与 WSL2 引擎切换
-- 🔑 许可证激活与管理，远程主机功能需许可证授权
-  - 📡 主机延迟显示，支持 ICMP ping 和一键刷新
-  - 🗑️ 主机移除，带确认对话框
-- 🔐 私有仓库凭证管理，拉取镜像时自动匹配
-- 🛡️ 错误边界，组件异常时显示恢复界面而非白屏
-- 📁 侧边栏可折叠分区，带容器数量徽章
-- ⚙️ 工作区式设置对话框，面板扁平化、侧边栏精简
-- 👁️ 主侧边栏逐项可见性控制，Kubernetes 侧边栏支持分组默认展开状态
-- 🧱 标准化数据表格模式，K8s 列表统一支持列宽缩放、列宽持久化、全局搜索
-- 🚀 轻量快速的性能
-- 💻 跨平台桌面应用
+![Compose 视图](apps/landing/public/screenshots/readme/compose.png)
+![终端](apps/landing/public/screenshots/readme/terminal.png)
+![文件浏览](apps/landing/public/screenshots/readme/file.png)
+![命令面板](apps/landing/public/screenshots/readme/cmd.png)
+![统计](apps/landing/public/screenshots/readme/stats.png)
+![存储](apps/landing/public/screenshots/readme/storage.png)
