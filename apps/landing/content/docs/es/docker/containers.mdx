@@ -125,7 +125,7 @@ Respalda un contenedor cuando quieras guardar su configuración, su sistema de a
 
 ### Qué contiene un respaldo
 
-El archivo incluye un manifiesto, la configuración del contenedor, la instantánea del sistema de archivos y cualquier volumen adjunto.
+El archivo incluye un manifiesto, la configuración del contenedor, la instantánea del sistema de archivos, los volúmenes adjuntos y los datos de bind mount soportados.
 
 <Files>
   <Folder name="backup-<name>-<timestamp>.tar.gz" defaultOpen>
@@ -135,8 +135,23 @@ El archivo incluye un manifiesto, la configuración del contenedor, la instantá
     <Folder name="volumes">
       <File name="<volume-name>.tar" />
     </Folder>
+    <Folder name="bind-mounts">
+      <File name="<mount-id>.tar" />
+    </Folder>
   </Folder>
 </Files>
+
+### Soporte para bind mounts
+
+El respaldo incluye los datos de los bind mounts soportados, para que puedas mover los archivos del lado del host de un contenedor junto con todo lo demás.
+
+- Cada bind mount se captura como su propia entrada de archivo, junto con los archivos de volúmenes.
+- Durante la restauración, puedes **remapear cada montaje a una nueva ruta del host** u omitirlo por completo. La ruta original del montaje se muestra como referencia.
+- Los bind mounts de solo lectura y los montajes cuya ruta del host no es legible se omiten con una nota en el manifiesto.
+
+<Callout type="info">
+  Los bind mounts que apuntan a rutas del sistema (por ejemplo `/var/run/docker.sock`, `/proc`, `/sys`) se excluyen intencionalmente — pertenecen al host, no al contenedor.
+</Callout>
 
 ### Crear un respaldo
 
@@ -201,6 +216,14 @@ El archivo incluye un manifiesto, la configuración del contenedor, la instantá
 - Los respaldos de contenedores grandes escalan con el tamaño del volumen, así que espera que el archivo crezca con la cantidad de datos adjuntos.
 - Para mover un contenedor entre hosts, crea el respaldo en el host de origen, copia el `.tar.gz`, luego restáuralo en el host de destino.
 - Los respaldos no incluyen definiciones de red. Asegúrate de que el host de destino tenga redes coincidentes, o deja que Dockerman las recree.
+
+## Editor visual de `.env`
+
+Edita las variables de entorno en una tabla clave/valor en lugar de abrir `.env` en un editor de texto. Ábrelo desde el menú de acciones del contenedor (o el menú del proyecto Compose cuando el stack tiene un archivo `.env`) y Dockerman aplica el cambio a los servicios en ejecución por ti.
+
+- **Preservación de comentarios y líneas en blanco** — los comentarios y el espaciado del archivo original sobreviven al ciclo de guardado; el editor solo reescribe las filas que cambias.
+- **Guardar y aplicar atómico** — un único botón escribe el archivo y recrea los servicios afectados, así no tienes que recordar volver a ejecutar `docker compose up -d`.
+- **Entrada de tipo seguro** — los valores entrecomillados, los escapes y los valores multilínea se analizan correctamente.
 
 ## Operaciones por lotes
 

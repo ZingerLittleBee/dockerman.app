@@ -1,0 +1,45 @@
+---
+title: Eventos
+description: Explora los eventos del clúster con filtros por namespace, tipo, razón y objeto involucrado.
+---
+
+El navegador de Eventos es una página dedicada para triar eventos de Kubernetes sin tener que limitarte primero a un recurso específico.
+
+## Qué hay en la página
+
+La lista de eventos muestra cada evento que el servidor de la API está exponiendo actualmente para el clúster conectado, ordenados por hora de última aparición. Cada fila incluye:
+
+| Columna | Descripción |
+| --- | --- |
+| Última vez visto | Tiempo relativo desde la ocurrencia más reciente |
+| Tipo | `Normal` o `Warning` |
+| Razón | El código corto de razón, por ejemplo `FailedScheduling`, `BackOff`, `Pulled` |
+| Objeto | El objeto involucrado (kind/name) — haz clic para ir a su página de detalle |
+| Fuente | Componente o nodo que emitió el evento |
+| Conteo | Número de veces que se ha disparado este evento |
+| Mensaje | Explicación legible |
+
+## Filtros
+
+Usa la barra de filtros en la parte superior para acotar la lista:
+
+- **Namespace** — limita a un solo namespace o ve todo el clúster.
+- **Tipo** — muestra solo eventos `Warning` al triar, o `Normal` para confirmar una acción exitosa.
+- **Razón** — elige de una lista dinámica de razones presentes en los datos actuales.
+- **Objeto** — busca por kind o nombre para enfocarte en una carga de trabajo.
+
+El estado de los filtros es local a la página; al cambiar de página o de clúster se reinicia.
+
+## Actualizaciones en vivo
+
+Los eventos llegan en streaming a medida que el servidor de la API los emite. Las nuevas filas aparecen en la parte superior y las existentes actualizan su `Conteo` y `Última vez visto` en su lugar, para que puedas dejar la página abierta mientras reproduces un problema.
+
+## Panel de detalle
+
+Haz clic en una fila para abrir el panel de detalle con el payload completo del evento — útil cuando necesitas el UID del `Pod` de origen, la ruta del subobjeto del controlador o los valores `firstTimestamp`/`lastTimestamp` en bruto.
+
+## Consejos
+
+- Filtra a `Warning` y al namespace afectado justo después de un despliegue para detectar rápidamente fallos del scheduler, descarga de imágenes o montaje de volúmenes.
+- La página de resumen del clúster también muestra los eventos más recientes; usa esta página cuando necesites búsqueda histórica en todo el clúster.
+- El servidor de la API desaloja los eventos según su propio calendario. Si no ves el evento que esperabas, el clúster ya lo ha descartado.

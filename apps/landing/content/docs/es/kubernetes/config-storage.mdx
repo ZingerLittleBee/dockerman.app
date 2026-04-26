@@ -27,6 +27,26 @@ Los valores binarios de secretos se pueden descargar a un archivo local. Elimina
 
 Usa PersistentVolumeClaims para ver la fase, el PersistentVolume vinculado, la clase de almacenamiento, los modos de acceso y la capacidad de cada reclamación. Elimina un PVC desde la lista cuando la reclamación esté liberada y ya no sea necesaria.
 
+## PersistentVolumes
+
+Los PersistentVolumes tienen su propia página dedicada además de la vista por reclamación anterior. Úsala cuando necesites revisar el almacenamiento con ámbito de clúster de forma independiente de cualquier namespace.
+
+| Columna | Descripción |
+| --- | --- |
+| Nombre | El nombre del PV |
+| Capacidad | Capacidad total |
+| Modos de acceso | `RWO`, `ROX`, `RWX` o `RWOP` |
+| Política de reclamación | `Retain`, `Delete` o `Recycle` |
+| Estado | `Available`, `Bound`, `Released` o `Failed` |
+| Claim | El PVC `namespace/name` vinculado, si existe |
+| StorageClass | La clase que provisionó el volumen |
+
+Abre un PV para ver su especificación completa, incluyendo la fuente de volumen subyacente (driver CSI, hostPath, NFS, etc.).
+
 ## StorageClasses
 
 Usa StorageClasses para inspeccionar las opciones de almacenamiento del clúster, incluyendo el provisionador, la política de reclamación, el modo de vinculación de volúmenes y el marcador de clase predeterminada.
+
+## Namespaces
+
+La página de Namespaces lista cada namespace con su fase y antigüedad, te permite crear un nuevo namespace en línea y eliminar uno (con la advertencia de cascada que devuelve la API). El selector de namespace de la barra lateral se sincroniza con esta página, por lo que las actualizaciones aquí se reflejan globalmente.

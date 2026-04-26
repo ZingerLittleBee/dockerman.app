@@ -20,9 +20,9 @@ Dockerman 是**桌面优先和本地优先**的。它不会部署管理容器，
     连接 [Telegram、ntfy、Gotify、Discord 或通用 webhook](/zh/docs/homelab/notifications)，让 Dockerman 在你离开时也能联系到你。
   </Step>
   <Step>
-    ### 创建告警规则
+    ### 启用预设告警规则（或编写自定义规则）
 
-    定义[告警规则](/zh/docs/homelab/alerts)，例如"当任何容器以非零代码退出时通知我"或"当 CPU 持续 5 分钟高于 90% 时告警"。
+    两条规则 — *Restart loop* 和 *Container crash (non-zero exit)* — 已预配置但默认禁用。一键即可启用，或添加更多[告警规则](/zh/docs/homelab/alerts)以处理资源阈值或按 stack 限定范围。
   </Step>
   <Step>
     ### 订阅镜像更新
@@ -32,7 +32,7 @@ Dockerman 是**桌面优先和本地优先**的。它不会部署管理容器，
   <Step>
     ### 诊断和修复
 
-    当出现问题时，一键生成[诊断包](/zh/docs/homelab/diagnostic-bundle)，在[内置编辑器](/zh/docs/docker/compose#编辑-composeyaml)中编辑 Compose YAML，然后应用修复。
+    当出现问题时，一键生成[诊断包](/zh/docs/homelab/diagnostic-bundle)，在[内置编辑器](/zh/docs/docker/compose#编辑-composeyaml)或 [.env 编辑器](/zh/docs/docker/containers#可视化-env-编辑器)中编辑，然后应用修复。
   </Step>
 </Steps>
 

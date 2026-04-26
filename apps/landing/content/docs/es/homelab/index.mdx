@@ -20,9 +20,9 @@ Dockerman es **desktop-first y local-first**. No despliega un contenedor de gest
     Conecta [Telegram, ntfy, Gotify, Discord o un webhook genérico](/es/docs/homelab/notifications) para que Dockerman pueda contactarte cuando estés ausente.
   </Step>
   <Step>
-    ### Crea reglas de alerta
+    ### Habilita las reglas de alerta preestablecidas (o escribe las tuyas)
 
-    Define [reglas de alerta](/es/docs/homelab/alerts) como "notifícame cuando cualquier contenedor salga con un código distinto de cero" o "alerta cuando el CPU permanezca por encima del 90% durante 5 minutos".
+    Dos reglas — *Restart loop* y *Container crash (non-zero exit)* — vienen preconfiguradas pero deshabilitadas. Habilítalas con un clic, o agrega más [reglas de alerta](/es/docs/homelab/alerts) para umbrales de recursos o ámbito por stack.
   </Step>
   <Step>
     ### Suscríbete a actualizaciones de imágenes
@@ -32,7 +32,7 @@ Dockerman es **desktop-first y local-first**. No despliega un contenedor de gest
   <Step>
     ### Diagnostica y soluciona
 
-    Cuando algo se rompe, genera un [paquete de diagnóstico](/es/docs/homelab/diagnostic-bundle) con un clic, edita el YAML de Compose en el [editor integrado](/es/docs/docker/compose#editar-composeyaml) y aplica la solución.
+    Cuando algo se rompe, genera un [paquete de diagnóstico](/es/docs/homelab/diagnostic-bundle) con un clic, edita el YAML de Compose en el [editor integrado](/es/docs/docker/compose#editar-composeyaml) o el [editor de .env](/es/docs/docker/containers#editor-visual-de-env) y aplica la solución.
   </Step>
 </Steps>
 

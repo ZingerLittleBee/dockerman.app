@@ -11,6 +11,14 @@ Abre un Pod para ver su estado, el número de contenedores listos, reinicios y a
 
 Elimina un Pod desde la vista de lista cuando necesites forzar un reinicio o eliminar un pod atascado.
 
+### Eliminación forzada
+
+Usa **Eliminación forzada** cuando un Pod está atascado en `Terminating` porque su nodo es inalcanzable o un finalizer está bloqueando la eliminación. La eliminación forzada envía `gracePeriodSeconds: 0`, omitiendo el apagado ordenado.
+
+<Callout type="warn">
+  La eliminación forzada quita el Pod de la API inmediatamente sin esperar la confirmación de kubelet. Si el contenedor subyacente sigue ejecutándose en el nodo, puedes acabar con procesos huérfanos — úsalo solo cuando la eliminación normal esté bloqueada.
+</Callout>
+
 ## Deployments
 
 Usa Deployments cuando quieras gestión de réplicas en un solo lugar.
@@ -56,4 +64,12 @@ Los ReplicaSets suelen estar bajo un Deployment. Ábrelo cuando necesites inspec
 
 ## Editar cargas de trabajo con YAML
 
-Abre el botón Editar YAML en cualquier carga de trabajo cuando necesites editar el objeto completo en Monaco. Dockerman utiliza el esquema de Kubernetes para autocompletar y ejecuta la guarda en modo de prueba para que el YAML inválido sea rechazado antes de llegar al servidor de la API.
+Abre el botón Editar YAML en cualquier carga de trabajo cuando necesites editar el objeto completo en Monaco. Dockerman utiliza el esquema de Kubernetes para autocompletar y **ejecuta el guardado en modo de prueba contra el servidor de la API**, de modo que un YAML inválido — o un YAML que sería rechazado por un admission controller — se detecta antes de aplicarse.
+
+### Vista previa con dry-run
+
+Haz clic en **Vista previa de cambios** en el editor YAML para ejecutar un dry-run en el servidor y mostrar un diff entre el objeto renderizado y el actual. El diff resalta adiciones, eliminaciones y modificaciones de campos para que puedas detectar ediciones no deseadas antes de aplicarlas.
+
+## Acciones de eliminación
+
+La eliminación en línea está disponible para Services, Ingresses, CronJobs, DaemonSets, Deployments, StatefulSets y NetworkPolicies, además de Pod, Job, ConfigMap y Secret. La eliminación de un Job se propaga en cascada a sus Pods asociados tras una confirmación localizada.

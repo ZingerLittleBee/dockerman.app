@@ -27,6 +27,26 @@ description: "管理 ConfigMaps、Secrets、PersistentVolumeClaims 和 StorageCl
 
 使用 PersistentVolumeClaims 查看每个声明的阶段、绑定的 PersistentVolume、存储类、访问模式和容量。当声明已释放且不再需要时，可以从列表中删除 PVC。
 
+## PersistentVolumes
+
+除了上文的按声明视图外，PersistentVolume 也有专属页面。当你需要独立于命名空间查看集群范围的存储时使用。
+
+| 列 | 描述 |
+| --- | --- |
+| Name | PV 名称 |
+| Capacity | 总容量 |
+| Access modes | `RWO`、`ROX`、`RWX` 或 `RWOP` |
+| Reclaim policy | `Retain`、`Delete` 或 `Recycle` |
+| Status | `Available`、`Bound`、`Released` 或 `Failed` |
+| Claim | 绑定的 `namespace/name` PVC（如果有） |
+| StorageClass | 配置该卷的存储类 |
+
+打开 PV 可查看其完整规格，包括底层卷源（CSI driver、hostPath、NFS 等）。
+
 ## StorageClasses
 
 使用 StorageClasses 检查集群的存储选项，包括供应程序、回收策略、卷绑定模式和默认类标记。
+
+## Namespaces
+
+Namespaces 页面列出所有命名空间及其阶段和创建时长，允许你内联创建新命名空间，并删除已有命名空间（带 API 返回的级联警告）。侧边栏的命名空间选择器会与此页面同步，因此这里的刷新会全局生效。

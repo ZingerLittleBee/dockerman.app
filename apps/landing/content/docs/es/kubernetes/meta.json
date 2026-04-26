@@ -10,6 +10,7 @@
     "custom-resources",
     "helm",
     "port-forward",
+    "events",
     "debug",
     "logs-terminal"
   ],

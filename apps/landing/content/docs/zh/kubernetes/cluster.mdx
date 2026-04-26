@@ -49,7 +49,7 @@ description: "启动本地 k3d 集群或导入已有 kubeconfig 来管理任何 
   <Step>
     ### 选择 kubeconfig 文件
 
-    Dockerman 会读取该文件，如果文件中包含多个上下文，则允许你选择一个。
+    Dockerman 会解析该文件并**自动检测其中的所有上下文**。选择你想导入的上下文，Dockerman 会为你预填集群名称、服务器 URL 以及用户绑定。
   </Step>
   <Step>
     ### 验证连接
@@ -58,9 +58,13 @@ description: "启动本地 k3d 集群或导入已有 kubeconfig 来管理任何 
   </Step>
 </Steps>
 
-## 切换上下文
+## 切换集群
 
-使用 Kubernetes 分区顶部的上下文下拉菜单，在导入的集群和本地 k3d 集群之间切换。切换上下文会重新加载所选集群的列表。
+使用 Kubernetes 分区顶部的集群切换器，在导入的集群和任意本地 k3d 集群之间移动。
+
+- 集群选择**独立于活动的 Docker 主机**。切换到不同的 K8s 上下文不会影响你的 Docker 连接，反之亦然。
+- 切换到包含相同资源的集群时，**当前 Kubernetes 页面会被保留**；命名空间选择器会与新集群同步。
+- 应用重启后，Dockerman 会**重新连接到上次的集群**，并恢复诸如 YAML 编辑器或正在查看的 CRD 实例之类的深层页面。
 
 ## 删除集群
 
@@ -76,3 +80,15 @@ description: "启动本地 k3d 集群或导入已有 kubeconfig 来管理任何 
 ## 集群版本和状态
 
 集群页面显示服务器版本、当前状态和节点列表，包括每个节点的 kubelet 和 kube-proxy 版本，因此你可以一目了然地发现版本漂移或连接中断。
+
+## Nodes、PersistentVolumes 和 Namespaces
+
+这几项资源在 Kubernetes 分区下都有独立的应用内页面。可从 K8s 侧边栏进入：
+
+- **Nodes** — 节点列表，包含状态、容量、可分配资源和标签。打开节点可查看 kubelet/kube-proxy 版本、容器运行时以及调度到该节点上的 Pod。
+- **PersistentVolumes** — 集群范围的 PV 列表，包含阶段、绑定的声明、回收策略和容量。完整参考请参阅[配置与存储 → PersistentVolumes](/zh/docs/kubernetes/config-storage#persistentvolumes)。
+- **Namespaces** — 直接创建、删除和检查命名空间。侧边栏的命名空间选择器会与此页面同步。
+
+## 集群事件
+
+打开专门的[事件](/zh/docs/kubernetes/events)浏览器，按命名空间、类型（Normal/Warning）、原因和涉及对象进行筛选。在无需先定位到具体资源的情况下排查问题非常有用。

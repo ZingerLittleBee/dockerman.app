@@ -20,9 +20,9 @@ Dockermanは**デスクトップファーストかつローカルファースト
     [Telegram、ntfy、Gotify、Discord、または汎用webhook](/ja/docs/homelab/notifications)を接続し、離席中でもDockermanが連絡できるようにします。
   </Step>
   <Step>
-    ### アラートルールの作成
+    ### プリセットアラートルールを有効化（または独自に作成）
 
-    「コンテナが0以外のコードで終了したときに通知する」や「CPUが5分間90%を超え続けたらアラートする」などの[アラートルール](/ja/docs/homelab/alerts)を定義します。
+    *Restart loop* と *Container crash (non-zero exit)* の 2 つのルールが事前設定されて無効状態で同梱されています。1 クリックで有効化するか、リソース閾値やスタックごとのスコープ用に[アラートルール](/ja/docs/homelab/alerts)を追加してください。
   </Step>
   <Step>
     ### イメージ更新の購読
@@ -32,7 +32,7 @@ Dockermanは**デスクトップファーストかつローカルファースト
   <Step>
     ### 診断と修正
 
-    問題が発生したときは、ワンクリックで[診断バンドル](/ja/docs/homelab/diagnostic-bundle)を生成し、[組み込みエディタ](/ja/docs/docker/compose#composeyamlの編集)でCompose YAMLを編集し、修正を適用します。
+    問題が発生したときは、ワンクリックで[診断バンドル](/ja/docs/homelab/diagnostic-bundle)を生成し、[組み込みエディタ](/ja/docs/docker/compose#composeyamlの編集)または[.env エディタ](/ja/docs/docker/containers#ビジュアル-env-エディタ)でCompose YAMLを編集し、修正を適用します。
   </Step>
 </Steps>
 

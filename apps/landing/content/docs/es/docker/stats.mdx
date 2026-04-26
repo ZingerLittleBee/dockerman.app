@@ -43,6 +43,20 @@ Los rangos en vivo muestran datos a medida que llegan del stream de estadística
 
 Expande una fila de contenedor cuando quieras desglosar el I/O de red por interfaz o el I/O de disco por dispositivo. Esto es útil cuando un contenedor tiene múltiples conexiones de red o varios bind mounts.
 
+## Comparación multi-contenedor
+
+Selecciona hasta **6 contenedores** y la página de Estadísticas renderiza gráficos de CPU y memoria lado a lado que comparten un eje de tiempo común. Úsalo para:
+
+- Confirmar que un problema está aislado a un contenedor frente a ruido a nivel de host.
+- Comparar una réplica de referencia contra una canary mientras ajustas los límites de recursos.
+- Observar cómo se alinean los servicios de un stack Compose cuando hay picos de tráfico.
+
+La selección persiste entre navegaciones de página, así que puedes profundizar en un contenedor y volver sin perder tu conjunto de comparación. El tooltip del gráfico de comparación usa relleno hacia adelante para mostrar cada serie en cada timestamp sobre el que pasas el cursor, incluso cuando las muestras de un contenedor caen fuera de la cuadrícula.
+
+<Callout type="info">
+  La comparación multi-contenedor usa el mismo almacén histórico que los gráficos de un solo contenedor, así que el selector de rango de tiempo se comporta del mismo modo.
+</Callout>
+
 ## Consejos
 
 - Picos de CPU en 1h que se aplanan en 24h suelen significar trabajo por lotes de corta duración, no una fuga de memoria.

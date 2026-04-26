@@ -3,7 +3,7 @@ title: "Resumen"
 description: "Soporte nativo de Kubernetes en Dockerman: cargas de trabajo, redes, configuración, almacenamiento, RBAC, CRDs, Helm y depuración."
 ---
 
-El soporte de Kubernetes Fase 1 de Dockerman es una forma ligera y primero-GUI de ejecutar e inspeccionar un clúster Kubernetes real sin cambiar de herramientas o aprender un nuevo panel.
+El soporte de Kubernetes de Dockerman es una forma ligera y primero-GUI de ejecutar e inspeccionar un clúster Kubernetes real sin cambiar de herramientas o aprender un nuevo panel.
 
 ## Por qué Kubernetes en Dockerman
 
@@ -13,7 +13,7 @@ Usa Dockerman cuando quieras Kubernetes en la misma aplicación que ya usas para
 
 <Cards>
   <Card title="Clúster" href="/es/docs/kubernetes/cluster">
-    Inicia clústeres k3d locales o importa kubeconfigs existentes.
+    Inicia clústeres k3d locales, importa kubeconfigs existentes y cambia entre clústeres de forma independiente de tus hosts de Docker.
   </Card>
   <Card title="Cargas de trabajo" href="/es/docs/kubernetes/workloads">
     Explora Pods, Deployments, StatefulSets, DaemonSets, Jobs, CronJobs y ReplicaSets.
@@ -22,7 +22,7 @@ Usa Dockerman cuando quieras Kubernetes en la misma aplicación que ya usas para
     Inspecciona Services, Ingresses, Endpoints y NetworkPolicies.
   </Card>
   <Card title="Configuración y almacenamiento" href="/es/docs/kubernetes/config-storage">
-    Trabaja con ConfigMaps, Secrets, PVCs y StorageClasses.
+    Trabaja con ConfigMaps, Secrets, PVCs, PersistentVolumes, StorageClasses y Namespaces.
   </Card>
   <Card title="RBAC" href="/es/docs/kubernetes/rbac">
     Ve quién puede hacer qué entre cuentas, roles y bindings.
@@ -39,11 +39,25 @@ Usa Dockerman cuando quieras Kubernetes en la misma aplicación que ya usas para
   <Card title="Recursos Personalizados" href="/es/docs/kubernetes/custom-resources">
     Descubre CRDs y explora o edita sus instancias como YAML.
   </Card>
+  <Card title="Eventos" href="/es/docs/kubernetes/events">
+    Explora los eventos del clúster con filtros por tipo, razón, objeto y namespace.
+  </Card>
 </Cards>
 
-## Panel de control
+## Panel de resumen del clúster
 
-Abre el resumen de Kubernetes para ver un resumen en vivo del clúster: conteo y estado de nodos, pods en ejecución y pendientes, deployments, services y los eventos más recientes del clúster. Usa el panel de control como punto de partida antes de profundizar en recursos específicos.
+Abre el resumen de Kubernetes para ver un resumen en vivo del clúster.
+
+- **Tarjetas de CPU y memoria** — uso a través del clúster destacado como tarjetas principales. Requiere `metrics-server` en el clúster objetivo.
+- **Conteos de cargas de trabajo** — Pods en ejecución y pendientes, Deployments, Services y otros recursos contados a través de **todos los namespaces**, no solo del activo.
+- **Estado de los nodos** — número de nodos y estado de listo de un vistazo.
+- **Eventos recientes** — los eventos más recientes del clúster, con un enlace al navegador completo de [Eventos](/es/docs/kubernetes/events).
+
+Usa el panel como punto de partida antes de profundizar en recursos específicos.
+
+## Cambio entre múltiples clústeres
+
+Dockerman rastrea el clúster Kubernetes activo **de forma independiente del host de Docker activo**. Cambiar de clúster mantiene tu página K8s actual cuando es posible, restaura páginas profundas (instancias de CRD, editor YAML) tras reiniciar la aplicación y refresca el selector de namespace para que coincida con el nuevo clúster. Reconectar a un clúster después de un reinicio restaura el último recurso visitado para que no pierdas el contexto.
 
 ## Dos formas de empezar
 
@@ -60,13 +74,27 @@ Abre el resumen de Kubernetes para ver un resumen en vivo del clúster: conteo y
 
 Usa el selector de namespaces en la barra superior para filtrar cada lista de Kubernetes. Cambia de namespace sin desconectarte del clúster, luego sigue explorando cargas de trabajo, redes, configuración y RBAC en el nuevo namespace.
 
+## Personalización de la barra lateral
+
+La barra lateral de Kubernetes está agrupada en las secciones Cargas de trabajo, Redes, Configuración y Almacenamiento, RBAC y Clúster. Dos controles te permiten adaptarla a tu flujo:
+
+- **Estado de expansión por defecto por grupo** — elige qué grupos se abren automáticamente al conectarte a un clúster, desacoplado del estado de colapso en tiempo de ejecución.
+- **Visibilidad por elemento** — oculta entradas individuales de recursos que nunca usas; el expandir/colapsar en tiempo de ejecución retoma donde lo dejaste en la próxima sesión.
+
+Edita ambos desde [Configuración → Barra lateral](/es/docs/reference/settings#controles-de-visibilidad-de-la-barra-lateral).
+
+## Errores de permisos
+
+Las listas devuelven `K8sListResult<T>` tipado, por lo que un `403 Forbidden` se muestra **en la propia lista** en lugar de hacer fallar toda la página. Ves exactamente a qué recurso le falta acceso tu contexto y puedes seguir usando el resto del clúster mientras corriges RBAC.
+
 ## Qué aún no está soportado
 
 <Callout type="info">
-  La Fase 1 se centra en los recursos anteriores. Aún no tienes disponibles estos flujos de trabajo:
+  Estos flujos de trabajo aún no están en el alcance:
 
   - Creación de clústeres fuera de k3d, como kubeadm o aprovisionamiento de servicios gestionados.
   - Horizontal pod autoscalers.
   - Gateway API más allá de Ingress.
-  - Editores visuales de CRDs, usa edición YAML en su lugar.
+  - Editores visuales de CRDs — usa edición YAML en su lugar.
+  - Editor visual de NetworkPolicy — autorízalo con YAML.
 </Callout>

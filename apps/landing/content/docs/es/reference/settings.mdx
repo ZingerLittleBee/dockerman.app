@@ -5,6 +5,20 @@ description: "Referencia de cada página de configuración de Dockerman, desde c
 
 Referencia de cada página de configuración. Cada sección enlaza de vuelta a la función que controla.
 
+## Diseño del diálogo de Workspace
+
+Configuración se abre en un diálogo tipo workspace: una barra lateral fija a la izquierda lista cada panel y el lado derecho renderiza un panel a la vez como una superficie plana desplazable (sin pestañas anidadas). El pie de licencia activada se sitúa en el chrome del diálogo, así que permanece visible independientemente del panel en el que estés. Abre Configuración desde el icono de engranaje, la bandeja del sistema o [Spotlight](/es/docs/advanced/spotlight) (`Cmd/Ctrl+;` y luego busca "Configuración").
+
+## Controles de visibilidad de la barra lateral
+
+Dos ajustes te permiten adaptar la barra lateral principal de la aplicación y la barra lateral de Kubernetes a tu flujo:
+
+- **Barra lateral principal — mostrar/ocultar por elemento** — oculta entradas que nunca usas (por ejemplo *Redes* si solo usas red de host, o *Plantillas* si escribes tus propios archivos Compose). Los elementos ocultos siguen apareciendo en [Spotlight](/es/docs/advanced/spotlight).
+- **Barra lateral de Kubernetes — estado de expansión por defecto por grupo** — elige qué grupos (Cargas de trabajo, Redes, Configuración y Almacenamiento, RBAC, Clúster) se abren por defecto al conectarte a un clúster. El ajuste está desacoplado del colapso en tiempo de ejecución, así que cerrar una sección durante una sesión no sobreescribe tu predeterminado.
+- **Barra lateral de Kubernetes — visibilidad por elemento** — el mismo control de mostrar/ocultar que la barra lateral principal, limitado al árbol de K8s.
+
+Restablece los valores predeterminados en cualquier momento desde el mismo panel.
+
 ## Configuración de runtime
 
 Usa el selector de preferencia de runtime para elegir entre Auto, Docker y Podman. Auto intenta Docker primero, luego Podman. El runtime detectado se muestra debajo del selector después de una conexión exitosa. Cuando se conecta a Podman, las funciones de Compose se desactivan automáticamente.
@@ -64,3 +78,11 @@ Usa la configuración de la bandeja para mostrar u ocultar el icono de la bandej
 ## Configuración de Trivy
 
 Usa la configuración de Trivy para establecer la ruta del binario de Trivy, el intervalo de actualización de la base de datos de vulnerabilidades y los filtros de severidad predeterminados. Consulta [Escanear con Trivy](/es/docs/docker/images#escanear-con-trivy) para ver el flujo de escaneo.
+
+## Configuración de Tareas
+
+Gestiona el [programador de tareas en segundo plano](/es/docs/homelab/scheduler) desde este panel: habilita/deshabilita tareas individuales, cambia su programación y dispara una ejecución inmediata. Las tareas integradas (`stats_aggregation`, `stats_retention_prune`, `image_upgrade_check`) están bloqueadas contra eliminación, pero siguen siendo totalmente configurables.
+
+## Idioma y región
+
+Dockerman incluye localización completa para English, 简体中文, 日本語 y Español. Elige un idioma para cambiar cada cadena de la UI, incluyendo el texto de los diálogos, las alertas y la interfaz del paquete de diagnóstico. El formato de tiempo relativo sigue tu locale seleccionado a través de `Intl.RelativeTimeFormat`.
