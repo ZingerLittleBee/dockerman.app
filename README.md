@@ -1,238 +1,91 @@
 # Dockerman
 
-Language: 🇺🇸 English | [🇨🇳 简体中文](./README.zh-CN.md)
+Language: 🇺🇸 English | [🇨🇳 简体中文](./README.zh-CN.md) | [🇯🇵 日本語](./README.ja.md) | [🇪🇸 Español](./README.es.md)
 
-[![Version](https://img.shields.io/badge/version-v5.1.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.1.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Apr%208%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.1.0)
+[![Version](https://img.shields.io/badge/version-v5.2.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.2.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Apr%2026%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.2.0)
 
-A modern, lightweight Docker management UI built with Tauri and Rust.
-Focus on simplicity and performance for Docker container management.
+A native desktop UI for managing Docker **and** Kubernetes — built with Tauri + Rust. Fast to launch, light on resources, and entirely local: nothing leaves your machine.
 
-- 🚀 Fast startup and minimal resource usage
-- 💻 Powerful performance with Tauri
-- 🎯 Clean, focused interface
-- 📊 Real-time container monitoring
-- 🔒 Local-only operation
-- 🌙 Comprehensive dark mode support
-- 🌐 Internationalization (i18n) support
-
-![Dashboard Screenshot](apps/landing/public/screenshots/readme/dashboard.png)
+![Dashboard](apps/landing/public/screenshots/readme/dashboard.png)
 ![Kubernetes](apps/landing/public/screenshots/readme/k8s.png)
-![Dashboard Dark Screenshot](apps/landing/public/screenshots/readme/dark.png)
-![Terminal Screenshot](apps/landing/public/screenshots/readme/terminal.png)
-![Process List Screenshot](apps/landing/public/screenshots/readme/process.png)
-![inspect Screenshot](apps/landing/public/screenshots/readme/inspect.png)
-![stats Screenshot](apps/landing/public/screenshots/readme/stats.png)
-![logs Screenshot](apps/landing/public/screenshots/readme/logs.png)
-![ssh Screenshot](apps/landing/public/screenshots/readme/ssh.png)
-![build Screenshot](apps/landing/public/screenshots/readme/build-log.png)
-![build History Screenshot](apps/landing/public/screenshots/readme/build-log-history.png)
-![file system](apps/landing/public/screenshots/readme/file.png)
-![file preview](apps/landing/public/screenshots/readme/file-preview.png)
-![Termin Settings](apps/landing/public/screenshots/readme/terminal-settings.png)
-![Image Analysis](apps/landing/public/screenshots/readme/image-analysis.png)
-![Compose Screenshot](apps/landing/public/screenshots/readme/compose.png)
-![Event Screenshot](apps/landing/public/screenshots/readme/event.png)
-![Volume Browse Screenshot](apps/landing/public/screenshots/readme/volume-browse.png)
-![Storage Screenshot](apps/landing/public/screenshots/readme/storage.png)
-![Command Palette](apps/landing/public/screenshots/readme/cmd.png)
+
+## Highlights
+
+- 🐳 **Containers & Images** — full lifecycle, Compose support, backup/restore (incl. bind mounts), upgrade detection
+- ☸️ **Kubernetes** — multi-cluster, all major resources, Helm, port forwarding, YAML editor with dry-run
+- 🖥️ **Built-in tools** — terminal, log viewer with search, CPU/memory history, file browser with editing
+- 🔔 **Image upgrade watch** — background service with desktop notifications when updates land
+- ☁️ **Cloudflared tunnels** — one-click public URLs with auto cleanup
+- 🐙 **Podman & WSL2 engine** — first-class alternatives to Docker Desktop
+- 🌐 Localized in English, 中文, 日本語, Español, with comprehensive dark mode
+
+## Containers & Images
+
+Manage everything from one place without dropping to a shell:
+
+- Group containers by Compose project or browse a flat list; quick filters by name, port, or status
+- Create from a guided form or paste a `docker run` command — convert it to Compose YAML in the built-in editor
+- Live logs with keyword/regex search and case-sensitive toggle; CPU/memory history with multi-container compare (up to 6)
+- Themeable terminal, process list, and a file browser with in-place editing, previews (text/code/images/PDF/video), and folder up/download
+- Backup and restore the whole container — config, filesystem, volumes, and supported bind mounts
+- Image build (Dockerfile or parsed command), push to private registries, Docker Hub search, Trivy security scan, and per-layer size analysis
+- Background image-upgrade watch with per-channel subscriptions, registry credential resolver, and `dockerman://` deep links
+
+![Container logs](apps/landing/public/screenshots/readme/logs.png)
+![Image analysis](apps/landing/public/screenshots/readme/image-analysis.png)
+
+## Kubernetes
+
+Cluster management on par with `kubectl`, but visual:
+
+- Connect via kubeconfig or spin up a local k3d cluster (auto-installed); switch between clusters independently from your Docker hosts
+- Workloads, Networking, Config & Storage, RBAC, CRDs — plus dedicated Node, Persistent Volume, and Namespace pages
+- Filterable cluster events browser and overview cards for CPU and memory
+- Built-in YAML editor with deep-link routing and server-side dry-run preview
+- Helm releases, repos, and chart install
+- Port forwarding with automatic local DNS for forwarded services
+- Debug assistant for unhealthy Pods; force-delete for Pods stuck terminating
+- Typed 403 handling surfaces permission errors at the list level
+
+## Beyond Docker
+
+- **Cloudflared Tunnels** — expose any container port with one click; tunnels auto-clean on stop/destroy and survive crashes
+- **Podman** — auto-detected runtime with per-host preference and feature gating for Compose-only flows
+- **WSL2 Engine on Windows** — no Docker Desktop required; one-click Alpine setup with crash recovery and registry mirrors
+- **Remote daemons** — custom socket, TCP, or SSH forwarding with heartbeat reconnect and per-host latency display
+
+## Operations & Quality of Life
+
+- 🚨 Preset alert rules (restart loop, container crash) and a recent-alerts feed with container, time, and rule
+- 🧰 One-click diagnostic bundle (logs, inspect, host state) for support escalations
+- 📝 Visual `.env` editor that preserves comments and applies atomically
+- 🔍 Global command palette (Cmd/Ctrl+;) and a system tray with live CPU/memory stats
+- 🔐 Private registry credential management with auto-matching on pull
+- 🔑 License activation for remote-host features
+
+## Why It Feels Fast
+
+Built on Tauri + Rust as a native desktop app — not Electron, not a browser tab. Local-only operation, no telemetry, no remote dependencies for core features.
+
+## More Screenshots
+
+![Dark mode](apps/landing/public/screenshots/readme/dark.png)
+![Terminal](apps/landing/public/screenshots/readme/terminal.png)
+![Terminal settings](apps/landing/public/screenshots/readme/terminal-settings.png)
+![Process list](apps/landing/public/screenshots/readme/process.png)
+![Inspect](apps/landing/public/screenshots/readme/inspect.png)
+![Stats](apps/landing/public/screenshots/readme/stats.png)
+![Stats compare](apps/landing/public/screenshots/readme/stats-compare.png)
+![SSH](apps/landing/public/screenshots/readme/ssh.png)
+![Build log](apps/landing/public/screenshots/readme/build-log.png)
+![Build history](apps/landing/public/screenshots/readme/build-log-history.png)
+![File browser](apps/landing/public/screenshots/readme/file.png)
+![File preview](apps/landing/public/screenshots/readme/file-preview.png)
+![Compose view](apps/landing/public/screenshots/readme/compose.png)
+![Events](apps/landing/public/screenshots/readme/event.png)
+![Volume browser](apps/landing/public/screenshots/readme/volume-browse.png)
+![Storage](apps/landing/public/screenshots/readme/storage.png)
+![Command palette](apps/landing/public/screenshots/readme/cmd.png)
 ![Docker Hub](apps/landing/public/screenshots/readme/dockerhub.png)
-![Image Security](apps/landing/public/screenshots/readme/image-security.png)
-
-## Features
-
-### Kubernetes Management
-
-- ☸️ Full Kubernetes management alongside Docker
-- 🚀 Cluster management via kubeconfig or local k3d clusters with auto-install
-- 📦 Workloads: Deployments, StatefulSets, DaemonSets, Jobs, CronJobs, ReplicaSets, Pods
-- 🌐 Networking: Services, Ingresses, Endpoints, NetworkPolicies
-- 🔧 Config & Storage: ConfigMaps, Secrets, PVCs, StorageClasses
-- 🔐 RBAC: Roles, ClusterRoles, Bindings, ServiceAccounts
-- 🧩 Custom Resource Definitions (CRDs) browsing and instance management
-- 📝 Built-in YAML editor with deep-link support
-- ⎈ Helm support: releases, repositories, chart search, and install
-- 🔗 Port forwarding for Pods, Services, and Deployments with local domain mapping
-- 🌍 Automatic local DNS registration for forwarded services
-- 🛠️ Debug assistant for diagnosing Pod and cluster issues
-- 🧭 Breadcrumb navigation for resource hierarchy
-
-### Cloudflared Tunnels
-
-- ☁️ Expose local container ports to the internet with one click
-- 📋 Dedicated tunnel list in sidebar with batch operations
-- 🔄 Automatic cleanup on container stop/die/destroy events
-- 💾 Persistent tunnel recovery after crashes
-
-### Podman Support
-
-- 🐙 First-class Podman runtime support alongside Docker
-- 🔍 Automatic runtime detection via API probing
-- ⚙️ Per-host and global runtime preference selector (Auto / Docker / Podman)
-- 🔌 Auto-discovery of Podman rootless/rootful sockets on Linux and macOS
-- 🏷️ Runtime badge in sidebar host switcher with color-coded indicator
-- 🚫 Compose actions automatically hidden for Podman runtime
-- 🧩 Extensible runtime capabilities system for feature gating
-
-### Image Upgrade Detection
-
-- 🔄 Automatically detect when container images have updates available
-- 🏷️ Upgrade badges on container list with digest comparison
-- 🖱️ One-click upgrade with image pull and container recreation
-- 🔁 One-click rollback with automatic backup before upgrade
-
-### Dashboard Overview
-
-- 📊 Container and image statistics at a glance
-- 💾 Total image size monitoring
-- 🔄 Real-time container status updates
-- 📈 Resource usage visualization
-- 🖥️ System information display (Docker version, OS, architecture, resource limits)
-- ⚡ Parallelized container stats queries for faster dashboard loading
-
-### Storage
-
-- 💾 Docker disk usage breakdown (images, containers, volumes, build cache) with interactive chart
-- 🧹 One-click system prune
-
-### Container Management
-
-- 📊 Container info dashboard with env vars, mounts, and resource limits in dedicated panels
-- ❤️ Healthcheck status surfaced alongside CPU and memory
-- 🔌 Container ports column with popover dropdown for multi-port containers
-- 📋 Detailed container list with status indicators
-- 🔍 Quick search for containers with real-time filtering and clear reset (supports port number, protocol, and port mapping search)
-- 🖼️ Searchable image combobox in container create dialog
-- 🐳 Docker Compose View
-  - Toggle between flat list and grouped view by Compose projects
-  - Compose project cards with status indicators and running container counts
-  - Collapsible Standalone Containers section for non-Compose containers
-  - Full Compose lifecycle management (Up, Stop, Restart, Pull, Remove)
-  - Support for all Docker Compose CLI options (file, env-file, profile, progress, dry-run)
-- 🐳 Container creation dialog with dual input modes
-  - Form-based configuration for guided setup
-  - Docker command input mode with parsing support
-  - Docker Run command import and parsing with enhanced UI
-- ⏸️ Container pause/unpause with three-state menu support
-- 📦 Container commit to save state as a new image
-- 🐑 Container clone to duplicate configuration into create dialog
-- 💾 Container backup and restore with full configuration, filesystem, and volume archival
-- 🔍 Container inspection with detailed information
-  - Port mappings
-  - Network settings
-  - Mount points
-  - Container labels
-- 📊 Resource monitoring with redesigned stats page
-  - Ring gauges for CPU and memory usage
-  - Sparkline charts for CPU, memory, network I/O, and disk I/O
-  - Time range selector for chart history
-  - Collapsible detail panels for network interfaces and disk devices
-  - Chart tooltips with formatted values
-- 💻 Integrated terminal access
-  - Terminal theme picker with color theme customization
-  - Configurable default shell and user
-- 📝 Process list viewing
-- 📋 Unified log viewer shared between Docker containers and Kubernetes Pods
-- 📜 Log viewer with real-time updates
-  - Virtualized log list with follow/pause and load-more history
-  - Keyword/regex filtering with highlight and quick shortcuts
-  - Export logs as TXT/JSON and copy filtered results
-  - Newest-first log ordering, consistent with events page
-  - Keyboard shortcuts (`P` pause, `/` search, `g` newest, `G` oldest) with on-screen hints
-- 📂 Container File Browser
-  - File tree navigation with dynamic loading
-  - Folder upload and download support
-  - Single file upload and download with mode preservation
-  - Symlink support and pagination for large directories
-  - Context menus for file/folder operations
-  - File preview for text, code, images, Markdown, PDF, video, and audio
-  - In-place editing with syntax highlighting
-  - File and folder deletion from context menu
-  - Multi-select with batch download, delete, and copy paths
-
-### Docker Events
-
-- 🔔 Real-time Docker event listening
-- 🔔 Desktop notifications for abnormal container events (non-zero exit, OOM killed, health check failure)
-- 🔍 Comprehensive event filtering and search
-- 📋 JSON details dialog for inspecting event data
-- ⚡ Action buttons with Copy JSON and Remove options
-- ⌨️ Keyboard shortcuts (`P` pause, `/` search, `g` newest, `G` oldest) with on-screen hints
-
-### Template Management
-
-- 🧩 Stack templates support with migrations, UI, and API integration
-
-### Image Management
-
-- 📦 Image list with size and tag information
-- 🗑️ Batch Operations: Multi-select batch delete for Images, Networks, and Volumes
-- 🏗️ Image Build
-  - Build from Dockerfile
-  - Support for build args and tags
-  - Real-time build log streaming
-  - Historical log playback
-  - Docker build command generation and parsing functionality
-  - Rebuild previous builds from history with pre-filled parameters
-  - Retry failed builds without re-entering configuration
-- 🚀 Image push to registries with streaming progress and credential management
-- 🔍 Docker Hub browser with image search, details, README, and tags
-- 🛡️ Trivy security scan with vulnerability filtering and review
-- 📉 Image Size Analysis
-  - Detailed breakdown of layer sizes
-  - Interactive size distribution bar with color-coded blocks
-  - Layer details table with expand/collapse for Dockerfile commands
-  - Collapsible distribution panel with compact view support
-  - Export layer analysis as JSON or copy to clipboard
-- 🐳 Streaming I/O for large image export and import
-- 🕒 Creation time tracking
-- 🔍 Detailed image inspection
-- 📊 Usage statistics
-  - Total count
-  - Size analytics
-  - Usage tracking
-
-### Network Management
-
-- 🔍 Quick search for networks by name, ID, driver, and status
-
-### Volume Management
-
-- 📂 Volume File Browser with upload and download support
-- 🔍 Quick search for volumes with real-time filtering and clear reset
-
-### App Log Viewer
-
-- 📋 Custom HTML-based log viewer with keyword search, level filtering, detail dialog, and export support
-
-### Command Palette & System Tray
-
-- 🔍 Global command palette (Cmd+; / Ctrl+;) for quick access to containers, images, compose projects, networks, and volumes
-- 🖥️ System tray icon with connection status, resource stats, and quick actions
-- 📊 Optional real-time CPU & memory stats in the macOS menu bar
-- 🙈 Auto-hide dock icon when the main window is closed on macOS
-- ⌨️ Configurable global keyboard shortcut for the command palette
-
-### System Integration
-
-- ⌨️ Wayland global keyboard shortcut support via XDG Desktop Portal
-- 🔌 Native Docker daemon connection
-  - Custom Docker socket path support
-  - TCP connection support for remote Docker daemon
-  - SSH socket forwarding for remote connections
-  - Auto-reconnect on SSH tunnel failure via heartbeat detection
-- 🪟 WSL2 Docker Engine for Windows (no Docker Desktop required)
-  - One-click setup wizard with Alpine distro
-  - Automatic crash recovery with backoff
-  - Resource monitor for WSL2 distro
-  - Daemon configuration editor with registry mirror support
-  - Engine switching between Docker Desktop and WSL2
-- 🔑 License activation and management with license gate for remote host features
-  - 📡 Host latency display with ICMP ping and one-click refresh
-  - 🗑️ Host removal with confirmation dialog
-- 🔐 Private registry credential management with auto-matching on image pull
-- 🛡️ Error boundary with recovery UI for unexpected component errors
-- 📁 Sidebar collapsible sections with container count badges
-- 🚀 Lightweight and fast performance
-- 💻 Cross-platform desktop application
-
+![Image security](apps/landing/public/screenshots/readme/image-security.png)

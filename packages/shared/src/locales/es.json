@@ -684,6 +684,11 @@
         "em": "gráficos que valen sus píxeles.",
         "desc": "Gráficos de CPU, memoria, red y E/S por contenedor. Desgloses por proceso, zoom a cualquier ventana, exporta CSV para una autopsia."
       },
+      "statsCompare": {
+        "label": "Comparar",
+        "em": "encuentra al vecino ruidoso.",
+        "desc": "Gráficos lado a lado de CPU y memoria para hasta 6 contenedores en un eje de tiempo común. Las selecciones persisten al navegar, así puedes profundizar en un contenedor y volver sin perder tu conjunto de comparación."
+      },
       "logs": {
         "label": "Logs",
         "em": "50 MB, fluido.",

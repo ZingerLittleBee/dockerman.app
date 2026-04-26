@@ -49,7 +49,7 @@ Import a kubeconfig when you already have a cluster and want Dockerman to manage
   <Step>
     ### Select a kubeconfig file
 
-    Dockerman reads the file and lets you choose a context if the file contains more than one.
+    Dockerman parses the file and **auto-detects every context** in it. Pick the context you want to import; Dockerman pre-fills cluster name, server URL, and user binding for you.
   </Step>
   <Step>
     ### Verify the connection
@@ -58,9 +58,13 @@ Import a kubeconfig when you already have a cluster and want Dockerman to manage
   </Step>
 </Steps>
 
-## Switch contexts
+## Switch clusters
 
-Use the context dropdown at the top of the Kubernetes section to move between imported clusters and the local k3d cluster. Switching contexts reloads the lists for the selected cluster.
+Use the cluster switcher at the top of the Kubernetes section to move between imported clusters and any local k3d cluster.
+
+- Cluster selection is **independent of the active Docker host**. Switching to a different K8s context does not touch your Docker connection, and vice versa.
+- Your **current Kubernetes page is preserved** when switching clusters where the same resource exists; the namespace selector syncs with the new cluster.
+- After an app restart Dockerman **reconnects to the last cluster** and restores deep pages such as the YAML editor or a CRD instance you were viewing.
 
 ## Delete a cluster
 
@@ -76,3 +80,15 @@ Use the action that matches the cluster type.
 ## Cluster version and status
 
 The Cluster page shows the server version, the current status, and the node list, including each node's kubelet and kube-proxy versions, so you can spot version drift or a broken connection at a glance.
+
+## Nodes, PersistentVolumes, and Namespaces
+
+Each of these gets a dedicated in-app page under the Kubernetes section. Reach them from the K8s sidebar:
+
+- **Nodes** — node list with conditions, capacity, allocatable resources, and labels. Open a node to see kubelet/kube-proxy versions, container runtime, and pods scheduled on it.
+- **PersistentVolumes** — cluster-scoped PV list with phase, claim binding, reclaim policy, and capacity. See [Config & Storage → PersistentVolumes](/en/docs/kubernetes/config-storage#persistentvolumes) for the full reference.
+- **Namespaces** — create, delete, and inspect namespaces directly. The sidebar namespace selector syncs with this page.
+
+## Cluster events
+
+Open the dedicated [Events](/en/docs/kubernetes/events) browser to filter by namespace, type (Normal/Warning), reason, and involved object. Useful for triaging issues without scoping to a specific resource first.

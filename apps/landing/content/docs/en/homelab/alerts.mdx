@@ -5,6 +5,23 @@ description: Create typed alert rules for container exits, health checks, resour
 
 Alert rules connect Docker events and resource metrics to your [notification channels](/en/docs/homelab/notifications). When a rule fires, Dockerman broadcasts a message to every channel bound to that rule.
 
+## Preset rules
+
+Two rules ship preconfigured so you have useful coverage one click away:
+
+| Preset | Kind | Behavior |
+| --- | --- | --- |
+| **Restart loop** | `restart_burst` | Fires when any container restarts ≥ 3 times within 5 minutes. |
+| **Container crash (non-zero exit)** | `container_exit_non_zero` | Fires whenever any container exits with a non-zero status. |
+
+Both presets ship **disabled** — flip them on from the Alerts page after you confirm the target scope and notification channels match your environment. Once enabled they behave like any other rule: edit fields, change the target, bind channels, or disable them again.
+
+Presets are guarded against accidental deletion. If you remove one, a **Reset to defaults** action on the Alerts page brings it back exactly as shipped.
+
+<Callout type="info">
+  Both presets target *all containers* by default. Narrow the target to a Compose project or specific containers before enabling if your environment is noisy.
+</Callout>
+
 ## Rule types
 
 Dockerman ships with four typed rule kinds. Each kind has a dedicated form in the UI instead of a free-text expression, so setup is quick and mistakes are unlikely.
@@ -125,14 +142,17 @@ Set time windows when the rule should not fire at all, for example "02:00 - 05:0
 
 Each rule has a severity: **info**, **warning**, or **critical**. Severity is metadata for filtering and history searches. It does not affect routing; all bound channels receive every alert regardless of severity.
 
-## Alert history
+## Recent alerts feed
 
-The Alerts page includes a history tab showing every time a rule fired, with:
+The Alerts page includes a recent-alerts feed showing every time a rule fired, with:
 
-- Timestamp
+- Container name
+- Local time of the firing
 - Rule name and kind
-- Context (container name, metric value, exit code, etc.)
+- Context (metric value, exit code, etc.)
 - Which channels received the notification
+
+The list uses the standardized data table pattern, so column widths persist across sessions and you can search across all fields from the top toolbar.
 
 ## Routing model
 

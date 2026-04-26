@@ -1,3 +1,83 @@
+<ChangelogEntry version="v5.2.0" date="Apr 26, 2026">
+## Multi-Cluster Kubernetes, Image Watch & Homelab Foundations
+
+This release broadens Kubernetes management with multi-cluster switching, YAML dry-run, and dedicated pages for nodes, PVs, and namespaces; adds log search, an image upgrade watch service with notifications, bind-mount backup/restore, and the Homelab roadmap foundation; and lands a settings workspace, full i18n coverage, and a standardized data-table pattern.
+
+### ✨ Features
+
+- ☸️ <Bold>Kubernetes Enhancements:</Bold> Broadened cluster management surface
+  - 🔀 Multi-Cluster Switching: Switch between Kubernetes clusters independently from Docker hosts
+  - 🧪 YAML Dry-Run Preview: Compare changes before applying via server-side dry-run
+  - 📣 Events Browser: Filterable cluster events page with endpoint filters
+  - 🖥️ Node / PV / Namespace Pages: Dedicated management pages for nodes, persistent volumes, and namespaces
+  - 🔍 Kubeconfig Context Discovery: Auto-detect contexts in the import dialog
+  - 🛡️ Typed 403 Handling: `K8sListResult<T>` surfaces permission errors on list views
+  - 🗑️ Delete Buttons: Added for Services, Ingresses, CronJobs, DaemonSets, Deployments, StatefulSets, and NetworkPolicies
+- 🔍 <Bold>Log Search:</Bold> Search logs with keyword highlight, regex, case-sensitive toggle, and match navigation
+- 🎛️ <Bold>Unified Log Controls:</Bold> Time range presets, tail count selector, and query filters consolidated into a single toolbar
+- 📈 <Bold>Historical Stats Chart:</Bold> CPU/memory history with a 7-tier time range selector
+- 📝 <Bold>Compose YAML Editor:</Bold> Monaco-backed editor with backend Tauri commands for editing and applying Compose files
+- 🔄 <Bold>Docker Run → Compose Converter:</Bold> Dedicated page and menu entries that translate `docker run` commands into Compose YAML
+- 🔔 <Bold>Image Upgrade Watch:</Bold> Background subscription service for image update detection
+  - 📬 Subscription page + settings UI with per-channel controls
+  - 🔐 Registry credential resolver with fail-closed handling on ambiguity
+  - 🕒 Scheduler with history cursor tracking and batched notifications
+  - 🔗 `dockerman://` deep link handler
+- 💾 <Bold>Bind Mount Backup & Restore:</Bold> Include supported bind mount data in backups and remap or restore it per mount during restore
+- 🏡 <Bold>Homelab Roadmap (Phase 1–3 partial):</Bold> Foundation plus selected non-MVP items
+  - 🧰 Diagnostic Bundle: One-click packaging of logs, inspect, and host state for support
+  - 🚨 Preset Alert Rules: Built-in restart-loop and container-crash rules with delete-guard and reset-to-defaults
+  - 📝 .env Visual Editor: `/env-editor?path=...` page with key/value editing, comment/blank-line preservation, and atomic Save & Apply
+  - 📊 Multi-Container Stats Compare: Side-by-side CPU/memory charts for up to 6 containers with persisted selections
+  - 📂 Container-File Editor Hardening: Mode-preserving save, 1 MB edit cap, and NUL-byte binary detection
+- 🌐 <Bold>Full i18n Coverage:</Bold> Replaced remaining hardcoded strings with i18n calls and shipped translations for Spanish, Japanese, and Chinese
+- ⚙️ <Bold>Settings Workspace Dialog:</Bold> Settings moved into a workspace-style dialog with flattened panels, refined sidebar chrome, and a simplified activated-license footer
+- 👁️ <Bold>Sidebar Visibility Controls:</Bold> Per-item show/hide for the main sidebar plus per-group default expand state and visibility controls for the Kubernetes sidebar
+- 🧱 <Bold>Standardized Data Table Pattern:</Bold> TanStack Table v8 baseline with column resizing/sorting, persisted column widths, global search, truncate tooltips, and viewport-centered empty state — applied to K8s `event`, `pod`, `deployment`, `daemon-set`, `stateful-set`, `job`, `cron-job`, `service`, `ingress`, `config-map`, `pv`, `namespace`, and `port-forward`
+- 📊 <Bold>K8s Cluster Overview Cards:</Bold> CPU and memory usage cards on the cluster overview page
+- 💥 <Bold>Pod Force Delete:</Bold> Skip graceful shutdown (grace period 0) for Pods stuck terminating
+- 🗄️ <Bold>System Task Management:</Bold> Scheduler task-run snapshots and a built-in task management UI with locked controls for built-in tasks
+- 🚨 <Bold>Recent Alerts Metadata:</Bold> Container, local time, and rule name shown on the alerts list with an accessible preset rule row
+- 🔇 <Bold>Smart Right-Click:</Bold> Suppress the native context menu while text is selected
+
+### 🔧 Improvements
+
+- 🧭 <Bold>Container Header Actions:</Bold> Consolidated top-row buttons into grouped dropdown menus
+- 🖼️ <Bold>Image Watches Entry:</Bold> Moved from the sidebar into the image page header
+- ↩️ <Bold>Run Converter Back Navigation:</Bold> Added a back button to the converter page
+- 🧹 <Bold>Biome Lint Cleanup:</Bold> Resolved all 71 outstanding lint errors across the codebase
+- 🗂️ <Bold>K8s Sidebar Reorg:</Bold> Top group aligned with mainstream tools, icons refreshed, and per-group default expand state decoupled from runtime collapse
+- 🎚️ <Bold>Container Toolbar:</Bold> Show-all and batch-mode toggles consolidated into the search row using a new Shadcn Toggle component; view-mode toggle refined
+- 🧰 <Bold>Alerts Layout:</Bold> Selector + detail layout for alerts; preset rule reused in legacy notification migration
+- 🧪 <Bold>Native WDIO E2E Runner:</Bold> Enabled with documented progress and a refreshed Dockerman 5.2.0 manual test plan
+
+### 🐛 Bug Fixes
+
+- 🔁 <Bold>K8s Sidebar Flicker:</Bold> Prevented flicker when switching clusters
+- 🧭 <Bold>K8s Route Restore:</Bold> Route returns to last resource when re-entering a cluster
+- 🧾 <Bold>K3d Log Dialog Scrolling:</Bold> Refined scroll behavior in the k3d log dialog
+- 🧱 <Bold>YAML Resource Selection:</Bold> Prevented stale resource selection in the YAML editor
+- 🛠️ <Bold>Make History Recording:</Bold> Hardened make history write path
+- 🕰️ <Bold>Relative Time Defaults:</Bold> Fixed missing default relative-time translations and switched to `Intl.RelativeTimeFormat`
+- ⌘ <Bold>Store Selector Init:</Bold> Lazily create optional store selectors to avoid init-time crashes
+- 🔄 <Bold>K8s Restart Restore:</Bold> Restore the connected cluster and deep K8s pages (CRD instances, YAML editor) after an app restart
+- 🗂️ <Bold>Cluster Switch Page Preservation:</Bold> Keep the current K8s page when switching clusters; sidebar namespace selector syncs with namespace-details refresh
+- 🔢 <Bold>Overview Workload Counts:</Bold> Count workloads across all namespaces on the cluster overview
+- 📋 <Bold>ConfigMap List Interaction:</Bold> Row click opens detail; inline delete works again
+- 🪧 <Bold>Workload Empty State Copy:</Bold> Proper empty-state messages for K8s workload lists
+- 🧬 <Bold>Job Delete Cascade:</Bold> Localized confirmation that cascades deletion to owned Pods
+- 🔗 <Bold>YAML Navigation:</Bold> Honor the `resource` query param when navigating to the YAML editor
+- 🧷 <Bold>K8s Breadcrumb Mapping:</Bold> Completed route mapping across all K8s pages
+- 🪪 <Bold>Secret Annotation Hiding:</Bold> Hide the `last-applied-configuration` annotation in Secret detail
+- 📁 <Bold>File Preview Action:</Bold> Re-exposed in container file browser
+- 🛤️ <Bold>Path Normalization:</Bold> Stack files created via the backend command with normalized stack and backup paths
+- 🛡️ <Bold>Dialog Localization:</Bold> Container, diagnostic, and settings dialogs fully localized
+- 📡 <Bold>K8s DNS Setup Dialog:</Bold> Long setup commands now wrap correctly
+- ✅ <Bold>Alerts Channel Checkbox:</Bold> Aligned with label text
+- 🩹 <Bold>Tasks Page Type Checks:</Bold> Stabilized type inference
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v5.1.0" date="Apr 8, 2026">
 ## Podman Runtime Support
 

@@ -23,7 +23,7 @@ Additional kinds such as `auto_backup` and `auto_prune` are planned for future r
 
 ## The Tasks page
 
-Open the Tasks page to see every registered task at a glance.
+Open the Tasks page to see every registered task at a glance, with run snapshots and a built-in management UI.
 
 Each row shows:
 
@@ -32,6 +32,10 @@ Each row shows:
 - **Next run** countdown
 - **Last run** time and result (success, failure with error message)
 - **Enabled** toggle
+
+### Built-in vs. user tasks
+
+Built-in tasks (`stats_aggregation`, `stats_retention_prune`, `image_upgrade_check`) are locked from deletion so the features that depend on them keep working. You can still change their schedule, enable/disable them, or trigger an immediate run. User-created tasks have full delete and edit access.
 
 ## Managing tasks
 

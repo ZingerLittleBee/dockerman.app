@@ -41,6 +41,7 @@ export const SNAPSHOT_MODULE_STRUCTURE: SnapshotModuleStructure[] = [
   { key: 'processes', icon: 'proc', src: '/screenshots/process.png' },
   { key: 'inspect', icon: 'inspect', src: '/screenshots/inspect.png' },
   { key: 'stats', icon: 'stats', src: '/screenshots/stats.png' },
+  { key: 'statsCompare', icon: 'stats', src: '/screenshots/stats-compare.png' },
   { key: 'logs', icon: 'logs', src: '/screenshots/logs.png' },
   { key: 'ssh', icon: 'ssh', src: '/screenshots/ssh.png' },
   { key: 'build', icon: 'build', src: '/screenshots/build-history.png' },

@@ -687,6 +687,11 @@
         "em": "charts that earn their pixels.",
         "desc": "Per-container CPU, memory, network, and block I/O charts. Process-level breakdowns, zoom to any window, export CSV for a post-mortem."
       },
+      "statsCompare": {
+        "label": "Compare",
+        "em": "spot the noisy neighbor.",
+        "desc": "Side-by-side CPU and memory charts for up to 6 containers, sharing one time axis. Selections persist as you navigate, so you can drill into a container and come back without losing your comparison set."
+      },
       "logs": {
         "label": "Logs",
         "em": "50 MB, smooth.",

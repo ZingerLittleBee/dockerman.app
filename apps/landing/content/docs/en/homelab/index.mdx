@@ -20,9 +20,9 @@ Dockerman is **desktop-first and local-first**. It does not deploy a management 
     Connect [Telegram, ntfy, Gotify, Discord, or a generic webhook](/en/docs/homelab/notifications) so Dockerman can reach you when you are away.
   </Step>
   <Step>
-    ### Create alert rules
+    ### Enable the preset alert rules (or write your own)
 
-    Define [alert rules](/en/docs/homelab/alerts) like "notify me when any container exits with a non-zero code" or "alert when CPU stays above 90% for 5 minutes."
+    Two rules — *Restart loop* and *Container crash (non-zero exit)* — ship preconfigured but disabled. Enable them with one click, or add more [alert rules](/en/docs/homelab/alerts) for resource thresholds or per-stack scoping.
   </Step>
   <Step>
     ### Subscribe to image updates
@@ -32,7 +32,7 @@ Dockerman is **desktop-first and local-first**. It does not deploy a management 
   <Step>
     ### Diagnose and fix
 
-    When something breaks, generate a [diagnostic bundle](/en/docs/homelab/diagnostic-bundle) with one click, edit the Compose YAML in the [built-in editor](/en/docs/docker/compose#edit-composeyaml), and apply the fix.
+    When something breaks, generate a [diagnostic bundle](/en/docs/homelab/diagnostic-bundle) with one click, edit the Compose YAML in the [built-in editor](/en/docs/docker/compose#edit-composeyaml) or the [.env editor](/en/docs/docker/containers#visual-env-editor), and apply the fix.
   </Step>
 </Steps>
 

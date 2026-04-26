@@ -49,7 +49,7 @@ Importa un kubeconfig cuando ya tienes un clúster y quieres que Dockerman lo ge
   <Step>
     ### Selecciona un archivo kubeconfig
 
-    Dockerman lee el archivo y te permite elegir un contexto si el archivo contiene más de uno.
+    Dockerman analiza el archivo y **detecta automáticamente cada contexto** que contiene. Elige el contexto que quieras importar; Dockerman precompleta el nombre del clúster, la URL del servidor y el binding de usuario por ti.
   </Step>
   <Step>
     ### Verifica la conexión
@@ -58,9 +58,13 @@ Importa un kubeconfig cuando ya tienes un clúster y quieres que Dockerman lo ge
   </Step>
 </Steps>
 
-## Cambia de contexto
+## Cambia de clúster
 
-Usa el menú desplegable de contexto en la parte superior de la sección de Kubernetes para moverte entre clústeres importados y el clúster local de k3d. Cambiar de contexto recarga las listas para el clúster seleccionado.
+Usa el conmutador de clúster en la parte superior de la sección de Kubernetes para moverte entre clústeres importados y cualquier clúster local de k3d.
+
+- La selección de clúster es **independiente del host de Docker activo**. Cambiar a otro contexto de K8s no afecta tu conexión de Docker, y viceversa.
+- **Tu página actual de Kubernetes se conserva** al cambiar entre clústeres en los que existe el mismo recurso; el selector de namespace se sincroniza con el nuevo clúster.
+- Tras reiniciar la aplicación, Dockerman **se reconecta al último clúster** y restaura páginas profundas como el editor YAML o la instancia de un CRD que estabas viendo.
 
 ## Elimina un clúster
 
@@ -76,3 +80,15 @@ Usa la acción que coincida con el tipo de clúster.
 ## Versión y estado del clúster
 
 La página de Clúster muestra la versión del servidor, el estado actual y la lista de nodos, incluyendo las versiones de kubelet y kube-proxy de cada nodo, para que puedas detectar desviaciones de versión o una conexión rota de un vistazo.
+
+## Nodos, PersistentVolumes y Namespaces
+
+Cada uno de estos tiene una página dedicada en la aplicación dentro de la sección de Kubernetes. Accede a ellas desde la barra lateral de K8s:
+
+- **Nodos** — lista de nodos con condiciones, capacidad, recursos asignables y etiquetas. Abre un nodo para ver las versiones de kubelet/kube-proxy, el runtime de contenedores y los pods programados en él.
+- **PersistentVolumes** — lista de PV con ámbito de clúster, con fase, vinculación de claim, política de reclamación y capacidad. Consulta [Configuración y Almacenamiento → PersistentVolumes](/es/docs/kubernetes/config-storage#persistentvolumes) para la referencia completa.
+- **Namespaces** — crea, elimina e inspecciona namespaces directamente. El selector de namespace de la barra lateral se sincroniza con esta página.
+
+## Eventos del clúster
+
+Abre el navegador dedicado de [Eventos](/es/docs/kubernetes/events) para filtrar por namespace, tipo (Normal/Warning), razón y objeto involucrado. Útil para triar problemas sin tener que limitarte primero a un recurso específico.

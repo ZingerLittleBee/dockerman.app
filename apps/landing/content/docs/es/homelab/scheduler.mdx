@@ -23,7 +23,7 @@ Tipos adicionales como `auto_backup` y `auto_prune` están planificados para ver
 
 ## La página de Tareas
 
-Abre la página de Tareas para ver todas las tareas registradas de un vistazo.
+Abre la página de Tareas para ver todas las tareas registradas de un vistazo, con instantáneas de ejecución y una UI de gestión integrada.
 
 Cada fila muestra:
 
@@ -32,6 +32,10 @@ Cada fila muestra:
 - **Próxima ejecución** con cuenta regresiva
 - **Última ejecución** con hora y resultado (éxito, fallo con mensaje de error)
 - **Habilitado** toggle
+
+### Tareas integradas vs. tareas de usuario
+
+Las tareas integradas (`stats_aggregation`, `stats_retention_prune`, `image_upgrade_check`) están bloqueadas contra eliminación para que las funciones que dependen de ellas sigan funcionando. Aún puedes cambiar su programación, habilitarlas/deshabilitarlas o disparar una ejecución inmediata. Las tareas creadas por el usuario tienen acceso completo de eliminación y edición.
 
 ## Gestión de tareas
 

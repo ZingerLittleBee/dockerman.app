@@ -19,7 +19,13 @@ Dockerman renderiza las filas de registro bajo demanda para que el visor se mant
 
 ## Búsqueda
 
-Abre la búsqueda con `/`, escribe una consulta, y activa regex solo cuando lo necesites. Las coincidencias permanecen resaltadas en su lugar mientras te desplazas por la transmisión.
+Abre la búsqueda con `/` y Dockerman resalta cada coincidencia en su lugar mientras te desplazas. Tres conmutadores refinan la consulta:
+
+- **Regex** — cambia de subcadena literal a un patrón regex.
+- **Sensible a mayúsculas** — desactivado por defecto; actívalo para exigir coincidencias exactas de caja.
+- **Conteo de coincidencias** — la barra de búsqueda muestra la posición actual/total de coincidencias para que siempre sepas cuán avanzado vas.
+
+Usa los controles de navegación (o `Enter` / `Shift+Enter`) para saltar entre coincidencias sin perder tu lugar en la transmisión.
 
 ## Atajos avanzados
 
@@ -34,6 +40,18 @@ Abre la búsqueda con `/`, escribe una consulta, y activa regex solo cuando lo n
 | `G` | Saltar a la última línea |
 | `P` | Coincidencia anterior, como alternativa a Shift + Enter |
 | Esc | Cerrar búsqueda o limpiar resaltados |
+
+## Barra de herramientas unificada de registros
+
+Los controles de registro — rango de tiempo, tamaño de tail y filtro de consulta — se consolidan en una sola barra de herramientas encima de la transmisión, para que puedas refinar lo que obtienes sin escarbar en menús.
+
+| Control | Qué hace |
+| --- | --- |
+| Rango de tiempo | Elige un preset (por ejemplo *Últimos 15 min*, *Última hora*, *Últimas 24 h*) o *Todo* para leer desde el inicio. |
+| Tail | Limita cuántas líneas obtiene Dockerman antes de que comience la transmisión en vivo (por ejemplo 100, 1000, 10000). |
+| Consulta | Filtro del lado del servidor aplicado antes de que las líneas lleguen al visor. Útil para contenedores muy verbosos. |
+
+Combinar un rango de tiempo más estrecho o un tail más pequeño con una consulta mantiene el uso de memoria bajo incluso en servicios ruidosos.
 
 ## Formatos de marca de tiempo
 

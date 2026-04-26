@@ -11,6 +11,14 @@ Open a Pod to see its status, ready container count, restarts, and age. The deta
 
 Delete a Pod from the list view when you need to force a restart or remove a stuck pod.
 
+### Force delete
+
+Use **Force delete** when a Pod is stuck in `Terminating` because its node is unreachable or a finalizer is blocking removal. Force delete sends `gracePeriodSeconds: 0`, skipping graceful shutdown.
+
+<Callout type="warn">
+  Force delete drops the Pod from the API immediately without waiting for kubelet confirmation. If the underlying container is still running on the node, you can end up with stale processes — only use this when the regular delete is blocked.
+</Callout>
+
 ## Deployments
 
 Use Deployments when you want replica management in one place.
@@ -56,4 +64,12 @@ ReplicaSets usually sit underneath a Deployment. Open one when you need to inspe
 
 ## Edit workloads with YAML
 
-Open the Edit YAML button on any workload when you need to edit the full object in Monaco. Dockerman uses the Kubernetes schema for autocomplete and dry-runs the save so invalid YAML is rejected before it reaches the API server.
+Open the Edit YAML button on any workload when you need to edit the full object in Monaco. Dockerman uses the Kubernetes schema for autocomplete and **dry-runs the save against the API server** so invalid YAML — or YAML that would be rejected by an admission controller — is caught before it lands.
+
+### Dry-run preview
+
+Click **Preview changes** in the YAML editor to run a server-side dry-run and diff the rendered object against the live one. The diff highlights field additions, removals, and modifications so you can spot unintended edits before you apply.
+
+## Delete actions
+
+Inline delete is available for Services, Ingresses, CronJobs, DaemonSets, Deployments, StatefulSets, and NetworkPolicies in addition to Pod, Job, ConfigMap, and Secret. Job delete cascades to its owned Pods after a localized confirmation.

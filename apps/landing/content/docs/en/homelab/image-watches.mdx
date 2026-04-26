@@ -7,10 +7,10 @@ Image upgrade watches let Dockerman poll registries in the background and push a
 
 ## How it works
 
-1. You subscribe to images you care about.
+1. You subscribe to images you care about (per host, per image reference).
 2. The [background scheduler](/en/docs/homelab/scheduler) runs the `image_upgrade_check` task at a configurable interval (default: every 6 hours).
-3. For each subscribed image, Dockerman compares the local digest with the remote registry digest.
-4. When a new digest is found, Dockerman sends a notification through your configured [notification channels](/en/docs/homelab/notifications).
+3. For each subscribed image, Dockerman resolves a registry credential through the **credential resolver**, then compares the local digest with the remote registry digest. Ambiguous credentials **fail closed** — the check errors instead of guessing.
+4. When new digests are found, Dockerman sends a single batched notification through your configured [notification channels](/en/docs/homelab/notifications) and writes a history cursor so the next run picks up where this one left off.
 
 ## Subscribe to an image
 

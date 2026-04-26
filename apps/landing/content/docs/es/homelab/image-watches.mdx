@@ -7,10 +7,10 @@ Los monitoreos de actualización de imágenes permiten que Dockerman sondee regi
 
 ## Cómo funciona
 
-1. Te suscribes a las imágenes que te importan.
+1. Te suscribes a las imágenes que te importan (por host, por referencia de imagen).
 2. El [programador en segundo plano](/es/docs/homelab/scheduler) ejecuta la tarea `image_upgrade_check` en un intervalo configurable (por defecto: cada 6 horas).
-3. Para cada imagen suscrita, Dockerman compara el digest local con el digest del registro remoto.
-4. Cuando se encuentra un nuevo digest, Dockerman envía una notificación a través de tus [canales de notificación](/es/docs/homelab/notifications) configurados.
+3. Para cada imagen suscrita, Dockerman resuelve una credencial de registro a través del **resolutor de credenciales** y luego compara el digest local con el digest del registro remoto. Las credenciales ambiguas **fallan de forma cerrada** — la verificación da error en lugar de adivinar.
+4. Cuando se encuentran nuevos digests, Dockerman envía una única notificación agrupada a través de tus [canales de notificación](/es/docs/homelab/notifications) configurados y escribe un cursor de historial para que la próxima ejecución continúe donde esta lo dejó.
 
 ## Suscribirse a una imagen
 

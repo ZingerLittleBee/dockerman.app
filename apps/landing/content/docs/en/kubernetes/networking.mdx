@@ -31,5 +31,9 @@ Use Endpoints when you need the raw backend addresses behind a Service. This vie
 Use NetworkPolicies to understand which pods can talk to each other.
 
 <Callout type="info">
-  Phase 1 is view-only for NetworkPolicies. Create and edit them with `kubectl apply` or by editing the YAML for another resource.
+  Creation is YAML-only — use the YAML editor to author new NetworkPolicies.
 </Callout>
+
+## Delete
+
+Inline delete is available for Services, Ingresses, and NetworkPolicies from each list view. See [Workloads → Delete actions](/en/docs/kubernetes/workloads#delete-actions) for the full list of resources with inline delete.

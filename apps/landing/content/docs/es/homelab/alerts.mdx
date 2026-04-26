@@ -5,6 +5,23 @@ description: Crea reglas de alerta tipadas para salidas de contenedores, health 
 
 Las reglas de alerta conectan eventos de Docker y métricas de recursos a tus [canales de notificación](/es/docs/homelab/notifications). Cuando una regla se dispara, Dockerman transmite un mensaje a cada canal vinculado a esa regla.
 
+## Reglas preestablecidas
+
+Dos reglas vienen preconfiguradas para que tengas cobertura útil a un clic de distancia:
+
+| Preset | Tipo | Comportamiento |
+| --- | --- | --- |
+| **Restart loop** | `restart_burst` | Se dispara cuando cualquier contenedor se reinicia ≥ 3 veces en 5 minutos. |
+| **Container crash (non-zero exit)** | `container_exit_non_zero` | Se dispara cada vez que cualquier contenedor sale con un estado distinto de cero. |
+
+Ambos presets vienen **deshabilitados** — actívalos desde la página de Alertas después de confirmar que el alcance objetivo y los canales de notificación coinciden con tu entorno. Una vez habilitados se comportan como cualquier otra regla: edita campos, cambia el objetivo, vincula canales o deshabilítalos de nuevo.
+
+Los presets están protegidos contra eliminación accidental. Si eliminas uno, una acción **Restablecer valores predeterminados** en la página de Alertas lo trae de vuelta exactamente como vino.
+
+<Callout type="info">
+  Ambos presets apuntan a *todos los contenedores* por defecto. Limita el objetivo a un proyecto Compose o a contenedores específicos antes de habilitarlos si tu entorno es ruidoso.
+</Callout>
+
 ## Tipos de reglas
 
 Dockerman incluye cuatro tipos de reglas. Cada tipo tiene un formulario dedicado en la UI en lugar de una expresión de texto libre, por lo que la configuración es rápida y los errores son improbables.
@@ -125,14 +142,17 @@ Establece ventanas de tiempo cuando la regla no debería dispararse en absoluto,
 
 Cada regla tiene una severidad: **info**, **warning** o **critical**. La severidad es metadata para filtrado y búsquedas de historial. No afecta el enrutamiento; todos los canales vinculados reciben cada alerta independientemente de la severidad.
 
-## Historial de alertas
+## Feed de alertas recientes
 
-La página de Alertas incluye una pestaña de historial mostrando cada vez que una regla se disparó, con:
+La página de Alertas incluye un feed de alertas recientes que muestra cada vez que una regla se disparó, con:
 
-- Timestamp
+- Nombre del contenedor
+- Hora local del disparo
 - Nombre de regla y tipo
-- Contexto (nombre de contenedor, valor de métrica, código de salida, etc.)
+- Contexto (valor de métrica, código de salida, etc.)
 - Qué canales recibieron la notificación
+
+La lista usa el patrón estandarizado de tabla de datos, así que los anchos de columna persisten entre sesiones y puedes buscar en todos los campos desde la barra de herramientas superior.
 
 ## Modelo de enrutamiento
 

@@ -27,6 +27,26 @@ Binary secret values can be downloaded to a local file. Delete a Secret from the
 
 Use PersistentVolumeClaims to see the phase, bound PersistentVolume, storage class, access modes, and capacity for each claim. Delete a PVC from the list when the claim is released and no longer needed.
 
+## PersistentVolumes
+
+PersistentVolumes get their own dedicated page in addition to the per-claim view above. Use it when you need to look at cluster-scoped storage independently of any namespace.
+
+| Column | Description |
+| --- | --- |
+| Name | The PV name |
+| Capacity | Total capacity |
+| Access modes | `RWO`, `ROX`, `RWX`, or `RWOP` |
+| Reclaim policy | `Retain`, `Delete`, or `Recycle` |
+| Status | `Available`, `Bound`, `Released`, or `Failed` |
+| Claim | The bound `namespace/name` PVC if any |
+| StorageClass | The class that provisioned the volume |
+
+Open a PV to view its full spec including the underlying volume source (CSI driver, hostPath, NFS, etc.).
+
 ## StorageClasses
 
 Use StorageClasses to inspect the cluster's storage options, including the provisioner, reclaim policy, volume binding mode, and the default class marker.
+
+## Namespaces
+
+The Namespaces page lists every namespace with its phase and age, lets you create a new namespace inline, and lets you delete one (with the cascade warning the API returns). The sidebar namespace selector syncs with this page so refreshes here are reflected globally.

@@ -43,6 +43,20 @@ Live ranges show data as it arrives from the Docker stats stream. Historical ran
 
 Expand a container row when you want to break out network I/O by interface or disk I/O by device. This is useful when a container has multiple network attachments or several bind mounts.
 
+## Multi-container compare
+
+Select up to **6 containers** and the stats page renders side-by-side CPU and memory charts that share a common time axis. Use it to:
+
+- Confirm that a problem is isolated to one container vs. host-wide noise.
+- Compare a baseline replica against a canary while you tweak resource limits.
+- Watch a Compose stack's services line up when traffic spikes.
+
+Selections persist across page navigation, so you can drill into a container and come back without losing your comparison set. The compare chart's tooltip uses forward-fill to show every series at every hovered timestamp, even when one container's samples land off-grid.
+
+<Callout type="info">
+  Multi-container compare uses the same historical store as single-container charts, so the time range selector behaves the same way.
+</Callout>
+
 ## Tips
 
 - Spiky CPU over 1h that flattens out over 24h usually means short-lived batch work, not a leak.

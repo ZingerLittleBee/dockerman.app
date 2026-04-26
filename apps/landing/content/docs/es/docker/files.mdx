@@ -51,6 +51,12 @@ Abre archivos de texto y código en Monaco, haz tus cambios, luego guárdalos de
   Editar un archivo dentro de un contenedor en ejecución cambia la capa editable del contenedor, no la imagen. Reiniciar desde la misma imagen descarta la edición a menos que primero hagas commit del contenedor, consulta [Confirmar un contenedor en ejecución](/es/docs/docker/containers#confirmar-un-contenedor-en-ejecución).
 </Callout>
 
+### Salvaguardas del editor
+
+- **Preservación de modo** — al guardar un archivo se conservan sus permisos Unix originales (`0644`, `0755`, etc.) en lugar de reiniciarlos al escribir.
+- **Detección binaria** — el editor se niega a abrir un archivo que contiene un byte NUL y muestra una solicitud de descarga en su lugar, evitando corrupción accidental cuando una extensión es engañosa.
+- **Tope de edición de 1 MB** — los archivos de más de 1 MB son de solo lectura en el editor. Descarga, edita localmente y vuelve a subir cuando necesites hacer un cambio mayor.
+
 {/* TODO(screenshot): files/edit-monaco - File editor with Monaco syntax highlighting */}
 
 ## Subir y descargar

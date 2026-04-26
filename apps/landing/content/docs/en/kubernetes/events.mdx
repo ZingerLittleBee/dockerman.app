@@ -1,0 +1,45 @@
+---
+title: Events
+description: Browse cluster events with filters by namespace, type, reason, and involved object.
+---
+
+The Events browser is a dedicated page for triaging Kubernetes events without scoping to a specific resource first.
+
+## What's on the page
+
+The events list shows every event the API server is currently exposing for the connected cluster, sorted by last-seen time. Each row includes:
+
+| Column | Description |
+| --- | --- |
+| Last seen | Relative time since the most recent occurrence |
+| Type | `Normal` or `Warning` |
+| Reason | The short reason code, e.g. `FailedScheduling`, `BackOff`, `Pulled` |
+| Object | The involved object (kind/name) — click through to its detail page |
+| Source | Component or node that emitted the event |
+| Count | Number of times this event has fired |
+| Message | Human-readable explanation |
+
+## Filters
+
+Use the filter bar at the top to narrow the list:
+
+- **Namespace** — scope to a single namespace or view across the whole cluster.
+- **Type** — show only `Warning` events when triaging, or `Normal` to confirm a successful action.
+- **Reason** — pick from a dynamic list of reasons present in the current data.
+- **Object** — search by kind or name to focus on one workload.
+
+Filter state is local to the page; switching pages or clusters resets it.
+
+## Live updates
+
+Events stream in as the API server emits them. New rows appear at the top and existing rows update their `Count` and `Last seen` in place, so you can leave the page open while reproducing an issue.
+
+## Detail panel
+
+Click a row to open the detail panel with the full event payload — useful when you need the source `Pod` UID, the controller subobject path, or the raw `firstTimestamp`/`lastTimestamp` values.
+
+## Tips
+
+- Filter to `Warning` and the affected namespace right after a deployment to catch scheduler, image pull, or volume mount failures fast.
+- The cluster overview page also surfaces the most recent events; use this page when you need historical search across the whole cluster.
+- The API server evicts events on its own schedule. If you do not see the event you expected, the cluster has already discarded it.

@@ -31,5 +31,9 @@ description: "跨命名空间检查 Services、Ingresses、Endpoints 和 Network
 使用 NetworkPolicy 了解哪些 Pod 可以相互通信。
 
 <Callout type="info">
-  第一阶段 NetworkPolicy 仅支持查看。使用 `kubectl apply` 或编辑其他资源的 YAML 来创建和编辑它们。
+  创建仅支持 YAML — 使用 YAML 编辑器编写新的 NetworkPolicy。
 </Callout>
+
+## 删除
+
+Service、Ingress 和 NetworkPolicy 的列表视图均提供内联删除。完整支持内联删除的资源列表请参阅[工作负载 → 删除操作](/zh/docs/kubernetes/workloads#删除操作)。
