@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 
-[![Version](https://img.shields.io/badge/version-v5.1.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.1.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Apr%208%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.1.0)
+[![Version](https://img.shields.io/badge/version-v5.2.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.2.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Apr%2026%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.2.0)
 
 一个现代、轻量级的 Docker 管理界面，使用 Tauri 和 Rust 构建。
 专注于简洁性和性能的 Docker 容器管理工具。
@@ -45,17 +45,23 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 
 - ☸️ 与 Docker 并行的完整 Kubernetes 管理
 - 🚀 通过 kubeconfig 连接集群或使用 k3d 创建本地集群（自动安装）
+- 🔀 多集群切换，与 Docker 主机相互独立
 - 📦 工作负载：Deployments、StatefulSets、DaemonSets、Jobs、CronJobs、ReplicaSets、Pods
 - 🌐 网络：Services、Ingresses、Endpoints、NetworkPolicies
 - 🔧 配置与存储：ConfigMaps、Secrets、PVCs、StorageClasses
 - 🔐 RBAC：Roles、ClusterRoles、Bindings、ServiceAccounts
 - 🧩 自定义资源定义（CRDs）浏览和实例管理
-- 📝 内置 YAML 编辑器，支持深层链接
+- 📝 内置 YAML 编辑器，支持深层链接和 dry-run 预览
+- 🖥️ 节点、持久卷、命名空间专属管理页
+- 📣 可过滤的集群事件浏览
 - ⎈ Helm 支持：releases、仓库、chart 搜索和安装
 - 🔗 Pods、Services 和 Deployments 端口转发，支持本地域名映射
 - 🌍 转发服务自动本地 DNS 注册
 - 🛠️ 调试助手，诊断 Pod 和集群问题
 - 🧭 资源层级面包屑导航
+- 📊 集群概览页 CPU 与内存使用卡片
+- 💥 卡死 Pod 强制删除
+- 🛡️ 类型化 403 处理，列表视图显式呈现权限错误
 
 ### Cloudflared 隧道
 
@@ -80,6 +86,8 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 - 🏷️ 容器列表上的升级徽章，基于摘要比对
 - 🖱️ 一键升级，拉取镜像并重建容器
 - 🔁 一键回滚，升级前自动备份
+- 🔔 后台镜像升级监控订阅服务，含订阅页面与通知
+- 🔗 `dockerman://` 深链处理升级提醒
 
 ### 仪表盘概览
 
@@ -109,6 +117,8 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
   - 可折叠的独立容器区域，用于非 Compose 容器
   - 完整的 Compose 生命周期管理（启动、停止、重启、拉取、删除）
   - 支持所有 Docker Compose CLI 选项（file、env-file、profile、progress、dry-run）
+  - 基于 Monaco 的 Compose YAML 编辑器，后端命令应用变更
+  - Docker Run → Compose 转换器，提供专属页面与菜单入口
 - 🐳 容器创建对话框，支持双输入模式
   - 表单配置，引导式设置
   - Docker 命令输入模式，支持解析
@@ -116,7 +126,7 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 - ⏸️ 容器暂停/恢复，支持三态菜单
 - 📦 容器提交，将容器状态保存为新镜像
 - 🐑 容器克隆，将配置复制到创建对话框
-- 💾 容器备份与恢复，完整归档配置、文件系统和卷
+- 💾 容器备份与恢复，完整归档配置、文件系统、卷与绑定挂载
 - 🔍 容器详情检查
   - 端口映射
   - 网络设置
@@ -125,7 +135,8 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 - 📊 资源监控，全新设计的统计页面
   - 环形仪表盘显示 CPU 和内存使用率
   - 迷你图表展示 CPU、内存、网络 I/O 和磁盘 I/O
-  - 时间范围选择器控制图表历史窗口
+  - 七档时间范围 CPU/内存历史曲线
+  - 多容器统计对比（最多 6 个容器并列）
   - 可折叠详情面板查看网络接口和磁盘设备
   - 图表悬停提示显示格式化数值
 - 💻 集成终端访问
@@ -135,7 +146,8 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 - 📋 统一日志查看器，Docker 容器和 Kubernetes Pods 共享
 - 📜 实时日志查看器
   - 虚拟化日志列表，支持跟踪/暂停和加载更多历史
-  - 关键字/正则过滤，支持高亮和快捷操作
+  - 日志搜索：关键词高亮、正则、区分大小写切换、匹配项导航
+  - 统一日志工具栏：时间范围预设、tail 行数、查询过滤
   - 导出日志为 TXT/JSON，复制过滤结果
   - 日志最新优先排序，与事件页面保持一致
   - 键盘快捷键（`P` 暂停、`/` 搜索、`g` 最新、`G` 最旧），带页面提示
@@ -201,6 +213,14 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 - 📂 卷文件浏览器，支持上传和下载
 - 🔍 卷列表支持快速搜索，实时过滤并可一键清除
 
+### 告警与诊断
+
+- 🚨 内置 restart-loop 与容器崩溃告警规则，带删除保护与恢复默认
+- 📋 近期告警列表，显示容器、本地时间与规则名称
+- 🧰 一键诊断包，打包日志、inspect 与主机状态
+- 📝 .env 可视化编辑器，支持键值编辑、注释保留与原子 Save & Apply
+- 🗄️ 系统任务管理，包含调度器快照与对内置任务的锁定控制
+
 ### 应用日志查看器
 
 - 📋 自定义 HTML 日志查看器，支持关键词搜索、级别过滤、详情对话框和导出功能
@@ -233,5 +253,8 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 - 🔐 私有仓库凭证管理，拉取镜像时自动匹配
 - 🛡️ 错误边界，组件异常时显示恢复界面而非白屏
 - 📁 侧边栏可折叠分区，带容器数量徽章
+- ⚙️ 工作区式设置对话框，面板扁平化、侧边栏精简
+- 👁️ 主侧边栏逐项可见性控制，Kubernetes 侧边栏支持分组默认展开状态
+- 🧱 标准化数据表格模式，K8s 列表统一支持列宽缩放、列宽持久化、全局搜索
 - 🚀 轻量快速的性能
 - 💻 跨平台桌面应用

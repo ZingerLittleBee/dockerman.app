@@ -1,3 +1,83 @@
+<ChangelogEntry version="v5.2.0" date="26 de abril de 2026">
+## Kubernetes Multi-Cluster, Vigilancia de Imágenes y Bases del Homelab
+
+Esta versión amplía la gestión de Kubernetes con cambio multi-cluster, dry-run de YAML y páginas dedicadas para nodos, PV y namespaces; añade búsqueda de logs, un servicio de vigilancia de actualizaciones de imagen con notificaciones, backup/restore de bind mounts y la primera fase del roadmap Homelab; además aterriza un workspace de configuración, cobertura completa de i18n y un patrón estandarizado de tablas de datos.
+
+### ✨ Funcionalidades
+
+- ☸️ <Bold>Mejoras de Kubernetes:</Bold> superficie de gestión de cluster ampliada
+  - 🔀 Cambio multi-cluster: cambia entre clusters de Kubernetes de forma independiente de los hosts Docker
+  - 🧪 Vista previa YAML dry-run: compara cambios antes de aplicar mediante dry-run del servidor
+  - 📣 Explorador de eventos: página de eventos del cluster con filtros por endpoint
+  - 🖥️ Páginas Node / PV / Namespace: páginas dedicadas de gestión para nodos, volúmenes persistentes y namespaces
+  - 🔍 Descubrimiento de contextos kubeconfig: detección automática de contextos en el diálogo de importación
+  - 🛡️ Manejo tipado de 403: `K8sListResult<T>` expone errores de permisos en las vistas de lista
+  - 🗑️ Botones de eliminar: añadidos para Services, Ingresses, CronJobs, DaemonSets, Deployments, StatefulSets y NetworkPolicies
+- 🔍 <Bold>Búsqueda de logs:</Bold> busca en logs con resaltado de palabras clave, regex, alternar mayúsculas/minúsculas y navegación entre coincidencias
+- 🎛️ <Bold>Controles de log unificados:</Bold> presets de rango temporal, selector de tail y filtros de consulta consolidados en una sola toolbar
+- 📈 <Bold>Gráfico histórico de stats:</Bold> historial de CPU/memoria con selector de rango temporal de 7 niveles
+- 📝 <Bold>Editor YAML de Compose:</Bold> editor basado en Monaco con comandos Tauri en backend para editar y aplicar archivos Compose
+- 🔄 <Bold>Conversor Docker Run → Compose:</Bold> página y entradas de menú dedicadas que traducen comandos `docker run` a YAML Compose
+- 🔔 <Bold>Vigilancia de actualizaciones de imagen:</Bold> servicio de suscripción en segundo plano para detectar actualizaciones
+  - 📬 Página de suscripción y UI de ajustes con controles por canal
+  - 🔐 Resolutor de credenciales del registro con manejo fail-closed ante ambigüedad
+  - 🕒 Planificador con seguimiento de cursor de historial y notificaciones por lotes
+  - 🔗 Manejador de deep links `dockerman://`
+- 💾 <Bold>Backup y restore de bind mounts:</Bold> incluye los datos de bind mount soportados en los backups y los remapea o restaura por mount al restaurar
+- 🏡 <Bold>Roadmap Homelab (Fase 1–3 parcial):</Bold> base más una selección de elementos no MVP
+  - 🧰 Bundle de diagnóstico: empaquetado en un clic de logs, inspect y estado del host para soporte
+  - 🚨 Reglas de alerta preestablecidas: reglas integradas de restart-loop y crash de contenedor con guarda de borrado y restablecer a defaults
+  - 📝 Editor visual de .env: página `/env-editor?path=...` con edición clave/valor, conservación de comentarios y líneas en blanco, y Save & Apply atómico
+  - 📊 Comparativa de stats multi-contenedor: gráficos de CPU/memoria lado a lado para hasta 6 contenedores con selecciones persistentes
+  - 📂 Reforzamiento del editor de archivos del contenedor: guardado preservando modo, tope de edición de 1 MB y detección de binario por byte NUL
+- 🌐 <Bold>Cobertura completa de i18n:</Bold> reemplazadas las cadenas hardcoded restantes por llamadas i18n y traducciones para español, japonés y chino
+- ⚙️ <Bold>Diálogo workspace de Ajustes:</Bold> ajustes movidos a un diálogo estilo workspace con paneles aplanados, barra lateral refinada y pie de licencia activada simplificado
+- 👁️ <Bold>Controles de visibilidad de la barra lateral:</Bold> mostrar/ocultar por elemento en la barra principal y, para Kubernetes, controles de estado de expansión por defecto y visibilidad por grupo
+- 🧱 <Bold>Patrón estandarizado de tabla de datos:</Bold> base sobre TanStack Table v8 con redimensionado/orden de columnas, anchos persistentes, búsqueda global, tooltips por truncado y estado vacío centrado en viewport — aplicado a K8s `event`, `pod`, `deployment`, `daemon-set`, `stateful-set`, `job`, `cron-job`, `service`, `ingress`, `config-map`, `pv`, `namespace` y `port-forward`
+- 📊 <Bold>Tarjetas de resumen del cluster K8s:</Bold> tarjetas de uso de CPU y memoria en la página de resumen del cluster
+- 💥 <Bold>Force delete de Pods:</Bold> omite el apagado graceful (grace period 0) para Pods atascados en terminating
+- 🗄️ <Bold>Gestión de tareas del sistema:</Bold> snapshots de ejecuciones del scheduler y UI integrada de gestión con controles bloqueados para tareas integradas
+- 🚨 <Bold>Metadatos de alertas recientes:</Bold> contenedor, hora local y nombre de regla mostrados en la lista de alertas con una fila accesible para reglas preestablecidas
+- 🔇 <Bold>Click derecho inteligente:</Bold> suprime el menú contextual nativo mientras hay texto seleccionado
+
+### 🔧 Mejoras
+
+- 🧭 <Bold>Acciones del header del contenedor:</Bold> botones de la fila superior agrupados en menús desplegables
+- 🖼️ <Bold>Entrada de Image Watches:</Bold> trasladada de la barra lateral al header de la página de imágenes
+- ↩️ <Bold>Navegación volver del conversor:</Bold> añadido botón volver en la página del conversor
+- 🧹 <Bold>Limpieza de lints Biome:</Bold> resueltos los 71 errores de lint pendientes en todo el código
+- 🗂️ <Bold>Reorganización de la barra lateral K8s:</Bold> grupo superior alineado con herramientas mainstream, iconos refrescados y estado de expansión por defecto desacoplado del colapso en runtime
+- 🎚️ <Bold>Toolbar del contenedor:</Bold> los toggles "mostrar todo" y "modo batch" se consolidan en la fila de búsqueda usando un nuevo componente Toggle de Shadcn; toggle de modo de vista refinado
+- 🧰 <Bold>Layout de alertas:</Bold> layout selector + detalle para alertas; regla preestablecida reutilizada en la migración de notificaciones legacy
+- 🧪 <Bold>Runner E2E nativo WDIO:</Bold> habilitado con progreso documentado y un plan manual de tests refrescado para Dockerman 5.2.0
+
+### 🐛 Correcciones
+
+- 🔁 <Bold>Parpadeo de la barra lateral K8s:</Bold> evitado al cambiar de cluster
+- 🧭 <Bold>Restauración de ruta K8s:</Bold> la ruta vuelve al último recurso al re-entrar a un cluster
+- 🧾 <Bold>Scroll del diálogo de log K3d:</Bold> comportamiento de scroll refinado en el diálogo de log de k3d
+- 🧱 <Bold>Selección de recurso YAML:</Bold> evita selección obsoleta de recurso en el editor YAML
+- 🛠️ <Bold>Registro de make history:</Bold> reforzado el camino de escritura del make history
+- 🕰️ <Bold>Defaults de tiempo relativo:</Bold> arreglada la falta de traducciones por defecto y migrado a `Intl.RelativeTimeFormat`
+- ⌘ <Bold>Init de selectores del store:</Bold> creación lazy de selectores opcionales para evitar crashes en init
+- 🔄 <Bold>Restauración de K8s tras reinicio:</Bold> restaura el cluster conectado y las páginas K8s profundas (instancias CRD, editor YAML) tras reiniciar la app
+- 🗂️ <Bold>Preservación de página al cambiar cluster:</Bold> mantiene la página K8s actual al cambiar de cluster; el selector de namespace de la barra lateral se sincroniza con el refresh del detalle de namespace
+- 🔢 <Bold>Conteos de workloads en resumen:</Bold> cuenta workloads en todos los namespaces en el resumen del cluster
+- 📋 <Bold>Interacción de la lista ConfigMap:</Bold> click en fila abre detalle; el delete inline vuelve a funcionar
+- 🪧 <Bold>Texto de estado vacío de workloads:</Bold> mensajes correctos de estado vacío en listas de workloads K8s
+- 🧬 <Bold>Cascada al borrar Job:</Bold> confirmación localizada que cascada el borrado a los Pods que posee
+- 🔗 <Bold>Navegación YAML:</Bold> respeta el query param `resource` al navegar al editor YAML
+- 🧷 <Bold>Mapping de breadcrumbs K8s:</Bold> mapping de rutas completado en todas las páginas K8s
+- 🪪 <Bold>Ocultación de anotación Secret:</Bold> oculta la anotación `last-applied-configuration` en el detalle del Secret
+- 📁 <Bold>Acción de previsualización de archivo:</Bold> re-expuesta en el explorador de archivos del contenedor
+- 🛤️ <Bold>Normalización de paths:</Bold> archivos Stack creados vía el comando del backend con paths de stack y backup normalizados
+- 🛡️ <Bold>Localización de diálogos:</Bold> diálogos de contenedor, diagnóstico y ajustes totalmente localizados
+- 📡 <Bold>Diálogo de setup DNS K8s:</Bold> los comandos largos ahora se ajustan correctamente
+- ✅ <Bold>Checkbox de canal de alertas:</Bold> alineado con el texto de la etiqueta
+- 🩹 <Bold>Type checks de la página de Tasks:</Bold> inferencia de tipos estabilizada
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v5.1.0" date="8 de abril de 2026">
 ## Soporte del Runtime Podman
 

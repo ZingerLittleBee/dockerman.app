@@ -1,3 +1,83 @@
+<ChangelogEntry version="v5.2.0" date="2026年4月26日">
+## 多集群 Kubernetes、镜像监控与 Homelab 基础
+
+本次发布拓展 Kubernetes 管理边界，引入多集群切换、YAML dry-run 以及节点 / PV / 命名空间专属页面；新增日志搜索、镜像升级监控订阅服务（含通知）、绑定挂载备份恢复，并落地 Homelab 路线图首阶段；同时上线设置工作区对话框、完整 i18n 覆盖与标准化数据表格模式。
+
+### ✨ 新功能
+
+- ☸️ <Bold>Kubernetes 增强：</Bold>拓展集群管理能力
+  - 🔀 多集群切换：在 Docker 主机之外独立切换 Kubernetes 集群
+  - 🧪 YAML dry-run 预览：通过服务端 dry-run 在应用前对比变更
+  - 📣 事件浏览：可过滤的集群事件页面，支持端点过滤
+  - 🖥️ 节点 / PV / 命名空间页面：节点、持久卷与命名空间的专属管理页
+  - 🔍 Kubeconfig 上下文发现：导入对话框自动识别上下文
+  - 🛡️ 类型化的 403 处理：`K8sListResult<T>` 在列表视图上显式返回权限错误
+  - 🗑️ 删除按钮：为 Services、Ingresses、CronJobs、DaemonSets、Deployments、StatefulSets 与 NetworkPolicies 增加删除按钮
+- 🔍 <Bold>日志搜索：</Bold>支持关键词高亮、正则、区分大小写切换与匹配项导航
+- 🎛️ <Bold>统一日志控件：</Bold>时间范围预设、行数选择与查询过滤合并到单一工具栏
+- 📈 <Bold>历史统计图表：</Bold>CPU / 内存历史曲线，支持七档时间范围选择
+- 📝 <Bold>Compose YAML 编辑器：</Bold>基于 Monaco 的编辑器，配合后端 Tauri 命令编辑与应用 Compose 文件
+- 🔄 <Bold>Docker Run → Compose 转换：</Bold>专属页面与菜单入口，将 `docker run` 命令转换为 Compose YAML
+- 🔔 <Bold>镜像升级监控：</Bold>后台订阅服务用于镜像更新检测
+  - 📬 订阅页面与设置 UI，按通道粒度控制
+  - 🔐 仓库凭证解析器，遇歧义时 fail-closed
+  - 🕒 调度器追踪历史游标并批量发送通知
+  - 🔗 `dockerman://` 深链处理
+- 💾 <Bold>绑定挂载备份与恢复：</Bold>备份中包含可备份的绑定挂载数据，恢复时按挂载粒度重映射或还原
+- 🏡 <Bold>Homelab 路线图（第 1–3 阶段部分）：</Bold>基础能力 + 部分非 MVP 项
+  - 🧰 诊断包：一键打包日志、inspect 与主机状态用于排障支持
+  - 🚨 预置告警规则：内置 restart-loop 与容器崩溃规则，带删除保护与恢复默认
+  - 📝 .env 可视化编辑：`/env-editor?path=...` 页面，支持键值编辑、注释与空行保留以及原子 Save & Apply
+  - 📊 多容器统计对比：最多 6 个容器并列对比 CPU / 内存图表，选择持久化
+  - 📂 容器文件编辑器加固：保留权限保存、1 MB 编辑上限以及 NUL 字节二进制检测
+- 🌐 <Bold>完整 i18n 覆盖：</Bold>替换剩余硬编码字符串为 i18n 调用，并补齐西班牙语、日语和中文翻译
+- ⚙️ <Bold>设置工作区对话框：</Bold>设置以工作区式对话框呈现，面板扁平化，侧边栏精简，激活许可证页脚简化
+- 👁️ <Bold>侧边栏可见性控制：</Bold>主侧边栏支持逐项显示/隐藏，Kubernetes 侧边栏支持分组默认展开状态与可见性控制
+- 🧱 <Bold>标准化数据表格模式：</Bold>TanStack Table v8 基线，支持列宽缩放/排序、列宽持久化、全局搜索、截断 Tooltip、视口居中空状态——已应用于 K8s `event`、`pod`、`deployment`、`daemon-set`、`stateful-set`、`job`、`cron-job`、`service`、`ingress`、`config-map`、`pv`、`namespace` 与 `port-forward`
+- 📊 <Bold>K8s 集群概览卡片：</Bold>集群概览页新增 CPU 与内存使用卡片
+- 💥 <Bold>Pod 强制删除：</Bold>对卡在 terminating 的 Pod 跳过优雅关闭（grace period 0）
+- 🗄️ <Bold>系统任务管理：</Bold>调度器任务运行快照，内置任务管理 UI，对内置任务锁定控制
+- 🚨 <Bold>近期告警元数据：</Bold>告警列表显示容器、本地时间与规则名称，并提供无障碍的预置规则行
+- 🔇 <Bold>智能右键菜单：</Bold>选中文本时屏蔽原生右键菜单
+
+### 🔧 改进
+
+- 🧭 <Bold>容器头部操作：</Bold>顶部按钮整合为分组下拉菜单
+- 🖼️ <Bold>镜像监控入口：</Bold>从侧边栏迁移到镜像页面头部
+- ↩️ <Bold>转换器返回导航：</Bold>转换器页面新增返回按钮
+- 🧹 <Bold>Biome lint 清理：</Bold>修复全代码库 71 个遗留 lint 错误
+- 🗂️ <Bold>K8s 侧边栏重组：</Bold>顶部分组对齐主流工具，图标焕新，分组默认展开状态与运行时折叠解耦
+- 🎚️ <Bold>容器工具栏：</Bold>“显示全部”与“批量模式”切换合并到搜索行，使用新的 Shadcn Toggle 组件；视图模式切换优化
+- 🧰 <Bold>告警布局：</Bold>选择器 + 详情布局；预置规则在旧通知迁移中复用
+- 🧪 <Bold>原生 WDIO E2E Runner：</Bold>启用并记录进展，刷新 Dockerman 5.2.0 手动测试计划
+
+### 🐛 Bug 修复
+
+- 🔁 <Bold>K8s 侧边栏闪烁：</Bold>切换集群时不再闪烁
+- 🧭 <Bold>K8s 路由恢复：</Bold>重新进入集群时回到上次访问的资源
+- 🧾 <Bold>K3d 日志对话框滚动：</Bold>优化 k3d 日志对话框滚动行为
+- 🧱 <Bold>YAML 资源选择：</Bold>避免 YAML 编辑器中残留的资源选择
+- 🛠️ <Bold>Make 历史记录：</Bold>加固 make 历史写入路径
+- 🕰️ <Bold>相对时间默认值：</Bold>修复缺失的默认相对时间翻译，切换到 `Intl.RelativeTimeFormat`
+- ⌘ <Bold>Store Selector 初始化：</Bold>延迟创建可选的 store selector，避免初始化崩溃
+- 🔄 <Bold>K8s 重启恢复：</Bold>应用重启后恢复已连接集群与深层 K8s 页面（CRD 实例、YAML 编辑器）
+- 🗂️ <Bold>切换集群保留页面：</Bold>切换集群时保留当前 K8s 页面；侧边栏命名空间选择器与命名空间详情刷新同步
+- 🔢 <Bold>概览工作负载计数：</Bold>集群概览跨所有命名空间统计工作负载
+- 📋 <Bold>ConfigMap 列表交互：</Bold>点击行打开详情；内联删除恢复正常
+- 🪧 <Bold>工作负载空状态文案：</Bold>K8s 工作负载列表的合理空状态消息
+- 🧬 <Bold>Job 删除级联：</Bold>本地化确认提示，并级联删除归属的 Pod
+- 🔗 <Bold>YAML 导航：</Bold>跳转 YAML 编辑器时遵循 `resource` 查询参数
+- 🧷 <Bold>K8s 面包屑映射：</Bold>补齐所有 K8s 页面的路由映射
+- 🪪 <Bold>Secret 注解隐藏：</Bold>Secret 详情中隐藏 `last-applied-configuration` 注解
+- 📁 <Bold>文件预览操作：</Bold>容器文件浏览器重新暴露文件预览
+- 🛤️ <Bold>路径规范化：</Bold>通过后端命令创建的 Stack 文件，stack 与备份路径已规范化
+- 🛡️ <Bold>对话框本地化：</Bold>容器、诊断与设置对话框完全本地化
+- 📡 <Bold>K8s DNS 安装对话框：</Bold>长安装命令现可正确换行
+- ✅ <Bold>告警通道复选框：</Bold>与标签文本对齐
+- 🩹 <Bold>任务页类型检查：</Bold>稳定类型推断
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v5.1.0" date="2026年4月8日">
 ## Podman 运行时支持
 

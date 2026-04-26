@@ -2,8 +2,8 @@
 
 Language: 🇺🇸 English | [🇨🇳 简体中文](./README.zh-CN.md)
 
-[![Version](https://img.shields.io/badge/version-v5.1.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.1.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Apr%208%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.1.0)
+[![Version](https://img.shields.io/badge/version-v5.2.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.2.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Apr%2026%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.2.0)
 
 A modern, lightweight Docker management UI built with Tauri and Rust.
 Focus on simplicity and performance for Docker container management.
@@ -45,17 +45,23 @@ Focus on simplicity and performance for Docker container management.
 
 - ☸️ Full Kubernetes management alongside Docker
 - 🚀 Cluster management via kubeconfig or local k3d clusters with auto-install
+- 🔀 Multi-cluster switching independent of Docker hosts
 - 📦 Workloads: Deployments, StatefulSets, DaemonSets, Jobs, CronJobs, ReplicaSets, Pods
 - 🌐 Networking: Services, Ingresses, Endpoints, NetworkPolicies
 - 🔧 Config & Storage: ConfigMaps, Secrets, PVCs, StorageClasses
 - 🔐 RBAC: Roles, ClusterRoles, Bindings, ServiceAccounts
 - 🧩 Custom Resource Definitions (CRDs) browsing and instance management
-- 📝 Built-in YAML editor with deep-link support
+- 📝 Built-in YAML editor with deep-link support and dry-run preview
+- 🖥️ Dedicated pages for Nodes, Persistent Volumes, and Namespaces
+- 📣 Filterable cluster events browser
 - ⎈ Helm support: releases, repositories, chart search, and install
 - 🔗 Port forwarding for Pods, Services, and Deployments with local domain mapping
 - 🌍 Automatic local DNS registration for forwarded services
 - 🛠️ Debug assistant for diagnosing Pod and cluster issues
 - 🧭 Breadcrumb navigation for resource hierarchy
+- 📊 Cluster overview cards for CPU and memory usage
+- 💥 Pod force delete for stuck terminating Pods
+- 🛡️ Typed 403 handling surfaces permission errors on list views
 
 ### Cloudflared Tunnels
 
@@ -80,6 +86,8 @@ Focus on simplicity and performance for Docker container management.
 - 🏷️ Upgrade badges on container list with digest comparison
 - 🖱️ One-click upgrade with image pull and container recreation
 - 🔁 One-click rollback with automatic backup before upgrade
+- 🔔 Background image upgrade watch service with subscription page and notifications
+- 🔗 `dockerman://` deep link handler for upgrade alerts
 
 ### Dashboard Overview
 
@@ -109,6 +117,8 @@ Focus on simplicity and performance for Docker container management.
   - Collapsible Standalone Containers section for non-Compose containers
   - Full Compose lifecycle management (Up, Stop, Restart, Pull, Remove)
   - Support for all Docker Compose CLI options (file, env-file, profile, progress, dry-run)
+  - Monaco-backed Compose YAML editor with backend apply
+  - Docker Run → Compose converter with dedicated page and menu entries
 - 🐳 Container creation dialog with dual input modes
   - Form-based configuration for guided setup
   - Docker command input mode with parsing support
@@ -116,7 +126,7 @@ Focus on simplicity and performance for Docker container management.
 - ⏸️ Container pause/unpause with three-state menu support
 - 📦 Container commit to save state as a new image
 - 🐑 Container clone to duplicate configuration into create dialog
-- 💾 Container backup and restore with full configuration, filesystem, and volume archival
+- 💾 Container backup and restore with full configuration, filesystem, volume, and bind-mount archival
 - 🔍 Container inspection with detailed information
   - Port mappings
   - Network settings
@@ -125,7 +135,8 @@ Focus on simplicity and performance for Docker container management.
 - 📊 Resource monitoring with redesigned stats page
   - Ring gauges for CPU and memory usage
   - Sparkline charts for CPU, memory, network I/O, and disk I/O
-  - Time range selector for chart history
+  - Historical CPU/memory chart with 7-tier time range selector
+  - Multi-container stats comparison for up to 6 containers
   - Collapsible detail panels for network interfaces and disk devices
   - Chart tooltips with formatted values
 - 💻 Integrated terminal access
@@ -135,7 +146,8 @@ Focus on simplicity and performance for Docker container management.
 - 📋 Unified log viewer shared between Docker containers and Kubernetes Pods
 - 📜 Log viewer with real-time updates
   - Virtualized log list with follow/pause and load-more history
-  - Keyword/regex filtering with highlight and quick shortcuts
+  - Log search with keyword highlight, regex, case-sensitive toggle, and match navigation
+  - Unified log toolbar with time range presets, tail count selector, and query filters
   - Export logs as TXT/JSON and copy filtered results
   - Newest-first log ordering, consistent with events page
   - Keyboard shortcuts (`P` pause, `/` search, `g` newest, `G` oldest) with on-screen hints
@@ -201,6 +213,14 @@ Focus on simplicity and performance for Docker container management.
 - 📂 Volume File Browser with upload and download support
 - 🔍 Quick search for volumes with real-time filtering and clear reset
 
+### Alerts & Diagnostics
+
+- 🚨 Preset alert rules for restart-loop and container crash with delete-guard and reset-to-defaults
+- 📋 Recent alerts list with container, local time, and rule name metadata
+- 🧰 One-click diagnostic bundle packaging logs, inspect, and host state
+- 📝 .env visual editor with key/value editing, comment preservation, and atomic Save & Apply
+- 🗄️ System task management with scheduler snapshots and locked controls for built-in tasks
+
 ### App Log Viewer
 
 - 📋 Custom HTML-based log viewer with keyword search, level filtering, detail dialog, and export support
@@ -233,6 +253,9 @@ Focus on simplicity and performance for Docker container management.
 - 🔐 Private registry credential management with auto-matching on image pull
 - 🛡️ Error boundary with recovery UI for unexpected component errors
 - 📁 Sidebar collapsible sections with container count badges
+- ⚙️ Workspace-style settings dialog with flattened panels and refined sidebar
+- 👁️ Sidebar visibility controls per item, with per-group default expand state for Kubernetes
+- 🧱 Standardized data-table pattern across K8s lists with column resizing, persisted widths, and global search
 - 🚀 Lightweight and fast performance
 - 💻 Cross-platform desktop application
 
