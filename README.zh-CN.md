@@ -1,6 +1,6 @@
 # Dockerman
 
-Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文
+Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文 | [🇯🇵 日本語](./README.ja.md) | [🇪🇸 Español](./README.es.md)
 
 [![Version](https://img.shields.io/badge/version-v5.2.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.2.0)
 [![Release Date](https://img.shields.io/badge/release%20date-Apr%2026%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.2.0)
