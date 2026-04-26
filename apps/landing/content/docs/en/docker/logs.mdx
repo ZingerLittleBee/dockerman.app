@@ -19,7 +19,13 @@ Dockerman renders log rows on demand so the viewer stays responsive even when yo
 
 ## Search
 
-Open search with `/`, type a query, and toggle regex only when you need it. Matches stay highlighted in place as you move through the stream.
+Open search with `/` and Dockerman highlights every match in place as you scroll. Three toggles refine the query:
+
+- **Regex** — switch from literal substring to a regex pattern.
+- **Case sensitive** — off by default; flip on to require exact case matches.
+- **Match count** — the search bar shows the current/total match position so you always know how far through the matches you are.
+
+Use the navigation controls (or `Enter` / `Shift+Enter`) to jump between matches without losing your place in the stream.
 
 ## Power shortcuts
 
@@ -34,6 +40,18 @@ Open search with `/`, type a query, and toggle regex only when you need it. Matc
 | `G` | Jump to the latest line |
 | `P` | Previous match, as an alternative to Shift + Enter |
 | Esc | Close search or clear highlights |
+
+## Unified log toolbar
+
+The log controls — time range, tail size, and query filter — are consolidated into a single toolbar above the stream so you can refine what you fetch without digging through menus.
+
+| Control | What it does |
+| --- | --- |
+| Time range | Pick a preset (e.g. *Last 15 min*, *Last hour*, *Last 24 h*) or *All* to read from the start. |
+| Tail | Limit how many lines Dockerman fetches before the live stream begins (e.g. 100, 1000, 10000). |
+| Query | Server-side filter applied before lines reach the viewer. Useful for very chatty containers. |
+
+Combining a tighter time range or smaller tail with a query keeps memory usage low even on noisy services.
 
 ## Timestamp formats
 

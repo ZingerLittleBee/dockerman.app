@@ -51,6 +51,12 @@ Open text and code files in Monaco, make your changes, then save them back to th
   Editing a file inside a running container changes the container's writable layer, not the image. Restarting from the same image discards the edit unless you commit the container first, see [Commit a running container](/en/docs/docker/containers#commit-a-running-container).
 </Callout>
 
+### Editor safety guards
+
+- **Mode preservation** — saving a file keeps its original Unix permissions (`0644`, `0755`, etc.) instead of resetting them on write.
+- **Binary detection** — the editor refuses to open a file that contains a NUL byte and shows a download prompt instead, preventing accidental corruption when an extension is misleading.
+- **1 MB edit cap** — files larger than 1 MB are read-only in the editor. Download, edit locally, and re-upload when you need to make a bigger change.
+
 {/* TODO(screenshot): files/edit-monaco - File editor with Monaco syntax highlighting */}
 
 ## Upload and download

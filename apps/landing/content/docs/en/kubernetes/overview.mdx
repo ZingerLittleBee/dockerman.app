@@ -3,7 +3,7 @@ title: Overview
 description: Native Kubernetes support in Dockerman — workloads, networking, config, storage, RBAC, CRDs, Helm, and debug.
 ---
 
-Dockerman's Phase 1 Kubernetes support is a lightweight, GUI-first way to run and inspect a real Kubernetes cluster without switching tools or learning a new dashboard.
+Dockerman's Kubernetes support is a lightweight, GUI-first way to run and inspect a real Kubernetes cluster without switching tools or learning a new dashboard.
 
 ## Why Kubernetes in Dockerman
 
@@ -13,7 +13,7 @@ Use Dockerman when you want Kubernetes in the same app you already use for Docke
 
 <Cards>
   <Card title="Cluster" href="/en/docs/kubernetes/cluster">
-    Start local k3d clusters or import existing kubeconfigs.
+    Start local k3d clusters, import existing kubeconfigs, and switch between clusters independently from your Docker hosts.
   </Card>
   <Card title="Workloads" href="/en/docs/kubernetes/workloads">
     Browse Pods, Deployments, StatefulSets, DaemonSets, Jobs, CronJobs, and ReplicaSets.
@@ -22,7 +22,7 @@ Use Dockerman when you want Kubernetes in the same app you already use for Docke
     Inspect Services, Ingresses, Endpoints, and NetworkPolicies.
   </Card>
   <Card title="Config & Storage" href="/en/docs/kubernetes/config-storage">
-    Work with ConfigMaps, Secrets, PVCs, and StorageClasses.
+    Work with ConfigMaps, Secrets, PVCs, PersistentVolumes, StorageClasses, and Namespaces.
   </Card>
   <Card title="RBAC" href="/en/docs/kubernetes/rbac">
     See who can do what across accounts, roles, and bindings.
@@ -39,11 +39,25 @@ Use Dockerman when you want Kubernetes in the same app you already use for Docke
   <Card title="Custom Resources" href="/en/docs/kubernetes/custom-resources">
     Discover CRDs and browse or edit their instances as YAML.
   </Card>
+  <Card title="Events" href="/en/docs/kubernetes/events">
+    Browse cluster events with filters by type, reason, object, and namespace.
+  </Card>
 </Cards>
 
-## Dashboard
+## Cluster overview dashboard
 
-Open the Kubernetes overview to see a live summary of the cluster: node count and status, running and pending pods, deployments, services, and the most recent cluster events. Use the dashboard as a starting point before drilling into specific resources.
+Open the Kubernetes overview to see a live summary of the cluster.
+
+- **CPU and memory cards** — usage across the cluster surfaced as headline cards. Requires `metrics-server` in the target cluster.
+- **Workload counts** — running and pending Pods, Deployments, Services, and other resources counted across **all namespaces**, not just the active one.
+- **Node status** — node count and ready state at a glance.
+- **Recent events** — the most recent cluster events, with a link to the full [Events](/en/docs/kubernetes/events) browser.
+
+Use the dashboard as a starting point before drilling into specific resources.
+
+## Multi-cluster switching
+
+Dockerman tracks the active Kubernetes cluster **independently of the active Docker host**. Switching clusters keeps your current K8s page where possible, restores deep pages (CRD instances, YAML editor) after an app restart, and refreshes the namespace selector to match the new cluster. Reconnecting to a cluster after a restart restores the last visited resource so you do not lose context.
 
 ## Two ways to start
 
@@ -60,13 +74,27 @@ Open the Kubernetes overview to see a live summary of the cluster: node count an
 
 Use the namespace switcher in the top bar to scope every Kubernetes list. Switch namespaces without disconnecting from the cluster, then keep browsing workloads, networking, config, and RBAC in the new namespace.
 
+## Sidebar customization
+
+The Kubernetes sidebar is grouped into Workloads, Networking, Config & Storage, RBAC, and Cluster sections. Two controls let you tailor it to your workflow:
+
+- **Per-group default expand state** — pick which groups open automatically when you connect to a cluster, decoupled from runtime collapse state.
+- **Per-item visibility** — hide individual resource entries you never use; runtime expand/collapse picks up where you left it next session.
+
+Edit both from [Settings → Sidebar](/en/docs/reference/settings#sidebar-visibility-controls).
+
+## Permission errors
+
+Lists return typed `K8sListResult<T>` so a `403 Forbidden` is surfaced **at the list itself** instead of failing the whole page. You see exactly which resource your context is missing access to and can keep using the rest of the cluster while you fix RBAC.
+
 ## What's not yet supported
 
 <Callout type="info">
-  Phase 1 focuses on the resources above. You do not get these workflows yet:
+  These workflows are not in scope yet:
 
   - Cluster creation outside k3d, such as kubeadm or managed-service provisioning.
   - Horizontal pod autoscalers.
   - Gateway API beyond Ingress.
-  - Visual CRD editors, use YAML editing instead.
+  - Visual CRD editors — use YAML editing instead.
+  - Visual NetworkPolicy editor — author with YAML.
 </Callout>

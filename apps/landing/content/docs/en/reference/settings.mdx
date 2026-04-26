@@ -5,6 +5,20 @@ description: Reference for every settings page in Dockerman, from Docker connect
 
 Reference for every settings page. Each section links back to the feature it controls.
 
+## Workspace dialog layout
+
+Settings open in a workspace-style dialog: a fixed sidebar on the left lists every panel, and the right side renders one panel at a time as a flat scrollable surface (no nested tabs). The activated-license footer sits in the dialog chrome so it stays visible regardless of which panel you are on. Open Settings from the gear icon, the system tray, or [Spotlight](/en/docs/advanced/spotlight) (`Cmd/Ctrl+;` then search "Settings").
+
+## Sidebar visibility controls
+
+Two settings let you tailor the main app sidebar and the Kubernetes sidebar to your workflow:
+
+- **Main sidebar — per-item show/hide** — hide entries you never use (for example *Networks* if you only run host networking, or *Templates* if you write your own Compose files). Hidden items still show up in [Spotlight](/en/docs/advanced/spotlight).
+- **Kubernetes sidebar — per-group default expand state** — choose which groups (Workloads, Networking, Config & Storage, RBAC, Cluster) open by default when you connect to a cluster. The setting is decoupled from runtime collapse, so flipping a section closed during a session does not overwrite your default.
+- **Kubernetes sidebar — per-item visibility** — same hide/show control as the main sidebar, scoped to the K8s tree.
+
+Reset to defaults at any time from the same panel.
+
 ## Runtime settings
 
 Use the runtime preference selector to choose between Auto, Docker, and Podman. Auto tries Docker first, then Podman. The detected runtime is shown below the selector after a successful connection. When connected to Podman, Compose features are automatically disabled.
@@ -64,3 +78,11 @@ Use Tray settings to show or hide the tray icon, minimize Dockerman to the tray 
 ## Trivy settings
 
 Use Trivy settings to set the Trivy binary path, the vulnerability database update interval, and the default severity filters. See [Scan with Trivy](/en/docs/docker/images#scan-with-trivy) for the scan flow.
+
+## Tasks settings
+
+Manage the [background task scheduler](/en/docs/homelab/scheduler) from this panel: enable/disable individual tasks, change their schedule, and trigger an immediate run. Built-in tasks (`stats_aggregation`, `stats_retention_prune`, `image_upgrade_check`) are locked from deletion but remain fully configurable.
+
+## Language and region
+
+Dockerman ships with full localization for English, 简体中文, 日本語, and Español. Pick a language to change every UI string, including dialog copy, alerts, and the diagnostic bundle UI. Relative time formatting follows your selected locale via `Intl.RelativeTimeFormat`.

@@ -125,7 +125,7 @@ Back up a container when you want to save its configuration, its filesystem, and
 
 ### What a backup contains
 
-The archive includes a manifest, the container config, the filesystem snapshot, and any attached volumes.
+The archive includes a manifest, the container config, the filesystem snapshot, attached volumes, and supported bind mount data.
 
 <Files>
   <Folder name="backup-<name>-<timestamp>.tar.gz" defaultOpen>
@@ -135,8 +135,23 @@ The archive includes a manifest, the container config, the filesystem snapshot, 
     <Folder name="volumes">
       <File name="<volume-name>.tar" />
     </Folder>
+    <Folder name="bind-mounts">
+      <File name="<mount-id>.tar" />
+    </Folder>
   </Folder>
 </Files>
+
+### Bind mount support
+
+Backup includes data from supported bind mounts so you can move a container's host-side files along with everything else.
+
+- Each bind mount is captured as its own archive entry alongside the volume archives.
+- During restore, you can **remap each mount to a new host path** or skip it entirely. The original mount path is shown for reference.
+- Read-only bind mounts and mounts whose host path is unreadable are skipped with a note in the manifest.
+
+<Callout type="info">
+  Bind mounts that point at system paths (e.g. `/var/run/docker.sock`, `/proc`, `/sys`) are intentionally excluded — they belong to the host, not the container.
+</Callout>
 
 ### Create a backup
 
@@ -201,6 +216,14 @@ The archive includes a manifest, the container config, the filesystem snapshot, 
 - Backups of large containers scale with volume size, so expect the archive to grow with the amount of attached data.
 - To move a container between hosts, create the backup on the source host, copy the `.tar.gz`, then restore it on the target host.
 - Backups do not include network definitions. Make sure the target host has matching networks, or let Dockerman recreate them.
+
+## Visual `.env` editor
+
+Edit environment variables in a key/value table instead of opening `.env` in a text editor. Open it from the container's action menu (or the Compose project menu when the stack has an `.env` file) and Dockerman applies the change to the running services for you.
+
+- **Comment and blank-line preservation** — comments and spacing in the original file survive a save round-trip; the editor only rewrites the rows you change.
+- **Atomic Save & Apply** — a single button writes the file and recreates the affected services, so you do not have to remember to re-run `docker compose up -d`.
+- **Type-safe entry** — quoted values, escapes, and multi-line values are parsed correctly.
 
 ## Batch operations
 
