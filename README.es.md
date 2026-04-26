@@ -76,6 +76,7 @@ Construido con Tauri + Rust como app de escritorio nativa — no es Electron, no
 ![Lista de procesos](apps/landing/public/screenshots/readme/process.png)
 ![Inspect](apps/landing/public/screenshots/readme/inspect.png)
 ![Stats](apps/landing/public/screenshots/readme/stats.png)
+![Comparación multi-contenedor](apps/landing/public/screenshots/readme/stats-compare.png)
 ![SSH](apps/landing/public/screenshots/readme/ssh.png)
 ![Log de build](apps/landing/public/screenshots/readme/build-log.png)
 ![Historial de builds](apps/landing/public/screenshots/readme/build-log-history.png)

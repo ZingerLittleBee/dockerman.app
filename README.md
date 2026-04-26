@@ -76,6 +76,7 @@ Built on Tauri + Rust as a native desktop app — not Electron, not a browser ta
 ![Process list](apps/landing/public/screenshots/readme/process.png)
 ![Inspect](apps/landing/public/screenshots/readme/inspect.png)
 ![Stats](apps/landing/public/screenshots/readme/stats.png)
+![Stats compare](apps/landing/public/screenshots/readme/stats-compare.png)
 ![SSH](apps/landing/public/screenshots/readme/ssh.png)
 ![Build log](apps/landing/public/screenshots/readme/build-log.png)
 ![Build history](apps/landing/public/screenshots/readme/build-log-history.png)
