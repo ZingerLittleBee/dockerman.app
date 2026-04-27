@@ -5,7 +5,15 @@ description: Update Dockerman version and changelog. Use when releasing a new ve
 
 # Update Version Skill
 
-Updates the Dockerman website with a new version release, including siteConfig, changelog, and README files.
+Updates the Dockerman website with a new version release.
+
+> **Single sources of truth:**
+> - **Version** lives in `apps/landing/src/app/siteConfig.ts` `latestVersion`. All components (`Navbar`, `Hero`, `SnapshotHero`) and the `downloads.ts` `VERSION` constant import from it; locale `hero.eyebrow` / `hero.metaVersion` use the `{{version}}` placeholder.
+> - **Release date** lives in `apps/landing/src/config/downloads.ts` `RELEASE_DATE` (ISO). It flows to the latest `history[]` entry, the Download page hero, and Hero `metaVersion` via `formatDate(downloadsConfig.latest.releaseDate, locale)` from `@/lib/format` + a `{{date}}` placeholder.
+>
+> **Do not** reintroduce hardcoded version or date strings in those files.
+>
+> The historical / per-release locations (changelog MDX entries, README badges, locale tagline highlight phrases, the `release-x-y-z` slug) still need per-release edits, because they describe a specific release rather than "the latest version".
 
 ## Input Format
 
@@ -17,7 +25,6 @@ User provides changelog content in markdown format:
 ### ✨ Features
 
 - 🔔 **Feature Name**: Description of the feature
-- 🎛️ **Another Feature**: More details
 
 ### 🎨 Improvements
 
@@ -26,31 +33,85 @@ User provides changelog content in markdown format:
 
 ## Instructions
 
-### 1. Extract Version Number
+### 1. Extract Version Number and Date
 
-Parse `vX.Y.Z` from the first `## vX.Y.Z` heading in the user input.
+Parse `vX.Y.Z` from the first `## vX.Y.Z` heading. Use today's date as the release date.
 
-### 2. Update siteConfig.ts
+Prepare the date in these formats — you'll need them in different files:
 
-Edit `src/app/siteConfig.ts` and update the `latestVersion` field:
+| Format | Where used | Example (Apr 26, 2026) |
+|--------|------------|------------------------|
+| ISO `YYYY-MM-DD` | `downloads.ts` `RELEASE_DATE` (single source) | `2026-04-26` |
+| en `Mon DD, YYYY` | en changelog, README badge | `Apr 26, 2026` |
+| zh `YYYY 年 M 月 D 日` | zh changelog | `2026 年 4 月 26 日` |
+| ja `YYYY 年 M 月 D 日` | ja changelog | `2026 年 4 月 26 日` |
+| es `D de mes de YYYY` | es changelog | `26 de abril de 2026` |
+| URL-encoded en | README release-date badge URL | `Apr%2026%2C%202026` |
+
+> Hero `metaVersion` no longer needs a per-locale date string — it interpolates `{{date}}`, with `formatDate()` deriving the localized date from the ISO `RELEASE_DATE` automatically.
+
+### 2. Update `apps/landing/src/app/siteConfig.ts` (single source of truth for version)
 
 ```typescript
-latestVersion: "X.Y.Z",  // Note: no 'v' prefix
+latestVersion: 'X.Y.Z',  // no 'v' prefix
 ```
 
-### 3. Convert Markdown to MDX Format
+This automatically propagates to:
+- `Navbar.tsx` brand badge (`v{siteConfig.latestVersion}`)
+- `Hero.tsx` terminal animation line + `eyebrow` (interpolated via `{{version}}`) + `metaVersion` (interpolated via `{{version}}` and `{{date}}`)
+- `SnapshotHero.tsx` `metaBuild` field
+- `downloads.ts` `VERSION` constant + latest `history[]` entry
 
-Transform the user's markdown into the changelog MDX format:
+**Never** edit those files for the version literal — they already read `siteConfig.latestVersion` or `{{version}}`.
 
-1. **Wrap with ChangelogEntry**: Add opening and closing tags with version and current date
-2. **Add Title**: Create a short H2 title summarizing the release
-3. **Convert Bold**: Replace `**text:**` patterns with `<Bold>text:</Bold>`
-4. **Keep Emojis**: Preserve emoji prefixes in feature names
+### 3. Update `apps/landing/src/config/downloads.ts`
+
+Two edits per release:
+
+1. Bump `RELEASE_DATE` to the new ISO date.
+2. Prepend a new entry to `history[]` (keep prior entries):
+
+```typescript
+history: [
+  { version: VERSION, date: RELEASE_DATE, summarySlug: 'release-x-y-z' },
+  // ...previous entries (literal versions/dates — these are historical)
+]
+```
+
+The latest history entry uses the `VERSION` and `RELEASE_DATE` constants directly. Older entries remain literal.
+
+### 4. Update Locale Files in `packages/shared/src/locales/`
+
+Update all four (`en.json`, `zh.json`, `ja.json`, `es.json`). Two keys per file:
+
+- **`hero.eyebrow`** — keep the `v{{version}} — ` prefix; rewrite the highlight phrases for the new release (translated per locale).
+
+  Pattern: `"v{{version}} — <highlight 1>, <highlight 2>, <highlight 3>"`
+
+- **`hero.metaVersion`** — pure template `"v{{version}} · {{date}}"`. **Do not edit per release** — both placeholders are filled at runtime from `siteConfig.latestVersion` and `formatDate(downloadsConfig.latest.releaseDate, locale)`.
+
+The `{{version}}` placeholder is filled with `siteConfig.latestVersion` and `{{date}}` with the localized release date, so don't write either literal here.
+
+### 5. Convert Markdown to MDX and Prepend to All Four Changelog Locales
+
+Per-locale changelog files (translate body for zh/ja/es):
+
+- `apps/landing/src/content/changelog/en/page.mdx`
+- `apps/landing/src/content/changelog/zh/page.mdx`
+- `apps/landing/src/content/changelog/ja/page.mdx`
+- `apps/landing/src/content/changelog/es/page.mdx`
+
+#### Conversion rules
+
+1. Wrap with `<ChangelogEntry version="vX.Y.Z" date="<localized date>">…</ChangelogEntry>`
+2. Add a short H2 title summarizing the release
+3. Replace `**text:**` patterns with `<Bold>text:</Bold>`
+4. Preserve emoji prefixes
 
 #### MDX Template
 
 ```mdx
-<ChangelogEntry version="vX.Y.Z" date="Mon DD, YYYY">
+<ChangelogEntry version="vX.Y.Z" date="<localized date>">
 ## Short Release Title
 
 Brief description of what this release introduces.
@@ -58,64 +119,61 @@ Brief description of what this release introduces.
 ### ✨ Features
 
 - <Bold>Feature Name:</Bold> Description of the feature
-  with multi-line support if needed
 
-### 🎨 Improvements
+### 🔧 Improvements
 
 - <Bold>Improvement Name:</Bold> Description
+
+### 🐛 Bug Fixes
+
+- <Bold>Fix Name:</Bold> Description
 
 </ChangelogEntry>
 ```
 
-### 4. Prepend to Changelog
+The version literal **does** appear in `<ChangelogEntry version="vX.Y.Z">` — that's intentional, because each entry is a historical record of a specific release.
 
-Insert the new `<ChangelogEntry>` block at the **top** of `src/app/changelog/page.mdx`, before the existing entries.
+### 6. Update README Files
 
-### 5. Update README Files
+Update **all four** READMEs: `README.md` (en), `README.zh-CN.md`, `README.ja.md`, `README.es.md`.
 
-Update both `README.md` and `README.zh-CN.md` with the new version and release date badges:
+Update version + release-date badges:
 
 ```markdown
 [![Version](https://img.shields.io/badge/version-vX.Y.Z-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/vX.Y.Z)
 [![Release Date](https://img.shields.io/badge/release%20date-Mon%20DD%2C%20YYYY-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/vX.Y.Z)
 ```
 
-**Note**: In the release date badge URL, spaces are encoded as `%20` and commas as `%2C`.
+URL encoding: spaces → `%20`, commas → `%2C`.
 
-### 6. Update README Features Section
+### 7. Update README Features Section
 
-Add new features to the Features section in both `README.md` and `README.zh-CN.md`:
+Add new features to the Features section in **all four** READMEs:
 
-- Keep descriptions **brief** (one line per feature)
-- No detailed sub-items needed
-- Add under the appropriate section (Container Management, Image Management, etc.)
-- Create new sections if needed (e.g., "Volume Management")
+- One brief line per feature, no detailed sub-items
+- Add under the appropriate section (Container Management, Image Management, etc.) or create a new section
+- Translate for zh/ja/es
 
 ## File References
 
-| File | Purpose |
-|------|---------|
-| `src/app/siteConfig.ts` | Contains `latestVersion` field to update |
-| `src/app/changelog/page.mdx` | MDX changelog with `<ChangelogEntry>` components |
-| `README.md` | English README with version/date badges |
-| `README.zh-CN.md` | Chinese README with version/date badges |
-
-## Date Format
-
-- Changelog & badge display: `Mon DD, YYYY` (e.g., "Jan 30, 2026")
-- Badge URL encoded: `Mon%20DD%2C%20YYYY` (e.g., "Jan%2030%2C%202026")
+| File | Per-release? | What changes |
+|------|--------------|--------------|
+| `apps/landing/src/app/siteConfig.ts` | ✅ | `latestVersion` (single source of truth — propagates to all UI) |
+| `apps/landing/src/config/downloads.ts` | ✅ | `RELEASE_DATE` + prepend `history[]` entry (uses `VERSION`/`RELEASE_DATE` consts) |
+| `packages/shared/src/locales/{en,zh,ja,es}.json` | ✅ | `hero.eyebrow` only (rewrite tagline highlights). `hero.metaVersion` is a pure template — don't touch. |
+| `apps/landing/src/content/changelog/{en,zh,ja,es}/page.mdx` | ✅ | Prepend new `<ChangelogEntry>` (×4 locales, body translated) |
+| `README.md` / `README.zh-CN.md` / `README.ja.md` / `README.es.md` | ✅ | Version + release-date badges + Features section |
+| `apps/landing/src/components/{shell/Navbar,landing/Hero,snapshot/SnapshotHero}.tsx` | ❌ | Already read `siteConfig.latestVersion` — never touch for a version bump |
 
 ## Section Types Supported
 
-- `### ✨ Features` - New functionality
-- `### 🎨 Improvements` - Enhancements to existing features
-- `### 🐛 Bug Fixes` - Issue resolutions
-- `### ⚡ Performance` - Performance optimizations
-- `### 🌐 Internationalization` - i18n updates
+- `### ✨ Features` — New functionality
+- `### 🔧 Improvements` / `### 🎨 Improvements` — Enhancements (both emojis seen historically)
+- `### 🐛 Bug Fixes` — Issue resolutions
+- `### ⚡ Performance` — Performance optimizations
+- `### 🌐 Internationalization` — i18n updates
 
 ## Optional: Changelog Images
-
-If screenshots are provided, add them using:
 
 ```mdx
 <ChangelogImage
@@ -126,15 +184,28 @@ If screenshots are provided, add them using:
 
 ## Verification Checklist
 
-- [ ] `siteConfig.ts` has correct version (without `v` prefix)
-- [ ] Changelog entry has correct version (with `v` prefix)
-- [ ] Date is in correct format
-- [ ] All `<Bold>` tags are properly closed
-- [ ] `<ChangelogEntry>` tag is properly closed
-- [ ] New entry is at the top of the changelog file
-- [ ] `README.md` version badge updated
-- [ ] `README.md` release date badge updated
-- [ ] `README.zh-CN.md` version badge updated
-- [ ] `README.zh-CN.md` release date badge updated
-- [ ] `README.md` features section updated (brief, no details)
-- [ ] `README.zh-CN.md` features section updated (brief, no details)
+### Single source of truth
+- [ ] `siteConfig.ts` `latestVersion` updated (without `v` prefix)
+- [ ] No new hardcoded `vX.Y.Z` strings introduced in `Navbar.tsx`, `Hero.tsx`, `SnapshotHero.tsx`, or locale JSON files
+
+### `downloads.ts`
+- [ ] `RELEASE_DATE` updated (ISO format)
+- [ ] New `history[]` entry prepended (using `VERSION` / `RELEASE_DATE` consts), prior entries kept
+
+### Locale files (×4 — en, zh, ja, es)
+- [ ] `hero.eyebrow` highlights rewritten (translated, `v{{version}}` placeholder kept)
+- [ ] `hero.metaVersion` left untouched (it's `"v{{version}} · {{date}}"` — both interpolated)
+
+### Changelog MDX (×4 — en, zh, ja, es)
+- [ ] New `<ChangelogEntry>` prepended to each locale (body translated)
+- [ ] Locale-specific date format used
+- [ ] All `<Bold>` and `<ChangelogEntry>` tags closed
+
+### README files (×4 — en, zh-CN, ja, es)
+- [ ] Version badge updated
+- [ ] Release-date badge updated (URL-encoded date)
+- [ ] Features section updated (brief, translated)
+
+### Final scan
+- [ ] `grep "v?<previous-version>"` returns only legitimate historical references: changelog entries for that version, "Added in v…" doc lines, `downloads.ts` history array, design specs in `docs/superpowers/`, and `bun.lock` (unrelated packages).
+- [ ] `grep "v?<new-version>"` (literal) outside `siteConfig.ts` and the new changelog/README entries should return nothing — if it does, you reintroduced a hardcoded version somewhere.

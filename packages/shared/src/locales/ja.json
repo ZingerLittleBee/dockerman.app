@@ -12,7 +12,7 @@
     "closeMenu": "メニューを閉じる"
   },
   "hero": {
-    "eyebrow": "v5.1.0 — Podman 対応、Cloudflared トンネル、イメージ更新検出",
+    "eyebrow": "v{{version}} — マルチクラスタ Kubernetes、イメージ更新監視、Homelab 基盤",
     "eyebrowTag": "NEW",
     "headline1Lead": "Docker を",
     "headline1Accent": "ローカルに",
@@ -27,7 +27,7 @@
     "copyAria": "コピー：{{cmd}}",
     "copied": "コピーしました",
     "metaPrivacy": "ローカル優先 · オプトアウト可能な分析",
-    "metaVersion": "v5.1.0 · 2026 年 4 月 8 日",
+    "metaVersion": "v{{version}} · {{date}}",
     "terminal": {
       "tapping": "Tap 中",
       "downloading": "ダウンロード中",

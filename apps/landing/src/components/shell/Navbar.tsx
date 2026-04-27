@@ -6,6 +6,7 @@ import { useTranslation } from '@repo/shared/i18n/client'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import { siteConfig } from '@/app/siteConfig'
 import { LocaleSwitch } from '@/components/shell/LocaleSwitch'
 import ThemeSwitch from '@/components/ThemeSwitch'
 
@@ -63,7 +64,7 @@ export function Navbar({ locale }: { locale: Locale }) {
           <BrandMark />
           <span>Dockerman</span>
           <span className="ml-[2px] hidden rounded-full bg-dm-ink px-2 py-[2px] font-semibold text-[10px] text-dm-bg tracking-[0.04em] sm:inline">
-            v5.1.0
+            v{siteConfig.latestVersion}
           </span>
         </Link>
 
@@ -117,11 +118,7 @@ export function Navbar({ locale }: { locale: Locale }) {
               strokeWidth={2}
               viewBox="0 0 24 24"
             >
-              {menuOpen ? (
-                <path d="M18 6L6 18M6 6l12 12" />
-              ) : (
-                <path d="M3 6h18M3 12h18M3 18h18" />
-              )}
+              {menuOpen ? <path d="M18 6L6 18M6 6l12 12" /> : <path d="M3 6h18M3 12h18M3 18h18" />}
             </svg>
           </button>
         </div>
@@ -135,7 +132,7 @@ export function Navbar({ locale }: { locale: Locale }) {
         {/* Backdrop */}
         <button
           aria-label={t('nav.closeMenu')}
-          className={`fixed inset-x-0 bottom-0 top-[57px] z-40 cursor-default bg-dm-bg/60 backdrop-blur-[2px] transition-opacity duration-200 ${
+          className={`fixed inset-x-0 top-[57px] bottom-0 z-40 cursor-default bg-dm-bg/60 backdrop-blur-[2px] transition-opacity duration-200 ${
             menuOpen ? 'opacity-100' : 'opacity-0'
           }`}
           onClick={() => setMenuOpen(false)}
@@ -145,9 +142,7 @@ export function Navbar({ locale }: { locale: Locale }) {
         {/* Panel */}
         <div
           className={`absolute inset-x-0 top-full z-50 origin-top border-dm-line border-b bg-dm-bg shadow-[0_20px_40px_-20px_rgb(0_0_0/0.4)] transition-all duration-200 ${
-            menuOpen
-              ? 'translate-y-0 opacity-100'
-              : '-translate-y-2 opacity-0'
+            menuOpen ? 'translate-y-0 opacity-100' : '-translate-y-2 opacity-0'
           }`}
           id="dm-mobile-menu"
         >

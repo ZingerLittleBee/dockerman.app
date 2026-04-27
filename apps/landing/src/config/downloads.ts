@@ -1,3 +1,5 @@
+import { siteConfig } from '@/app/siteConfig'
+
 export type Verification =
   | { kind: 'apple-notarized' }
   | { kind: 'tauri-sig'; sigFilename: string }
@@ -27,8 +29,8 @@ export interface DownloadsHistoryEntry {
   summarySlug: string
 }
 
-const VERSION = '5.1.0'
-const RELEASE_DATE = '2026-04-08'
+const VERSION = siteConfig.latestVersion
+const RELEASE_DATE = '2026-04-26'
 
 export const downloadsConfig: {
   asOf: string
@@ -102,6 +104,7 @@ export const downloadsConfig: {
     }
   },
   history: [
+    { version: VERSION, date: RELEASE_DATE, summarySlug: 'release-5-2-0' },
     { version: '5.1.0', date: '2026-04-08', summarySlug: 'release-5-1-0' },
     { version: '5.0.0', date: '2026-04-07', summarySlug: 'release-5-0-0' },
     { version: '4.8.0', date: '2026-03-31', summarySlug: 'release-4-8-0' },

@@ -12,7 +12,7 @@
     "closeMenu": "Cerrar menú"
   },
   "hero": {
-    "eyebrow": "v5.1.0 — soporte Podman, túneles Cloudflared, detección de actualizaciones de imagen",
+    "eyebrow": "v{{version}} — Kubernetes multi-cluster, vigilancia de actualizaciones de imagen, bases del Homelab",
     "eyebrowTag": "NUEVO",
     "headline1Lead": "Docker que se siente",
     "headline1Accent": "local",
@@ -27,7 +27,7 @@
     "copyAria": "Copiar: {{cmd}}",
     "copied": "Copiado",
     "metaPrivacy": "local-first · analítica opcional",
-    "metaVersion": "v5.1.0 · 8 de abril de 2026",
+    "metaVersion": "v{{version}} · {{date}}",
     "terminal": {
       "tapping": "Añadiendo tap",
       "downloading": "Descargando",
