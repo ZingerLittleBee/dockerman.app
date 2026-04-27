@@ -12,7 +12,7 @@
     "closeMenu": "关闭菜单"
   },
   "hero": {
-    "eyebrow": "v5.1.0 — Podman 支持、Cloudflared 隧道、镜像升级检测",
+    "eyebrow": "v{{version}} — 多集群 Kubernetes、镜像升级监控、Homelab 基础",
     "eyebrowTag": "新",
     "headline1Lead": "Docker，用起来像",
     "headline1Accent": "本地",
@@ -27,7 +27,7 @@
     "copyAria": "复制：{{cmd}}",
     "copied": "已复制",
     "metaPrivacy": "本地优先 · 可关闭的匿名分析",
-    "metaVersion": "v5.1.0 · 2026 年 4 月 8 日",
+    "metaVersion": "v{{version}} · {{date}}",
     "terminal": {
       "tapping": "正在添加",
       "downloading": "正在下载",

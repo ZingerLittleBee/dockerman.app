@@ -1,5 +1,6 @@
 import type { Locale } from '@repo/shared/i18n'
 import { getTranslation } from '@repo/shared/i18n/server'
+import { siteConfig } from '@/app/siteConfig'
 import { SNAPSHOT_MODULE_COUNT } from '@/config/snapshot'
 
 export async function SnapshotHero({ locale }: { locale: Locale }) {
@@ -59,7 +60,7 @@ export async function SnapshotHero({ locale }: { locale: Locale }) {
         <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3 rounded-[12px] border border-dm-line bg-dm-bg-elev px-4 py-4 font-[var(--font-dm-mono)] text-[12px] text-dm-ink-3 sm:gap-7 sm:px-[22px] sm:py-[18px]">
           <MetaField label={t('snapshot.hero.metaModules')} value={String(count)} />
           <MetaSep />
-          <MetaField label={t('snapshot.hero.metaBuild')} value="v5.1.0" />
+          <MetaField label={t('snapshot.hero.metaBuild')} value={`v${siteConfig.latestVersion}`} />
           <MetaSep />
           <MetaField label={t('snapshot.hero.metaCaptured')} value="2400 × 1600" />
           <div className="ml-auto flex items-center gap-[10px]">

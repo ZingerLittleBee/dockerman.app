@@ -4,7 +4,9 @@ import type { Locale } from '@repo/shared/i18n'
 import { useTranslation } from '@repo/shared/i18n/client'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import { siteConfig } from '@/app/siteConfig'
 import { downloadsConfig } from '@/config/downloads'
+import { formatDate } from '@/lib/format'
 
 const INSTALL_CMD = downloadsConfig.homebrewCommand
 
@@ -51,6 +53,7 @@ export function Hero({ locale }: { locale: Locale }) {
 
   const downloadLabel = t(OS_LABEL_KEY[os])
   const downloadSize = OS_SIZE[os]
+  const releaseDate = formatDate(downloadsConfig.latest.releaseDate, locale)
 
   const copyInstall = async () => {
     try {
@@ -84,7 +87,7 @@ export function Hero({ locale }: { locale: Locale }) {
               animation: 'dm-pulse 2.2s ease-in-out infinite'
             }}
           />
-          <span>{t('hero.eyebrow')}</span>
+          <span>{t('hero.eyebrow', { version: siteConfig.latestVersion })}</span>
           <span className="rounded-full bg-dm-ink px-2 py-[2px] font-semibold text-[10px] text-dm-bg tracking-[0.04em]">
             {t('hero.eyebrowTag')}
           </span>
@@ -187,7 +190,12 @@ export function Hero({ locale }: { locale: Locale }) {
           <span className="h-[3px] w-[3px] rounded-full bg-dm-ink-4" />
           <span>{t('hero.metaPrivacy')}</span>
           <span className="h-[3px] w-[3px] rounded-full bg-dm-ink-4" />
-          <span>{t('hero.metaVersion')}</span>
+          <span>
+            {t('hero.metaVersion', {
+              version: siteConfig.latestVersion,
+              date: releaseDate
+            })}
+          </span>
         </div>
       </div>
     </section>
@@ -299,7 +307,7 @@ function TerminalCard({ locale }: { locale: Locale }) {
         <StageLine delayMs={STAGE_STEPS.fetch}>
           <span className="text-dm-ink-3">==&gt;</span> {t('hero.terminal.downloading')}{' '}
           <span className="text-dm-ink">Dockerman</span>{' '}
-          <span className="text-dm-ink-4">v5.1.0</span>
+          <span className="text-dm-ink-4">v{siteConfig.latestVersion}</span>
         </StageLine>
 
         {/* progress */}
