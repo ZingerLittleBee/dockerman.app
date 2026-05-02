@@ -1,0 +1,93 @@
+---
+title: Networks and Volumes
+description: Manage Docker networks and volumes from the CLI — create, inspect, connect, prune.
+---
+
+The `network` and `volume` command groups expose every operation the GUI offers for these two resource types. Both follow the same patterns as `container` and `image`: `list`, `inspect`, `create`, `remove`/`prune`, plus relationship commands for networks.
+
+## Networks
+
+### List and inspect
+
+```bash
+dockerman network list
+dockerman network list --pretty
+dockerman network inspect bridge
+```
+
+### Create
+
+```bash
+dockerman network create my-net \
+  --driver bridge \
+  --attachable \
+  --enable-ipv6 \
+  --option "com.docker.network.bridge.name=my-bridge" \
+  --label "owner=team-a"
+```
+
+| Flag | Purpose |
+| --- | --- |
+| `--driver <name>` | Network driver (`bridge`, `overlay`, `macvlan`, etc.) |
+| `--internal` | Restrict external connectivity |
+| `--attachable` | Allow standalone containers to attach (overlay only) |
+| `--ingress` | Create the swarm ingress network |
+| `--enable-ipv6` | Enable IPv6 on the network |
+| `--option <k=v>` | Driver-specific option (repeatable) |
+| `--label <k=v>` | Network label (repeatable) |
+
+### Remove
+
+```bash
+dockerman network remove my-net --yes
+```
+
+`remove` requires `--yes`. Built-in networks (`bridge`, `host`, `none`) cannot be removed.
+
+### Connect and disconnect
+
+```bash
+dockerman network connect my-net web
+dockerman network disconnect my-net web --force
+```
+
+`disconnect --force` is required when the container is running and you need to detach it without stopping it.
+
+## Volumes
+
+### List and inspect
+
+```bash
+dockerman volume list
+dockerman volume list --pretty
+dockerman volume inspect data
+```
+
+### Create
+
+```bash
+dockerman volume create data \
+  --driver local \
+  --driver-opt "type=nfs" \
+  --driver-opt "o=addr=10.0.0.1,rw" \
+  --driver-opt "device=:/exports/data" \
+  --label "backup=daily"
+```
+
+`--driver-opt` and `--label` are both repeatable.
+
+### Remove
+
+```bash
+dockerman volume remove data --force --yes
+```
+
+`remove` requires `--yes`. `--force` removes a volume even if it is referenced by a stopped container.
+
+### Prune
+
+```bash
+dockerman volume prune --filter "label=temp=true" --yes
+```
+
+`prune` deletes every dangling (unreferenced) volume that matches the filter set. `--filter` is repeatable and uses Docker's standard filter syntax (`label=`, `label!=`, etc.). Always combine with explicit filters in scripts — bare `volume prune --yes` deletes every dangling volume on the host.

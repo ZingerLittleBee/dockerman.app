@@ -1,0 +1,123 @@
+---
+title: "イメージ、Hub、Trivy"
+description: "CLI から Docker イメージの pull、build、push、スキャン、検索を行います。"
+---
+
+`image`、`hub`、`trivy` の 3 つのコマンド群で、イメージの完全なライフサイクルをカバーします：Docker Hub での発見、pull、CVE スキャン、build、push、クリーンアップ。
+
+## 一覧、詳細、タグ付け
+
+```bash
+dockerman image list
+dockerman image list --pretty
+dockerman image inspect nginx:latest
+dockerman image tag nginx:latest myrepo/nginx --tag staging
+dockerman image history nginx:latest
+dockerman image search nginx --pretty
+```
+
+`image search` は接続先の daemon を通じて Docker Engine の `/images/search` エンドポイントを叩きます。より豊富な情報（説明、公式バッジ、タグ一覧）が必要な場合は、下の [`hub search`](#docker-hub-を検索) を使ってください——両者は別の API と通信します。
+
+## Pull と push
+
+```bash
+dockerman image pull nginx --tag latest
+dockerman image pull ghcr.io/me/app --tag v1 \
+  --username me --credential "$GHCR_TOKEN" \
+  --serveraddress https://ghcr.io \
+  --json
+
+dockerman image push myrepo/app --tag v1 --json
+```
+
+`--json` を付けると、両コマンドとも進捗を NDJSON エンベロープでストリーミングします。`--json` なしでは人間向けの進捗行と最終ステータスを出力します。`--username` / `--credential` による認証は呼び出しごとに一度きり；GUI に保存されたレジストリ認証情報は CLI からは使われません。
+
+## Build
+
+```bash
+dockerman image build ./Dockerfile --tag myrepo/app:v1 \
+  --context-path ./ \
+  --buildargs "NODE_ENV=production" \
+  --pull --rm --json
+```
+
+build は pull/push と同じエンベロープで進捗を流します。フラグの完全な一覧（build-args、labels、network mode、target stage、platform）は `dockerman image build --help` を参照してください。
+
+## 削除とクリーンアップ
+
+```bash
+dockerman image remove nginx:old --force --yes
+dockerman image prune --filter dangling=true --yes
+```
+
+両方とも `--yes` が必須です。`prune` は `--filter` を複数回指定でき、構文は `docker image prune` と同じです。
+
+## エクスポートとインポート
+
+```bash
+dockerman image export nginx:latest ./nginx.tar
+dockerman image import ./nginx.tar --quiet
+```
+
+`export` は `docker save` 互換の tarball を書き出し、`import` はそれを読み戻します。
+
+## Docker Hub を検索
+
+```bash
+dockerman hub search alpine --pretty
+dockerman hub search nginx --page 2 --page-size 20 --json
+dockerman hub image library/alpine --pretty
+dockerman hub tags library/alpine --page 1 --page-size 25 --pretty
+```
+
+`hub search` は名前、説明、スター数、official/automated フラグを返します。`hub image` と `hub tags` は `<namespace>/<name>` のリポジトリメタデータと公開タグを表示します。
+
+## Trivy でスキャン
+
+Dockerman は管理対象の Trivy バイナリを同梱しているので、インストール後はオフラインでもスキャンできます。
+
+<Steps>
+  <Step>
+    ### ステータスを確認
+
+    ```bash
+    dockerman trivy status --json
+    dockerman trivy dir --json
+    ```
+
+    `status` は `installed: true|false` と解決されたバージョンを返します。`dir` は絶対インストールパスを出力します。
+  </Step>
+  <Step>
+    ### インストールまたは更新
+
+    ```bash
+    dockerman trivy install --json
+    dockerman trivy update --json
+    ```
+
+    両者とも、バイナリと脆弱性データベースのダウンロード進捗を NDJSON でストリーミングします。
+  </Step>
+  <Step>
+    ### イメージをスキャン
+
+    ```bash
+    dockerman trivy scan alpine:latest --pretty
+    dockerman trivy scan myrepo/app:v1 --json --db-repository ghcr.io/aquasecurity/trivy-db
+    ```
+
+    スキャンは進捗フレームの後、レポートを含む 1 つの `kind: result` フレームで終わります。`--json` 出力を `jq` にパイプして脆弱性をフィルタできます。
+  </Step>
+  <Step>
+    ### 削除
+
+    ```bash
+    dockerman trivy remove --yes
+    ```
+
+    管理対象バイナリと DB キャッシュを削除します。`--yes` が必須です。
+  </Step>
+</Steps>
+
+<Callout type="info">
+  `hub` と `trivy` は daemon の外向きネットワークを共有します。ホストの HTTPS プロキシ環境変数には従いますが、GUI で設定したホスト別 SSH トンネルは**使いません**。
+</Callout>

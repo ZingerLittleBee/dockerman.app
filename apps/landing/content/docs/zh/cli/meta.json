@@ -1,0 +1,14 @@
+{
+  "title": "命令行",
+  "pages": [
+    "index",
+    "containers",
+    "images",
+    "networks-volumes",
+    "compose",
+    "kubernetes",
+    "streaming",
+    "advanced"
+  ],
+  "defaultOpen": false
+}

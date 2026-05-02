@@ -1,0 +1,81 @@
+---
+title: "命令行总览"
+description: "Daemon-first 的 dockerman CLI，可在终端中脚本化操作 Docker、Kubernetes、Compose 和 Trivy 工作流。"
+---
+
+`dockerman` 是一个轻量级命令行客户端，它通过带身份验证的 IPC 套接字与本地 **dockerman-daemon** 通信。GUI 中可用的所有功能——容器、镜像、Compose、Kubernetes 只读、Trivy、Docker Hub、隧道、WSL——都可以通过 CLI 调用。v5.3.0 新增。
+
+<Callout type="info">
+  CLI 会按需自动启动 `dockerman-daemon`，无需打开 GUI 即可使用。
+</Callout>
+
+## 安装
+
+CLI 与 GUI 一同打包发布。本地开发时可从源码构建：
+
+```bash
+cargo build -p dockerman-cli --release
+./target/release/dockerman --help
+```
+
+第一条需要后端的命令会自动拉起 `dockerman-daemon`，将 `daemon-ipc.json` 写入 app data 目录，后续命令复用此握手信息。
+
+## 全局参数
+
+| 参数 | 用途 |
+| --- | --- |
+| `--host <id>` | 指定 Docker 主机。本地套接字使用 `LOCALHOST`，或使用 `dockerman host current` 中列出的主机 id。 |
+| `--pretty` | 渲染人类友好的表格而非原始 JSON（仅适用于支持的命令）。 |
+| `--yes` / `-y` | 确认破坏性操作。`remove`、`prune`、`restore`、`tunnel create`、`wsl unregister` 等命令必须使用。 |
+
+## 选择主机
+
+```bash
+dockerman host current
+dockerman host use my-remote
+dockerman --host LOCALHOST container list
+```
+
+`host use` 将选择持久化到磁盘；后续未传 `--host` 的命令会沿用该主机。需要单次覆盖但不改变默认值时，按命令传 `--host`。
+
+## 系统与连通性
+
+```bash
+dockerman system info
+dockerman system df
+dockerman system ping 8.8.8.8
+dockerman system prune --containers --volumes --yes
+```
+
+## Schema 与发现
+
+daemon 暴露的每个 RPC 都有版本化的 schema。可用于发现命令、生成客户端、或喂给 LLM 工具注册表。
+
+```bash
+dockerman schema
+dockerman schema --format mcp-tools
+dockerman schema fetch_logs
+```
+
+当前 schema 版本为 `2`。一元调用与流式调用的区分见 [流式契约](/zh/docs/cli/streaming)。
+
+## 退出码
+
+| 退出码 | 含义 |
+| --- | --- |
+| `0` | 成功，或流自然结束 |
+| `1` | 通用失败（参数校验、RPC 错误、流体错误） |
+| `3` | 发现或握手失败（daemon 不可达） |
+| `4` | 流式心跳超时（30 秒未收到帧） |
+| `130` | 流式命令被 `SIGINT`（Ctrl+C）中断 |
+| `143` | 流式命令被 `SIGTERM` 中断 |
+
+## CLI 不覆盖的范围
+
+部分工作流仅在 GUI 中可用：
+
+- 调度任务和通知通道
+- 告警规则（预设规则在 daemon 上运行，但创建/编辑仅 GUI 支持）
+- 时序指标历史
+
+完整命令列表与 `dockerman --help` 一致。本节后续页面按领域分组介绍。

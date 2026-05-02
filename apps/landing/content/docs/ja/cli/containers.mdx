@@ -1,0 +1,134 @@
+---
+title: "コンテナ"
+description: "Docker コンテナのライフサイクル、ログ、stats、ターミナル、およびバックアップ/リストアコマンド。"
+---
+
+`container` コマンド群は完全なライフサイクルに加えて、ストリーミングアタッチとバックアップ/リストアもカバーします。すべてのコマンドが `--host` を受け取り、特定のホストを対象にできます；指定しない場合は `dockerman host use` で固定したホストを使用します。
+
+## 一覧と詳細
+
+```bash
+dockerman container list
+dockerman container list --pretty
+dockerman container inspect web
+```
+
+`list` は GUI と同じ構造を返します：id、名前、イメージ、状態、ポートマッピング、作成時刻。`--pretty` を付けると整列したテーブルになります。
+
+## ライフサイクル
+
+```bash
+dockerman container start web
+dockerman container stop web --timeout 10
+dockerman container restart web --timeout 10
+dockerman container pause web
+dockerman container unpause web
+dockerman container rename web web-old
+```
+
+`stop` と `restart` の `--timeout` は秒単位；daemon はまず `SIGTERM` を送り、タイムアウト経過後に `SIGKILL` を送ります。
+
+## 作成とクローン
+
+```bash
+dockerman container create web nginx:latest --platform linux/amd64
+dockerman container create web nginx:latest --config ./run.json
+dockerman container commit web --repo myrepo --tag snapshot --pause
+```
+
+`--config` は `bollard::ContainerCreateOptions` と同じ形の JSON ファイルを受け取ります。`commit` は実行中のコンテナをスナップショット化して新しいイメージにします。
+
+## 削除
+
+```bash
+dockerman container remove web --force --volumes --yes
+```
+
+`remove` は破壊的操作です。`--yes`（またはグローバル `-y`）が必須で、なしでは daemon が拒否します。`--force` で実行中のコンテナを削除、`--volumes` で匿名ボリュームも削除します。
+
+## ログ
+
+```bash
+dockerman container logs web --tail 50
+dockerman container logs web --follow --tail 5
+dockerman container logs web --since 2026-05-01T00:00:00Z --timestamps
+dockerman container logs web --follow --json
+```
+
+`--json` なしの場合、stdout はログ行のみ；エラーは stderr に出ます。`--json` 付きの場合、各フレームを 1 行の [ストリーミングエンベロープ](/ja/docs/cli/streaming) として出力します。`--follow` は Ctrl+C を押すまで（終了コード `130`）、または stream が自然終了するまで（終了コード `0`）継続します。
+
+<Callout type="warn">
+  `--until` は `--follow` と併用できません；CLI が stream を開く前に拒否します。履歴取得には `--since`/`--until`、追跡には `--follow`/`--since` を使ってください。
+</Callout>
+
+## Stats
+
+```bash
+dockerman container stats web
+dockerman container stats web --pretty
+```
+
+`stats` は常にストリーミングです。各フレームは CPU、メモリ、ネットワーク、ブロック I/O のカウンタを含む 1 行の NDJSON。Ctrl+C で停止します（終了コード `130`）。
+
+## ターミナル
+
+```bash
+dockerman container terminal web
+dockerman container terminal web --shell /bin/bash --user root
+```
+
+`docker exec` 経由で PTY を割り当て、現在のターミナルにアタッチします。stdin/stdout が TTY でない場合 CLI は実行を拒否します；パイプベースのスクリプトでは `dockerman call exec_*` を使ってください。
+
+## バックアップとリストア
+
+バックアップはコンテナのファイルシステム（および任意で bind mount）を 1 つのアーカイブにまとめます。リストアはそのアーカイブから新しいコンテナを作成します。
+
+<Steps>
+  <Step>
+    ### 何がアーカイブされるか確認
+
+    ```bash
+    dockerman container backup-targets web --pretty
+    ```
+
+    コンテナのボリュームと bind mount を一覧し、各 bind mount に `safe_to_archive` フラグを付けます。
+  </Step>
+  <Step>
+    ### アーカイブ作成
+
+    ```bash
+    dockerman container backup web \
+      --output ./web.tar.gz \
+      --pause \
+      --include-all-safe-bind-mounts
+    ```
+
+    個別に mount を選ぶ場合は `--include-bind-mount <インデックス>`、pause/unpause サイクルをスキップするには `--no-pause`、`safe_to_archive` 警告を無視するには `--force`。
+  </Step>
+  <Step>
+    ### アーカイブをプレビュー
+
+    ```bash
+    dockerman container backup-preview ./web.tar.gz --pretty
+    ```
+
+    リストアせずに manifest だけを表示します。
+  </Step>
+  <Step>
+    ### リストア
+
+    ```bash
+    dockerman container restore ./web.tar.gz \
+      --name web-restored \
+      --volume-strategy rename \
+      --port 8080:80 \
+      --yes
+    ```
+
+    リストアは破壊的（既存の名前/ボリュームと衝突しうる新しいコンテナを作成）なので `--yes` が必須。`--volume-strategy` は `rename`、`skip`、`overwrite` のいずれか。
+  </Step>
+</Steps>
+
+<Callout type="warn">
+  バックアップパスは CLI 側で絶対ローカルパスに解決されてから daemon に送られます。daemon は相対パス、ワークスペース外を指すシンボリックリンク、ユーザーが読めないパスを拒否します。
+</Callout>

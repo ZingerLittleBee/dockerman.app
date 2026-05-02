@@ -1,0 +1,134 @@
+---
+title: Containers
+description: Lifecycle, logs, stats, terminal, and backup/restore commands for Docker containers.
+---
+
+The `container` command group covers the full lifecycle plus streaming attachments and backup/restore. All commands accept `--host` to target a specific host; otherwise the sticky host from `dockerman host use` is used.
+
+## List and inspect
+
+```bash
+dockerman container list
+dockerman container list --pretty
+dockerman container inspect web
+```
+
+`list` returns the same shape the GUI uses: id, name, image, state, port mappings, created time. Add `--pretty` for a column-aligned table.
+
+## Lifecycle
+
+```bash
+dockerman container start web
+dockerman container stop web --timeout 10
+dockerman container restart web --timeout 10
+dockerman container pause web
+dockerman container unpause web
+dockerman container rename web web-old
+```
+
+`stop` and `restart` accept `--timeout` in seconds; the daemon sends `SIGTERM`, then `SIGKILL` after the timeout.
+
+## Create and clone
+
+```bash
+dockerman container create web nginx:latest --platform linux/amd64
+dockerman container create web nginx:latest --config ./run.json
+dockerman container commit web --repo myrepo --tag snapshot --pause
+```
+
+`--config` accepts a JSON file with the same shape as `bollard::ContainerCreateOptions`. `commit` snapshots a running container into a new image.
+
+## Remove
+
+```bash
+dockerman container remove web --force --volumes --yes
+```
+
+`remove` is destructive. It requires `--yes` (or the global `-y` flag); without it the daemon rejects the call. Add `--force` to remove a running container, `--volumes` to delete anonymous volumes.
+
+## Logs
+
+```bash
+dockerman container logs web --tail 50
+dockerman container logs web --follow --tail 5
+dockerman container logs web --since 2026-05-01T00:00:00Z --timestamps
+dockerman container logs web --follow --json
+```
+
+Without `--json`, plain stdout is log lines only; errors go to stderr. With `--json`, the CLI emits one [streaming envelope](/en/docs/cli/streaming) per frame. `--follow` runs until you press Ctrl+C (exit `130`) or the stream ends naturally (exit `0`).
+
+<Callout type="warn">
+  `--until` is incompatible with `--follow`; the CLI rejects the combination before opening a stream. Use `--since`/`--until` for historical fetches and `--follow`/`--since` for tailing.
+</Callout>
+
+## Stats
+
+```bash
+dockerman container stats web
+dockerman container stats web --pretty
+```
+
+`stats` always streams. Each frame is one NDJSON line containing CPU, memory, network, and block I/O counters. Press Ctrl+C to stop (exit `130`).
+
+## Terminal
+
+```bash
+dockerman container terminal web
+dockerman container terminal web --shell /bin/bash --user root
+```
+
+Allocates a PTY through `docker exec` and attaches your terminal. The CLI refuses to run when stdin/stdout is not a TTY; pipe-based scripting should use `dockerman call exec_*` instead.
+
+## Backup and restore
+
+Backup snapshots a container's filesystem (and optional bind mounts) into a single archive. Restore creates a new container from that archive.
+
+<Steps>
+  <Step>
+    ### Inspect what would be archived
+
+    ```bash
+    dockerman container backup-targets web --pretty
+    ```
+
+    Lists the container's volumes and bind mounts, plus a `safe_to_archive` flag for each bind mount.
+  </Step>
+  <Step>
+    ### Create the archive
+
+    ```bash
+    dockerman container backup web \
+      --output ./web.tar.gz \
+      --pause \
+      --include-all-safe-bind-mounts
+    ```
+
+    Use `--include-bind-mount <index>` to opt in per mount, `--no-pause` to skip the pause/unpause cycle, `--force` to override `safe_to_archive` warnings.
+  </Step>
+  <Step>
+    ### Preview an archive
+
+    ```bash
+    dockerman container backup-preview ./web.tar.gz --pretty
+    ```
+
+    Shows the manifest without restoring.
+  </Step>
+  <Step>
+    ### Restore
+
+    ```bash
+    dockerman container restore ./web.tar.gz \
+      --name web-restored \
+      --volume-strategy rename \
+      --port 8080:80 \
+      --yes
+    ```
+
+    Restore is destructive (it creates a new container that may collide with names/volumes), so `--yes` is required. `--volume-strategy` is one of `rename`, `skip`, `overwrite`.
+  </Step>
+</Steps>
+
+<Callout type="warn">
+  Backup paths are resolved on the CLI side to absolute local paths before being sent to the daemon. The daemon refuses relative paths, symlinks pointing outside the workspace, and paths the user cannot read.
+</Callout>

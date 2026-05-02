@@ -1,0 +1,68 @@
+---
+title: "Compose"
+description: "管理 Docker Compose 项目、从 compose 文件部署、并在 CLI 中流式查看 pull/up 进度。"
+---
+
+`compose` 命令组针对已存在的 Compose 项目（即包含 `com.docker.compose.project` 标签的资源）操作，也支持从 compose 文件直接部署新项目。
+
+<Callout type="warn">
+  Compose 命令需要 Docker 运行时。所选主机为 Podman 时不可用。
+</Callout>
+
+## 列出项目
+
+```bash
+dockerman compose list
+dockerman compose list --pretty
+```
+
+返回项目名、容器数、状态、根路径。
+
+## 生命周期
+
+```bash
+dockerman compose up myproject --detach
+dockerman compose stop myproject
+dockerman compose start myproject
+dockerman compose restart myproject --service web
+dockerman compose remove myproject --remove-volumes --yes
+```
+
+`up`、`stop`、`start`、`restart` 都接受标准的全局参数：
+
+| 参数 | 用途 |
+| --- | --- |
+| `--working-dir <路径>` | 覆盖项目工作目录 |
+| `--config-files <路径>` | 逗号分隔的 compose 文件列表 |
+| `--env-file <路径>` | 覆盖 env 文件 |
+| `--profile <名称>` | 启用 Compose profile |
+| `--progress <模式>` | `auto`、`tty`、`plain`、`quiet` |
+| `--dry-run` | 仅打印将要执行的操作，不实际修改 |
+| `--service <名称>` | 将 `restart`/`stop`/`start` 限制为单个服务 |
+
+`compose up` 接受 `--detach`（默认）或 `--attach`（流式输出日志直到流关闭）。
+
+`compose remove`（别名 `compose down`）是破坏性操作，必须传 `--yes`。加 `--remove-volumes` 同时删除项目命名卷。
+
+## Pull
+
+```bash
+dockerman compose pull myproject --json
+dockerman compose pull myproject --service web --json
+```
+
+每层一帧 NDJSON 封装的拉取进度。`--json` 输出适合机器解析，省略它则得到人类友好的进度行。
+
+## 从 compose 文件部署
+
+```bash
+dockerman compose deploy myproject ./docker-compose.yml \
+  --env DATABASE_URL=postgres://... \
+  --env LOG_LEVEL=info
+```
+
+`deploy` 接受项目名 + compose 文件路径。CLI 读取文件、按其父目录解析相对路径、然后请求 daemon 创建或更新项目。多次 `--env` 注入变量，无需修改磁盘上的 compose 文件。
+
+<Callout type="info">
+  `deploy` 与 `up` 最终走同一个 daemon RPC。compose 文件还未被 Docker 识别时用 `deploy`；`compose list` 中已经能看到的项目用 `up`。
+</Callout>

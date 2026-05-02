@@ -1,0 +1,93 @@
+---
+title: "网络与卷"
+description: "在 CLI 中管理 Docker 网络与卷——创建、查看、连接、清理。"
+---
+
+`network` 与 `volume` 命令组完整覆盖 GUI 在这两类资源上的所有操作。模式与 `container`、`image` 一致：`list`、`inspect`、`create`、`remove`/`prune`，以及网络的关联命令。
+
+## 网络
+
+### 列表与详情
+
+```bash
+dockerman network list
+dockerman network list --pretty
+dockerman network inspect bridge
+```
+
+### 创建
+
+```bash
+dockerman network create my-net \
+  --driver bridge \
+  --attachable \
+  --enable-ipv6 \
+  --option "com.docker.network.bridge.name=my-bridge" \
+  --label "owner=team-a"
+```
+
+| 参数 | 用途 |
+| --- | --- |
+| `--driver <name>` | 网络驱动（`bridge`、`overlay`、`macvlan` 等） |
+| `--internal` | 限制对外连通性 |
+| `--attachable` | 允许独立容器加入（仅 overlay） |
+| `--ingress` | 创建 swarm ingress 网络 |
+| `--enable-ipv6` | 在网络上启用 IPv6 |
+| `--option <k=v>` | 驱动相关选项（可重复） |
+| `--label <k=v>` | 网络标签（可重复） |
+
+### 删除
+
+```bash
+dockerman network remove my-net --yes
+```
+
+`remove` 需要 `--yes`。内建网络（`bridge`、`host`、`none`）无法删除。
+
+### 连接与断开
+
+```bash
+dockerman network connect my-net web
+dockerman network disconnect my-net web --force
+```
+
+容器正在运行、需要在不停止容器的情况下脱离网络时，必须传 `disconnect --force`。
+
+## 卷
+
+### 列表与详情
+
+```bash
+dockerman volume list
+dockerman volume list --pretty
+dockerman volume inspect data
+```
+
+### 创建
+
+```bash
+dockerman volume create data \
+  --driver local \
+  --driver-opt "type=nfs" \
+  --driver-opt "o=addr=10.0.0.1,rw" \
+  --driver-opt "device=:/exports/data" \
+  --label "backup=daily"
+```
+
+`--driver-opt` 与 `--label` 均可重复。
+
+### 删除
+
+```bash
+dockerman volume remove data --force --yes
+```
+
+`remove` 需要 `--yes`。`--force` 在卷被已停止容器引用时仍强制删除。
+
+### 清理
+
+```bash
+dockerman volume prune --filter "label=temp=true" --yes
+```
+
+`prune` 删除匹配过滤集的所有悬空（无引用）卷。`--filter` 可重复，语法与 Docker 标准过滤器一致（`label=`、`label!=` 等）。脚本中务必显式加过滤条件——不带过滤的 `volume prune --yes` 会删除主机上**所有**悬空卷。

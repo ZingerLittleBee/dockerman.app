@@ -1,0 +1,111 @@
+---
+title: "Avanzado y scripting"
+description: "Schema, escape hatch call, Cloudflare Quick Tunnels, motor WSL2 gestionado y consejos para automatización."
+---
+
+Esta página recopila los comandos CLI menos frecuentes y los patrones que usamos al envolver `dockerman` desde shell scripts, pipelines de CI o herramientas LLM.
+
+## `schema` y `call`
+
+Cada RPC backend que el daemon expone está descrito en un schema autocontenido. `schema` te permite descubrir lo que hay disponible; `call` te permite invocar cualquier RPC por nombre sin un subcomando dedicado.
+
+```bash
+dockerman schema
+dockerman schema fetch_logs
+dockerman schema --format mcp-tools
+
+dockerman call ping_host '{"address":"8.8.8.8"}'
+dockerman call hub_search '{"query":"alpine","page_size":5}'
+dockerman call remove_container '{"name":"web","force":true}' --yes
+```
+
+`call` espera un objeto JSON de params. Los RPCs destructivos requieren `--yes` (o `-y`) igual que los subcomandos dedicados. **Los RPCs en streaming no se pueden invocar mediante `call`** — usa los comandos de streaming dedicados para obtener el envelope correcto.
+
+<Callout type="info">
+  `schema --format mcp-tools` emite un registro de herramientas compatible con MCP. Conéctalo directamente a un agente LLM que ya hable Model Context Protocol.
+</Callout>
+
+## Eventos
+
+```bash
+dockerman events --filter type=container
+dockerman events --filter type=container --filter event=start
+dockerman events --since 2026-05-01T00:00:00Z --until 2026-05-01T01:00:00Z
+```
+
+`events` es un comando en streaming y siempre emite [envelopes](/es/docs/cli/streaming) NDJSON en stdout — no hay flag `--json` porque no hay modo plano. Repite `--filter key=value` para filtros adicionales; el matching usa la semántica estándar de filtros de Docker. `--since` y `--until` aceptan timestamps Unix o datetimes RFC 3339.
+
+## Cloudflare Quick Tunnels
+
+Expón un puerto local de un contenedor mediante una URL pública `trycloudflare.com`. Los Quick Tunnels son ad-hoc y no autenticados; úsalos para desarrollo y demos en vivo, nunca como ingress de producción.
+
+```bash
+dockerman tunnel status --json
+dockerman tunnel install --json
+dockerman tunnel targets web --pretty
+dockerman tunnel create web --host-port 8080 --host-port 8081 --install --yes --json
+dockerman tunnel create web --all --install --yes --json
+dockerman tunnel list --pretty
+dockerman tunnel list --all-hosts --pretty
+dockerman tunnel close web --host-port 8080 --host-ip 0.0.0.0
+dockerman tunnel close-container web
+```
+
+`tunnel create` es destructivo en el sentido de que cambia la exposición de red, así que requiere `--yes`. Pasa `--install` si `cloudflared` aún no está instalado; la CLI transmite el progreso de instalación antes de abrir el túnel. Los hosts Docker remotos forwardeados por SSH no están soportados como destino de túneles.
+
+`--host-port` y `--all` son mutuamente excluyentes: o eliges puertos publicados específicos o expones cada puerto que el contenedor publica. `--host-ip` requiere al menos un `--host-port`; no puedes hacer bind por IP sin nombrar el puerto.
+
+## Motor WSL2 gestionado (Windows)
+
+En Windows, el daemon puede gestionar una distro WSL2 dedicada llamada `dockerman-backend` que ejecuta Docker Engine para contenedores Linux. La CLI comparte el mismo motor que la GUI.
+
+```bash
+dockerman wsl status
+dockerman wsl setup
+dockerman wsl start
+dockerman wsl config read
+dockerman wsl config apply ./daemon.json --yes
+dockerman wsl resources --json
+dockerman wsl stop
+dockerman wsl unregister --yes
+```
+
+`wsl setup` importa el rootfs Alpine empaquetado, instala Docker Engine y los plugins de Compose v2, y arranca `dockerd` detrás de un proxy TCP de localhost. Volver a ejecutar `setup` es idempotente y reanuda desde el estado actual.
+
+`wsl unregister --yes` borra la distro gestionada **y todos los contenedores, imágenes y volúmenes que contiene**. No hay vuelta atrás; úsalo sólo cuando estés seguro.
+
+## Consejos de scripting
+
+### Canalizar `--json` a `jq`
+
+```bash
+dockerman container list --json | jq '.[] | select(.state=="running") | .name'
+dockerman trivy scan myrepo/app:v1 --json \
+  | jq -c 'select(.kind=="result") | .payload.results[] | .vulnerabilities[]?'
+```
+
+### Combinar `--yes` con un gate de confirmación
+
+```bash
+read -p "¿Borrar imágenes sin uso? [y/N] " ans
+if [[ "$ans" == "y" ]]; then
+  dockerman image prune --filter dangling=true --yes
+fi
+```
+
+La CLI siempre exige `--yes`, sin importar lo confiado que esté tu script. **No existe** `--force-yes` ni un bypass por variable de entorno; es intencional.
+
+### Detectar fallo de descubrimiento del daemon
+
+```bash
+if ! dockerman host current >/dev/null 2>&1; then
+  echo "daemon inalcanzable" >&2
+  exit 3
+fi
+```
+
+Los fallos de descubrimiento y handshake del daemon salen con código `3`, distinto de los fallos a nivel RPC (`1`) y de los fallos de stream (`4`).
+
+### Streams largos en CI
+
+Los runners de CI suelen matar procesos que no producen salida durante unos minutos. El heartbeat de 15s del daemon garantiza que los comandos de streaming siempre produzcan *algo* por el cable, pero el modo plano oculta los heartbeats. Usa `--json` en CI para que los heartbeats salgan como líneas visibles, o canaliza por `ts` para añadir timestamps a cada línea.

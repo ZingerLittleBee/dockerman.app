@@ -1,0 +1,81 @@
+---
+title: "CLI 概要"
+description: "Daemon-first の dockerman CLI で、ターミナルから Docker、Kubernetes、Compose、Trivy のワークフローをスクリプト化できます。"
+---
+
+`dockerman` は、認証付きの IPC ソケット経由でローカルの **dockerman-daemon** と通信する軽量なコマンドラインクライアントです。GUI で利用できるすべての機能——コンテナ、イメージ、Compose、Kubernetes 読み取り専用、Trivy、Docker Hub、トンネル、WSL——は CLI からも操作できます。v5.3.0 で追加。
+
+<Callout type="info">
+  CLI は必要に応じて `dockerman-daemon` を自動起動します。CLI を使うだけなら GUI を立ち上げる必要はありません。
+</Callout>
+
+## インストール
+
+CLI は GUI と同じリリースアーカイブに同梱されています。開発時はソースからビルドしてください：
+
+```bash
+cargo build -p dockerman-cli --release
+./target/release/dockerman --help
+```
+
+バックエンドが必要な最初のコマンドが `dockerman-daemon` を起動し、`daemon-ipc.json` を app data ディレクトリに書き出します。以降のコマンドはそのハンドシェイクを再利用します。
+
+## グローバルフラグ
+
+| フラグ | 用途 |
+| --- | --- |
+| `--host <id>` | 特定の Docker ホストを指定。ローカルソケットには `LOCALHOST`、または `dockerman host current` で表示される host id を渡す。 |
+| `--pretty` | 生 JSON ではなく整形済みテーブルを出力（対応コマンドのみ）。 |
+| `--yes` / `-y` | 破壊的操作を確認。`remove`、`prune`、`restore`、`tunnel create`、`wsl unregister` などで必須。 |
+
+## ホストを選ぶ
+
+```bash
+dockerman host current
+dockerman host use my-remote
+dockerman --host LOCALHOST container list
+```
+
+`host use` は選択をディスクに保存します；以降 `--host` を省略したコマンドはこれを使います。永続選択を変えずに 1 回だけ上書きしたい場合は、コマンドごとに `--host` を渡してください。
+
+## システムと疎通確認
+
+```bash
+dockerman system info
+dockerman system df
+dockerman system ping 8.8.8.8
+dockerman system prune --containers --volumes --yes
+```
+
+## Schema と発見
+
+daemon が公開するすべての RPC はバージョン付き schema に記述されています。コマンドの発見、クライアント生成、LLM ツールレジストリへの投入に使えます。
+
+```bash
+dockerman schema
+dockerman schema --format mcp-tools
+dockerman schema fetch_logs
+```
+
+現在の schema バージョンは `2`。unary 呼び出しとストリーミング呼び出しの違いは [ストリーミング契約](/ja/docs/cli/streaming) を参照してください。
+
+## 終了コード
+
+| コード | 意味 |
+| --- | --- |
+| `0` | 成功、または stream が自然終了 |
+| `1` | 一般的な失敗（バリデーション、RPC エラー、stream 本体エラー） |
+| `3` | 発見またはハンドシェイク失敗（daemon に到達不能） |
+| `4` | ストリーミングのハートビートタイムアウト（30 秒間フレームなし） |
+| `130` | ストリーミングコマンドへの `SIGINT`（Ctrl+C） |
+| `143` | ストリーミングコマンドへの `SIGTERM` |
+
+## CLI でカバーしない範囲
+
+GUI でのみ提供されているワークフロー：
+
+- スケジューラータスクと通知チャネル
+- アラートルール（プリセットルールは daemon 上で動くが、作成・編集は GUI のみ）
+- 時系列メトリクスの履歴
+
+コマンドの完全な一覧は `dockerman --help` と一致します。本セクション以降のページではドメインごとにまとめます。

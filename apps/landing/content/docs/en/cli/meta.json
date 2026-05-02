@@ -1,0 +1,14 @@
+{
+  "title": "CLI",
+  "pages": [
+    "index",
+    "containers",
+    "images",
+    "networks-volumes",
+    "compose",
+    "kubernetes",
+    "streaming",
+    "advanced"
+  ],
+  "defaultOpen": false
+}

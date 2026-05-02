@@ -1,0 +1,68 @@
+---
+title: Compose
+description: Manage Docker Compose projects, deploy from a compose file, and stream pull/up progress from the CLI.
+---
+
+The `compose` command group works against existing Compose projects (anything with the `com.docker.compose.project` label) and can also deploy a fresh project from a compose file.
+
+<Callout type="warn">
+  Compose commands require a Docker runtime. They are unavailable when the selected host is a Podman target.
+</Callout>
+
+## List projects
+
+```bash
+dockerman compose list
+dockerman compose list --pretty
+```
+
+Returns project name, container count, status, and base path.
+
+## Lifecycle
+
+```bash
+dockerman compose up myproject --detach
+dockerman compose stop myproject
+dockerman compose start myproject
+dockerman compose restart myproject --service web
+dockerman compose remove myproject --remove-volumes --yes
+```
+
+`up`, `stop`, `start`, and `restart` all accept the standard global flags:
+
+| Flag | Purpose |
+| --- | --- |
+| `--working-dir <path>` | Override the project's working directory |
+| `--config-files <paths>` | Comma-separated list of compose files |
+| `--env-file <path>` | Override the env file |
+| `--profile <name>` | Activate a Compose profile |
+| `--progress <mode>` | `auto`, `tty`, `plain`, or `quiet` |
+| `--dry-run` | Print what would happen without applying changes |
+| `--service <name>` | Limit `restart`/`stop`/`start` to a single service |
+
+`compose up` accepts `--detach` (default) or `--attach` (streams logs until the streams close).
+
+`compose remove` (also aliased as `compose down`) is destructive and needs `--yes`. Add `--remove-volumes` to delete the project's named volumes.
+
+## Pull
+
+```bash
+dockerman compose pull myproject --json
+dockerman compose pull myproject --service web --json
+```
+
+Streams pull progress as one NDJSON envelope per layer. Use `--json` for machine-readable output, omit it for the human-friendly progress lines.
+
+## Deploy from a compose file
+
+```bash
+dockerman compose deploy myproject ./docker-compose.yml \
+  --env DATABASE_URL=postgres://... \
+  --env LOG_LEVEL=info
+```
+
+`deploy` takes a project name plus a compose file path. The CLI reads the file, resolves any relative paths against its parent directory, and asks the daemon to create or update the project. Repeat `--env` for each variable you want to inject without modifying the compose file on disk.
+
+<Callout type="info">
+  `deploy` and `up` both end up calling the same daemon RPC. Use `deploy` when the compose file is not yet known to Docker, and `up` for a project that already shows up in `compose list`.
+</Callout>

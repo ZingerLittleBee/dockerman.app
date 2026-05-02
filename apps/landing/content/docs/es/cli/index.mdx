@@ -1,0 +1,81 @@
+---
+title: "Resumen de la CLI"
+description: "CLI dockerman daemon-first para automatizar flujos de Docker, Kubernetes, Compose y Trivy desde la terminal."
+---
+
+`dockerman` es un cliente de línea de comandos ligero que se comunica con el **dockerman-daemon** local a través de un socket IPC autenticado. Cada función disponible en la GUI — contenedores, imágenes, Compose, Kubernetes en modo lectura, Trivy, Docker Hub, túneles, WSL — es accesible también desde la CLI. Añadido en v5.3.0.
+
+<Callout type="info">
+  La CLI inicia `dockerman-daemon` automáticamente cuando hace falta. No necesitas abrir la GUI para usarla.
+</Callout>
+
+## Instalación
+
+La CLI se distribuye en el mismo paquete de release que la GUI. Para compilar desde fuente en desarrollo:
+
+```bash
+cargo build -p dockerman-cli --release
+./target/release/dockerman --help
+```
+
+El primer comando que necesite el backend lanzará `dockerman-daemon`, escribirá `daemon-ipc.json` en el directorio de datos de la app y reutilizará ese handshake en cada llamada posterior.
+
+## Flags globales
+
+| Flag | Propósito |
+| --- | --- |
+| `--host <id>` | Apunta a un host Docker concreto. Usa `LOCALHOST` para el socket local, o cualquier id de host de `dockerman host current`. |
+| `--pretty` | Renderiza tablas legibles en lugar de JSON crudo (sólo en comandos que lo aceptan). |
+| `--yes` / `-y` | Confirma una operación destructiva. Obligatorio en `remove`, `prune`, `restore`, `tunnel create`, `wsl unregister`, etc. |
+
+## Elegir un host
+
+```bash
+dockerman host current
+dockerman host use my-remote
+dockerman --host LOCALHOST container list
+```
+
+`host use` persiste la elección en disco; los comandos posteriores sin `--host` la usan. Pasa `--host` por comando cuando quieras anular sin cambiar la selección persistente.
+
+## Sistema y conectividad
+
+```bash
+dockerman system info
+dockerman system df
+dockerman system ping 8.8.8.8
+dockerman system prune --containers --volumes --yes
+```
+
+## Schema y descubrimiento
+
+Cada RPC que el daemon expone está descrito en un schema versionado. Úsalo para descubrir comandos, generar clientes o alimentar un registro de herramientas LLM.
+
+```bash
+dockerman schema
+dockerman schema --format mcp-tools
+dockerman schema fetch_logs
+```
+
+La versión actual del schema es `2`. Consulta el [Contrato de streaming](/es/docs/cli/streaming) para la diferencia entre RPCs unarios y de streaming.
+
+## Códigos de salida
+
+| Código | Significado |
+| --- | --- |
+| `0` | Éxito, o el stream terminó de forma natural |
+| `1` | Fallo genérico (validación, error de RPC, error en el cuerpo del stream) |
+| `3` | Fallo de descubrimiento o handshake (daemon inalcanzable) |
+| `4` | Timeout de heartbeat de stream (ningún frame en 30s) |
+| `130` | `SIGINT` (Ctrl+C) en un comando de streaming |
+| `143` | `SIGTERM` en un comando de streaming |
+
+## Lo que la CLI no cubre
+
+Algunos flujos sólo viven en la GUI:
+
+- Tareas del scheduler y canales de notificación
+- Reglas de alerta (las reglas predefinidas se ejecutan en el daemon, pero crear/editar es sólo GUI)
+- Histórico de métricas time-series
+
+La lista completa de comandos coincide con `dockerman --help`. Las páginas de esta sección los agrupan por dominio.
