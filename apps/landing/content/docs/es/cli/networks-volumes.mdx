@@ -1,0 +1,93 @@
+---
+title: "Redes y volúmenes"
+description: "Gestiona redes y volúmenes Docker desde la CLI — crear, inspeccionar, conectar, purgar."
+---
+
+Los grupos `network` y `volume` exponen todas las operaciones que la GUI ofrece para estos dos tipos de recursos. Ambos siguen los mismos patrones que `container` e `image`: `list`, `inspect`, `create`, `remove`/`prune`, más comandos de relación para redes.
+
+## Redes
+
+### Listar e inspeccionar
+
+```bash
+dockerman network list
+dockerman network list --pretty
+dockerman network inspect bridge
+```
+
+### Crear
+
+```bash
+dockerman network create my-net \
+  --driver bridge \
+  --attachable \
+  --enable-ipv6 \
+  --option "com.docker.network.bridge.name=my-bridge" \
+  --label "owner=team-a"
+```
+
+| Flag | Propósito |
+| --- | --- |
+| `--driver <name>` | Driver de red (`bridge`, `overlay`, `macvlan`, etc.) |
+| `--internal` | Restringe la conectividad externa |
+| `--attachable` | Permite que contenedores standalone se conecten (sólo overlay) |
+| `--ingress` | Crea la red ingress de swarm |
+| `--enable-ipv6` | Activa IPv6 en la red |
+| `--option <k=v>` | Opción específica del driver (repetible) |
+| `--label <k=v>` | Label de red (repetible) |
+
+### Eliminar
+
+```bash
+dockerman network remove my-net --yes
+```
+
+`remove` requiere `--yes`. Las redes integradas (`bridge`, `host`, `none`) no pueden eliminarse.
+
+### Connect y disconnect
+
+```bash
+dockerman network connect my-net web
+dockerman network disconnect my-net web --force
+```
+
+`disconnect --force` es necesario cuando el contenedor está en marcha y quieres desconectarlo sin pararlo.
+
+## Volúmenes
+
+### Listar e inspeccionar
+
+```bash
+dockerman volume list
+dockerman volume list --pretty
+dockerman volume inspect data
+```
+
+### Crear
+
+```bash
+dockerman volume create data \
+  --driver local \
+  --driver-opt "type=nfs" \
+  --driver-opt "o=addr=10.0.0.1,rw" \
+  --driver-opt "device=:/exports/data" \
+  --label "backup=daily"
+```
+
+`--driver-opt` y `--label` son ambos repetibles.
+
+### Eliminar
+
+```bash
+dockerman volume remove data --force --yes
+```
+
+`remove` requiere `--yes`. `--force` elimina un volumen incluso si está referenciado por un contenedor parado.
+
+### Purgar
+
+```bash
+dockerman volume prune --filter "label=temp=true" --yes
+```
+
+`prune` borra todos los volúmenes huérfanos (sin referencias) que coincidan con el conjunto de filtros. `--filter` es repetible y usa la sintaxis estándar de filtros de Docker (`label=`, `label!=`, etc.). Combina siempre con filtros explícitos en scripts — un `volume prune --yes` sin filtros borra todos los volúmenes huérfanos del host.

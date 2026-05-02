@@ -1,0 +1,93 @@
+---
+title: "ネットワークとボリューム"
+description: "Docker のネットワークとボリュームを CLI で管理——作成、詳細表示、接続、クリーンアップ。"
+---
+
+`network` と `volume` コマンド群は、GUI が提供するこの 2 種類のリソースに対するすべての操作を網羅します。どちらも `container` や `image` と同じパターン：`list`、`inspect`、`create`、`remove`/`prune`、加えてネットワークには関係性コマンド。
+
+## ネットワーク
+
+### 一覧と詳細
+
+```bash
+dockerman network list
+dockerman network list --pretty
+dockerman network inspect bridge
+```
+
+### 作成
+
+```bash
+dockerman network create my-net \
+  --driver bridge \
+  --attachable \
+  --enable-ipv6 \
+  --option "com.docker.network.bridge.name=my-bridge" \
+  --label "owner=team-a"
+```
+
+| フラグ | 用途 |
+| --- | --- |
+| `--driver <name>` | ネットワークドライバ（`bridge`、`overlay`、`macvlan` など） |
+| `--internal` | 外部接続を制限 |
+| `--attachable` | 単独コンテナの接続を許可（overlay 限定） |
+| `--ingress` | swarm の ingress ネットワークを作成 |
+| `--enable-ipv6` | ネットワークで IPv6 を有効化 |
+| `--option <k=v>` | ドライバ固有オプション（複数指定可） |
+| `--label <k=v>` | ネットワークラベル（複数指定可） |
+
+### 削除
+
+```bash
+dockerman network remove my-net --yes
+```
+
+`remove` には `--yes` が必須。組み込みネットワーク（`bridge`、`host`、`none`）は削除できません。
+
+### 接続と切断
+
+```bash
+dockerman network connect my-net web
+dockerman network disconnect my-net web --force
+```
+
+コンテナが動作中で、停止せずに切断する必要がある場合は `disconnect --force` が必要です。
+
+## ボリューム
+
+### 一覧と詳細
+
+```bash
+dockerman volume list
+dockerman volume list --pretty
+dockerman volume inspect data
+```
+
+### 作成
+
+```bash
+dockerman volume create data \
+  --driver local \
+  --driver-opt "type=nfs" \
+  --driver-opt "o=addr=10.0.0.1,rw" \
+  --driver-opt "device=:/exports/data" \
+  --label "backup=daily"
+```
+
+`--driver-opt` と `--label` はどちらも複数指定可能です。
+
+### 削除
+
+```bash
+dockerman volume remove data --force --yes
+```
+
+`remove` には `--yes` が必須。`--force` を付けると、停止中のコンテナから参照されているボリュームでも強制削除します。
+
+### クリーンアップ
+
+```bash
+dockerman volume prune --filter "label=temp=true" --yes
+```
+
+`prune` はフィルタ集合に一致する未参照（ダングリング）ボリュームをすべて削除します。`--filter` は複数指定可能で、Docker 標準のフィルタ構文（`label=`、`label!=` など）を使います。スクリプト内では必ず明示的なフィルタと組み合わせてください——フィルタなしの `volume prune --yes` はホスト上の**すべての**ダングリングボリュームを削除します。
