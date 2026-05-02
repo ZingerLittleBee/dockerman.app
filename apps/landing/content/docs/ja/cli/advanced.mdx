@@ -1,0 +1,111 @@
+---
+title: "高度な機能とスクリプト化"
+description: "Schema、call エスケープハッチ、Cloudflare Quick Tunnels、管理対象 WSL2 エンジン、自動化のヒント。"
+---
+
+このページは使用頻度の低い CLI コマンドと、シェルスクリプト、CI パイプライン、LLM ツールチェーンから `dockerman` をラップする際によく使うパターンをまとめます。
+
+## `schema` と `call`
+
+daemon が公開するすべてのバックエンド RPC は自己記述的な schema を持ちます。`schema` で利用可能な RPC を発見し、`call` で専用サブコマンドなしに任意の RPC を名前で呼び出せます。
+
+```bash
+dockerman schema
+dockerman schema fetch_logs
+dockerman schema --format mcp-tools
+
+dockerman call ping_host '{"address":"8.8.8.8"}'
+dockerman call hub_search '{"query":"alpine","page_size":5}'
+dockerman call remove_container '{"name":"web","force":true}' --yes
+```
+
+`call` は params の JSON オブジェクトを受け取ります。破壊的 RPC は専用サブコマンドと同じく `--yes`（または `-y`）が必要です。**ストリーミング RPC は `call` で呼べません**——正しいエンベロープを得るには専用のストリーミングコマンドを使ってください。
+
+<Callout type="info">
+  `schema --format mcp-tools` は MCP 互換のツールレジストリを出力します。Model Context Protocol を喋る LLM agent にそのまま接続できます。
+</Callout>
+
+## イベント
+
+```bash
+dockerman events --filter type=container
+dockerman events --filter type=container --filter event=start
+dockerman events --since 2026-05-01T00:00:00Z --until 2026-05-01T01:00:00Z
+```
+
+`events` はストリーミングコマンドで、stdout に常に NDJSON [エンベロープ](/ja/docs/cli/streaming) を出力します——平文モードがないので `--json` フラグもありません。`--filter key=value` を複数回指定することで条件を追加できます；マッチングは Docker 標準のフィルタセマンティクスです。`--since` と `--until` は Unix タイムスタンプか RFC 3339 の日時を受け付けます。
+
+## Cloudflare Quick Tunnels
+
+ローカルコンテナのポートを公開 `trycloudflare.com` URL で公開します。Quick Tunnels はその場限りで認証なし——開発やライブデモ用途に限り、本番 ingress には絶対使わないでください。
+
+```bash
+dockerman tunnel status --json
+dockerman tunnel install --json
+dockerman tunnel targets web --pretty
+dockerman tunnel create web --host-port 8080 --host-port 8081 --install --yes --json
+dockerman tunnel create web --all --install --yes --json
+dockerman tunnel list --pretty
+dockerman tunnel list --all-hosts --pretty
+dockerman tunnel close web --host-port 8080 --host-ip 0.0.0.0
+dockerman tunnel close-container web
+```
+
+`tunnel create` はネットワーク露出面を変えるので破壊的扱い、`--yes` が必須です。`cloudflared` が未インストールなら `--install` を付けてください；CLI はインストール進捗をストリーミングしてからトンネルを開きます。SSH 転送のリモート Docker ホストはトンネルターゲットとしてサポートされません。
+
+`--host-port` と `--all` は互いに排他的です：特定の公開ポートを選ぶか、コンテナが公開しているすべてのポートを露出するかのどちらか。`--host-ip` は最低 1 つの `--host-port` と組み合わせる必要があります；ポートを指定せず IP だけでバインドすることはできません。
+
+## 管理対象 WSL2 エンジン（Windows）
+
+Windows では、daemon が `dockerman-backend` という専用 WSL2 ディストリを管理し、その中で Docker Engine を動かして Linux コンテナを実行できます。CLI と GUI は同一エンジンを共有します。
+
+```bash
+dockerman wsl status
+dockerman wsl setup
+dockerman wsl start
+dockerman wsl config read
+dockerman wsl config apply ./daemon.json --yes
+dockerman wsl resources --json
+dockerman wsl stop
+dockerman wsl unregister --yes
+```
+
+`wsl setup` は同梱の Alpine rootfs をインポートし、Docker Engine と Compose v2 プラグインをインストール、`dockerd` を localhost TCP プロキシ越しに起動します。`setup` の再実行は冪等で、現在の状態から続行します。
+
+`wsl unregister --yes` は管理対象ディストリを削除し、**その中の全コンテナ、イメージ、ボリュームも削除します**。復元手段はありません。確信があるときだけ使ってください。
+
+## スクリプト化のヒント
+
+### `--json` を `jq` にパイプ
+
+```bash
+dockerman container list --json | jq '.[] | select(.state=="running") | .name'
+dockerman trivy scan myrepo/app:v1 --json \
+  | jq -c 'select(.kind=="result") | .payload.results[] | .vulnerabilities[]?'
+```
+
+### `--yes` と確認ゲートを併用
+
+```bash
+read -p "未使用イメージを削除しますか？ [y/N] " ans
+if [[ "$ans" == "y" ]]; then
+  dockerman image prune --filter dangling=true --yes
+fi
+```
+
+CLI はスクリプトがどれほど自信を持っていても常に `--yes` を要求します。**`--force-yes` も環境変数によるバイパスも存在しません**——これは意図的な設計です。
+
+## daemon 発見失敗の検知
+
+```bash
+if ! dockerman host current >/dev/null 2>&1; then
+  echo "daemon に到達できません" >&2
+  exit 3
+fi
+```
+
+daemon 発見とハンドシェイク失敗の終了コードは `3` で、RPC レベルの失敗（`1`）や stream 失敗（`4`）とは別です。
+
+### CI での長時間ストリーム
+
+CI ランナーは数分間出力がないプロセスを kill しがちです。daemon の 15 秒ハートビートはストリーミングコマンドが*何かしら*ワイヤに流すことを保証しますが、平文モードではハートビートは隠れます。CI では `--json` を使ってハートビートを可視行として現すか、`ts` にパイプして各行にタイムスタンプを付けてください。

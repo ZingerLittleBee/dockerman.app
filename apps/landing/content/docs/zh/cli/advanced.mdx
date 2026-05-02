@@ -1,0 +1,111 @@
+---
+title: "进阶与脚本化"
+description: "Schema、call escape hatch、Cloudflare Quick Tunnels、受管 WSL2 引擎，以及自动化技巧。"
+---
+
+本页汇集使用频率较低的 CLI 命令，以及在 shell 脚本、CI 流水线、LLM 工具链中包装 `dockerman` 时常用的模式。
+
+## `schema` 与 `call`
+
+daemon 暴露的每个后端 RPC 都有自描述 schema。`schema` 用于发现可用 RPC，`call` 用于按名称调用任意 RPC，无需专用子命令。
+
+```bash
+dockerman schema
+dockerman schema fetch_logs
+dockerman schema --format mcp-tools
+
+dockerman call ping_host '{"address":"8.8.8.8"}'
+dockerman call hub_search '{"query":"alpine","page_size":5}'
+dockerman call remove_container '{"name":"web","force":true}' --yes
+```
+
+`call` 接受 JSON 形式的参数对象。破坏性 RPC 与专用子命令一样需要 `--yes`（或 `-y`）。**流式 RPC 不能通过 `call` 调用**——请使用对应的流式命令以获得正确的封装。
+
+<Callout type="info">
+  `schema --format mcp-tools` 输出 MCP 兼容的工具注册表，可直接接入支持 Model Context Protocol 的 LLM agent。
+</Callout>
+
+## 事件
+
+```bash
+dockerman events --filter type=container
+dockerman events --filter type=container --filter event=start
+dockerman events --since 2026-05-01T00:00:00Z --until 2026-05-01T01:00:00Z
+```
+
+`events` 是流式命令，stdout 始终输出 NDJSON [封装](/zh/docs/cli/streaming)——没有 `--json` 标志，也没有"普通模式"。多次 `--filter key=value` 叠加过滤；语义与 Docker 标准过滤器一致。`--since` 和 `--until` 接受 Unix 时间戳或 RFC 3339 日期时间。
+
+## Cloudflare Quick Tunnels
+
+通过公开的 `trycloudflare.com` URL 暴露本地容器端口。Quick Tunnels 是临时且无身份验证的——仅用于开发和实时演示，**不要**用于生产入口。
+
+```bash
+dockerman tunnel status --json
+dockerman tunnel install --json
+dockerman tunnel targets web --pretty
+dockerman tunnel create web --host-port 8080 --host-port 8081 --install --yes --json
+dockerman tunnel create web --all --install --yes --json
+dockerman tunnel list --pretty
+dockerman tunnel list --all-hosts --pretty
+dockerman tunnel close web --host-port 8080 --host-ip 0.0.0.0
+dockerman tunnel close-container web
+```
+
+`tunnel create` 改变网络暴露面，属于破坏性操作，必须传 `--yes`。`cloudflared` 未安装时加 `--install`，CLI 会先流式安装再开隧道。SSH 转发的远程 Docker 主机不支持作为隧道目标。
+
+`--host-port` 与 `--all` 互斥：要么指定具体的已发布端口，要么暴露容器发布的所有端口。`--host-ip` 至少需要配合一个 `--host-port`；不能仅按 IP 绑定而不指定端口。
+
+## 受管 WSL2 引擎（Windows）
+
+在 Windows 上，daemon 可以管理一个名为 `dockerman-backend` 的专用 WSL2 发行版，运行 Docker Engine 跑 Linux 容器。CLI 与 GUI 共享同一引擎。
+
+```bash
+dockerman wsl status
+dockerman wsl setup
+dockerman wsl start
+dockerman wsl config read
+dockerman wsl config apply ./daemon.json --yes
+dockerman wsl resources --json
+dockerman wsl stop
+dockerman wsl unregister --yes
+```
+
+`wsl setup` 导入内置的 Alpine rootfs，安装 Docker Engine 与 Compose v2 插件，并以本地 TCP 代理启动 `dockerd`。重复执行 `setup` 是幂等的，会从当前状态恢复。
+
+`wsl unregister --yes` 删除受管发行版，**以及其中的所有容器、镜像和卷**。无法恢复，只在确定时使用。
+
+## 脚本化技巧
+
+### 用 `jq` 解析 `--json`
+
+```bash
+dockerman container list --json | jq '.[] | select(.state=="running") | .name'
+dockerman trivy scan myrepo/app:v1 --json \
+  | jq -c 'select(.kind=="result") | .payload.results[] | .vulnerabilities[]?'
+```
+
+### `--yes` 与确认网关结合
+
+```bash
+read -p "删除未使用的镜像？[y/N] " ans
+if [[ "$ans" == "y" ]]; then
+  dockerman image prune --filter dangling=true --yes
+fi
+```
+
+CLI 始终要求 `--yes`，无论脚本自身多确定。**不存在** `--force-yes` 或环境变量绕过——这是有意的设计。
+
+### 检测 daemon 发现失败
+
+```bash
+if ! dockerman host current >/dev/null 2>&1; then
+  echo "daemon 不可达" >&2
+  exit 3
+fi
+```
+
+daemon 发现和握手失败的退出码为 `3`，与 RPC 级别失败（`1`）和流失败（`4`）区分开。
+
+### CI 中的长流
+
+CI runner 经常 kill 一段时间无输出的进程。daemon 的 15 秒心跳保证流式命令始终在线缆上有动静，但**普通模式会隐藏心跳**。CI 中建议用 `--json`，让心跳作为可见行出现；或管道接入 `ts` 给每行加时间戳。
