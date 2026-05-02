@@ -1,0 +1,74 @@
+---
+title: "ストリーミング契約"
+description: "ストリーミング RPC の NDJSON エンベロープ、ハートビート、バックプレッシャ、シグナル処理。"
+---
+
+ストリーミング RPC（`logs -f`、`stats`、`events`、`image pull/push/build`、`compose pull/up`、`trivy scan/install`、`tunnel create`）はすべて、v5.3.0 で導入された同一の通信契約（schema バージョン `2`）を共有します。
+
+## エンベロープ
+
+ストリーミングコマンドに `--json` を渡すと、stdout の各行が 1 つのエンベロープになります。外側のエンベロープは単調増加する `seq` と `type` 判別子を持ち、データフレームはその型付きペイロードを `payload` に格納します。
+
+```json
+{"seq":1,"type":"data","payload":{"line":"hello"}}
+{"seq":2,"type":"heartbeat"}
+{"seq":3,"type":"dropped","payload":{"count":12}}
+{"seq":4,"type":"data","payload":{"kind":"result","report":{"...":"..."}}}
+{"seq":5,"type":"end"}
+{"seq":6,"type":"error","payload":{"code":"docker_not_found","message":"container web not found","details":null}}
+```
+
+| `type` | 意味 |
+| --- | --- |
+| `data` | 通常のフレーム；型付きペイロードは `payload` に入る |
+| `heartbeat` | 生存確認。デフォルト間隔は 15 秒 |
+| `dropped` | バックプレッシャの目印。daemon が `payload.count` 個のフレームを破棄；どの種類であれ次のフレームの前に発行される |
+| `end` | stream が正常終了。これ以上フレームは届かない |
+| `error` | 致命的エラー。`payload` には `{ code, message, details }`；このフレームの後に stream は終了する |
+
+<Callout type="info">
+  一部のコマンド（Trivy scan、Trivy install、Compose pull）はデータペイロード内にもう 1 段の tag を埋め込みます。例えば `dockerman trivy scan` は `data` フレームを発行し、その `payload.kind` は `"progress"`、`"result"`、`"error"` のいずれか——内側の `error` は成功した `data` エンベロープ越しに運ばれる stream 内エラーで、外側の `error` エンベロープはトランスポートレベルの障害用に予約されています。
+</Callout>
+
+## 平文モード
+
+`--json` なしでは、ストリーミングコマンドは人間向けの出力をします：
+
+- `logs -f`、`events`：データフレーム 1 つにつき 1 行のログを stdout に、エラーと診断は stderr に。
+- `stats`、`image pull/push/build`、`compose pull/up`、`trivy install/scan`：進捗行は stderr（stdout をファイルにリダイレクトできるように）、最終結果は該当するコマンドで stdout に。
+
+## ハートビートとタイムアウト
+
+daemon は 15 秒ごとにハートビートを送ります。CLI は最大 30 秒（ハートビート 2 回分）待った後、stream を死亡判定し、終了コード `4` で終わります。CLI 呼び出しを長いパイプラインで包むときは stdout をバッファしないでください——バッファリングはハートビートを隠してしまい、自分の監視に偽陽性を発生させます。
+
+## バックプレッシャ
+
+各 stream には daemon と CLI の間に 256 フレーム分のバッファがあります。コンシューマが遅い場合、daemon は古いフレームを破棄し、次のデータフレームの前に `Dropped { count }` フレームを 1 つ発行します。これによりターミナル（または `jq -c`）がプロデューサに追いつかないときも stream を生かし続けます。
+
+## キャンセル
+
+**Ctrl+C** を押すと `SIGINT` が送られます；CLI がこれをキャッチし、`CancelOnDrop` 経由で daemon にキャンセルを依頼し、進行中のフレームを排水してから終了コード `130` で終わります。`SIGTERM` は `143` で終わります。daemon は TCP / Unix ソケットの切断（ブラウザタブを閉じた、親プロセスが kill された）も検知し、サーバー側リソースを goroutine リークなしに解放します。
+
+## ストリーム終了コード
+
+| コード | 意味 |
+| --- | --- |
+| `0` | stream が自然終了（コンテナ停止、イメージ pull 完了、スキャン完了） |
+| `1` | 接続成功後の本体エラー（本体前の 4xx を含む） |
+| `3` | stream を開く前に daemon の発見 / ハンドシェイクが失敗 |
+| `4` | ハートビートタイムアウト（30 秒間フレームなし） |
+| `130` | `SIGINT` |
+| `143` | `SIGTERM` |
+
+## schema を確認
+
+ストリーミング RPC とそのエンベロープ形状を一覧できます：
+
+```bash
+dockerman schema --format mcp-tools
+dockerman schema follow_logs
+dockerman schema follow_stats
+dockerman schema monitor_events
+```
+
+ストリーミング RPC は `streaming: true` と `StreamFrameEnvelope` 参照でマークされます。unary callable RPC（例：`fetch_logs`）は `callable: true` でマークされ、通常の `result` schema を持ちます。

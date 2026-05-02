@@ -1,0 +1,74 @@
+---
+title: "流式契约"
+description: "流式 RPC 的 NDJSON 封装、心跳、背压与信号处理。"
+---
+
+所有流式 RPC（`logs -f`、`stats`、`events`、`image pull/push/build`、`compose pull/up`、`trivy scan/install`、`tunnel create`）共享 v5.3.0 引入的同一套线缆契约（schema 版本 `2`）。
+
+## 封装结构
+
+带 `--json` 时，stdout 上每一行是一帧封装。外层封装包含单调递增的 `seq` 和 `type` 判别字段；数据帧的强类型负载在 `payload` 中。
+
+```json
+{"seq":1,"type":"data","payload":{"line":"hello"}}
+{"seq":2,"type":"heartbeat"}
+{"seq":3,"type":"dropped","payload":{"count":12}}
+{"seq":4,"type":"data","payload":{"kind":"result","report":{"...":"..."}}}
+{"seq":5,"type":"end"}
+{"seq":6,"type":"error","payload":{"code":"docker_not_found","message":"container web not found","details":null}}
+```
+
+| `type` | 含义 |
+| --- | --- |
+| `data` | 普通数据帧；强类型负载在 `payload` 中 |
+| `heartbeat` | 存活检测。默认间隔 15 秒 |
+| `dropped` | 背压标记。daemon 丢弃了 `payload.count` 帧；在下一帧（任意类型）之前发出 |
+| `end` | 流正常结束，后续不再有帧 |
+| `error` | 终止错误。`payload` 包含 `{ code, message, details }`；该帧之后流结束 |
+
+<Callout type="info">
+  部分命令（Trivy scan、Trivy install、Compose pull）会在 data 负载内部再嵌套一层 tag。例如 `dockerman trivy scan` 发送的 `data` 帧，其 `payload.kind` 取值为 `"progress"`、`"result"`、`"error"`——内层 `error` 是流内部的业务错误，承载在成功的 `data` 封装上；而外层的 `error` 封装专门表示传输层失败。
+</Callout>
+
+## 普通模式
+
+不带 `--json` 时，流式命令输出对人友好的内容：
+
+- `logs -f`、`events`：每个 data 帧一行日志到 stdout，错误和诊断到 stderr。
+- `stats`、`image pull/push/build`、`compose pull/up`、`trivy install/scan`：进度行写到 stderr（这样可以把 stdout 重定向到文件），最终结果（如有）写到 stdout。
+
+## 心跳与超时
+
+daemon 每 15 秒发出一次心跳。CLI 最多等待 30 秒（两个心跳）后判定流已死，以退出码 `4` 退出。在更长的管道中包装 CLI 调用时，**不要缓冲 stdout**——缓冲会隐藏心跳，触发监控误报。
+
+## 背压
+
+每条流在 daemon 与 CLI 之间有 256 帧的缓冲区。消费方过慢时，daemon 丢弃最旧的帧，并在下一帧数据之前发出一帧 `Dropped { count }`。这能在终端（或 `jq -c`）跟不上生产者时保持流不断。
+
+## 取消
+
+按 **Ctrl+C** 发送 `SIGINT`；CLI 捕获后请求 daemon 通过 `CancelOnDrop` 取消，排空在途帧后以退出码 `130` 退出。`SIGTERM` 退出码为 `143`。daemon 也会感知 TCP / Unix 套接字连接断开（关闭浏览器标签、父进程被 kill），自动释放服务端资源，避免 goroutine 泄漏。
+
+## 流式退出码
+
+| 退出码 | 含义 |
+| --- | --- |
+| `0` | 流自然结束（容器停止、镜像拉取完成、扫描结束） |
+| `1` | 连接成功后流体出错（含连接前的 4xx） |
+| `3` | 流打开前 daemon 发现 / 握手失败 |
+| `4` | 心跳超时（30 秒未收到帧） |
+| `130` | `SIGINT` |
+| `143` | `SIGTERM` |
+
+## 查看 schema
+
+可以列出每个流式 RPC 及其封装结构：
+
+```bash
+dockerman schema --format mcp-tools
+dockerman schema follow_logs
+dockerman schema follow_stats
+dockerman schema monitor_events
+```
+
+流式 RPC 标记为 `streaming: true` 并引用 `StreamFrameEnvelope`。一元 callable RPC（如 `fetch_logs`）标记为 `callable: true`，使用普通 `result` schema。

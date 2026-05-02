@@ -1,0 +1,74 @@
+---
+title: "Contrato de streaming"
+description: "Envelope NDJSON, heartbeat, contrapresión y manejo de señales para los RPCs en streaming."
+---
+
+Los RPCs en streaming (`logs -f`, `stats`, `events`, `image pull/push/build`, `compose pull/up`, `trivy scan/install`, `tunnel create`) comparten el mismo contrato de cable introducido en v5.3.0 con la versión `2` de schema.
+
+## Envelope
+
+Cuando pasas `--json` a un comando de streaming, cada línea de stdout es un envelope. El envelope externo lleva un `seq` monotónico y un discriminador `type`; los frames de datos llevan su payload tipado bajo `payload`.
+
+```json
+{"seq":1,"type":"data","payload":{"line":"hello"}}
+{"seq":2,"type":"heartbeat"}
+{"seq":3,"type":"dropped","payload":{"count":12}}
+{"seq":4,"type":"data","payload":{"kind":"result","report":{"...":"..."}}}
+{"seq":5,"type":"end"}
+{"seq":6,"type":"error","payload":{"code":"docker_not_found","message":"container web not found","details":null}}
+```
+
+| `type` | Significado |
+| --- | --- |
+| `data` | Frame normal; el payload tipado va en `payload` |
+| `heartbeat` | Ping de keep-alive. El intervalo por defecto es 15s |
+| `dropped` | Marcador de contrapresión. El daemon descartó `payload.count` frames; se emite antes del siguiente frame de cualquier tipo |
+| `end` | El stream terminó limpiamente. No llegarán más frames |
+| `error` | Error terminal. `payload` lleva `{ code, message, details }`; el stream finaliza tras este frame |
+
+<Callout type="info">
+  Algunos comandos (Trivy scan, Trivy install, Compose pull) embeben un segundo tag dentro del payload de datos. Por ejemplo, `dockerman trivy scan` emite frames `data` cuyo `payload.kind` es `"progress"`, `"result"` o `"error"` — el `error` interno es un fallo de stream interno transportado sobre un envelope `data` exitoso, mientras que el envelope `error` externo está reservado para fallos a nivel de transporte.
+</Callout>
+
+## Modo plano
+
+Sin `--json`, los comandos en streaming imprimen salida legible:
+
+- `logs -f`, `events`: una línea de log por frame de datos en stdout, errores y diagnósticos en stderr.
+- `stats`, `image pull/push/build`, `compose pull/up`, `trivy install/scan`: líneas de progreso en stderr (para que puedas redirigir stdout a un fichero), resultado final en stdout cuando aplica.
+
+## Heartbeat y timeout
+
+El daemon emite un heartbeat cada 15s. La CLI espera hasta 30s (dos heartbeats) antes de declarar el stream muerto y salir con código `4`. Si envuelves llamadas a la CLI en un pipeline más largo, no bufferices stdout — el buffering puede ocultar los heartbeats y disparar falsos positivos en tu propia monitorización.
+
+## Contrapresión
+
+Cada stream tiene un buffer de 256 frames entre el daemon y la CLI. Cuando el consumidor es lento, el daemon descarta los frames más viejos y emite un único frame `Dropped { count }` antes del siguiente frame de datos. Esto mantiene los streams vivos cuando los terminales (o `jq -c`) se quedan atrás respecto a los productores.
+
+## Cancelación
+
+Pulsar **Ctrl+C** envía `SIGINT`; la CLI lo captura, pide al daemon que cancele vía `CancelOnDrop`, drena los frames en vuelo y sale con código `130`. `SIGTERM` sale con `143`. El daemon también detecta cuando se cae la conexión TCP / socket Unix (cierre de pestaña del navegador, proceso padre matado) y libera recursos del lado servidor sin fugar goroutines.
+
+## Códigos de salida para streams
+
+| Código | Significado |
+| --- | --- |
+| `0` | El stream terminó de forma natural (contenedor parado, imagen completamente descargada, escaneo terminado) |
+| `1` | Error en el cuerpo del stream tras conexión exitosa (incluye 4xx pre-cuerpo) |
+| `3` | Falló el descubrimiento / handshake del daemon antes de abrir el stream |
+| `4` | Timeout de heartbeat (ningún frame en 30s) |
+| `130` | `SIGINT` |
+| `143` | `SIGTERM` |
+
+## Inspeccionar el schema
+
+Puedes listar cada RPC en streaming y la forma de su envelope:
+
+```bash
+dockerman schema --format mcp-tools
+dockerman schema follow_logs
+dockerman schema follow_stats
+dockerman schema monitor_events
+```
+
+Los RPCs en streaming se marcan con `streaming: true` y una referencia `StreamFrameEnvelope`. Los RPCs unarios callable (p. ej. `fetch_logs`) se marcan con `callable: true` y tienen un schema `result` normal.

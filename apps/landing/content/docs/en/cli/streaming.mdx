@@ -1,0 +1,74 @@
+---
+title: Streaming Contract
+description: NDJSON envelope, heartbeat, backpressure, and signal handling for streaming RPCs.
+---
+
+Streaming RPCs (`logs -f`, `stats`, `events`, `image pull/push/build`, `compose pull/up`, `trivy scan/install`, `tunnel create`) all share the same wire contract introduced in v5.3.0 with schema version `2`.
+
+## Envelope
+
+When you pass `--json` to a streaming command, each line on stdout is one envelope. The outer envelope carries a monotonic `seq` and a `type` discriminator; data frames carry their typed payload under `payload`.
+
+```json
+{"seq":1,"type":"data","payload":{"line":"hello"}}
+{"seq":2,"type":"heartbeat"}
+{"seq":3,"type":"dropped","payload":{"count":12}}
+{"seq":4,"type":"data","payload":{"kind":"result","report":{"...":"..."}}}
+{"seq":5,"type":"end"}
+{"seq":6,"type":"error","payload":{"code":"docker_not_found","message":"container web not found","details":null}}
+```
+
+| `type` | Meaning |
+| --- | --- |
+| `data` | A normal frame; the typed payload sits in `payload` |
+| `heartbeat` | Liveness ping. Default interval is 15s |
+| `dropped` | Backpressure marker. The daemon dropped `payload.count` frames; emitted before the next frame of any type |
+| `end` | Stream finished cleanly. No more frames will arrive |
+| `error` | Terminal error. `payload` carries `{ code, message, details }`; the stream ends after this frame |
+
+<Callout type="info">
+  Some commands (Trivy scan, Trivy install, Compose pull) embed a second tag inside the data payload. For example, `dockerman trivy scan` emits `data` frames whose `payload.kind` is `"progress"`, `"result"`, or `"error"` — the inner `error` is a stream-internal failure carried over a successful `data` envelope, while the outer `error` envelope is reserved for transport-level failures.
+</Callout>
+
+## Plain mode
+
+Without `--json`, streaming commands print human-friendly output:
+
+- `logs -f`, `events`: one log line per data frame on stdout, errors and diagnostics on stderr.
+- `stats`, `image pull/push/build`, `compose pull/up`, `trivy install/scan`: progress lines on stderr (so you can pipe stdout into a file), final result on stdout when applicable.
+
+## Heartbeat and timeout
+
+The daemon emits a heartbeat every 15s. The CLI waits up to 30s (two heartbeats) before declaring the stream dead and exiting with code `4`. If you wrap CLI calls in a longer pipeline, do not buffer stdout — buffering can hide heartbeats and trigger false-positive timeouts in your own monitoring.
+
+## Backpressure
+
+Each stream has a 256-frame buffer between the daemon and the CLI. When the consumer is slow, the daemon drops the oldest frames and emits a single `Dropped { count }` frame before the next data frame. This keeps streams alive even when terminals (or `jq -c`) lag behind producers.
+
+## Cancellation
+
+Pressing **Ctrl+C** sends `SIGINT`; the CLI catches it, asks the daemon to cancel via `CancelOnDrop`, drains the in-flight frames, and exits with code `130`. `SIGTERM` exits with `143`. The daemon also notices when the TCP/Unix-socket connection drops (browser tab closed, parent process killed) and frees server-side resources without leaking goroutines.
+
+## Exit codes for streams
+
+| Code | Meaning |
+| --- | --- |
+| `0` | Stream ended naturally (container stopped, image fully pulled, scan completed) |
+| `1` | Stream body error after the connection succeeded (also covers pre-body 4xx) |
+| `3` | Daemon discovery / handshake failed before the stream opened |
+| `4` | Heartbeat timeout (no frame for 30s) |
+| `130` | `SIGINT` |
+| `143` | `SIGTERM` |
+
+## Inspect the schema
+
+You can list every streaming RPC and its envelope shape:
+
+```bash
+dockerman schema --format mcp-tools
+dockerman schema follow_logs
+dockerman schema follow_stats
+dockerman schema monitor_events
+```
+
+Streaming RPCs are marked with `streaming: true` and a `StreamFrameEnvelope` reference. Unary callable RPCs (e.g. `fetch_logs`) are marked `callable: true` and have a normal `result` schema.
