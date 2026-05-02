@@ -1,0 +1,123 @@
+---
+title: "镜像、Hub 与 Trivy"
+description: "在 CLI 中拉取、构建、推送、扫描和搜索 Docker 镜像。"
+---
+
+`image`、`hub`、`trivy` 三个命令组共同覆盖完整的镜像生命周期：在 Docker Hub 上发现镜像、拉取、扫描 CVE、构建、推送、清理。
+
+## 列表、详情与打 tag
+
+```bash
+dockerman image list
+dockerman image list --pretty
+dockerman image inspect nginx:latest
+dockerman image tag nginx:latest myrepo/nginx --tag staging
+dockerman image history nginx:latest
+dockerman image search nginx --pretty
+```
+
+`image search` 通过连接的 daemon 调用 Docker Engine 的 `/images/search` 接口。需要更丰富的结果（描述、官方标记、tag 列表）时，请使用下方的 [`hub search`](#搜索-docker-hub)——两条命令访问的是不同的 API。
+
+## 拉取与推送
+
+```bash
+dockerman image pull nginx --tag latest
+dockerman image pull ghcr.io/me/app --tag v1 \
+  --username me --credential "$GHCR_TOKEN" \
+  --serveraddress https://ghcr.io \
+  --json
+
+dockerman image push myrepo/app --tag v1 --json
+```
+
+带 `--json` 时进度以 NDJSON 封装流式输出；不带 `--json` 时输出人类可读的进度行和最终状态。`--username` / `--credential` 仅作用于本次调用，CLI 不复用 GUI 中保存的 registry 凭证。
+
+## 构建
+
+```bash
+dockerman image build ./Dockerfile --tag myrepo/app:v1 \
+  --context-path ./ \
+  --buildargs "NODE_ENV=production" \
+  --pull --rm --json
+```
+
+构建使用与 pull/push 相同的进度封装。完整参数（build-args、labels、network mode、target stage、platform）见 `dockerman image build --help`。
+
+## 删除与清理
+
+```bash
+dockerman image remove nginx:old --force --yes
+dockerman image prune --filter dangling=true --yes
+```
+
+两者都需要 `--yes`。`prune` 支持多次 `--filter`，语法与 `docker image prune` 一致。
+
+## 导出与导入
+
+```bash
+dockerman image export nginx:latest ./nginx.tar
+dockerman image import ./nginx.tar --quiet
+```
+
+`export` 写出与 `docker save` 兼容的 tar 包；`import` 反向导入。
+
+## 搜索 Docker Hub
+
+```bash
+dockerman hub search alpine --pretty
+dockerman hub search nginx --page 2 --page-size 20 --json
+dockerman hub image library/alpine --pretty
+dockerman hub tags library/alpine --page 1 --page-size 25 --pretty
+```
+
+`hub search` 返回名称、描述、星标数、官方/自动构建标记。`hub image` 和 `hub tags` 显示 `<namespace>/<name>` 仓库的元数据和发布的标签。
+
+## 使用 Trivy 扫描
+
+Dockerman 内置受管的 Trivy 二进制；安装后即可离线扫描。
+
+<Steps>
+  <Step>
+    ### 检查状态
+
+    ```bash
+    dockerman trivy status --json
+    dockerman trivy dir --json
+    ```
+
+    `status` 返回 `installed: true|false` 和已解析的版本号。`dir` 输出绝对安装路径。
+  </Step>
+  <Step>
+    ### 安装或更新
+
+    ```bash
+    dockerman trivy install --json
+    dockerman trivy update --json
+    ```
+
+    两者都以 NDJSON 流式输出二进制和漏洞数据库下载进度。
+  </Step>
+  <Step>
+    ### 扫描镜像
+
+    ```bash
+    dockerman trivy scan alpine:latest --pretty
+    dockerman trivy scan myrepo/app:v1 --json --db-repository ghcr.io/aquasecurity/trivy-db
+    ```
+
+    扫描先输出多帧进度，最后输出一帧 `kind: result` 包含完整报告。`--json` 输出可管道传给 `jq` 过滤漏洞。
+  </Step>
+  <Step>
+    ### 删除
+
+    ```bash
+    dockerman trivy remove --yes
+    ```
+
+    删除受管二进制和数据库缓存，必须传 `--yes`。
+  </Step>
+</Steps>
+
+<Callout type="info">
+  `hub` 和 `trivy` 共用 daemon 的出站网络。它们遵循主机的 HTTPS 代理环境变量，但**不**走 GUI 配置的逐主机 SSH 隧道。
+</Callout>

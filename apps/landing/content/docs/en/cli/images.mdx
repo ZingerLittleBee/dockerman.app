@@ -1,0 +1,123 @@
+---
+title: Images, Hub, and Trivy
+description: Pull, build, push, scan, and search Docker images from the CLI.
+---
+
+The `image`, `hub`, and `trivy` command groups together cover the full image lifecycle: discover on Docker Hub, pull, scan for CVEs, build, push, and clean up.
+
+## List, inspect, and tag
+
+```bash
+dockerman image list
+dockerman image list --pretty
+dockerman image inspect nginx:latest
+dockerman image tag nginx:latest myrepo/nginx --tag staging
+dockerman image history nginx:latest
+dockerman image search nginx --pretty
+```
+
+`image search` queries the Docker Engine's `/images/search` endpoint via the connected daemon. For richer results (descriptions, official badges, tag listings), use [`hub search`](#search-docker-hub) below — the two commands talk to different APIs.
+
+## Pull and push
+
+```bash
+dockerman image pull nginx --tag latest
+dockerman image pull ghcr.io/me/app --tag v1 \
+  --username me --credential "$GHCR_TOKEN" \
+  --serveraddress https://ghcr.io \
+  --json
+
+dockerman image push myrepo/app --tag v1 --json
+```
+
+Both commands stream progress as NDJSON envelopes when `--json` is set. Without `--json` the CLI prints human progress lines and a final status. Authentication via `--username` / `--credential` is per-invocation; the GUI's saved registries are not used by CLI calls.
+
+## Build
+
+```bash
+dockerman image build ./Dockerfile --tag myrepo/app:v1 \
+  --context-path ./ \
+  --buildargs "NODE_ENV=production" \
+  --pull --rm --json
+```
+
+Builds stream progress in the same envelope as pull/push. See `dockerman image build --help` for the full set of flags (build-args, labels, network mode, target stage, platform).
+
+## Remove and prune
+
+```bash
+dockerman image remove nginx:old --force --yes
+dockerman image prune --filter dangling=true --yes
+```
+
+Both require `--yes`. `prune` accepts repeated `--filter` arguments using the same syntax as `docker image prune`.
+
+## Export and import
+
+```bash
+dockerman image export nginx:latest ./nginx.tar
+dockerman image import ./nginx.tar --quiet
+```
+
+Export writes a `docker save`-compatible tarball; import reads one back.
+
+## Search Docker Hub
+
+```bash
+dockerman hub search alpine --pretty
+dockerman hub search nginx --page 2 --page-size 20 --json
+dockerman hub image library/alpine --pretty
+dockerman hub tags library/alpine --page 1 --page-size 25 --pretty
+```
+
+`hub search` returns names, descriptions, star counts, and official/automated flags. `hub image` and `hub tags` show repository metadata and published tags for a `<namespace>/<name>` pair.
+
+## Scan with Trivy
+
+Dockerman ships a managed Trivy binary so scans work offline once installed.
+
+<Steps>
+  <Step>
+    ### Check status
+
+    ```bash
+    dockerman trivy status --json
+    dockerman trivy dir --json
+    ```
+
+    `status` reports `installed: true|false` and the resolved version. `dir` prints the absolute install directory.
+  </Step>
+  <Step>
+    ### Install or update
+
+    ```bash
+    dockerman trivy install --json
+    dockerman trivy update --json
+    ```
+
+    Both stream NDJSON progress while downloading the binary and the vulnerability database.
+  </Step>
+  <Step>
+    ### Scan an image
+
+    ```bash
+    dockerman trivy scan alpine:latest --pretty
+    dockerman trivy scan myrepo/app:v1 --json --db-repository ghcr.io/aquasecurity/trivy-db
+    ```
+
+    Scans stream progress frames followed by a single `kind: result` frame containing the report. Pipe `--json` output into `jq` to filter findings.
+  </Step>
+  <Step>
+    ### Remove
+
+    ```bash
+    dockerman trivy remove --yes
+    ```
+
+    Deletes the managed binary and DB cache. Requires `--yes`.
+  </Step>
+</Steps>
+
+<Callout type="info">
+  `hub` and `trivy` share the daemon's outbound network. They respect the host's HTTPS proxy environment but do not use the GUI's per-host SSH tunnel.
+</Callout>

@@ -1,0 +1,123 @@
+---
+title: "Imágenes, Hub y Trivy"
+description: "Pull, build, push, escaneo y búsqueda de imágenes Docker desde la CLI."
+---
+
+Los grupos `image`, `hub` y `trivy` cubren juntos el ciclo de vida completo de las imágenes: descubrir en Docker Hub, hacer pull, escanear CVEs, build, push y limpieza.
+
+## Listar, inspeccionar y etiquetar
+
+```bash
+dockerman image list
+dockerman image list --pretty
+dockerman image inspect nginx:latest
+dockerman image tag nginx:latest myrepo/nginx --tag staging
+dockerman image history nginx:latest
+dockerman image search nginx --pretty
+```
+
+`image search` consulta el endpoint `/images/search` del Docker Engine a través del daemon conectado. Para resultados más ricos (descripciones, badges oficiales, listado de tags), usa [`hub search`](#buscar-en-docker-hub) más abajo — los dos comandos hablan con APIs distintas.
+
+## Pull y push
+
+```bash
+dockerman image pull nginx --tag latest
+dockerman image pull ghcr.io/me/app --tag v1 \
+  --username me --credential "$GHCR_TOKEN" \
+  --serveraddress https://ghcr.io \
+  --json
+
+dockerman image push myrepo/app --tag v1 --json
+```
+
+Ambos comandos transmiten progreso como envelopes NDJSON cuando se pasa `--json`. Sin `--json` la CLI imprime líneas de progreso legibles y un estado final. La autenticación con `--username` / `--credential` es por invocación; las credenciales guardadas en la GUI no se reutilizan en la CLI.
+
+## Build
+
+```bash
+dockerman image build ./Dockerfile --tag myrepo/app:v1 \
+  --context-path ./ \
+  --buildargs "NODE_ENV=production" \
+  --pull --rm --json
+```
+
+Los builds transmiten progreso con el mismo envelope que pull/push. Para el conjunto completo de flags (build-args, labels, network mode, target stage, platform), consulta `dockerman image build --help`.
+
+## Eliminar y purgar
+
+```bash
+dockerman image remove nginx:old --force --yes
+dockerman image prune --filter dangling=true --yes
+```
+
+Ambos requieren `--yes`. `prune` admite `--filter` repetidos con la misma sintaxis que `docker image prune`.
+
+## Exportar e importar
+
+```bash
+dockerman image export nginx:latest ./nginx.tar
+dockerman image import ./nginx.tar --quiet
+```
+
+`export` escribe un tarball compatible con `docker save`; `import` lo lee de vuelta.
+
+## Buscar en Docker Hub
+
+```bash
+dockerman hub search alpine --pretty
+dockerman hub search nginx --page 2 --page-size 20 --json
+dockerman hub image library/alpine --pretty
+dockerman hub tags library/alpine --page 1 --page-size 25 --pretty
+```
+
+`hub search` devuelve nombre, descripción, número de estrellas y los flags official/automated. `hub image` y `hub tags` muestran metadatos del repositorio y los tags publicados de un par `<namespace>/<name>`.
+
+## Escanear con Trivy
+
+Dockerman incluye un binario de Trivy gestionado, así los escaneos funcionan offline una vez instalado.
+
+<Steps>
+  <Step>
+    ### Comprobar el estado
+
+    ```bash
+    dockerman trivy status --json
+    dockerman trivy dir --json
+    ```
+
+    `status` reporta `installed: true|false` y la versión resuelta. `dir` imprime el directorio de instalación absoluto.
+  </Step>
+  <Step>
+    ### Instalar o actualizar
+
+    ```bash
+    dockerman trivy install --json
+    dockerman trivy update --json
+    ```
+
+    Ambos transmiten progreso NDJSON mientras descargan el binario y la base de datos de vulnerabilidades.
+  </Step>
+  <Step>
+    ### Escanear una imagen
+
+    ```bash
+    dockerman trivy scan alpine:latest --pretty
+    dockerman trivy scan myrepo/app:v1 --json --db-repository ghcr.io/aquasecurity/trivy-db
+    ```
+
+    Los escaneos transmiten frames de progreso seguidos de un único frame `kind: result` con el informe. Filtra hallazgos canalizando la salida `--json` a `jq`.
+  </Step>
+  <Step>
+    ### Eliminar
+
+    ```bash
+    dockerman trivy remove --yes
+    ```
+
+    Borra el binario gestionado y la cache de la BD. Requiere `--yes`.
+  </Step>
+</Steps>
+
+<Callout type="info">
+  `hub` y `trivy` comparten la red saliente del daemon. Respetan las variables de entorno HTTPS proxy del host pero **no** usan el túnel SSH por host configurado en la GUI.
+</Callout>
