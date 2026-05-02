@@ -1,0 +1,68 @@
+---
+title: "Compose"
+description: "Docker Compose プロジェクトの管理、compose ファイルからのデプロイ、CLI での pull/up 進捗ストリーミング。"
+---
+
+`compose` コマンド群は既存の Compose プロジェクト（`com.docker.compose.project` ラベルを持つリソース）を操作するほか、compose ファイルから新規プロジェクトを直接デプロイすることもできます。
+
+<Callout type="warn">
+  Compose コマンドには Docker ランタイムが必要です。選択中のホストが Podman ターゲットの場合は使えません。
+</Callout>
+
+## プロジェクト一覧
+
+```bash
+dockerman compose list
+dockerman compose list --pretty
+```
+
+プロジェクト名、コンテナ数、状態、ベースパスを返します。
+
+## ライフサイクル
+
+```bash
+dockerman compose up myproject --detach
+dockerman compose stop myproject
+dockerman compose start myproject
+dockerman compose restart myproject --service web
+dockerman compose remove myproject --remove-volumes --yes
+```
+
+`up`、`stop`、`start`、`restart` はすべて標準のグローバルフラグを受け付けます：
+
+| フラグ | 用途 |
+| --- | --- |
+| `--working-dir <パス>` | プロジェクトの作業ディレクトリを上書き |
+| `--config-files <パス>` | カンマ区切りの compose ファイルリスト |
+| `--env-file <パス>` | env ファイルを上書き |
+| `--profile <名前>` | Compose プロファイルを有効化 |
+| `--progress <モード>` | `auto`、`tty`、`plain`、`quiet` |
+| `--dry-run` | 変更を適用せず、実行内容だけ表示 |
+| `--service <名前>` | `restart`/`stop`/`start` を 1 つのサービスに限定 |
+
+`compose up` は `--detach`（デフォルト）または `--attach`（ストリームが閉じるまでログを流し続ける）を受け取ります。
+
+`compose remove`（`compose down` の別名）は破壊的なので `--yes` が必須です。プロジェクトの named ボリュームも削除する場合は `--remove-volumes` を付けます。
+
+## Pull
+
+```bash
+dockerman compose pull myproject --json
+dockerman compose pull myproject --service web --json
+```
+
+レイヤごとに 1 つの NDJSON エンベロープで pull 進捗を流します。機械可読な出力には `--json`、人間向け進捗行には省略してください。
+
+## compose ファイルからデプロイ
+
+```bash
+dockerman compose deploy myproject ./docker-compose.yml \
+  --env DATABASE_URL=postgres://... \
+  --env LOG_LEVEL=info
+```
+
+`deploy` はプロジェクト名と compose ファイルのパスを取ります。CLI がファイルを読み、相対パスをその親ディレクトリに対して解決し、daemon にプロジェクトの作成または更新を依頼します。compose ファイルをディスク上で書き換えずに変数を注入したい場合は `--env` を複数回繰り返してください。
+
+<Callout type="info">
+  `deploy` と `up` は最終的に同じ daemon RPC を呼び出します。compose ファイルがまだ Docker に認識されていないなら `deploy`、`compose list` に既に表示されているプロジェクトには `up` を使ってください。
+</Callout>

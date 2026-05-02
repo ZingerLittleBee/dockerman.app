@@ -1,0 +1,68 @@
+---
+title: "Compose"
+description: "Gestiona proyectos Docker Compose, despliega desde un fichero compose y transmite el progreso de pull/up desde la CLI."
+---
+
+El grupo `compose` opera sobre proyectos Compose existentes (cualquier recurso con la etiqueta `com.docker.compose.project`) y también puede desplegar un proyecto nuevo desde un fichero compose.
+
+<Callout type="warn">
+  Los comandos de Compose requieren un runtime Docker. No están disponibles cuando el host seleccionado es un objetivo Podman.
+</Callout>
+
+## Listar proyectos
+
+```bash
+dockerman compose list
+dockerman compose list --pretty
+```
+
+Devuelve nombre del proyecto, número de contenedores, estado y ruta base.
+
+## Ciclo de vida
+
+```bash
+dockerman compose up myproject --detach
+dockerman compose stop myproject
+dockerman compose start myproject
+dockerman compose restart myproject --service web
+dockerman compose remove myproject --remove-volumes --yes
+```
+
+`up`, `stop`, `start` y `restart` aceptan los flags globales estándar:
+
+| Flag | Propósito |
+| --- | --- |
+| `--working-dir <ruta>` | Sobrescribe el directorio de trabajo del proyecto |
+| `--config-files <rutas>` | Lista de ficheros compose separados por comas |
+| `--env-file <ruta>` | Sobrescribe el fichero env |
+| `--profile <nombre>` | Activa un perfil de Compose |
+| `--progress <modo>` | `auto`, `tty`, `plain` o `quiet` |
+| `--dry-run` | Imprime qué pasaría sin aplicar cambios |
+| `--service <nombre>` | Limita `restart`/`stop`/`start` a un único servicio |
+
+`compose up` acepta `--detach` (por defecto) o `--attach` (transmite logs hasta que los streams se cierren).
+
+`compose remove` (también con alias `compose down`) es destructivo y necesita `--yes`. Añade `--remove-volumes` para borrar los volúmenes nombrados del proyecto.
+
+## Pull
+
+```bash
+dockerman compose pull myproject --json
+dockerman compose pull myproject --service web --json
+```
+
+Transmite el progreso del pull como un envelope NDJSON por capa. Usa `--json` para salida procesable por máquinas, omítelo para las líneas de progreso legibles.
+
+## Desplegar desde un fichero compose
+
+```bash
+dockerman compose deploy myproject ./docker-compose.yml \
+  --env DATABASE_URL=postgres://... \
+  --env LOG_LEVEL=info
+```
+
+`deploy` toma un nombre de proyecto más una ruta a un fichero compose. La CLI lee el fichero, resuelve las rutas relativas contra su directorio padre y pide al daemon que cree o actualice el proyecto. Repite `--env` para cada variable que quieras inyectar sin modificar el fichero compose en disco.
+
+<Callout type="info">
+  `deploy` y `up` acaban llamando al mismo RPC del daemon. Usa `deploy` cuando el fichero compose aún no es conocido por Docker, y `up` para un proyecto que ya aparece en `compose list`.
+</Callout>
