@@ -1,0 +1,118 @@
+---
+title: "Kubernetes"
+description: "Comandos Kubernetes en modo lectura para descubrimiento de clusters, selección de namespaces e inspección de recursos."
+---
+
+El grupo `k8s` es **sólo lectura**: descubre clusters desde tu kubeconfig, alterna entre ellos e inspecciona pods, deployments, configmaps, secrets, nodes y cualquier recurso personalizado que el cluster exponga. No crea, actualiza ni elimina recursos.
+
+## Elegir cluster y namespace
+
+```bash
+dockerman k8s cluster list
+dockerman k8s cluster current
+dockerman k8s cluster use kubeconfig:dev-context
+dockerman k8s namespace list --cluster kubeconfig:dev-context
+dockerman k8s namespace use workloads --cluster kubeconfig:dev-context
+dockerman k8s namespace current --cluster kubeconfig:dev-context
+```
+
+`cluster use` y `namespace use` persisten una selección en disco. Los comandos posteriores sin `--cluster` / `--namespace` la usan.
+
+<Callout type="info">
+  Los ids de cluster tienen forma `kubeconfig:<nombre-de-context>`. Ejecuta `dockerman k8s cluster list` para ver el id exacto de cada context que la CLI descubra.
+</Callout>
+
+## Resumen de cluster
+
+```bash
+dockerman k8s overview
+dockerman k8s overview --cluster kubeconfig:dev-context --namespace workloads --pretty
+```
+
+Devuelve una snapshot única: contadores de nodes, pods, deployments, services, más eventos de nivel warning. Útil como sonda de salud antes de profundizar en recursos individuales.
+
+## Recursos de workload
+
+Cada recurso de workload acepta `list` y `get`:
+
+```bash
+dockerman k8s pod list
+dockerman k8s pod get my-pod --namespace workloads
+dockerman k8s deployment list --pretty
+dockerman k8s service get my-svc
+dockerman k8s statefulset list
+dockerman k8s daemonset list
+dockerman k8s job list
+dockerman k8s cronjob list
+dockerman k8s replicaset list
+```
+
+## Networking
+
+```bash
+dockerman k8s ingress list
+dockerman k8s endpoint list
+dockerman k8s endpointslice list
+dockerman k8s networkpolicy list
+```
+
+## Configuración y almacenamiento
+
+```bash
+dockerman k8s configmap list
+dockerman k8s secret list
+dockerman k8s secret get app-secret
+dockerman k8s pvc list
+```
+
+## Cluster-scoped
+
+```bash
+dockerman k8s node list
+dockerman k8s node get worker-1
+dockerman k8s pv list
+dockerman k8s storageclass list
+dockerman k8s clusterrole list
+dockerman k8s clusterrolebinding list
+dockerman k8s crd list
+```
+
+## RBAC
+
+```bash
+dockerman k8s serviceaccount list
+dockerman k8s role list
+dockerman k8s rolebinding list
+```
+
+## Logs de pod
+
+```bash
+dockerman k8s pod logs my-pod --namespace workloads
+dockerman k8s pod logs my-pod --container app --tail-lines 100 --timestamps
+dockerman k8s pod logs my-pod --previous --since-time 2026-05-01T00:00:00Z
+```
+
+## Eventos
+
+```bash
+dockerman k8s event list
+dockerman k8s event list --type Warning --involved-kind Pod
+```
+
+## Recursos genéricos y YAML
+
+Para cualquier recurso no listado arriba (recursos personalizados, integrados poco frecuentes), usa el subcomando `resource` genérico. Descubre lo disponible con `api-resource list`.
+
+```bash
+dockerman k8s api-resource list --cluster kubeconfig:dev-context
+dockerman k8s resource list deployments.apps/v1 --namespace workloads
+dockerman k8s resource yaml secrets.core/v1 app-secret
+dockerman k8s resource yaml mycrd.example.com/v1alpha1 my-instance --json
+```
+
+`resource yaml` imprime el manifest sanitizado. El campo `data` de los Secret se reemplaza por `<REDACTED>` antes de salir del daemon — **no puedes leer el contenido en claro de un Secret a través de la CLI**.
+
+<Callout type="warn">
+  Todos los comandos k8s son sólo lectura por diseño. Para aplicar cambios, usa `kubectl` directamente. La superficie k8s de Dockerman está pensada para inspección segura desde automatización y desde la GUI.
+</Callout>

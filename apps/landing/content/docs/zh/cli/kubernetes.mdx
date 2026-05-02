@@ -1,0 +1,118 @@
+---
+title: "Kubernetes"
+description: "只读 Kubernetes 命令：发现集群、切换命名空间、查看资源。"
+---
+
+`k8s` 命令组是**只读**的：从 kubeconfig 发现集群、切换、查看 pod、deployment、configmap、secret、node 以及任意自定义资源。**不**支持创建、更新或删除资源。
+
+## 选择集群和命名空间
+
+```bash
+dockerman k8s cluster list
+dockerman k8s cluster current
+dockerman k8s cluster use kubeconfig:dev-context
+dockerman k8s namespace list --cluster kubeconfig:dev-context
+dockerman k8s namespace use workloads --cluster kubeconfig:dev-context
+dockerman k8s namespace current --cluster kubeconfig:dev-context
+```
+
+`cluster use` 和 `namespace use` 把选择持久化到磁盘。后续未传 `--cluster` / `--namespace` 的命令使用该选择。
+
+<Callout type="info">
+  集群 id 形如 `kubeconfig:<context-name>`。运行 `dockerman k8s cluster list` 查看 CLI 发现的每个 context 的精确 id。
+</Callout>
+
+## 集群总览
+
+```bash
+dockerman k8s overview
+dockerman k8s overview --cluster kubeconfig:dev-context --namespace workloads --pretty
+```
+
+返回一次性快照：node、pod、deployment、service 的计数，以及 warning 级别事件。适合在深入查看具体资源前做一次健康度探测。
+
+## 工作负载资源
+
+每种工作负载资源都支持 `list` 和 `get`：
+
+```bash
+dockerman k8s pod list
+dockerman k8s pod get my-pod --namespace workloads
+dockerman k8s deployment list --pretty
+dockerman k8s service get my-svc
+dockerman k8s statefulset list
+dockerman k8s daemonset list
+dockerman k8s job list
+dockerman k8s cronjob list
+dockerman k8s replicaset list
+```
+
+## 网络
+
+```bash
+dockerman k8s ingress list
+dockerman k8s endpoint list
+dockerman k8s endpointslice list
+dockerman k8s networkpolicy list
+```
+
+## 配置与存储
+
+```bash
+dockerman k8s configmap list
+dockerman k8s secret list
+dockerman k8s secret get app-secret
+dockerman k8s pvc list
+```
+
+## 集群级资源
+
+```bash
+dockerman k8s node list
+dockerman k8s node get worker-1
+dockerman k8s pv list
+dockerman k8s storageclass list
+dockerman k8s clusterrole list
+dockerman k8s clusterrolebinding list
+dockerman k8s crd list
+```
+
+## RBAC
+
+```bash
+dockerman k8s serviceaccount list
+dockerman k8s role list
+dockerman k8s rolebinding list
+```
+
+## Pod 日志
+
+```bash
+dockerman k8s pod logs my-pod --namespace workloads
+dockerman k8s pod logs my-pod --container app --tail-lines 100 --timestamps
+dockerman k8s pod logs my-pod --previous --since-time 2026-05-01T00:00:00Z
+```
+
+## 事件
+
+```bash
+dockerman k8s event list
+dockerman k8s event list --type Warning --involved-kind Pod
+```
+
+## 通用资源与 YAML
+
+对于上方未列出的资源（自定义资源、不常用内置资源），使用通用 `resource` 子命令。先用 `api-resource list` 发现可用资源：
+
+```bash
+dockerman k8s api-resource list --cluster kubeconfig:dev-context
+dockerman k8s resource list deployments.apps/v1 --namespace workloads
+dockerman k8s resource yaml secrets.core/v1 app-secret
+dockerman k8s resource yaml mycrd.example.com/v1alpha1 my-instance --json
+```
+
+`resource yaml` 输出脱敏后的 manifest。secret 的 `data` 字段在离开 daemon 之前已替换为 `<REDACTED>` —— **CLI 无法读取 secret 明文**。
+
+<Callout type="warn">
+  所有 k8s 命令按设计只读。需要修改资源时请直接使用 `kubectl`。Dockerman 的 k8s 接口面向自动化和 GUI 中的安全只读场景。
+</Callout>

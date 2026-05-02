@@ -1,0 +1,118 @@
+---
+title: "Kubernetes"
+description: "クラスタ発見、namespace 切替、リソース閲覧のための読み取り専用 Kubernetes コマンド。"
+---
+
+`k8s` コマンド群は**読み取り専用**です：kubeconfig からクラスタを発見し、切り替え、pod、deployment、configmap、secret、node、およびクラスタが公開する任意のカスタムリソースを閲覧します。リソースの作成・更新・削除は行いません。
+
+## クラスタと namespace を選ぶ
+
+```bash
+dockerman k8s cluster list
+dockerman k8s cluster current
+dockerman k8s cluster use kubeconfig:dev-context
+dockerman k8s namespace list --cluster kubeconfig:dev-context
+dockerman k8s namespace use workloads --cluster kubeconfig:dev-context
+dockerman k8s namespace current --cluster kubeconfig:dev-context
+```
+
+`cluster use` と `namespace use` は選択をディスクに保存します。以降 `--cluster` / `--namespace` を省略したコマンドはこの選択を使います。
+
+<Callout type="info">
+  クラスタ id は `kubeconfig:<context-name>` の形式です。CLI が発見する各 context の正確な id は `dockerman k8s cluster list` で確認してください。
+</Callout>
+
+## クラスタ概要
+
+```bash
+dockerman k8s overview
+dockerman k8s overview --cluster kubeconfig:dev-context --namespace workloads --pretty
+```
+
+ワンショットのスナップショットを返します：node、pod、deployment、service の数と、warning レベルのイベント。個別のリソースを掘り下げる前のヘルスチェックとして便利です。
+
+## ワークロードリソース
+
+各ワークロードリソースは `list` と `get` を受け取ります：
+
+```bash
+dockerman k8s pod list
+dockerman k8s pod get my-pod --namespace workloads
+dockerman k8s deployment list --pretty
+dockerman k8s service get my-svc
+dockerman k8s statefulset list
+dockerman k8s daemonset list
+dockerman k8s job list
+dockerman k8s cronjob list
+dockerman k8s replicaset list
+```
+
+## ネットワーキング
+
+```bash
+dockerman k8s ingress list
+dockerman k8s endpoint list
+dockerman k8s endpointslice list
+dockerman k8s networkpolicy list
+```
+
+## 設定とストレージ
+
+```bash
+dockerman k8s configmap list
+dockerman k8s secret list
+dockerman k8s secret get app-secret
+dockerman k8s pvc list
+```
+
+## クラスタスコープ
+
+```bash
+dockerman k8s node list
+dockerman k8s node get worker-1
+dockerman k8s pv list
+dockerman k8s storageclass list
+dockerman k8s clusterrole list
+dockerman k8s clusterrolebinding list
+dockerman k8s crd list
+```
+
+## RBAC
+
+```bash
+dockerman k8s serviceaccount list
+dockerman k8s role list
+dockerman k8s rolebinding list
+```
+
+## Pod ログ
+
+```bash
+dockerman k8s pod logs my-pod --namespace workloads
+dockerman k8s pod logs my-pod --container app --tail-lines 100 --timestamps
+dockerman k8s pod logs my-pod --previous --since-time 2026-05-01T00:00:00Z
+```
+
+## イベント
+
+```bash
+dockerman k8s event list
+dockerman k8s event list --type Warning --involved-kind Pod
+```
+
+## 汎用リソースと YAML
+
+上記に載っていないリソース（カスタムリソース、あまり使われない組み込みリソース）には汎用 `resource` サブコマンドを使います。利用可能なリソースは `api-resource list` で発見できます。
+
+```bash
+dockerman k8s api-resource list --cluster kubeconfig:dev-context
+dockerman k8s resource list deployments.apps/v1 --namespace workloads
+dockerman k8s resource yaml secrets.core/v1 app-secret
+dockerman k8s resource yaml mycrd.example.com/v1alpha1 my-instance --json
+```
+
+`resource yaml` はマスク済みの manifest を出力します。Secret の `data` フィールドは daemon を出る前に `<REDACTED>` に置換されます——**CLI から Secret の平文を取得することはできません**。
+
+<Callout type="warn">
+  すべての k8s コマンドは設計上、読み取り専用です。変更を加えるには `kubectl` を直接使ってください。Dockerman の k8s インターフェースは自動化と GUI からの安全な閲覧用途を想定しています。
+</Callout>
