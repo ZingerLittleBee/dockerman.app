@@ -35,62 +35,66 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
 
   return (
     <main>
-      <PricingHero locale={l} />
+      <PricingHero earlyBirdActive={isActive} locale={l} />
 
       {/* Countdown bar */}
-      <section className="px-5 pb-10 sm:px-8">
-        <div className="mx-auto mt-2 max-w-[560px]">
-          <div
-            className="flex flex-col items-center gap-4 rounded-[14px] border p-4 text-center sm:flex-row sm:flex-wrap sm:gap-5 sm:p-5 sm:text-left"
-            style={{
-              borderColor:
-                'color-mix(in srgb, var(--color-dm-warn) 30%, var(--color-dm-line-strong))',
-              backgroundImage:
-                'radial-gradient(ellipse at 10% 50%, color-mix(in srgb, var(--color-dm-warn) 10%, transparent), transparent 60%)',
-              backgroundColor: 'var(--color-dm-bg-elev)'
-            }}
-          >
+      {isActive ? (
+        <section className="px-5 pb-10 sm:px-8">
+          <div className="mx-auto mt-2 max-w-[560px]">
             <div
-              className="grid h-[38px] w-[38px] flex-shrink-0 place-items-center rounded-[9px]"
+              className="flex flex-col items-center gap-4 rounded-[14px] border p-4 text-center sm:flex-row sm:flex-wrap sm:gap-5 sm:p-5 sm:text-left"
               style={{
-                background: 'color-mix(in srgb, var(--color-dm-warn) 14%, transparent)',
-                color: 'var(--color-dm-warn)'
+                borderColor:
+                  'color-mix(in srgb, var(--color-dm-warn) 30%, var(--color-dm-line-strong))',
+                backgroundImage:
+                  'radial-gradient(ellipse at 10% 50%, color-mix(in srgb, var(--color-dm-warn) 10%, transparent), transparent 60%)',
+                backgroundColor: 'var(--color-dm-bg-elev)'
               }}
             >
-              <svg
-                fill="none"
-                height="18"
-                stroke="currentColor"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-                width="18"
+              <div
+                className="grid h-[38px] w-[38px] flex-shrink-0 place-items-center rounded-[9px]"
+                style={{
+                  background: 'color-mix(in srgb, var(--color-dm-warn) 14%, transparent)',
+                  color: 'var(--color-dm-warn)'
+                }}
               >
-                <circle cx="12" cy="12" r="9" />
-                <path d="M12 7v5l3 2" />
-              </svg>
-            </div>
-            <div className="flex-1 sm:min-w-[200px]">
-              <div className="font-semibold text-[13px] text-dm-ink">
-                {t('pricing.countdown.endsLead')}{' '}
-                <span
-                  className="ml-2 inline-block rounded px-[7px] py-[2px] font-[var(--font-dm-mono)] font-bold text-[10px] tracking-[0.04em]"
-                  style={{ background: 'var(--color-dm-warn)', color: '#000' }}
+                <svg
+                  fill="none"
+                  height="18"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  width="18"
                 >
-                  {t('pricing.countdown.endsDate')}
-                </span>
+                  <circle cx="12" cy="12" r="9" />
+                  <path d="M12 7v5l3 2" />
+                </svg>
               </div>
-              <div className="mt-[3px] font-[var(--font-dm-mono)] text-[12px] text-dm-ink-3">
-                {t('pricing.countdown.afterNote', {
-                  solo: plans.solo.priceRegular,
-                  devices: plans.team.devices,
-                  team: plans.team.priceRegular
-                })}
+              <div className="flex-1 sm:min-w-[200px]">
+                <div className="font-semibold text-[13px] text-dm-ink">
+                  {t('pricing.countdown.endsLead')}{' '}
+                  <span
+                    className="ml-2 inline-block rounded px-[7px] py-[2px] font-[var(--font-dm-mono)] font-bold text-[10px] tracking-[0.04em]"
+                    style={{ background: 'var(--color-dm-warn)', color: '#000' }}
+                  >
+                    {t('pricing.countdown.endsDate')}
+                  </span>
+                </div>
+                <div className="mt-[3px] font-[var(--font-dm-mono)] text-[12px] text-dm-ink-3">
+                  {t('pricing.countdown.afterNote', {
+                    solo: plans.solo.priceRegular,
+                    devices: plans.team.devices,
+                    team: plans.team.priceRegular
+                  })}
+                </div>
               </div>
+              <Countdown deadlineUtc={earlyBirdDeadlineUtc} locale={l} />
             </div>
-            <Countdown deadlineUtc={earlyBirdDeadlineUtc} locale={l} />
           </div>
-        </div>
-      </section>
+        </section>
+      ) : (
+        <div className="pb-6 sm:pb-8" />
+      )}
 
       {/* Plans */}
       <section className="px-5 sm:px-8">

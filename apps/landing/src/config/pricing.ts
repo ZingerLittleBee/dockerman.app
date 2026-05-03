@@ -1,5 +1,10 @@
 export const pricingConfig = {
   earlyBirdDeadlineUtc: '2026-04-30T23:59:59Z',
+  // Creem discount codes per plan slug. Leave empty to disable discount.
+  discountCodes: {
+    '1-device': '',
+    '3-devices': ''
+  } as Record<string, string>,
   plans: {
     free: { price: 0 },
     team: { priceEarlyBird: 18.86, priceRegular: 29, devices: 3 },
