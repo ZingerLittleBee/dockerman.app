@@ -1,17 +1,18 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { siteConfig } from '@/app/siteConfig'
+import { pricingConfig } from '@/config/pricing'
 
 const CREEM_BASE_URL =
   process.env.NODE_ENV === 'production' ? 'https://api.creem.io' : 'https://test-api.creem.io'
 
 const PLAN_CONFIG: Record<string, { productId?: string; discountCode?: string }> = {
   '1-device': {
-    productId: process.env.CREEM_PRODUCT_ID_1_DEVICE,
-    discountCode: process.env.CREEM_DISCOUNT_CODE_1_DEVICE
+    productId: process.env.CREEM_PRODUCT_ID_1_DEVICES,
+    discountCode: pricingConfig.discountCodes['1-device']
   },
   '3-devices': {
     productId: process.env.CREEM_PRODUCT_ID_3_DEVICES,
-    discountCode: process.env.CREEM_DISCOUNT_CODE_3_DEVICES
+    discountCode: pricingConfig.discountCodes['3-devices']
   }
 }
 

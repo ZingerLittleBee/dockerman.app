@@ -1,7 +1,13 @@
 import type { Locale } from '@repo/shared/i18n'
 import { getTranslation } from '@repo/shared/i18n/server'
 
-export async function PricingHero({ locale }: { locale: Locale }) {
+export async function PricingHero({
+  locale,
+  earlyBirdActive = false
+}: {
+  locale: Locale
+  earlyBirdActive?: boolean
+}) {
   const { t } = await getTranslation(locale)
   return (
     <section className="relative overflow-hidden px-5 pt-12 pb-8 sm:px-8 sm:pt-16 sm:pb-10">
@@ -14,26 +20,28 @@ export async function PricingHero({ locale }: { locale: Locale }) {
         }}
       />
       <div className="mx-auto max-w-[1140px] text-center">
-        <span className="inline-flex items-center gap-[10px] rounded-full border border-dm-line-strong bg-dm-bg-elev py-[5px] pr-[10px] pl-[6px] font-[var(--font-dm-mono)] text-[12px] text-dm-ink-2">
-          <span
-            className="h-[6px] w-[6px] rounded-full"
-            style={{
-              background: 'var(--color-dm-warn)',
-              boxShadow: '0 0 0 4px color-mix(in srgb, var(--color-dm-warn) 30%, transparent)',
-              animation: 'dm-pulse 2.2s ease-in-out infinite'
-            }}
-          />
-          <span>{t('pricing.hero.eyebrow')}</span>
-          <span
-            className="rounded-full px-2 py-[2px] font-semibold text-[10px]"
-            style={{ background: 'var(--color-dm-warn)', color: 'var(--color-dm-bg)' }}
-          >
-            {t('pricing.hero.eyebrowTag')}
+        {earlyBirdActive ? (
+          <span className="inline-flex items-center gap-[10px] rounded-full border border-dm-line-strong bg-dm-bg-elev py-[5px] pr-[10px] pl-[6px] font-[var(--font-dm-mono)] text-[12px] text-dm-ink-2">
+            <span
+              className="h-[6px] w-[6px] rounded-full"
+              style={{
+                background: 'var(--color-dm-warn)',
+                boxShadow: '0 0 0 4px color-mix(in srgb, var(--color-dm-warn) 30%, transparent)',
+                animation: 'dm-pulse 2.2s ease-in-out infinite'
+              }}
+            />
+            <span>{t('pricing.hero.eyebrow')}</span>
+            <span
+              className="rounded-full px-2 py-[2px] font-semibold text-[10px]"
+              style={{ background: 'var(--color-dm-warn)', color: 'var(--color-dm-bg)' }}
+            >
+              {t('pricing.hero.eyebrowTag')}
+            </span>
           </span>
-        </span>
+        ) : null}
 
         <h1
-          className="mx-auto mt-[22px] font-bold text-[clamp(48px,7vw,88px)] text-dm-ink leading-[0.98] tracking-[-0.04em]"
+          className={`mx-auto ${earlyBirdActive ? 'mt-[22px]' : ''} font-bold text-[clamp(48px,7vw,88px)] text-dm-ink leading-[0.98] tracking-[-0.04em]`}
           style={{ maxWidth: locale === 'zh' || locale === 'ja' ? 'none' : '16ch' }}
         >
           {t('pricing.hero.titleLead')}{' '}
