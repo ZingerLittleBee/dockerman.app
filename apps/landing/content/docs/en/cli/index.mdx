@@ -11,15 +11,32 @@ description: Daemon-first dockerman CLI for scripting Docker, Kubernetes, Compos
 
 ## Install
 
-The CLI ships in the same release archive as the GUI. Build from source for development:
+The CLI ships **bundled inside the Dockerman desktop app** — there is no separate `dockerman-cli` package to download.
 
-```bash
-cargo build -p dockerman-cli --release
-./target/release/dockerman --help
-```
+<Steps>
+  <Step>
+    ### Install the desktop app
 
-The first command that needs a backend will spawn `dockerman-daemon`, write `daemon-ipc.json` into the app data directory, and reuse that handshake for every subsequent call.
+    Follow [Getting Started](/en/docs/getting-started) to install the GUI for your platform (macOS DMG, Windows MSI, or Linux package).
+  </Step>
+  <Step>
+    ### Enable the CLI for your user
 
+    Open Dockerman → **Settings → CLI** and click **Install for this user**. This creates a small wrapper at `~/.local/bin/dockerman` (macOS / Linux) or the equivalent user-bin on Windows that forwards every invocation to the bundled binary inside the app.
+
+    If the install directory is not on your `PATH`, the panel shows the exact line to add to your shell profile.
+  </Step>
+  <Step>
+    ### Verify
+
+    ```bash
+    dockerman --version
+    dockerman --help
+    ```
+
+    The first command that needs a backend spawns `dockerman-daemon`, writes `daemon-ipc.json` into the app data directory, and reuses that handshake for every subsequent call.
+  </Step>
+</Steps>
 ## Global flags
 
 | Flag | Purpose |
@@ -69,6 +86,25 @@ The current schema version is `2`. See [Streaming contract](/en/docs/cli/streami
 | `4` | Streaming heartbeat timeout (no frame for 30s) |
 | `130` | `SIGINT` (Ctrl+C) on a streaming command |
 | `143` | `SIGTERM` on a streaming command |
+
+## Use it from AI assistants
+
+If you drive `dockerman` from an AI assistant, install the official plugin so the assistant knows the command map, output shapes, and destructive-action rules without re-discovering them.
+
+Claude Code:
+
+```text
+/plugin marketplace add mandocker/skills
+/plugin install dockerman
+```
+
+Codex:
+
+```bash
+codex plugin marketplace add mandocker/skills
+```
+
+Then run `/plugins` in Codex and install or enable the **Dockerman** plugin from the **Dockerman** marketplace. See [AI Assistant Plugins](/en/docs/cli/skills) for what the plugin bundles and how to pin a revision.
 
 ## What the CLI does not cover
 

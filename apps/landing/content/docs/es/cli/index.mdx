@@ -11,15 +11,32 @@ description: "CLI dockerman daemon-first para automatizar flujos de Docker, Kube
 
 ## Instalación
 
-La CLI se distribuye en el mismo paquete de release que la GUI. Para compilar desde fuente en desarrollo:
+La CLI **viene incluida dentro de la aplicación de escritorio Dockerman** — no hay un paquete `dockerman-cli` separado para descargar.
 
-```bash
-cargo build -p dockerman-cli --release
-./target/release/dockerman --help
-```
+<Steps>
+  <Step>
+    ### Instala la app de escritorio
 
-El primer comando que necesite el backend lanzará `dockerman-daemon`, escribirá `daemon-ipc.json` en el directorio de datos de la app y reutilizará ese handshake en cada llamada posterior.
+    Sigue la [Guía de inicio](/es/docs/getting-started) para instalar la GUI en tu plataforma (DMG de macOS, MSI de Windows o paquete de Linux).
+  </Step>
+  <Step>
+    ### Habilita la CLI para tu usuario
 
+    Abre Dockerman → **Ajustes → CLI** y pulsa **Instalar para este usuario**. Esto crea un pequeño wrapper en `~/.local/bin/dockerman` (macOS / Linux) o en el bin de usuario equivalente en Windows que reenvía cada invocación al binario incluido dentro de la app.
+
+    Si el directorio de instalación no está en tu `PATH`, el panel muestra la línea exacta que debes añadir al perfil de tu shell.
+  </Step>
+  <Step>
+    ### Verifica
+
+    ```bash
+    dockerman --version
+    dockerman --help
+    ```
+
+    El primer comando que necesite el backend lanzará `dockerman-daemon`, escribirá `daemon-ipc.json` en el directorio de datos de la app y reutilizará ese handshake en cada llamada posterior.
+  </Step>
+</Steps>
 ## Flags globales
 
 | Flag | Propósito |
@@ -69,6 +86,17 @@ La versión actual del schema es `2`. Consulta el [Contrato de streaming](/es/do
 | `4` | Timeout de heartbeat de stream (ningún frame en 30s) |
 | `130` | `SIGINT` (Ctrl+C) en un comando de streaming |
 | `143` | `SIGTERM` en un comando de streaming |
+
+## Úsala desde Claude Code
+
+Si manejas `dockerman` desde Claude Code, instala el plugin oficial para que el asistente conozca el mapa de comandos, las formas de salida y las reglas de acciones destructivas, sin tener que redescubrirlas:
+
+```text
+/plugin marketplace add mandocker/skills
+/plugin install dockerman
+```
+
+Consulta [Skills de Claude](/es/docs/cli/skills) para saber qué incluye el plugin y cómo fijar una revisión.
 
 ## Lo que la CLI no cubre
 
