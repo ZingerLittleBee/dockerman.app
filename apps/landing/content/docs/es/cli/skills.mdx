@@ -1,0 +1,79 @@
+---
+title: Skills de Claude
+description: Instala el plugin oficial de Claude Code de Dockerman para que los asistentes de IA puedan operar la CLI de dockerman con seguridad y precisión.
+---
+
+Si usas [Claude Code](https://docs.claude.com/en/docs/claude-code/overview), Dockerman publica un **plugin** oficial que incluye un skill que enseña al asistente cómo usar la CLI `dockerman`: mapa de comandos, formas de salida, reglas de streaming, particularidades del scope de k8s y reglas de seguridad para acciones destructivas. Instálalo una vez y Claude usará `dockerman` cada vez que el usuario pregunte algo relacionado con Docker, Compose o Kubernetes — incluso sin un "use dockerman" explícito.
+
+## Instalación rápida
+
+Dentro de Claude Code:
+
+```text
+/plugin marketplace add mandocker/skills
+/plugin install dockerman
+```
+
+Esto registra el marketplace en [github.com/mandocker/skills](https://github.com/mandocker/skills) e instala el plugin `dockerman` en tu scope de usuario. Claude Code carga el skill en la siguiente sesión — sin reinicio, sin editar configuración. El skill queda con el namespace `dockerman:dockerman-cli`.
+
+Para verificar:
+
+```text
+/plugin list
+```
+
+Deberías ver `dockerman` habilitado. Prueba un prompt como *"List my running containers"* y Claude debería ejecutar `dockerman container ls`.
+
+## Qué obtienes
+
+El plugin contiene un único skill, `dockerman-cli`, que cubre:
+
+- Una descripción de SKILL "agresiva" para que Claude lo dispare en prompts de Docker / Compose / Kubernetes / kubectl incluso cuando el usuario no diga "dockerman".
+- El mapa completo de comandos top-level (`container`, `image`, `compose`, `k8s`, `tunnel`, `trivy`, `wsl`, `events`, `schema`, `call`).
+- Notas críticas sobre la forma de la salida — por ejemplo, que `dockerman k8s pod list` devuelve `{ forbidden, items, truncated }` con campos **aplanados** (`.name`, `.namespace`, `.restarts`, `.status`), no el árbol `metadata.*` de kubectl.
+- Las dos reglas de scope de k8s en las que todo el mundo cae al primer intento: `--cluster` es obligatorio si no hay cluster seleccionado, y `pod list` sin `--namespace` sólo devuelve el namespace `default` (omite silenciosamente `kube-system`).
+- Una advertencia sobre acciones destructivas para `container backup -y` y `container restore -y`, para que Claude nunca las describa como "dry-run".
+- Un cookbook de `jq` (`references/output-parsing.md`) para proyectar la salida JSON sin saturar el contexto.
+
+## Actualizar o desinstalar
+
+```text
+/plugin update dockerman
+/plugin uninstall dockerman
+```
+
+Las actualizaciones traen la última `version` del `plugin.json` del marketplace. El plugin vive en `~/.claude/plugins/` — desinstalarlo lo elimina limpiamente.
+
+## Fijar una revisión concreta
+
+Añade `@<git-ref>` (rama, tag o SHA) a la URL del marketplace:
+
+```text
+/plugin marketplace add mandocker/skills@v1.0.0
+/plugin install dockerman
+```
+
+Útil cuando quieres una configuración reproducible para un equipo — todos quedan en la misma revisión hasta que tú muevas el pin del marketplace.
+
+## Configuración para equipos
+
+Para auto-instalarlo a todos los miembros de un proyecto, añade el marketplace al `.claude/settings.json` en la raíz del repo:
+
+```json
+{
+  "extraKnownMarketplaces": {
+    "dockerman": {
+      "source": {
+        "source": "github",
+        "repo": "mandocker/skills"
+      }
+    }
+  }
+}
+```
+
+Los compañeros sólo necesitan ejecutar `/plugin install dockerman` — no hace falta que añadan el marketplace ellos mismos.
+
+## Otros agentes
+
+Los archivos del skill están en [github.com/mandocker/skills/tree/main/skills/dockerman-cli](https://github.com/mandocker/skills/tree/main/skills/dockerman-cli). Cualquier agent harness que lea archivos de skill al estilo Claude (Cursor, Anthropic Agent SDK, etc.) puede clonar el repo y apuntar directamente a ese directorio.

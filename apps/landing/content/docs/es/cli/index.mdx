@@ -87,6 +87,17 @@ La versión actual del schema es `2`. Consulta el [Contrato de streaming](/es/do
 | `130` | `SIGINT` (Ctrl+C) en un comando de streaming |
 | `143` | `SIGTERM` en un comando de streaming |
 
+## Úsala desde Claude Code
+
+Si manejas `dockerman` desde Claude Code, instala el plugin oficial para que el asistente conozca el mapa de comandos, las formas de salida y las reglas de acciones destructivas, sin tener que redescubrirlas:
+
+```text
+/plugin marketplace add mandocker/skills
+/plugin install dockerman
+```
+
+Consulta [Skills de Claude](/es/docs/cli/skills) para saber qué incluye el plugin y cómo fijar una revisión.
+
 ## Lo que la CLI no cubre
 
 Algunos flujos sólo viven en la GUI:

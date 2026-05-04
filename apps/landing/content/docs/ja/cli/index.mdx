@@ -87,6 +87,17 @@ dockerman schema fetch_logs
 | `130` | ストリーミングコマンドへの `SIGINT`（Ctrl+C） |
 | `143` | ストリーミングコマンドへの `SIGTERM` |
 
+## Claude Code から使う
+
+Claude Code から `dockerman` を駆動するなら、公式 plugin をインストールしてアシスタントにコマンドマップ、出力形状、破壊的操作のルールを教えると、毎回試行錯誤せずに済みます：
+
+```text
+/plugin marketplace add mandocker/skills
+/plugin install dockerman
+```
+
+詳細とリビジョン固定の方法は [Claude スキル](/ja/docs/cli/skills) を参照してください。
+
 ## CLI でカバーしない範囲
 
 GUI でのみ提供されているワークフロー：

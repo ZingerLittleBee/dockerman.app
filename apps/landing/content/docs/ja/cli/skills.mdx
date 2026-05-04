@@ -1,0 +1,79 @@
+---
+title: Claude スキル
+description: Dockerman 公式の Claude Code プラグインをインストールし、AI アシスタントに dockerman CLI を安全かつ正確に操作させましょう。
+---
+
+[Claude Code](https://docs.claude.com/en/docs/claude-code/overview) を使っているなら、Dockerman は公式 **plugin** を提供しています。このプラグインには `dockerman` CLI の使い方を教える skill が同梱されています：コマンドマップ、出力形状、ストリーミング規約、k8s スコープの落とし穴、破壊的操作の安全ルールなどです。一度インストールすれば、ユーザーが Docker / Compose / Kubernetes 関連の質問をするたびに、Claude は明示的に "use dockerman" と言われなくても自動的に `dockerman` を選びます。
+
+## クイックインストール
+
+Claude Code 内で：
+
+```text
+/plugin marketplace add mandocker/skills
+/plugin install dockerman
+```
+
+これで [github.com/mandocker/skills](https://github.com/mandocker/skills) の marketplace が登録され、`dockerman` プラグインがユーザースコープにインストールされます。Claude Code は次のセッションで skill を自動的に読み込みます —— 再起動も設定変更も不要です。スキルの名前空間は `dockerman:dockerman-cli` です。
+
+確認：
+
+```text
+/plugin list
+```
+
+`dockerman` が enabled として表示されるはずです。試しに *"List my running containers"* と入力すると、Claude は `dockerman container ls` を実行するはずです。
+
+## 何が手に入るか
+
+プラグインには 1 つの skill `dockerman-cli` だけが入っており、以下をカバーします：
+
+- 強気な SKILL description —— ユーザーが "dockerman" と言わなくても、Docker / Compose / Kubernetes / kubectl の話題なら必ず発火します。
+- トップレベルコマンドの完全マップ（`container`、`image`、`compose`、`k8s`、`tunnel`、`trivy`、`wsl`、`events`、`schema`、`call`）。
+- 重要な出力形状の注意点 —— 例えば `dockerman k8s pod list` は `{ forbidden, items, truncated }` を返し、フィールドは **フラット** です（`.name`、`.namespace`、`.restarts`、`.status`）。kubectl の `metadata.*` ツリーではありません。
+- 初回必ず引っかかる k8s スコープ規則 2 つ：cluster が未選択なら `--cluster` が必須。`pod list` で `--namespace` を省くと `default` ネームスペースだけが返り、`kube-system` などが静かに抜け落ちます。
+- `container backup -y` と `container restore -y` への破壊的操作警告 —— Claude が "dry-run" と説明してしまうのを防ぎます。
+- `jq` cookbook（`references/output-parsing.md`）—— コンテキストを溢れさせずに JSON 出力を射影するレシピ集です。
+
+## 更新・削除
+
+```text
+/plugin update dockerman
+/plugin uninstall dockerman
+```
+
+更新は marketplace の `plugin.json` の `version` を見て最新を取得します。プラグイン本体は `~/.claude/plugins/` にあり、アンインストールでクリーンに消えます。
+
+## 特定リビジョンに固定
+
+marketplace URL の末尾に `@<git-ref>`（ブランチ、タグ、コミット SHA）を追加：
+
+```text
+/plugin marketplace add mandocker/skills@v1.0.0
+/plugin install dockerman
+```
+
+チームで再現性のあるセットアップが欲しいときに使います —— marketplace pin を上げるまで、全員が同じリビジョンを使い続けます。
+
+## チーム導入
+
+プロジェクトの全員に自動展開したいなら、リポジトリ直下の `.claude/settings.json` に marketplace を登録：
+
+```json
+{
+  "extraKnownMarketplaces": {
+    "dockerman": {
+      "source": {
+        "source": "github",
+        "repo": "mandocker/skills"
+      }
+    }
+  }
+}
+```
+
+メンバーは `/plugin install dockerman` を実行するだけで、自分で `marketplace add` する必要はありません。
+
+## 他の agent
+
+skill ファイルは [github.com/mandocker/skills/tree/main/skills/dockerman-cli](https://github.com/mandocker/skills/tree/main/skills/dockerman-cli) にあります。Claude スタイルの skill ファイルを読み込めるどんな agent harness（Cursor、Anthropic Agent SDK など）でも、リポジトリを clone してこのディレクトリを直接指せば動作します。
