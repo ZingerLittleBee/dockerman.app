@@ -1,0 +1,117 @@
+---
+title: AI 助手 Plugin
+description: 安装 Dockerman 官方 plugin，让 Claude Code 或 Codex 安全准确地驱动 dockerman CLI。
+---
+
+Dockerman 提供了官方 plugin，里面打包了 `dockerman-cli` skill，教 AI 助手如何使用 `dockerman` CLI：命令地图、输出形状、流式规则、k8s scoping 陷阱以及破坏性操作的安全规则。装一次后，只要用户问任何与 Docker、Compose、Kubernetes 相关的问题，助手都会优先调用 `dockerman`，即便用户没有明确说 "use dockerman"。
+
+## Claude Code 安装
+
+在 Claude Code 中：
+
+```text
+/plugin marketplace add mandocker/skills
+/plugin install dockerman
+```
+
+这会在 [github.com/mandocker/skills](https://github.com/mandocker/skills) 注册 marketplace 并把 `dockerman` plugin 安装到用户作用域。Claude Code 会在下一次会话自动加载该 skill —— 无需重启，也不用改配置。Skill 的命名空间为 `dockerman:dockerman-cli`。
+
+验证：
+
+```text
+/plugin list
+```
+
+你应该能看到 `dockerman` 已启用。试一句 *"List my running containers"*，Claude 应该直接调用 `dockerman container list`。
+
+## Codex plugin 安装
+
+Codex 使用自己的 plugin marketplace 命令，不是 Claude Code 的 `/plugin marketplace ...` 斜杠命令。先把 Dockerman marketplace 注册到 Codex：
+
+```bash
+codex plugin marketplace add mandocker/skills
+```
+
+然后打开 Codex，在会话里运行：
+
+```text
+/plugins
+```
+
+在插件界面中进入 **Dockerman** marketplace，安装并启用 **Dockerman** plugin。安装后开一个新会话，plugin 会加载 `dockerman-cli` skill，并在 Docker、Compose、Kubernetes、`kubectl`、容器、镜像和卷相关提示中自动触发。
+
+如果你的 Codex 版本暂时没有插件界面，先升级 Codex；这篇文档只覆盖 plugin marketplace 安装路径。
+
+## 你能得到什么
+
+这个仓库提供一个 skill：`dockerman-cli`，覆盖：
+
+- 一个"主动型" SKILL 描述：即便用户没说 "dockerman"，只要话题是 Docker / Compose / Kubernetes / kubectl，都会自动触发。
+- 完整的顶层命令地图（`container`、`image`、`compose`、`k8s`、`tunnel`、`trivy`、`wsl`、`events`、`schema`、`call`）。
+- 关键的输出形状提醒 —— 例如 `dockerman k8s pod list` 返回 `{ forbidden, items, truncated }`，且字段是 **扁平化** 的（`.name`、`.namespace`、`.restarts`、`.status`），不是 kubectl 的 `metadata.*` 嵌套结构。
+- 两条最常出错的 k8s scoping 规则：未选中 cluster 时必须传 `--cluster`；`pod list` 不加 `--namespace` 时只返回 `default` 命名空间（会静默漏掉 `kube-system`）。
+- 针对 `container backup -y` 和 `container restore -y` 的破坏性操作警告，避免助手把它们错说成 "dry-run"。
+- 一个 `jq` cookbook（`references/output-parsing.md`），帮助投影 JSON 输出而不撑爆上下文。
+
+## 更新或移除
+
+Claude Code：
+
+```text
+/plugin update dockerman
+/plugin uninstall dockerman
+```
+
+更新会拉取 `plugin.json` 中最新的 `version`。Plugin 安装在 `~/.claude/plugins/` 下 —— 卸载会干净清除。
+
+Codex：
+
+```bash
+codex plugin marketplace upgrade dockerman
+```
+
+要移除 marketplace：
+
+```bash
+codex plugin marketplace remove dockerman
+```
+
+## 锁定到指定版本
+
+Claude Code 在 marketplace URL 后追加 `@<git-ref>`（分支、tag 或 commit SHA）：
+
+```text
+/plugin marketplace add mandocker/skills@v1.0.0
+/plugin install dockerman
+```
+
+Codex 在 marketplace source 后追加 `@<git-ref>`：
+
+```bash
+codex plugin marketplace add mandocker/skills@v1.0.0
+```
+
+适合团队场景 —— 在你显式更新 pin 之前，每个成员拿到的都是同一个版本。
+
+## Claude Code 团队接入
+
+要让一个项目的所有成员自动使用，在仓库根目录的 `.claude/settings.json` 里注册 marketplace：
+
+```json
+{
+  "extraKnownMarketplaces": {
+    "dockerman": {
+      "source": {
+        "source": "github",
+        "repo": "mandocker/skills"
+      }
+    }
+  }
+}
+```
+
+成员只需运行 `/plugin install dockerman` 即可，不用自己 `marketplace add`。
+
+## 其他 agent
+
+Skill 源文件位于 [github.com/mandocker/skills/tree/main/skills/dockerman-cli](https://github.com/mandocker/skills/tree/main/skills/dockerman-cli)。任何能读取 Claude 风格 skill 文件的 agent harness（Cursor、Anthropic Agent SDK 等）都可以 clone 仓库后直接指向该目录。

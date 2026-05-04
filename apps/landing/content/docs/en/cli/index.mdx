@@ -70,6 +70,25 @@ The current schema version is `2`. See [Streaming contract](/en/docs/cli/streami
 | `130` | `SIGINT` (Ctrl+C) on a streaming command |
 | `143` | `SIGTERM` on a streaming command |
 
+## Use it from AI assistants
+
+If you drive `dockerman` from an AI assistant, install the official plugin so the assistant knows the command map, output shapes, and destructive-action rules without re-discovering them.
+
+Claude Code:
+
+```text
+/plugin marketplace add mandocker/skills
+/plugin install dockerman
+```
+
+Codex:
+
+```bash
+codex plugin marketplace add mandocker/skills
+```
+
+Then run `/plugins` in Codex and install or enable the **Dockerman** plugin from the **Dockerman** marketplace. See [AI Assistant Plugins](/en/docs/cli/skills) for what the plugin bundles and how to pin a revision.
+
 ## What the CLI does not cover
 
 Some workflows live only in the GUI:

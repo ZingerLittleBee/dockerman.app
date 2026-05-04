@@ -1,0 +1,117 @@
+---
+title: AI Assistant Plugins
+description: Install Dockerman's official plugin so Claude Code or Codex can drive the dockerman CLI safely and accurately.
+---
+
+Dockerman ships an official plugin that bundles the `dockerman-cli` skill. It teaches AI assistants how to use the `dockerman` CLI: command map, output shapes, streaming rules, k8s scoping gotchas, and destructive-action safety rules. Install it once and the assistant will reach for `dockerman` whenever the user asks anything Docker-, Compose-, or Kubernetes-related, even without an explicit "use dockerman" prompt.
+
+## Claude Code install
+
+In Claude Code:
+
+```text
+/plugin marketplace add mandocker/skills
+/plugin install dockerman
+```
+
+That registers the marketplace at [github.com/mandocker/skills](https://github.com/mandocker/skills) and installs the `dockerman` plugin into your user scope. Claude Code picks up the skill on the next session — no restart, no config edit. The skill is namespaced as `dockerman:dockerman-cli`.
+
+To verify:
+
+```text
+/plugin list
+```
+
+You should see `dockerman` enabled. Try a prompt like *"List my running containers"* and Claude should reach for `dockerman container list`.
+
+## Codex plugin install
+
+Codex uses its own plugin marketplace command, not Claude Code's `/plugin marketplace ...` slash command. First register the Dockerman marketplace in Codex:
+
+```bash
+codex plugin marketplace add mandocker/skills
+```
+
+Then open Codex and run:
+
+```text
+/plugins
+```
+
+In the plugin UI, open the **Dockerman** marketplace, then install and enable the **Dockerman** plugin. Start a new session after installing. The plugin loads the `dockerman-cli` skill and triggers automatically on Docker, Compose, Kubernetes, `kubectl`, container, image, and volume prompts.
+
+If your Codex version does not expose the plugin UI yet, upgrade Codex first; this page only documents the plugin marketplace install path.
+
+## What you get
+
+This repository provides a single skill, `dockerman-cli`, which covers:
+
+- A pushy SKILL description so the assistant triggers it on Docker / Compose / Kubernetes / kubectl prompts even when the user does not say "dockerman".
+- The full top-level command map (`container`, `image`, `compose`, `k8s`, `tunnel`, `trivy`, `wsl`, `events`, `schema`, `call`).
+- Critical output-shape notes — for example that `dockerman k8s pod list` returns `{ forbidden, items, truncated }` with **flattened** fields (`.name`, `.namespace`, `.restarts`, `.status`), not the kubectl-shaped `metadata.*` tree.
+- The two k8s scoping rules that catch every first attempt: `--cluster` is required when no cluster is selected, and `pod list` without `--namespace` returns *only* the `default` namespace (silently misses `kube-system`).
+- A destructive-action warning for `container backup -y` and `container restore -y` so the assistant never describes them as "dry-run".
+- A `jq` cookbook (`references/output-parsing.md`) for projecting JSON output without flooding context.
+
+## Update or remove
+
+Claude Code:
+
+```text
+/plugin update dockerman
+/plugin uninstall dockerman
+```
+
+Updates pull the latest `version` from the marketplace's `plugin.json`. The plugin lives at `~/.claude/plugins/` — uninstalling removes it cleanly.
+
+Codex:
+
+```bash
+codex plugin marketplace upgrade dockerman
+```
+
+To remove the marketplace:
+
+```bash
+codex plugin marketplace remove dockerman
+```
+
+## Pin to a specific revision
+
+For Claude Code, append `@<git-ref>` (branch, tag, or commit SHA) to the marketplace URL:
+
+```text
+/plugin marketplace add mandocker/skills@v1.0.0
+/plugin install dockerman
+```
+
+For Codex, append `@<git-ref>` to the marketplace source:
+
+```bash
+codex plugin marketplace add mandocker/skills@v1.0.0
+```
+
+Use this when you want a reproducible setup for a team — every member gets the same revision until you bump the pin.
+
+## Claude Code team setup
+
+To auto-install for everyone on a project, add the marketplace to `.claude/settings.json` at the repo root:
+
+```json
+{
+  "extraKnownMarketplaces": {
+    "dockerman": {
+      "source": {
+        "source": "github",
+        "repo": "mandocker/skills"
+      }
+    }
+  }
+}
+```
+
+Teammates running `/plugin install dockerman` will see it under the registered marketplace without having to add it themselves.
+
+## Other agents
+
+The skill files live at [github.com/mandocker/skills/tree/main/skills/dockerman-cli](https://github.com/mandocker/skills/tree/main/skills/dockerman-cli). Any agent harness that reads Claude-style skill files (Cursor, the Anthropic Agent SDK, etc.) can clone the repo and point at that path directly.

@@ -70,6 +70,25 @@ dockerman schema fetch_logs
 | `130` | 流式命令被 `SIGINT`（Ctrl+C）中断 |
 | `143` | 流式命令被 `SIGTERM` 中断 |
 
+## 在 AI 助手中使用
+
+如果你通过 AI 助手驱动 `dockerman`，安装官方 plugin 让助手了解命令地图、输出形状和破坏性操作规则，而无需自己一遍遍试探。
+
+Claude Code：
+
+```text
+/plugin marketplace add mandocker/skills
+/plugin install dockerman
+```
+
+Codex：
+
+```bash
+codex plugin marketplace add mandocker/skills
+```
+
+然后在 Codex 中运行 `/plugins`，从 **Dockerman** marketplace 安装并启用 **Dockerman** plugin。详情和锁定版本的方法见 [AI 助手 Plugin](/zh/docs/cli/skills)。
+
 ## CLI 不覆盖的范围
 
 部分工作流仅在 GUI 中可用：
