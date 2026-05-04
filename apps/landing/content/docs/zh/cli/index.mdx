@@ -11,15 +11,32 @@ description: "Daemon-first 的 dockerman CLI，可在终端中脚本化操作 Do
 
 ## 安装
 
-CLI 与 GUI 一同打包发布。本地开发时可从源码构建：
+CLI **随 Dockerman 桌面应用一同打包发布** —— 无需单独下载 `dockerman-cli`。
 
-```bash
-cargo build -p dockerman-cli --release
-./target/release/dockerman --help
-```
+<Steps>
+  <Step>
+    ### 安装桌面应用
 
-第一条需要后端的命令会自动拉起 `dockerman-daemon`，将 `daemon-ipc.json` 写入 app data 目录，后续命令复用此握手信息。
+    按 [快速开始](/zh/docs/getting-started) 安装对应平台的 GUI（macOS DMG、Windows MSI 或 Linux 包）。
+  </Step>
+  <Step>
+    ### 为当前用户启用 CLI
 
+    打开 Dockerman → **设置 → CLI**，点击 **为当前用户安装**。这会在 `~/.local/bin/dockerman`（macOS / Linux）或 Windows 上对应的用户 bin 目录创建一个小的 wrapper，把每次调用转发给应用内置的二进制。
+
+    如果安装目录不在 `PATH` 中，该面板会显示需要追加到 shell profile 的具体那行。
+  </Step>
+  <Step>
+    ### 验证
+
+    ```bash
+    dockerman --version
+    dockerman --help
+    ```
+
+    第一条需要后端的命令会自动拉起 `dockerman-daemon`，将 `daemon-ipc.json` 写入 app data 目录，后续命令复用此握手信息。
+  </Step>
+</Steps>
 ## 全局参数
 
 | 参数 | 用途 |
