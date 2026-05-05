@@ -2,8 +2,8 @@
 
 Language: 🇺🇸 English | [🇨🇳 简体中文](./README.zh-CN.md) | [🇯🇵 日本語](./README.ja.md) | [🇪🇸 Español](./README.es.md)
 
-[![Version](https://img.shields.io/badge/version-v5.2.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.2.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Apr%2026%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.2.0)
+[![Version](https://img.shields.io/badge/version-v5.3.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.3.0)
+[![Release Date](https://img.shields.io/badge/release%20date-May%205%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.3.0)
 
 A native desktop UI for managing Docker **and** Kubernetes — built with Tauri + Rust. Fast to launch, light on resources, and entirely local: nothing leaves your machine.
 
@@ -52,7 +52,7 @@ Cluster management on par with `kubectl`, but visual:
 
 - **Cloudflared Tunnels** — expose any container port with one click; tunnels auto-clean on stop/destroy and survive crashes
 - **Podman** — auto-detected runtime with per-host preference and feature gating for Compose-only flows
-- **WSL2 Engine on Windows** — no Docker Desktop required; one-click Alpine setup with crash recovery and registry mirrors
+- **WSL2 Engine on Windows** — no Docker Desktop required; one-click Alpine setup with crash recovery, registry mirrors, reinstall, and a Settings switch between WSL2 engine and OS-native Docker
 - **Remote daemons** — custom socket, TCP, or SSH forwarding with heartbeat reconnect and per-host latency display
 
 ## Operations & Quality of Life
@@ -63,6 +63,9 @@ Cluster management on par with `kubectl`, but visual:
 - 🔍 Global command palette (Cmd/Ctrl+;) and a system tray with live CPU/memory stats
 - 🔐 Private registry credential management with auto-matching on pull
 - 🔑 License activation for remote-host features
+- 📦 Bundled `dockerman` CLI with install, update, and uninstall from Settings
+- 🤖 One-click installer for Claude Code, Codex, and Gemini CLI plugins
+- 🛡️ Trivy CLI update checks from Settings
 
 ## Why It Feels Fast
 

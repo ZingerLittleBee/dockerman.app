@@ -12,7 +12,7 @@
     "closeMenu": "Close menu"
   },
   "hero": {
-    "eyebrow": "v{{version}} — Multi-cluster Kubernetes, image upgrade watch, Homelab foundations",
+    "eyebrow": "v{{version}} — Bundled Dockerman CLI, AI assistant plugins, Windows engine switcher",
     "eyebrowTag": "NEW",
     "headline1Lead": "Docker that feels",
     "headline1Accent": "local",

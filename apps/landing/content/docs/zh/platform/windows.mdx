@@ -104,25 +104,15 @@ Dockerman 为你内置了 WSL2 方案，因此你无需安装 Docker Desktop 或
 
 如果 Docker 守护进程崩溃，Dockerman 会显示一个带有重启按钮的横幅，并实时输出崩溃日志以便你诊断故障原因。
 
-### 在 Docker Desktop 和 WSL2 Engine 之间切换
+### 重新安装 WSL2 发行版
 
-<Steps>
-  <Step>
-    ### 打开 设置 → Docker 设置
+v5.3.0 新增。如果 Alpine 发行版进入异常状态，可在 WSL 页面打开设置向导，点击 **Reinstall** 清除现有发行版并重新导入一份全新的 Alpine 镜像。该按钮是破坏性操作——发行版内部存储的任何数据都会丢失，但由 daemon 管理的 Docker 卷保留（除非你同时重置 Docker）。
 
-    从应用设置中打开 Docker 设置页面。
-  </Step>
-  <Step>
-    ### 选择另一个后端
+### 切换引擎源
 
-    在 Docker Desktop 和 WSL2 Docker Engine 之间切换。
-  </Step>
-  <Step>
-    ### 重新连接
+v5.3.0 新增。Windows 上的 WSL 页面提供 **引擎源** 选择器，包含两张卡片：系统原生 Docker socket（Docker Desktop 或系统安装的任意 Docker）以及内置的 Dockerman WSL2 Docker Engine。选择任一卡片后，Dockerman 会静默地将本地主机重新连接到新的源——没有 toast，无需手动保存。之前的 Docker 连接类型（`socket`、`tcp`、`npipe`）会被记忆，因此切回系统原生 Docker 时会恢复你上次的配置。
 
-    保存更改并重新连接到选定的后端。
-  </Step>
-</Steps>
+如果你更喜欢旧流程，也可以在 **设置 → Docker 设置** 中切换连接类型并手动重连。
 
 ## WSL2 资源监控
 

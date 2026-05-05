@@ -12,7 +12,7 @@
     "closeMenu": "Cerrar menú"
   },
   "hero": {
-    "eyebrow": "v{{version}} — Kubernetes multi-cluster, vigilancia de actualizaciones de imagen, bases del Homelab",
+    "eyebrow": "v{{version}} — CLI Dockerman incluido, plugins de asistentes IA, conmutador de motor Windows",
     "eyebrowTag": "NUEVO",
     "headline1Lead": "Docker que se siente",
     "headline1Accent": "local",

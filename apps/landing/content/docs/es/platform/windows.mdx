@@ -104,25 +104,15 @@ Usa Configuración → Panel de configuración del daemon para editar `/etc/dock
 
 Si el daemon de Docker falla, Dockerman muestra un banner con un botón de Reinicio y transmite los logs del fallo para que puedas diagnosticar el problema.
 
-### Cambia entre Docker Desktop y el Engine WSL2
+### Reinstala la distro WSL2
 
-<Steps>
-  <Step>
-    ### Abre Configuración → Configuración de Docker
+Añadido en v5.3.0. Si la distro Alpine entra en un estado defectuoso, abre el asistente de configuración de WSL desde la página WSL y haz clic en **Reinstall** para borrar la distro existente y reimportar una imagen Alpine nueva. El botón es destructivo: cualquier dato almacenado dentro de la propia distro se pierde. Los volúmenes de Docker gestionados por el daemon se conservan, salvo que también restablezcas Docker.
 
-    Abre la página de configuración de Docker desde la configuración de la aplicación.
-  </Step>
-  <Step>
-    ### Selecciona el otro backend
+### Cambia la fuente del motor
 
-    Cambia entre Docker Desktop y el Docker Engine WSL2.
-  </Step>
-  <Step>
-    ### Reconecta
+Añadido en v5.3.0. La página WSL en Windows muestra un selector de **Fuente del motor** con dos tarjetas: el socket Docker nativo del sistema (Docker Desktop o cualquier Docker instalado en el sistema) y el Docker Engine WSL2 incluido en Dockerman. Selecciona una tarjeta y Dockerman reconectará silenciosamente el host local a la nueva fuente —sin toast ni guardado manual—. El tipo de conexión Docker anterior (`socket`, `tcp`, `npipe`) se recuerda, por lo que volver a Docker nativo del sistema restaura tu configuración anterior.
 
-    Guarda el cambio y reconecta al backend seleccionado.
-  </Step>
-</Steps>
+Si prefieres el flujo anterior, también puedes cambiar el tipo de conexión desde **Configuración → Configuración de Docker** y reconectar manualmente.
 
 ## Monitorización de recursos para WSL2
 

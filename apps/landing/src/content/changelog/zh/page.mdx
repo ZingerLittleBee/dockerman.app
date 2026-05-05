@@ -1,3 +1,33 @@
+<ChangelogEntry version="v5.3.0" date="2026年5月5日">
+## 内置 CLI、AI 助手插件与 Windows 引擎切换
+
+本次发布将 Dockerman CLI 与桌面端一起打包发布，新增可一键安装 Claude Code、Codex 和 Gemini CLI 插件的设置面板，允许 Windows 用户在内置 WSL2 引擎与系统原生 Docker 之间切换，并对重连、WSL 安装流程、Trivy 更新和构建页面进行了打磨。
+
+### ✨ 新功能
+
+- 📦 <Bold>内置 Dockerman CLI：</Bold>桌面端附带 `dockerman` CLI，可在设置面板中安装、更新或卸载二进制
+- 🤖 <Bold>AI 助手插件面板：</Bold>新增设置面板用于安装 Claude Code、Codex 和 Gemini CLI 插件
+- 🪟 <Bold>Windows 引擎源切换：</Bold>可在设置中直接切换托管的 WSL2 Docker 引擎与系统原生 Docker
+- 🔄 <Bold>引擎感知重连：</Bold>从 WSL 页面切换引擎源时，本地主机将自动重新连接
+- 🔁 <Bold>WSL 重新安装：</Bold>WSL 安装流程新增重新安装选项
+- 🛡️ <Bold>Trivy 升级检查：</Bold>可在设置中检查并应用 Trivy CLI 升级
+- 🕒 <Bold>构建页面打磨：</Bold>镜像构建页面格式化显示时间戳，并对过长字段做带 tooltip 的截断
+
+### 🔧 改进
+
+- 🤫 <Bold>静默本地重连：</Bold>本地连接静默重试，不再弹出嘈杂的错误提示
+- 🧮 <Bold>更智能的 Tooltip 截断：</Bold>仅在文本实际被截断时才显示 tooltip
+
+### 🐛 缺陷修复
+
+- 🐳 <Bold>Windows Docker 默认值：</Bold>未运行 WSL2 引擎时，Windows 使用系统本地 Docker 默认值
+- 🪟 <Bold>WSL2 引擎选项文案：</Bold>澄清 Dockerman WSL2 引擎选项的标签
+- 🧷 <Bold>默认主机选择：</Bold>应用启动时更稳健地选择默认主机
+- 📡 <Bold>Docker 设置连接：</Bold>从设置中连接时增加加载态与更清晰的错误反馈
+- 🪟 <Bold>Windows CLI 打包：</Bold>Windows 安装包内含打包的 `dockerman` CLI sidecar 二进制
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v5.2.0" date="2026年4月26日">
 ## 多集群 Kubernetes、镜像监控与 Homelab 基础
 

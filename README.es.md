@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | [🇨🇳 简体中文](./README.zh-CN.md) | [🇯🇵 日本語](./README.ja.md) | 🇪🇸 Español
 
-[![Version](https://img.shields.io/badge/version-v5.2.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.2.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Apr%2026%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.2.0)
+[![Version](https://img.shields.io/badge/version-v5.3.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.3.0)
+[![Release Date](https://img.shields.io/badge/release%20date-May%205%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.3.0)
 
 Una UI de escritorio nativa para gestionar Docker **y** Kubernetes — construida con Tauri + Rust. Arranque rápido, ligera en recursos y completamente local: nada sale de tu máquina.
 
@@ -52,7 +52,7 @@ Gestión de cluster equivalente a `kubectl`, pero visual:
 
 - **Túneles Cloudflared** — expón cualquier puerto de un contenedor en un clic; los túneles se limpian automáticamente al parar/destruir y sobreviven a caídas
 - **Podman** — runtime detectado automáticamente con preferencia por host y feature gating para flujos solo-Compose
-- **Motor WSL2 en Windows** — sin Docker Desktop; setup Alpine en un clic con recuperación ante caídas y mirrors de registry
+- **Motor WSL2 en Windows** — sin Docker Desktop; setup Alpine en un clic con recuperación ante caídas, mirrors de registry, reinstalación y un conmutador en Ajustes entre el motor WSL2 y Docker nativo del sistema
 - **Daemons remotos** — socket personalizado, TCP o SSH forwarding con reconexión por heartbeat y latencia por host
 
 ## Operación y experiencia
@@ -63,6 +63,9 @@ Gestión de cluster equivalente a `kubectl`, pero visual:
 - 🔍 Paleta de comandos global (Cmd/Ctrl+;) y bandeja del sistema con CPU/memoria en vivo
 - 🔐 Gestión de credenciales de registry privado con auto-match al hacer pull
 - 🔑 Activación de licencia para funciones de hosts remotos
+- 📦 CLI `dockerman` incluido, instalable, actualizable y desinstalable desde Ajustes
+- 🤖 Instalador en un clic para plugins de Claude Code, Codex y Gemini CLI
+- 🛡️ Comprobación de actualizaciones del CLI Trivy desde Ajustes
 
 ## Por qué se siente rápido
 

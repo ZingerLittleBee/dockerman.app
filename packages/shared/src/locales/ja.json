@@ -12,7 +12,7 @@
     "closeMenu": "メニューを閉じる"
   },
   "hero": {
-    "eyebrow": "v{{version}} — マルチクラスタ Kubernetes、イメージ更新監視、Homelab 基盤",
+    "eyebrow": "v{{version}} — Dockerman CLI 同梱、AI アシスタントプラグイン、Windows エンジン切替",
     "eyebrowTag": "NEW",
     "headline1Lead": "Docker を",
     "headline1Accent": "ローカルに",

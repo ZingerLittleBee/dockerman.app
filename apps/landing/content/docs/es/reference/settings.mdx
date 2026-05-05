@@ -75,9 +75,13 @@ Usa la configuración del terminal para cambiar la familia de fuentes, el tamañ
 
 Usa la configuración de la bandeja para mostrar u ocultar el icono de la bandeja, minimizar Dockerman a la bandeja al cerrar, y editar las acciones del menú de la bandeja.
 
+## Configuración del CLI
+
+Añadido en v5.3.0. Usa el panel CLI para instalar, actualizar o desinstalar el binario `dockerman` incluido en tu `PATH`. El mismo panel aloja la sección **Plugins de asistentes IA** con comandos de instalación de una línea para Claude Code (`/plugin marketplace add ...`) y Codex (`codex plugin marketplace add ...`), cada uno con su propio botón de copia. Consulta la [visión general del CLI](/es/docs/cli) para el flujo de instalación del binario y [Plugins de asistentes IA](/es/docs/cli/skills) para lo que incluye el plugin.
+
 ## Configuración de Trivy
 
-Usa la configuración de Trivy para establecer la ruta del binario de Trivy, el intervalo de actualización de la base de datos de vulnerabilidades y los filtros de severidad predeterminados. Consulta [Escanear con Trivy](/es/docs/docker/images#escanear-con-trivy) para ver el flujo de escaneo.
+Usa la configuración de Trivy para establecer la ruta del binario de Trivy, el intervalo de actualización de la base de datos de vulnerabilidades y los filtros de severidad predeterminados. El panel también ejecuta una comprobación de versión del CLI y ofrece un botón **Update** en un clic cuando hay una versión más reciente del CLI Trivy disponible (añadido en v5.3.0). Consulta [Escanear con Trivy](/es/docs/docker/images#escanear-con-trivy) para ver el flujo de escaneo.
 
 ## Configuración de Tareas
 

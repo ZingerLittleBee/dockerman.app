@@ -1,3 +1,33 @@
+<ChangelogEntry version="v5.3.0" date="2026年5月5日">
+## CLI 同梱、AI アシスタントプラグイン、Windows エンジン切替
+
+本リリースでは Dockerman CLI をデスクトップアプリと一緒に同梱し、Claude Code・Codex・Gemini CLI プラグインを設定パネルからインストールできるようにしました。Windows では同梱の WSL2 エンジンと OS ネイティブ Docker を切り替え可能になり、再接続、WSL セットアップ、Trivy 更新、ビルドページにも磨きをかけています。
+
+### ✨ 新機能
+
+- 📦 <Bold>Dockerman CLI 同梱：</Bold>デスクトップアプリと一緒に `dockerman` CLI を配布。設定パネルからインストール・更新・アンインストールが可能
+- 🤖 <Bold>AI アシスタントプラグインパネル：</Bold>Claude Code・Codex・Gemini CLI プラグインをインストールできる新しい設定パネル
+- 🪟 <Bold>Windows エンジンソース切替：</Bold>同梱の WSL2 Docker エンジンと OS ネイティブ Docker を設定から直接切替
+- 🔄 <Bold>エンジン認識付き再接続：</Bold>WSL ページからエンジンソースが変わるとローカルホストが自動的に再接続
+- 🔁 <Bold>WSL 再インストール：</Bold>WSL セットアップフローに再インストールオプションを追加
+- 🛡️ <Bold>Trivy 更新チェック：</Bold>設定から Trivy CLI の更新を確認・適用
+- 🕒 <Bold>ビルドページの改善：</Bold>イメージビルドページでタイムスタンプを整形表示し、長いフィールドはツールチップ付きで切り詰め
+
+### 🔧 改善
+
+- 🤫 <Bold>静かなローカルホスト再接続：</Bold>ローカルホスト接続はうるさいエラートーストなしで静かに再試行
+- 🧮 <Bold>賢いツールチップ切り詰め：</Bold>テキストが実際にクリップされた時のみツールチップを表示
+
+### 🐛 バグ修正
+
+- 🐳 <Bold>Windows Docker のデフォルト：</Bold>WSL2 エンジンを使用していない Windows では OS ローカル Docker のデフォルトを使用
+- 🪟 <Bold>WSL2 エンジン選択文言：</Bold>Dockerman WSL2 エンジン選択ラベルを明確化
+- 🧷 <Bold>デフォルトホスト選択：</Bold>アプリ起動時のデフォルトホスト選択をより堅牢に
+- 📡 <Bold>Docker 設定の接続：</Bold>設定からの接続にローディング状態と分かりやすいエラー表示を追加
+- 🪟 <Bold>Windows CLI 同梱：</Bold>Windows インストーラに同梱の `dockerman` CLI sidecar バイナリを含める
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v5.2.0" date="2026年4月26日">
 ## マルチクラスタ Kubernetes、イメージ監視、Homelab 基盤
 

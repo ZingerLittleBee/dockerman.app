@@ -75,9 +75,13 @@ Use Terminal settings to change the font family, font size, cursor style, theme,
 
 Use Tray settings to show or hide the tray icon, minimize Dockerman to the tray on close, and edit the tray menu actions.
 
+## CLI settings
+
+Added in v5.3.0. Use the CLI panel to install, update, or uninstall the bundled `dockerman` CLI binary on your `PATH`. The same panel hosts the **AI Assistant Plugins** section with one-line install commands for Claude Code (`/plugin marketplace add ...`) and Codex (`codex plugin marketplace add ...`), each with a per-agent Copy button. See the [CLI overview](/en/docs/cli) for the binary install flow and [AI Assistant Plugins](/en/docs/cli/skills) for what the plugin bundles.
+
 ## Trivy settings
 
-Use Trivy settings to set the Trivy binary path, the vulnerability database update interval, and the default severity filters. See [Scan with Trivy](/en/docs/docker/images#scan-with-trivy) for the scan flow.
+Use Trivy settings to set the Trivy binary path, the vulnerability database update interval, and the default severity filters. The panel also runs a CLI version check and offers a one-click **Update** button when a newer Trivy CLI release is available (added in v5.3.0). See [Scan with Trivy](/en/docs/docker/images#scan-with-trivy) for the scan flow.
 
 ## Tasks settings
 
