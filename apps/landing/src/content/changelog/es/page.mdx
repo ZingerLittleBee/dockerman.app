@@ -1,3 +1,33 @@
+<ChangelogEntry version="v5.3.0" date="5 de mayo de 2026">
+## CLI incluido, plugins de asistentes IA y conmutador de motor en Windows
+
+Esta versión incluye el CLI Dockerman junto con la aplicación de escritorio, añade un panel de Ajustes para instalar plugins de Claude Code, Codex y Gemini CLI, permite a los usuarios de Windows alternar entre el motor WSL2 administrado y Docker nativo del sistema, y pule las reconexiones, la configuración de WSL, las actualizaciones de Trivy y la página de Build.
+
+### ✨ Funcionalidades
+
+- 📦 <Bold>CLI Dockerman incluido:</Bold> distribuye el CLI `dockerman` junto con la app de escritorio, con un panel de Ajustes para instalar, actualizar y desinstalar el binario
+- 🤖 <Bold>Panel de plugins de asistentes IA:</Bold> nuevo panel de Ajustes para instalar plugins de Claude Code, Codex y Gemini CLI
+- 🪟 <Bold>Conmutador de motor en Windows:</Bold> alterna entre el motor Docker WSL2 administrado y Docker nativo del sistema directamente desde Ajustes
+- 🔄 <Bold>Reconexión consciente del motor:</Bold> el host local se reconecta automáticamente cuando cambia la fuente del motor desde la página WSL
+- 🔁 <Bold>Reinstalar WSL:</Bold> añadida opción de reinstalación al flujo de configuración de WSL
+- 🛡️ <Bold>Comprobación de actualización de Trivy:</Bold> consulta y aplica actualizaciones del CLI Trivy desde Ajustes
+- 🕒 <Bold>Página de Build pulida:</Bold> la página de build de imágenes ahora muestra timestamps formateados y trunca campos largos con tooltips
+
+### 🔧 Mejoras
+
+- 🤫 <Bold>Reconexión silenciosa del host local:</Bold> las conexiones al host local reintentan sin toasts de error ruidosos
+- 🧮 <Bold>Truncado de tooltip más inteligente:</Bold> los tooltips solo aparecen cuando el texto realmente se recorta
+
+### 🐛 Correcciones
+
+- 🐳 <Bold>Valores por defecto de Docker en Windows:</Bold> usa los valores por defecto de Docker nativo del sistema cuando no se usa el motor WSL2
+- 🪟 <Bold>Texto de selección del motor WSL2:</Bold> aclarados los textos de selección del motor WSL2 de Dockerman
+- 🧷 <Bold>Selección de host por defecto:</Bold> selección más robusta del host por defecto al iniciar la app
+- 📡 <Bold>Conexión desde ajustes Docker:</Bold> añadido estado de carga y feedback de error más claro al conectar desde ajustes
+- 🪟 <Bold>Bundle del CLI en Windows:</Bold> incluye el binario sidecar del CLI `dockerman` empaquetado en el instalador de Windows
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v5.2.0" date="26 de abril de 2026">
 ## Kubernetes Multi-Cluster, Vigilancia de Imágenes y Bases del Homelab
 

@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | [🇨🇳 简体中文](./README.zh-CN.md) | 🇯🇵 日本語 | [🇪🇸 Español](./README.es.md)
 
-[![Version](https://img.shields.io/badge/version-v5.2.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.2.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Apr%2026%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.2.0)
+[![Version](https://img.shields.io/badge/version-v5.3.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.3.0)
+[![Release Date](https://img.shields.io/badge/release%20date-May%205%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.3.0)
 
 Docker **と** Kubernetes をまとめて管理できるネイティブデスクトップ UI。Tauri + Rust 製で、起動が速く、軽量、完全ローカル動作――データはマシンの外に出ません。
 
@@ -52,7 +52,7 @@ Docker **と** Kubernetes をまとめて管理できるネイティブデスク
 
 - **Cloudflared トンネル** — 任意のコンテナポートをワンクリックで公開、停止／削除で自動クリーンアップ、クラッシュ後も復旧
 - **Podman** — ランタイム自動検出、ホスト単位の優先設定、Compose 系操作の機能ゲート
-- **Windows の WSL2 エンジン** — Docker Desktop 不要、Alpine をワンクリックでセットアップ、クラッシュ自動復旧、レジストリミラー対応
+- **Windows の WSL2 エンジン** — Docker Desktop 不要、Alpine をワンクリックでセットアップ、クラッシュ自動復旧、レジストリミラー、再インストールに対応。設定から WSL2 エンジンと OS ネイティブ Docker を切替可能
 - **リモートデーモン** — カスタム socket、TCP、SSH 転送、ハートビート再接続とホスト別レイテンシ表示
 
 ## 運用と使い心地
@@ -63,6 +63,9 @@ Docker **と** Kubernetes をまとめて管理できるネイティブデスク
 - 🔍 グローバルコマンドパレット（Cmd/Ctrl+;）、システムトレイのリアルタイム CPU/メモリ
 - 🔐 プライベートレジストリ資格情報の管理、pull 時に自動マッチ
 - 🔑 リモートホスト機能のためのライセンス認証
+- 📦 同梱の `dockerman` CLI を設定からインストール／更新／アンインストール
+- 🤖 Claude Code、Codex、Gemini CLI プラグインをワンクリックでインストール
+- 🛡️ 設定から Trivy CLI の更新を確認・適用
 
 ## なぜ速いか
 

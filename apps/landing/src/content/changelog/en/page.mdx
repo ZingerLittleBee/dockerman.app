@@ -1,3 +1,33 @@
+<ChangelogEntry version="v5.3.0" date="May 5, 2026">
+## Bundled CLI, AI Assistant Plugins & Windows Engine Switcher
+
+This release ships the Dockerman CLI alongside the desktop app, adds a Settings panel for installing Claude Code, Codex, and Gemini CLI plugins, lets Windows users switch between the managed WSL2 engine and OS-native Docker, and brings polish to reconnects, WSL setup, Trivy updates, and the Build page.
+
+### ✨ Features
+
+- 📦 <Bold>Bundled Dockerman CLI:</Bold> Ship the `dockerman` CLI alongside the desktop app, with a Settings panel to install, update, and uninstall the binary
+- 🤖 <Bold>AI Assistant Plugin Panel:</Bold> New Settings panel to install Claude Code, Codex, and Gemini CLI plugins
+- 🪟 <Bold>Windows Engine Source Switcher:</Bold> Switch between the managed WSL2 Docker Engine and OS-native Docker directly from settings
+- 🔄 <Bold>Engine-Aware Reconnect:</Bold> Local host automatically reconnects when the engine source changes from the WSL page
+- 🔁 <Bold>WSL Reinstall:</Bold> Added a reinstall option to the WSL setup flow
+- 🛡️ <Bold>Trivy Update Check:</Bold> Check for and apply Trivy CLI updates from within Settings
+- 🕒 <Bold>Build Page Polish:</Bold> Image build page now shows formatted timestamps and truncates long fields with tooltips
+
+### 🔧 Improvements
+
+- 🤫 <Bold>Silent Localhost Reconnect:</Bold> Localhost connections retry silently without noisy error toasts
+- 🧮 <Bold>Smarter Tooltip Truncation:</Bold> Tooltips now only appear when text is actually clipped
+
+### 🐛 Bug Fixes
+
+- 🐳 <Bold>Windows Docker Defaults:</Bold> Use OS-local Docker defaults on Windows when not running the WSL2 engine
+- 🪟 <Bold>WSL2 Engine Selection Copy:</Bold> Clarified the Dockerman WSL2 engine selection labels
+- 🧷 <Bold>Default Host Selection:</Bold> More robust default host selection on app start
+- 📡 <Bold>Docker Settings Connect:</Bold> Added loading state and clearer error feedback when connecting from settings
+- 🪟 <Bold>Windows CLI Bundle:</Bold> Include the bundled `dockerman` CLI sidecar binary in the Windows installer
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v5.2.0" date="Apr 26, 2026">
 ## Multi-Cluster Kubernetes, Image Watch & Homelab Foundations
 

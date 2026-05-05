@@ -104,25 +104,15 @@ Use Settings → Daemon config panel to edit `/etc/docker/daemon.json` in either
 
 If the Docker daemon crashes, Dockerman shows a banner with a Restart button and streams the crash logs so you can diagnose the failure.
 
-### Switch between Docker Desktop and WSL2 Engine
+### Reinstall the WSL2 distro
 
-<Steps>
-  <Step>
-    ### Open Settings → Docker settings
+Added in v5.3.0. If the Alpine distro gets into a bad state, open the WSL setup wizard from the WSL page and click **Reinstall** to wipe the existing distro and re-import a fresh Alpine image. The button is destructive — any data you stored inside the distro itself is lost. Docker volumes managed by the daemon are preserved unless you also reset Docker.
 
-    Open the Docker settings page from the app settings.
-  </Step>
-  <Step>
-    ### Pick the other backend
+### Switch the engine source
 
-    Switch between Docker Desktop and the WSL2 Docker Engine.
-  </Step>
-  <Step>
-    ### Reconnect
+Added in v5.3.0. The WSL page on Windows shows an **Engine source** selector with two cards: the OS-native Docker socket (Docker Desktop or any system-installed Docker) and the bundled Dockerman WSL2 Docker Engine. Pick a card and Dockerman silently reconnects the local host to the new source — no toast, no manual save. The previous Docker connection type (`socket`, `tcp`, `npipe`) is remembered, so toggling back to OS-native Docker restores your last setup.
 
-    Save the change and reconnect to the selected backend.
-  </Step>
-</Steps>
+If you prefer the older flow, you can also flip the connection type from **Settings → Docker settings** and reconnect manually.
 
 ## Resource monitoring for WSL2
 
