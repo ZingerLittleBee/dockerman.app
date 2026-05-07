@@ -5,6 +5,7 @@ import { RiMoonLine, RiSunLine } from '@remixicon/react'
 import { useTheme } from 'next-themes'
 import type React from 'react'
 import { useEffect, useState } from 'react'
+import { flushSync } from 'react-dom'
 
 const OPTIONS = [
   { value: 'light', label: 'Light', Icon: RiSunLine },
@@ -26,7 +27,38 @@ function ThemeSwitch() {
 
   const onChange = (value: string) => {
     const fromTheme = theme
-    setTheme(value)
+
+    const apply = () => setTheme(value)
+
+    const supportsViewTransition =
+      typeof document !== 'undefined' &&
+      typeof document.startViewTransition === 'function'
+    const prefersReducedMotion =
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    if (!supportsViewTransition || prefersReducedMotion) {
+      apply()
+    } else {
+      const transition = document.startViewTransition(() => {
+        flushSync(apply)
+      })
+      transition.ready
+        .then(() => {
+          document.documentElement.animate(
+            { clipPath: ['inset(0 0 100% 0)', 'inset(0)'] },
+            {
+              pseudoElement: '::view-transition-new(root)',
+              duration: 600,
+              easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+            },
+          )
+        })
+        .catch(() => {
+          /* swallow transition aborts */
+        })
+    }
+
     import('posthog-js')
       .then(({ default: posthog }) => {
         posthog.capture('footer_theme_changed', {
