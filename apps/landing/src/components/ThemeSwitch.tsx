@@ -5,6 +5,7 @@ import { RiMoonLine, RiSunLine } from '@remixicon/react'
 import { useTheme } from 'next-themes'
 import type React from 'react'
 import { useEffect, useState } from 'react'
+import { applyThemeWithTransition } from '@/lib/theme-transition'
 
 const OPTIONS = [
   { value: 'light', label: 'Light', Icon: RiSunLine },
@@ -26,7 +27,9 @@ function ThemeSwitch() {
 
   const onChange = (value: string) => {
     const fromTheme = theme
-    setTheme(value)
+
+    applyThemeWithTransition(() => setTheme(value))
+
     import('posthog-js')
       .then(({ default: posthog }) => {
         posthog.capture('footer_theme_changed', {
