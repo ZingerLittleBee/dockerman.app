@@ -1,3 +1,14 @@
+<ChangelogEntry version="v5.3.1" date="May 12, 2026">
+## Safer Windows CLI Copy Command
+
+A targeted patch that keeps the Settings → CLI "Copy command" install path from ever touching User PATH, so the GUI's "Install for this user" button remains the single source of PATH updates.
+
+### 🐛 Bug Fixes
+
+- 🪟 <Bold>Windows CLI Copy Command PATH Safety:</Bold> Settings → CLI "Copy command" no longer touches User PATH. The previous PowerShell could collapse User PATH down to just the Dockerman bin directory in edge cases. PATH updates are now handled exclusively by the GUI "Install for this user" button, which uses safe direct registry access. The copied command also writes the ownership marker so manual installs are correctly recognized as Dockerman-managed instead of `Unsupported`.
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v5.3.0" date="May 5, 2026">
 ## Bundled CLI, AI Assistant Plugins & Windows Engine Switcher
 

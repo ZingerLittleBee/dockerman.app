@@ -12,7 +12,7 @@
     "closeMenu": "关闭菜单"
   },
   "hero": {
-    "eyebrow": "v{{version}} — 内置 Dockerman CLI、AI 助手插件、Windows 引擎切换",
+    "eyebrow": "v{{version}} — 更安全的 Windows CLI 复制命令、不再覆盖用户 PATH、手动安装写入归属标记",
     "eyebrowTag": "新",
     "headline1Lead": "Docker，用起来像",
     "headline1Accent": "本地",
