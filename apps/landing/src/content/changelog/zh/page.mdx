@@ -1,3 +1,14 @@
+<ChangelogEntry version="v5.3.1" date="2026 年 5 月 12 日">
+## 更安全的 Windows CLI 复制命令
+
+本次补丁确保「设置 → CLI 复制命令」的安装路径永远不会改动用户 PATH，PATH 更新统一交由 GUI 的「为当前用户安装」按钮处理。
+
+### 🐛 缺陷修复
+
+- 🪟 <Bold>Windows CLI 复制命令的 PATH 安全性：</Bold>「设置 → CLI 复制命令」不再修改用户 PATH。此前的 PowerShell 在某些边界场景下可能把用户 PATH 折叠为仅剩 Dockerman bin 目录。现在 PATH 更新完全由 GUI 的「为当前用户安装」按钮负责，使用安全的直接注册表访问。复制出的命令同时写入归属标记，因此手动安装会被正确识别为 Dockerman 托管，而不再显示为 `Unsupported`。
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v5.3.0" date="2026年5月5日">
 ## 内置 CLI、AI 助手插件与 Windows 引擎切换
 

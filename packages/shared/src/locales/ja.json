@@ -12,7 +12,7 @@
     "closeMenu": "メニューを閉じる"
   },
   "hero": {
-    "eyebrow": "v{{version}} — Dockerman CLI 同梱、AI アシスタントプラグイン、Windows エンジン切替",
+    "eyebrow": "v{{version}} — Windows CLI コピーコマンドの PATH 安全化、ユーザー PATH を破壊しない、手動インストールに所有マーカー",
     "eyebrowTag": "NEW",
     "headline1Lead": "Docker を",
     "headline1Accent": "ローカルに",

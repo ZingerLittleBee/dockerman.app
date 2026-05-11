@@ -1,3 +1,14 @@
+<ChangelogEntry version="v5.3.1" date="2026 年 5 月 12 日">
+## Windows CLI コピーコマンドの PATH 安全化
+
+設定 → CLI の「コマンドをコピー」がユーザー PATH に一切触れないようにする小さなパッチです。PATH 更新は GUI の「このユーザーにインストール」ボタンに一本化されました。
+
+### 🐛 バグ修正
+
+- 🪟 <Bold>Windows CLI コピーコマンドの PATH 安全性：</Bold>設定 → CLI の「コマンドをコピー」がユーザー PATH を変更しなくなりました。従来の PowerShell では、エッジケースでユーザー PATH が Dockerman bin ディレクトリのみへ縮退する恐れがありました。PATH 更新は今後 GUI の「このユーザーにインストール」ボタンが安全な直接レジストリ操作で行う唯一の経路となります。コピーされるコマンドは所有マーカーも書き込むため、手動インストールが `Unsupported` ではなく Dockerman 管理として正しく認識されます。
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v5.3.0" date="2026年5月5日">
 ## CLI 同梱、AI アシスタントプラグイン、Windows エンジン切替
 

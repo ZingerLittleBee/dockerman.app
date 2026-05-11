@@ -12,7 +12,7 @@
     "closeMenu": "Close menu"
   },
   "hero": {
-    "eyebrow": "v{{version}} — Bundled Dockerman CLI, AI assistant plugins, Windows engine switcher",
+    "eyebrow": "v{{version}} — Safer Windows CLI copy command, no User PATH overwrites, ownership marker on manual installs",
     "eyebrowTag": "NEW",
     "headline1Lead": "Docker that feels",
     "headline1Accent": "local",

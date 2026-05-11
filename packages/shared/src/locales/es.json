@@ -12,7 +12,7 @@
     "closeMenu": "Cerrar menú"
   },
   "hero": {
-    "eyebrow": "v{{version}} — CLI Dockerman incluido, plugins de asistentes IA, conmutador de motor Windows",
+    "eyebrow": "v{{version}} — Comando de copia CLI más seguro en Windows, sin sobrescribir el PATH de usuario, marcador de propiedad en instalaciones manuales",
     "eyebrowTag": "NUEVO",
     "headline1Lead": "Docker que se siente",
     "headline1Accent": "local",

@@ -1,3 +1,14 @@
+<ChangelogEntry version="v5.3.1" date="12 de mayo de 2026">
+## Comando de copia CLI más seguro en Windows
+
+Un parche puntual que evita que «Ajustes → CLI → Copiar comando» toque el PATH del usuario; las actualizaciones del PATH quedan a cargo exclusivamente del botón «Instalar para este usuario» de la GUI.
+
+### 🐛 Corrección de errores
+
+- 🪟 <Bold>Seguridad del PATH en el comando de copia CLI en Windows:</Bold> «Ajustes → CLI → Copiar comando» ya no modifica el PATH del usuario. El PowerShell anterior podía reducir el PATH del usuario únicamente al directorio bin de Dockerman en casos límite. Las actualizaciones del PATH se gestionan ahora exclusivamente desde el botón «Instalar para este usuario» de la GUI, que utiliza acceso directo y seguro al registro. El comando copiado también escribe el marcador de propiedad para que las instalaciones manuales se reconozcan correctamente como gestionadas por Dockerman en lugar de aparecer como `Unsupported`.
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v5.3.0" date="5 de mayo de 2026">
 ## CLI incluido, plugins de asistentes IA y conmutador de motor en Windows
 
