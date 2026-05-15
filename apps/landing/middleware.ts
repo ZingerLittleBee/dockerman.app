@@ -1,8 +1,10 @@
 import { cookieName, defaultLocale, type Locale, locales } from '@repo/shared/i18n'
 import { type NextRequest, NextResponse } from 'next/server'
 
+// `bot` already covers googlebot/bingbot/duckduckbot/discordbot/etc., so we
+// only add the crawlers that don't carry "bot" in their UA.
 const BOT_UA_REGEX =
-  /bot|crawler|spider|crawling|googlebot|bingbot|yandex|duckduckbot|baiduspider|facebookexternalhit|twitterbot|linkedinbot|slackbot|telegrambot|whatsapp|discordbot|applebot/i
+  /bot|crawler|spider|yandex|baiduspider|facebookexternalhit|whatsapp|applebot/i
 
 function isBot(request: NextRequest): boolean {
   const ua = request.headers.get('user-agent') || ''
@@ -27,11 +29,6 @@ function getLocaleFromPath(pathname: string): Locale | null {
   return null
 }
 
-function withLocaleHeader(response: NextResponse, locale: Locale): NextResponse {
-  response.headers.set('x-locale', locale)
-  return response
-}
-
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
@@ -50,7 +47,7 @@ export function middleware(request: NextRequest) {
   if (pathLocale) {
     const existing = request.cookies.get(cookieName)?.value
     if (existing === pathLocale) {
-      return withLocaleHeader(NextResponse.next(), pathLocale)
+      return NextResponse.next()
     }
 
     const response = NextResponse.next()
@@ -58,7 +55,7 @@ export function middleware(request: NextRequest) {
       path: '/',
       maxAge: 60 * 60 * 24 * 365 // 1 year
     })
-    return withLocaleHeader(response, pathLocale)
+    return response
   }
 
   // For bots/crawlers, always redirect to defaultLocale so every locale URL stays
@@ -82,7 +79,7 @@ export function middleware(request: NextRequest) {
     path: '/',
     maxAge: 60 * 60 * 24 * 365 // 1 year
   })
-  return withLocaleHeader(response, locale)
+  return response
 }
 
 export const config = {

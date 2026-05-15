@@ -1,12 +1,12 @@
-import { defaultLocale, type Locale, locales } from '@repo/shared/i18n'
+import { defaultLocale } from '@repo/shared/i18n'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { headers } from 'next/headers'
 import Script from 'next/script'
 import './globals.css'
 import AgentationClient from '@/components/AgentationClient'
+import { LangScript } from '@/components/shell/LangScript'
 import { ThemeScript } from '@/components/shell/ThemeScript'
 import { siteConfig } from './siteConfig'
 
@@ -92,22 +92,16 @@ export const metadata: Metadata = {
   }
 }
 
-export default async function RootLayout({
+export default function RootLayout({
   children
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const headerList = await headers()
-  const headerLocale = headerList.get('x-locale')
-  const lang: Locale =
-    headerLocale && (locales as readonly string[]).includes(headerLocale)
-      ? (headerLocale as Locale)
-      : defaultLocale
-
   return (
-    <html lang={lang} suppressHydrationWarning>
+    <html lang={defaultLocale} suppressHydrationWarning>
       <head>
         <ThemeScript />
+        <LangScript />
         {process.env.NODE_ENV === 'development' && (
           <Script
             crossOrigin="anonymous"
