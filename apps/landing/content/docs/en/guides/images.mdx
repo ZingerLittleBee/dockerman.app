@@ -1,0 +1,45 @@
+---
+title: Image Management
+description: Pull, build, and manage Docker images
+---
+
+## Overview
+
+The Images page manages every Docker image on your system — pulling new images, building from a Dockerfile, and cleaning up unused images.
+
+## Image List
+
+Every local image shows:
+
+- Repository and tag
+- Image ID
+- Size
+- Created time
+
+## Pulling an Image
+
+1. Click **Pull** on the Images page
+2. Enter the image name and tag (for example, `nginx:latest`)
+3. Click **Pull** to start the download
+
+Pull progress streams in real time, including per-layer download status.
+
+## Building an Image
+
+1. Click **Build** on the Images page
+2. Choose a Dockerfile or the build context directory
+3. Set the image tag
+4. Click **Build** to start
+
+Build output streams live so you can monitor each step.
+
+## Managing Images
+
+- **Remove** — delete an image (fails if a container depends on it)
+- **Tag** — add a new tag to an existing image
+- **History** — view the layer history
+- **Inspect** — see full image metadata in JSON
+
+## Pruning
+
+Use **Prune** to remove every dangling (untagged) image and reclaim disk space.

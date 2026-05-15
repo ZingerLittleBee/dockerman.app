@@ -1,0 +1,59 @@
+---
+title: Windows WSL
+description: Use Dockerman with Docker running under Windows WSL
+---
+
+## Overview
+
+Dockerman supports Docker running under Windows Subsystem for Linux (WSL 2). This guide covers setup and common configurations.
+
+## Prerequisites
+
+- Windows 10 build 2004+ or Windows 11
+- WSL 2 enabled
+- Docker Desktop installed (with the WSL 2 backend) **or** Docker Engine running directly inside WSL 2
+
+## With Docker Desktop
+
+If you use Docker Desktop's WSL 2 backend:
+
+1. Open Docker Desktop settings
+2. Go to **Resources > WSL Integration**
+3. Enable integration for the WSL distributions you use
+4. Install and launch Dockerman on Windows
+5. Dockerman connects to Docker automatically
+
+## With Docker Engine in WSL 2
+
+If you run Docker Engine directly inside WSL 2 (without Docker Desktop):
+
+1. Start Docker Engine inside your WSL 2 distribution
+2. Make sure the Docker socket is reachable at `/var/run/docker.sock`
+3. Launch Dockerman — it detects the Docker socket automatically
+
+## Troubleshooting
+
+### Docker socket not found
+
+Make sure Docker is running inside your WSL 2 distribution:
+
+```bash
+sudo service docker start
+```
+
+### Slow performance
+
+WSL 2 runs inside a virtual machine. For best performance:
+
+- Keep project files on the WSL 2 filesystem (not on a Windows drive)
+- Allocate enough memory to WSL 2 in `.wslconfig`
+
+### Connection refused
+
+Verify Docker is reachable:
+
+```bash
+docker info
+```
+
+If it fails, restart the Docker service or review your WSL 2 configuration.
