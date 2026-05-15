@@ -8,6 +8,7 @@ import { Hero } from '@/components/landing/Hero'
 import { LiveDashboard } from '@/components/landing/LiveDashboard'
 import { ModulesSection } from '@/components/landing/ModulesSection'
 import { RuntimeStrip } from '@/components/landing/RuntimeStrip'
+import { JsonLd } from '@/components/seo/JsonLd'
 import { buildAlternates } from '@/lib/seo'
 
 export async function generateMetadata({
@@ -31,8 +32,49 @@ export async function generateMetadata({
 export default async function LandingPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   const l = locale as Locale
+  const { t } = await getTranslation(l)
+  const description = t('meta.home.description')
+
+  const organizationLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: siteConfig.name,
+    url: siteConfig.url,
+    logo: `${siteConfig.url}/opengraph-image.png`,
+    sameAs: ['https://github.com/ZingerLittleBee', 'https://twitter.com/zinger_bee']
+  }
+
+  const websiteLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: siteConfig.name,
+    url: `${siteConfig.url}/${l}`,
+    description,
+    inLanguage: l,
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: `${siteConfig.url}/${l}/docs?q={search_term_string}`,
+      'query-input': 'required name=search_term_string'
+    }
+  }
+
+  const softwareLd = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: siteConfig.name,
+    description,
+    applicationCategory: 'DeveloperApplication',
+    operatingSystem: 'macOS, Windows, Linux',
+    softwareVersion: siteConfig.latestVersion,
+    url: `${siteConfig.url}/${l}`,
+    downloadUrl: `${siteConfig.url}/${l}/download`,
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    author: { '@type': 'Person', name: 'ZingerBee', url: 'https://github.com/ZingerLittleBee' }
+  }
+
   return (
     <main>
+      <JsonLd data={[organizationLd, websiteLd, softwareLd]} />
       <Hero locale={l} />
       <div className="relative hidden px-5 md:block md:px-8">
         <LiveDashboard locale={l} />
