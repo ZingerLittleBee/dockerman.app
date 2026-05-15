@@ -13,7 +13,9 @@ import { siteConfig } from './siteConfig'
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-inter'
+  variable: '--font-inter',
+  preload: true,
+  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Arial', 'sans-serif']
 })
 
 export const metadata: Metadata = {

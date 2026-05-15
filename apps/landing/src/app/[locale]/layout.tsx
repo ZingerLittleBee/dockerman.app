@@ -2,31 +2,31 @@ import { AnalyticsTracker } from '@repo/shared/components/AnalyticsTracker'
 import { I18nProvider } from '@repo/shared/components/I18nProvider'
 import { type Locale, locales } from '@repo/shared/i18n'
 import { RootProvider } from 'fumadocs-ui/provider/next'
-import { Geist_Mono, Instrument_Serif, Inter } from 'next/font/google'
+import { Geist_Mono, Instrument_Serif } from 'next/font/google'
 import { siteConfig } from '@/app/siteConfig'
 import { provider } from '@/lib/i18n/fumadocs-ui'
 import { buildAlternates } from '@/lib/seo'
 
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',
-  weight: ['400', '500', '600', '700', '800']
-})
-
+// Geist_Mono is only used in code blocks and small UI labels (not above-the-fold
+// critical), so skip preload to free up the initial network budget for Inter +
+// Instrument_Serif (both used in the Hero H1).
 const geistMono = Geist_Mono({
   subsets: ['latin'],
   variable: '--font-geist-mono',
   display: 'swap',
-  weight: ['400', '500', '600', '700']
+  weight: ['400', '500', '600', '700'],
+  preload: false,
+  fallback: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace']
 })
 
+// Every usage is `<Accent>` italic in headlines — drop the normal style file.
 const instrumentSerif = Instrument_Serif({
   subsets: ['latin'],
   variable: '--font-instrument-serif',
   display: 'swap',
   weight: '400',
-  style: ['italic', 'normal']
+  style: 'italic',
+  fallback: ['ui-serif', 'Georgia', 'serif']
 })
 
 export async function generateStaticParams() {
@@ -88,9 +88,7 @@ export default async function LocaleLayout({
       theme={{ defaultTheme: 'dark', enableSystem: false, attribute: 'class' }}
     >
       <I18nProvider locale={locale}>
-        <div
-          className={`${inter.variable} ${geistMono.variable} ${instrumentSerif.variable} contents`}
-        >
+        <div className={`${geistMono.variable} ${instrumentSerif.variable} contents`}>
           <AnalyticsTracker />
           {children}
         </div>
