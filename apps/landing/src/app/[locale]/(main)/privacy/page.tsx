@@ -9,6 +9,7 @@ import {
   PolicySection,
   PolicySubheading
 } from '@/components/policy/PolicyShell'
+import { buildAlternates } from '@/lib/seo'
 
 export async function generateMetadata({
   params
@@ -19,7 +20,8 @@ export async function generateMetadata({
   const { t } = await getTranslation(locale as Locale)
   return {
     title: t('privacy.title'),
-    description: t('privacy.description')
+    description: t('privacy.description'),
+    alternates: buildAlternates(locale as Locale, '/privacy')
   }
 }
 

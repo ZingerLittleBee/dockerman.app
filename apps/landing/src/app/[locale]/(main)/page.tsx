@@ -1,12 +1,14 @@
 import type { Locale } from '@repo/shared/i18n'
 import { getTranslation } from '@repo/shared/i18n/server'
 import type { Metadata } from 'next'
+import { siteConfig } from '@/app/siteConfig'
 import { CtaFinal } from '@/components/landing/CtaFinal'
 import { FeaturesGrid } from '@/components/landing/FeaturesGrid'
 import { Hero } from '@/components/landing/Hero'
 import { LiveDashboard } from '@/components/landing/LiveDashboard'
 import { ModulesSection } from '@/components/landing/ModulesSection'
 import { RuntimeStrip } from '@/components/landing/RuntimeStrip'
+import { buildAlternates } from '@/lib/seo'
 
 export async function generateMetadata({
   params
@@ -15,9 +17,14 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params
   const { t } = await getTranslation(locale as Locale)
+  const title = t('meta.home.title')
+  const description = t('meta.home.description')
   return {
-    title: t('meta.home.title'),
-    description: t('meta.home.description')
+    title,
+    description,
+    alternates: buildAlternates(locale as Locale),
+    openGraph: { title, description, url: `${siteConfig.url}/${locale}` },
+    twitter: { title, description }
   }
 }
 

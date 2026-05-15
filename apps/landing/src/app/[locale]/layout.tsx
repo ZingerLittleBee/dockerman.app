@@ -5,6 +5,7 @@ import { RootProvider } from 'fumadocs-ui/provider/next'
 import { Geist_Mono, Instrument_Serif, Inter } from 'next/font/google'
 import { siteConfig } from '@/app/siteConfig'
 import { provider } from '@/lib/i18n/fumadocs-ui'
+import { buildAlternates } from '@/lib/seo'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -57,11 +58,16 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     es: 'es_ES'
   }
 
+  const alternateLocales = locales.filter((l) => l !== locale).map((l) => localeMap[l])
+
   return {
     title: titles[locale],
     description: descriptions[locale],
+    alternates: buildAlternates(locale),
     openGraph: {
-      locale: localeMap[locale]
+      locale: localeMap[locale],
+      alternateLocale: alternateLocales,
+      url: `${siteConfig.url}/${locale}`
     }
   }
 }

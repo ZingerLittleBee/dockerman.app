@@ -1,6 +1,7 @@
 import type { Locale } from '@repo/shared/i18n'
 import { getTranslation } from '@repo/shared/i18n/server'
 import type { Metadata } from 'next'
+import { siteConfig } from '@/app/siteConfig'
 import { ComparisonTable } from '@/components/pricing/ComparisonTable'
 import { Countdown } from '@/components/pricing/Countdown'
 import { PlanCard } from '@/components/pricing/PlanCard'
@@ -8,6 +9,7 @@ import { PricingFaq } from '@/components/pricing/PricingFaq'
 import { PricingHero } from '@/components/pricing/PricingHero'
 import { TrustBar } from '@/components/pricing/TrustBar'
 import { pricingConfig } from '@/config/pricing'
+import { buildAlternates } from '@/lib/seo'
 
 export async function generateMetadata({
   params
@@ -16,9 +18,14 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params
   const { t } = await getTranslation(locale as Locale)
+  const title = t('meta.pricing.title')
+  const description = t('meta.pricing.description')
   return {
-    title: t('meta.pricing.title'),
-    description: t('meta.pricing.description')
+    title,
+    description,
+    alternates: buildAlternates(locale as Locale, '/pricing'),
+    openGraph: { title, description, url: `${siteConfig.url}/${locale}/pricing` },
+    twitter: { title, description }
   }
 }
 
