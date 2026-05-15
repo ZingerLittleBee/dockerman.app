@@ -1,13 +1,33 @@
+import { locales } from '@repo/shared/i18n'
 import { ImageResponse } from 'next/og'
-import type { NextRequest } from 'next/server'
+import { type NextRequest, NextResponse } from 'next/server'
+import { source } from '@/lib/source'
 
-export const dynamic = 'force-static'
+// Cached for a day at the CDN. Not force-static: that would freeze the route
+// at build time with no search params, so every doc would share one image.
+export const revalidate = 86400
 
+// Resolve title/description from the docs source by slug instead of trusting
+// query params. Unknown slugs 404, so the cache surface is bounded to the
+// real set of doc pages and attacker-controlled text can't be baked in.
 export function GET(request: NextRequest) {
   const url = new URL(request.url)
-  const title = url.searchParams.get('title') ?? 'Dockerman Docs'
-  const description = url.searchParams.get('description') ?? ''
-  const locale = (url.searchParams.get('locale') ?? 'en').toUpperCase()
+  const localeParam = url.searchParams.get('locale') ?? 'en'
+  const slugParam = url.searchParams.get('slug') ?? ''
+
+  if (!(locales as readonly string[]).includes(localeParam)) {
+    return new NextResponse('Invalid locale', { status: 400 })
+  }
+
+  const slug = slugParam ? slugParam.split('/').filter(Boolean) : undefined
+  const page = source.getPage(slug, localeParam)
+  if (!page) {
+    return new NextResponse('Not found', { status: 404 })
+  }
+
+  const title = page.data.title ?? 'Dockerman Docs'
+  const description = page.data.description ?? ''
+  const locale = localeParam.toUpperCase()
 
   return new ImageResponse(
     <div
