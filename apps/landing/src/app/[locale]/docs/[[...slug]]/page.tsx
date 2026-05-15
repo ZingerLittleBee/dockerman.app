@@ -5,7 +5,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { siteConfig } from '@/app/siteConfig'
 import { JsonLd } from '@/components/seo/JsonLd'
-import { buildAlternates } from '@/lib/seo'
+import { buildAlternates, SITE_URL } from '@/lib/seo'
 import { source } from '@/lib/source'
 import { getMDXComponents } from '../../../../../mdx-components'
 
@@ -19,7 +19,7 @@ function buildBreadcrumb(locale: string, slug: string[] | undefined, title: stri
       '@type': 'ListItem',
       position: 1,
       name: 'Docs',
-      item: `${siteConfig.url}/${locale}/docs`
+      item: `${SITE_URL}/${locale}/docs`
     }
   ]
   if (slug && slug.length > 0) {
@@ -30,7 +30,7 @@ function buildBreadcrumb(locale: string, slug: string[] | undefined, title: stri
         '@type': 'ListItem',
         position: index + 2,
         name: isLast ? (title ?? segName) : segName,
-        item: `${siteConfig.url}/${locale}/docs/${slug.slice(0, index + 1).join('/')}`
+        item: `${SITE_URL}/${locale}/docs/${slug.slice(0, index + 1).join('/')}`
       })
     })
   }
@@ -52,21 +52,34 @@ export default async function Page({
 
   const MDX = page.data.body
   const path = buildDocPath(slug)
+  const isDocsRoot = !slug || slug.length === 0
 
-  const articleLd = {
-    '@context': 'https://schema.org',
-    '@type': 'TechArticle',
-    headline: page.data.title,
-    description: page.data.description,
-    inLanguage: locale,
-    url: `${siteConfig.url}/${locale}${path}`,
-    isPartOf: { '@type': 'WebSite', name: siteConfig.name, url: siteConfig.url },
-    author: { '@type': 'Person', name: 'ZingerBee', url: 'https://github.com/ZingerLittleBee' }
-  }
+  // The docs landing page is a hub, not an article — model it as a
+  // CollectionPage so it isn't misreported as a single TechArticle.
+  const primaryLd = isDocsRoot
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        name: page.data.title,
+        description: page.data.description,
+        inLanguage: locale,
+        url: `${SITE_URL}/${locale}${path}`,
+        isPartOf: { '@type': 'WebSite', name: siteConfig.name, url: SITE_URL }
+      }
+    : {
+        '@context': 'https://schema.org',
+        '@type': 'TechArticle',
+        headline: page.data.title,
+        description: page.data.description,
+        inLanguage: locale,
+        url: `${SITE_URL}/${locale}${path}`,
+        isPartOf: { '@type': 'WebSite', name: siteConfig.name, url: SITE_URL },
+        author: { '@type': 'Person', name: 'ZingerBee', url: 'https://github.com/ZingerLittleBee' }
+      }
 
   return (
     <DocsPage full={page.data.full} toc={page.data.toc}>
-      <JsonLd data={[articleLd, buildBreadcrumb(locale, slug, page.data.title)]} />
+      <JsonLd data={[primaryLd, buildBreadcrumb(locale, slug, page.data.title)]} />
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription>{page.data.description}</DocsDescription>
       <DocsBody>
@@ -98,7 +111,7 @@ export async function generateMetadata({
   const description = page.data.description
   const ogParams = new URLSearchParams({ locale })
   if (slug && slug.length > 0) ogParams.set('slug', slug.join('/'))
-  const ogImage = `${siteConfig.url}/api/og/docs?${ogParams.toString()}`
+  const ogImage = `${SITE_URL}/api/og/docs?${ogParams.toString()}`
 
   return {
     title,
@@ -107,7 +120,7 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      url: `${siteConfig.url}/${locale}${path}`,
+      url: `${SITE_URL}/${locale}${path}`,
       type: 'article',
       images: [{ url: ogImage, width: 1200, height: 630, alt: title ?? 'Dockerman Docs' }]
     },

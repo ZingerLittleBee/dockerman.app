@@ -9,7 +9,7 @@ import { LiveDashboard } from '@/components/landing/LiveDashboard'
 import { ModulesSection } from '@/components/landing/ModulesSection'
 import { RuntimeStrip } from '@/components/landing/RuntimeStrip'
 import { JsonLd } from '@/components/seo/JsonLd'
-import { buildAlternates } from '@/lib/seo'
+import { buildAlternates, SITE_URL } from '@/lib/seo'
 
 export async function generateMetadata({
   params
@@ -24,7 +24,7 @@ export async function generateMetadata({
     title,
     description,
     alternates: buildAlternates(locale as Locale),
-    openGraph: { title, description, url: `${siteConfig.url}/${locale}` },
+    openGraph: { title, description, url: `${SITE_URL}/${locale}` },
     twitter: { title, description }
   }
 }
@@ -39,8 +39,8 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: siteConfig.name,
-    url: siteConfig.url,
-    logo: `${siteConfig.url}/opengraph-image.png`,
+    url: SITE_URL,
+    logo: `${SITE_URL}/opengraph-image.png`,
     sameAs: ['https://github.com/ZingerLittleBee', 'https://twitter.com/zinger_bee']
   }
 
@@ -48,12 +48,12 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: siteConfig.name,
-    url: `${siteConfig.url}/${l}`,
+    url: `${SITE_URL}/${l}`,
     description,
     inLanguage: l,
     potentialAction: {
       '@type': 'SearchAction',
-      target: `${siteConfig.url}/${l}/docs?q={search_term_string}`,
+      target: `${SITE_URL}/${l}/docs?q={search_term_string}`,
       'query-input': 'required name=search_term_string'
     }
   }
@@ -66,8 +66,8 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
     applicationCategory: 'DeveloperApplication',
     operatingSystem: 'macOS, Windows, Linux',
     softwareVersion: siteConfig.latestVersion,
-    url: `${siteConfig.url}/${l}`,
-    downloadUrl: `${siteConfig.url}/${l}/download`,
+    url: `${SITE_URL}/${l}`,
+    downloadUrl: `${SITE_URL}/${l}/download`,
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
     author: { '@type': 'Person', name: 'ZingerBee', url: 'https://github.com/ZingerLittleBee' }
   }
