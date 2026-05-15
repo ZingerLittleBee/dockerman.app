@@ -1,3 +1,4 @@
+import { defaultLocale } from '@repo/shared/i18n'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import type { Metadata } from 'next'
@@ -5,40 +6,43 @@ import { Inter } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
 import AgentationClient from '@/components/AgentationClient'
+import { LangScript } from '@/components/shell/LangScript'
 import { ThemeScript } from '@/components/shell/ThemeScript'
 import { siteConfig } from './siteConfig'
 
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-inter'
+  variable: '--font-inter',
+  preload: true,
+  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Arial', 'sans-serif']
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://dockerman.app'),
-  title: 'Dockerman - Modern Docker Management UI',
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: siteConfig.title,
+    template: '%s — Dockerman'
+  },
   description: siteConfig.description,
   keywords: [
-    'Docker',
-    'UI',
-    'Management',
+    'Docker GUI',
+    'Docker Desktop alternative',
+    'Docker management',
+    'Kubernetes UI',
+    'Kubernetes GUI',
+    'Podman desktop',
+    'container manager',
+    'docker compose UI',
+    'remote docker host',
+    'docker over SSH',
+    'WSL2 docker',
+    'k3d GUI',
+    'Helm GUI',
+    'Trivy scan UI',
+    'homelab docker manager',
     'Tauri',
-    'Rust',
-    'Desktop',
-    'App',
-    'Container',
-    'Image',
-    'Monitoring',
-    'Terminal',
-    'Dashboard',
-    'Cross-platform',
-    'Resource Usage',
-    'Logs',
-    'Process',
-    'Statistics',
-    'Docker Management',
-    'Container Management',
-    'DevOps'
+    'Rust desktop app'
   ],
   authors: [
     {
@@ -47,9 +51,10 @@ export const metadata: Metadata = {
     }
   ],
   creator: 'ZingerBee',
+  applicationName: siteConfig.name,
+  category: 'developer tools',
   openGraph: {
     type: 'website',
-    locale: 'en_US',
     url: siteConfig.url,
     title: siteConfig.title,
     description: siteConfig.description,
@@ -59,7 +64,7 @@ export const metadata: Metadata = {
         url: '/opengraph-image.png',
         width: 1200,
         height: 630,
-        alt: 'Dockerman - Modern Docker Management UI'
+        alt: 'Dockerman — local-first Docker, Podman & Kubernetes UI'
       }
     ]
   },
@@ -67,8 +72,20 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: siteConfig.title,
     description: siteConfig.description,
+    site: '@zinger_bee',
     creator: '@zinger_bee',
     images: ['/opengraph-image.png']
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1
+    }
   },
   icons: {
     icon: '/favicon.ico'
@@ -81,9 +98,10 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={defaultLocale} suppressHydrationWarning>
       <head>
         <ThemeScript />
+        <LangScript />
         {process.env.NODE_ENV === 'development' && (
           <Script
             crossOrigin="anonymous"

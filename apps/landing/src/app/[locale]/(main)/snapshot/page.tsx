@@ -1,10 +1,12 @@
 import type { Locale } from '@repo/shared/i18n'
 import { getTranslation } from '@repo/shared/i18n/server'
 import type { Metadata } from 'next'
+import { siteConfig } from '@/app/siteConfig'
 import { SnapshotFeaturesStrip } from '@/components/snapshot/SnapshotFeaturesStrip'
 import { SnapshotHero } from '@/components/snapshot/SnapshotHero'
 import { SnapshotShowcase } from '@/components/snapshot/SnapshotShowcase'
 import { resolveSnapshotModules } from '@/config/snapshot'
+import { buildAlternates } from '@/lib/seo'
 
 export async function generateMetadata({
   params
@@ -13,9 +15,14 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params
   const { t } = await getTranslation(locale as Locale)
+  const title = t('meta.snapshot.title')
+  const description = t('meta.snapshot.description')
   return {
-    title: t('meta.snapshot.title'),
-    description: t('meta.snapshot.description')
+    title,
+    description,
+    alternates: buildAlternates(locale as Locale, '/snapshot'),
+    openGraph: { title, description, url: `${siteConfig.url}/${locale}/snapshot` },
+    twitter: { title, description }
   }
 }
 

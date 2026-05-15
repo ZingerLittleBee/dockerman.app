@@ -2,6 +2,7 @@ import type { Locale } from '@repo/shared/i18n'
 import { getTranslation } from '@repo/shared/i18n/server'
 import type { Metadata } from 'next'
 import { headers } from 'next/headers'
+import { siteConfig } from '@/app/siteConfig'
 import { DownloadHero } from '@/components/download/DownloadHero'
 import { HomebrewBlock } from '@/components/download/HomebrewBlock'
 import { IntegrityBar } from '@/components/download/IntegrityBar'
@@ -9,6 +10,7 @@ import { PlatformCard } from '@/components/download/PlatformCard'
 import { ReleasesTable } from '@/components/download/ReleasesTable'
 import { CtaFinal } from '@/components/landing/CtaFinal'
 import { downloadsConfig } from '@/config/downloads'
+import { buildAlternates } from '@/lib/seo'
 
 export async function generateMetadata({
   params
@@ -17,9 +19,14 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params
   const { t } = await getTranslation(locale as Locale)
+  const title = t('meta.download.title')
+  const description = t('meta.download.description')
   return {
-    title: t('meta.download.title'),
-    description: t('meta.download.description')
+    title,
+    description,
+    alternates: buildAlternates(locale as Locale, '/download'),
+    openGraph: { title, description, url: `${siteConfig.url}/${locale}/download` },
+    twitter: { title, description }
   }
 }
 

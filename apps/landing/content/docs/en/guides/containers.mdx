@@ -1,0 +1,55 @@
+---
+title: Container Management
+description: Manage Docker containers with Dockerman
+---
+
+## Overview
+
+Dockerman provides a visual interface for managing Docker containers. View, create, start, stop, restart, and remove containers from a single panel.
+
+## Container List
+
+The Containers page lists every container on the host — running and stopped. Each row shows:
+
+- Container name and ID
+- Image in use
+- Current state (running, stopped, paused)
+- Port mappings
+- Created time
+
+Use the search bar to filter by name or image.
+
+## Creating a Container
+
+1. Click **Create** on the Containers page
+2. Pick a base image from local images or pull a new one
+3. Configure container settings:
+   - Name
+   - Port mappings
+   - Volume mounts
+   - Environment variables
+   - Resource limits (CPU, memory)
+4. Click **Create** to launch the container
+
+## Container Actions
+
+Right-click a container or use the action buttons:
+
+- **Start** — start a stopped container
+- **Stop** — gracefully stop a running container
+- **Restart** — stop and restart the container
+- **Pause / Resume** — freeze or resume the container's processes
+- **Remove** — delete the container (must be stopped first)
+
+## Viewing Logs
+
+Click a container to open the detail view, then switch to the **Logs** tab. Features include:
+
+- Real-time log streaming
+- Timestamps
+- Search and filter within logs
+- Download log files
+
+## Inspecting a Container
+
+The **Inspect** tab shows the container's full configuration in JSON, including network settings, mounts, and environment variables.

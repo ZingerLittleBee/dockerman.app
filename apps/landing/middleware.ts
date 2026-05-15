@@ -1,6 +1,16 @@
 import { cookieName, defaultLocale, type Locale, locales } from '@repo/shared/i18n'
 import { type NextRequest, NextResponse } from 'next/server'
 
+// `bot` already covers googlebot/bingbot/duckduckbot/discordbot/etc., so we
+// only add the crawlers that don't carry "bot" in their UA.
+const BOT_UA_REGEX =
+  /bot|crawler|spider|yandex|baiduspider|facebookexternalhit|whatsapp|applebot/i
+
+function isBot(request: NextRequest): boolean {
+  const ua = request.headers.get('user-agent') || ''
+  return BOT_UA_REGEX.test(ua)
+}
+
 function getLocaleFromHeaders(request: NextRequest): Locale {
   const acceptLanguage = request.headers.get('accept-language') || ''
   const lang = acceptLanguage.toLowerCase()
@@ -48,10 +58,17 @@ export function middleware(request: NextRequest) {
     return response
   }
 
-  // Get locale from cookie or headers
-  const cookieLocale = request.cookies.get(cookieName)?.value as Locale | undefined
-  const locale =
-    cookieLocale && locales.includes(cookieLocale) ? cookieLocale : getLocaleFromHeaders(request)
+  // For bots/crawlers, always redirect to defaultLocale so every locale URL stays
+  // independently crawlable and we don't gate non-default languages behind
+  // Accept-Language detection (Googlebot is always en-US).
+  const locale = isBot(request)
+    ? defaultLocale
+    : (() => {
+        const cookieLocale = request.cookies.get(cookieName)?.value as Locale | undefined
+        return cookieLocale && locales.includes(cookieLocale)
+          ? cookieLocale
+          : getLocaleFromHeaders(request)
+      })()
 
   // Redirect to localized path
   const url = request.nextUrl.clone()

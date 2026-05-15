@@ -1,0 +1,39 @@
+---
+title: Docker Compose
+description: Manage multi-container applications with Docker Compose
+---
+
+## Overview
+
+Dockerman supports Docker Compose for managing multi-container applications. Import a Compose file, start and stop services, and view per-service logs.
+
+## Importing a Compose Project
+
+1. Click **Import** on the Compose page
+2. Select a `docker-compose.yml` file or a directory that contains one
+3. Dockerman parses the file and lists every defined service
+
+## Managing Services
+
+Each Compose project lists its services with their current state. You can:
+
+- **Start All** — start every service in the project
+- **Stop All** — stop every running service
+- **Start / Stop** an individual service
+- **Restart** a specific service
+
+## Viewing Logs
+
+Select a service to view its logs. You can:
+
+- Stream logs in real time
+- Filter by service name
+- Search within the logs
+
+## Environment Variables
+
+Compose projects can use `.env` files. Dockerman reads them automatically from the project directory.
+
+## Removing a Project
+
+Click **Remove** to tear down every container, network, and volume created by the Compose project.

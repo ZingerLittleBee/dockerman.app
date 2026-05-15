@@ -3,7 +3,8 @@
   "pages": [
     "windows",
     "macos",
-    "linux"
+    "linux",
+    "wsl"
   ],
   "defaultOpen": true
 }

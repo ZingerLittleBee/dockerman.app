@@ -1,0 +1,40 @@
+---
+title: Real-Time Monitoring
+description: Monitor container resource usage in real time
+---
+
+## Overview
+
+Dockerman provides real-time monitoring of container resource usage. Track CPU, memory, network I/O, and disk I/O across running containers.
+
+## Dashboard
+
+The monitoring dashboard shows an overview of your Docker environment:
+
+- Total containers (running / stopped)
+- System CPU and memory usage
+- Network throughput
+
+## Container Stats
+
+Click a running container to view live stats:
+
+- **CPU** — usage percentage with a live chart
+- **Memory** — current usage, limit, and percentage
+- **Network I/O** — bytes sent and received per second
+- **Disk I/O** — read and write operations per second
+
+Stats refresh automatically every few seconds.
+
+## Resource Alerts
+
+Dockerman highlights containers approaching their resource limits:
+
+- High CPU usage is shown in yellow / red
+- Memory usage close to the limit raises a warning
+
+## Monitoring Tips
+
+- Set resource limits when creating containers to prevent runaway usage
+- Review the monitoring dashboard regularly to catch performance issues
+- Container stats are only available while the container is running

@@ -1,0 +1,34 @@
+---
+title: File Browser
+description: Browse and manage files inside Docker containers
+---
+
+## Overview
+
+Dockerman's file browser lets you navigate the filesystem of any running container — browse directories, view files, and transfer files between the host and the container.
+
+## Browsing Files
+
+1. Open a running container
+2. Click the **Files** tab
+3. The file browser shows the container's root filesystem
+
+Click a directory to navigate into it. Breadcrumbs show the current path.
+
+## Viewing Files
+
+Click a file to view its contents. Dockerman previews:
+
+- Text files (logs, configs, scripts)
+- JSON and YAML files with syntax highlighting
+
+## Uploading Files
+
+1. Navigate to the target directory in the container
+2. Click **Upload**
+3. Select files from the host
+4. The files are copied to the container's current path
+
+## Downloading Files
+
+Right-click a file or directory and choose **Download** to save it to the host. Directories are downloaded as a tar archive.
