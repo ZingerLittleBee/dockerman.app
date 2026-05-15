@@ -96,6 +96,12 @@ export async function generateMetadata({
   const path = buildDocPath(slug)
   const title = page.data.title
   const description = page.data.description
+  const ogParams = new URLSearchParams({
+    title: title ?? 'Dockerman Docs',
+    locale
+  })
+  if (description) ogParams.set('description', description)
+  const ogImage = `${siteConfig.url}/api/og/docs?${ogParams.toString()}`
 
   return {
     title,
@@ -105,8 +111,9 @@ export async function generateMetadata({
       title,
       description,
       url: `${siteConfig.url}/${locale}${path}`,
-      type: 'article'
+      type: 'article',
+      images: [{ url: ogImage, width: 1200, height: 630, alt: title ?? 'Dockerman Docs' }]
     },
-    twitter: { title, description }
+    twitter: { title, description, images: [ogImage] }
   }
 }
