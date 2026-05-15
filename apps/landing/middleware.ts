@@ -1,6 +1,14 @@
 import { cookieName, defaultLocale, type Locale, locales } from '@repo/shared/i18n'
 import { type NextRequest, NextResponse } from 'next/server'
 
+const BOT_UA_REGEX =
+  /bot|crawler|spider|crawling|googlebot|bingbot|yandex|duckduckbot|baiduspider|facebookexternalhit|twitterbot|linkedinbot|slackbot|telegrambot|whatsapp|discordbot|applebot/i
+
+function isBot(request: NextRequest): boolean {
+  const ua = request.headers.get('user-agent') || ''
+  return BOT_UA_REGEX.test(ua)
+}
+
 function getLocaleFromHeaders(request: NextRequest): Locale {
   const acceptLanguage = request.headers.get('accept-language') || ''
   const lang = acceptLanguage.toLowerCase()
@@ -17,6 +25,11 @@ function getLocaleFromPath(pathname: string): Locale | null {
     return potentialLocale as Locale
   }
   return null
+}
+
+function withLocaleHeader(response: NextResponse, locale: Locale): NextResponse {
+  response.headers.set('x-locale', locale)
+  return response
 }
 
 export function middleware(request: NextRequest) {
@@ -37,7 +50,7 @@ export function middleware(request: NextRequest) {
   if (pathLocale) {
     const existing = request.cookies.get(cookieName)?.value
     if (existing === pathLocale) {
-      return NextResponse.next()
+      return withLocaleHeader(NextResponse.next(), pathLocale)
     }
 
     const response = NextResponse.next()
@@ -45,13 +58,20 @@ export function middleware(request: NextRequest) {
       path: '/',
       maxAge: 60 * 60 * 24 * 365 // 1 year
     })
-    return response
+    return withLocaleHeader(response, pathLocale)
   }
 
-  // Get locale from cookie or headers
-  const cookieLocale = request.cookies.get(cookieName)?.value as Locale | undefined
-  const locale =
-    cookieLocale && locales.includes(cookieLocale) ? cookieLocale : getLocaleFromHeaders(request)
+  // For bots/crawlers, always redirect to defaultLocale so every locale URL stays
+  // independently crawlable and we don't gate non-default languages behind
+  // Accept-Language detection (Googlebot is always en-US).
+  const locale = isBot(request)
+    ? defaultLocale
+    : (() => {
+        const cookieLocale = request.cookies.get(cookieName)?.value as Locale | undefined
+        return cookieLocale && locales.includes(cookieLocale)
+          ? cookieLocale
+          : getLocaleFromHeaders(request)
+      })()
 
   // Redirect to localized path
   const url = request.nextUrl.clone()
@@ -62,7 +82,7 @@ export function middleware(request: NextRequest) {
     path: '/',
     maxAge: 60 * 60 * 24 * 365 // 1 year
   })
-  return response
+  return withLocaleHeader(response, locale)
 }
 
 export const config = {
