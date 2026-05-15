@@ -1,18 +1,26 @@
-import { locales } from '@repo/shared/i18n'
+import { defaultLocale, locales } from '@repo/shared/i18n'
 import type { MetadataRoute } from 'next'
+import { SITE_URL } from '@/lib/seo'
 import { source } from '@/lib/source'
-import { siteConfig } from './siteConfig'
 
-const SITE_URL = siteConfig.url
-
-const STATIC_ROUTES = ['', '/about', '/changelog', '/download', '/pricing', '/imprint', '/privacy', '/terms']
+const STATIC_ROUTES = [
+  '',
+  '/about',
+  '/changelog',
+  '/download',
+  '/pricing',
+  '/snapshot',
+  '/privacy',
+  '/terms',
+  '/dpa'
+]
 
 function buildLanguageAlternates(path: string): Record<string, string> {
   const languages: Record<string, string> = {}
   for (const locale of locales) {
     languages[locale] = `${SITE_URL}/${locale}${path}`
   }
-  languages['x-default'] = `${SITE_URL}/en${path}`
+  languages['x-default'] = `${SITE_URL}/${defaultLocale}${path}`
   return languages
 }
 
