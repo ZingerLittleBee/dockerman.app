@@ -232,7 +232,7 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
                   'radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--color-dm-accent-2) 10%, transparent), transparent 55%)'
               }}
             />
-            <h3 className="relative m-0 font-bold text-[clamp(28px,3.6vw,40px)] text-dm-ink leading-[1.1] tracking-[-0.03em]">
+            <h2 className="relative m-0 font-bold text-[clamp(28px,3.6vw,40px)] text-dm-ink leading-[1.1] tracking-[-0.03em]">
               {t('pricing.finalCta.titleLead')}{' '}
               <em
                 className="bg-clip-text font-[var(--font-dm-display)] font-normal text-transparent italic"
@@ -242,7 +242,7 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
               >
                 {t('pricing.finalCta.titleAccent')}
               </em>
-            </h3>
+            </h2>
             <p className="relative mx-auto mt-4 max-w-[52ch] text-[15px] text-dm-ink-3">
               {t('pricing.finalCta.description')}
             </p>
