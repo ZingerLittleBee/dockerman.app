@@ -1,5 +1,7 @@
 import { downloadsConfig, type Verification } from '@/config/downloads'
 
+const INSTALLER_LABEL_WITH_SUBTITLE = /^(.+?)\s*\((.+)\)\s*$/
+
 export interface ResolvedInstallerAsset {
   filename: string
   label: string
@@ -64,33 +66,35 @@ export function PlatformCard({
           : { borderColor: 'var(--color-dm-line)', backgroundColor: 'var(--color-dm-bg-elev)' }
       }
     >
-      <div className="flex items-center gap-[14px]">
+      <div className="grid grid-cols-[auto_minmax(0,1fr)] items-start gap-x-[14px]">
         <div className="grid h-12 w-12 flex-shrink-0 place-items-center rounded-[12px] border border-dm-line bg-dm-bg-soft text-dm-ink">
           {icon}
         </div>
-        <div>
-          <div className="font-bold text-[20px] text-dm-ink tracking-[-0.02em]">{title}</div>
+        <div className="min-w-0">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+            <div className="font-bold text-[20px] text-dm-ink tracking-[-0.02em]">{title}</div>
+            {featured ? (
+              <span
+                className="inline-flex max-w-full shrink-0 items-center justify-center whitespace-nowrap rounded-full px-2.5 py-[3px] text-center font-[var(--font-dm-mono)] font-semibold text-[10.5px] normal-case leading-none tracking-normal"
+                style={{
+                  background: 'color-mix(in srgb, var(--color-dm-accent-2) 14%, transparent)',
+                  color: 'var(--color-dm-accent-2)'
+                }}
+              >
+                {strings.recommended}
+              </span>
+            ) : null}
+          </div>
           <div className="mt-[2px] font-[var(--font-dm-mono)] text-[11.5px] text-dm-ink-4">
             {minSpec}
           </div>
         </div>
-        {featured ? (
-          <span
-            className="ml-auto inline-block min-w-[72px] rounded-full px-2 py-[3px] text-center font-[var(--font-dm-mono)] font-semibold text-[10.5px] uppercase tracking-[0.02em]"
-            style={{
-              background: 'color-mix(in srgb, var(--color-dm-accent-2) 14%, transparent)',
-              color: 'var(--color-dm-accent-2)'
-            }}
-          >
-            {strings.recommended}
-          </span>
-        ) : null}
       </div>
 
       <div className="flex flex-col gap-2">
         {assets.map((a) => {
           const vLabel = verificationLabel(a.verification, strings)
-          const parenMatch = a.label.match(/^(.+?)\s*\((.+)\)\s*$/)
+          const parenMatch = a.label.match(INSTALLER_LABEL_WITH_SUBTITLE)
           const labelMain = parenMatch ? parenMatch[1] : a.label
           const labelSub = parenMatch ? parenMatch[2] : null
           return (
