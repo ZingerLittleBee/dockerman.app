@@ -22,6 +22,7 @@ describe('PlatformCard', () => {
     )
 
     expect(markup).toContain('recommended')
+    expect(markup).toContain('ml-auto')
     expect(markup).toContain('normal-case')
     expect(markup).not.toContain('uppercase')
   })

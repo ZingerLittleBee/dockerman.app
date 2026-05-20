@@ -71,11 +71,13 @@ export function PlatformCard({
           {icon}
         </div>
         <div className="min-w-0">
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-            <div className="font-bold text-[20px] text-dm-ink tracking-[-0.02em]">{title}</div>
+          <div className="flex min-w-0 flex-wrap items-start gap-x-3 gap-y-2">
+            <div className="min-w-0 font-bold text-[20px] text-dm-ink tracking-[-0.02em]">
+              {title}
+            </div>
             {featured ? (
               <span
-                className="inline-flex max-w-full shrink-0 items-center justify-center whitespace-nowrap rounded-full px-2.5 py-[3px] text-center font-[var(--font-dm-mono)] font-semibold text-[10.5px] normal-case leading-none tracking-normal"
+                className="ml-auto inline-flex max-w-full shrink-0 items-center justify-center whitespace-nowrap rounded-full px-2.5 py-[3px] text-center font-[var(--font-dm-mono)] font-semibold text-[10.5px] normal-case leading-none tracking-normal"
                 style={{
                   background: 'color-mix(in srgb, var(--color-dm-accent-2) 14%, transparent)',
                   color: 'var(--color-dm-accent-2)'
