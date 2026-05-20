@@ -3,6 +3,8 @@ import type { ChangelogBlock, ChangelogEntryData, ChangelogSection } from '@/lib
 import { ChangelogCallout } from './ChangelogCallout'
 import { ChangelogFigure } from './ChangelogFigure'
 
+const DIGIT_PATTERN = /\d/
+
 interface ChangelogTimelineProps {
   entries: ChangelogEntryData[]
   locale: Locale
@@ -42,7 +44,11 @@ function ReleaseArticle({
   // Extract major version for the circle badge: "5.1.0" -> "5".
   const major = entry.version.split('.')[0] ?? ''
   return (
-    <article className="scroll-mt-[100px]" id={entry.id}>
+    <article
+      className="scroll-mt-[100px] [contain-intrinsic-size:900px] [content-visibility:auto]"
+      data-changelog-entry={entry.id}
+      id={entry.id}
+    >
       <div className="mb-5 flex flex-wrap items-center gap-3 font-[var(--font-dm-mono)] text-[12px]">
         <VersionPill highlighted={isLatest} major={major} version={entry.version} />
         <span className="text-dm-ink-3">{entry.date}</span>
@@ -132,7 +138,7 @@ function TitleMaybeAccent({ title }: { title: string }) {
   for (let idx = 0; idx < title.length; idx++) {
     if (title[idx] !== '.') continue
     const prev = title[idx - 1] ?? ''
-    if (/\d/.test(prev)) continue
+    if (DIGIT_PATTERN.test(prev)) continue
     if (idx === title.length - 1) continue
     const tail = title.slice(idx + 1).trim()
     if (tail.length === 0) continue

@@ -28,6 +28,11 @@ describe('ChangelogTimeline', () => {
     expect(markup).toContain('Version 4.7.0')
   })
 
+  test('marks entries as DOM-filterable without hydrating the timeline', () => {
+    const markup = renderToStaticMarkup(<ChangelogTimeline entries={[entry]} locale="zh" />)
+    expect(markup).toContain('data-changelog-entry="release-v4-7-0"')
+  })
+
   test('renders v<version> in the header', () => {
     const markup = renderToStaticMarkup(<ChangelogTimeline entries={[entry]} locale="zh" />)
     expect(markup).toContain('v4.7.0')

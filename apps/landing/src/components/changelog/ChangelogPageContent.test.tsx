@@ -24,6 +24,8 @@ const entry: ChangelogEntryData = {
 const copy = {
   badge: '更新日志',
   description: '关注产品更新。',
+  searchAriaLabel: '搜索更新日志',
+  searchPlaceholder: '搜索版本、功能、修复...',
   title: '产品更新'
 }
 

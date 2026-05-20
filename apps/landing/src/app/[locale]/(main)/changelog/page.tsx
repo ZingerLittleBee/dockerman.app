@@ -45,6 +45,8 @@ export default async function ChangelogPage({ params }: { params: Promise<{ loca
         copy={{
           badge: t('changelog.badge'),
           description: t('changelog.description'),
+          searchAriaLabel: t('changelog.search.ariaLabel'),
+          searchPlaceholder: t('changelog.search.placeholder'),
           title: t('changelog.title')
         }}
         entries={entries}

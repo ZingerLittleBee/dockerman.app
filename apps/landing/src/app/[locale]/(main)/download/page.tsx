@@ -1,7 +1,6 @@
 import type { Locale } from '@repo/shared/i18n'
 import { getTranslation } from '@repo/shared/i18n/server'
 import type { Metadata } from 'next'
-import { headers } from 'next/headers'
 import { siteConfig } from '@/app/siteConfig'
 import { DownloadHero } from '@/components/download/DownloadHero'
 import { HomebrewBlock } from '@/components/download/HomebrewBlock'
@@ -11,6 +10,14 @@ import { ReleasesTable } from '@/components/download/ReleasesTable'
 import { CtaFinal } from '@/components/landing/CtaFinal'
 import { downloadsConfig } from '@/config/downloads'
 import { buildAlternates } from '@/lib/seo'
+
+export const dynamic = 'error'
+
+type PlatformId = 'macos' | 'windows' | 'linux'
+
+function getFeaturedPlatform(): PlatformId {
+  return 'macos'
+}
 
 export async function generateMetadata({
   params
@@ -48,20 +55,11 @@ const LinuxIcon = (
   </svg>
 )
 
-async function detectPlatform(): Promise<'macos' | 'windows' | 'linux'> {
-  const h = await headers()
-  const ua = h.get('user-agent') ?? ''
-  if (/Windows/i.test(ua)) return 'windows'
-  if (/Mac OS X|Macintosh|iPhone|iPad/i.test(ua)) return 'macos'
-  if (/Linux/i.test(ua) && !/Android/i.test(ua)) return 'linux'
-  return 'macos'
-}
-
 export default async function DownloadPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   const l = locale as Locale
   const { t } = await getTranslation(l)
-  const resolveAssets = (platform: 'macos' | 'windows' | 'linux') =>
+  const resolveAssets = (platform: PlatformId) =>
     downloadsConfig.latest.installers[platform].map((a) => ({
       filename: a.filename,
       label: t(a.labelKey),
@@ -78,7 +76,7 @@ export default async function DownloadPage({ params }: { params: Promise<{ local
     appleNotarized: t('download.verification.appleNotarized'),
     tauriSig: t('download.verification.tauriSig')
   }
-  const detectedPlatform = await detectPlatform()
+  const featuredPlatform = getFeaturedPlatform()
 
   return (
     <main>
@@ -91,7 +89,7 @@ export default async function DownloadPage({ params }: { params: Promise<{ local
               className="font-[var(--font-dm-mono)] text-[12px] tracking-[0.04em]"
               style={{ color: 'var(--color-dm-accent-2)' }}
             >
-              <span className="text-dm-ink-4">// </span>
+              <span className="text-dm-ink-4">{'// '}</span>
               {t('download.platforms.kicker')}
             </div>
             <h2 className="mx-0 mt-[10px] mb-3 font-bold text-[clamp(28px,3.6vw,40px)] text-dm-ink leading-[1.05] tracking-[-0.03em]">
@@ -113,7 +111,7 @@ export default async function DownloadPage({ params }: { params: Promise<{ local
           <div className="grid grid-cols-1 gap-[14px] md:grid-cols-2 lg:grid-cols-3">
             <PlatformCard
               assets={installers.macos}
-              featured={detectedPlatform === 'macos'}
+              featured={featuredPlatform === 'macos'}
               icon={MacIcon}
               minSpec={t('download.platforms.macos.minSpec')}
               strings={platformStrings}
@@ -121,7 +119,7 @@ export default async function DownloadPage({ params }: { params: Promise<{ local
             />
             <PlatformCard
               assets={installers.windows}
-              featured={detectedPlatform === 'windows'}
+              featured={featuredPlatform === 'windows'}
               icon={WindowsIcon}
               minSpec={t('download.platforms.windows.minSpec')}
               strings={platformStrings}
@@ -129,7 +127,7 @@ export default async function DownloadPage({ params }: { params: Promise<{ local
             />
             <PlatformCard
               assets={installers.linux}
-              featured={detectedPlatform === 'linux'}
+              featured={featuredPlatform === 'linux'}
               icon={LinuxIcon}
               minSpec={t('download.platforms.linux.minSpec')}
               strings={platformStrings}
