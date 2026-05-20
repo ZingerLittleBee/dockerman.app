@@ -1,12 +1,44 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import type { ChangelogEntryData } from '@/lib/changelog'
+
+interface ChangelogFilterDetail {
+  visibleIds: string[]
+}
+
+function isChangelogFilterEvent(event: Event): event is CustomEvent<ChangelogFilterDetail> {
+  return event instanceof CustomEvent && Array.isArray(event.detail?.visibleIds)
+}
 
 export function ChangelogToc({ entries }: { entries: ChangelogEntryData[] }) {
   const [active, setActive] = useState(entries[0]?.id ?? '')
+  const [visibleIds, setVisibleIds] = useState<string[] | null>(null)
   const navRef = useRef<HTMLElement | null>(null)
+  const visibleEntries = useMemo(() => {
+    if (!visibleIds) return entries
+    return entries.filter((entry) => visibleIds.includes(entry.id))
+  }, [entries, visibleIds])
+
+  useEffect(() => {
+    const onFiltered = (event: Event) => {
+      if (!isChangelogFilterEvent(event)) return
+      setVisibleIds(event.detail.visibleIds)
+    }
+    window.addEventListener('changelog:filtered', onFiltered)
+    return () => window.removeEventListener('changelog:filtered', onFiltered)
+  }, [])
+
+  useEffect(() => {
+    if (visibleEntries.length === 0) {
+      setActive('')
+      return
+    }
+    if (!visibleEntries.some((entry) => entry.id === active)) {
+      setActive(visibleEntries[0]?.id ?? '')
+    }
+  }, [active, visibleEntries])
 
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -19,12 +51,12 @@ export function ChangelogToc({ entries }: { entries: ChangelogEntryData[] }) {
       },
       { rootMargin: '-20% 0px -60% 0px' }
     )
-    for (const e of entries) {
+    for (const e of visibleEntries) {
       const el = document.getElementById(e.id)
       if (el) obs.observe(el)
     }
     return () => obs.disconnect()
-  }, [entries])
+  }, [visibleEntries])
 
   // Keep the active entry inside the nav's own scroll viewport so long
   // release lists don't leave the current version off-screen.
@@ -54,7 +86,7 @@ export function ChangelogToc({ entries }: { entries: ChangelogEntryData[] }) {
       ref={navRef}
     >
       <ul className="m-0 list-none border-dm-line border-l p-0">
-        {entries.map((e) => {
+        {visibleEntries.map((e) => {
           const isActive = active === e.id
           return (
             <li key={e.id}>

@@ -1,42 +1,26 @@
-'use client'
-
 import type { Locale } from '@repo/shared/i18n'
-import { useMemo, useState } from 'react'
 import type { ChangelogEntryData } from '@/lib/changelog'
 import { ChangelogSearch } from './ChangelogSearch'
 import { ChangelogTimeline } from './ChangelogTimeline'
 import { ChangelogToc } from './ChangelogToc'
 
 interface Props {
-  copy: { badge: string; title: string; description: string }
+  copy: {
+    badge: string
+    title: string
+    description: string
+    searchAriaLabel: string
+    searchPlaceholder: string
+  }
   entries: ChangelogEntryData[]
   locale: Locale
 }
 
 export default function ChangelogPageContent({ copy, entries, locale }: Props) {
-  const [query, setQuery] = useState('')
-
-  const filtered = useMemo(() => {
-    if (!query) return entries
-    return entries.filter((e) => {
-      const hay = [
-        e.version,
-        e.title,
-        e.summary,
-        ...e.sections.flatMap((s) => s.items.map((i) => i.content))
-      ]
-        .join(' ')
-        .toLowerCase()
-      return hay.includes(query)
-    })
-  }, [entries, query])
-
   return (
     <>
-      {/* page-head: kicker + italic-accent title + sub + toolbar */}
       <section className="relative overflow-hidden px-5 pt-12 pb-6 sm:px-8 sm:pt-16 sm:pb-7">
         <div className="mx-auto max-w-[1280px]">
-          {/* kicker */}
           <span className="inline-flex items-center gap-2 rounded-full border border-dm-line-strong bg-dm-bg-elev px-[11px] py-[5px] font-[var(--font-dm-mono)] text-[11.5px] text-dm-ink-2 tracking-[0.02em]">
             <span
               className="h-[6px] w-[6px] rounded-full"
@@ -56,9 +40,11 @@ export default function ChangelogPageContent({ copy, entries, locale }: Props) {
             {copy.description}
           </p>
 
-          {/* toolbar */}
           <div className="mt-7 flex flex-wrap items-center gap-[10px] border-dm-line border-b pb-7">
-            <ChangelogSearch locale={locale} onQuery={setQuery} />
+            <ChangelogSearch
+              ariaLabel={copy.searchAriaLabel}
+              placeholder={copy.searchPlaceholder}
+            />
             <a
               className="ml-auto inline-flex items-center gap-[6px] rounded-[8px] border border-dm-line bg-dm-bg-elev px-[10px] py-2 font-[var(--font-dm-mono)] text-[12px] text-dm-ink-3 no-underline hover:border-[var(--color-dm-warn)] hover:text-[var(--color-dm-warn)]"
               href={`/api/changelog/rss?locale=${locale}`}
@@ -80,7 +66,6 @@ export default function ChangelogPageContent({ copy, entries, locale }: Props) {
         </div>
       </section>
 
-      {/* Layout: 220px TOC + releases */}
       <section className="px-5 pb-16 sm:px-8 sm:pb-20">
         <div className="mx-auto max-w-[1280px]">
           <div className="grid gap-6 pt-8 md:grid-cols-[240px_minmax(0,1fr)] md:gap-[80px]">
@@ -88,9 +73,9 @@ export default function ChangelogPageContent({ copy, entries, locale }: Props) {
               <div className="mb-[14px] pl-[14px] font-[var(--font-dm-mono)] text-[11px] text-dm-ink-4 uppercase tracking-[0.08em]">
                 Releases
               </div>
-              <ChangelogToc entries={filtered} />
+              <ChangelogToc entries={entries} />
             </aside>
-            <ChangelogTimeline entries={filtered} locale={locale} />
+            <ChangelogTimeline entries={entries} locale={locale} />
           </div>
         </div>
       </section>
@@ -98,10 +83,6 @@ export default function ChangelogPageContent({ copy, entries, locale }: Props) {
   )
 }
 
-/**
- * Best-effort: render the portion after a comma in italic-serif accent.
- * Original design uses "Every commit, <em>in plain English.</em>".
- */
 function TitleWithAccent({ title }: { title: string }) {
   const idx = title.indexOf(',')
   if (idx === -1) return <>{title}</>

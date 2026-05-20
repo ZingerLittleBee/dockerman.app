@@ -1,6 +1,6 @@
-import posthog from 'posthog-js'
+const initPostHog = async () => {
+  const { default: posthog } = await import('posthog-js')
 
-const initPostHog = () => {
   posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
     api_host: '/ingest',
     ui_host: process.env.NEXT_PUBLIC_POSTHOG_HOST,
