@@ -12,7 +12,7 @@
     "closeMenu": "メニューを閉じる"
   },
   "hero": {
-    "eyebrow": "v{{version}} — Windows CLI コピーコマンドの PATH 安全化、ユーザー PATH を破壊しない、手動インストールに所有マーカー",
+    "eyebrow": "v{{version}} — ワンクリックテンプレートのアプリマーケット、SSH 限定ホストへのデプロイ、コンテナポートのインライン編集",
     "eyebrowTag": "NEW",
     "headline1Lead": "Docker を",
     "headline1Accent": "ローカルに",

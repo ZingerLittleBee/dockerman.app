@@ -12,7 +12,7 @@
     "closeMenu": "Close menu"
   },
   "hero": {
-    "eyebrow": "v{{version}} — Safer Windows CLI copy command, no User PATH overwrites, ownership marker on manual installs",
+    "eyebrow": "v{{version}} — App Marketplace with one-click templates, deploy to SSH-only hosts, edit container ports inline",
     "eyebrowTag": "NEW",
     "headline1Lead": "Docker that feels",
     "headline1Accent": "local",

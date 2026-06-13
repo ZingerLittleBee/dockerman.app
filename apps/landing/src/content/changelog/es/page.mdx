@@ -1,3 +1,38 @@
+<ChangelogEntry version="v5.4.0" date="13 de junio de 2026">
+## Marketplace de apps, despliegues en hosts SSH y edición de puertos en línea
+
+Esta versión presenta un Marketplace de apps completo para explorar e instalar plantillas de un clic, permite desplegar y gestionar apps en hosts remotos accesibles solo por SSH y añade la edición en línea de los mapeos de puertos de un contenedor en ejecución, además de descargas de plantillas más seguras y estadísticas de contenedor en streaming.
+
+### ✨ Funcionalidades
+
+- 🛍️ <Bold>Marketplace de apps:</Bold> Explora e instala apps desde un catálogo de plantillas de un clic y gestiona después todo lo que has instalado
+  - 🌐 Fuentes de apps de código abierto: Incluye las fuentes Portainer Community Templates (sincronización automática) y CasaOS App Store (sincronización bajo demanda), y puedes añadir las tuyas
+  - 🗃️ Importar desde tiendas existentes: Instala apps desde repos de docker-compose (estilo Dockge), CasaOS y plantillas de Portainer, desplegadas con sus archivos compose originales
+  - 🛡️ Comprobaciones de seguridad antes de desplegar: Las apps que necesitan acceso elevado (modo privilegiado, el socket de Docker, red del host y similares) se marcan y piden confirmación antes de instalar
+  - 🧩 Configura antes de instalar: Edita las variables, variables de entorno, puertos y la ubicación de datos de una plantilla, y añade tus propias variables de entorno cuando una plantilla no las incluya
+  - 🗂️ Detalles completos: Consulta la imagen, los puertos, los volúmenes, la red, la política de reinicio, la fuente y un enlace al repositorio de una app antes de instalar, e inspecciona las apps instaladas hasta sus archivos compose
+- 🔐 <Bold>Desplegar en hosts SSH:</Bold> Instala y gestiona apps en hosts remotos accesibles solo por SSH
+- 🔌 <Bold>Editar puertos del contenedor:</Bold> Añade, cambia y elimina en línea los mapeos de puertos de un contenedor en ejecución
+
+### 🔧 Mejoras
+
+- 🔒 <Bold>Descargas de plantillas más seguras:</Bold> Las fuentes de plantillas no pueden usarse para alcanzar direcciones de red internas o privadas, y las descargas tienen un límite de tamaño
+- 📡 <Bold>Progreso de sincronización en vivo:</Bold> Observa el progreso de descarga e importación mientras se sincroniza una fuente de plantillas
+- 📍 <Bold>Valores por defecto de despliegue más inteligentes:</Bold> La ubicación de datos se rellena previamente por host y la página salta a tus apps instaladas en cuanto finaliza un despliegue
+- 📊 <Bold>Estadísticas en streaming:</Bold> Las estadísticas del contenedor se transmiten por una conexión persistente para reducir la sobrecarga
+
+### 🐛 Corrección de errores
+
+- 🪟 <Bold>Empaquetado del CLI en Windows y Linux:</Bold> Se corrigieron las rutas del CLI `dockerman` empaquetado en el instalador de Windows y en el paquete de Linux
+- 🔐 <Bold>Gestión de confianza SSH:</Bold> Se corrigió cómo se transmite la confianza de la clave del host SSH y se cerraron rutas de reenvío no confiables
+- 🧹 <Bold>Fiabilidad de las apps:</Bold> Se gestionan las condiciones de carrera al cambiar de host, se conservan los registros cuando falla la limpieza y se identifican correctamente los volúmenes gestionados
+
+### ⚠️ Notas
+
+- 🔁 <Bold>Apps de Portainer de compilaciones de prueba anteriores:</Bold> Las plantillas de Portainer ahora usan IDs basados en nombre en lugar de basados en posición. Si instalaste una app de Portainer desde una compilación de prueba previa, no coincidirá con el nuevo catálogo: desinstálala y vuelve a instalarla para restaurar las actualizaciones y los redespliegues.
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v5.3.1" date="12 de mayo de 2026">
 ## Comando de copia CLI más seguro en Windows
 
