@@ -1,3 +1,38 @@
+<ChangelogEntry version="v5.4.0" date="Jun 13, 2026">
+## App Marketplace, SSH Host Deploys & Inline Port Editing
+
+This release introduces a full App Marketplace for browsing and installing one-click app templates, lets you deploy and manage apps on SSH-only remote hosts, and adds inline editing of a running container's port mappings — plus safer template downloads and streaming container stats.
+
+### ✨ Features
+
+- 🛍️ <Bold>App Marketplace:</Bold> Browse and install apps from a catalog of one-click templates, then manage everything you've installed
+  - 🌐 Open-Source App Sources: Comes with the Portainer Community Templates (auto-synced) and CasaOS App Store (synced on demand) sources, and you can add your own
+  - 🗃️ Import From Existing Stores: Install apps from docker-compose repos (Dockge-style), CasaOS, and Portainer templates — deployed using their original compose files
+  - 🛡️ Safety Checks Before Deploy: Apps that need elevated access (privileged mode, the Docker socket, host networking, and similar) are flagged and ask you to confirm before installing
+  - 🧩 Configure Before You Install: Edit a template's variables, environment variables, ports, and data location — and add your own environment variables when a template doesn't include one
+  - 🗂️ Rich Details: See an app's image, ports, volumes, network, restart policy, source, and a link to its repository before installing, and inspect installed apps down to their compose files
+- 🔐 <Bold>Deploy to SSH Hosts:</Bold> Install and manage apps on remote hosts reachable only over SSH
+- 🔌 <Bold>Edit Container Ports:</Bold> Add, change, and remove a running container's port mappings inline
+
+### 🔧 Improvements
+
+- 🔒 <Bold>Safer Template Downloads:</Bold> Template sources can't be used to reach internal or private network addresses, and downloads are size-limited
+- 📡 <Bold>Live Sync Progress:</Bold> Watch download and import progress while a template source syncs
+- 📍 <Bold>Smarter Deploy Defaults:</Bold> The data location is prefilled per host, and the page jumps to your installed apps once a deploy finishes
+- 📊 <Bold>Streaming Stats:</Bold> Container stats stream over a persistent connection for lower overhead
+
+### 🐛 Bug Fixes
+
+- 🪟 <Bold>Windows & Linux CLI Bundling:</Bold> Fixed the bundled `dockerman` CLI paths in the Windows installer and the Linux package
+- 🔐 <Bold>SSH Trust Handling:</Bold> Fixed how SSH host-key trust is passed through, and closed untrusted forwarding paths
+- 🧹 <Bold>App Reliability:</Bold> Handle host-switching races, keep records when cleanup fails, and correctly identify managed volumes
+
+### ⚠️ Notes
+
+- 🔁 <Bold>Portainer Apps From Earlier Test Builds:</Bold> Portainer templates now use name-based IDs instead of position-based ones. If you installed a Portainer app from a pre-release build, it won't match the new catalog — uninstall and reinstall it to restore updates and redeploys.
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v5.3.1" date="May 12, 2026">
 ## Safer Windows CLI Copy Command
 

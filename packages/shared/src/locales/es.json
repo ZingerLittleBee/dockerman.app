@@ -12,7 +12,7 @@
     "closeMenu": "Cerrar menú"
   },
   "hero": {
-    "eyebrow": "v{{version}} — Comando de copia CLI más seguro en Windows, sin sobrescribir el PATH de usuario, marcador de propiedad en instalaciones manuales",
+    "eyebrow": "v{{version}} — Marketplace de apps con plantillas de un clic, despliegue a hosts solo por SSH, edición de puertos de contenedor en línea",
     "eyebrowTag": "NUEVO",
     "headline1Lead": "Docker que se siente",
     "headline1Accent": "local",

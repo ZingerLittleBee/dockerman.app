@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | [🇨🇳 简体中文](./README.zh-CN.md) | [🇯🇵 日本語](./README.ja.md) | 🇪🇸 Español
 
-[![Version](https://img.shields.io/badge/version-v5.3.1-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.3.1)
-[![Release Date](https://img.shields.io/badge/release%20date-May%2012%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.3.1)
+[![Version](https://img.shields.io/badge/version-v5.4.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.4.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Jun%2013%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.4.0)
 
 Una UI de escritorio nativa para gestionar Docker **y** Kubernetes — construida con Tauri + Rust. Arranque rápido, ligera en recursos y completamente local: nada sale de tu máquina.
 
@@ -12,6 +12,7 @@ Una UI de escritorio nativa para gestionar Docker **y** Kubernetes — construid
 
 ## Lo más destacado
 
+- 🛍️ **Marketplace de apps** — instala plantillas de un clic desde fuentes Portainer y CasaOS, con comprobaciones de seguridad y configuración previa
 - 🐳 **Contenedores e Imágenes** — ciclo de vida completo, soporte Compose, backup/restore (incl. bind mounts), detección de actualizaciones
 - ☸️ **Kubernetes** — multi-cluster, recursos principales, Helm, port forwarding, editor YAML con dry-run
 - 🖥️ **Herramientas integradas** — terminal, visor de logs con búsqueda, historial de CPU/memoria, navegador de archivos con edición
@@ -30,6 +31,7 @@ Gestiona todo desde un solo lugar sin tener que recurrir a la terminal:
 - Terminal con temas, lista de procesos y un navegador de archivos con edición in situ, vistas previas (texto/código/imágenes/PDF/vídeo) y subida/descarga de carpetas
 - Backup y restore del contenedor completo — configuración, sistema de archivos, volúmenes y bind mounts soportados
 - Build de imágenes (Dockerfile o comando parseado), push a registries privados, búsqueda en Docker Hub, escaneo de seguridad Trivy y análisis por capas
+- Edita en línea los mapeos de puertos de un contenedor en ejecución: añade, cambia y elimina puertos publicados sin recrearlo desde cero
 - Vigilancia de actualizaciones de imagen en segundo plano con suscripciones por canal, resolutor de credenciales y deep links `dockerman://`
 
 ![Logs de contenedor](apps/landing/public/screenshots/readme/logs.png)
@@ -54,6 +56,7 @@ Gestión de cluster equivalente a `kubectl`, pero visual:
 - **Podman** — runtime detectado automáticamente con preferencia por host y feature gating para flujos solo-Compose
 - **Motor WSL2 en Windows** — sin Docker Desktop; setup Alpine en un clic con recuperación ante caídas, mirrors de registry, reinstalación y un conmutador en Ajustes entre el motor WSL2 y Docker nativo del sistema
 - **Daemons remotos** — socket personalizado, TCP o SSH forwarding con reconexión por heartbeat y latencia por host
+- **Despliegue en hosts SSH** — instala y gestiona apps en hosts remotos accesibles solo por SSH
 
 ## Operación y experiencia
 

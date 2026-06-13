@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | [🇨🇳 简体中文](./README.zh-CN.md) | 🇯🇵 日本語 | [🇪🇸 Español](./README.es.md)
 
-[![Version](https://img.shields.io/badge/version-v5.3.1-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.3.1)
-[![Release Date](https://img.shields.io/badge/release%20date-May%2012%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.3.1)
+[![Version](https://img.shields.io/badge/version-v5.4.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.4.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Jun%2013%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.4.0)
 
 Docker **と** Kubernetes をまとめて管理できるネイティブデスクトップ UI。Tauri + Rust 製で、起動が速く、軽量、完全ローカル動作――データはマシンの外に出ません。
 
@@ -12,6 +12,7 @@ Docker **と** Kubernetes をまとめて管理できるネイティブデスク
 
 ## ハイライト
 
+- 🛍️ **アプリマーケット** — Portainer・CasaOS ソースからワンクリックでアプリテンプレートをインストール、安全チェックとインストール前の設定付き
 - 🐳 **コンテナ・イメージ** — フルライフサイクル、Compose 対応、バックアップ／リストア（bind マウント含む）、アップグレード検出
 - ☸️ **Kubernetes** — マルチクラスタ、主要リソース、Helm、ポートフォワード、dry-run 付き YAML エディタ
 - 🖥️ **組み込みツール** — ターミナル、検索可能なログビューア、CPU/メモリ履歴、編集可能なファイルブラウザ
@@ -30,6 +31,7 @@ Docker **と** Kubernetes をまとめて管理できるネイティブデスク
 - テーマ可能なターミナル、プロセス一覧、ファイルブラウザ（インライン編集、テキスト/コード/画像/PDF/動画プレビュー、フォルダ アップロード/ダウンロード）
 - 設定、ファイルシステム、ボリューム、対応する bind マウントまでまとめてバックアップ・リストア
 - イメージビルド（Dockerfile またはコマンド解析）、プライベートレジストリへの push、Docker Hub 検索、Trivy セキュリティスキャン、レイヤサイズ分析
+- 実行中コンテナのポートマッピングをインライン編集——再作成せずに公開ポートを追加・変更・削除
 - バックグラウンドのイメージ更新監視、チャネル単位の購読、レジストリ資格情報リゾルバ、`dockerman://` ディープリンク
 
 ![コンテナログ](apps/landing/public/screenshots/readme/logs.png)
@@ -54,6 +56,7 @@ Docker **と** Kubernetes をまとめて管理できるネイティブデスク
 - **Podman** — ランタイム自動検出、ホスト単位の優先設定、Compose 系操作の機能ゲート
 - **Windows の WSL2 エンジン** — Docker Desktop 不要、Alpine をワンクリックでセットアップ、クラッシュ自動復旧、レジストリミラー、再インストールに対応。設定から WSL2 エンジンと OS ネイティブ Docker を切替可能
 - **リモートデーモン** — カスタム socket、TCP、SSH 転送、ハートビート再接続とホスト別レイテンシ表示
+- **SSH ホストへのデプロイ** — SSH 経由でのみ到達できるリモートホスト上でアプリをインストール・管理
 
 ## 運用と使い心地
 
