@@ -12,7 +12,7 @@
     "closeMenu": "Close menu"
   },
   "hero": {
-    "eyebrow": "v{{version}} — App Marketplace with one-click templates, deploy to SSH-only hosts, edit container ports inline",
+    "eyebrow": "v{{version}} — End-to-end Kubernetes management, live container triage, sharper search everywhere",
     "eyebrowTag": "NEW",
     "headline1Lead": "Docker that feels",
     "headline1Accent": "local",

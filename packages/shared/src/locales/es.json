@@ -12,7 +12,7 @@
     "closeMenu": "Cerrar menú"
   },
   "hero": {
-    "eyebrow": "v{{version}} — Marketplace de apps con plantillas de un clic, despliegue a hosts solo por SSH, edición de puertos de contenedor en línea",
+    "eyebrow": "v{{version}} — Gestión de Kubernetes de extremo a extremo, triaje de contenedores en vivo, búsqueda más precisa",
     "eyebrowTag": "NUEVO",
     "headline1Lead": "Docker que se siente",
     "headline1Accent": "local",

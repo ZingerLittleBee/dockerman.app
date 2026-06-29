@@ -12,7 +12,7 @@
     "closeMenu": "メニューを閉じる"
   },
   "hero": {
-    "eyebrow": "v{{version}} — ワンクリックテンプレートのアプリマーケット、SSH 限定ホストへのデプロイ、コンテナポートのインライン編集",
+    "eyebrow": "v{{version}} — エンドツーエンドの Kubernetes 管理、リアルタイムなコンテナ診断、より鋭い検索",
     "eyebrowTag": "NEW",
     "headline1Lead": "Docker を",
     "headline1Accent": "ローカルに",
