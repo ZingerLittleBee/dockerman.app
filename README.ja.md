@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | [🇨🇳 简体中文](./README.zh-CN.md) | 🇯🇵 日本語 | [🇪🇸 Español](./README.es.md)
 
-[![Version](https://img.shields.io/badge/version-v5.4.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.4.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Jun%2013%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.4.0)
+[![Version](https://img.shields.io/badge/version-v5.5.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.5.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Jun%2030%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.5.0)
 
 Docker **と** Kubernetes をまとめて管理できるネイティブデスクトップ UI。Tauri + Rust 製で、起動が速く、軽量、完全ローカル動作――データはマシンの外に出ません。
 
@@ -14,7 +14,8 @@ Docker **と** Kubernetes をまとめて管理できるネイティブデスク
 
 - 🛍️ **アプリマーケット** — Portainer・CasaOS ソースからワンクリックでアプリテンプレートをインストール、安全チェックとインストール前の設定付き
 - 🐳 **コンテナ・イメージ** — フルライフサイクル、Compose 対応、バックアップ／リストア（bind マウント含む）、アップグレード検出
-- ☸️ **Kubernetes** — マルチクラスタ、主要リソース、Helm、ポートフォワード、dry-run 付き YAML エディタ
+- ☸️ **エンドツーエンドの Kubernetes** — マルチクラスタ、HPA/クォータ/CRD と主要リソース、確認付きのワークロード操作、Helm、ポートフォワード、RBAC、イベント、あらゆる場所の YAML
+- 🩺 **リアルタイムなコンテナ診断** — 失敗したコンテナの最近のログ、ヘルスチェック失敗、終了診断、異常イベントの表示
 - 🖥️ **組み込みツール** — ターミナル、検索可能なログビューア、CPU/メモリ履歴、編集可能なファイルブラウザ
 - 🔔 **イメージ更新監視** — バックグラウンド購読サービスでアップデートを通知
 - ☁️ **Cloudflared トンネル** — ワンクリックで公開 URL、自動クリーンアップ

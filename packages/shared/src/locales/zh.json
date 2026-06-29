@@ -12,7 +12,7 @@
     "closeMenu": "关闭菜单"
   },
   "hero": {
-    "eyebrow": "v{{version}} — 应用市场一键安装模板、部署到仅 SSH 主机、就地编辑容器端口",
+    "eyebrow": "v{{version}} — 端到端 Kubernetes 管理、实时容器排障、更精准的搜索",
     "eyebrowTag": "新",
     "headline1Lead": "Docker，用起来像",
     "headline1Accent": "本地",

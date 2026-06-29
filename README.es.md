@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | [🇨🇳 简体中文](./README.zh-CN.md) | [🇯🇵 日本語](./README.ja.md) | 🇪🇸 Español
 
-[![Version](https://img.shields.io/badge/version-v5.4.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.4.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Jun%2013%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.4.0)
+[![Version](https://img.shields.io/badge/version-v5.5.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.5.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Jun%2030%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.5.0)
 
 Una UI de escritorio nativa para gestionar Docker **y** Kubernetes — construida con Tauri + Rust. Arranque rápido, ligera en recursos y completamente local: nada sale de tu máquina.
 
@@ -14,7 +14,8 @@ Una UI de escritorio nativa para gestionar Docker **y** Kubernetes — construid
 
 - 🛍️ **Marketplace de apps** — instala plantillas de un clic desde fuentes Portainer y CasaOS, con comprobaciones de seguridad y configuración previa
 - 🐳 **Contenedores e Imágenes** — ciclo de vida completo, soporte Compose, backup/restore (incl. bind mounts), detección de actualizaciones
-- ☸️ **Kubernetes** — multi-cluster, recursos principales, Helm, port forwarding, editor YAML con dry-run
+- ☸️ **Kubernetes de extremo a extremo** — multi-cluster, HPAs/cuotas/CRDs y recursos principales, operaciones de carga protegidas, Helm, port forwarding, RBAC, eventos y YAML en todas partes
+- 🩺 **Triaje de contenedores en vivo** — logs recientes, fallos de healthcheck, diagnóstico de salida y eventos anómalos para contenedores con fallos
 - 🖥️ **Herramientas integradas** — terminal, visor de logs con búsqueda, historial de CPU/memoria, navegador de archivos con edición
 - 🔔 **Vigilancia de actualizaciones de imagen** — servicio en segundo plano con notificaciones de escritorio
 - ☁️ **Túneles Cloudflared** — URLs públicas en un clic con limpieza automática

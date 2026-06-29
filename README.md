@@ -2,8 +2,8 @@
 
 Language: 🇺🇸 English | [🇨🇳 简体中文](./README.zh-CN.md) | [🇯🇵 日本語](./README.ja.md) | [🇪🇸 Español](./README.es.md)
 
-[![Version](https://img.shields.io/badge/version-v5.4.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.4.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Jun%2013%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.4.0)
+[![Version](https://img.shields.io/badge/version-v5.5.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.5.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Jun%2030%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.5.0)
 
 A native desktop UI for managing Docker **and** Kubernetes — built with Tauri + Rust. Fast to launch, light on resources, and entirely local: nothing leaves your machine.
 
@@ -14,7 +14,8 @@ A native desktop UI for managing Docker **and** Kubernetes — built with Tauri 
 
 - 🛍️ **App Marketplace** — install one-click app templates from Portainer & CasaOS sources, with safety checks and pre-install config
 - 🐳 **Containers & Images** — full lifecycle, Compose support, backup/restore (incl. bind mounts), upgrade detection
-- ☸️ **Kubernetes** — multi-cluster, all major resources, Helm, port forwarding, YAML editor with dry-run
+- ☸️ **Kubernetes, end to end** — multi-cluster, HPAs/quotas/CRDs plus core resources, guarded workload operations, Helm, port forwarding, RBAC, events, and YAML everywhere
+- 🩺 **Live container triage** — recent logs, healthcheck failures, exit diagnostics, and abnormal-event surfacing for failing containers
 - 🖥️ **Built-in tools** — terminal, log viewer with search, CPU/memory history, file browser with editing
 - 🔔 **Image upgrade watch** — background service with desktop notifications when updates land
 - ☁️ **Cloudflared tunnels** — one-click public URLs with auto cleanup

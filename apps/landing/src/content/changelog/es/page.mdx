@@ -1,3 +1,47 @@
+<ChangelogEntry version="v5.5.0" date="30 de junio de 2026">
+## Gestión de Kubernetes de extremo a extremo, triaje de contenedores en vivo y búsqueda más precisa
+
+Esta versión convierte a Kubernetes en una carga de trabajo de primera clase — muchos más recursos, operaciones de carga protegidas, YAML en todas partes, mayor detalle de Pods, port-forwarding, Helm, RBAC, eventos y auto-refresco. También añade triaje de contenedores en vivo, copia con un clic en toda la app, búsqueda más precisa y más herramientas de mantenimiento.
+
+### ✨ Funciones
+
+- ☸️ <Bold>Gestión de Kubernetes de extremo a extremo:</Bold>Dockerman ahora maneja los clústeres como una carga de trabajo de primera clase, no solo un complemento
+  - 🧭 Muchos más recursos: Añade HorizontalPodAutoscalers, ResourceQuotas, LimitRanges, PodDisruptionBudgets, EndpointSlices y CustomResourceDefinitions arbitrarios e instancias, junto a los recursos principales
+  - 🚀 Operaciones de carga: Rollback, pausa/reanudación, reinicio y actualización de imágenes en Deployments; reejecución de Jobs; disparo de CronJobs; ajuste de réplicas de HPA; y drenaje, cordon o acciones sobre Nodes — cada una protegida por una confirmación escrita
+  - 📄 YAML en todas partes: Abre o enlaza casi cualquier recurso a su YAML, copia el comando `kubectl` correspondiente y aplica cambios pegando YAML
+  - 🔭 Detalle de Pods: Detalles de Pod más ricos con razones de estado de contenedor, métricas de recursos, diagnóstico de salida, marcas de requests faltantes y enlaces de un clic a logs, nodos, propietarios e imágenes
+  - 🛰️ Port-forwarding: Selección automática de puerto local, desambiguación de objetivos, apertura de URLs reenviadas y copia de comandos `kubectl port-forward` listos para ejecutar
+  - ⎈ Helm: Elige versiones de chart, visualiza manifiestos de release, valida y copia URLs de repositorio, y haz rollback de releases con confirmación
+  - 🔐 RBAC: Ejecuta comprobaciones can-i, busca bindings por sujeto y revisa resúmenes de reglas
+  - 🔔 Eventos: Filtra por ventana de tiempo y recurso, exporta, enlaza mensajes a los recursos que referencian y resalta advertencias repetidas
+  - 🔎 Búsqueda y navegación: Búsqueda y filtros por recurso, alcances de todos los namespaces, expansión de filas por teclado, atajos de búsqueda de Kubernetes y un espejo Spotlight de la barra lateral de Kubernetes con grupos persistentes
+  - 🔄 Auto-refresco: Las listas de Kubernetes se refrescan solas y se pausan mientras la ventana está oculta
+- 🐳 <Bold>Triaje de contenedores en vivo:</Bold>Abre logs recientes y vistas de triaje para contenedores con fallos, consulta la salida de fallos de healthcheck y el diagnóstico de salida, y muestra eventos anómalos de Docker
+- 📋 <Bold>Copia lo que necesitas:</Bold>Copia con un clic IDs, nombres y referencias de imagen de contenedores, URLs de puertos publicados, IDs de red, puntos de montaje de volúmenes, rutas de montaje de inspect y comandos `docker logs`/inspect
+- 🔍 <Bold>Búsqueda más precisa:</Bold>Busca contenedores por comando, montaje, etiqueta, red y estado con conteos de filtro en vivo; busca metadatos de imágenes, volúmenes y redes; y agrupa y busca stacks de contenedores
+- 🧹 <Bold>Más herramientas de mantenimiento:</Bold>Limpia la caché de build de Docker, crea un contenedor directamente desde una imagen e inicia proyectos Compose detenidos
+
+### 🔧 Mejoras
+
+- 📁 <Bold>Explorador de archivos y logs:</Bold>Navegación accesible por teclado, búsqueda enfocable con atajos y reinicios de estado vacío, filtrado de stream, rutas de archivo copiables y nombres de exportación saneados
+- ⌨️ <Bold>Accesibilidad y nombres:</Bold>Cientos de botones, campos y menús en toda la app ganaron nombres accesibles y soporte de teclado
+- 🌐 <Bold>Localización:</Bold>Etiquetas de estado, marcas de tiempo, rangos de tiempo y controles de búsqueda localizados en las vistas de Docker y Kubernetes en zh/ja/es
+- 🧩 <Bold>Estados deshabilitados más claros:</Bold>Las acciones deshabilitadas — push de imágenes, despliegue de stacks, borrado de redes y volúmenes, creación de alertas y tareas, y más — ahora explican el porqué
+- 🗂️ <Bold>Copias de seguridad:</Bold>Recuerda el directorio de copias, muestra las copias completadas y revisa las copias recientes por contenedor
+- 🪟 <Bold>Pulido de macOS:</Bold>Restaura la ventana principal al reabrir, mantén el icono del Dock visible tras cerrar y compila por defecto en binarios universales
+
+### 🐛 Correcciones
+
+- 🔒 <Bold>Ocultación de secretos:</Bold>Oculta por defecto etiquetas Docker sensibles, secretos en etiquetas de imagen, opciones de Docker y YAML de Secret, y deja de hacer coincidir búsquedas con valores ocultados
+- 🔁 <Bold>Corrección de refresco:</Bold>Espera a los refrescos antes de reportar éxito y refresca las listas tras acciones de ciclo de vida, lote, importación y de fila
+- 🗑️ <Bold>Borrados más seguros:</Bold>Exige confirmación escrita antes de eliminar contenedores y proyectos Compose, omite el borrado por lotes de volúmenes en uso y oculta el borrado de redes gestionadas
+- 🔌 <Bold>Puertos y registros:</Bold>Conserva las IPs de host y los puertos de registro a través de push, tag y enlace, y mantiene intactos los enlaces de puerto restaurados
+- 🖥️ <Bold>Terminal:</Bold>Reconecta sesiones de terminal de Docker y Kubernetes caídas, y evita que las selecciones de terminal y logs secuestren el portapapeles
+- 🧮 <Bold>Ordenación y tasas:</Bold>Ordena numéricamente las columnas de capacidad, tamaño y recuento de referencias, y calcula las tasas de E/S del panel por segundo
+- 🍎 <Bold>Builds:</Bold>Compila por defecto las builds de macOS en binarios universales y firma correctamente los binarios sidecar
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v5.4.0" date="13 de junio de 2026">
 ## Marketplace de apps, despliegues en hosts SSH y edición de puertos en línea
 

@@ -1,3 +1,47 @@
+<ChangelogEntry version="v5.5.0" date="Jun 30, 2026">
+## End-to-End Kubernetes Management, Live Container Triage & Sharper Search
+
+This release makes Kubernetes a first-class workload — many more resources, guarded workload operations, YAML everywhere, deeper Pod insight, port-forwarding, Helm, RBAC, events, and auto-refresh. It also adds live container triage, one-click copy across the app, sharper search, and more maintenance tools.
+
+### ✨ Features
+
+- ☸️ <Bold>Kubernetes management, end to end:</Bold> Dockerman now drives clusters as a first-class workload, not just an add-on
+  - 🧭 Many more resources: Adds HorizontalPodAutoscalers, ResourceQuotas, LimitRanges, PodDisruptionBudgets, EndpointSlices, and arbitrary CustomResourceDefinitions and instances alongside the core resources
+  - 🚀 Workload operations: Roll back, pause/resume, restart, and update images on Deployments; rerun Jobs; trigger CronJobs; tune HPA replicas; and drain, cordon, or act on Nodes — each guarded by a typed confirmation
+  - 📄 YAML everywhere: Open or link almost any resource to its YAML, copy the matching `kubectl` command, and apply changes by pasting YAML
+  - 🔭 Pod insight: Richer pod details with container state reasons, resource metrics, exit diagnostics, missing-request flags, and one-click links to logs, nodes, owners, and images
+  - 🛰️ Port-forwarding: Auto-pick a local port, disambiguate targets, open forwarded URLs, and copy ready-to-run `kubectl port-forward` commands
+  - ⎈ Helm: Pick chart versions, view release manifests, validate and copy repository URLs, and roll back releases with confirmation
+  - 🔐 RBAC: Run can-i checks, search bindings by subject, and review rule summaries
+  - 🔔 Events: Filter by time window and resource, export, link messages to the resources they reference, and highlight repeated warnings
+  - 🔎 Search & navigation: Per-resource search and filters, all-namespace scopes, keyboard row expansion, Kubernetes search hotkeys, and a Spotlight mirror of the Kubernetes sidebar with persistent groups
+  - 🔄 Auto-refresh: Kubernetes lists refresh on their own and pause while the window is hidden
+- 🐳 <Bold>Live container triage:</Bold> Open recent logs and triage views for failing containers, see healthcheck failure output and exit diagnostics, and surface abnormal Docker events
+- 📋 <Bold>Copy what you need:</Bold> One-click copy for container IDs, names, and image references, published port URLs, network IDs, volume mountpoints, inspect mount paths, and `docker logs`/inspect commands
+- 🔍 <Bold>Sharper search:</Bold> Search containers by command, mount, label, network, and status with live filter counts; search image, volume, and network metadata; and group and search container stacks
+- 🧹 <Bold>More maintenance tools:</Bold> Prune the Docker build cache, create a container straight from an image, and start stopped Compose projects
+
+### 🔧 Improvements
+
+- 📁 <Bold>File explorer & logs:</Bold> Keyboard-accessible navigation, focusable search with shortcuts and empty-state resets, stream filtering, copyable file paths, and sanitized export filenames
+- ⌨️ <Bold>Accessibility & naming:</Bold> Hundreds of buttons, inputs, and menus across the app gained accessible names and keyboard support
+- 🌐 <Bold>Localization:</Bold> Localized status labels, timestamps, time ranges, and search controls across Docker and Kubernetes views in zh/ja/es
+- 🧩 <Bold>Clearer disabled states:</Bold> Disabled actions — image push, stack deploy, network and volume delete, alert and task creation, and more — now explain why
+- 🗂️ <Bold>Backups:</Bold> Remember the backup directory, reveal completed backups, and review recent backups per container
+- 🪟 <Bold>macOS polish:</Bold> Restore the main window on reopen, keep the Dock icon visible after close, and default builds to universal binaries
+
+### 🐛 Bug Fixes
+
+- 🔒 <Bold>Secret redaction:</Bold> Redact sensitive Docker labels, image label secrets, Docker options, and Secret YAML by default, and stop matching searches on redacted values
+- 🔁 <Bold>Refresh correctness:</Bold> Wait for refreshes before reporting success, and refresh lists after lifecycle, batch, import, and row actions
+- 🗑️ <Bold>Safer deletes:</Bold> Require typed confirmation before removing containers and Compose projects, skip in-use volume batch deletes, and hide delete for managed networks
+- 🔌 <Bold>Ports & registries:</Bold> Preserve host IPs and registry ports across push, tag, and link, and keep restored port bindings intact
+- 🖥️ <Bold>Terminal:</Bold> Reconnect dropped Docker and Kubernetes terminal sessions, and stop terminal and log selections from hijacking the clipboard
+- 🧮 <Bold>Sorting & rates:</Bold> Sort capacity, size, and ref-count columns numerically, and calculate dashboard I/O rates per second
+- 🍎 <Bold>Builds:</Bold> Default macOS builds to universal binaries and sign sidecar binaries correctly
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v5.4.0" date="Jun 13, 2026">
 ## App Marketplace, SSH Host Deploys & Inline Port Editing
 
