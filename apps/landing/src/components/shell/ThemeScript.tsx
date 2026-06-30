@@ -1,3 +1,5 @@
+import Script from 'next/script'
+
 export function ThemeScript() {
   const script = `
     try {
@@ -8,6 +10,12 @@ export function ThemeScript() {
       document.documentElement.classList.add('dark');
     }
   `
-  // biome-ignore lint/security/noDangerouslySetInnerHtml: inline script required to set theme before hydration to avoid flash
-  return <script dangerouslySetInnerHTML={{ __html: script }} />
+  return (
+    <Script
+      // biome-ignore lint/security/noDangerouslySetInnerHtml: runs before hydration to avoid a theme flash
+      dangerouslySetInnerHTML={{ __html: script }}
+      id="dm-theme-script"
+      strategy="beforeInteractive"
+    />
+  )
 }
