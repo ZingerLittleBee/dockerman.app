@@ -87,7 +87,7 @@ export default async function LocaleLayout({
       i18n={provider(locale)}
       theme={{ defaultTheme: 'dark', enableSystem: false, attribute: 'class' }}
     >
-      <I18nProvider locale={locale}>
+      <I18nProvider>
         <div className={`${geistMono.variable} ${instrumentSerif.variable} contents`}>
           <AnalyticsTracker />
           {children}
