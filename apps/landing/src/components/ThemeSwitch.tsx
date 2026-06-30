@@ -3,7 +3,6 @@
 import * as RadioGroupPrimitives from '@radix-ui/react-radio-group'
 import { RiMoonLine, RiSunLine } from '@remixicon/react'
 import { useTheme } from 'next-themes'
-import type React from 'react'
 import { useSyncExternalStore } from 'react'
 import { applyThemeWithTransition } from '@/lib/theme-transition'
 
@@ -87,16 +86,3 @@ function ThemeSwitch() {
 }
 
 export default ThemeSwitch
-
-// Re-export legacy sub-components in case other callers import them.
-// They're intentionally no-ops that proxy to Radix primitives with
-// minimal styling; update imports to the new default export when
-// possible.
-export const RadioGroup = RadioGroupPrimitives.Root
-export const RadioGroupItem: React.FC<
-  React.ComponentPropsWithoutRef<typeof RadioGroupPrimitives.Item> & { icon?: React.ElementType }
-> = ({ icon: Icon, ...props }) => (
-  <RadioGroupPrimitives.Item {...props}>
-    {Icon ? <Icon className="h-4 w-4" /> : null}
-  </RadioGroupPrimitives.Item>
-)
