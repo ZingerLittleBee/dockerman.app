@@ -11,6 +11,15 @@ import { RuntimeStrip } from '@/components/landing/RuntimeStrip'
 import { JsonLd } from '@/components/seo/JsonLd'
 import { buildAlternates, SITE_URL } from '@/lib/seo'
 
+const ORGANIZATION_LD = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: siteConfig.name,
+  url: SITE_URL,
+  logo: `${SITE_URL}/opengraph-image.png`,
+  sameAs: ['https://github.com/ZingerLittleBee', 'https://twitter.com/zinger_bee']
+}
+
 export async function generateMetadata({
   params
 }: {
@@ -34,15 +43,6 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
   const l = locale as Locale
   const { t } = await getTranslation(l)
   const description = t('meta.home.description')
-
-  const organizationLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: siteConfig.name,
-    url: SITE_URL,
-    logo: `${SITE_URL}/opengraph-image.png`,
-    sameAs: ['https://github.com/ZingerLittleBee', 'https://twitter.com/zinger_bee']
-  }
 
   const websiteLd = {
     '@context': 'https://schema.org',
@@ -74,7 +74,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
 
   return (
     <main>
-      <JsonLd data={[organizationLd, websiteLd, softwareLd]} />
+      <JsonLd data={[ORGANIZATION_LD, websiteLd, softwareLd]} />
       <Hero locale={l} />
       <div className="relative hidden px-5 md:block md:px-8">
         <LiveDashboard locale={l} />

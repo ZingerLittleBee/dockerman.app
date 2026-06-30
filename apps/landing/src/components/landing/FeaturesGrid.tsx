@@ -51,12 +51,36 @@ function SectionHead({ t }: { t: TFn }) {
 /* ------------------------------ feature card primitives ------------------------------ */
 
 type CardShape = 'large' | 'med' | 'tall' | 'wide'
+type IconColor = 'accent' | 'accent-2' | 'accent-warm' | 'ok' | 'err'
+type BadgeState = 'running' | 'paused' | 'stopped'
 
 const SHAPE_CLASSES: Record<CardShape, string> = {
   large: 'md:col-span-4 md:row-span-2',
   med: 'md:col-span-2 md:row-span-1',
   tall: 'md:col-span-2 md:row-span-2',
   wide: 'md:col-span-2 md:row-span-1'
+}
+
+const ICON_BACKGROUND_BY_COLOR: Record<IconColor, string> = {
+  accent: 'color-mix(in srgb, var(--color-dm-accent) 12%, transparent)',
+  'accent-2': 'color-mix(in srgb, var(--color-dm-accent-2) 12%, transparent)',
+  'accent-warm': 'color-mix(in srgb, var(--color-dm-accent-warm) 12%, transparent)',
+  ok: 'color-mix(in srgb, var(--color-dm-ok) 12%, transparent)',
+  err: 'color-mix(in srgb, var(--color-dm-err) 12%, transparent)'
+}
+
+const ICON_FOREGROUND_BY_COLOR: Record<IconColor, string> = {
+  accent: 'var(--color-dm-accent)',
+  'accent-2': 'var(--color-dm-accent-2)',
+  'accent-warm': 'var(--color-dm-accent-warm)',
+  ok: 'var(--color-dm-ok)',
+  err: 'var(--color-dm-err)'
+}
+
+const VIZ_BADGE_BACKGROUND_BY_STATE: Record<BadgeState, string> = {
+  running: 'var(--color-dm-ok)',
+  paused: 'var(--color-dm-warn)',
+  stopped: 'var(--color-dm-ink-4)'
 }
 
 function FeatCard({
@@ -69,32 +93,21 @@ function FeatCard({
 }: {
   shape: CardShape
   icon: React.ReactNode
-  iconColor?: 'accent' | 'accent-2' | 'accent-warm' | 'ok' | 'err'
+  iconColor?: IconColor
   title: string
   children: React.ReactNode
   visual?: React.ReactNode
 }) {
-  const iconBg: Record<string, string> = {
-    accent: 'color-mix(in srgb, var(--color-dm-accent) 12%, transparent)',
-    'accent-2': 'color-mix(in srgb, var(--color-dm-accent-2) 12%, transparent)',
-    'accent-warm': 'color-mix(in srgb, var(--color-dm-accent-warm) 12%, transparent)',
-    ok: 'color-mix(in srgb, var(--color-dm-ok) 12%, transparent)',
-    err: 'color-mix(in srgb, var(--color-dm-err) 12%, transparent)'
-  }
-  const iconFg: Record<string, string> = {
-    accent: 'var(--color-dm-accent)',
-    'accent-2': 'var(--color-dm-accent-2)',
-    'accent-warm': 'var(--color-dm-accent-warm)',
-    ok: 'var(--color-dm-ok)',
-    err: 'var(--color-dm-err)'
-  }
   return (
     <article
       className={`relative flex flex-col overflow-hidden rounded-[14px] border border-dm-line bg-dm-bg-elev p-5 transition-all hover:-translate-y-px hover:border-dm-line-strong sm:p-6 ${SHAPE_CLASSES[shape]}`}
     >
       <div
         className="mb-[14px] grid h-8 w-8 place-items-center rounded-[8px]"
-        style={{ background: iconBg[iconColor], color: iconFg[iconColor] }}
+        style={{
+          background: ICON_BACKGROUND_BY_COLOR[iconColor],
+          color: ICON_FOREGROUND_BY_COLOR[iconColor]
+        }}
       >
         {icon}
       </div>
@@ -230,14 +243,9 @@ function VizBadge({
   opacity = 1
 }: {
   children: React.ReactNode
-  state: 'running' | 'paused' | 'stopped'
+  state: BadgeState
   opacity?: number
 }) {
-  const bg: Record<string, string> = {
-    running: 'var(--color-dm-ok)',
-    paused: 'var(--color-dm-warn)',
-    stopped: 'var(--color-dm-ink-4)'
-  }
   return (
     <span
       className="inline-flex items-center gap-[6px] rounded-md border border-dm-line bg-dm-bg-soft px-2 py-[3px] font-[var(--font-dm-mono)] text-[10.5px] text-dm-ink-2"
@@ -246,7 +254,7 @@ function VizBadge({
       <span
         className="inline-block h-2 w-2 rounded-full"
         style={{
-          background: bg[state],
+          background: VIZ_BADGE_BACKGROUND_BY_STATE[state],
           boxShadow:
             state === 'running'
               ? '0 0 8px color-mix(in srgb, var(--color-dm-ok) 60%, transparent)'
