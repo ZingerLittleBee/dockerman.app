@@ -671,16 +671,6 @@ function Lightbox({
       aria-label={m.label}
       className="fixed inset-0 z-[100] flex cursor-zoom-out items-center justify-center p-10"
       onCancel={onClose}
-      onClick={(e) => {
-        if (e.currentTarget === e.target) {
-          onClose()
-        }
-      }}
-      onKeyDown={(e) => {
-        if (e.key === 'Escape') {
-          onClose()
-        }
-      }}
       open
       style={{ background: 'rgb(0 0 0 / 0.92)' }}
     >
