@@ -2,7 +2,50 @@
 
 import type { Locale } from '@repo/shared/i18n'
 import { useTranslation } from '@repo/shared/i18n/client'
-import { useEffect, useState } from 'react'
+import { useSyncExternalStore } from 'react'
+
+let currentNow = Date.now()
+let clockTimer: ReturnType<typeof setInterval> | undefined
+const clockListeners = new Set<() => void>()
+
+function startClock() {
+  if (clockTimer !== undefined) {
+    return
+  }
+  clockTimer = setInterval(() => {
+    currentNow = Date.now()
+    for (const listener of clockListeners) {
+      listener()
+    }
+  }, 1000)
+}
+
+function stopClock() {
+  if (clockListeners.size > 0 || clockTimer === undefined) {
+    return
+  }
+  clearInterval(clockTimer)
+  clockTimer = undefined
+}
+
+function subscribeClock(listener: () => void) {
+  clockListeners.add(listener)
+  currentNow = Date.now()
+  startClock()
+  listener()
+  return () => {
+    clockListeners.delete(listener)
+    stopClock()
+  }
+}
+
+function getClockSnapshot() {
+  return currentNow
+}
+
+function getServerClockSnapshot() {
+  return null
+}
 
 export function diff(targetMs: number, nowMs: number) {
   const ms = Math.max(0, targetMs - nowMs)
@@ -18,23 +61,14 @@ export function diff(targetMs: number, nowMs: number) {
 export function Countdown({ deadlineUtc, locale }: { deadlineUtc: string; locale: Locale }) {
   const { t } = useTranslation(locale)
   const target = new Date(deadlineUtc).getTime()
-  const [mounted, setMounted] = useState(false)
-  const [now, setNow] = useState(0)
+  const now = useSyncExternalStore(subscribeClock, getClockSnapshot, getServerClockSnapshot)
 
-  useEffect(() => {
-    setMounted(true)
-    setNow(Date.now())
-    if (Date.now() >= target) return
-    const id = setInterval(() => setNow(Date.now()), 1000)
-    return () => clearInterval(id)
-  }, [target])
-
-  if (!mounted) return null
+  if (now === null) return null
 
   const d = diff(target, now)
   if (d.expired) return null
 
-  const cells: Array<[string, number]> = [
+  const cells: [string, number][] = [
     [t('pricing.countdown.days'), d.days],
     [t('pricing.countdown.hrs'), d.hours],
     [t('pricing.countdown.min'), d.minutes],
