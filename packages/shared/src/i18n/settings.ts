@@ -8,7 +8,7 @@ export const localeConfig: Record<Locale, { flag: string; name: string }> = {
   en: { flag: '🇺🇸', name: 'English' },
   zh: { flag: '🇨🇳', name: '中文' },
   ja: { flag: '🇯🇵', name: '日本語' },
-  es: { flag: '🇪🇸', name: 'Español' },
+  es: { flag: '🇪🇸', name: 'Español' }
 }
 
 export function getOptions(lng: Locale = defaultLocale) {

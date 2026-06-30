@@ -52,10 +52,7 @@ export function renderItem(
   if (pubDate) {
     lines.push(`      <pubDate>${pubDate}</pubDate>`)
   }
-  lines.push(
-    `      <description>${wrapCdata(entryToHtml(entry))}</description>`,
-    '    </item>'
-  )
+  lines.push(`      <description>${wrapCdata(entryToHtml(entry))}</description>`, '    </item>')
   return lines.join('\n')
 }
 

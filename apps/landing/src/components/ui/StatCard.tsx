@@ -4,7 +4,7 @@ export function StatCard({
   title,
   value,
   subtitle,
-  icon,
+  icon
 }: {
   title: string
   value: ReactNode

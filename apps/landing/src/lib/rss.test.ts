@@ -5,6 +5,8 @@ mock.module('server-only', () => ({}))
 const { buildRssFeed, entryToHtml, escapeXml, renderItem, wrapCdata } = await import('./rss')
 const { parseEntry } = await import('./changelog')
 
+const lastBuildDatePattern = /<lastBuildDate>([^<]+)<\/lastBuildDate>/
+
 const sampleEntry = parseEntry(
   'v1.2.0',
   '2026-04-08',
@@ -134,7 +136,7 @@ describe('buildRssFeed', () => {
   test('falls back to current time for lastBuildDate when no dates are known', () => {
     const before = Date.now()
     const xml = buildRssFeed({ ...baseInput, dateByVersion: new Map() })
-    const match = xml.match(/<lastBuildDate>([^<]+)<\/lastBuildDate>/)
+    const match = xml.match(lastBuildDatePattern)
     expect(match).not.toBeNull()
     if (match) {
       const ts = new Date(match[1]).getTime()

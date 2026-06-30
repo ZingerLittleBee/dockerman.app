@@ -69,6 +69,7 @@ const richItemPattern = /^(.*?)<Bold>(.*?)<\/Bold>\s*(.*)$/
 const slugBoundaryPattern = /^-+|-+$/g
 const slugSeparatorPattern = /[^\p{Letter}\p{Number}]+/gu
 const trailingColonPattern = /[:：]\s*$/
+const versionPrefixPattern = /^v/i
 
 function normalizeWhitespace(value: string) {
   return value.replace(/\s+/g, ' ').trim()
@@ -147,7 +148,7 @@ function parseItem(rawItem: string): ChangelogItem {
 export function parseEntry(version: string, date: string, body: string): ChangelogEntryData {
   // MDX sources historically include a leading "v" (e.g. "v5.1.0"). Strip it
   // so renderers can add the prefix themselves and avoid "vv5.1.0".
-  const normalizedVersion = version.replace(/^v/i, '')
+  const normalizedVersion = version.replace(versionPrefixPattern, '')
   const blocks: ChangelogBlock[] = []
 
   // Callouts and Figures are collected in source order so the renderer
