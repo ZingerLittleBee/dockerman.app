@@ -30,18 +30,18 @@ const EMAIL_RE_SPLIT = /([A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,})/gi
 const EMAIL_RE_TEST = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
 
 function renderAnswer(text: string) {
-  const parts = text.split(EMAIL_RE_SPLIT)
-  return parts.map((part, i) =>
+  const parts = text.split(EMAIL_RE_SPLIT).filter(Boolean)
+  return parts.map((part) =>
     EMAIL_RE_TEST.test(part) ? (
       <a
         className="text-dm-accent-2 underline underline-offset-2 hover:opacity-80"
         href={`mailto:${part}`}
-        key={`${i}-${part}`}
+        key={`email-${part}`}
       >
         {part}
       </a>
     ) : (
-      <span key={`${i}-t`}>{part}</span>
+      <span key={`text-${part}`}>{part}</span>
     )
   )
 }
@@ -57,8 +57,8 @@ export function PricingFaq() {
       <div className="mx-auto max-w-[820px]">
         <h2 className="font-bold text-[28px] text-dm-ink tracking-[-0.02em]">{title}</h2>
         <Accordion className="mt-6" collapsible type="single">
-          {items.map((item, i) => (
-            <AccordionItem className="border-dm-line" key={item.question} value={`q-${i}`}>
+          {items.map((item) => (
+            <AccordionItem className="border-dm-line" key={item.question} value={item.question}>
               <AccordionTrigger className="text-[15px] text-dm-ink">
                 {item.question}
               </AccordionTrigger>

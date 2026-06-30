@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 
 export interface PlanFeature {
+  id: string
   label: ReactNode
   included?: boolean
 }
@@ -141,14 +142,14 @@ export function PlanCard(p: PlanCardProps) {
       </div>
 
       <ul className="m-0 mt-5 mb-7 flex list-none flex-col gap-[11px] p-0">
-        {features.map((f, i) => {
+        {features.map((f) => {
           const muted = f.included === false
           return (
             <li
               className={`flex items-start gap-[10px] text-[13.5px] leading-[1.5] ${
                 muted ? 'line-through' : ''
               }`}
-              key={`${i}-${typeof f.label === 'string' ? f.label : ''}`}
+              key={f.id}
               style={{
                 color: muted ? 'var(--color-dm-ink-4)' : 'var(--color-dm-ink-2)',
                 textDecorationThickness: muted ? '1px' : undefined,

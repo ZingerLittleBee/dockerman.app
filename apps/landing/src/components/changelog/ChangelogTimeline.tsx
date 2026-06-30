@@ -159,11 +159,16 @@ function Blocks({ blocks, locale }: { blocks: ChangelogBlock[]; locale: Locale }
   if (blocks.length === 0) return null
   return (
     <div className="mb-6">
-      {blocks.map((b, i) =>
+      {blocks.map((b) =>
         b.kind === 'callout' ? (
-          <ChangelogCallout body={b.body} key={i} locale={locale} type={b.type} />
+          <ChangelogCallout
+            body={b.body}
+            key={`callout-${b.type}-${b.body}`}
+            locale={locale}
+            type={b.type}
+          />
         ) : (
-          <ChangelogFigure caption={b.caption} key={i} src={b.src} />
+          <ChangelogFigure caption={b.caption} key={`figure-${b.src}`} src={b.src} />
         )
       )}
     </div>
@@ -184,8 +189,8 @@ function SectionBlock({ section }: { section: ChangelogSection }) {
         {section.title}
       </h3>
       <ul className="m-0 list-none p-0">
-        {section.items.map((item, i) => (
-          <li className="relative py-[4px] pl-[26px] text-[14px] text-dm-ink-2" key={i}>
+        {section.items.map((item) => (
+          <li className="relative py-[4px] pl-[26px] text-[14px] text-dm-ink-2" key={item.content}>
             <span
               aria-hidden="true"
               className="absolute top-0 left-[6px] font-bold text-[22px] leading-[1.3]"

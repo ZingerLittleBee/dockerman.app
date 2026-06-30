@@ -10,13 +10,12 @@ export function JsonLd({ data }: { data: JsonLdData | JsonLdData[] }) {
   const items = Array.isArray(data) ? data : [data]
   return (
     <>
-      {items.map((item, i) => (
+      {items.map((item) => (
         <script
           // biome-ignore lint/security/noDangerouslySetInnerHtml: required for JSON-LD structured data
-          // biome-ignore lint/suspicious/noArrayIndexKey: stable JSON-LD list per render
-          key={i}
-          type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: serialize(item) }}
+          key={serialize(item)}
+          type="application/ld+json"
         />
       ))}
     </>
