@@ -136,6 +136,7 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
             <PlanCard
               ctaHref={`/api/checkout?plan=3-devices&locale=${l}`}
               ctaLabel={t('pricing.plans.team.cta', { price: teamPrice })}
+              ctaMethod="post"
               ctaNote={t('pricing.plans.team.ctaNote', { days: refund.days })}
               ctaTarget="_blank"
               ctaVariant="primary"
@@ -187,6 +188,7 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
             <PlanCard
               ctaHref={`/api/checkout?plan=1-device&locale=${l}`}
               ctaLabel={t('pricing.plans.solo.cta', { price: soloPrice })}
+              ctaMethod="post"
               ctaNote={t('pricing.plans.solo.ctaNote', { days: refund.days })}
               ctaTarget="_blank"
               ctaVariant="ghost"
@@ -247,31 +249,35 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
               {t('pricing.finalCta.description')}
             </p>
             <div className="relative mt-7 inline-flex flex-wrap items-center justify-center gap-[10px]">
-              <a
-                className="inline-flex items-center gap-2 rounded-[10px] px-[22px] py-[13px] font-semibold text-[14px] text-white no-underline transition-transform hover:-translate-y-px"
-                href={`/api/checkout?plan=3-devices&locale=${l}`}
-                rel="noopener noreferrer"
+              <form
+                action={`/api/checkout?plan=3-devices&locale=${l}`}
+                method="post"
                 target="_blank"
-                style={{
-                  background:
-                    'linear-gradient(180deg, var(--color-dm-accent-2), color-mix(in srgb, var(--color-dm-accent-2) 80%, black))',
-                  boxShadow:
-                    '0 10px 24px -8px color-mix(in srgb, var(--color-dm-accent-2) 55%, transparent)'
-                }}
               >
-                {t('pricing.finalCta.ctaTeam', { price: teamPrice })}
-                <svg
-                  fill="none"
-                  height="14"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeWidth="2.5"
-                  viewBox="0 0 24 24"
-                  width="14"
+                <button
+                  className="inline-flex cursor-pointer items-center gap-2 rounded-[10px] border-0 px-[22px] py-[13px] font-semibold text-[14px] text-white no-underline transition-transform hover:-translate-y-px"
+                  style={{
+                    background:
+                      'linear-gradient(180deg, var(--color-dm-accent-2), color-mix(in srgb, var(--color-dm-accent-2) 80%, black))',
+                    boxShadow:
+                      '0 10px 24px -8px color-mix(in srgb, var(--color-dm-accent-2) 55%, transparent)'
+                  }}
+                  type="submit"
                 >
-                  <path d="M5 12h14M13 5l7 7-7 7" />
-                </svg>
-              </a>
+                  {t('pricing.finalCta.ctaTeam', { price: teamPrice })}
+                  <svg
+                    fill="none"
+                    height="14"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeWidth="2.5"
+                    viewBox="0 0 24 24"
+                    width="14"
+                  >
+                    <path d="M5 12h14M13 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </form>
               <a
                 className="inline-flex items-center px-[22px] py-[13px] font-medium text-[14px] text-dm-ink-2 transition-colors hover:text-dm-ink"
                 href={`/${l}/download`}

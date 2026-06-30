@@ -15,6 +15,7 @@ export interface PlanCardProps {
   features: PlanFeature[]
   ctaLabel: string
   ctaHref: string
+  ctaMethod?: 'get' | 'post'
   ctaTarget?: '_blank' | '_self'
   ctaVariant?: 'primary' | 'ghost' | 'disabled'
   ctaNote?: string
@@ -33,12 +34,50 @@ export function PlanCard(p: PlanCardProps) {
     features,
     ctaLabel,
     ctaHref,
+    ctaMethod = 'get',
     ctaTarget,
     ctaVariant = 'ghost',
     ctaNote,
     highlighted,
     ribbon
   } = p
+
+  const ctaClassName = `mt-auto inline-flex cursor-pointer items-center justify-center gap-2 rounded-[10px] px-[18px] py-[13px] font-semibold text-[14px] no-underline transition-all ${
+    ctaVariant === 'primary'
+      ? 'text-white hover:-translate-y-px'
+      : ctaVariant === 'disabled'
+        ? 'cursor-not-allowed border border-dm-line bg-dm-bg-soft text-dm-ink-3'
+        : 'border border-dm-line-strong bg-transparent text-dm-ink hover:bg-dm-bg-soft'
+  }`
+  const ctaStyle =
+    ctaVariant === 'primary'
+      ? {
+          background:
+            'linear-gradient(180deg, var(--color-dm-accent-2), color-mix(in srgb, var(--color-dm-accent-2) 80%, black))',
+          borderColor: 'transparent',
+          boxShadow:
+            '0 10px 24px -8px color-mix(in srgb, var(--color-dm-accent-2) 55%, transparent)'
+        }
+      : undefined
+  const ctaContent = (
+    <>
+      {ctaVariant === 'primary' ? (
+        <svg
+          aria-hidden="true"
+          fill="none"
+          height="14"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeWidth="2.5"
+          viewBox="0 0 24 24"
+          width="14"
+        >
+          <path d="M5 12h14M13 5l7 7-7 7" />
+        </svg>
+      ) : null}
+      {ctaLabel}
+    </>
+  )
 
   return (
     <article
@@ -157,46 +196,27 @@ export function PlanCard(p: PlanCardProps) {
         })}
       </ul>
 
-      <a
-        aria-disabled={ctaVariant === 'disabled' || undefined}
-        className={`mt-auto inline-flex cursor-pointer items-center justify-center gap-2 rounded-[10px] px-[18px] py-[13px] font-semibold text-[14px] no-underline transition-all ${
-          ctaVariant === 'primary'
-            ? 'text-white hover:-translate-y-px'
-            : ctaVariant === 'disabled'
-              ? 'cursor-not-allowed border border-dm-line bg-dm-bg-soft text-dm-ink-3'
-              : 'border border-dm-line-strong bg-transparent text-dm-ink hover:bg-dm-bg-soft'
-        }`}
-        href={ctaVariant === 'disabled' ? undefined : ctaHref}
-        rel={ctaTarget === '_blank' ? 'noopener noreferrer' : undefined}
-        target={ctaVariant === 'disabled' ? undefined : ctaTarget}
-        style={
-          ctaVariant === 'primary'
-            ? {
-                background:
-                  'linear-gradient(180deg, var(--color-dm-accent-2), color-mix(in srgb, var(--color-dm-accent-2) 80%, black))',
-                borderColor: 'transparent',
-                boxShadow:
-                  '0 10px 24px -8px color-mix(in srgb, var(--color-dm-accent-2) 55%, transparent)'
-              }
-            : undefined
-        }
-      >
-        {ctaVariant === 'primary' ? (
-          <svg
-            aria-hidden="true"
-            fill="none"
-            height="14"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2.5"
-            viewBox="0 0 24 24"
-            width="14"
-          >
-            <path d="M5 12h14M13 5l7 7-7 7" />
-          </svg>
-        ) : null}
-        {ctaLabel}
-      </a>
+      {ctaVariant === 'disabled' ? (
+        <span aria-disabled="true" className={ctaClassName} style={ctaStyle}>
+          {ctaContent}
+        </span>
+      ) : ctaMethod === 'post' ? (
+        <form action={ctaHref} className="mt-auto contents" method="post" target={ctaTarget}>
+          <button className={ctaClassName} style={ctaStyle} type="submit">
+            {ctaContent}
+          </button>
+        </form>
+      ) : (
+        <a
+          className={ctaClassName}
+          href={ctaHref}
+          rel={ctaTarget === '_blank' ? 'noopener noreferrer' : undefined}
+          style={ctaStyle}
+          target={ctaTarget}
+        >
+          {ctaContent}
+        </a>
+      )}
 
       {ctaNote ? (
         <div className="mt-3 text-center font-[var(--font-dm-mono)] text-[11.5px] text-dm-ink-4">
