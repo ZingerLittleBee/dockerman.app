@@ -459,26 +459,7 @@ function MiniBars({ delayMs }: { delayMs: number }) {
 
 function Accent({ children }: { children: React.ReactNode }) {
   return (
-    <span
-      className="bg-clip-text text-transparent italic"
-      style={{
-        fontFamily: 'var(--font-dm-display)',
-        fontWeight: 400,
-        letterSpacing: '-0.02em',
-        backgroundImage:
-          'linear-gradient(135deg, var(--color-dm-accent) 0%, var(--color-dm-accent-2) 100%)',
-        // The heading uses leading-[0.95] + background-clip:text. Italic
-        // glyphs overshoot their advance width (l, y) and extend beyond
-        // the tight line box (y descender). Extending padding on both
-        // axes grows the gradient's paint area to cover those pixels;
-        // matching negative margins keep surrounding text (. and the
-        // next line) in place.
-        paddingInlineEnd: '0.18em',
-        marginInlineEnd: '-0.18em',
-        paddingBlockEnd: '0.18em',
-        marginBlockEnd: '-0.18em'
-      }}
-    >
+    <span className="-me-[0.18em] -mb-[0.18em] bg-[linear-gradient(135deg,var(--color-dm-accent)_0%,var(--color-dm-accent-2)_100%)] bg-clip-text pe-[0.18em] pb-[0.18em] font-[var(--font-dm-display)] font-normal text-transparent italic tracking-[-0.02em]">
       {children}
     </span>
   )

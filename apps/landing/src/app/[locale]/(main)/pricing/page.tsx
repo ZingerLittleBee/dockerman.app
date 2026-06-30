@@ -180,15 +180,11 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
               freq={t('pricing.plans.team.freq', { devices: plans.team.devices })}
               highlighted
               label={t('pricing.plans.team.label', { devices: plans.team.devices })}
-              name={
-                <>
-                  {t('pricing.plans.team.nameLead')}{' '}
-                  <em className="font-[var(--font-dm-display)] font-normal text-dm-ink-3 italic">
-                    {t('pricing.plans.team.nameAccent')}
-                  </em>{' '}
-                  {t('pricing.plans.team.nameTrail')}
-                </>
-              }
+              name={{
+                accent: t('pricing.plans.team.nameAccent'),
+                lead: t('pricing.plans.team.nameLead'),
+                trail: t('pricing.plans.team.nameTrail')
+              }}
               price={teamPrice}
               ribbon={t('pricing.plans.team.ribbon')}
               strikePrice={isActive ? `$${plans.team.priceRegular}` : undefined}

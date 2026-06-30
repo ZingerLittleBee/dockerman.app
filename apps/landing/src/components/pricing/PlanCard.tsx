@@ -6,9 +6,15 @@ export interface PlanFeature {
   included?: boolean
 }
 
+interface PlanName {
+  accent: string
+  lead: string
+  trail: string
+}
+
 export interface PlanCardProps {
   label: string
-  name: ReactNode
+  name: ReactNode | PlanName
   description: string
   price: number | string
   strikePrice?: string
@@ -118,7 +124,19 @@ export function PlanCard(p: PlanCardProps) {
       <div className="font-[var(--font-dm-mono)] font-semibold text-[11px] text-dm-ink-3 uppercase tracking-[0.1em]">
         {label}
       </div>
-      <div className="mt-[10px] font-bold text-[26px] tracking-[-0.025em]">{name}</div>
+      <div className="mt-[10px] font-bold text-[26px] tracking-[-0.025em]">
+        {isPlanName(name) ? (
+          <>
+            {name.lead}{' '}
+            <em className="font-[var(--font-dm-display)] font-normal text-dm-ink-3 italic">
+              {name.accent}
+            </em>{' '}
+            {name.trail}
+          </>
+        ) : (
+          name
+        )}
+      </div>
       <div className="mt-[6px] min-h-[38px] text-[13px] text-dm-ink-3 leading-[1.5]">
         {description}
       </div>
@@ -226,4 +244,8 @@ export function PlanCard(p: PlanCardProps) {
       ) : null}
     </article>
   )
+}
+
+function isPlanName(name: ReactNode | PlanName): name is PlanName {
+  return typeof name === 'object' && name !== null && 'lead' in name && 'accent' in name
 }
