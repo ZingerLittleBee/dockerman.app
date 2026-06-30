@@ -4,26 +4,39 @@ import * as RadioGroupPrimitives from '@radix-ui/react-radio-group'
 import { RiMoonLine, RiSunLine } from '@remixicon/react'
 import { useTheme } from 'next-themes'
 import type React from 'react'
-import { useEffect, useState } from 'react'
+import { useSyncExternalStore } from 'react'
 import { applyThemeWithTransition } from '@/lib/theme-transition'
 
 const OPTIONS = [
   { value: 'light', label: 'Light', Icon: RiSunLine },
-  { value: 'dark', label: 'Dark', Icon: RiMoonLine },
+  { value: 'dark', label: 'Dark', Icon: RiMoonLine }
 ] as const
 
-function ThemeSwitch() {
-  const [mounted, setMounted] = useState(false)
-  const { theme, resolvedTheme, setTheme } = useTheme()
+function subscribeHydrated(listener: () => void) {
+  queueMicrotask(listener)
+  return () => undefined
+}
 
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+function getHydratedSnapshot() {
+  return true
+}
+
+function getServerHydratedSnapshot() {
+  return false
+}
+
+function ThemeSwitch() {
+  const { theme, resolvedTheme, setTheme } = useTheme()
+  const hydrated = useSyncExternalStore(
+    subscribeHydrated,
+    getHydratedSnapshot,
+    getServerHydratedSnapshot
+  )
 
   // During SSR / first paint we don't know the theme. Render a placeholder
   // matching the final footprint so the navbar doesn't reflow when the
   // client mounts.
-  const active = mounted ? (theme === 'dark' || theme === 'light' ? theme : resolvedTheme) : null
+  const active = hydrated ? (theme === 'dark' || theme === 'light' ? theme : resolvedTheme) : null
 
   const onChange = (value: string) => {
     const fromTheme = theme
@@ -35,7 +48,7 @@ function ThemeSwitch() {
         posthog.capture('footer_theme_changed', {
           from_theme: fromTheme,
           to_theme: value,
-          location: 'navbar',
+          location: 'navbar'
         })
       })
       .catch(() => {
@@ -53,7 +66,7 @@ function ThemeSwitch() {
       {OPTIONS.map(({ value, label, Icon }) => (
         <RadioGroupPrimitives.Item
           aria-label={`Switch to ${label} mode`}
-          className="group relative grid h-[26px] w-[26px] cursor-pointer place-items-center rounded-full text-dm-ink-3 outline-none transition-colors hover:text-dm-ink data-[state=checked]:text-dm-ink focus-visible:ring-2 focus-visible:ring-[var(--color-dm-accent-2)]/60"
+          className="group relative grid h-[26px] w-[26px] cursor-pointer place-items-center rounded-full text-dm-ink-3 outline-none transition-colors hover:text-dm-ink focus-visible:ring-2 focus-visible:ring-[var(--color-dm-accent-2)]/60 data-[state=checked]:text-dm-ink"
           key={value}
           value={value}
         >
@@ -63,7 +76,7 @@ function ThemeSwitch() {
             style={{
               background: 'var(--color-dm-bg)',
               boxShadow:
-                'inset 0 0 0 1px var(--color-dm-line-strong), 0 4px 10px -6px color-mix(in srgb, var(--color-dm-accent-2) 40%, transparent)',
+                'inset 0 0 0 1px var(--color-dm-line-strong), 0 4px 10px -6px color-mix(in srgb, var(--color-dm-accent-2) 40%, transparent)'
             }}
           />
           <Icon aria-hidden="true" className="relative z-10 h-[14px] w-[14px]" />

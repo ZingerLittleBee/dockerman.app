@@ -3,7 +3,7 @@
 import type { Locale } from '@repo/shared/i18n'
 import { useTranslation } from '@repo/shared/i18n/client'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useState, useSyncExternalStore } from 'react'
 import { siteConfig } from '@/app/siteConfig'
 import { downloadsConfig } from '@/config/downloads'
 import { formatDate } from '@/lib/format'
@@ -42,14 +42,27 @@ function detectOS(): OS {
   return 'mac'
 }
 
+function subscribeDetectedOS(listener: () => void) {
+  queueMicrotask(listener)
+  return () => undefined
+}
+
+function getDetectedOSSnapshot() {
+  return detectOS()
+}
+
+function getServerDetectedOSSnapshot(): OS {
+  return 'mac'
+}
+
 export function Hero({ locale }: { locale: Locale }) {
   const { t } = useTranslation(locale)
   const [copied, setCopied] = useState(false)
-  const [os, setOs] = useState<OS>('mac')
-
-  useEffect(() => {
-    setOs(detectOS())
-  }, [])
+  const os = useSyncExternalStore(
+    subscribeDetectedOS,
+    getDetectedOSSnapshot,
+    getServerDetectedOSSnapshot
+  )
 
   const downloadLabel = t(OS_LABEL_KEY[os])
   const downloadSize = OS_SIZE[os]
