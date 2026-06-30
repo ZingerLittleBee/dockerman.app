@@ -32,7 +32,8 @@ function SectionHead({ t }: { t: TFn }) {
         className="font-[var(--font-dm-mono)] text-[12px] tracking-[0.04em]"
         style={{ color: 'var(--color-dm-accent)' }}
       >
-        <span className="text-dm-ink-4">// </span>features
+        <span aria-hidden="true" className="text-dm-ink-4 before:content-['//_']" />
+        features
       </div>
       <h2 className="m-0 font-bold text-[clamp(32px,4.5vw,56px)] text-dm-ink leading-[1.02] tracking-[-0.035em]">
         {t('featuresSection.titleLead')}{' '}

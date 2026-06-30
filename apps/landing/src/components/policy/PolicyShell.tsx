@@ -28,7 +28,7 @@ export function PolicyHero({
           className="font-[var(--font-dm-mono)] text-[12px] tracking-[0.04em]"
           style={{ color: 'var(--color-dm-accent)' }}
         >
-          <span className="text-dm-ink-4">// </span>
+          <span aria-hidden="true" className="text-dm-ink-4 before:content-['//_']" />
           {eyebrow}
         </div>
 

@@ -13,7 +13,7 @@ export async function ReleasesTable({ locale }: { locale: Locale }) {
             className="font-[var(--font-dm-mono)] text-[12px] tracking-[0.04em]"
             style={{ color: 'var(--color-dm-accent-2)' }}
           >
-            <span className="text-dm-ink-4">// </span>
+            <span aria-hidden="true" className="text-dm-ink-4 before:content-['//_']" />
             {t('download.releases.kicker')}
           </div>
           <h2 className="mx-0 mt-[10px] mb-3 font-bold text-[clamp(28px,3.6vw,40px)] text-dm-ink leading-[1.05] tracking-[-0.03em]">
