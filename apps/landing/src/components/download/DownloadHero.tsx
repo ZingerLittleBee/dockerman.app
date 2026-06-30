@@ -24,7 +24,7 @@ export async function DownloadHero({ locale }: { locale: Locale }) {
             style={{
               background: 'var(--color-dm-ok)',
               boxShadow: '0 0 0 4px color-mix(in srgb, var(--color-dm-ok) 30%, transparent)',
-              animation: 'dm-pulse 2.2s ease-in-out infinite'
+              animation: 'dm-pulse 900ms ease-in-out infinite'
             }}
           />
           <span>

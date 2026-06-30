@@ -27,7 +27,7 @@ export async function PricingHero({
               style={{
                 background: 'var(--color-dm-warn)',
                 boxShadow: '0 0 0 4px color-mix(in srgb, var(--color-dm-warn) 30%, transparent)',
-                animation: 'dm-pulse 2.2s ease-in-out infinite'
+                animation: 'dm-pulse 900ms ease-in-out infinite'
               }}
             />
             <span>{t('pricing.hero.eyebrow')}</span>

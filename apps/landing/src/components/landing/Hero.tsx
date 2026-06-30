@@ -97,7 +97,7 @@ export function Hero({ locale }: { locale: Locale }) {
             style={{
               background: 'var(--color-dm-ok)',
               boxShadow: '0 0 0 4px color-mix(in srgb, var(--color-dm-ok) 30%, transparent)',
-              animation: 'dm-pulse 2.2s ease-in-out infinite'
+              animation: 'dm-pulse 900ms ease-in-out infinite'
             }}
           />
           <span>{t('hero.eyebrow', { version: siteConfig.latestVersion })}</span>
@@ -285,7 +285,7 @@ function TerminalCard({ locale }: { locale: Locale }) {
             style={{
               background: 'var(--color-dm-ok)',
               boxShadow: '0 0 0 3px color-mix(in srgb, var(--color-dm-ok) 30%, transparent)',
-              animation: 'dm-pulse 2.2s ease-in-out infinite'
+              animation: 'dm-pulse 900ms ease-in-out infinite'
             }}
           />
           live
@@ -336,7 +336,7 @@ function TerminalCard({ locale }: { locale: Locale }) {
                   width: '0',
                   background:
                     'linear-gradient(90deg, var(--color-dm-accent), var(--color-dm-accent-2))',
-                  animation: 'dm-progress 1200ms cubic-bezier(0.22, 1, 0.36, 1) forwards',
+                  animation: 'dm-progress 900ms cubic-bezier(0.22, 1, 0.36, 1) forwards',
                   animationDelay: `${STAGE_STEPS.progress}ms`,
                   ['--dm-progress' as string]: '100%'
                 }}
@@ -410,7 +410,7 @@ function ContainerMini({
         style={{
           background: 'var(--color-dm-ok)',
           boxShadow: '0 0 0 3px color-mix(in srgb, var(--color-dm-ok) 28%, transparent)',
-          animation: 'dm-pulse 2.2s ease-in-out infinite'
+          animation: 'dm-pulse 900ms ease-in-out infinite'
         }}
       />
       <span className="flex min-w-0 flex-1 items-baseline gap-2">
