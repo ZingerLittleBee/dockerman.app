@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useSyncExternalStore } from 'react'
+import { useEffect, useReducer, useSyncExternalStore } from 'react'
 
 type ResultIcon = 'box' | 'layers' | 'arrow' | 'logs' | 'k8s' | 'compose' | 'play'
 
@@ -15,6 +15,16 @@ interface Query {
   q: string
   results: Result[]
 }
+
+interface PaletteState {
+  qi: number
+  text: string
+}
+
+type PaletteAction =
+  | { type: 'advance' }
+  | { text: string; type: 'setText' }
+  | { type: 'showReducedText' }
 
 const QUERIES: Query[] = [
   {
@@ -85,13 +95,26 @@ function getServerReducedMotionSnapshot() {
   return false
 }
 
+function paletteReducer(state: PaletteState, action: PaletteAction): PaletteState {
+  switch (action.type) {
+    case 'advance':
+      return { qi: (state.qi + 1) % QUERIES.length, text: '' }
+    case 'setText':
+      return state.text === action.text ? state : { ...state, text: action.text }
+    case 'showReducedText':
+      return { ...state, text: QUERIES[state.qi]?.q ?? '' }
+    default:
+      return state
+  }
+}
+
 /**
  * Typewriter palette preview used inside the "command palette" feature card.
  * Mirrors palette.js behavior: types a query, holds, erases, moves to next.
  * Honors prefers-reduced-motion by rendering a static snapshot.
  */
 export function PaletteViz() {
-  const [{ qi, text }, setPalette] = useState({ qi: 0, text: '' })
+  const [{ qi, text }, dispatchPalette] = useReducer(paletteReducer, { qi: 0, text: '' })
   const reduced = useSyncExternalStore(
     subscribeReducedMotion,
     getReducedMotionSnapshot,
@@ -100,7 +123,7 @@ export function PaletteViz() {
 
   useEffect(() => {
     if (reduced) {
-      setPalette((state) => ({ ...state, text: QUERIES[state.qi]?.q ?? '' }))
+      dispatchPalette({ type: 'showReducedText' })
       return
     }
     let ci = 0
@@ -116,16 +139,16 @@ export function PaletteViz() {
           timer = setTimeout(tick, 1800)
           return
         }
-        setPalette((state) => ({ ...state, text: current.q.slice(0, ci) }))
+        dispatchPalette({ text: current.q.slice(0, ci), type: 'setText' })
         timer = setTimeout(tick, 110)
       } else {
         ci--
         if (ci <= 0) {
           typing = true
-          setPalette((state) => ({ qi: (state.qi + 1) % QUERIES.length, text: '' }))
+          dispatchPalette({ type: 'advance' })
           return
         }
-        setPalette((state) => ({ ...state, text: current.q.slice(0, ci) }))
+        dispatchPalette({ text: current.q.slice(0, ci), type: 'setText' })
         timer = setTimeout(tick, 40)
       }
     }
