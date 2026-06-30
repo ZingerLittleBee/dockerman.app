@@ -3,9 +3,8 @@
 'use client'
 
 import * as TooltipPrimitives from '@radix-ui/react-tooltip'
-import React from 'react'
-
 import { cx } from '@repo/shared/utils'
+import type React from 'react'
 
 interface TooltipProps
   extends Omit<TooltipPrimitives.TooltipContentProps, 'content' | 'onClick'>,
@@ -18,76 +17,67 @@ interface TooltipProps
   side?: 'bottom' | 'left' | 'top' | 'right'
   showArrow?: boolean
   triggerAsChild?: boolean
+  ref?: React.Ref<React.ElementRef<typeof TooltipPrimitives.Content>>
 }
 
-const Tooltip = React.forwardRef<React.ElementRef<typeof TooltipPrimitives.Content>, TooltipProps>(
-  (
-    {
-      children,
-      className,
-      content,
-      delayDuration,
-      defaultOpen,
-      open,
-      onClick,
-      onOpenChange,
-      showArrow = true,
-      side,
-      sideOffset = 10,
-      triggerAsChild = false,
-      ...props
-    }: TooltipProps,
-    forwardedRef
-  ) => {
-    return (
-      <TooltipPrimitives.Provider delayDuration={150}>
-        <TooltipPrimitives.Root
-          defaultOpen={defaultOpen}
-          delayDuration={delayDuration}
-          onOpenChange={onOpenChange}
-          open={open}
-          tremor-id="tremor-raw"
-        >
-          <TooltipPrimitives.Trigger asChild={triggerAsChild} onClick={onClick}>
-            {children}
-          </TooltipPrimitives.Trigger>
-          <TooltipPrimitives.Portal>
-            <TooltipPrimitives.Content
-              align="center"
-              className={cx(
-                // base
-                'z-50 max-w-60 select-none rounded-md px-2.5 py-1.5 text-sm leading-5 shadow-md',
-                // text color
-                'text-gray-50 dark:text-gray-900',
-                // background color
-                'bg-gray-900 dark:bg-gray-50',
-                // transition
-                'will-change-[transform,opacity]',
-                'data-[side=bottom]:animate-slideDownAndFade data-[side=left]:animate-slideLeftAndFade data-[side=right]:animate-slideRightAndFade data-[side=top]:animate-slideUpAndFade data-[state=closed]:animate-hide',
-                className
-              )}
-              ref={forwardedRef}
-              side={side}
-              sideOffset={sideOffset}
-              {...props}
-            >
-              {content}
-              {showArrow ? (
-                <TooltipPrimitives.Arrow
-                  aria-hidden="true"
-                  className="border-none fill-gray-900 dark:fill-gray-50"
-                  height={7}
-                  width={12}
-                />
-              ) : null}
-            </TooltipPrimitives.Content>
-          </TooltipPrimitives.Portal>
-        </TooltipPrimitives.Root>
-      </TooltipPrimitives.Provider>
-    )
-  }
-)
-
-Tooltip.displayName = 'Tooltip'
+function Tooltip({
+  children,
+  className,
+  content,
+  delayDuration,
+  defaultOpen,
+  open,
+  onClick,
+  onOpenChange,
+  showArrow = true,
+  side,
+  sideOffset = 10,
+  triggerAsChild = false,
+  ref,
+  ...props
+}: TooltipProps) {
+  return (
+    <TooltipPrimitives.Provider delayDuration={150}>
+      <TooltipPrimitives.Root
+        defaultOpen={defaultOpen}
+        delayDuration={delayDuration}
+        onOpenChange={onOpenChange}
+        open={open}
+        tremor-id="tremor-raw"
+      >
+        <TooltipPrimitives.Trigger asChild={triggerAsChild} onClick={onClick}>
+          {children}
+        </TooltipPrimitives.Trigger>
+        <TooltipPrimitives.Portal>
+          <TooltipPrimitives.Content
+            align="center"
+            className={cx(
+              'z-50 max-w-60 select-none rounded-md px-2.5 py-1.5 text-sm leading-5 shadow-md',
+              'text-gray-50 dark:text-gray-900',
+              'bg-gray-900 dark:bg-gray-50',
+              'will-change-[transform,opacity]',
+              'data-[side=bottom]:animate-slideDownAndFade data-[side=left]:animate-slideLeftAndFade data-[side=right]:animate-slideRightAndFade data-[side=top]:animate-slideUpAndFade data-[state=closed]:animate-hide',
+              className
+            )}
+            ref={ref}
+            side={side}
+            sideOffset={sideOffset}
+            {...props}
+          >
+            {content}
+            {showArrow ? (
+              <TooltipPrimitives.Arrow
+                aria-hidden="true"
+                className="border-none fill-gray-900 dark:fill-gray-50"
+                height={7}
+                width={12}
+              />
+            ) : null}
+          </TooltipPrimitives.Content>
+        </TooltipPrimitives.Portal>
+      </TooltipPrimitives.Root>
+    </TooltipPrimitives.Provider>
+  )
+}
 
 export { Tooltip, type TooltipProps }

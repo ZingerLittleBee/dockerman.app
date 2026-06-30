@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useContext, useEffect, useMemo, useRef, useState } from 'react'
+import { use, useEffect, useMemo, useRef, useState } from 'react'
 import type { ChangelogEntryData } from '@/lib/changelog'
 import { ChangelogFilterContext } from './ChangelogFilterContext'
 
@@ -25,7 +25,7 @@ function scrollLinkIntoView(nav: HTMLElement | null, id: string) {
 }
 
 export function ChangelogToc({ entries }: { entries: ChangelogEntryData[] }) {
-  const filter = useContext(ChangelogFilterContext)
+  const filter = use(ChangelogFilterContext)
   const [observedActiveId, setObservedActiveId] = useState(entries[0]?.id ?? '')
   const navRef = useRef<HTMLElement | null>(null)
   const visibleIdSet = useMemo(

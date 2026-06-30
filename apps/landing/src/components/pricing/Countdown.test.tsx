@@ -5,7 +5,8 @@ mock.module('@repo/shared/i18n/client', () => ({
   useTranslation: () => ({ t: (key: string) => key })
 }))
 
-const { Countdown, diff } = await import('./Countdown')
+const { Countdown } = await import('./Countdown')
+const { diff } = await import('./countdownDiff')
 
 describe('Countdown diff()', () => {
   test('zero diff when now >= target', () => {

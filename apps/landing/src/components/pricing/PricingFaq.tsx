@@ -1,12 +1,10 @@
 'use client'
 
 import { useTranslation } from '@repo/shared/i18n/client'
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger
-} from '@/components/Accordion'
+import { Accordion } from '@/components/Accordion'
+import { AccordionContent } from '@/components/AccordionContent'
+import { AccordionItem } from '@/components/AccordionItem'
+import { AccordionTrigger } from '@/components/AccordionTrigger'
 import { PricingFaqAnswer } from './PricingFaqAnswer'
 
 interface FaqItem {

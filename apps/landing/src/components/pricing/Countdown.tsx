@@ -3,6 +3,7 @@
 import type { Locale } from '@repo/shared/i18n'
 import { useTranslation } from '@repo/shared/i18n/client'
 import { useSyncExternalStore } from 'react'
+import { diff } from './countdownDiff'
 
 let currentNow = Date.now()
 let clockTimer: ReturnType<typeof setInterval> | undefined
@@ -45,17 +46,6 @@ function getClockSnapshot() {
 
 function getServerClockSnapshot() {
   return null
-}
-
-export function diff(targetMs: number, nowMs: number) {
-  const ms = Math.max(0, targetMs - nowMs)
-  return {
-    days: Math.floor(ms / 86_400_000),
-    hours: Math.floor((ms % 86_400_000) / 3_600_000),
-    minutes: Math.floor((ms % 3_600_000) / 60_000),
-    seconds: Math.floor((ms % 60_000) / 1000),
-    expired: ms === 0
-  }
 }
 
 export function Countdown({ deadlineUtc, locale }: { deadlineUtc: string; locale: Locale }) {

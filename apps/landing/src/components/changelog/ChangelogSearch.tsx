@@ -1,6 +1,6 @@
 'use client'
 
-import { useContext, useEffect } from 'react'
+import { use, useEffect } from 'react'
 import { ChangelogFilterContext } from './ChangelogFilterContext'
 
 const CHANGELOG_ENTRY_SELECTOR = '[data-changelog-entry]'
@@ -28,7 +28,7 @@ export function ChangelogSearch({
   ariaLabel: string
   placeholder: string
 }) {
-  const filter = useContext(ChangelogFilterContext)
+  const filter = use(ChangelogFilterContext)
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
