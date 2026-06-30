@@ -24,12 +24,12 @@ function renderInlineCodeDescription(desc: string) {
   let lastIndex = 0
 
   for (const match of desc.matchAll(CODE_TAG_RE)) {
-    const index = match.index ?? 0
-    if (index > lastIndex) {
-      nodes.push(decodeHtmlEntities(desc.slice(lastIndex, index)))
+    const matchStart = match.index ?? 0
+    if (matchStart > lastIndex) {
+      nodes.push(decodeHtmlEntities(desc.slice(lastIndex, matchStart)))
     }
-    nodes.push(<code key={`code-${index}`}>{decodeHtmlEntities(match[1])}</code>)
-    lastIndex = index + match[0].length
+    nodes.push(<code key={`code-${match[1]}`}>{decodeHtmlEntities(match[1])}</code>)
+    lastIndex = matchStart + match[0].length
   }
 
   if (lastIndex < desc.length) {
@@ -37,6 +37,10 @@ function renderInlineCodeDescription(desc: string) {
   }
 
   return nodes
+}
+
+function InlineCodeDescription({ desc }: { desc: string }) {
+  return renderInlineCodeDescription(desc)
 }
 
 function subscribeHash(listener: () => void) {
@@ -83,9 +87,9 @@ export function SnapshotShowcase({
 }) {
   const total = modules.length
   const [selection, setSelection] = useState({ active: 0, prev: 0 })
-  const [appliedHash, setAppliedHash] = useState('')
   const [lightbox, setLightbox] = useState(false)
   const hash = useSyncExternalStore(subscribeHash, getHashSnapshot, getServerHashSnapshot)
+  const appliedHashRef = useRef('')
   const railRef = useRef<HTMLElement | null>(null)
   const mobRef = useRef<HTMLDivElement | null>(null)
   const sentinelRefs = useRef<(HTMLDivElement | null)[]>([])
@@ -132,14 +136,15 @@ export function SnapshotShowcase({
     [scrollActiveControls]
   )
 
+  const appliedHash = appliedHashRef.current
   if (hash && hash !== appliedHash) {
     const idx = modules.findIndex((m) => m.key === hash)
-    setAppliedHash(hash)
+    appliedHashRef.current = hash
     if (idx >= 0) {
       setSelection((cur) => (cur.active === idx ? cur : { active: idx, prev: cur.active }))
     }
   } else if (!hash && appliedHash) {
-    setAppliedHash('')
+    appliedHashRef.current = ''
   }
 
   const go = useCallback(
@@ -601,7 +606,7 @@ function CaptionStrip({
           </em>
         </h3>
         <p className="m-0 mt-1 max-w-[70ch] text-[14px] text-dm-ink-3 leading-[1.55] [&_code]:rounded [&_code]:bg-dm-bg-soft [&_code]:px-[5px] [&_code]:py-[1px] [&_code]:font-[var(--font-dm-mono)] [&_code]:text-[13px]">
-          {renderInlineCodeDescription(desc)}
+          <InlineCodeDescription desc={desc} />
         </p>
       </div>
       <div className="flex gap-2">
