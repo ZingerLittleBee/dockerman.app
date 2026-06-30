@@ -7,6 +7,7 @@ import {
   AccordionItem,
   AccordionTrigger
 } from '@/components/Accordion'
+import { PricingFaqAnswer } from './PricingFaqAnswer'
 
 interface FaqItem {
   question: string
@@ -22,26 +23,6 @@ function isFaqItemArray(value: unknown): value is FaqItem[] {
         v !== null &&
         typeof (v as FaqItem).question === 'string' &&
         typeof (v as FaqItem).answer === 'string'
-    )
-  )
-}
-
-const EMAIL_RE_SPLIT = /([A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,})/gi
-const EMAIL_RE_TEST = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
-
-function renderAnswer(text: string) {
-  const parts = text.split(EMAIL_RE_SPLIT).filter(Boolean)
-  return parts.map((part) =>
-    EMAIL_RE_TEST.test(part) ? (
-      <a
-        className="text-dm-accent-2 underline underline-offset-2 hover:opacity-80"
-        href={`mailto:${part}`}
-        key={`email-${part}`}
-      >
-        {part}
-      </a>
-    ) : (
-      <span key={`text-${part}`}>{part}</span>
     )
   )
 }
@@ -63,7 +44,7 @@ export function PricingFaq() {
                 {item.question}
               </AccordionTrigger>
               <AccordionContent className="text-[14px] text-dm-ink-2">
-                {renderAnswer(item.answer)}
+                <PricingFaqAnswer text={item.answer} />
               </AccordionContent>
             </AccordionItem>
           ))}
