@@ -19,10 +19,14 @@ export async function GET(request: NextRequest) {
     ? (requested as Locale)
     : defaultLocale
 
-  const { t } = await getTranslation(locale)
-  const [entries, enEntries] = await Promise.all([
-    getChangelogEntries(locale),
-    locale === 'en' ? Promise.resolve(null) : getChangelogEntries('en')
+  const translationPromise = getTranslation(locale)
+  const entriesPromise = getChangelogEntries(locale)
+  const enEntriesPromise = locale === 'en' ? Promise.resolve(null) : getChangelogEntries('en')
+
+  const [{ t }, entries, enEntries] = await Promise.all([
+    translationPromise,
+    entriesPromise,
+    enEntriesPromise
   ])
 
   const dateByVersion = new Map<string, string>()

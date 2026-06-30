@@ -25,6 +25,11 @@ import { join } from 'node:path'
 import { type NextRequest, NextResponse } from 'next/server'
 import { siteConfig } from '@/app/siteConfig'
 
+const CHANGELOG_CONTENT = {
+  en: readFile(join(process.cwd(), 'src', 'content', 'changelog', 'en', 'page.mdx'), 'utf-8'),
+  zh: readFile(join(process.cwd(), 'src', 'content', 'changelog', 'zh', 'page.mdx'), 'utf-8')
+} satisfies Record<'en' | 'zh', Promise<string>>
+
 function extractVersionEntry(content: string, version: string): string | null {
   const normalizedVersion = version.startsWith('v') ? version : `v${version}`
   const entryRegex = new RegExp(
@@ -60,10 +65,8 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'Invalid locale. Must be "en" or "zh"' }, { status: 400 })
   }
 
-  const filePath = join(process.cwd(), 'src', 'content', 'changelog', locale, 'page.mdx')
-
   try {
-    const content = await readFile(filePath, 'utf-8')
+    const content = await CHANGELOG_CONTENT[locale]
     const entry = extractVersionEntry(content, version)
 
     if (!entry) {
