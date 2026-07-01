@@ -21,7 +21,8 @@ const LINKS: { href: string; labelKey: string; anchor?: boolean }[] = [
 export function Navbar({ locale }: { locale: Locale }) {
   const pathname = usePathname()
   const { t } = useTranslation(locale)
-  const [menuOpen, setMenuOpen] = useState(false)
+  const [menu, setMenu] = useState({ open: false, pathname })
+  const menuOpen = menu.open && menu.pathname === pathname
 
   const hrefFor = (href: string) => `/${locale}${href === '/' ? '' : href}`
 
@@ -33,11 +34,6 @@ export function Navbar({ locale }: { locale: Locale }) {
     }
     return pathname.startsWith(full)
   }
-
-  // Close on route change
-  useEffect(() => {
-    setMenuOpen(false)
-  }, [pathname])
 
   // Lock body scroll while menu open
   useEffect(() => {
@@ -105,7 +101,12 @@ export function Navbar({ locale }: { locale: Locale }) {
             aria-expanded={menuOpen}
             aria-label={menuOpen ? t('nav.closeMenu') : t('nav.openMenu')}
             className="grid h-8 w-8 cursor-pointer place-items-center rounded-md border border-dm-line bg-dm-bg-elev text-dm-ink-2 transition-colors hover:border-dm-line-strong hover:text-dm-ink md:hidden"
-            onClick={() => setMenuOpen((v) => !v)}
+            onClick={() =>
+              setMenu((current) => ({
+                open: current.pathname === pathname ? !current.open : true,
+                pathname
+              }))
+            }
             type="button"
           >
             <svg
@@ -135,7 +136,7 @@ export function Navbar({ locale }: { locale: Locale }) {
           className={`fixed inset-x-0 top-[57px] bottom-0 z-40 cursor-default bg-dm-bg/60 backdrop-blur-[2px] transition-opacity duration-200 ${
             menuOpen ? 'opacity-100' : 'opacity-0'
           }`}
-          onClick={() => setMenuOpen(false)}
+          onClick={() => setMenu({ open: false, pathname })}
           tabIndex={menuOpen ? 0 : -1}
           type="button"
         />
@@ -158,7 +159,7 @@ export function Navbar({ locale }: { locale: Locale }) {
                         : 'text-dm-ink-2 hover:bg-dm-bg-soft hover:text-dm-ink'
                     }`}
                     href={hrefFor(l.href)}
-                    onClick={() => setMenuOpen(false)}
+                    onClick={() => setMenu({ open: false, pathname })}
                   >
                     <span>{t(l.labelKey)}</span>
                     <svg
@@ -180,7 +181,7 @@ export function Navbar({ locale }: { locale: Locale }) {
               <a
                 className="flex items-center gap-3 rounded-md px-3 py-3 text-[14px] text-dm-ink-2 hover:bg-dm-bg-soft hover:text-dm-ink"
                 href="https://github.com/ZingerLittleBee/dockerman.app"
-                onClick={() => setMenuOpen(false)}
+                onClick={() => setMenu({ open: false, pathname })}
                 rel="noopener noreferrer"
                 target="_blank"
               >

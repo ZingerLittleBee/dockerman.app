@@ -35,7 +35,7 @@ export interface SnapshotModule extends SnapshotModuleStructure {
   desc: string
 }
 
-export const SNAPSHOT_MODULE_STRUCTURE: SnapshotModuleStructure[] = [
+const SNAPSHOT_MODULE_STRUCTURE: SnapshotModuleStructure[] = [
   { key: 'dashboard', icon: 'dash', src: '/screenshots/dashboard.png' },
   { key: 'terminal', icon: 'term', src: '/screenshots/terminal.png' },
   { key: 'processes', icon: 'proc', src: '/screenshots/process.png' },

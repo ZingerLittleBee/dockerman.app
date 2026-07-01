@@ -6,9 +6,10 @@ import { siteConfig } from '@/app/siteConfig'
 export const SITE_URL = siteConfig.url.replace(/\/+$/, '')
 
 export function buildAlternates(locale: Locale, pathWithoutLocale = '') {
-  const path = pathWithoutLocale.startsWith('/') || pathWithoutLocale === ''
-    ? pathWithoutLocale
-    : `/${pathWithoutLocale}`
+  const path =
+    pathWithoutLocale.startsWith('/') || pathWithoutLocale === ''
+      ? pathWithoutLocale
+      : `/${pathWithoutLocale}`
 
   const languages: Record<string, string> = {}
   for (const l of locales) {

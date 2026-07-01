@@ -263,7 +263,7 @@ function Main({ t }: { t: TFn }) {
               className="h-[6px] w-[6px] rounded-full"
               style={{
                 background: 'var(--color-dm-ok)',
-                animation: 'dm-pulse 2.2s ease-in-out infinite'
+                animation: 'dm-pulse 900ms ease-in-out infinite'
               }}
             />
             {t('liveDashboard.main.chips.connected')}
@@ -349,7 +349,7 @@ function ChartRow({ t }: { t: TFn }) {
       <ChartCard
         stroke="#6366f1"
         title={t('liveDashboard.main.charts.cpu')}
-        value={`${Math.round(cpu[cpu.length - 1] ?? 0)}%`}
+        value={`${Math.round(cpu.at(-1) ?? 0)}%`}
       >
         <Sparkline
           className="block h-[120px] w-full"
@@ -363,7 +363,7 @@ function ChartRow({ t }: { t: TFn }) {
       <ChartCard
         stroke="#10b981"
         title={t('liveDashboard.main.charts.memory')}
-        value={`${Math.round(mem[mem.length - 1] ?? 0)}%`}
+        value={`${Math.round(mem.at(-1) ?? 0)}%`}
       >
         <Sparkline
           className="block h-[120px] w-full"
@@ -426,7 +426,7 @@ function IoRow({ t }: { t: TFn }) {
       <ChartCard
         stroke="#a855f7"
         title={t('liveDashboard.main.charts.networkIo')}
-        value={`${(net[net.length - 1] ?? 0).toFixed(1)} MB/s`}
+        value={`${(net.at(-1) ?? 0).toFixed(1)} MB/s`}
       >
         <Sparkline
           className="block h-[100px] w-full"
@@ -441,7 +441,7 @@ function IoRow({ t }: { t: TFn }) {
       <ChartCard
         stroke="#ec4899"
         title={t('liveDashboard.main.charts.diskIo')}
-        value={`${(disk[disk.length - 1] ?? 0).toFixed(1)} MB/s`}
+        value={`${(disk.at(-1) ?? 0).toFixed(1)} MB/s`}
       >
         <Sparkline
           className="block h-[100px] w-full"

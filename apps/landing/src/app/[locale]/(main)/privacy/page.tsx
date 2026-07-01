@@ -29,11 +29,7 @@ function asStringArray(value: unknown): string[] {
   return Array.isArray(value) && value.every((v) => typeof v === 'string') ? value : []
 }
 
-export default async function PrivacyPage({
-  params
-}: {
-  params: Promise<{ locale: string }>
-}) {
+export default async function PrivacyPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   const { t } = await getTranslation(locale as Locale)
 

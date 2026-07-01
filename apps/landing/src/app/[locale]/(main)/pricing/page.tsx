@@ -118,13 +118,21 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
               ctaVariant="disabled"
               description={t('pricing.plans.free.description')}
               features={[
-                { label: t('pricing.plans.free.features.coreSet') },
-                { label: t('pricing.plans.free.features.compose') },
-                { label: t('pricing.plans.free.features.palette') },
-                { label: t('pricing.plans.free.features.podmanTrivy') },
-                { label: t('pricing.plans.free.features.themesI18n') },
-                { label: t('pricing.plans.free.features.remoteSsh'), included: false },
-                { label: t('pricing.plans.free.features.multiHost'), included: false }
+                { id: 'coreSet', label: t('pricing.plans.free.features.coreSet') },
+                { id: 'compose', label: t('pricing.plans.free.features.compose') },
+                { id: 'palette', label: t('pricing.plans.free.features.palette') },
+                { id: 'podmanTrivy', label: t('pricing.plans.free.features.podmanTrivy') },
+                { id: 'themesI18n', label: t('pricing.plans.free.features.themesI18n') },
+                {
+                  id: 'remoteSsh',
+                  label: t('pricing.plans.free.features.remoteSsh'),
+                  included: false
+                },
+                {
+                  id: 'multiHost',
+                  label: t('pricing.plans.free.features.multiHost'),
+                  included: false
+                }
               ]}
               freq={t('pricing.plans.free.freq')}
               label={t('pricing.plans.free.label')}
@@ -136,12 +144,14 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
             <PlanCard
               ctaHref={`/api/checkout?plan=3-devices&locale=${l}`}
               ctaLabel={t('pricing.plans.team.cta', { price: teamPrice })}
+              ctaMethod="post"
               ctaNote={t('pricing.plans.team.ctaNote', { days: refund.days })}
               ctaTarget="_blank"
               ctaVariant="primary"
               description={t('pricing.plans.team.description')}
               features={[
                 {
+                  id: 'everythingFree',
                   label: (
                     <span className="font-semibold text-dm-ink">
                       {t('pricing.plans.team.features.everythingFree')}
@@ -149,6 +159,7 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
                   )
                 },
                 {
+                  id: 'perDevice',
                   label: (
                     <>
                       <span className="font-semibold text-dm-ink">
@@ -160,24 +171,20 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
                     </>
                   )
                 },
-                { label: t('pricing.plans.team.features.remote') },
-                { label: t('pricing.plans.team.features.multiHost') },
-                { label: t('pricing.plans.team.features.cloudflared') },
-                { label: t('pricing.plans.team.features.k8s') },
-                { label: t('pricing.plans.team.features.updates') }
+                { id: 'remote', label: t('pricing.plans.team.features.remote') },
+                { id: 'multiHost', label: t('pricing.plans.team.features.multiHost') },
+                { id: 'cloudflared', label: t('pricing.plans.team.features.cloudflared') },
+                { id: 'k8s', label: t('pricing.plans.team.features.k8s') },
+                { id: 'updates', label: t('pricing.plans.team.features.updates') }
               ]}
               freq={t('pricing.plans.team.freq', { devices: plans.team.devices })}
               highlighted
               label={t('pricing.plans.team.label', { devices: plans.team.devices })}
-              name={
-                <>
-                  {t('pricing.plans.team.nameLead')}{' '}
-                  <em className="font-[var(--font-dm-display)] font-normal text-dm-ink-3 italic">
-                    {t('pricing.plans.team.nameAccent')}
-                  </em>{' '}
-                  {t('pricing.plans.team.nameTrail')}
-                </>
-              }
+              name={{
+                accent: t('pricing.plans.team.nameAccent'),
+                lead: t('pricing.plans.team.nameLead'),
+                trail: t('pricing.plans.team.nameTrail')
+              }}
               price={teamPrice}
               ribbon={t('pricing.plans.team.ribbon')}
               strikePrice={isActive ? `$${plans.team.priceRegular}` : undefined}
@@ -187,23 +194,25 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
             <PlanCard
               ctaHref={`/api/checkout?plan=1-device&locale=${l}`}
               ctaLabel={t('pricing.plans.solo.cta', { price: soloPrice })}
+              ctaMethod="post"
               ctaNote={t('pricing.plans.solo.ctaNote', { days: refund.days })}
               ctaTarget="_blank"
               ctaVariant="ghost"
               description={t('pricing.plans.solo.description')}
               features={[
                 {
+                  id: 'everythingFree',
                   label: (
                     <span className="font-semibold text-dm-ink">
                       {t('pricing.plans.solo.features.everythingFree')}
                     </span>
                   )
                 },
-                { label: t('pricing.plans.solo.features.remote') },
-                { label: t('pricing.plans.solo.features.multiHost') },
-                { label: t('pricing.plans.solo.features.cloudflared') },
-                { label: t('pricing.plans.solo.features.k8s') },
-                { label: t('pricing.plans.solo.features.updates') }
+                { id: 'remote', label: t('pricing.plans.solo.features.remote') },
+                { id: 'multiHost', label: t('pricing.plans.solo.features.multiHost') },
+                { id: 'cloudflared', label: t('pricing.plans.solo.features.cloudflared') },
+                { id: 'k8s', label: t('pricing.plans.solo.features.k8s') },
+                { id: 'updates', label: t('pricing.plans.solo.features.updates') }
               ]}
               freq={t('pricing.plans.solo.freq')}
               label={t('pricing.plans.solo.label')}
@@ -247,31 +256,35 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
               {t('pricing.finalCta.description')}
             </p>
             <div className="relative mt-7 inline-flex flex-wrap items-center justify-center gap-[10px]">
-              <a
-                className="inline-flex items-center gap-2 rounded-[10px] px-[22px] py-[13px] font-semibold text-[14px] text-white no-underline transition-transform hover:-translate-y-px"
-                href={`/api/checkout?plan=3-devices&locale=${l}`}
-                rel="noopener noreferrer"
+              <form
+                action={`/api/checkout?plan=3-devices&locale=${l}`}
+                method="post"
                 target="_blank"
-                style={{
-                  background:
-                    'linear-gradient(180deg, var(--color-dm-accent-2), color-mix(in srgb, var(--color-dm-accent-2) 80%, black))',
-                  boxShadow:
-                    '0 10px 24px -8px color-mix(in srgb, var(--color-dm-accent-2) 55%, transparent)'
-                }}
               >
-                {t('pricing.finalCta.ctaTeam', { price: teamPrice })}
-                <svg
-                  fill="none"
-                  height="14"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeWidth="2.5"
-                  viewBox="0 0 24 24"
-                  width="14"
+                <button
+                  className="inline-flex cursor-pointer items-center gap-2 rounded-[10px] border-0 px-[22px] py-[13px] font-semibold text-[14px] text-white no-underline transition-transform hover:-translate-y-px"
+                  style={{
+                    background:
+                      'linear-gradient(180deg, var(--color-dm-accent-2), color-mix(in srgb, var(--color-dm-accent-2) 80%, black))',
+                    boxShadow:
+                      '0 10px 24px -8px color-mix(in srgb, var(--color-dm-accent-2) 55%, transparent)'
+                  }}
+                  type="submit"
                 >
-                  <path d="M5 12h14M13 5l7 7-7 7" />
-                </svg>
-              </a>
+                  {t('pricing.finalCta.ctaTeam', { price: teamPrice })}
+                  <svg
+                    fill="none"
+                    height="14"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeWidth="2.5"
+                    viewBox="0 0 24 24"
+                    width="14"
+                  >
+                    <path d="M5 12h14M13 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </form>
               <a
                 className="inline-flex items-center px-[22px] py-[13px] font-medium text-[14px] text-dm-ink-2 transition-colors hover:text-dm-ink"
                 href={`/${l}/download`}

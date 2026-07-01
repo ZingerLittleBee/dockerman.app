@@ -1,5 +1,6 @@
 import type { Locale } from '@repo/shared/i18n'
 import type { ChangelogEntryData } from '@/lib/changelog'
+import { ChangelogFilterProvider } from './ChangelogFilterProvider'
 import { ChangelogSearch } from './ChangelogSearch'
 import { ChangelogTimeline } from './ChangelogTimeline'
 import { ChangelogToc } from './ChangelogToc'
@@ -18,7 +19,7 @@ interface Props {
 
 export default function ChangelogPageContent({ copy, entries, locale }: Props) {
   return (
-    <>
+    <ChangelogFilterProvider>
       <section className="relative overflow-hidden px-5 pt-12 pb-6 sm:px-8 sm:pt-16 sm:pb-7">
         <div className="mx-auto max-w-[1280px]">
           <span className="inline-flex items-center gap-2 rounded-full border border-dm-line-strong bg-dm-bg-elev px-[11px] py-[5px] font-[var(--font-dm-mono)] text-[11.5px] text-dm-ink-2 tracking-[0.02em]">
@@ -79,7 +80,7 @@ export default function ChangelogPageContent({ copy, entries, locale }: Props) {
           </div>
         </div>
       </section>
-    </>
+    </ChangelogFilterProvider>
   )
 }
 

@@ -29,6 +29,13 @@ const instrumentSerif = Instrument_Serif({
   fallback: ['ui-serif', 'Georgia', 'serif']
 })
 
+const OPEN_GRAPH_LOCALES: Record<Locale, string> = {
+  en: 'en_US',
+  zh: 'zh_CN',
+  ja: 'ja_JP',
+  es: 'es_ES'
+}
+
 export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }))
 }
@@ -51,21 +58,19 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     es: 'UI moderna y ligera de gestión Docker construida con Tauri y Rust, enfocada en simplicidad y rendimiento.'
   }
 
-  const localeMap: Record<Locale, string> = {
-    en: 'en_US',
-    zh: 'zh_CN',
-    ja: 'ja_JP',
-    es: 'es_ES'
+  const alternateLocales: string[] = []
+  for (const candidate of locales) {
+    if (candidate !== locale) {
+      alternateLocales.push(OPEN_GRAPH_LOCALES[candidate])
+    }
   }
-
-  const alternateLocales = locales.filter((l) => l !== locale).map((l) => localeMap[l])
 
   return {
     title: titles[locale],
     description: descriptions[locale],
     alternates: buildAlternates(locale),
     openGraph: {
-      locale: localeMap[locale],
+      locale: OPEN_GRAPH_LOCALES[locale],
       alternateLocale: alternateLocales,
       url: `${siteConfig.url}/${locale}`
     }
@@ -87,7 +92,7 @@ export default async function LocaleLayout({
       i18n={provider(locale)}
       theme={{ defaultTheme: 'dark', enableSystem: false, attribute: 'class' }}
     >
-      <I18nProvider locale={locale}>
+      <I18nProvider>
         <div className={`${geistMono.variable} ${instrumentSerif.variable} contents`}>
           <AnalyticsTracker />
           {children}

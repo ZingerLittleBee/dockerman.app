@@ -3,7 +3,7 @@
 import type { Locale } from '@repo/shared/i18n'
 import { useTranslation } from '@repo/shared/i18n/client'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useState, useSyncExternalStore } from 'react'
 import { siteConfig } from '@/app/siteConfig'
 import { downloadsConfig } from '@/config/downloads'
 import { formatDate } from '@/lib/format'
@@ -42,14 +42,27 @@ function detectOS(): OS {
   return 'mac'
 }
 
+function subscribeDetectedOS(listener: () => void) {
+  queueMicrotask(listener)
+  return () => undefined
+}
+
+function getDetectedOSSnapshot() {
+  return detectOS()
+}
+
+function getServerDetectedOSSnapshot(): OS {
+  return 'mac'
+}
+
 export function Hero({ locale }: { locale: Locale }) {
   const { t } = useTranslation(locale)
   const [copied, setCopied] = useState(false)
-  const [os, setOs] = useState<OS>('mac')
-
-  useEffect(() => {
-    setOs(detectOS())
-  }, [])
+  const os = useSyncExternalStore(
+    subscribeDetectedOS,
+    getDetectedOSSnapshot,
+    getServerDetectedOSSnapshot
+  )
 
   const downloadLabel = t(OS_LABEL_KEY[os])
   const downloadSize = OS_SIZE[os]
@@ -84,7 +97,7 @@ export function Hero({ locale }: { locale: Locale }) {
             style={{
               background: 'var(--color-dm-ok)',
               boxShadow: '0 0 0 4px color-mix(in srgb, var(--color-dm-ok) 30%, transparent)',
-              animation: 'dm-pulse 2.2s ease-in-out infinite'
+              animation: 'dm-pulse 900ms ease-in-out infinite'
             }}
           />
           <span>{t('hero.eyebrow', { version: siteConfig.latestVersion })}</span>
@@ -272,7 +285,7 @@ function TerminalCard({ locale }: { locale: Locale }) {
             style={{
               background: 'var(--color-dm-ok)',
               boxShadow: '0 0 0 3px color-mix(in srgb, var(--color-dm-ok) 30%, transparent)',
-              animation: 'dm-pulse 2.2s ease-in-out infinite'
+              animation: 'dm-pulse 900ms ease-in-out infinite'
             }}
           />
           live
@@ -323,7 +336,7 @@ function TerminalCard({ locale }: { locale: Locale }) {
                   width: '0',
                   background:
                     'linear-gradient(90deg, var(--color-dm-accent), var(--color-dm-accent-2))',
-                  animation: 'dm-progress 1200ms cubic-bezier(0.22, 1, 0.36, 1) forwards',
+                  animation: 'dm-progress 900ms cubic-bezier(0.22, 1, 0.36, 1) forwards',
                   animationDelay: `${STAGE_STEPS.progress}ms`,
                   ['--dm-progress' as string]: '100%'
                 }}
@@ -397,7 +410,7 @@ function ContainerMini({
         style={{
           background: 'var(--color-dm-ok)',
           boxShadow: '0 0 0 3px color-mix(in srgb, var(--color-dm-ok) 28%, transparent)',
-          animation: 'dm-pulse 2.2s ease-in-out infinite'
+          animation: 'dm-pulse 900ms ease-in-out infinite'
         }}
       />
       <span className="flex min-w-0 flex-1 items-baseline gap-2">
@@ -446,26 +459,7 @@ function MiniBars({ delayMs }: { delayMs: number }) {
 
 function Accent({ children }: { children: React.ReactNode }) {
   return (
-    <span
-      className="bg-clip-text text-transparent italic"
-      style={{
-        fontFamily: 'var(--font-dm-display)',
-        fontWeight: 400,
-        letterSpacing: '-0.02em',
-        backgroundImage:
-          'linear-gradient(135deg, var(--color-dm-accent) 0%, var(--color-dm-accent-2) 100%)',
-        // The heading uses leading-[0.95] + background-clip:text. Italic
-        // glyphs overshoot their advance width (l, y) and extend beyond
-        // the tight line box (y descender). Extending padding on both
-        // axes grows the gradient's paint area to cover those pixels;
-        // matching negative margins keep surrounding text (. and the
-        // next line) in place.
-        paddingInlineEnd: '0.18em',
-        marginInlineEnd: '-0.18em',
-        paddingBlockEnd: '0.18em',
-        marginBlockEnd: '-0.18em'
-      }}
-    >
+    <span className="-me-[0.18em] -mb-[0.18em] bg-[linear-gradient(135deg,var(--color-dm-accent)_0%,var(--color-dm-accent-2)_100%)] bg-clip-text pe-[0.18em] pb-[0.18em] font-[var(--font-dm-display)] font-normal text-transparent italic tracking-[-0.02em]">
       {children}
     </span>
   )

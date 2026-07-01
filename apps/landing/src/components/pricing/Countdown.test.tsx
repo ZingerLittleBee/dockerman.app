@@ -1,6 +1,12 @@
-import { describe, expect, test } from 'bun:test'
+import { describe, expect, mock, test } from 'bun:test'
 import { renderToStaticMarkup } from 'react-dom/server'
-import { Countdown, diff } from './Countdown'
+
+mock.module('@repo/shared/i18n/client', () => ({
+  useTranslation: () => ({ t: (key: string) => key })
+}))
+
+const { Countdown } = await import('./Countdown')
+const { diff } = await import('./countdownDiff')
 
 describe('Countdown diff()', () => {
   test('zero diff when now >= target', () => {

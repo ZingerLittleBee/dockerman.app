@@ -1,6 +1,8 @@
 import { describe, expect, test } from 'bun:test'
 import { renderToStaticMarkup } from 'react-dom/server'
-import { Accordion, AccordionItem, AccordionTrigger } from './Accordion'
+import { Accordion } from './Accordion'
+import { AccordionItem } from './AccordionItem'
+import { AccordionTrigger } from './AccordionTrigger'
 
 const headerWidthClassPattern = /<h3[^>]*class="[^"]*w-full[^"]*"/
 const triggerWidthClassPattern = /<button[^>]*class="[^"]*w-full[^"]*"/

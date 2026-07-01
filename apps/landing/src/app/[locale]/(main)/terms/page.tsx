@@ -28,17 +28,11 @@ function asStringArray(value: unknown): string[] {
   return Array.isArray(value) && value.every((v) => typeof v === 'string') ? value : []
 }
 
-export default async function TermsPage({
-  params
-}: {
-  params: Promise<{ locale: string }>
-}) {
+export default async function TermsPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   const { t } = await getTranslation(locale as Locale)
 
-  const licenseItems = asStringArray(
-    t('terms.sections.license.items', { returnObjects: true })
-  )
+  const licenseItems = asStringArray(t('terms.sections.license.items', { returnObjects: true }))
   const restrictionItems = asStringArray(
     t('terms.sections.restrictions.items', { returnObjects: true })
   )

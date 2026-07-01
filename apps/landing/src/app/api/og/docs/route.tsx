@@ -5,7 +5,7 @@ import { source } from '@/lib/source'
 
 // Cached for a day at the CDN. Not force-static: that would freeze the route
 // at build time with no search params, so every doc would share one image.
-export const revalidate = 86400
+export const revalidate = 86_400
 
 // Resolve title/description from the docs source by slug instead of trusting
 // query params. Unknown slugs 404, so the cache surface is bounded to the

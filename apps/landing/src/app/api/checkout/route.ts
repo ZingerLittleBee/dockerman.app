@@ -16,7 +16,14 @@ const PLAN_CONFIG: Record<string, { productId?: string; discountCode?: string }>
   }
 }
 
-export async function GET(request: NextRequest) {
+export function GET() {
+  return NextResponse.json(
+    { error: 'Method not allowed' },
+    { status: 405, headers: { Allow: 'POST' } }
+  )
+}
+
+export async function POST(request: NextRequest) {
   const { searchParams } = request.nextUrl
   const plan = searchParams.get('plan')
   const locale = searchParams.get('locale') ?? 'en'

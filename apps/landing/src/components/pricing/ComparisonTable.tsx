@@ -3,6 +3,7 @@ import { getTranslation } from '@repo/shared/i18n/server'
 import { pricingConfig } from '@/config/pricing'
 
 type TFn = (key: string, options?: Record<string, unknown>) => string
+const COMPARISON_GRID_COLUMNS = 'minmax(0, 2.2fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr)'
 
 type RowValue = boolean | string | { text: string; accent?: boolean }
 type RowKey =
@@ -82,14 +83,15 @@ function Cell({ v, t }: { v: RowValue; t: TFn }) {
   if (typeof v === 'boolean') {
     return v ? (
       <span
-        aria-label={t('pricing.compare.values.included')}
         className="inline-grid h-[22px] w-[22px] place-items-center rounded-md"
         style={{
           background: 'color-mix(in srgb, var(--color-dm-ok) 16%, transparent)',
           color: 'var(--color-dm-ok)'
         }}
       >
+        <span className="sr-only">{t('pricing.compare.values.included')}</span>
         <svg
+          aria-hidden="true"
           fill="none"
           height="11"
           stroke="currentColor"
@@ -101,11 +103,10 @@ function Cell({ v, t }: { v: RowValue; t: TFn }) {
         </svg>
       </span>
     ) : (
-      <span
-        aria-label={t('pricing.compare.values.notIncluded')}
-        className="inline-grid h-[22px] w-[22px] place-items-center rounded-md bg-dm-bg-soft text-dm-ink-4"
-      >
+      <span className="inline-grid h-[22px] w-[22px] place-items-center rounded-md bg-dm-bg-soft text-dm-ink-4">
+        <span className="sr-only">{t('pricing.compare.values.notIncluded')}</span>
         <svg
+          aria-hidden="true"
           fill="none"
           height="11"
           stroke="currentColor"
@@ -143,7 +144,8 @@ export async function ComparisonTable({ locale }: { locale: Locale }) {
             className="font-[var(--font-dm-mono)] text-[12px] tracking-[0.04em]"
             style={{ color: 'var(--color-dm-accent-2)' }}
           >
-            <span className="text-dm-ink-4">// </span>compare plans
+            <span aria-hidden="true" className="text-dm-ink-4 before:content-['//_']" />
+            compare plans
           </div>
           <h2 className="mx-0 mt-[10px] mb-3 font-bold text-[clamp(28px,3.6vw,40px)] text-dm-ink leading-[1.05] tracking-[-0.03em]">
             {t('pricing.compare.titleLead')}{' '}
@@ -159,7 +161,7 @@ export async function ComparisonTable({ locale }: { locale: Locale }) {
         <div className="overflow-hidden rounded-[14px] border border-dm-line bg-dm-bg-elev text-[13.5px]">
           <div
             className="grid items-center gap-1 border-dm-line border-b bg-dm-bg-soft px-3 py-[14px] font-[var(--font-dm-mono)] font-semibold text-[11px] text-dm-ink-3 uppercase tracking-[0.06em] sm:gap-0 sm:px-[22px] sm:text-[11.5px]"
-            style={{ gridTemplateColumns: 'minmax(0, 2.2fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr)' }}
+            style={{ gridTemplateColumns: COMPARISON_GRID_COLUMNS }}
           >
             <div className="text-left">{t('pricing.compare.columns.feature')}</div>
             <div className="text-center">{t('pricing.compare.columns.free')}</div>
@@ -173,7 +175,7 @@ export async function ComparisonTable({ locale }: { locale: Locale }) {
             <div key={group.key}>
               <div
                 className="grid items-center border-dm-line border-b bg-dm-bg px-3 py-[12px] font-[var(--font-dm-mono)] font-semibold text-[11.5px] text-dm-ink-2 uppercase tracking-[0.08em] sm:px-[22px] sm:py-[14px] sm:text-[12px]"
-                style={{ gridTemplateColumns: 'minmax(0, 2.2fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr)' }}
+                style={{ gridTemplateColumns: COMPARISON_GRID_COLUMNS }}
               >
                 <div className="text-left">{t(`pricing.compare.groups.${group.key}`)}</div>
                 <div />
@@ -184,7 +186,7 @@ export async function ComparisonTable({ locale }: { locale: Locale }) {
                 <div
                   className="grid items-center gap-1 border-dm-line border-b px-3 py-[12px] last:border-b-0 sm:gap-0 sm:px-[22px] sm:py-[14px]"
                   key={`${group.key}-${r.key}`}
-                  style={{ gridTemplateColumns: 'minmax(0, 2.2fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr)' }}
+                  style={{ gridTemplateColumns: COMPARISON_GRID_COLUMNS }}
                 >
                   <div className="min-w-0 text-left">
                     <div className="font-medium text-[12.5px] text-dm-ink tracking-[-0.005em] sm:text-[14px]">

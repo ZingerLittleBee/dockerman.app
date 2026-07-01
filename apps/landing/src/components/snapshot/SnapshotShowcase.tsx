@@ -1,11 +1,61 @@
 'use client'
 
 import Image from 'next/image'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import {
+  useCallback,
+  useEffect,
+  useEffectEvent,
+  useRef,
+  useState,
+  useSyncExternalStore
+} from 'react'
 import type { SnapshotModule } from '@/config/snapshot'
 import { ModuleIcon } from './ModuleIcon'
 
 const DESKTOP_MQ = '(min-width: 768px)'
+const CODE_TAG_RE = /<code>(.*?)<\/code>/g
+
+function decodeHtmlEntities(value: string) {
+  return value.replaceAll('&amp;', '&')
+}
+
+function renderInlineCodeDescription(desc: string) {
+  const nodes: React.ReactNode[] = []
+  let lastIndex = 0
+
+  for (const match of desc.matchAll(CODE_TAG_RE)) {
+    const matchStart = match.index ?? 0
+    if (matchStart > lastIndex) {
+      nodes.push(decodeHtmlEntities(desc.slice(lastIndex, matchStart)))
+    }
+    nodes.push(<code key={`code-${match[1]}`}>{decodeHtmlEntities(match[1])}</code>)
+    lastIndex = matchStart + match[0].length
+  }
+
+  if (lastIndex < desc.length) {
+    nodes.push(decodeHtmlEntities(desc.slice(lastIndex)))
+  }
+
+  return nodes
+}
+
+function InlineCodeDescription({ desc }: { desc: string }) {
+  return renderInlineCodeDescription(desc)
+}
+
+function subscribeHash(listener: () => void) {
+  window.addEventListener('hashchange', listener)
+  queueMicrotask(listener)
+  return () => window.removeEventListener('hashchange', listener)
+}
+
+function getHashSnapshot() {
+  return window.location.hash.slice(1)
+}
+
+function getServerHashSnapshot() {
+  return ''
+}
 
 export interface ShowcaseStrings {
   allModules: string
@@ -36,25 +86,66 @@ export function SnapshotShowcase({
   strings: ShowcaseStrings
 }) {
   const total = modules.length
-  const [active, setActive] = useState(0)
-  const [prev, setPrev] = useState(0)
+  const [selection, setSelection] = useState({ active: 0, prev: 0 })
   const [lightbox, setLightbox] = useState(false)
+  const hash = useSyncExternalStore(subscribeHash, getHashSnapshot, getServerHashSnapshot)
+  const appliedHashRef = useRef('')
   const railRef = useRef<HTMLElement | null>(null)
   const mobRef = useRef<HTMLDivElement | null>(null)
   const sentinelRefs = useRef<(HTMLDivElement | null)[]>([])
   const stageRef = useRef<HTMLButtonElement | null>(null)
+  const { active, prev } = selection
 
   const closeLightbox = useCallback(() => {
     setLightbox(false)
     stageRef.current?.blur()
   }, [])
 
-  const setActiveSync = useCallback((n: number) => {
-    setActive((cur) => {
-      setPrev(cur)
-      return n
+  const scrollActiveControls = useCallback((n: number) => {
+    requestAnimationFrame(() => {
+      const nav = railRef.current
+      if (nav && window.innerWidth > 1080) {
+        const link = nav.querySelector<HTMLButtonElement>(`button[data-i="${n}"]`)
+        if (link) {
+          const linkTop = link.offsetTop
+          const linkBottom = linkTop + link.offsetHeight
+          const viewTop = nav.scrollTop
+          const viewBottom = viewTop + nav.clientHeight
+          const margin = 24
+          if (linkTop < viewTop + margin) {
+            nav.scrollTo({ top: Math.max(0, linkTop - margin), behavior: 'smooth' })
+          } else if (linkBottom > viewBottom - margin) {
+            nav.scrollTo({ top: linkBottom - nav.clientHeight + margin, behavior: 'smooth' })
+          }
+        }
+      }
+
+      const mob = mobRef.current
+      if (mob) {
+        const chip = mob.querySelector<HTMLButtonElement>(`button[data-i="${n}"]`)
+        chip?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })
+      }
     })
   }, [])
+
+  const setActiveSync = useCallback(
+    (n: number) => {
+      setSelection((cur) => (cur.active === n ? cur : { active: n, prev: cur.active }))
+      scrollActiveControls(n)
+    },
+    [scrollActiveControls]
+  )
+
+  const appliedHash = appliedHashRef.current
+  if (hash && hash !== appliedHash) {
+    const idx = modules.findIndex((m) => m.key === hash)
+    appliedHashRef.current = hash
+    if (idx >= 0) {
+      setSelection((cur) => (cur.active === idx ? cur : { active: idx, prev: cur.active }))
+    }
+  } else if (!hash && appliedHash) {
+    appliedHashRef.current = ''
+  }
 
   const go = useCallback(
     (next: number) => {
@@ -69,6 +160,20 @@ export function SnapshotShowcase({
     },
     [setActiveSync, total]
   )
+
+  const onWindowKey = useEffectEvent((e: KeyboardEvent) => {
+    if (lightbox) {
+      if (e.key === 'Escape') closeLightbox()
+      return
+    }
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === 'j') {
+      e.preventDefault()
+      go(active + 1)
+    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft' || e.key === 'k') {
+      e.preventDefault()
+      go(active - 1)
+    }
+  })
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -94,53 +199,10 @@ export function SnapshotShowcase({
   }, [setActiveSync])
 
   useEffect(() => {
-    const hash = window.location.hash.slice(1)
-    if (!hash) return
-    const idx = modules.findIndex((m) => m.key === hash)
-    if (idx >= 0) go(idx)
-  }, [go, modules])
-
-  useEffect(() => {
-    const nav = railRef.current
-    if (nav && window.innerWidth > 1080) {
-      const link = nav.querySelector<HTMLButtonElement>(`button[data-i="${active}"]`)
-      if (link) {
-        const linkTop = link.offsetTop
-        const linkBottom = linkTop + link.offsetHeight
-        const viewTop = nav.scrollTop
-        const viewBottom = viewTop + nav.clientHeight
-        const margin = 24
-        if (linkTop < viewTop + margin) {
-          nav.scrollTo({ top: Math.max(0, linkTop - margin), behavior: 'smooth' })
-        } else if (linkBottom > viewBottom - margin) {
-          nav.scrollTo({ top: linkBottom - nav.clientHeight + margin, behavior: 'smooth' })
-        }
-      }
-    }
-    const mob = mobRef.current
-    if (mob) {
-      const chip = mob.querySelector<HTMLButtonElement>(`button[data-i="${active}"]`)
-      chip?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })
-    }
-  }, [active])
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (lightbox) {
-        if (e.key === 'Escape') closeLightbox()
-        return
-      }
-      if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === 'j') {
-        e.preventDefault()
-        go(active + 1)
-      } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft' || e.key === 'k') {
-        e.preventDefault()
-        go(active - 1)
-      }
-    }
+    const onKey = (e: KeyboardEvent) => onWindowKey(e)
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [active, closeLightbox, go, lightbox])
+  }, [])
 
   const current = modules[active]
   const n = String(active + 1).padStart(2, '0')
@@ -239,7 +301,7 @@ export function SnapshotShowcase({
                 </div>
 
                 <CaptionStrip
-                  descHtml={current.desc}
+                  desc={current.desc}
                   em={current.em}
                   label={current.label}
                   onCopyLink={() => {
@@ -520,13 +582,13 @@ function Slide({
 function CaptionStrip({
   em,
   onCopyLink,
-  descHtml,
+  desc,
   label,
   strings
 }: {
   em: string
   onCopyLink: () => void
-  descHtml: string
+  desc: string
   label: string
   strings: ShowcaseStrings
 }) {
@@ -543,11 +605,9 @@ function CaptionStrip({
             {em}
           </em>
         </h3>
-        <p
-          className="m-0 mt-1 max-w-[70ch] text-[14px] text-dm-ink-3 leading-[1.55] [&_code]:rounded [&_code]:bg-dm-bg-soft [&_code]:px-[5px] [&_code]:py-[1px] [&_code]:font-[var(--font-dm-mono)] [&_code]:text-[13px]"
-          // biome-ignore lint/security/noDangerouslySetInnerHtml: copy is authored by us in locales/*.json and only contains <code> tags.
-          dangerouslySetInnerHTML={{ __html: descHtml }}
-        />
+        <p className="m-0 mt-1 max-w-[70ch] text-[14px] text-dm-ink-3 leading-[1.55] [&_code]:rounded [&_code]:bg-dm-bg-soft [&_code]:px-[5px] [&_code]:py-[1px] [&_code]:font-[var(--font-dm-mono)] [&_code]:text-[13px]">
+          <InlineCodeDescription desc={desc} />
+        </p>
       </div>
       <div className="flex gap-2">
         <a
@@ -612,11 +672,11 @@ function Lightbox({
   const m = modules[active]
   const n = String(active + 1).padStart(2, '0')
   return (
-    <div
-      aria-modal="true"
+    <dialog
+      aria-label={m.label}
       className="fixed inset-0 z-[100] flex cursor-zoom-out items-center justify-center p-10"
-      onClick={onClose}
-      role="dialog"
+      onCancel={onClose}
+      open
       style={{ background: 'rgb(0 0 0 / 0.92)' }}
     >
       <button
@@ -667,6 +727,6 @@ function Lightbox({
       >
         {n} · {m.label}
       </div>
-    </div>
+    </dialog>
   )
 }

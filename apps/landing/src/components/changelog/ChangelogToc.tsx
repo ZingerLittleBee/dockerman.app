@@ -1,44 +1,45 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { use, useEffect, useMemo, useRef, useState } from 'react'
 import type { ChangelogEntryData } from '@/lib/changelog'
+import { ChangelogFilterContext } from './ChangelogFilterContext'
 
-interface ChangelogFilterDetail {
-  visibleIds: string[]
-}
-
-function isChangelogFilterEvent(event: Event): event is CustomEvent<ChangelogFilterDetail> {
-  return event instanceof CustomEvent && Array.isArray(event.detail?.visibleIds)
+function scrollLinkIntoView(nav: HTMLElement | null, id: string) {
+  if (!(nav && id)) return
+  const link = nav.querySelector<HTMLAnchorElement>(`a[href="#${id}"]`)
+  if (!link) return
+  const linkTop = link.offsetTop
+  const linkBottom = linkTop + link.offsetHeight
+  const viewTop = nav.scrollTop
+  const viewBottom = viewTop + nav.clientHeight
+  const margin = 24
+  if (linkTop < viewTop + margin) {
+    nav.scrollTo({ top: Math.max(0, linkTop - margin), behavior: 'smooth' })
+  } else if (linkBottom > viewBottom - margin) {
+    nav.scrollTo({
+      top: linkBottom - nav.clientHeight + margin,
+      behavior: 'smooth'
+    })
+  }
 }
 
 export function ChangelogToc({ entries }: { entries: ChangelogEntryData[] }) {
-  const [active, setActive] = useState(entries[0]?.id ?? '')
-  const [visibleIds, setVisibleIds] = useState<string[] | null>(null)
+  const filter = use(ChangelogFilterContext)
+  const [observedActiveId, setObservedActiveId] = useState(entries[0]?.id ?? '')
   const navRef = useRef<HTMLElement | null>(null)
+  const visibleIdSet = useMemo(
+    () => (filter?.visibleIds ? new Set(filter.visibleIds) : null),
+    [filter?.visibleIds]
+  )
   const visibleEntries = useMemo(() => {
-    if (!visibleIds) return entries
-    return entries.filter((entry) => visibleIds.includes(entry.id))
-  }, [entries, visibleIds])
-
-  useEffect(() => {
-    const onFiltered = (event: Event) => {
-      if (!isChangelogFilterEvent(event)) return
-      setVisibleIds(event.detail.visibleIds)
-    }
-    window.addEventListener('changelog:filtered', onFiltered)
-    return () => window.removeEventListener('changelog:filtered', onFiltered)
-  }, [])
-
-  useEffect(() => {
-    if (visibleEntries.length === 0) {
-      setActive('')
-      return
-    }
-    if (!visibleEntries.some((entry) => entry.id === active)) {
-      setActive(visibleEntries[0]?.id ?? '')
-    }
-  }, [active, visibleEntries])
+    if (!visibleIdSet) return entries
+    return entries.filter((entry) => visibleIdSet.has(entry.id))
+  }, [entries, visibleIdSet])
+  const fallbackActiveId = visibleEntries[0]?.id ?? ''
+  const active = visibleEntries.some((entry) => entry.id === observedActiveId)
+    ? observedActiveId
+    : fallbackActiveId
 
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -46,7 +47,9 @@ export function ChangelogToc({ entries }: { entries: ChangelogEntryData[] }) {
         const visible = observations.filter((o) => o.isIntersecting)
         if (visible.length > 0) {
           visible.sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)
-          setActive(visible[0].target.id)
+          const nextActiveId = visible[0].target.id
+          setObservedActiveId(nextActiveId)
+          scrollLinkIntoView(navRef.current, nextActiveId)
         }
       },
       { rootMargin: '-20% 0px -60% 0px' }
@@ -57,28 +60,6 @@ export function ChangelogToc({ entries }: { entries: ChangelogEntryData[] }) {
     }
     return () => obs.disconnect()
   }, [visibleEntries])
-
-  // Keep the active entry inside the nav's own scroll viewport so long
-  // release lists don't leave the current version off-screen.
-  useEffect(() => {
-    const nav = navRef.current
-    if (!(nav && active)) return
-    const link = nav.querySelector<HTMLAnchorElement>(`a[href="#${active}"]`)
-    if (!link) return
-    const linkTop = link.offsetTop
-    const linkBottom = linkTop + link.offsetHeight
-    const viewTop = nav.scrollTop
-    const viewBottom = viewTop + nav.clientHeight
-    const margin = 24
-    if (linkTop < viewTop + margin) {
-      nav.scrollTo({ top: Math.max(0, linkTop - margin), behavior: 'smooth' })
-    } else if (linkBottom > viewBottom - margin) {
-      nav.scrollTo({
-        top: linkBottom - nav.clientHeight + margin,
-        behavior: 'smooth'
-      })
-    }
-  }, [active])
 
   return (
     <nav
