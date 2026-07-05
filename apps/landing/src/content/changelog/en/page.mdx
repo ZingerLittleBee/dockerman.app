@@ -1,3 +1,28 @@
+<ChangelogEntry version="v5.6.0" date="Jul 6, 2026">
+## Apple Container Support & Guided Engine Setup
+
+This release brings Apple's container engine to Dockerman as a first-class runtime on macOS, with guided engine setup and switching, smoother large views, consistent filters, and a tidier ports column.
+
+### ✨ Features
+
+- 🍎 <Bold>Apple Container support:</Bold> Connect to Apple's container engine on macOS, manage containers, images, volumes, networks, logs, stats, builds, pulls, and interactive terminals from Dockerman
+- 🧭 <Bold>Guided engine setup:</Bold> macOS users can detect, start, stop, and switch engines from onboarding and Settings
+
+### 🔧 Improvements
+
+- ⚡ <Bold>Smoother large views:</Bold> Faster image filtering, table resizing, route switching, and dialog-heavy action menus
+- 🎛️ <Bold>Consistent filters:</Bold> Image, volume, and log filters now use the same segmented control style
+- 🔌 <Bold>Tidier ports column:</Bold> Port mappings hide the redundant 0.0.0.0 host, the "+N" badge stays visible next to long labels, and every port — including those inside "+N" — can be copied with one click
+- 🧩 <Bold>Cleaner interface:</Bold> Many large pages and dialogs were split and simplified, making the app easier to navigate and maintain
+
+### 🐛 Bug Fixes
+
+- 🔌 <Bold>More reliable engine switching:</Bold> Fixed connection, capability, polling, and selection edge cases across Docker and Apple Container
+- 📡 <Bold>Better streaming:</Bold> Improved logs, stats, build output, pulls, and terminal behavior for Apple Container
+- 🧪 <Bold>Stability fixes:</Bold> Fixed chart rendering, persisted store recovery, compose editor saves, container selection after reconnect, and log stream completion states
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v5.5.0" date="Jun 30, 2026">
 ## End-to-End Kubernetes Management, Live Container Triage & Sharper Search
 

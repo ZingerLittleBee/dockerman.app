@@ -12,7 +12,7 @@
     "closeMenu": "Cerrar menú"
   },
   "hero": {
-    "eyebrow": "v{{version}} — Gestión de Kubernetes de extremo a extremo, triaje de contenedores en vivo, búsqueda más precisa",
+    "eyebrow": "v{{version}} — Compatibilidad con Apple Container, configuración guiada del motor, vistas grandes más fluidas",
     "eyebrowTag": "NUEVO",
     "headline1Lead": "Docker que se siente",
     "headline1Accent": "local",

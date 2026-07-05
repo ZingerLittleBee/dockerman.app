@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | [🇨🇳 简体中文](./README.zh-CN.md) | 🇯🇵 日本語 | [🇪🇸 Español](./README.es.md)
 
-[![Version](https://img.shields.io/badge/version-v5.5.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.5.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Jun%2030%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.5.0)
+[![Version](https://img.shields.io/badge/version-v5.6.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.6.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Jul%206%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.6.0)
 
 Docker **と** Kubernetes をまとめて管理できるネイティブデスクトップ UI。Tauri + Rust 製で、起動が速く、軽量、完全ローカル動作――データはマシンの外に出ません。
 
@@ -19,7 +19,7 @@ Docker **と** Kubernetes をまとめて管理できるネイティブデスク
 - 🖥️ **組み込みツール** — ターミナル、検索可能なログビューア、CPU/メモリ履歴、編集可能なファイルブラウザ
 - 🔔 **イメージ更新監視** — バックグラウンド購読サービスでアップデートを通知
 - ☁️ **Cloudflared トンネル** — ワンクリックで公開 URL、自動クリーンアップ
-- 🐙 **Podman と WSL2 エンジン** — Docker Desktop の代替を一級でサポート
+- 🐙 **Podman・WSL2・Apple Container エンジン** — Docker Desktop の代替を一級でサポート
 - 🌐 多言語：English、中文、日本語、Español、フルダークモード対応
 
 ## コンテナ・イメージ
@@ -55,6 +55,8 @@ Docker **と** Kubernetes をまとめて管理できるネイティブデスク
 
 - **Cloudflared トンネル** — 任意のコンテナポートをワンクリックで公開、停止／削除で自動クリーンアップ、クラッシュ後も復旧
 - **Podman** — ランタイム自動検出、ホスト単位の優先設定、Compose 系操作の機能ゲート
+- **Apple Container** — macOS 上で Apple のコンテナエンジンに接続：コンテナ、イメージ、ボリューム、ネットワーク、ログ、統計、ビルド、プル、対話型ターミナル
+- **macOS のガイド付きエンジンセットアップ** — オンボーディングと設定からエンジンの検出、起動、停止、切り替え
 - **Windows の WSL2 エンジン** — Docker Desktop 不要、Alpine をワンクリックでセットアップ、クラッシュ自動復旧、レジストリミラー、再インストールに対応。設定から WSL2 エンジンと OS ネイティブ Docker を切替可能
 - **リモートデーモン** — カスタム socket、TCP、SSH 転送、ハートビート再接続とホスト別レイテンシ表示
 - **SSH ホストへのデプロイ** — SSH 経由でのみ到達できるリモートホスト上でアプリをインストール・管理
