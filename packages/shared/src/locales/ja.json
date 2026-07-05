@@ -12,7 +12,7 @@
     "closeMenu": "メニューを閉じる"
   },
   "hero": {
-    "eyebrow": "v{{version}} — エンドツーエンドの Kubernetes 管理、リアルタイムなコンテナ診断、より鋭い検索",
+    "eyebrow": "v{{version}} — Apple Container 対応、ガイド付きエンジンセットアップ、より滑らかな大規模ビュー",
     "eyebrowTag": "NEW",
     "headline1Lead": "Docker を",
     "headline1Accent": "ローカルに",

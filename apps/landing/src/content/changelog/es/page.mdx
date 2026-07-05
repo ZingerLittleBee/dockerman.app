@@ -1,3 +1,28 @@
+<ChangelogEntry version="v5.6.0" date="6 de julio de 2026">
+## Compatibilidad con Apple Container y configuración guiada del motor
+
+Esta versión lleva el motor de contenedores de Apple a Dockerman como un runtime de primera clase en macOS, con configuración y cambio de motor guiados, vistas grandes más fluidas, filtros consistentes y una columna de puertos más ordenada.
+
+### ✨ Funciones
+
+- 🍎 <Bold>Compatibilidad con Apple Container:</Bold> Conéctate al motor de contenedores de Apple en macOS y gestiona contenedores, imágenes, volúmenes, redes, logs, estadísticas, builds, pulls y terminales interactivas desde Dockerman
+- 🧭 <Bold>Configuración guiada del motor:</Bold> Los usuarios de macOS pueden detectar, iniciar, detener y cambiar de motor desde el onboarding y los Ajustes
+
+### 🔧 Mejoras
+
+- ⚡ <Bold>Vistas grandes más fluidas:</Bold> Filtrado de imágenes, redimensionado de tablas, cambio de rutas y menús de acciones con muchos diálogos más rápidos
+- 🎛️ <Bold>Filtros consistentes:</Bold> Los filtros de imágenes, volúmenes y logs ahora usan el mismo estilo de control segmentado
+- 🔌 <Bold>Columna de puertos más ordenada:</Bold> Los mapeos de puertos ocultan el host redundante 0.0.0.0, la insignia "+N" permanece visible junto a etiquetas largas y cada puerto — incluidos los que están dentro de "+N" — se puede copiar con un clic
+- 🧩 <Bold>Interfaz más limpia:</Bold> Muchas páginas y diálogos grandes se dividieron y simplificaron, haciendo la app más fácil de navegar y mantener
+
+### 🐛 Correcciones
+
+- 🔌 <Bold>Cambio de motor más fiable:</Bold> Se corrigieron casos límite de conexión, capacidades, sondeo y selección entre Docker y Apple Container
+- 📡 <Bold>Mejor streaming:</Bold> Se mejoró el comportamiento de logs, estadísticas, salida de builds, pulls y terminales para Apple Container
+- 🧪 <Bold>Correcciones de estabilidad:</Bold> Se corrigieron el renderizado de gráficos, la recuperación del almacén persistido, el guardado del editor de Compose, la selección de contenedores tras reconectar y los estados de finalización del stream de logs
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v5.5.0" date="30 de junio de 2026">
 ## Gestión de Kubernetes de extremo a extremo, triaje de contenedores en vivo y búsqueda más precisa
 

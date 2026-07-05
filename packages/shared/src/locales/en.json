@@ -12,7 +12,7 @@
     "closeMenu": "Close menu"
   },
   "hero": {
-    "eyebrow": "v{{version}} — End-to-end Kubernetes management, live container triage, sharper search everywhere",
+    "eyebrow": "v{{version}} — Apple Container support, guided engine setup, smoother large views",
     "eyebrowTag": "NEW",
     "headline1Lead": "Docker that feels",
     "headline1Accent": "local",

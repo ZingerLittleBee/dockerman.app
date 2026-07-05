@@ -2,8 +2,8 @@
 
 Language: 🇺🇸 English | [🇨🇳 简体中文](./README.zh-CN.md) | [🇯🇵 日本語](./README.ja.md) | [🇪🇸 Español](./README.es.md)
 
-[![Version](https://img.shields.io/badge/version-v5.5.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.5.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Jun%2030%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.5.0)
+[![Version](https://img.shields.io/badge/version-v5.6.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.6.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Jul%206%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.6.0)
 
 A native desktop UI for managing Docker **and** Kubernetes — built with Tauri + Rust. Fast to launch, light on resources, and entirely local: nothing leaves your machine.
 
@@ -19,7 +19,7 @@ A native desktop UI for managing Docker **and** Kubernetes — built with Tauri 
 - 🖥️ **Built-in tools** — terminal, log viewer with search, CPU/memory history, file browser with editing
 - 🔔 **Image upgrade watch** — background service with desktop notifications when updates land
 - ☁️ **Cloudflared tunnels** — one-click public URLs with auto cleanup
-- 🐙 **Podman & WSL2 engine** — first-class alternatives to Docker Desktop
+- 🐙 **Podman, WSL2 & Apple Container engines** — first-class alternatives to Docker Desktop
 - 🌐 Localized in English, 中文, 日本語, Español, with comprehensive dark mode
 
 ## Containers & Images
@@ -55,6 +55,8 @@ Cluster management on par with `kubectl`, but visual:
 
 - **Cloudflared Tunnels** — expose any container port with one click; tunnels auto-clean on stop/destroy and survive crashes
 - **Podman** — auto-detected runtime with per-host preference and feature gating for Compose-only flows
+- **Apple Container** — connect to Apple's container engine on macOS: containers, images, volumes, networks, logs, stats, builds, pulls, and interactive terminals
+- **Guided engine setup on macOS** — detect, start, stop, and switch engines from onboarding and Settings
 - **WSL2 Engine on Windows** — no Docker Desktop required; one-click Alpine setup with crash recovery, registry mirrors, reinstall, and a Settings switch between WSL2 engine and OS-native Docker
 - **Remote daemons** — custom socket, TCP, or SSH forwarding with heartbeat reconnect and per-host latency display
 - **Deploy to SSH hosts** — install and manage apps on remote hosts reachable only over SSH

@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文 | [🇯🇵 日本語](./README.ja.md) | [🇪🇸 Español](./README.es.md)
 
-[![Version](https://img.shields.io/badge/version-v5.5.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.5.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Jun%2030%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.5.0)
+[![Version](https://img.shields.io/badge/version-v5.6.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.6.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Jul%206%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.6.0)
 
 一个原生桌面端 Docker **与** Kubernetes 管理工具，基于 Tauri + Rust。启动快、占用低、完全本地运行——数据不出本机。
 
@@ -19,7 +19,7 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文 | [🇯🇵 �
 - 🖥️ **内置工具** — 终端、带搜索的日志查看器、CPU/内存历史、可编辑文件浏览器
 - 🔔 **镜像升级监控** — 后台订阅服务，更新时桌面通知
 - ☁️ **Cloudflared 隧道** — 一键生成公网 URL，自动清理
-- 🐙 **Podman 与 WSL2 引擎** — Docker Desktop 的一流替代方案
+- 🐙 **Podman、WSL2 与 Apple Container 引擎** — Docker Desktop 的一流替代方案
 - 🌐 多语言：English、中文、日本語、Español，全面深色模式
 
 ## 容器与镜像
@@ -55,6 +55,8 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文 | [🇯🇵 �
 
 - **Cloudflared 隧道** — 一键暴露任意容器端口；容器停止/销毁自动清理，崩溃后可恢复
 - **Podman** — 自动检测运行时，支持按主机偏好与 Compose 类操作的功能门控
+- **Apple Container** — 在 macOS 上连接 Apple 的容器引擎：容器、镜像、卷、网络、日志、统计、构建、拉取与交互式终端
+- **macOS 引导式引擎设置** — 在引导流程与设置中检测、启动、停止与切换引擎
 - **Windows WSL2 引擎** — 无需 Docker Desktop；Alpine 一键安装、崩溃恢复、镜像源、重新安装，并可在设置中切换 WSL2 引擎与系统原生 Docker
 - **远程守护进程** — 自定义 socket、TCP 或 SSH 转发，心跳重连与每主机延迟显示
 - **部署到 SSH 主机** — 在仅能通过 SSH 访问的远程主机上安装与管理应用

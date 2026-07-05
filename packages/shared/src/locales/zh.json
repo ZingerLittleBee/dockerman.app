@@ -12,7 +12,7 @@
     "closeMenu": "关闭菜单"
   },
   "hero": {
-    "eyebrow": "v{{version}} — 端到端 Kubernetes 管理、实时容器排障、更精准的搜索",
+    "eyebrow": "v{{version}} — Apple Container 支持、引导式引擎设置、更流畅的大型视图",
     "eyebrowTag": "新",
     "headline1Lead": "Docker，用起来像",
     "headline1Accent": "本地",

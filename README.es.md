@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | [🇨🇳 简体中文](./README.zh-CN.md) | [🇯🇵 日本語](./README.ja.md) | 🇪🇸 Español
 
-[![Version](https://img.shields.io/badge/version-v5.5.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.5.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Jun%2030%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.5.0)
+[![Version](https://img.shields.io/badge/version-v5.6.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.6.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Jul%206%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.6.0)
 
 Una UI de escritorio nativa para gestionar Docker **y** Kubernetes — construida con Tauri + Rust. Arranque rápido, ligera en recursos y completamente local: nada sale de tu máquina.
 
@@ -19,7 +19,7 @@ Una UI de escritorio nativa para gestionar Docker **y** Kubernetes — construid
 - 🖥️ **Herramientas integradas** — terminal, visor de logs con búsqueda, historial de CPU/memoria, navegador de archivos con edición
 - 🔔 **Vigilancia de actualizaciones de imagen** — servicio en segundo plano con notificaciones de escritorio
 - ☁️ **Túneles Cloudflared** — URLs públicas en un clic con limpieza automática
-- 🐙 **Podman y motor WSL2** — alternativas de primera clase a Docker Desktop
+- 🐙 **Motores Podman, WSL2 y Apple Container** — alternativas de primera clase a Docker Desktop
 - 🌐 Localizado en English, 中文, 日本語, Español, con modo oscuro completo
 
 ## Contenedores e Imágenes
@@ -55,6 +55,8 @@ Gestión de cluster equivalente a `kubectl`, pero visual:
 
 - **Túneles Cloudflared** — expón cualquier puerto de un contenedor en un clic; los túneles se limpian automáticamente al parar/destruir y sobreviven a caídas
 - **Podman** — runtime detectado automáticamente con preferencia por host y feature gating para flujos solo-Compose
+- **Apple Container** — conéctate al motor de contenedores de Apple en macOS: contenedores, imágenes, volúmenes, redes, logs, estadísticas, builds, pulls y terminales interactivas
+- **Configuración guiada del motor en macOS** — detecta, inicia, detén y cambia de motor desde el onboarding y los Ajustes
 - **Motor WSL2 en Windows** — sin Docker Desktop; setup Alpine en un clic con recuperación ante caídas, mirrors de registry, reinstalación y un conmutador en Ajustes entre el motor WSL2 y Docker nativo del sistema
 - **Daemons remotos** — socket personalizado, TCP o SSH forwarding con reconexión por heartbeat y latencia por host
 - **Despliegue en hosts SSH** — instala y gestiona apps en hosts remotos accesibles solo por SSH
