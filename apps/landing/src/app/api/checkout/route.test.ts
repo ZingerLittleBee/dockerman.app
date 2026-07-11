@@ -46,13 +46,13 @@ describe('checkout route', () => {
     expect(fetchMock).not.toHaveBeenCalled()
   })
 
-  test('creates checkout sessions from POST requests', async () => {
+  test('redirects POST requests to checkout with GET semantics', async () => {
     const fetchMock = mock(async () => Response.json({ checkout_url: 'https://checkout.test/pay' }))
     globalThis.fetch = fetchMock
 
     const response = await POST(checkoutRequest('POST'))
 
-    expect(response.status).toBe(307)
+    expect(response.status).toBe(303)
     expect(response.headers.get('location')).toBe('https://checkout.test/pay')
     expect(fetchMock).toHaveBeenCalledTimes(1)
     expect(fetchMock.mock.calls[0][0]).toBe('https://test-api.creem.io/v1/checkouts')
