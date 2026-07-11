@@ -336,7 +336,7 @@ function TerminalCard({ locale }: { locale: Locale }) {
                   width: '0',
                   background:
                     'linear-gradient(90deg, var(--color-dm-accent), var(--color-dm-accent-2))',
-                  animation: 'dm-progress 900ms cubic-bezier(0.22, 1, 0.36, 1) forwards',
+                  animation: 'dm-progress 900ms var(--ease-out-strong) forwards',
                   animationDelay: `${STAGE_STEPS.progress}ms`,
                   ['--dm-progress' as string]: '100%'
                 }}
@@ -374,7 +374,7 @@ function StageLine({
       className={className}
       style={{
         opacity: 0,
-        animation: 'dm-reveal-up 420ms cubic-bezier(0.22, 1, 0.36, 1) forwards',
+        animation: 'dm-reveal-up 420ms var(--ease-out-strong) forwards',
         animationDelay: `${delayMs}ms`
       }}
     >
@@ -401,7 +401,7 @@ function ContainerMini({
       className="flex items-center gap-3 rounded-[10px] border border-dm-line bg-dm-bg-elev px-[14px] py-[10px]"
       style={{
         opacity: 0,
-        animation: 'dm-reveal-up 480ms cubic-bezier(0.22, 1, 0.36, 1) forwards',
+        animation: 'dm-reveal-up 480ms var(--ease-out-strong) forwards',
         animationDelay: `${delayMs}ms`
       }}
     >

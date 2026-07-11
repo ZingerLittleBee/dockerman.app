@@ -525,8 +525,7 @@ function Slide({
 }) {
   const visible = active || prev
   const style: React.CSSProperties = {
-    transition:
-      'opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1), clip-path 0.55s cubic-bezier(0.22, 1, 0.36, 1)',
+    transition: 'opacity 0.45s var(--ease-out-strong), clip-path 0.55s var(--ease-out-strong)',
     opacity: visible ? 1 : 0,
     clipPath: active ? 'inset(0 0 0 0)' : prev ? 'inset(0 0 0 0)' : 'inset(0 0 0 100%)',
     zIndex: active ? 2 : prev ? 1 : 0

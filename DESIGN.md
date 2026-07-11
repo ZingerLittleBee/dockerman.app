@@ -106,6 +106,16 @@ Keyframes live in `globals.css` `@theme`. The important ones:
 - `slide-down-fade` / `slide-up-fade` / `fade-in` — 150–200ms `ease-out`,
   for menu / tooltip / toast entry.
 
+Easing tokens live in the same `@theme` block:
+
+- `--ease-out-strong` — `cubic-bezier(0.22, 1, 0.36, 1)`. Entrances, exits,
+  and reveals.
+- `--ease-in-out-strong` — `cubic-bezier(0.77, 0, 0.175, 1)`. On-screen morphs.
+
+Never hand-type a cubic-bezier in a component — use `var(--ease-out-strong)` /
+`var(--ease-in-out-strong)` (or the generated `ease-out-strong` /
+`ease-in-out-strong` utility classes).
+
 **Reduced motion is honored.** `@media (prefers-reduced-motion: reduce)`
 disables `.dm-animated` transitions/animations. If you author something
 animated that isn't critical to comprehension, gate it via `.dm-animated`.
