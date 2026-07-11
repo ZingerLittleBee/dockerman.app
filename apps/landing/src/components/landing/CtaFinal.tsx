@@ -41,7 +41,7 @@ export async function CtaFinal({ locale }: { locale: Locale }) {
           </p>
           <div className="relative flex flex-wrap justify-center gap-3">
             <Link
-              className="inline-flex items-center gap-[10px] rounded-[10px] px-5 py-3 pr-[6px] font-semibold text-[14px] text-white no-underline transition-all hover:-translate-y-px"
+              className="inline-flex items-center gap-[10px] rounded-[10px] px-5 py-3 pr-[6px] font-semibold text-[14px] text-white no-underline transition-transform hover:-translate-y-px"
               href={`/${locale}/download`}
               style={{
                 background:

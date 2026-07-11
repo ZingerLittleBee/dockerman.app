@@ -49,7 +49,7 @@ export function PlanCard(p: PlanCardProps) {
     ribbon
   } = p
 
-  const ctaClassName = `mt-auto inline-flex cursor-pointer items-center justify-center gap-2 rounded-[10px] px-[18px] py-[13px] font-semibold text-[14px] no-underline transition-all ${
+  const ctaClassName = `mt-auto inline-flex cursor-pointer items-center justify-center gap-2 rounded-[10px] px-[18px] py-[13px] font-semibold text-[14px] no-underline transition-[transform,background-color,border-color,color] ${
     ctaVariant === 'primary'
       ? 'text-white hover:-translate-y-px'
       : ctaVariant === 'disabled'

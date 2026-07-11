@@ -3,7 +3,7 @@ import { tv } from 'tailwind-variants'
 
 export const buttonVariants = tv({
   base: [
-    'relative inline-flex items-center justify-center whitespace-nowrap rounded-lg border px-3 py-2 text-center font-medium text-sm shadow-sm transition-all duration-100 ease-in-out',
+    'relative inline-flex items-center justify-center whitespace-nowrap rounded-lg border px-3 py-2 text-center font-medium text-sm shadow-sm transition-[color,background-color,border-color,box-shadow] duration-100 ease-[ease]',
     'disabled:pointer-events-none disabled:shadow-none',
     focusRing
   ],
