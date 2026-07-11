@@ -262,7 +262,7 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
                 target="_blank"
               >
                 <button
-                  className="inline-flex cursor-pointer items-center gap-2 rounded-[10px] border-0 px-[22px] py-[13px] font-semibold text-[14px] text-white no-underline transition-transform hover:-translate-y-px"
+                  className="inline-flex cursor-pointer items-center gap-2 rounded-[10px] border-0 px-[22px] py-[13px] font-semibold text-[14px] text-white no-underline transition-transform hover:-translate-y-px active:translate-y-0 active:scale-[0.97]"
                   style={{
                     background:
                       'linear-gradient(180deg, var(--color-dm-accent-2), color-mix(in srgb, var(--color-dm-accent-2) 80%, black))',
@@ -286,7 +286,7 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
                 </button>
               </form>
               <a
-                className="inline-flex items-center px-[22px] py-[13px] font-medium text-[14px] text-dm-ink-2 transition-colors hover:text-dm-ink"
+                className="inline-flex items-center px-[22px] py-[13px] font-medium text-[14px] text-dm-ink-2 transition-[color,background-color,border-color,transform] hover:text-dm-ink active:scale-[0.97]"
                 href={`/${l}/download`}
               >
                 {t('pricing.finalCta.ctaFree')}

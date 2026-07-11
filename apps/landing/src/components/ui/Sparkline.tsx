@@ -10,7 +10,7 @@ interface SparklineProps {
 }
 
 const PATH_TRANSITION = {
-  transition: 'd 1200ms cubic-bezier(0.22, 1, 0.36, 1)'
+  transition: 'd 1200ms var(--ease-out-strong)'
 } as const
 
 type Point = readonly [number, number]

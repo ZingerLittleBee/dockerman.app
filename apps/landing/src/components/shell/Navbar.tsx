@@ -91,7 +91,7 @@ export function Navbar({ locale }: { locale: Locale }) {
             <RiGithubFill className="h-4 w-4" />
           </a>
           <Link
-            className="inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-lg border border-dm-ink bg-dm-ink px-[12px] py-[7px] font-medium text-[12.5px] text-dm-bg transition-transform hover:-translate-y-px sm:px-[14px] sm:py-2 sm:text-[13px]"
+            className="inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-lg border border-dm-ink bg-dm-ink px-[12px] py-[7px] font-medium text-[12.5px] text-dm-bg transition-transform hover:-translate-y-px active:translate-y-0 active:scale-[0.97] sm:px-[14px] sm:py-2 sm:text-[13px]"
             href={hrefFor('/download')}
           >
             {t('nav.download')}
@@ -100,7 +100,7 @@ export function Navbar({ locale }: { locale: Locale }) {
             aria-controls="dm-mobile-menu"
             aria-expanded={menuOpen}
             aria-label={menuOpen ? t('nav.closeMenu') : t('nav.openMenu')}
-            className="grid h-8 w-8 cursor-pointer place-items-center rounded-md border border-dm-line bg-dm-bg-elev text-dm-ink-2 transition-colors hover:border-dm-line-strong hover:text-dm-ink md:hidden"
+            className="grid h-8 w-8 cursor-pointer place-items-center rounded-md border border-dm-line bg-dm-bg-elev text-dm-ink-2 transition-[color,background-color,border-color,transform] hover:border-dm-line-strong hover:text-dm-ink active:scale-[0.97] md:hidden"
             onClick={() =>
               setMenu((current) => ({
                 open: current.pathname === pathname ? !current.open : true,
@@ -142,8 +142,10 @@ export function Navbar({ locale }: { locale: Locale }) {
         />
         {/* Panel */}
         <div
-          className={`absolute inset-x-0 top-full z-50 origin-top border-dm-line border-b bg-dm-bg shadow-[0_20px_40px_-20px_rgb(0_0_0/0.4)] transition-all duration-200 ${
-            menuOpen ? 'translate-y-0 opacity-100' : '-translate-y-2 opacity-0'
+          className={`absolute inset-x-0 top-full z-50 origin-top border-dm-line border-b bg-dm-bg shadow-[0_20px_40px_-20px_rgb(0_0_0/0.4)] transition-[transform,opacity] duration-200 ease-out-strong ${
+            menuOpen
+              ? 'translate-y-0 opacity-100'
+              : '-translate-y-2 opacity-0 motion-reduce:translate-y-0'
           }`}
           id="dm-mobile-menu"
         >

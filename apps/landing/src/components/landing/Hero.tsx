@@ -93,7 +93,7 @@ export function Hero({ locale }: { locale: Locale }) {
         {/* Eyebrow: pulsing dot + version note + NEW tag */}
         <span className="inline-flex items-center gap-[10px] rounded-full border border-dm-line-strong bg-dm-bg-elev px-[10px] py-[5px] font-[var(--font-dm-mono)] text-[12px] text-dm-ink-2">
           <span
-            className="h-[6px] w-[6px] rounded-full"
+            className="dm-animated h-[6px] w-[6px] rounded-full"
             style={{
               background: 'var(--color-dm-ok)',
               boxShadow: '0 0 0 4px color-mix(in srgb, var(--color-dm-ok) 30%, transparent)',
@@ -119,7 +119,7 @@ export function Hero({ locale }: { locale: Locale }) {
         <div className="mt-7 flex flex-wrap items-center gap-3">
           {/* Gradient download button */}
           <Link
-            className="inline-flex items-center gap-[10px] rounded-[10px] px-5 py-3 pr-[6px] font-semibold text-[14px] text-white no-underline transition-all hover:-translate-y-px"
+            className="inline-flex items-center gap-[10px] rounded-[10px] px-5 py-3 pr-[6px] font-semibold text-[14px] text-white no-underline transition-transform hover:-translate-y-px active:translate-y-0 active:scale-[0.97]"
             href={`/${locale}/download`}
             style={{
               background:
@@ -146,7 +146,7 @@ export function Hero({ locale }: { locale: Locale }) {
           {/* Inline copy install command */}
           <button
             aria-label={copied ? t('hero.copied') : t('hero.copyAria', { cmd: INSTALL_CMD })}
-            className="inline-flex max-w-full cursor-pointer items-center gap-[10px] rounded-[10px] border border-dm-line bg-dm-bg-elev px-[12px] py-[10px] pr-3 font-[var(--font-dm-mono)] text-[11.5px] text-dm-ink-2 transition-colors hover:border-dm-line-strong sm:px-[14px] sm:text-[13px]"
+            className="inline-flex max-w-full cursor-pointer items-center gap-[10px] rounded-[10px] border border-dm-line bg-dm-bg-elev px-[12px] py-[10px] pr-3 font-[var(--font-dm-mono)] text-[11.5px] text-dm-ink-2 transition-[color,background-color,border-color,transform] hover:border-dm-line-strong active:scale-[0.97] sm:px-[14px] sm:text-[13px]"
             onClick={copyInstall}
             type="button"
           >
@@ -336,7 +336,7 @@ function TerminalCard({ locale }: { locale: Locale }) {
                   width: '0',
                   background:
                     'linear-gradient(90deg, var(--color-dm-accent), var(--color-dm-accent-2))',
-                  animation: 'dm-progress 900ms cubic-bezier(0.22, 1, 0.36, 1) forwards',
+                  animation: 'dm-progress 900ms var(--ease-out-strong) forwards',
                   animationDelay: `${STAGE_STEPS.progress}ms`,
                   ['--dm-progress' as string]: '100%'
                 }}
@@ -374,7 +374,7 @@ function StageLine({
       className={className}
       style={{
         opacity: 0,
-        animation: 'dm-reveal-up 420ms cubic-bezier(0.22, 1, 0.36, 1) forwards',
+        animation: 'dm-reveal-up 420ms var(--ease-out-strong) forwards',
         animationDelay: `${delayMs}ms`
       }}
     >
@@ -401,7 +401,7 @@ function ContainerMini({
       className="flex items-center gap-3 rounded-[10px] border border-dm-line bg-dm-bg-elev px-[14px] py-[10px]"
       style={{
         opacity: 0,
-        animation: 'dm-reveal-up 480ms cubic-bezier(0.22, 1, 0.36, 1) forwards',
+        animation: 'dm-reveal-up 480ms var(--ease-out-strong) forwards',
         animationDelay: `${delayMs}ms`
       }}
     >

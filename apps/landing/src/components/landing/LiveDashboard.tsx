@@ -260,7 +260,7 @@ function Main({ t }: { t: TFn }) {
           </MainChip>
           <MainChip>
             <span
-              className="h-[6px] w-[6px] rounded-full"
+              className="dm-animated h-[6px] w-[6px] rounded-full"
               style={{
                 background: 'var(--color-dm-ok)',
                 animation: 'dm-pulse 900ms ease-in-out infinite'

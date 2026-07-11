@@ -40,7 +40,7 @@ export async function SnapshotFeaturesStrip({ locale }: { locale: Locale }) {
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-7">
           {FEATURES.map((f) => (
             <article
-              className="rounded-[12px] border border-dm-line bg-dm-bg-elev p-5 pt-[22px] transition-all hover:-translate-y-[2px] hover:border-dm-line-strong"
+              className="rounded-[12px] border border-dm-line bg-dm-bg-elev p-5 pt-[22px] transition-[transform,border-color] hover:-translate-y-[2px] hover:border-dm-line-strong"
               key={f.num}
             >
               <div

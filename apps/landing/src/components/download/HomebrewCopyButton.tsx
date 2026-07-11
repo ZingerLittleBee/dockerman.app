@@ -17,7 +17,7 @@ export function HomebrewCopyButton({ command }: { command: string }) {
 
   return (
     <button
-      className="flex w-full cursor-pointer items-center gap-2 rounded-[8px] border border-dm-line bg-dm-bg-soft px-3 py-[10px] text-left font-[var(--font-dm-mono)] text-[12px] text-dm-ink-2 transition-colors hover:border-dm-line-strong"
+      className="flex w-full cursor-pointer items-center gap-2 rounded-[8px] border border-dm-line bg-dm-bg-soft px-3 py-[10px] text-left font-[var(--font-dm-mono)] text-[12px] text-dm-ink-2 transition-[color,background-color,border-color,transform] hover:border-dm-line-strong active:scale-[0.97]"
       onClick={onCopy}
       type="button"
     >

@@ -100,7 +100,7 @@ function FeatCard({
 }) {
   return (
     <article
-      className={`relative flex flex-col overflow-hidden rounded-[14px] border border-dm-line bg-dm-bg-elev p-5 transition-all hover:-translate-y-px hover:border-dm-line-strong sm:p-6 ${SHAPE_CLASSES[shape]}`}
+      className={`relative flex flex-col overflow-hidden rounded-[14px] border border-dm-line bg-dm-bg-elev p-5 transition-[transform,border-color] hover:-translate-y-px hover:border-dm-line-strong sm:p-6 ${SHAPE_CLASSES[shape]}`}
     >
       <div
         className="mb-[14px] grid h-8 w-8 place-items-center rounded-[8px]"

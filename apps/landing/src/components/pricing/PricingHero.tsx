@@ -23,7 +23,7 @@ export async function PricingHero({
         {earlyBirdActive ? (
           <span className="inline-flex items-center gap-[10px] rounded-full border border-dm-line-strong bg-dm-bg-elev py-[5px] pr-[10px] pl-[6px] font-[var(--font-dm-mono)] text-[12px] text-dm-ink-2">
             <span
-              className="h-[6px] w-[6px] rounded-full"
+              className="dm-animated h-[6px] w-[6px] rounded-full"
               style={{
                 background: 'var(--color-dm-warn)',
                 boxShadow: '0 0 0 4px color-mix(in srgb, var(--color-dm-warn) 30%, transparent)',

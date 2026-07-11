@@ -51,7 +51,7 @@ export function PlatformCard({
 }: PlatformCardProps) {
   return (
     <article
-      className="relative flex flex-col gap-[18px] overflow-hidden rounded-[14px] border p-6 transition-all hover:-translate-y-px"
+      className="relative flex flex-col gap-[18px] overflow-hidden rounded-[14px] border p-6 transition-transform hover:-translate-y-px"
       style={
         featured
           ? {
@@ -101,7 +101,7 @@ export function PlatformCard({
           const labelSub = parenMatch ? parenMatch[2] : null
           return (
             <a
-              className="group relative flex items-center gap-3 rounded-[10px] border border-dm-line bg-dm-bg px-[14px] py-3 text-dm-ink no-underline transition-all hover:translate-x-[2px] hover:border-[color:color-mix(in_srgb,var(--color-dm-accent-2)_40%,var(--color-dm-line-strong))] hover:bg-dm-bg-elev"
+              className="group relative flex items-center gap-3 rounded-[10px] border border-dm-line bg-dm-bg px-[14px] py-3 text-dm-ink no-underline transition-[transform,border-color,background-color] hover:translate-x-[2px] hover:border-[color:color-mix(in_srgb,var(--color-dm-accent-2)_40%,var(--color-dm-line-strong))] hover:bg-dm-bg-elev active:translate-x-0 active:scale-[0.97]"
               download
               href={`${downloadsConfig.assetsBaseUrl}/${a.filename}`}
               key={a.filename}
