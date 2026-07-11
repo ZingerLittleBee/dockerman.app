@@ -57,6 +57,21 @@ function getServerHashSnapshot() {
   return ''
 }
 
+function subscribeReducedMotion(listener: () => void) {
+  const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
+  mq.addEventListener('change', listener)
+  queueMicrotask(listener)
+  return () => mq.removeEventListener('change', listener)
+}
+
+function getReducedMotionSnapshot() {
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches
+}
+
+function getServerReducedMotionSnapshot() {
+  return false
+}
+
 export interface ShowcaseStrings {
   allModules: string
   moduleTabsAria: string
@@ -89,6 +104,11 @@ export function SnapshotShowcase({
   const [selection, setSelection] = useState({ active: 0, prev: 0 })
   const [lightbox, setLightbox] = useState(false)
   const hash = useSyncExternalStore(subscribeHash, getHashSnapshot, getServerHashSnapshot)
+  const reduced = useSyncExternalStore(
+    subscribeReducedMotion,
+    getReducedMotionSnapshot,
+    getServerReducedMotionSnapshot
+  )
   const appliedHashRef = useRef('')
   const railRef = useRef<HTMLElement | null>(null)
   const mobRef = useRef<HTMLDivElement | null>(null)
@@ -101,32 +121,36 @@ export function SnapshotShowcase({
     stageRef.current?.blur()
   }, [])
 
-  const scrollActiveControls = useCallback((n: number) => {
-    requestAnimationFrame(() => {
-      const nav = railRef.current
-      if (nav && window.innerWidth > 1080) {
-        const link = nav.querySelector<HTMLButtonElement>(`button[data-i="${n}"]`)
-        if (link) {
-          const linkTop = link.offsetTop
-          const linkBottom = linkTop + link.offsetHeight
-          const viewTop = nav.scrollTop
-          const viewBottom = viewTop + nav.clientHeight
-          const margin = 24
-          if (linkTop < viewTop + margin) {
-            nav.scrollTo({ top: Math.max(0, linkTop - margin), behavior: 'smooth' })
-          } else if (linkBottom > viewBottom - margin) {
-            nav.scrollTo({ top: linkBottom - nav.clientHeight + margin, behavior: 'smooth' })
+  const scrollActiveControls = useCallback(
+    (n: number) => {
+      requestAnimationFrame(() => {
+        const behavior: ScrollBehavior = reduced ? 'auto' : 'smooth'
+        const nav = railRef.current
+        if (nav && window.innerWidth > 1080) {
+          const link = nav.querySelector<HTMLButtonElement>(`button[data-i="${n}"]`)
+          if (link) {
+            const linkTop = link.offsetTop
+            const linkBottom = linkTop + link.offsetHeight
+            const viewTop = nav.scrollTop
+            const viewBottom = viewTop + nav.clientHeight
+            const margin = 24
+            if (linkTop < viewTop + margin) {
+              nav.scrollTo({ top: Math.max(0, linkTop - margin), behavior })
+            } else if (linkBottom > viewBottom - margin) {
+              nav.scrollTo({ top: linkBottom - nav.clientHeight + margin, behavior })
+            }
           }
         }
-      }
 
-      const mob = mobRef.current
-      if (mob) {
-        const chip = mob.querySelector<HTMLButtonElement>(`button[data-i="${n}"]`)
-        chip?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })
-      }
-    })
-  }, [])
+        const mob = mobRef.current
+        if (mob) {
+          const chip = mob.querySelector<HTMLButtonElement>(`button[data-i="${n}"]`)
+          chip?.scrollIntoView({ behavior, block: 'nearest', inline: 'center' })
+        }
+      })
+    },
+    [reduced]
+  )
 
   const setActiveSync = useCallback(
     (n: number) => {
@@ -153,12 +177,12 @@ export function SnapshotShowcase({
       const sentinel = sentinelRefs.current.at(n) ?? null
       const isDesktop = typeof window !== 'undefined' && window.matchMedia(DESKTOP_MQ).matches
       if (sentinel && isDesktop) {
-        sentinel.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        sentinel.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' })
         return
       }
       setActiveSync(n)
     },
-    [setActiveSync, total]
+    [reduced, setActiveSync, total]
   )
 
   const onWindowKey = useEffectEvent((e: KeyboardEvent) => {
@@ -294,6 +318,7 @@ export function SnapshotShowcase({
                     modules={modules}
                     onZoom={() => setLightbox(true)}
                     prev={prev}
+                    reduced={reduced}
                     screenshotMissing={strings.screenshotMissing}
                     stageOpenLabel={strings.openLightbox}
                     stageRef={stageRef}
@@ -471,6 +496,7 @@ function Stage({
   modules,
   onZoom,
   prev,
+  reduced,
   screenshotMissing,
   stageOpenLabel,
   stageRef
@@ -479,6 +505,7 @@ function Stage({
   modules: SnapshotModule[]
   onZoom: () => void
   prev: number
+  reduced: boolean
   screenshotMissing: string
   stageOpenLabel: string
   stageRef: React.RefObject<HTMLButtonElement | null>
@@ -502,6 +529,7 @@ function Stage({
             key={m.key}
             missing={screenshotMissing}
             prev={isPrev}
+            reduced={reduced}
             src={m.src}
           />
         )
@@ -515,21 +543,30 @@ function Slide({
   alt,
   missing,
   prev,
+  reduced,
   src
 }: {
   active: boolean
   alt: string
   missing: string
   prev: boolean
+  reduced: boolean
   src: string | null
 }) {
   const visible = active || prev
-  const style: React.CSSProperties = {
-    transition: 'opacity 0.45s var(--ease-out-strong), clip-path 0.55s var(--ease-out-strong)',
-    opacity: visible ? 1 : 0,
-    clipPath: active ? 'inset(0 0 0 0)' : prev ? 'inset(0 0 0 0)' : 'inset(0 0 0 100%)',
-    zIndex: active ? 2 : prev ? 1 : 0
-  }
+  const style: React.CSSProperties = reduced
+    ? {
+        transition: 'opacity 0.2s ease-out',
+        opacity: visible ? 1 : 0,
+        clipPath: 'inset(0 0 0 0)',
+        zIndex: active ? 2 : prev ? 1 : 0
+      }
+    : {
+        transition: 'opacity 0.45s var(--ease-out-strong), clip-path 0.55s var(--ease-out-strong)',
+        opacity: visible ? 1 : 0,
+        clipPath: active ? 'inset(0 0 0 0)' : prev ? 'inset(0 0 0 0)' : 'inset(0 0 0 100%)',
+        zIndex: active ? 2 : prev ? 1 : 0
+      }
   if (src) {
     return (
       <Image

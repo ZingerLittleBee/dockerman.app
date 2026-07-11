@@ -14,12 +14,15 @@ function scrollLinkIntoView(nav: HTMLElement | null, id: string) {
   const viewTop = nav.scrollTop
   const viewBottom = viewTop + nav.clientHeight
   const margin = 24
+  const behavior: ScrollBehavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ? 'auto'
+    : 'smooth'
   if (linkTop < viewTop + margin) {
-    nav.scrollTo({ top: Math.max(0, linkTop - margin), behavior: 'smooth' })
+    nav.scrollTo({ top: Math.max(0, linkTop - margin), behavior })
   } else if (linkBottom > viewBottom - margin) {
     nav.scrollTo({
       top: linkBottom - nav.clientHeight + margin,
-      behavior: 'smooth'
+      behavior
     })
   }
 }

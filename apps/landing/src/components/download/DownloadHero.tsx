@@ -20,7 +20,7 @@ export async function DownloadHero({ locale }: { locale: Locale }) {
       <div className="mx-auto max-w-[1140px]">
         <span className="inline-flex items-center gap-[10px] rounded-full border border-dm-line-strong bg-dm-bg-elev py-[5px] pr-[10px] pl-[6px] font-[var(--font-dm-mono)] text-[12px] text-dm-ink-2">
           <span
-            className="h-[6px] w-[6px] rounded-full"
+            className="dm-animated h-[6px] w-[6px] rounded-full"
             style={{
               background: 'var(--color-dm-ok)',
               boxShadow: '0 0 0 4px color-mix(in srgb, var(--color-dm-ok) 30%, transparent)',

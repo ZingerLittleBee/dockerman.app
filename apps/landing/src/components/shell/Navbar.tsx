@@ -143,7 +143,9 @@ export function Navbar({ locale }: { locale: Locale }) {
         {/* Panel */}
         <div
           className={`absolute inset-x-0 top-full z-50 origin-top border-dm-line border-b bg-dm-bg shadow-[0_20px_40px_-20px_rgb(0_0_0/0.4)] transition-[transform,opacity] duration-200 ease-out-strong ${
-            menuOpen ? 'translate-y-0 opacity-100' : '-translate-y-2 opacity-0'
+            menuOpen
+              ? 'translate-y-0 opacity-100'
+              : '-translate-y-2 opacity-0 motion-reduce:translate-y-0'
           }`}
           id="dm-mobile-menu"
         >
