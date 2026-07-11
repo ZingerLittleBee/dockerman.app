@@ -11,14 +11,18 @@ export function AccordionContent({ className, children, ref, ...props }: Accordi
   return (
     <AccordionPrimitives.Content
       className={cx(
-        'transform-gpu data-[state=closed]:animate-accordionClose data-[state=open]:animate-accordionOpen'
+        'grid grid-rows-[0fr] transition-[grid-template-rows,visibility] duration-200 ease-out-strong',
+        'data-[state=open]:grid-rows-[1fr] data-[state=open]:duration-250',
+        'data-[state=closed]:invisible',
+        'motion-reduce:transition-none'
       )}
+      forceMount
       ref={ref}
       {...props}
     >
       <div
         className={cx(
-          'overflow-hidden pb-4 text-sm',
+          'min-h-0 overflow-hidden pb-4 text-sm',
           'text-gray-700 dark:text-gray-200',
           className
         )}

@@ -26,7 +26,8 @@ export function AccordionTrigger({ className, children, ref, ...props }: Accordi
         <RiAddLine
           aria-hidden="true"
           className={cx(
-            'size-5 shrink-0 transition-transform duration-150 ease-[cubic-bezier(0.87,_0,_0.13,_1)] group-data-[state=open]:-rotate-45',
+            'size-5 shrink-0 transition-transform duration-200 ease-out-strong group-data-[state=open]:-rotate-45 group-data-[state=open]:duration-250',
+            'motion-reduce:transition-none',
             'text-gray-400 dark:text-gray-600',
             'group-data-[disabled]:text-gray-300 group-data-[disabled]:dark:text-gray-700'
           )}
