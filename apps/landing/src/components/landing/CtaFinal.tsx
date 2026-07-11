@@ -41,7 +41,7 @@ export async function CtaFinal({ locale }: { locale: Locale }) {
           </p>
           <div className="relative flex flex-wrap justify-center gap-3">
             <Link
-              className="inline-flex items-center gap-[10px] rounded-[10px] px-5 py-3 pr-[6px] font-semibold text-[14px] text-white no-underline transition-transform hover:-translate-y-px"
+              className="inline-flex items-center gap-[10px] rounded-[10px] px-5 py-3 pr-[6px] font-semibold text-[14px] text-white no-underline transition-transform hover:-translate-y-px active:translate-y-0 active:scale-[0.97]"
               href={`/${locale}/download`}
               style={{
                 background:
@@ -71,7 +71,7 @@ export async function CtaFinal({ locale }: { locale: Locale }) {
               </span>
             </Link>
             <a
-              className="inline-flex items-center gap-2 rounded-[10px] border border-dm-line-strong bg-transparent px-[18px] py-3 font-medium text-[14px] text-dm-ink-2 transition-colors hover:bg-dm-bg-soft hover:text-dm-ink"
+              className="inline-flex items-center gap-2 rounded-[10px] border border-dm-line-strong bg-transparent px-[18px] py-3 font-medium text-[14px] text-dm-ink-2 transition-[color,background-color,border-color,transform] hover:bg-dm-bg-soft hover:text-dm-ink active:scale-[0.97]"
               href="https://github.com/ZingerLittleBee/dockerman.app/issues/new"
               rel="noopener noreferrer"
               target="_blank"

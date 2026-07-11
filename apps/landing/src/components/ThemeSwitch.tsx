@@ -65,7 +65,7 @@ function ThemeSwitch() {
       {OPTIONS.map(({ value, label, Icon }) => (
         <RadioGroupPrimitives.Item
           aria-label={`Switch to ${label} mode`}
-          className="group relative grid h-[26px] w-[26px] cursor-pointer place-items-center rounded-full text-dm-ink-3 outline-none transition-colors hover:text-dm-ink focus-visible:ring-2 focus-visible:ring-[var(--color-dm-accent-2)]/60 data-[state=checked]:text-dm-ink"
+          className="group relative grid h-[26px] w-[26px] cursor-pointer place-items-center rounded-full text-dm-ink-3 outline-none transition-[color,background-color,border-color,transform] hover:text-dm-ink focus-visible:ring-2 focus-visible:ring-[var(--color-dm-accent-2)]/60 active:scale-[0.97] data-[state=checked]:text-dm-ink"
           key={value}
           value={value}
         >

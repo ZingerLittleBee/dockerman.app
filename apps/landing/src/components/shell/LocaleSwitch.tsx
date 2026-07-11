@@ -52,7 +52,7 @@ export function LocaleSwitch({ locale }: { locale: Locale }) {
         aria-expanded={open}
         aria-haspopup="menu"
         aria-label={t('nav.changeLanguage')}
-        className="grid h-8 w-8 cursor-pointer place-items-center rounded-md text-dm-ink-2 transition-colors hover:bg-dm-bg-soft hover:text-dm-ink"
+        className="grid h-8 w-8 cursor-pointer place-items-center rounded-md text-dm-ink-2 transition-[color,background-color,border-color,transform] hover:bg-dm-bg-soft hover:text-dm-ink active:scale-[0.97]"
         onClick={() => setOpen((o) => !o)}
         type="button"
       >
@@ -84,7 +84,7 @@ export function LocaleSwitch({ locale }: { locale: Locale }) {
             return (
               <button
                 aria-current={isActive ? 'true' : undefined}
-                className={`flex w-full cursor-pointer items-center justify-between gap-2 rounded-md px-[10px] py-[7px] text-left text-[13px] transition-colors ${
+                className={`flex w-full cursor-pointer items-center justify-between gap-2 rounded-md px-[10px] py-[7px] text-left text-[13px] transition-[color,background-color,border-color,transform] active:scale-[0.97] ${
                   isActive ? 'text-dm-ink' : 'text-dm-ink-2 hover:bg-dm-bg-soft hover:text-dm-ink'
                 }`}
                 key={code}

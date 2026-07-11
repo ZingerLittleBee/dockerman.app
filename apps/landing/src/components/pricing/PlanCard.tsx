@@ -49,9 +49,9 @@ export function PlanCard(p: PlanCardProps) {
     ribbon
   } = p
 
-  const ctaClassName = `mt-auto inline-flex cursor-pointer items-center justify-center gap-2 rounded-[10px] px-[18px] py-[13px] font-semibold text-[14px] no-underline transition-[transform,background-color,border-color,color] ${
+  const ctaClassName = `mt-auto inline-flex cursor-pointer items-center justify-center gap-2 rounded-[10px] px-[18px] py-[13px] font-semibold text-[14px] no-underline transition-[transform,background-color,border-color,color] active:scale-[0.97] ${
     ctaVariant === 'primary'
-      ? 'text-white hover:-translate-y-px'
+      ? 'text-white hover:-translate-y-px active:translate-y-0'
       : ctaVariant === 'disabled'
         ? 'cursor-not-allowed border border-dm-line bg-dm-bg-soft text-dm-ink-3'
         : 'border border-dm-line-strong bg-transparent text-dm-ink hover:bg-dm-bg-soft'

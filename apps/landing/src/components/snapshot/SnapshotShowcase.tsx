@@ -220,7 +220,7 @@ export function SnapshotShowcase({
           {modules.map((m, i) => (
             <button
               aria-label={m.showLabel}
-              className={`flex shrink-0 items-center gap-[7px] rounded-full border px-3 py-[8px] font-medium text-[13px] transition-colors ${
+              className={`flex shrink-0 items-center gap-[7px] rounded-full border px-3 py-[8px] font-medium text-[13px] transition-[color,background-color,border-color,transform] active:scale-[0.97] ${
                 i === active
                   ? 'border-dm-ink bg-dm-ink text-dm-bg'
                   : 'border-dm-line-strong bg-dm-bg-elev text-dm-ink-3'
@@ -346,7 +346,7 @@ function RailItem({
   return (
     <button
       aria-current={active ? 'true' : undefined}
-      className={`grid w-full cursor-pointer grid-cols-[28px_1fr_auto] items-center gap-3 rounded-[8px] border px-3 py-[10px] text-left font-[inherit] text-[13.5px] transition-colors ${
+      className={`grid w-full cursor-pointer grid-cols-[28px_1fr_auto] items-center gap-3 rounded-[8px] border px-3 py-[10px] text-left font-[inherit] text-[13.5px] transition-[color,background-color,border-color,transform] active:scale-[0.97] ${
         active
           ? 'border-dm-line-strong bg-dm-bg-elev text-dm-ink'
           : 'border-transparent text-dm-ink-3 hover:bg-dm-bg-soft hover:text-dm-ink-2'
@@ -447,7 +447,7 @@ function TopbarBtn({
   return (
     <button
       aria-label={ariaLabel}
-      className="grid h-[28px] w-[28px] cursor-pointer place-items-center rounded-[6px] border border-dm-line bg-dm-bg-soft text-dm-ink-3 transition-colors hover:border-dm-line-strong hover:bg-dm-bg-elev hover:text-dm-ink"
+      className="grid h-[28px] w-[28px] cursor-pointer place-items-center rounded-[6px] border border-dm-line bg-dm-bg-soft text-dm-ink-3 transition-[color,background-color,border-color,transform] hover:border-dm-line-strong hover:bg-dm-bg-elev hover:text-dm-ink active:scale-[0.97]"
       onClick={onClick}
       type="button"
     >
@@ -610,7 +610,7 @@ function CaptionStrip({
       </div>
       <div className="flex gap-2">
         <a
-          className="inline-flex cursor-pointer items-center gap-[7px] rounded-[8px] border border-dm-line bg-dm-bg-soft px-3 py-[7px] font-medium text-[12.5px] text-dm-ink-2 transition-colors hover:border-dm-line-strong hover:bg-dm-bg-elev hover:text-dm-ink"
+          className="inline-flex cursor-pointer items-center gap-[7px] rounded-[8px] border border-dm-line bg-dm-bg-soft px-3 py-[7px] font-medium text-[12.5px] text-dm-ink-2 transition-[color,background-color,border-color,transform] hover:border-dm-line-strong hover:bg-dm-bg-elev hover:text-dm-ink active:scale-[0.97]"
           href={strings.docsHref}
         >
           <svg
@@ -629,7 +629,7 @@ function CaptionStrip({
           {strings.docs}
         </a>
         <button
-          className="inline-flex cursor-pointer items-center gap-[7px] rounded-[8px] border border-dm-line bg-dm-bg-soft px-3 py-[7px] font-medium text-[12.5px] text-dm-ink-2 transition-colors hover:border-dm-line-strong hover:bg-dm-bg-elev hover:text-dm-ink"
+          className="inline-flex cursor-pointer items-center gap-[7px] rounded-[8px] border border-dm-line bg-dm-bg-soft px-3 py-[7px] font-medium text-[12.5px] text-dm-ink-2 transition-[color,background-color,border-color,transform] hover:border-dm-line-strong hover:bg-dm-bg-elev hover:text-dm-ink active:scale-[0.97]"
           onClick={() => {
             onCopyLink()
             setCopied(true)
@@ -680,7 +680,7 @@ function Lightbox({
     >
       <button
         aria-label={title}
-        className="absolute top-5 right-5 grid h-10 w-10 cursor-pointer place-items-center rounded-full border-0 text-white"
+        className="absolute top-5 right-5 grid h-10 w-10 cursor-pointer place-items-center rounded-full border-0 text-white transition-transform active:scale-[0.97]"
         onClick={(e) => {
           e.stopPropagation()
           onClose()
