@@ -117,8 +117,9 @@ Never hand-type a cubic-bezier in a component — use `var(--ease-out-strong)` /
 `ease-in-out-strong` utility classes).
 
 **Reduced motion is honored.** `@media (prefers-reduced-motion: reduce)`
-disables `.dm-animated` transitions/animations. If you author something
-animated that isn't critical to comprehension, gate it via `.dm-animated`.
+forces `.dm-animated` animations to complete instantly at their end state
+(and disables transitions). If you author something animated that isn't
+critical to comprehension, gate it via `.dm-animated`.
 
 ---
 

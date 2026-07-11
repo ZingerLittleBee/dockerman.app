@@ -273,7 +273,9 @@
   @media (prefers-reduced-motion: reduce) {
     .dm-animated,
     .dm-animated * {
-      animation: none !important;
+      animation-duration: 0.01ms !important;
+      animation-delay: 0ms !important;
+      animation-iteration-count: 1 !important;
       transition: none !important;
     }
   }
