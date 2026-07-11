@@ -96,7 +96,7 @@ export async function POST(request: NextRequest) {
       })
     }
 
-    return NextResponse.redirect(checkout.checkout_url)
+    return NextResponse.redirect(checkout.checkout_url, 303)
   } catch (error) {
     console.error('Creem checkout error:', error)
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
