@@ -316,7 +316,7 @@ code .line::before {
 }
 
 a {
-  @apply scroll-my-24 decoration-gray-400 transition-all;
+  @apply scroll-my-24 decoration-gray-400 transition-[color,text-decoration-color];
 }
 
 .anchor-link {
