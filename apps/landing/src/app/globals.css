@@ -25,8 +25,8 @@
   --animate-accordionClose: accordionClose 200ms cubic-bezier(0.33, 1, 0.68, 1);
   --animate-dialogOverlayShow: dialogOverlayShow 150ms var(--ease-out-strong);
   --animate-dialogContentShow: dialogContentShow 150ms var(--ease-out-strong);
-  --animate-slide-down-fade: slide-down-fade ease-in-out forwards;
-  --animate-slide-up-fade: slide-up-fade ease-in-out forwards;
+  --animate-slide-down-fade: slide-down-fade 600ms var(--ease-out-strong) both;
+  --animate-slide-up-fade: slide-up-fade 600ms var(--ease-out-strong) both;
   --animate-fade-in: fade-in 200ms ease-out;
 
   @keyframes hide {

@@ -41,14 +41,7 @@ export default function About() {
 
   return (
     <div className="mt-36 flex flex-col overflow-hidden px-3 pb-16">
-      <section
-        aria-labelledby="about-overview"
-        className="animate-slide-up-fade"
-        style={{
-          animationDuration: '600ms',
-          animationFillMode: 'backwards'
-        }}
-      >
+      <section aria-labelledby="about-overview" className="animate-slide-up-fade">
         <Badge>{t('about.badge')}</Badge>
         <h1
           className="mt-2 inline-block bg-gradient-to-br from-gray-900 to-gray-800 bg-clip-text py-2 font-bold text-4xl text-transparent tracking-tighter sm:text-6xl md:text-6xl dark:from-gray-50 dark:to-gray-300"
