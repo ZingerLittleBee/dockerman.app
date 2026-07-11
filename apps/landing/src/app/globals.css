@@ -299,8 +299,10 @@ code .line::before {
   mask-image: radial-gradient(rgba(0, 0, 0, 1) 0%, transparent 80%);
 }
 
-a {
-  @apply scroll-my-24 decoration-gray-400 transition-[color,text-decoration-color];
+@layer base {
+  a {
+    @apply scroll-my-24 decoration-gray-400 transition-[color,text-decoration-color];
+  }
 }
 
 .anchor-link {
