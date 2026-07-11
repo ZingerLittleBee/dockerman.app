@@ -20,14 +20,10 @@ export function AccordionContent({ className, children, ref, ...props }: Accordi
       ref={ref}
       {...props}
     >
-      <div
-        className={cx(
-          'min-h-0 overflow-hidden pb-4 text-sm',
-          'text-gray-700 dark:text-gray-200',
-          className
-        )}
-      >
-        {children}
+      <div className="min-h-0 overflow-hidden">
+        <div className={cx('pb-4 text-sm', 'text-gray-700 dark:text-gray-200', className)}>
+          {children}
+        </div>
       </div>
     </AccordionPrimitives.Content>
   )
