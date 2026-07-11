@@ -122,3 +122,10 @@ Timing preserved from today: 250ms open, 200ms close. `--ease-out-strong` is `cu
   - Closed panels: tab through the page — no focus lands inside a closed answer (visibility works); the closed answer text is not visible.
   - Emulate `prefers-reduced-motion: reduce`: panels snap open/closed instantly, icon snaps, content still readable.
 - **Done when**: mid-toggle reversal is smooth, chevron and panel share one timing, reduced motion snaps, and the old keyframes are gone.
+
+## Post-execution notes (browser verification)
+
+Two follow-up fixes were required after the initial implementation:
+
+1. **Padding floors the 0fr track** (`2e1ef90`): `pb-4` on the grid item kept the closed row at 16px (border-box padding sets the track's minimum contribution). The clipping wrapper must be padding-free (`min-h-0 overflow-hidden` only); padding lives on a nested div.
+2. **Radix zeroes transitions on its Content node**: Radix Collapsible sets `transitionDuration = '0s'` + forces reflow on the Content element to measure height on every toggle, which instantly completes any CSS transition declared there. The animated grid layer must live on a CHILD div (driven via `group` on Content + `group-data-[state=*]` variants), never on the Content element itself.
