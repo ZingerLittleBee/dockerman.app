@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | [🇨🇳 简体中文](./README.zh-CN.md) | 🇯🇵 日本語 | [🇪🇸 Español](./README.es.md)
 
-[![Version](https://img.shields.io/badge/version-v5.6.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.6.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Jul%206%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.6.0)
+[![Version](https://img.shields.io/badge/version-v5.6.1-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.6.1)
+[![Release Date](https://img.shields.io/badge/release%20date-Jul%2012%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.6.1)
 
 Docker **と** Kubernetes をまとめて管理できるネイティブデスクトップ UI。Tauri + Rust 製で、起動が速く、軽量、完全ローカル動作――データはマシンの外に出ません。
 
@@ -17,6 +17,8 @@ Docker **と** Kubernetes をまとめて管理できるネイティブデスク
 - ☸️ **エンドツーエンドの Kubernetes** — マルチクラスタ、HPA/クォータ/CRD と主要リソース、確認付きのワークロード操作、Helm、ポートフォワード、RBAC、イベント、あらゆる場所の YAML
 - 🩺 **リアルタイムなコンテナ診断** — 失敗したコンテナの最近のログ、ヘルスチェック失敗、終了診断、異常イベントの表示
 - 🖥️ **組み込みツール** — ターミナル、検索可能なログビューア、CPU/メモリ履歴、編集可能なファイルブラウザ
+- 🎬 **洗練されたモーション** — アプリ全体のアニメーション刷新：即時ツールチップ、トリガーから広がるポップオーバー、ボタン押下フィードバック、視差効果を減らす設定に完全対応
+- 📈 **より滑らかなダッシュボードチャート** — CPU/メモリチャートを軽量な liveline エンジンで描画、ホバースクラブと適切な y 軸に対応
 - 🔔 **イメージ更新監視** — バックグラウンド購読サービスでアップデートを通知
 - ☁️ **Cloudflared トンネル** — ワンクリックで公開 URL、自動クリーンアップ
 - 🐙 **Podman・WSL2・Apple Container エンジン** — Docker Desktop の代替を一級でサポート

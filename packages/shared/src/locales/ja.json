@@ -12,7 +12,7 @@
     "closeMenu": "メニューを閉じる"
   },
   "hero": {
-    "eyebrow": "v{{version}} — Apple Container 対応、ガイド付きエンジンセットアップ、より滑らかな大規模ビュー",
+    "eyebrow": "v{{version}} — 洗練されたモーション、より滑らかなダッシュボードチャート、統一されたストリーミングコア",
     "eyebrowTag": "NEW",
     "headline1Lead": "Docker を",
     "headline1Accent": "ローカルに",

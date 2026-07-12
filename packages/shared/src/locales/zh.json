@@ -12,7 +12,7 @@
     "closeMenu": "关闭菜单"
   },
   "hero": {
-    "eyebrow": "v{{version}} — Apple Container 支持、引导式引擎设置、更流畅的大型视图",
+    "eyebrow": "v{{version}} — 动效全面打磨、更流畅的仪表盘图表、统一的流式核心",
     "eyebrowTag": "新",
     "headline1Lead": "Docker，用起来像",
     "headline1Accent": "本地",

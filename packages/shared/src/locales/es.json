@@ -12,7 +12,7 @@
     "closeMenu": "Cerrar menú"
   },
   "hero": {
-    "eyebrow": "v{{version}} — Compatibilidad con Apple Container, configuración guiada del motor, vistas grandes más fluidas",
+    "eyebrow": "v{{version}} — Animaciones pulidas, gráficos del panel más fluidos, núcleo de streaming unificado",
     "eyebrowTag": "NUEVO",
     "headline1Lead": "Docker que se siente",
     "headline1Accent": "local",
