@@ -4,7 +4,7 @@ export const pricingConfig = {
   discountCodes: {
     '1-device': '',
     '3-devices': ''
-  } as Record<string, string>,
+  },
   plans: {
     free: { price: 0 },
     team: { priceEarlyBird: 18.86, priceRegular: 29, devices: 3 },

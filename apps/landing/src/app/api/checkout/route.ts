@@ -1,21 +1,11 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { siteConfig } from '@/app/siteConfig'
-import { pricingConfig } from '@/config/pricing'
-import { withGeoIpDisabled } from '@/lib/analytics/posthogConfig'
+import { captureWebsiteEvent } from '@/lib/analytics/serverPostHog'
+import { getPaidPlanConfig, normalizeLocale, parsePaidPlan } from '@/lib/creem/checkoutMetadata'
+import { isRecord } from '@/lib/typeGuards'
 
 const CREEM_BASE_URL =
   process.env.NODE_ENV === 'production' ? 'https://api.creem.io' : 'https://test-api.creem.io'
-
-const PLAN_CONFIG: Record<string, { productId?: string; discountCode?: string }> = {
-  '1-device': {
-    productId: process.env.CREEM_PRODUCT_ID_1_DEVICES,
-    discountCode: pricingConfig.discountCodes['1-device']
-  },
-  '3-devices': {
-    productId: process.env.CREEM_PRODUCT_ID_3_DEVICES,
-    discountCode: pricingConfig.discountCodes['3-devices']
-  }
-}
 
 export function GET() {
   return NextResponse.json(
@@ -26,14 +16,14 @@ export function GET() {
 
 export async function POST(request: NextRequest) {
   const { searchParams } = request.nextUrl
-  const plan = searchParams.get('plan')
-  const locale = searchParams.get('locale') ?? 'en'
+  const plan = parsePaidPlan(searchParams.get('plan'))
+  const locale = normalizeLocale(searchParams.get('locale'))
 
-  if (!(plan && PLAN_CONFIG[plan])) {
+  if (!plan) {
     return NextResponse.json({ error: 'Invalid plan parameter' }, { status: 400 })
   }
 
-  const { productId, discountCode } = PLAN_CONFIG[plan]
+  const { productId, discountCode } = getPaidPlanConfig(plan)
   if (!productId) {
     return NextResponse.json({ error: 'Product ID not configured' }, { status: 500 })
   }
@@ -45,14 +35,13 @@ export async function POST(request: NextRequest) {
 
   const successUrl = `${siteConfig.url}/${locale}/pricing/success`
 
-  const body: Record<string, unknown> = {
+  const requestId = crypto.randomUUID()
+  const body = {
     product_id: productId,
     success_url: successUrl,
-    request_id: `${plan}-${Date.now()}`
-  }
-
-  if (discountCode) {
-    body.discount_code = discountCode
+    request_id: requestId,
+    metadata: { plan, locale },
+    ...(discountCode ? { discount_code: discountCode } : {})
   }
 
   try {
@@ -66,40 +55,28 @@ export async function POST(request: NextRequest) {
     })
 
     if (!response.ok) {
-      const error = await response.text()
-      console.error('Creem checkout error:', response.status, error)
+      console.error('Creem checkout failed with status:', response.status)
       return NextResponse.json(
         { error: 'Failed to create checkout session' },
         { status: response.status }
       )
     }
 
-    const checkout = await response.json()
+    const checkout: unknown = await response.json()
 
-    if (!checkout.checkout_url) {
+    if (!isRecord(checkout) || typeof checkout.checkout_url !== 'string') {
       return NextResponse.json({ error: 'No checkout URL returned' }, { status: 500 })
     }
 
-    // Fire checkout_redirected event via PostHog HTTP API
-    const posthogKey = process.env.NEXT_PUBLIC_POSTHOG_KEY
-    if (posthogKey) {
-      fetch('https://us.i.posthog.com/capture/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          api_key: posthogKey,
-          event: 'checkout_redirected',
-          distinct_id: body.request_id,
-          properties: withGeoIpDisabled({ plan, locale })
-        })
-      }).catch(() => {
-        // Non-blocking: don't fail checkout if analytics fails
-      })
-    }
+    await captureWebsiteEvent({
+      event: 'checkout_redirected',
+      distinctId: requestId,
+      properties: { plan, locale }
+    })
 
     return NextResponse.redirect(checkout.checkout_url, 303)
-  } catch (error) {
-    console.error('Creem checkout error:', error)
+  } catch {
+    console.error('Creem checkout failed before receiving a response')
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }
