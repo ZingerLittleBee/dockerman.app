@@ -12,15 +12,4 @@ const initPostHog = async () => {
   })
 }
 
-// Defer until the browser is idle so PostHog doesn't compete with first paint
-// or block input responsiveness during initial hydration.
-if (typeof window !== 'undefined') {
-  const w = window as Window & {
-    requestIdleCallback?: (cb: () => void, opts?: { timeout?: number }) => number
-  }
-  if (typeof w.requestIdleCallback === 'function') {
-    w.requestIdleCallback(initPostHog, { timeout: 4000 })
-  } else {
-    setTimeout(initPostHog, 2000)
-  }
-}
+initPostHog()

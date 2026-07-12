@@ -2,33 +2,25 @@
 
 import { useEffect } from 'react'
 
-const THRESHOLDS = [25, 50, 75, 100] as const
+import { createScrollDepthTracker } from '../analytics/pageTracking'
 
-export function useScrollDepth() {
+export function useScrollDepth(pagePath: string) {
   useEffect(() => {
-    const fired = new Set<number>()
-    const pagePath = window.location.pathname
+    const tracker = createScrollDepthTracker(pagePath, (depth, trackedPagePath) => {
+      import('posthog-js').then(({ default: posthog }) => {
+        posthog.capture('page_scroll_depth', {
+          depth,
+          page_path: trackedPagePath
+        })
+      })
+    })
 
     const handleScroll = () => {
-      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight
-      if (scrollHeight <= 0) return
-
-      const scrollPercent = (window.scrollY / scrollHeight) * 100
-
-      for (const threshold of THRESHOLDS) {
-        if (scrollPercent >= threshold && !fired.has(threshold)) {
-          fired.add(threshold)
-          import('posthog-js').then(({ default: posthog }) => {
-            posthog.capture('page_scroll_depth', {
-              depth: threshold,
-              page_path: pagePath
-            })
-          })
-        }
-      }
+      const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight
+      tracker.record(window.scrollY, scrollableHeight)
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [pagePath])
 }
