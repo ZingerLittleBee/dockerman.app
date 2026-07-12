@@ -5,7 +5,8 @@ const originalFetch = globalThis.fetch
 const originalEnv = {
   CREEM_API_KEY: process.env.CREEM_API_KEY,
   CREEM_PRODUCT_ID_1_DEVICES: process.env.CREEM_PRODUCT_ID_1_DEVICES,
-  CREEM_PRODUCT_ID_3_DEVICES: process.env.CREEM_PRODUCT_ID_3_DEVICES
+  CREEM_PRODUCT_ID_3_DEVICES: process.env.CREEM_PRODUCT_ID_3_DEVICES,
+  NEXT_PUBLIC_POSTHOG_KEY: process.env.NEXT_PUBLIC_POSTHOG_KEY
 }
 
 process.env.CREEM_API_KEY = 'creem-test-key'
@@ -22,6 +23,7 @@ beforeEach(() => {
   process.env.CREEM_API_KEY = 'creem-test-key'
   process.env.CREEM_PRODUCT_ID_1_DEVICES = 'prod_one_device'
   process.env.CREEM_PRODUCT_ID_3_DEVICES = 'prod_three_devices'
+  process.env.NEXT_PUBLIC_POSTHOG_KEY = 'posthog-test-key'
 })
 
 afterEach(() => {
@@ -54,8 +56,16 @@ describe('checkout route', () => {
 
     expect(response.status).toBe(303)
     expect(response.headers.get('location')).toBe('https://checkout.test/pay')
-    expect(fetchMock).toHaveBeenCalledTimes(1)
+    expect(fetchMock).toHaveBeenCalledTimes(2)
     expect(fetchMock.mock.calls[0][0]).toBe('https://test-api.creem.io/v1/checkouts')
     expect(fetchMock.mock.calls[0][1]?.method).toBe('POST')
+    expect(fetchMock.mock.calls[1][0]).toBe('https://us.i.posthog.com/capture/')
+
+    const posthogBody = fetchMock.mock.calls[1][1]?.body
+    expect(typeof posthogBody).toBe('string')
+    if (typeof posthogBody !== 'string') {
+      throw new Error('Expected the PostHog request body to be a JSON string')
+    }
+    expect(posthogBody).toContain('"$geoip_disable":true')
   })
 })
