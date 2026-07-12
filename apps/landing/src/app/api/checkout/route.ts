@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { siteConfig } from '@/app/siteConfig'
 import { pricingConfig } from '@/config/pricing'
+import { withGeoIpDisabled } from '@/lib/analytics/posthogConfig'
 
 const CREEM_BASE_URL =
   process.env.NODE_ENV === 'production' ? 'https://api.creem.io' : 'https://test-api.creem.io'
@@ -89,7 +90,7 @@ export async function POST(request: NextRequest) {
           api_key: posthogKey,
           event: 'checkout_redirected',
           distinct_id: body.request_id,
-          properties: { plan, locale }
+          properties: withGeoIpDisabled({ plan, locale })
         })
       }).catch(() => {
         // Non-blocking: don't fail checkout if analytics fails
