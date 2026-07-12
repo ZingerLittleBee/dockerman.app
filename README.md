@@ -2,8 +2,8 @@
 
 Language: 🇺🇸 English | [🇨🇳 简体中文](./README.zh-CN.md) | [🇯🇵 日本語](./README.ja.md) | [🇪🇸 Español](./README.es.md)
 
-[![Version](https://img.shields.io/badge/version-v5.6.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.6.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Jul%206%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.6.0)
+[![Version](https://img.shields.io/badge/version-v5.6.1-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.6.1)
+[![Release Date](https://img.shields.io/badge/release%20date-Jul%2012%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.6.1)
 
 A native desktop UI for managing Docker **and** Kubernetes — built with Tauri + Rust. Fast to launch, light on resources, and entirely local: nothing leaves your machine.
 
@@ -17,6 +17,8 @@ A native desktop UI for managing Docker **and** Kubernetes — built with Tauri 
 - ☸️ **Kubernetes, end to end** — multi-cluster, HPAs/quotas/CRDs plus core resources, guarded workload operations, Helm, port forwarding, RBAC, events, and YAML everywhere
 - 🩺 **Live container triage** — recent logs, healthcheck failures, exit diagnostics, and abnormal-event surfacing for failing containers
 - 🖥️ **Built-in tools** — terminal, log viewer with search, CPU/memory history, file browser with editing
+- 🎬 **Polished motion** — app-wide animation refresh with instant tooltips, popover scaling, button press feedback, and reduced-motion support
+- 📈 **Smoother dashboard charts** — CPU/memory charts on a lightweight liveline engine with hover scrubbing and a proper y-axis
 - 🔔 **Image upgrade watch** — background service with desktop notifications when updates land
 - ☁️ **Cloudflared tunnels** — one-click public URLs with auto cleanup
 - 🐙 **Podman, WSL2 & Apple Container engines** — first-class alternatives to Docker Desktop

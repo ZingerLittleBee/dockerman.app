@@ -1,3 +1,28 @@
+<ChangelogEntry version="v5.6.1" date="Jul 12, 2026">
+## Polished Motion & Smoother Dashboard Charts
+
+This release refreshes animations across the app, rebuilds the dashboard CPU and memory charts on a lightweight liveline engine, makes tables faster, unifies the streaming core, and fixes navigation highlighting and tooltip issues.
+
+### ✨ Features
+
+- 🎬 <Bold>Polished motion:</Bold> App-wide animation refresh — instant tooltips, popovers that scale from their trigger, subtle button press feedback, and full reduced-motion support
+- 📈 <Bold>Smoother dashboard charts:</Bold> CPU and memory charts now render on a lightweight liveline engine with hover scrubbing, plus a proper y-axis
+
+### 🔧 Improvements
+
+- ⚡ <Bold>Faster tables:</Bold> Virtualized rows no longer re-render on every scrolled pixel, and container views subscribe only to the state they need
+- 🎞️ <Bold>Cheaper animations:</Bold> Expanded-row and sidebar animations were flattened and tokenized for lower CPU cost
+- 📡 <Bold>Unified streaming core:</Bold> Logs, stats, builds, pulls, and terminals now share one stream lifecycle, improving cleanup and reconnect behavior
+
+### 🐛 Bug Fixes
+
+- 🧭 <Bold>Navigation highlighting:</Bold> Sidebar items and breadcrumbs now resolve correctly on subroutes with shared prefixes
+- 📊 <Bold>Dashboard tooltips:</Bold> Fixed NaN time labels and bare-zero values in I/O tooltips; charts pause while scrubbing
+- 🧱 <Bold>Process view:</Bold> Dataless columns are hidden and headers no longer wrap
+- 🗄️ <Bold>Storage detail:</Bold> The detail table now follows the selected tab
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v5.6.0" date="Jul 6, 2026">
 ## Apple Container Support & Guided Engine Setup
 

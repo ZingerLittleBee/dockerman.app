@@ -1,3 +1,28 @@
+<ChangelogEntry version="v5.6.1" date="12 de julio de 2026">
+## Animaciones pulidas y gráficos del panel más fluidos
+
+Esta versión renueva las animaciones de toda la app, reconstruye los gráficos de CPU y memoria del panel sobre un motor liveline ligero, acelera las tablas, unifica el núcleo de streaming y corrige problemas de resaltado de navegación y tooltips.
+
+### ✨ Funciones
+
+- 🎬 <Bold>Animaciones pulidas:</Bold> Renovación de animaciones en toda la app — tooltips instantáneos, popovers que escalan desde su disparador, sutil retroalimentación al pulsar botones y compatibilidad completa con movimiento reducido
+- 📈 <Bold>Gráficos del panel más fluidos:</Bold> Los gráficos de CPU y memoria ahora se renderizan con un motor liveline ligero con exploración al pasar el cursor, además de un eje y adecuado
+
+### 🔧 Mejoras
+
+- ⚡ <Bold>Tablas más rápidas:</Bold> Las filas virtualizadas ya no se vuelven a renderizar con cada píxel desplazado, y las vistas de contenedores se suscriben solo al estado que necesitan
+- 🎞️ <Bold>Animaciones más eficientes:</Bold> Las animaciones de filas expandidas y de la barra lateral se aplanaron y tokenizaron para reducir el coste de CPU
+- 📡 <Bold>Núcleo de streaming unificado:</Bold> Logs, estadísticas, builds, pulls y terminales ahora comparten un mismo ciclo de vida de stream, mejorando la limpieza y la reconexión
+
+### 🐛 Correcciones
+
+- 🧭 <Bold>Resaltado de navegación:</Bold> Los elementos de la barra lateral y las migas de pan ahora se resuelven correctamente en subrutas con prefijos compartidos
+- 📊 <Bold>Tooltips del panel:</Bold> Se corrigieron las etiquetas de tiempo NaN y los valores cero sin unidad en los tooltips de E/S; los gráficos se pausan durante la exploración
+- 🧱 <Bold>Vista de procesos:</Bold> Las columnas sin datos se ocultan y las cabeceras ya no se parten en varias líneas
+- 🗄️ <Bold>Detalle de almacenamiento:</Bold> La tabla de detalle ahora sigue la pestaña seleccionada
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v5.6.0" date="6 de julio de 2026">
 ## Compatibilidad con Apple Container y configuración guiada del motor
 

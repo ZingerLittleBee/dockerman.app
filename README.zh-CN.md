@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文 | [🇯🇵 日本語](./README.ja.md) | [🇪🇸 Español](./README.es.md)
 
-[![Version](https://img.shields.io/badge/version-v5.6.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.6.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Jul%206%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.6.0)
+[![Version](https://img.shields.io/badge/version-v5.6.1-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.6.1)
+[![Release Date](https://img.shields.io/badge/release%20date-Jul%2012%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.6.1)
 
 一个原生桌面端 Docker **与** Kubernetes 管理工具，基于 Tauri + Rust。启动快、占用低、完全本地运行——数据不出本机。
 
@@ -17,6 +17,8 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文 | [🇯🇵 �
 - ☸️ **端到端 Kubernetes** — 多集群、HPA/配额/CRD 及核心资源、带确认的工作负载操作、Helm、端口转发、RBAC、事件，以及随处可用的 YAML
 - 🩺 **实时容器排障** — 为故障容器提供最近日志、健康检查失败、退出诊断与异常事件呈现
 - 🖥️ **内置工具** — 终端、带搜索的日志查看器、CPU/内存历史、可编辑文件浏览器
+- 🎬 **动效全面打磨** — 应用级动画刷新：即时工具提示、从触发位置缩放的弹出层、按钮按压反馈，并完整支持减弱动态效果
+- 📈 **更流畅的仪表盘图表** — CPU/内存图表基于轻量级 liveline 引擎渲染，支持悬停查看历史并新增 y 轴
 - 🔔 **镜像升级监控** — 后台订阅服务，更新时桌面通知
 - ☁️ **Cloudflared 隧道** — 一键生成公网 URL，自动清理
 - 🐙 **Podman、WSL2 与 Apple Container 引擎** — Docker Desktop 的一流替代方案
