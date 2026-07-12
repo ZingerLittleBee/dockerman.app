@@ -3,8 +3,7 @@ import { type NextRequest, NextResponse } from 'next/server'
 
 // `bot` already covers googlebot/bingbot/duckduckbot/discordbot/etc., so we
 // only add the crawlers that don't carry "bot" in their UA.
-const BOT_UA_REGEX =
-  /bot|crawler|spider|yandex|baiduspider|facebookexternalhit|whatsapp|applebot/i
+const BOT_UA_REGEX = /bot|crawler|spider|yandex|baiduspider|facebookexternalhit|whatsapp|applebot/i
 
 function isBot(request: NextRequest): boolean {
   const ua = request.headers.get('user-agent') || ''
@@ -32,10 +31,12 @@ function getLocaleFromPath(pathname: string): Locale | null {
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  // Skip static files and API routes
+  // Skip static files, API routes, and the PostHog reverse proxy.
   if (
     pathname.startsWith('/_next') ||
     pathname.startsWith('/api') ||
+    pathname === '/ingest' ||
+    pathname.startsWith('/ingest/') ||
     pathname.includes('.') ||
     pathname.startsWith('/images')
   ) {
@@ -83,5 +84,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!_next|api|images|favicon.ico|opengraph-image.png|.*\\..*).*)']
+  matcher: ['/((?!_next|api|ingest/|images|favicon.ico|opengraph-image.png|.*\\..*).*)']
 }
