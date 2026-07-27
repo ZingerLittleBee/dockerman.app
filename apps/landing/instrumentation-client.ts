@@ -1,10 +1,16 @@
 import { createPostHogConfig } from './src/lib/analytics/posthogConfig'
 
 const initPostHog = async () => {
+  const posthogKey = process.env.NEXT_PUBLIC_POSTHOG_KEY
+
+  if (!posthogKey) {
+    return
+  }
+
   const { default: posthog } = await import('posthog-js')
 
   posthog.init(
-    process.env.NEXT_PUBLIC_POSTHOG_KEY!,
+    posthogKey,
     createPostHogConfig(
       process.env.NEXT_PUBLIC_POSTHOG_HOST,
       process.env.NODE_ENV === 'development'
@@ -12,4 +18,6 @@ const initPostHog = async () => {
   )
 }
 
-initPostHog()
+void initPostHog().catch(() => {
+  // Analytics failures should not block app initialization.
+})

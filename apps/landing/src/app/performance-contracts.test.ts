@@ -24,9 +24,12 @@ describe('landing performance contracts', () => {
 
   test('browser instrumentation defers PostHog out of the initial module graph', () => {
     const source = readAppFile('instrumentation-client.ts')
+    const posthogKeyGuard = source.indexOf('if (!posthogKey)')
+    const posthogImport = source.indexOf("import('posthog-js')")
 
     expect(source).not.toContain("import posthog from 'posthog-js'")
-    expect(source).toContain("import('posthog-js')")
+    expect(posthogKeyGuard).toBeGreaterThan(-1)
+    expect(posthogImport).toBeGreaterThan(posthogKeyGuard)
   })
 
   test('production builds upload PostHog source maps when credentials are available', () => {
