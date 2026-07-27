@@ -18,6 +18,22 @@ const TEAM_MEMBERS = [
   }
 ]
 
+type SocialPlatform = 'github' | 'twitter'
+type SocialSection = 'team_member' | 'join_us'
+
+async function captureSocialClick(
+  platform: SocialPlatform,
+  section: SocialSection,
+  url: string
+) {
+  try {
+    const { default: posthog } = await import('posthog-js')
+    posthog.capture('about_social_clicked', { platform, section, url })
+  } catch {
+    // Analytics failures should never interfere with navigation.
+  }
+}
+
 export default function About() {
   const { t } = useTranslation()
 
@@ -95,13 +111,7 @@ export default function About() {
                   className="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300"
                   href={member.social.github}
                   onClick={() => {
-                    import('posthog-js').then(({ default: posthog }) => {
-                      posthog.capture('about_social_clicked', {
-                        platform: 'github',
-                        section: 'team_member',
-                        url: member.social.github
-                      })
-                    })
+                    void captureSocialClick('github', 'team_member', member.social.github)
                   }}
                   rel="noopener noreferrer"
                   target="_blank"
@@ -112,13 +122,7 @@ export default function About() {
                   className="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300"
                   href={member.social.twitter}
                   onClick={() => {
-                    import('posthog-js').then(({ default: posthog }) => {
-                      posthog.capture('about_social_clicked', {
-                        platform: 'twitter',
-                        section: 'team_member',
-                        url: member.social.twitter
-                      })
-                    })
+                    void captureSocialClick('twitter', 'team_member', member.social.twitter)
                   }}
                   rel="noopener noreferrer"
                   target="_blank"
@@ -162,13 +166,11 @@ export default function About() {
             <a
               href="https://github.com/ZingerLittleBee"
               onClick={() => {
-                import('posthog-js').then(({ default: posthog }) => {
-                  posthog.capture('about_social_clicked', {
-                    platform: 'github',
-                    section: 'join_us',
-                    url: 'https://github.com/ZingerLittleBee'
-                  })
-                })
+                void captureSocialClick(
+                  'github',
+                  'join_us',
+                  'https://github.com/ZingerLittleBee'
+                )
               }}
               rel="noopener noreferrer"
               target="_blank"
@@ -181,13 +183,7 @@ export default function About() {
             <a
               href="https://twitter.com/zinger_bee"
               onClick={() => {
-                import('posthog-js').then(({ default: posthog }) => {
-                  posthog.capture('about_social_clicked', {
-                    platform: 'twitter',
-                    section: 'join_us',
-                    url: 'https://twitter.com/zinger_bee'
-                  })
-                })
+                void captureSocialClick('twitter', 'join_us', 'https://twitter.com/zinger_bee')
               }}
               rel="noopener noreferrer"
               target="_blank"
