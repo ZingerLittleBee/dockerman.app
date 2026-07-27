@@ -43,20 +43,6 @@ function InlineCodeDescription({ desc }: { desc: string }) {
   return renderInlineCodeDescription(desc)
 }
 
-function subscribeHash(listener: () => void) {
-  window.addEventListener('hashchange', listener)
-  queueMicrotask(listener)
-  return () => window.removeEventListener('hashchange', listener)
-}
-
-function getHashSnapshot() {
-  return window.location.hash.slice(1)
-}
-
-function getServerHashSnapshot() {
-  return ''
-}
-
 function subscribeReducedMotion(listener: () => void) {
   const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
   mq.addEventListener('change', listener)
@@ -103,7 +89,6 @@ export function SnapshotShowcase({
   const total = modules.length
   const [selection, setSelection] = useState({ active: 0, prev: 0 })
   const [lightbox, setLightbox] = useState(false)
-  const hash = useSyncExternalStore(subscribeHash, getHashSnapshot, getServerHashSnapshot)
   const reduced = useSyncExternalStore(
     subscribeReducedMotion,
     getReducedMotionSnapshot,
@@ -114,7 +99,6 @@ export function SnapshotShowcase({
   const sentinelRefs = useRef<(HTMLDivElement | null)[]>([])
   const stageRef = useRef<HTMLButtonElement | null>(null)
   const { active, prev } = selection
-  const hashIndex = hash ? modules.findIndex((module) => module.key === hash) : -1
 
   const closeLightbox = useCallback(() => {
     setLightbox(false)
@@ -160,14 +144,24 @@ export function SnapshotShowcase({
     [scrollActiveControls]
   )
 
-  useEffect(() => {
+  const syncSelectionFromHash = useEffectEvent(() => {
+    const hash = window.location.hash.slice(1)
+    if (!hash) return
+    const hashIndex = modules.findIndex((module) => module.key === hash)
     if (hashIndex < 0) return
     setSelection((current) =>
       current.active === hashIndex
         ? current
         : { active: hashIndex, prev: current.active }
     )
-  }, [hashIndex])
+  })
+
+  useEffect(() => {
+    const onHashChange = () => syncSelectionFromHash()
+    window.addEventListener('hashchange', onHashChange)
+    onHashChange()
+    return () => window.removeEventListener('hashchange', onHashChange)
+  }, [])
 
   const go = useCallback(
     (next: number) => {
