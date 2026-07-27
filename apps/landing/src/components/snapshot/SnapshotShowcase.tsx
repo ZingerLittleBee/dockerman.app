@@ -109,12 +109,12 @@ export function SnapshotShowcase({
     getReducedMotionSnapshot,
     getServerReducedMotionSnapshot
   )
-  const appliedHashRef = useRef('')
   const railRef = useRef<HTMLElement | null>(null)
   const mobRef = useRef<HTMLDivElement | null>(null)
   const sentinelRefs = useRef<(HTMLDivElement | null)[]>([])
   const stageRef = useRef<HTMLButtonElement | null>(null)
   const { active, prev } = selection
+  const hashIndex = hash ? modules.findIndex((module) => module.key === hash) : -1
 
   const closeLightbox = useCallback(() => {
     setLightbox(false)
@@ -160,16 +160,14 @@ export function SnapshotShowcase({
     [scrollActiveControls]
   )
 
-  const appliedHash = appliedHashRef.current
-  if (hash && hash !== appliedHash) {
-    const idx = modules.findIndex((m) => m.key === hash)
-    appliedHashRef.current = hash
-    if (idx >= 0) {
-      setSelection((cur) => (cur.active === idx ? cur : { active: idx, prev: cur.active }))
-    }
-  } else if (!hash && appliedHash) {
-    appliedHashRef.current = ''
-  }
+  useEffect(() => {
+    if (hashIndex < 0) return
+    setSelection((current) =>
+      current.active === hashIndex
+        ? current
+        : { active: hashIndex, prev: current.active }
+    )
+  }, [hashIndex])
 
   const go = useCallback(
     (next: number) => {
