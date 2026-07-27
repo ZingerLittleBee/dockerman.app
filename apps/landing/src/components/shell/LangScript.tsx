@@ -8,28 +8,14 @@ import Script from 'next/script'
 // language signal for crawlers that don't.
 export function LangScript() {
   const script = `
-    try {
-      var locales = ${JSON.stringify(locales)};
-      var fallback = ${JSON.stringify(defaultLocale)};
-      var applyLang = function () {
+    (function () {
+      try {
+        var locales = ${JSON.stringify(locales)};
+        var fallback = ${JSON.stringify(defaultLocale)};
         var seg = location.pathname.split('/')[1];
         document.documentElement.lang = locales.indexOf(seg) !== -1 ? seg : fallback;
-      };
-      applyLang();
-      var pushState = history.pushState;
-      history.pushState = function () {
-        var result = pushState.apply(this, arguments);
-        applyLang();
-        return result;
-      };
-      var replaceState = history.replaceState;
-      history.replaceState = function () {
-        var result = replaceState.apply(this, arguments);
-        applyLang();
-        return result;
-      }
-      addEventListener('popstate', applyLang);
-    } catch (e) {}
+      } catch (e) {}
+    })();
   `
   return (
     <Script

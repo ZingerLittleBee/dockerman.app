@@ -4,6 +4,7 @@ import { type Locale, locales } from '@repo/shared/i18n'
 import { RootProvider } from 'fumadocs-ui/provider/next'
 import { Geist_Mono, Instrument_Serif } from 'next/font/google'
 import { siteConfig } from '@/app/siteConfig'
+import { DocumentLang } from '@/components/shell/DocumentLang'
 import { provider } from '@/lib/i18n/fumadocs-ui'
 import { buildAlternates } from '@/lib/seo'
 
@@ -93,6 +94,7 @@ export default async function LocaleLayout({
       theme={{ defaultTheme: 'dark', enableSystem: false, attribute: 'class' }}
     >
       <I18nProvider>
+        <DocumentLang locale={locale} />
         <div className={`${geistMono.variable} ${instrumentSerif.variable} contents`}>
           <AnalyticsTracker />
           {children}
