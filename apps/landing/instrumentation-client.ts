@@ -18,6 +18,6 @@ const initPostHog = async () => {
   )
 }
 
-void initPostHog().catch(() => {
+initPostHog().catch(() => {
   // Analytics failures should not block app initialization.
 })
