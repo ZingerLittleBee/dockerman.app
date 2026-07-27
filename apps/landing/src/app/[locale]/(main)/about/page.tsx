@@ -105,6 +105,7 @@ export default function About() {
               <p className="mt-4 text-gray-600 dark:text-gray-400">{t('about.team.bio')}</p>
               <div className="mt-4 flex gap-3">
                 <a
+                  aria-label={`${member.name} on GitHub`}
                   className="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300"
                   href={member.social.github}
                   onClick={() => {
@@ -113,9 +114,10 @@ export default function About() {
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  <RiGithubFill className="h-5 w-5" />
+                  <RiGithubFill aria-hidden="true" className="h-5 w-5" />
                 </a>
                 <a
+                  aria-label={`${member.name} on X`}
                   className="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300"
                   href={member.social.twitter}
                   onClick={() => {
@@ -124,7 +126,7 @@ export default function About() {
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  <RiTwitterXFill className="h-5 w-5" />
+                  <RiTwitterXFill aria-hidden="true" className="h-5 w-5" />
                 </a>
               </div>
             </div>
