@@ -2,11 +2,10 @@ import type { Locale } from '@repo/shared/i18n'
 import { getTranslation } from '@repo/shared/i18n/server'
 import Link from 'next/link'
 
-const COPYRIGHT_YEAR = new Date().getFullYear()
-
 export async function Footer({ locale }: { locale: Locale }) {
   const { t } = await getTranslation(locale)
   const prefix = (href: string) => `/${locale}${href === '/' ? '' : href}`
+  const copyrightYear = new Date().getFullYear()
 
   return (
     <footer className="border-dm-line border-t py-10 text-[13px] text-dm-ink-3 sm:py-12">
@@ -89,7 +88,7 @@ export async function Footer({ locale }: { locale: Locale }) {
 
         {/* Foot note: copyright + tagline */}
         <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-dm-line border-t pt-5 font-[var(--font-dm-mono)] text-[12px] text-dm-ink-4">
-          <span>© {COPYRIGHT_YEAR} Dockerman</span>
+          <span>© {copyrightYear} Dockerman</span>
           <span>{t('footer.note')}</span>
         </div>
       </div>
