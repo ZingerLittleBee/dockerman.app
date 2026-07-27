@@ -35,7 +35,11 @@ function ThemeSwitch() {
   // During SSR / first paint we don't know the theme. Render a placeholder
   // matching the final footprint so the navbar doesn't reflow when the
   // client mounts.
-  const active = hydrated ? (theme === 'dark' || theme === 'light' ? theme : resolvedTheme) : null
+  const active = hydrated
+    ? theme === 'dark' || theme === 'light'
+      ? theme
+      : (resolvedTheme ?? '')
+    : ''
 
   const onChange = (value: string) => {
     const fromTheme = theme
@@ -60,7 +64,7 @@ function ThemeSwitch() {
       aria-label="Toggle color theme"
       className="inline-flex h-8 items-center gap-[2px] rounded-full border border-dm-line bg-dm-bg-elev p-[2px]"
       onValueChange={onChange}
-      value={active ?? undefined}
+      value={active}
     >
       {OPTIONS.map(({ value, label, Icon }) => (
         <RadioGroupPrimitives.Item
