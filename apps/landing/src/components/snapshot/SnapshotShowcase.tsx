@@ -150,9 +150,7 @@ export function SnapshotShowcase({
     const hashIndex = modules.findIndex((module) => module.key === hash)
     if (hashIndex < 0) return
     setSelection((current) =>
-      current.active === hashIndex
-        ? current
-        : { active: hashIndex, prev: current.active }
+      current.active === hashIndex ? current : { active: hashIndex, prev: current.active }
     )
   })
 

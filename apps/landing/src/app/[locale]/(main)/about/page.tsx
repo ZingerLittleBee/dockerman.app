@@ -21,17 +21,14 @@ const TEAM_MEMBERS = [
 type SocialPlatform = 'github' | 'twitter'
 type SocialSection = 'team_member' | 'join_us'
 
-async function captureSocialClick(
-  platform: SocialPlatform,
-  section: SocialSection,
-  url: string
-) {
-  try {
-    const { default: posthog } = await import('posthog-js')
-    posthog.capture('about_social_clicked', { platform, section, url })
-  } catch {
-    // Analytics failures should never interfere with navigation.
-  }
+function captureSocialClick(platform: SocialPlatform, section: SocialSection, url: string) {
+  import('posthog-js')
+    .then(({ default: posthog }) => {
+      posthog.capture('about_social_clicked', { platform, section, url })
+    })
+    .catch(() => {
+      // Analytics failures should never interfere with navigation.
+    })
 }
 
 export default function About() {
@@ -111,7 +108,7 @@ export default function About() {
                   className="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300"
                   href={member.social.github}
                   onClick={() => {
-                    void captureSocialClick('github', 'team_member', member.social.github)
+                    captureSocialClick('github', 'team_member', member.social.github)
                   }}
                   rel="noopener noreferrer"
                   target="_blank"
@@ -122,7 +119,7 @@ export default function About() {
                   className="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300"
                   href={member.social.twitter}
                   onClick={() => {
-                    void captureSocialClick('twitter', 'team_member', member.social.twitter)
+                    captureSocialClick('twitter', 'team_member', member.social.twitter)
                   }}
                   rel="noopener noreferrer"
                   target="_blank"
@@ -166,11 +163,7 @@ export default function About() {
             <a
               href="https://github.com/ZingerLittleBee"
               onClick={() => {
-                void captureSocialClick(
-                  'github',
-                  'join_us',
-                  'https://github.com/ZingerLittleBee'
-                )
+                captureSocialClick('github', 'join_us', 'https://github.com/ZingerLittleBee')
               }}
               rel="noopener noreferrer"
               target="_blank"
@@ -183,7 +176,7 @@ export default function About() {
             <a
               href="https://twitter.com/zinger_bee"
               onClick={() => {
-                void captureSocialClick('twitter', 'join_us', 'https://twitter.com/zinger_bee')
+                captureSocialClick('twitter', 'join_us', 'https://twitter.com/zinger_bee')
               }}
               rel="noopener noreferrer"
               target="_blank"
