@@ -29,6 +29,15 @@ describe('landing performance contracts', () => {
     expect(source).toContain("import('posthog-js')")
   })
 
+  test('production builds upload PostHog source maps when credentials are available', () => {
+    const source = readAppFile('next.config.mjs')
+
+    expect(source).toContain("from '@posthog/nextjs-config'")
+    expect(source).toContain('process.env.POSTHOG_API_KEY')
+    expect(source).toContain('process.env.POSTHOG_PROJECT_ID')
+    expect(source).toContain('withPostHogConfig(landingConfig')
+  })
+
   test('download homebrew block keeps locale resources out of the client bundle', () => {
     const source = readAppFile('src/components/download/HomebrewBlock.tsx')
 
