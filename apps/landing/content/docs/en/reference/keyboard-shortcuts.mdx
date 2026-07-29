@@ -1,71 +1,85 @@
 ---
 title: Keyboard Shortcuts
-description: Every keyboard shortcut in Dockerman, grouped by surface — global, lists, logs, terminal, and Kubernetes.
+description: App-defined keyboard shortcuts currently available in Dockerman.
 ---
 
-Every keyboard shortcut in Dockerman is grouped by surface. Most shortcuts are customizable in [Settings → Shortcut settings](/en/docs/reference/settings#shortcut-settings).
+Dockerman registers only the shortcuts listed below. The Command Palette shortcut is the only shortcut you can change in [Settings → Shortcut settings](/en/docs/reference/settings#shortcut-settings).
 
 ## Global
 
 | Shortcut | Action |
 | --- | --- |
-| Cmd/Ctrl + K | Open Spotlight |
-| Cmd/Ctrl + , | Open Settings |
-| Cmd/Ctrl + Shift + L | Toggle theme |
-| Cmd/Ctrl + Shift + H | Open Host switcher |
+| Cmd/Ctrl + ; | Open or close the Command Palette. This shortcut is customizable. |
+| Cmd/Ctrl + B | Toggle the sidebar |
 
-## Navigation
+## Command Palette
 
 | Shortcut | Action |
 | --- | --- |
-| Up / Down | Move selection in the current list |
-| Enter | Open the selected row |
-| Cmd/Ctrl + Click | Toggle multi-select |
-| Shift + Click | Select a range |
+| Up / Down | Move through the available commands |
+| Enter | Run the selected command |
+| Esc | Return to the previous page, or close the palette from its first page |
+| Backspace | Return to the previous page when the search field is empty |
 
-## Container actions
+## Resource search
+
+Container, image, network, volume, file, and supported Kubernetes lists provide these search shortcuts:
 
 | Shortcut | Action |
 | --- | --- |
-| S | Start |
-| X | Stop |
-| R | Restart |
-| P | Pause or unpause |
-| L | Logs |
-| T | Terminal |
-| I | Inspect |
-| Delete | Remove after confirmation |
+| Cmd/Ctrl + F | Focus and select the page's search field |
+| / | Focus and select the search field when focus is not already in an editable control |
+| Esc | Clear the current search while keeping the search field focused |
+
+Focused rows and cards that expose keyboard navigation can be opened with `Enter` or `Space`. This behavior is scoped to those interactive items rather than every list in the app.
+
+## File browser
+
+| Shortcut | Action |
+| --- | --- |
+| Cmd/Ctrl + Click | Add or remove an item from the selection |
+| Shift + Click | Add the range from the last selected item |
+| Space | Select the focused item |
+| Enter | Open the focused directory or preview the focused file |
+| Delete / Backspace | Open the delete confirmation for the selected items |
 
 ## Log viewer
 
 | Shortcut | Action |
 | --- | --- |
-| / | Open search |
-| n | Next match |
-| N | Previous match |
-| g | Jump to the start |
-| G | Jump to the latest line |
-| P | Previous match, same as Shift + n |
-| Esc | Close search or clear highlights |
+| Cmd/Ctrl + F or / | Focus and select the log query |
+| Enter | Go to the next match while the query field is focused |
+| Shift + Enter | Go to the previous match while the query field is focused |
+| Cmd/Ctrl + G | Go to the next match |
+| Cmd/Ctrl + Shift + G | Go to the previous match |
+| Alt + C | Toggle case-sensitive matching |
+| Alt + R | Toggle regular-expression matching |
+| P | Toggle log following |
+| g | Jump to the newest log line |
+| Shift + G | Jump to the oldest log line |
+| Esc | Clear the query |
 
-## Terminal
-
-| Shortcut | Action |
-| --- | --- |
-| Ctrl/Cmd + Shift + C | Copy selection |
-| Ctrl/Cmd + Shift + V | Paste |
-| Ctrl/Cmd + Shift + K | Clear the terminal |
-| Ctrl + C | Send SIGINT to the process |
-| Ctrl + D | Send EOF |
-
-## Kubernetes
+## Docker events
 
 | Shortcut | Action |
 | --- | --- |
-| N | Cycle namespace |
-| D | Debug on a Pod |
-| Y | Edit YAML |
+| Cmd/Ctrl + F or / | Focus the event search |
+| P | Pause or resume the event stream |
+| g | Jump to the newest event |
+| Shift + G | Jump to the oldest event |
+| Esc | Clear the event search |
 
-## Customize
+## Container terminal
 
-Change any shortcut in [Settings → Shortcut settings](/en/docs/reference/settings#shortcut-settings).
+Terminal input is sent directly to the container's pseudo-terminal, so shell control sequences continue to work:
+
+| Shortcut | Action |
+| --- | --- |
+| Ctrl + C | Send an interrupt control sequence to the active process |
+| Ctrl + D | Send an end-of-file control sequence |
+
+Dockerman does not register separate copy, paste, or clear-terminal shortcuts.
+
+## Customize the Command Palette shortcut
+
+Open [Settings → Shortcut settings](/en/docs/reference/settings#shortcut-settings), select the current Command Palette shortcut, and press a new key combination. Reset restores `Cmd/Ctrl + ;`.

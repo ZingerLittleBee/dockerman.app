@@ -1,71 +1,85 @@
 ---
 title: "Atajos de Teclado"
-description: "Cada atajo de teclado en Dockerman, agrupado por superficie."
+description: "Atajos de teclado definidos por la aplicación y disponibles actualmente en Dockerman."
 ---
 
-Cada atajo de teclado en Dockerman está agrupado por superficie. La mayoría de los atajos se pueden personalizar en [Configuración → Atajos de teclado](/es/docs/reference/settings#configuración-de-atajos-de-teclado).
+Dockerman solo registra los atajos que aparecen a continuación. El atajo de la paleta de comandos es el único que se puede cambiar en [Configuración → Atajos de teclado](/es/docs/reference/settings#configuración-de-atajos).
 
 ## Global
 
 | Atajo | Acción |
 | --- | --- |
-| Cmd/Ctrl + K | Abrir Spotlight |
-| Cmd/Ctrl + , | Abrir Configuración |
-| Cmd/Ctrl + Shift + L | Cambiar tema |
-| Cmd/Ctrl + Shift + H | Abrir selector de host |
+| Cmd/Ctrl + ; | Abrir o cerrar la paleta de comandos. Este atajo se puede personalizar. |
+| Cmd/Ctrl + B | Mostrar u ocultar la barra lateral |
 
-## Navegación
+## Paleta de comandos
 
 | Atajo | Acción |
 | --- | --- |
-| Up / Down | Mover selección en la lista actual |
-| Enter | Abrir la fila seleccionada |
-| Cmd/Ctrl + Click | Activar/desactivar selección múltiple |
-| Shift + Click | Seleccionar un rango |
+| Up / Down | Desplazarse por los comandos disponibles |
+| Enter | Ejecutar el comando seleccionado |
+| Esc | Volver a la página anterior o cerrar la paleta desde la primera página |
+| Backspace | Volver a la página anterior cuando el campo de búsqueda está vacío |
 
-## Acciones de contenedores
+## Búsqueda de recursos
+
+Las listas de contenedores, imágenes, redes, volúmenes, archivos y las listas compatibles de Kubernetes ofrecen estos atajos de búsqueda:
 
 | Atajo | Acción |
 | --- | --- |
-| S | Start |
-| X | Stop |
-| R | Restart |
-| P | Pause or unpause |
-| L | Logs |
-| T | Terminal |
-| I | Inspect |
-| Delete | Remove tras confirmación |
+| Cmd/Ctrl + F | Enfocar y seleccionar el contenido del campo de búsqueda de la página |
+| / | Enfocar y seleccionar el campo de búsqueda cuando el foco no está en un control editable |
+| Esc | Borrar la búsqueda actual manteniendo el foco en el campo de búsqueda |
+
+Las filas y tarjetas compatibles con navegación por teclado se pueden abrir con `Enter` o `Space` después de recibir el foco. Este comportamiento se limita a esos elementos interactivos y no está disponible en todas las listas.
+
+## Explorador de archivos
+
+| Atajo | Acción |
+| --- | --- |
+| Cmd/Ctrl + Click | Añadir un elemento a la selección o quitarlo de ella |
+| Shift + Click | Añadir el rango desde el último elemento seleccionado |
+| Space | Seleccionar el elemento enfocado |
+| Enter | Abrir el directorio enfocado o previsualizar el archivo enfocado |
+| Delete / Backspace | Abrir la confirmación de eliminación para los elementos seleccionados |
 
 ## Visor de registros
 
 | Atajo | Acción |
 | --- | --- |
-| / | Abrir búsqueda |
-| n | Next match |
-| N | Previous match |
-| g | Jump to the start |
-| G | Jump to the latest line |
-| P | Previous match, mismo que Shift + n |
-| Esc | Cerrar búsqueda o limpiar resaltados |
+| Cmd/Ctrl + F o / | Enfocar y seleccionar la consulta de registros |
+| Enter | Ir a la siguiente coincidencia con el campo de consulta enfocado |
+| Shift + Enter | Ir a la coincidencia anterior con el campo de consulta enfocado |
+| Cmd/Ctrl + G | Ir a la siguiente coincidencia |
+| Cmd/Ctrl + Shift + G | Ir a la coincidencia anterior |
+| Alt + C | Activar o desactivar la distinción entre mayúsculas y minúsculas |
+| Alt + R | Activar o desactivar las expresiones regulares |
+| P | Activar o desactivar el seguimiento de registros |
+| g | Ir a la línea de registro más reciente |
+| Shift + G | Ir a la línea de registro más antigua |
+| Esc | Borrar la consulta |
 
-## Terminal
-
-| Atajo | Acción |
-| --- | --- |
-| Ctrl/Cmd + Shift + C | Copiar selección |
-| Ctrl/Cmd + Shift + V | Pegar |
-| Ctrl/Cmd + Shift + K | Limpiar la terminal |
-| Ctrl + C | Enviar SIGINT al proceso |
-| Ctrl + D | Enviar EOF |
-
-## Kubernetes
+## Eventos de Docker
 
 | Atajo | Acción |
 | --- | --- |
-| N | Cycle namespace |
-| D | Debug en un Pod |
-| Y | Edit YAML |
+| Cmd/Ctrl + F o / | Enfocar la búsqueda de eventos |
+| P | Pausar o reanudar el flujo de eventos |
+| g | Ir al evento más reciente |
+| Shift + G | Ir al evento más antiguo |
+| Esc | Borrar la búsqueda de eventos |
 
-## Personalizar
+## Terminal del contenedor
 
-Cambia cualquier atajo en [Configuración → Atajos de teclado](/es/docs/reference/settings#configuración-de-atajos-de-teclado).
+La entrada se envía directamente al pseudoterminal del contenedor, por lo que las secuencias de control del shell siguen funcionando:
+
+| Atajo | Acción |
+| --- | --- |
+| Ctrl + C | Enviar una secuencia de control de interrupción al proceso activo |
+| Ctrl + D | Enviar una secuencia de control de fin de archivo |
+
+Dockerman no registra atajos separados para copiar, pegar o limpiar el terminal.
+
+## Personalizar el atajo de la paleta de comandos
+
+Abre [Configuración → Atajos de teclado](/es/docs/reference/settings#configuración-de-atajos), selecciona el atajo actual de la paleta de comandos y pulsa una nueva combinación de teclas. Restablecer recupera `Cmd/Ctrl + ;`.
