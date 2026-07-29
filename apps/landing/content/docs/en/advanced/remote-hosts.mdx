@@ -23,7 +23,7 @@ Add a host once, then switch to it like any other Docker target.
   <Step>
     ### Fill in the SSH details
 
-    Enter the host, port (default `22`), user, and authentication method.
+    Enter the connection details requested by the dialog.
   </Step>
   <Step>
     ### Choose a runtime preference
@@ -36,23 +36,6 @@ Add a host once, then switch to it like any other Docker target.
     Test the connection, then save it. Dockerman opens a test tunnel, probes the runtime, and shows the detected type.
   </Step>
 </Steps>
-
-## Key-based vs password authentication
-
-Choose the SSH authentication method that matches how the remote host is set up.
-
-<Tabs items={['SSH key', 'Password']}>
-  <Tab>
-    Paste the private key or select a key file. When a file is selected, Dockerman reads and stores the key content rather than retaining only the path.
-
-    <Callout type="warn">
-      The desktop app currently stores the private-key content locally in its application database using reversible Base64 encoding. Base64 is not encryption. Protect the local account and application data directory accordingly.
-    </Callout>
-  </Tab>
-  <Tab>
-    Password authentication is stored locally in the application database using reversible Base64 encoding. Use it only on a device and user account you trust.
-  </Tab>
-</Tabs>
 
 ## Switch between hosts
 
@@ -69,5 +52,5 @@ Dockerman opens an SSH session and forwards a local Unix socket to the remote ru
 ## Security notes
 
 <Callout type="warn">
-  Only configure remote hosts you trust on trusted networks. SSH credentials stay local to your machine, so treat the system that stores them as sensitive.
+  Only configure remote hosts you trust on trusted networks.
 </Callout>
