@@ -7,7 +7,7 @@ Use the RBAC page to answer one question quickly: who can do what in this cluste
 
 ## ServiceAccounts
 
-Use ServiceAccounts to see which identities run inside the current namespace. The detail view shows mounted secrets, image pull secrets, and generated token secrets.
+Use ServiceAccounts to see identities in the current namespace. The detail view reflects API fields, including image pull secrets when present; modern clusters do not necessarily create generated token Secrets.
 
 ## Roles and ClusterRoles
 
@@ -19,4 +19,4 @@ Use RoleBindings and ClusterRoleBindings to see which subjects point at each rol
 
 ## Troubleshooting permissions
 
-When a pod cannot read, list, create, or exec into something, check the binding chain first and then verify the pod's ServiceAccount. If you still need to confirm access from inside the cluster, use the [Debug Assistant](/en/docs/kubernetes/debug).
+Use **Can I** on the Roles page to run a SelfSubjectAccessReview for a verb, resource, namespace, group, subresource, and optional name. It checks the current kubeconfig identity, not an arbitrary Pod ServiceAccount.

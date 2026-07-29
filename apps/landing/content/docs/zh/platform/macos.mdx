@@ -1,9 +1,9 @@
 ---
 title: "macOS"
-description: "在 macOS 上运行 Dockerman，默认使用 Docker Desktop 作为后端。"
+description: "在 macOS 上通过 Docker Desktop、兼容 socket 或 Apple Container 运行 Dockerman。"
 ---
 
-Dockerman 在 macOS 上以经过签名和公证的 DMG 形式发布，提供 Intel、Apple Silicon 和 Universal 版本。
+Dockerman 为 macOS 发布一个 Universal DMG。安装前请在发布页面核对当前资产及其签名。
 
 ## 安装
 
@@ -11,7 +11,7 @@ Dockerman 在 macOS 上以经过签名和公证的 DMG 形式发布，提供 Int
   <Step>
     ### 下载 DMG
 
-    从发布页面选择 Intel、Apple Silicon 或 Universal 版本。如果你希望一个下载适用于所有 Mac，请选择 Universal 版本。
+    从发布页面下载 Universal DMG。
   </Step>
   <Step>
     ### 打开并拖入应用程序文件夹
@@ -25,17 +25,19 @@ Dockerman 在 macOS 上以经过签名和公证的 DMG 形式发布，提供 Int
   </Step>
 </Steps>
 
-## Docker 后端
+## 容器后端
 
-Docker Desktop 是 macOS 上支持的后端，当 Docker Desktop 运行时，Dockerman 会自动连接。
+Dockerman 可连接 Docker Desktop 或其他兼容 Docker 的 socket。如果自动检测失败，请在设置 → Docker 中填写自定义 socket 路径。
 
 <Callout type="info">
   兼容 Docker 的 socket（如 `/var/run/docker.sock` 和 `~/.docker/run/docker.sock`）也可以使用。如果 Dockerman 未能自动检测到你的 socket，请在设置 → Docker 设置中设置路径。
 </Callout>
 
+在运行 macOS 26 或更高版本的 Apple Silicon Mac 上，Dockerman 还提供 Apple Container 后端。可在引擎引导或设置中选择 **Apple Container**。Intel Mac 和较早的 macOS 不支持该后端。
+
 ## 菜单栏和托盘
 
-Dockerman 会在菜单栏添加一个图标，提供快速操作和最近访问的目标。在设置 → 托盘设置中控制托盘图标行为。
+Dockerman 会在菜单栏添加应用操作图标。设置 → 通用允许选择普通图标或 CPU/内存状态样式。
 
 ## Apple Silicon 注意事项
 
@@ -45,4 +47,4 @@ Dockerman 会在菜单栏添加一个图标，提供快速操作和最近访问�
 
 - "Socket not found" 表示 Docker Desktop 未运行，或 Dockerman 指向了错误的 socket 路径。
 - "Gatekeeper blocks the app" 表示你需要右键点击应用并在首次启动时选择"打开"。
-- "Keychain prompts repeatedly" 表示 Dockerman 尚未被允许保存每台主机的凭证。
+- 远程主机密码和私钥内容保存在 Dockerman 的本地应用数据中；当前桌面实现不会把它们写入 macOS Keychain。

@@ -74,7 +74,7 @@ dockerman hub tags library/alpine --page 1 --page-size 25 --pretty
 
 ## Escanear con Trivy
 
-Dockerman incluye un binario de Trivy gestionado, así los escaneos funcionan offline una vez instalado.
+Dockerman puede gestionar el binario de Trivy. Un escaneo aún puede necesitar descargar o actualizar la base de datos, por lo que no se garantiza el uso offline.
 
 <Steps>
   <Step>
@@ -95,7 +95,7 @@ Dockerman incluye un binario de Trivy gestionado, así los escaneos funcionan of
     dockerman trivy update --json
     ```
 
-    Ambos transmiten progreso NDJSON mientras descargan el binario y la base de datos de vulnerabilidades.
+    Instalan o actualizan el binario gestionado de Trivy; no garantizan que la base de datos se descargue por adelantado.
   </Step>
   <Step>
     ### Escanear una imagen

@@ -7,13 +7,13 @@ description: "一站式管理 Pods、Deployments、StatefulSets、DaemonSets、J
 
 ## Pods
 
-打开 Pod 查看其状态、就绪容器数量、重启次数和运行时长。详情视图显示容器级别信息，包括端口、环境变量数量、资源请求和限制以及卷挂载。在详情视图中，可以直接跳转到 [Pod 日志与终端](/zh/docs/kubernetes/logs-terminal)，或在需要 shell 或更深入的网络检查时启动 [调试助手](/zh/docs/kubernetes/debug)。
+打开 Pod 查看状态和容器详情。需要 shell 时使用 [Pod 日志与终端](/zh/docs/kubernetes/logs-terminal)；[调试助手](/zh/docs/kubernetes/debug)只负责转发现有进程已经监听的调试端口。
 
 在列表视图中删除 Pod，以强制重启或移除卡住的 Pod。
 
 ### 强制删除
 
-当 Pod 因节点不可达或被 finalizer 阻塞而卡在 `Terminating` 状态时，请使用**强制删除**。强制删除会发送 `gracePeriodSeconds: 0`，跳过优雅关闭。
+**强制删除**会发送 `gracePeriodSeconds: 0` 并跳过优雅关闭，但不会移除 finalizer，因此被 finalizer 阻塞的 Pod 仍可能停留在 Terminating。
 
 <Callout type="warn">
   强制删除会立即从 API 中删除 Pod，而不等待 kubelet 的确认。如果底层容器仍在节点上运行，可能会留下残留进程 — 仅在常规删除被阻塞时使用此操作。
@@ -62,9 +62,13 @@ ReplicaSets 通常位于 Deployment 之下。当你需要检查控制器状态�
   Deployments 管理它们自己的 ReplicaSets。除非你在调试控制器行为，否则请修改 Deployment。
 </Callout>
 
+## HorizontalPodAutoscalers
+
+HPA 页面列出 autoscaling/v2 资源，并显示目标、副本上下限、当前/期望副本、状态和时长。可调整最小/最大副本、检查 YAML 或删除 HPA。
+
 ## 使用 YAML 编辑工作负载
 
-当你需要在 Monaco 编辑器中编辑完整对象时，在任何工作负载上点击编辑 YAML 按钮。Dockerman 使用 Kubernetes 模式进行自动补全，并**对保存执行 API 服务器侧的 dry-run**，因此无效的 YAML — 或会被准入控制器拒绝的 YAML — 会在落库前被捕获。
+点击编辑 YAML 可修改完整对象。Dockerman 会在应用前执行**服务端 dry-run**，但不承诺客户端 Kubernetes schema 自动补全或校验。
 
 ### Dry-run 预览
 

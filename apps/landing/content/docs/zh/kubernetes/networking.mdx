@@ -26,6 +26,10 @@ description: "跨命名空间检查 Services、Ingresses、Endpoints 和 Network
 
 当你需要 Service 背后的原始后端地址时，使用 Endpoint。当 Service 没有健康后端时，此视图最有用。
 
+## EndpointSlices
+
+EndpointSlice 是 Kubernetes 当前为 Service 维护的服务发现对象。Dockerman 在旧式 Endpoints 之外提供单独的列表与详情路由。
+
 ## NetworkPolicies
 
 使用 NetworkPolicy 了解哪些 Pod 可以相互通信。

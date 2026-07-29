@@ -1,92 +1,61 @@
 ---
 title: "设置"
-description: "Dockerman 每个设置页的参考 — 从 Docker 连接到通知。"
+description: "Dockerman 当前可用设置的参考。"
 ---
 
-每个设置页的参考。每个部分都链接回其控制的功能。
+设置窗口使用左侧导航和可滚动面板。可通过齿轮按钮、系统托盘或 [Spotlight](/zh/docs/advanced/spotlight) 打开。
 
-## 工作区对话框布局
+## 通用
 
-设置以工作区风格的对话框打开：左侧固定的侧边栏列出所有面板，右侧一次渲染一个面板，作为可滚动的扁平表面（无嵌套标签）。已激活许可证的页脚位于对话框的外壳上，因此无论你在哪个面板都保持可见。可从齿轮图标、系统托盘或 [Spotlight](/zh/docs/advanced/spotlight)（`Cmd/Ctrl+;` 后搜索 "Settings"）打开设置。
+通用设置包含：
 
-## 侧边栏可见性控制
+- 许可证激活与状态
+- 容器终端默认 shell（`/bin/sh`、`/bin/bash`、`/bin/zsh` 或自定义路径）
+- 菜单栏样式：普通图标或 CPU/内存状态
+- 可自定义的 Spotlight 快捷键，默认 `Cmd/Ctrl + ;`
 
-两项设置让你按工作流定制主应用侧边栏和 Kubernetes 侧边栏：
+当前应用没有终端字体、光标、主题、关闭时最小化到托盘或编辑托盘菜单等设置。
 
-- **主侧边栏 — 单项显示/隐藏** — 隐藏你从不使用的条目（例如，仅使用主机网络时隐藏 *Networks*，或者你自己编写 Compose 文件时隐藏 *Templates*）。隐藏的条目仍会出现在 [Spotlight](/zh/docs/advanced/spotlight) 中。
-- **Kubernetes 侧边栏 — 每组默认展开状态** — 选择连接到集群时哪些分组（Workloads、Networking、Config & Storage、RBAC、Cluster）默认展开。该设置与运行时折叠状态解耦，因此会话中关闭某个分组不会覆盖你的默认设置。
-- **Kubernetes 侧边栏 — 每项可见性** — 与主侧边栏相同的显示/隐藏控件，作用范围限定在 K8s 树。
+## 侧边栏
 
-可在同一面板随时重置为默认。
+选择主导航和 Kubernetes 导航中显示的项目。隐藏只影响侧边栏，不会禁用功能。使用**重置**恢复默认值。
 
-## 运行时设置
+## 引擎
 
-使用运行时偏好选择器在 Auto、Docker 和 Podman 之间进行选择。Auto 模式优先尝试 Docker，然后是 Podman。成功连接后，选择器下方会显示检测到的运行时。当连接到 Podman 时，Compose 功能会自动禁用。
+选择 Docker 或 Apple Container 作为本地引擎。Docker 设置包含：
 
-## Docker 设置
+- Auto、Docker 或 Podman 运行时偏好
+- 本地 socket 或 TCP 连接
+- 自定义 socket 路径和连接测试
+- 镜像升级监控设置
 
-使用 Docker 设置来选择连接类型、设置 socket 路径并检查连接状态。对于基于 SSH 的连接，请参阅[远程主机](/zh/docs/advanced/remote-hosts)。
+Dockerman 当前不会启动、停止或调整 Colima/Podman machine 的资源。参见 [Colima 与 Podman](/zh/docs/platform/colima-podman)。
 
-## Daemon 配置面板
+## Kubernetes
 
-使用 Daemon 配置面板以表单视图或原始 JSON 视图编辑 `daemon.json`。Registry mirrors 在 Windows 上使用 WSL2 Engine 时特别有用，[Windows 平台](/zh/docs/platform/windows#编辑-daemonjson)页面展示了该文件的位置。
+配置端口转发默认值和自动 DNS。DNS 注册在端口转发启动时自动创建，没有独立的启用开关。平台 resolver 配置参见[端口转发与 DNS](/zh/docs/kubernetes/port-forward)。
 
-## Kubernetes DNS 设置
+## Apps
 
-使用 Kubernetes DNS 设置为端口转发启用自动 DNS。请参阅[端口转发与 DNS](/zh/docs/kubernetes/port-forward#自动-dns)了解其控制的行为。
+配置应用模板来源和 Apps 使用的主机数据根目录。
 
-## Kubernetes 端口转发设置
+## 通知
 
-使用 Kubernetes 端口转发设置来配置默认本地端口范围、重试行为和自动重连。
+当前页面可以列出已配置渠道并发送测试通知。桌面 UI 尚未提供完整的添加、编辑、禁用和删除流程。存储和安全说明参见[通知](/zh/docs/homelab/notifications)。
 
-## 许可证设置
+## 安全
 
-使用许可证设置来激活、查看和重置你的 Dockerman 许可证。完整流程请参阅[许可证](/zh/docs/reference/licensing)。
+安全设置包含：
 
-## 通知设置
+- 连接引擎支持 Trivy 时的二进制、版本、更新和扫描默认值
+- 匿名产品分析
 
-使用通知设置来控制哪些事件触发通知，以及 Dockerman 显示应用内横幅、系统通知还是两者都显示。
+产品分析默认开启，可在此关闭。当前应用没有崩溃报告开关。
 
-### 通知渠道
+## CLI
 
-从专门的[通知](/zh/docs/homelab/notifications)页面管理外部通知渠道（Telegram、ntfy、Gotify、Discord、Webhook）。每个渠道使用 Shoutrrr 兼容的 URL，凭证存储在你的系统 Keychain 中。
+安装、更新或移除 `dockerman` CLI，并查看受支持 AI 助手的安装命令。参见 [CLI 总览](/zh/docs/cli)。
 
-### 告警规则
+## 不存在的设置
 
-配置将 Docker 事件和资源指标连接到你的通知渠道的告警规则。完整设置请参阅[告警规则](/zh/docs/homelab/alerts)。
-
-### 镜像升级监控
-
-从[镜像升级监控](/zh/docs/homelab/image-watches)页面配置后台镜像监控和默认通知渠道。
-
-## 隐私设置
-
-使用隐私设置来开启或关闭产品分析和崩溃报告。两者默认均为可选加入。
-
-## 快捷键设置
-
-使用快捷键设置可以修改全局命令面板快捷键。重置会恢复默认的 `Cmd/Ctrl + ;` 组合键，其他[键盘快捷键](/zh/docs/reference/keyboard-shortcuts)不可修改。
-
-## 终端设置
-
-使用终端设置来更改字体族、字体大小、光标样式、主题以及新终端的默认 shell 偏好。
-
-## 托盘设置
-
-使用托盘设置来显示或隐藏托盘图标、关闭时将 Dockerman 最小化到托盘，以及编辑托盘菜单操作。
-
-## CLI 设置
-
-v5.3.0 新增。在 CLI 面板中可在 `PATH` 上安装、更新或卸载内置的 `dockerman` CLI 二进制。该面板还提供 **AI 助手插件** 区，包含 Claude Code（`/plugin marketplace add ...`）和 Codex（`codex plugin marketplace add ...`）的一行安装命令，每个 agent 都有单独的复制按钮。二进制安装流程参见 [CLI 概览](/zh/docs/cli)，插件内容请见 [AI 助手插件](/zh/docs/cli/skills)。
-
-## Trivy 设置
-
-使用 Trivy 设置来配置 Trivy 二进制文件路径、漏洞数据库更新间隔和默认严重性过滤器。该面板还会检查 Trivy CLI 版本，当有可用的新版本时提供一键 **Update** 按钮（v5.3.0 新增）。扫描流程请参阅[使用 Trivy 扫描](/zh/docs/docker/images#使用-trivy-扫描)。
-
-## 任务设置
-
-从此面板管理[后台任务调度器](/zh/docs/homelab/scheduler)：启用/禁用单个任务、更改其调度并触发立即运行。内置任务（`stats_aggregation`、`stats_retention_prune`、`image_upgrade_check`）禁止删除，但仍可完整配置。
-
-## 语言和区域
-
-Dockerman 提供英语、简体中文、日本語和 Español 的完整本地化。选择语言会更改每一处 UI 字符串，包括对话框文案、告警和诊断包界面。相对时间格式通过 `Intl.RelativeTimeFormat` 跟随你选择的区域设置。
+Dockerman 当前没有任务设置面板，也没有设置 → 关于页面。后台任务和告警创建流程也可能尚未开放，对应页面会明确说明限制。

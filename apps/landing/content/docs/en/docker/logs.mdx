@@ -1,67 +1,18 @@
 ---
 title: Logs
-description: Stream and search container logs at scale with a virtualized list and power-user keyboard shortcuts.
+description: Stream, search, filter, copy, and export container logs.
 ---
 
-Use this page to read container logs in a virtualized list and drive it with keyboard shortcuts.
+Open Logs from a container to follow its output. Pause stops following the newest line without changing the container.
 
-## Live log streaming
+## Fetch controls
 
-Open Logs to stream from the container's current log tail. Pause freezes the view without disconnecting the stream, and Resume jumps back to the latest line and follows again.
+Choose a time preset or custom range, set a tail count up to 10,000, and filter stdout or stderr. Text, case-sensitive, and regex search operate on loaded rows; they are not server-side Docker log queries.
 
-## Virtualized list
+## Keyboard controls
 
-Dockerman renders log rows on demand so the viewer stays responsive even when you scroll through a large history.
+The implemented shortcuts include `/` or Ctrl/Cmd+F for search, Ctrl/Cmd+G and Shift+Ctrl/Cmd+G for matches, `P` for follow/pause, Alt+C for case sensitivity, Alt+R for regex, `g`/`G` for newest/oldest, and Escape to clear search. `n`, `N`, Enter, and Shift+Enter are not documented viewer shortcuts.
 
-<Callout type="info">
-  Memory usage stays roughly constant regardless of log length because only visible rows stay in the DOM.
-</Callout>
+## Export
 
-## Search
-
-Open search with `/` and Dockerman highlights every match in place as you scroll. Three toggles refine the query:
-
-- **Regex** — switch from literal substring to a regex pattern.
-- **Case sensitive** — off by default; flip on to require exact case matches.
-- **Match count** — the search bar shows the current/total match position so you always know how far through the matches you are.
-
-Use the navigation controls (or `Enter` / `Shift+Enter`) to jump between matches without losing your place in the stream.
-
-## Power shortcuts
-
-| Shortcut | Action |
-| --- | --- |
-| `/` | Open search |
-| Enter | Next match |
-| Shift + Enter | Previous match |
-| `n` | Next match outside the search box |
-| `N` | Previous match |
-| `g` | Jump to the beginning of the log |
-| `G` | Jump to the latest line |
-| `P` | Previous match, as an alternative to Shift + Enter |
-| Esc | Close search or clear highlights |
-
-## Unified log toolbar
-
-The log controls — time range, tail size, and query filter — are consolidated into a single toolbar above the stream so you can refine what you fetch without digging through menus.
-
-| Control | What it does |
-| --- | --- |
-| Time range | Pick a preset (e.g. *Last 15 min*, *Last hour*, *Last 24 h*) or *All* to read from the start. |
-| Tail | Limit how many lines Dockerman fetches before the live stream begins (e.g. 100, 1000, 10000). |
-| Query | Server-side filter applied before lines reach the viewer. Useful for very chatty containers. |
-
-Combining a tighter time range or smaller tail with a query keeps memory usage low even on noisy services.
-
-## Timestamp formats
-
-Switch between relative time, absolute UTC, and absolute local time from the view options.
-
-## Export logs
-
-Export logs when you want to hand them off to another tool or store them elsewhere.
-
-- JSON: timestamps plus stdout or stderr per line
-- Plain text: exactly what you see in the viewer
-
-See [log viewer shortcuts](/en/docs/reference/keyboard-shortcuts#log-viewer) for the full keymap.
+Use the toolbar to copy or export text/JSON. Timestamp presentation follows the loaded Docker log entries; the viewer does not expose the previously documented relative/UTC/local format switch.

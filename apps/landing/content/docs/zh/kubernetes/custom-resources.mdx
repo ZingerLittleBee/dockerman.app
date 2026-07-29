@@ -1,28 +1,17 @@
 ---
 title: "自定义资源"
-description: "发现集群中的 CRD 并浏览或编辑其实例。"
+description: "发现 CRD，并查看或编辑自定义资源实例。"
 ---
 
-v4.8.0 新增。使用此页面发现 CustomResourceDefinitions，浏览其实例，并以 YAML 格式编辑。
+Dockerman 从当前集群发现 CustomResourceDefinition，并列出 API group、Kind、scope、served versions 和 age。
 
-## 列出 CRD
+选择 CRD 后可浏览其实例。实例表显示名称、适用时的 namespace 以及可用操作。你可以查看对象，并通过与其他支持资源相同的 server dry-run 和冲突检查编辑 YAML。
 
-打开 CRD 列表查看所有已安装的定义，及其组、版本、作用域和实例数量。
+## 当前限制
 
-## 浏览资源实例
+- CRD 表不会计算实例数量。
+- Dockerman 不渲染 Kubernetes printer columns。
+- 编辑器不会加载 CRD OpenAPI schema，因此没有客户端 schema 校验或自动补全。
+- 最终接收和校验结果以 Kubernetes API server 为准。
 
-选择 CRD 以浏览其跨命名空间或集群的实例，具体取决于资源作用域。详情表格在可用时使用 CRD 的打印列。
-
-## 查看和编辑 YAML
-
-需要更改时，在 YAML 编辑器中打开任意实例。Dockerman 使用 CRD 模式进行验证和自动补全。
-
-<Callout type="info">
-  YAML 编辑器不限于自定义资源。在任何 Kubernetes 资源（Deployment、Service、ConfigMap 等）上打开编辑 YAML 即可查看和应用更改。Dockerman 会剥离服务器管理的字段，支持 dry-run 验证，并在保存前检测冲突。
-</Callout>
-
-## 限制
-
-<Callout type="info">
-  自定义资源目前仅支持 YAML 编辑。字段级表单已列入路线图。
-</Callout>
+即使 CRD 自身声明了附加列或结构化 schema，上述限制仍然适用。

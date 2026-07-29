@@ -1,92 +1,59 @@
 ---
 title: "Configuración"
-description: "Referencia de cada página de configuración de Dockerman, desde conexiones Docker hasta notificaciones."
+description: "Referencia de los ajustes disponibles actualmente en Dockerman."
 ---
 
-Referencia de cada página de configuración. Cada sección enlaza de vuelta a la función que controla.
+Configuración usa una navegación izquierda y un panel desplazable. Ábrela desde el engranaje, la bandeja del sistema o [Spotlight](/es/docs/advanced/spotlight).
 
-## Diseño del diálogo de Workspace
+## General
 
-Configuración se abre en un diálogo tipo workspace: una barra lateral fija a la izquierda lista cada panel y el lado derecho renderiza un panel a la vez como una superficie plana desplazable (sin pestañas anidadas). El pie de licencia activada se sitúa en el chrome del diálogo, así que permanece visible independientemente del panel en el que estés. Abre Configuración desde el icono de engranaje, la bandeja del sistema o [Spotlight](/es/docs/advanced/spotlight) (`Cmd/Ctrl+;` y luego busca "Configuración").
+General contiene:
 
-## Controles de visibilidad de la barra lateral
+- Activación y estado de la licencia
+- Shell predeterminado del terminal (`/bin/sh`, `/bin/bash`, `/bin/zsh` o una ruta personalizada)
+- Estilo de la barra de menús: icono normal o estadísticas de CPU/memoria
+- Atajo de Spotlight personalizable, con valor inicial `Cmd/Ctrl + ;`
 
-Dos ajustes te permiten adaptar la barra lateral principal de la aplicación y la barra lateral de Kubernetes a tu flujo:
+La aplicación actual no tiene ajustes de fuente, cursor o tema del terminal, cierre a la bandeja ni edición del menú de bandeja.
 
-- **Barra lateral principal — mostrar/ocultar por elemento** — oculta entradas que nunca usas (por ejemplo *Redes* si solo usas red de host, o *Plantillas* si escribes tus propios archivos Compose). Los elementos ocultos siguen apareciendo en [Spotlight](/es/docs/advanced/spotlight).
-- **Barra lateral de Kubernetes — estado de expansión por defecto por grupo** — elige qué grupos (Cargas de trabajo, Redes, Configuración y Almacenamiento, RBAC, Clúster) se abren por defecto al conectarte a un clúster. El ajuste está desacoplado del colapso en tiempo de ejecución, así que cerrar una sección durante una sesión no sobreescribe tu predeterminado.
-- **Barra lateral de Kubernetes — visibilidad por elemento** — el mismo control de mostrar/ocultar que la barra lateral principal, limitado al árbol de K8s.
+## Barra lateral
 
-Restablece los valores predeterminados en cualquier momento desde el mismo panel.
+Elige qué elementos se muestran en la navegación principal y de Kubernetes. Ocultar un elemento no deshabilita la función. **Restablecer** recupera los valores iniciales.
 
-## Configuración de runtime
+## Motor
 
-Usa el selector de preferencia de runtime para elegir entre Auto, Docker y Podman. Auto intenta Docker primero, luego Podman. El runtime detectado se muestra debajo del selector después de una conexión exitosa. Cuando se conecta a Podman, las funciones de Compose se desactivan automáticamente.
+Elige Docker o Apple Container como motor local. Docker incluye:
 
-## Configuración de Docker
+- Preferencia Auto, Docker o Podman
+- Conexión por socket local o TCP
+- Ruta de socket personalizada y prueba de conexión
+- Monitoreo de actualizaciones de imágenes
 
-Usa la configuración de Docker para elegir el tipo de conexión, establecer una ruta de socket e inspeccionar el estado de la conexión. Para conexiones basadas en SSH, consulta [Hosts remotos](/es/docs/advanced/remote-hosts).
+Dockerman no inicia, detiene ni cambia los recursos de Colima o Podman machine. Consulta [Colima y Podman](/es/docs/platform/colima-podman).
 
-## Panel de configuración del daemon
+## Kubernetes
 
-Usa el panel de configuración del daemon para editar `daemon.json` ya sea en una vista de formulario o en una vista JSON sin procesar. Los mirrors de registro son especialmente útiles en Windows con el motor WSL2, y la [plataforma Windows](/es/docs/platform/windows#edita-daemonjson) muestra dónde se encuentra ese archivo.
+Configura los valores de port forwarding y DNS automático. El registro DNS se crea al iniciar un forward; no existe un interruptor de activación independiente. Consulta [Port Forward y DNS](/es/docs/kubernetes/port-forward).
 
-## Configuración de DNS de Kubernetes
+## Apps
 
-Usa la configuración de DNS de Kubernetes para habilitar el DNS automático para los reenvíos de puertos. Consulta [Reenvío de puertos y DNS](/es/docs/kubernetes/port-forward#dns-automático) para conocer el comportamiento que controla.
+Configura las fuentes de plantillas y la raíz de datos del host utilizada por Apps.
 
-## Configuración de reenvío de puertos de Kubernetes
+## Notificaciones
 
-Usa la configuración de reenvío de puertos de Kubernetes para establecer el rango de puertos locales predeterminado, el comportamiento de reintentos y la reconexión automática.
+La página actual lista canales configurados y envía pruebas. La interfaz no ofrece un flujo completo para añadir, editar, deshabilitar o eliminar. Consulta [Notificaciones](/es/docs/homelab/notifications) para el almacenamiento y la seguridad.
 
-## Configuración de licencia
+## Seguridad
 
-Usa la configuración de licencia para activar, ver y restablecer tu licencia de Dockerman. Consulta [Licencias](/es/docs/reference/licensing) para ver el flujo completo.
+- Binario, versión, actualización y valores de escaneo de Trivy cuando el motor lo admite
+- Analítica anónima del producto
 
-## Configuración de notificaciones
+La analítica está activada por defecto y puede desactivarse aquí. La aplicación actual no tiene interruptor de informes de fallos.
 
-Usa la configuración de notificaciones para controlar qué eventos activan una notificación y si Dockerman muestra un banner en la aplicación, una notificación del sistema, o ambos.
+## CLI
 
-### Canales de notificación
+Instala, actualiza o elimina `dockerman` y consulta los comandos para las integraciones de asistentes compatibles. Consulta el [resumen de CLI](/es/docs/cli).
 
-Gestiona canales de notificación externos (Telegram, ntfy, Gotify, Discord, Webhook) desde la página dedicada de [Notificaciones](/es/docs/homelab/notifications). Cada canal usa una URL compatible con Shoutrrr, y las credenciales se almacenan en tu Keychain del sistema.
+## Ajustes que no existen
 
-### Reglas de alerta
-
-Configura reglas de alerta que conectan eventos de Docker y métricas de recursos a tus canales de notificación. Consulta [Reglas de alerta](/es/docs/homelab/alerts) para la configuración completa.
-
-### Monitoreo de actualizaciones de imágenes
-
-Configura el monitoreo de imágenes en segundo plano y los canales de notificación por defecto desde la página de [Monitoreo de actualizaciones de imágenes](/es/docs/homelab/image-watches).
-
-## Configuración de privacidad
-
-Usa la configuración de privacidad para activar o desactivar el análisis del producto y los informes de errores. Ambos son opt-in por defecto.
-
-## Configuración de atajos
-
-Usa la configuración de atajos para cambiar el atajo global de la paleta de comandos. Restablecer recupera la combinación predeterminada `Cmd/Ctrl + ;`. Los demás [atajos de teclado](/es/docs/reference/keyboard-shortcuts) son fijos.
-
-## Configuración del terminal
-
-Usa la configuración del terminal para cambiar la familia de fuentes, el tamaño de fuente, el estilo del cursor, el tema y la preferencia de shell predeterminada para nuevos terminales.
-
-## Configuración de la bandeja
-
-Usa la configuración de la bandeja para mostrar u ocultar el icono de la bandeja, minimizar Dockerman a la bandeja al cerrar, y editar las acciones del menú de la bandeja.
-
-## Configuración del CLI
-
-Añadido en v5.3.0. Usa el panel CLI para instalar, actualizar o desinstalar el binario `dockerman` incluido en tu `PATH`. El mismo panel aloja la sección **Plugins de asistentes IA** con comandos de instalación de una línea para Claude Code (`/plugin marketplace add ...`) y Codex (`codex plugin marketplace add ...`), cada uno con su propio botón de copia. Consulta la [visión general del CLI](/es/docs/cli) para el flujo de instalación del binario y [Plugins de asistentes IA](/es/docs/cli/skills) para lo que incluye el plugin.
-
-## Configuración de Trivy
-
-Usa la configuración de Trivy para establecer la ruta del binario de Trivy, el intervalo de actualización de la base de datos de vulnerabilidades y los filtros de severidad predeterminados. El panel también ejecuta una comprobación de versión del CLI y ofrece un botón **Update** en un clic cuando hay una versión más reciente del CLI Trivy disponible (añadido en v5.3.0). Consulta [Escanear con Trivy](/es/docs/docker/images#escanear-con-trivy) para ver el flujo de escaneo.
-
-## Configuración de Tareas
-
-Gestiona el [programador de tareas en segundo plano](/es/docs/homelab/scheduler) desde este panel: habilita/deshabilita tareas individuales, cambia su programación y dispara una ejecución inmediata. Las tareas integradas (`stats_aggregation`, `stats_retention_prune`, `image_upgrade_check`) están bloqueadas contra eliminación, pero siguen siendo totalmente configurables.
-
-## Idioma y región
-
-Dockerman incluye localización completa para English, 简体中文, 日本語 y Español. Elige un idioma para cambiar cada cadena de la UI, incluyendo el texto de los diálogos, las alertas y la interfaz del paquete de diagnóstico. El formato de tiempo relativo sigue tu locale seleccionado a través de `Intl.RelativeTimeFormat`.
+Dockerman no tiene actualmente un panel de Tareas ni Configuración → Acerca de. Las páginas de tareas y alertas indican cuándo sus flujos de creación aún no están disponibles.

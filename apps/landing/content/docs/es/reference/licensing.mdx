@@ -31,11 +31,11 @@ Las funciones locales de Docker y Podman son gratuitas para siempre y no requier
 
 ## Gestionar dispositivos
 
-Cada activación está vinculada a un identificador de dispositivo. Si reemplazas una máquina, pierdes el acceso a una o alcanzas el límite de dispositivos, abre el [autoservicio de restablecimiento de licencias](https://license.dockerman.app/manage) e introduce el correo electrónico de compra y la clave de licencia. Después de confirmar el correo, el servicio desactiva todos los dispositivos vinculados a la licencia para que puedas activarla de nuevo. El enlace de confirmación caduca a los 30 minutos.
+Cada activación está vinculada a un dispositivo. Si reemplazas una máquina o alcanzas el límite, abre el [autoservicio de licencias](https://license.dockerman.app/manage) e introduce el correo de compra y la clave. La política pública permite restablecer todos los dispositivos vinculados una vez cada siete días. Sigue las instrucciones de confirmación del servicio; esta documentación no garantiza una duración fija para el enlace enviado por correo.
 
-## Verificación sin conexión
+## Verificación al iniciar y sin conexión
 
-Después de la activación, Dockerman verifica la licencia localmente en cada inicio con una firma Ed25519. El uso diario no requiere acceso a la red.
+Dockerman verifica localmente la firma Ed25519 guardada y también intenta revalidar en línea en cada inicio. Si falla la red, la última licencia válida sigue funcionando durante un período de gracia. Tras 30 días sin una validación correcta, Dockerman elimina la licencia guardada y requiere activarla de nuevo.
 
 ## Solución de problemas
 

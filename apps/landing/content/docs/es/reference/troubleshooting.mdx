@@ -37,7 +37,7 @@ Verifica el puerto del host, los permisos del archivo de clave privada, y cualqu
 
 - Un alto consumo de CPU en reposo generalmente significa que una pestaña de Registros está transmitiendo un conjunto de archivos grande. Pausa las pestañas que no estés usando.
 - Cargas lentas de listas con cientos de contenedores generalmente significa que necesitas filtrar primero por estado o proyecto de Compose.
-- Estadísticas lentas generalmente significa que el rango de tiempo seleccionado es demasiado amplio. Redúcelo a 1h o 3h.
+- Si las estadísticas van lentas, usa un rango existente más corto, por ejemplo 1h en vez de 6h o 24h.
 
 ## Kubernetes: k3d no se inicia
 
@@ -65,4 +65,4 @@ Abre primero la página de Registro de la Aplicación. Si necesitas reportar un 
 
 ## Obtener ayuda
 
-Reporta problemas en el repositorio de GitHub de Dockerman y adjunta la exportación del Registro de la Aplicación más la versión de Dockerman desde Configuración → Acerca de.
+Adjunta el App Log y la versión del paquete o release. No existe Configuración → Acerca de.

@@ -3,7 +3,7 @@ title: "Kubernetes"
 description: "只读 Kubernetes 命令：发现集群、切换命名空间、查看资源。"
 ---
 
-`k8s` 命令组是**只读**的：从 kubeconfig 发现集群、切换、查看 pod、deployment、configmap、secret、node 以及任意自定义资源。**不**支持创建、更新或删除资源。
+`k8s` 命令组是**只读**的：从 kubeconfig 发现集群、切换，并查看明确允许的一组内置资源。它不能查询任意自定义资源类型。
 
 ## 选择集群和命名空间
 
@@ -29,7 +29,7 @@ dockerman k8s overview
 dockerman k8s overview --cluster kubeconfig:dev-context --namespace workloads --pretty
 ```
 
-返回一次性快照：node、pod、deployment、service 的计数，以及 warning 级别事件。适合在深入查看具体资源前做一次健康度探测。
+返回 node、pod、deployment、service 的计数，以及最近事件。事件列表并不只包含 Warning。
 
 ## 工作负载资源
 
@@ -102,13 +102,13 @@ dockerman k8s event list --type Warning --involved-kind Pod
 
 ## 通用资源与 YAML
 
-对于上方未列出的资源（自定义资源、不常用内置资源），使用通用 `resource` 子命令。先用 `api-resource list` 发现可用资源：
+通用 `resource` 子命令只支持固定的资源标识允许列表。`api-resource list` 可以显示集群发现数据，但发现到的类型不会因此自动变得可调用：
 
 ```bash
 dockerman k8s api-resource list --cluster kubeconfig:dev-context
 dockerman k8s resource list deployments.apps/v1 --namespace workloads
 dockerman k8s resource yaml secrets.core/v1 app-secret
-dockerman k8s resource yaml mycrd.example.com/v1alpha1 my-instance --json
+dockerman k8s resource yaml secrets.core/v1 app-secret --json
 ```
 
 `resource yaml` 输出脱敏后的 manifest。secret 的 `data` 字段在离开 daemon 之前已替换为 `<REDACTED>` —— **CLI 无法读取 secret 明文**。

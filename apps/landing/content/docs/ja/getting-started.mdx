@@ -73,7 +73,7 @@ description: "数分で Dockerman をインストールし、最初の Docker �
       <Step>
         ### Dockermanの起動
 
-        デスクトップメニューから、または`dockerman`を実行してDockermanを起動してください。
+        desktop menu から Dockerman を起動してください。published package は `PATH` 上の `dockerman` GUI executable を保証しません。
       </Step>
     </Steps>
   </Tab>
@@ -87,7 +87,6 @@ description: "数分で Dockerman をインストールし、最初の Docker �
 
     Dockermanは自動的にローカルDockerに接続を試み、進捗状況またはエラーを表示します。
 
-    {/* TODO(screenshot): getting-started/connect-dialog - Connect dialog on first launch */}
   </Step>
   <Step>
     ### ランタイムソースの選択
@@ -104,7 +103,6 @@ description: "数分で Dockerman をインストールし、最初の Docker �
 
     実行中および停止したコンテナのスナップショットと、リアルタイムチャートを確認できます。
 
-    {/* TODO(screenshot): getting-started/dashboard - Dashboard after first connect */}
   </Step>
 </Steps>
 
@@ -130,7 +128,7 @@ description: "数分で Dockerman をインストールし、最初の Docker �
 | プラットフォーム | 最低バージョン | アーキテクチャ |
 | --- | --- | --- |
 | macOS | 11 (Big Sur) | Intel、Apple Silicon、Universal |
-| Windows | 10 (1903) / 11 | x86_64 |
-| Linux | kernel 5.x | x86_64、aarch64 |
+| Windows | サポート対象の Windows 10 / 11 build | x86_64 |
+| Linux | modern desktop distribution | x86_64 |
 
-コンテナの管理を開始する前に、Docker Engine 20.10+またはPodman 4.0+が利用可能である必要があります。Windowsでは、オプションのWSL2パスを通じてDockermanがDocker daemonをプロビジョニングできます。Kubernetesサポートにはオプションのk3dバンドルを使用します。
+container 管理には compatible Docker または Podman endpoint が必要です。project は separately tested minimum engine-version matrix を公開していません。Windows では optional WSL2 path を利用できます。

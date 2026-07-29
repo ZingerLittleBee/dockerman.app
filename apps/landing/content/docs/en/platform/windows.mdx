@@ -78,7 +78,6 @@ The Setup Wizard runs automatically on first launch when Docker Desktop is not d
   Do not close Dockerman while the wizard is running. The first setup takes a few minutes and needs to finish before the app is usable.
 </Callout>
 
-{/* TODO(screenshot): windows/setup-wizard - WSL2 Setup Wizard welcome step */}
 
 ### What the wizard does
 
@@ -106,7 +105,11 @@ If the Docker daemon crashes, Dockerman shows a banner with a Restart button and
 
 ### Reinstall the WSL2 distro
 
-Added in v5.3.0. If the Alpine distro gets into a bad state, open the WSL setup wizard from the WSL page and click **Reinstall** to wipe the existing distro and re-import a fresh Alpine image. The button is destructive — any data you stored inside the distro itself is lost. Docker volumes managed by the daemon are preserved unless you also reset Docker.
+Added in v5.3.0. If the Alpine distro gets into a bad state, open the WSL setup wizard from the WSL page and click **Reinstall** to unregister the existing `dockerman-backend` distribution and import a fresh Alpine image.
+
+<Callout type="warn">
+  Reinstall deletes the entire WSL distribution, including Docker images, containers, volumes, and any other data stored inside it. Export or back up anything you need before continuing. Dockerman does not preserve volumes across this operation.
+</Callout>
 
 ### Switch the engine source
 

@@ -1,92 +1,22 @@
 ---
 title: Debug Assistant
-description: Launch an ephemeral debug pod alongside a target pod to diagnose network, DNS, and filesystem issues.
+description: Forward an existing process's debug port and generate an editor attach configuration.
 ---
 
-Added in v4.8.0. Use Debug Assistant to launch an ephemeral debug pod next to a target pod and open a shell with debugging tools preinstalled.
+Debug Assistant connects a local debugger to a process that is already running in a Pod. It creates a Kubernetes port forward and generates an attach configuration for your editor.
 
-## When to use Debug Assistant
+## Start a debug session
 
-- The target image is minimal, such as distroless or scratch, and has no shell.
-- You need tools like `tcpdump`, `dig`, `curl`, or `nc` that are not in the target image.
-- You need to inspect mounted volumes or the pod's network namespace without touching the pod itself.
-- You are debugging a `CrashLoopBackOff` and the pod never stays up long enough for `kubectl exec`.
+1. Select an existing Pod and container.
+2. Choose a supported debugger preset or enter the remote debug port and remote source path.
+3. Start the session.
+4. Copy the generated attach JSON into the matching editor configuration.
+5. Stop the session when finished to close the port forward.
 
-## Launch a debug pod
+## What Debug Assistant does not do
 
-<Steps>
-  <Step>
-    ### Select the target pod
+<Callout type="warn">
+  Dockerman does not create an ephemeral toolbox Pod, inject debugging tools, share another Pod's process or network namespace, mount its volumes, or open a debug terminal. The target process must already expose and listen on the selected debug port.
+</Callout>
 
-    From Pods or Workloads, choose Debug on the pod you want to inspect.
-  </Step>
-  <Step>
-    ### Configure sharing options
-
-    Choose whether to share the process namespace, the network namespace, and mounted volumes.
-  </Step>
-  <Step>
-    ### Wait for the debug pod to be Ready
-
-    Dockerman creates the pod and waits for it to become Ready before it opens the terminal.
-  </Step>
-  <Step>
-    ### Interact via the embedded terminal
-
-    The debug pod opens in a Dockerman terminal tab.
-
-    {/* TODO(screenshot): kubernetes/debug-assistant - Debug pod terminal with target info */}
-  </Step>
-</Steps>
-
-## Debug presets
-
-Dockerman ships three built-in presets that pre-configure the debug port and protocol for common runtimes:
-
-| Preset | Port | Protocol |
-| --- | --- | --- |
-| Node.js | 9229 | Inspector |
-| Go (Delve) | 2345 | DAP |
-| Python (debugpy) | 5678 | DAP |
-
-Select a preset when launching the debug pod to skip manual port configuration.
-
-## What's inside the debug pod
-
-| Tool | Purpose |
-| --- | --- |
-| `bash`, `sh` | Shells |
-| `ps`, `top`, `htop` | Process inspection |
-| `netstat`, `ss` | Connection state |
-| `tcpdump` | Packet capture |
-| `curl`, `wget` | HTTP probing |
-| `dig`, `nslookup` | DNS resolution |
-| `nc` | Raw TCP and UDP checks |
-| `vim`, `less` | File inspection |
-| `strace` | Syscall tracing when the kernel allows it |
-
-## Common debug workflows
-
-<Accordions>
-  <Accordion title="Diagnose a DNS problem">
-    - Run `dig @<cluster-dns>` for the Service or name you expect to resolve.
-    - Check `/etc/resolv.conf` inside the debug pod.
-    - Verify kube-dns Endpoints from the Networking page.
-    - Try `getent hosts` before you leave the pod.
-  </Accordion>
-  <Accordion title="Capture traffic between pods">
-    - Run `tcpdump -i any port 8080 -w /tmp/capture.pcap`.
-    - Reproduce the request from the target pod or a client pod.
-    - Copy the capture out with `kubectl cp`.
-    - Open the capture in Wireshark.
-  </Accordion>
-  <Accordion title="Inspect a mounted volume">
-    - Launch the debug pod with volume mounts enabled.
-    - `cd` to the mount path.
-    - Inspect the contents in place.
-  </Accordion>
-</Accordions>
-
-## Cleanup
-
-The debug pod is ephemeral. Close the terminal tab or exit the shell when you are done, and Dockerman cleans it up for you.
+Use the regular [Pod terminal](/en/docs/kubernetes/logs-terminal) when the selected container already contains a usable shell.

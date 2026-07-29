@@ -10,7 +10,7 @@ Dockerman se distribuye como `.deb`, `.rpm` o AppImage para que puedas instalarl
 <Tabs items={['.deb', '.rpm', 'AppImage']}>
   <Tab>
     ```bash
-    sudo dpkg -i dockerman_*_amd64.deb
+    sudo dpkg -i Dockerman_*_amd64.deb
     sudo apt-get install -f
     ```
 
@@ -18,26 +18,26 @@ Dockerman se distribuye como `.deb`, `.rpm` o AppImage para que puedas instalarl
   </Tab>
   <Tab>
     ```bash
-    sudo rpm -i dockerman-*.x86_64.rpm
+    sudo rpm -i Dockerman-*-1.x86_64.rpm
     # o
-    sudo dnf install dockerman-*.x86_64.rpm
+    sudo dnf install Dockerman-*-1.x86_64.rpm
     ```
 
     Instala el paquete `.rpm` en Fedora o RHEL.
   </Tab>
   <Tab>
     ```bash
-    chmod +x Dockerman-*.AppImage
-    ./Dockerman-*.AppImage
+    chmod +x Dockerman_*_amd64.AppImage
+    ./Dockerman_*_amd64.AppImage
     ```
 
-    Usa AppImageLauncher o `--install` si tu escritorio lo soporta.
+    La AppImage se ejecuta directamente y no ofrece una opción `--install` de Dockerman.
   </Tab>
 </Tabs>
 
 ## Configurar Docker Engine
 
-Sigue las instrucciones oficiales de instalación de Docker Engine para tu distribución en [docs.docker.com/engine/install/](https://docs.docker.com/engine/install/), luego asegúrate de que el daemon esté en ejecución. Dockerman funciona con Docker Engine 20.10 y versiones posteriores.
+Sigue las instrucciones oficiales de Docker Engine en [docs.docker.com/engine/install/](https://docs.docker.com/engine/install/) y asegúrate de que el daemon esté en ejecución. Dockerman no publica actualmente una versión mínima de Docker Engine probada por separado.
 
 ## Permisos
 
@@ -65,9 +65,9 @@ Sigue las instrucciones oficiales de instalación de Docker Engine para tu distr
   Estar en el grupo `docker` es efectivamente acceso root en el host. Usa Docker rootless si necesitas un límite más estricto.
 </Callout>
 
-## Wayland vs X11
+## Servidores de pantalla
 
-Dockerman funciona tanto en Wayland como en X11. En Wayland, los atajos globales usan la API de Atajos de xdg-desktop-portal, y en X11 usan una captura de teclas tradicional.
+Dockerman puede ejecutarse con Wayland o X11. El comportamiento de los atajos globales depende del entorno de escritorio y su integración con Tauri/WebView; Dockerman no implementa un backend independiente de atajos de xdg-desktop-portal.
 
 ## Integración con Freedesktop
 

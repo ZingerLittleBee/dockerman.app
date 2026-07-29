@@ -7,7 +7,7 @@ description: "Usa Colima o Podman machine como backend de Docker gratuito en mac
 
 Colima y Podman machine son alternativas gratuitas y de código abierto a Docker Desktop en macOS. Ambos ejecutan una máquina virtual Linux ligera que expone un socket compatible con Docker, y Dockerman se conecta a él como a cualquier otro motor.
 
-Dockerman nunca instala ni actualiza los binarios del motor por ti: instalas Colima o Podman tú mismo (Homebrew o las versiones oficiales) y Dockerman los detecta.
+Dockerman no instala, actualiza, inicia ni detiene estos motores. Instala y administra Colima o Podman y configura su socket en Dockerman.
 
 ## Instalación
 
@@ -25,7 +25,7 @@ El motor crea su máquina virtual en el primer arranque, y ese paso descarga una
 
 ```bash
 # Colima — descarga una imagen de ~330 MB en el primer arranque
-colima start --cpu 4 --memory 8
+colima start --cpus 4 --memory 8
 
 # Podman — descarga una imagen de ~1 GB desde quay.io
 podman machine init --cpus 4 --memory 8192
@@ -50,10 +50,15 @@ colima start   # o: podman machine init
 
 ## Después del primer arranque
 
-Una vez que la máquina virtual existe, abre Dockerman: detecta el socket del motor automáticamente. A partir de ahí, Dockerman gestiona el ciclo de vida diario: arrancar y detener el motor, consultar su estado y ajustar CPU, memoria y disco desde Ajustes.
+Cuando la máquina virtual esté en ejecución, abre Ajustes → Docker, selecciona una conexión por socket local e introduce la ruta del motor.
+
+- Colima normalmente usa `$HOME/.colima/default/docker.sock`.
+- Para Podman machine, ejecuta `podman machine inspect` y usa `ConnectionInfo.PodmanSocket.Path`.
+
+Dockerman no administra actualmente el ciclo de vida, la CPU, la memoria ni el disco de Colima o Podman machine. El comando de verificación de Podman puede detectar el socket, pero la conexión normal todavía necesita una ruta de socket válida explícita.
 
 ## Solución de problemas
 
-- «Socket not found» significa que la máquina virtual no está en ejecución: arráncala desde Dockerman o ejecuta `colima start` / `podman machine start`.
+- «Socket not found» significa que la máquina virtual no está en ejecución o que la ruta configurada es incorrecta. Ejecuta `colima start` / `podman machine start` y revisa la ruta en Ajustes.
 - Si la descarga se atasca en redes restringidas, configura las variables de proxy indicadas arriba y reintenta.
 - El uso de memoria de la máquina virtual en el host solo crece mientras se ejecuta; reinicia el motor para recuperarla.

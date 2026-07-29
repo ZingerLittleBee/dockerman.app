@@ -1,67 +1,25 @@
 ---
 title: "Estadísticas"
-description: "Paneles de recursos en tiempo real y históricos con medidores en anillo y gráficos sparkline para cada contenedor."
+description: "Gráficas de recursos en tiempo real e históricas por contenedor."
 ---
 
-Usa esta página como tu panel de recursos. Rediseñada en la v4.5.0, combina medidores en anillo con gráficos sparkline para que puedas detectar presiones rápidamente. Con estadísticas históricas, también puedes revisar tendencias durante los últimos 7 días.
+Abre Estadísticas desde un contenedor para ver CPU, memoria, red, disco y procesos. La ruta normal requiere un contenedor seleccionado; no es un dashboard general del host.
 
-## Panel de vista general
+## Rangos
 
-La página de Estadísticas muestra primero una vista general de los contenedores en ejecución, y luego te permite profundizar en los paneles de cada contenedor cuando necesites más detalle.
+- En vivo: 1, 5 o 15 minutos.
+- Históricos: 1, 6 o 24 horas, o 7 días.
 
-## Medidores en anillo
+Los datos históricos dependen de las tareas de agregación y retención. Las muestras raw se conservan 1 hora y los agregados de cinco minutos, 7 días.
 
-Los medidores en anillo muestran el uso instantáneo de CPU y memoria por contenedor. El anillo exterior muestra el valor actual, y el arco interior atenuado muestra el promedio durante el rango de tiempo seleccionado. El verde indica menos del 50 por ciento, el ámbar cubre de 50 a 80 por ciento, y el rojo marca cualquier valor superior a eso.
+## Gráficas
 
-## Gráficos sparkline
+CPU y memoria usan anillos e historia; red y disco muestran tasas y detalles. Los colores del anillo son presentación visual, no umbrales de alerta documentados.
 
-Los cuatro gráficos sparkline debajo de cada fila de medidores te ofrecen un historial compacto de cada métrica.
+## Comparar
 
-- CPU percent
-- Memory in MB (rangos en vivo) o memory percent (rangos históricos)
-- Network I/O in bytes per second for receive and transmit
-- Disk I/O in bytes per second for read and write
-
-Pasa el cursor sobre un punto para ver el valor exacto de ese momento.
-
-## Selector de rango de tiempo
-
-El selector en la parte superior ofrece siete rangos divididos en dos modos:
-
-| Rango | Modo | Fuente de datos |
-| --- | --- | --- |
-| 1 min, 5 min, 15 min | En vivo | Stream en tiempo real del daemon de Docker |
-| 1 hora, 6 horas, 24 horas, 7 días | Histórico | Almacén de series temporales (muestras crudas de 5 segundos para 1h, agregados de 5 minutos para rangos más largos) |
-
-Los rangos en vivo muestran datos a medida que llegan del stream de estadísticas de Docker. Los rangos históricos consultan la base de datos de series temporales, que es poblada por el [programador de tareas en segundo plano](/es/docs/homelab/scheduler).
+Comparar admite hasta seis pares host/contenedor, usa agregados históricos y desactiva el modo en vivo. La selección se guarda localmente.
 
 <Callout type="info">
-  Los rangos históricos requieren que las tareas en segundo plano `stats_aggregation` y `stats_retention_prune` estén habilitadas. Están activas por defecto. Las muestras crudas de 5 segundos se retienen por 1 hora; los agregados de 5 minutos se retienen por 7 días.
+  Un rango vacío significa que no hubo muestras grabadas; Dockerman no las reconstruye después desde Docker.
 </Callout>
-
-## Interfaces de red y dispositivos de disco
-
-Expande una fila de contenedor cuando quieras desglosar el I/O de red por interfaz o el I/O de disco por dispositivo. Esto es útil cuando un contenedor tiene múltiples conexiones de red o varios bind mounts.
-
-## Comparación multi-contenedor
-
-Selecciona hasta **6 contenedores** y la página de Estadísticas renderiza gráficos de CPU y memoria lado a lado que comparten un eje de tiempo común. Úsalo para:
-
-- Confirmar que un problema está aislado a un contenedor frente a ruido a nivel de host.
-- Comparar una réplica de referencia contra una canary mientras ajustas los límites de recursos.
-- Observar cómo se alinean los servicios de un stack Compose cuando hay picos de tráfico.
-
-La selección persiste entre navegaciones de página, así que puedes profundizar en un contenedor y volver sin perder tu conjunto de comparación. El tooltip del gráfico de comparación usa relleno hacia adelante para mostrar cada serie en cada timestamp sobre el que pasas el cursor, incluso cuando las muestras de un contenedor caen fuera de la cuadrícula.
-
-<Callout type="info">
-  La comparación multi-contenedor usa el mismo almacén histórico que los gráficos de un solo contenedor, así que el selector de rango de tiempo se comporta del mismo modo.
-</Callout>
-
-## Consejos
-
-- Picos de CPU en 1h que se aplanan en 24h suelen significar trabajo por lotes de corta duración, no una fuga de memoria.
-- Memoria que sube durante 24h y nunca baja es una señal fuerte de fuga de memoria.
-- Picos de I/O de disco que coinciden con el crecimiento de logs a menudo significan logs sin rotar, así que revisa [Logs](/es/docs/docker/logs).
-- Usa el rango de 7 días para identificar patrones semanales, como trabajos de backup que generan picos de recursos en un horario.
-
-{/* TODO(screenshot): stats/dashboard - Stats overview with ring gauges and sparklines */}

@@ -51,7 +51,7 @@ dockerman network connect my-net web
 dockerman network disconnect my-net web --force
 ```
 
-コンテナが動作中で、停止せずに切断する必要がある場合は `disconnect --force` が必要です。
+`--force` は Docker API にそのまま渡されます。必要かどうかは daemon とネットワークの状態に依存します。
 
 ## ボリューム
 
@@ -82,7 +82,7 @@ dockerman volume create data \
 dockerman volume remove data --force --yes
 ```
 
-`remove` には `--yes` が必須。`--force` を付けると、停止中のコンテナから参照されているボリュームでも強制削除します。
+`remove` には `--yes` が必須です。`--force` は Docker に渡されますが、参照中の volume を必ず削除できるとは限りません。
 
 ### クリーンアップ
 

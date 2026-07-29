@@ -32,11 +32,11 @@ dockerman container rename web web-old
 
 ```bash
 dockerman container create web nginx:latest --platform linux/amd64
-dockerman container create web nginx:latest --config ./run.json
+dockerman container create web nginx:latest --config '{"Env":["NODE_ENV=production"]}'
 dockerman container commit web --repo myrepo --tag snapshot --pause
 ```
 
-`--config` は `bollard::ContainerCreateOptions` と同じ形の JSON ファイルを受け取ります。`commit` は実行中のコンテナをスナップショット化して新しいイメージにします。
+`--config` はファイルパスではなくインライン JSON オブジェクトを受け取ります。`commit` は実行中のコンテナを新しいイメージにします。
 
 ## 削除
 
@@ -91,7 +91,7 @@ dockerman container terminal web --shell /bin/bash --user root
     dockerman container backup-targets web --pretty
     ```
 
-    コンテナのボリュームと bind mount を一覧し、各 bind mount に `safe_to_archive` フラグを付けます。
+    アーカイブに含められる volume と bind mount を一覧します。内容とサイズは自分で確認してください。
   </Step>
   <Step>
     ### アーカイブ作成
@@ -103,7 +103,7 @@ dockerman container terminal web --shell /bin/bash --user root
       --include-all-safe-bind-mounts
     ```
 
-    個別に mount を選ぶ場合は `--include-bind-mount <インデックス>`、pause/unpause サイクルをスキップするには `--no-pause`、`safe_to_archive` 警告を無視するには `--force`。
+    個別に mount を選ぶ場合は `--include-bind-mount <インデックス>`、pause/unpause をスキップするには `--no-pause` を使います。`--force` は既存の出力アーカイブを上書きするだけです。
   </Step>
   <Step>
     ### アーカイブをプレビュー
@@ -130,5 +130,5 @@ dockerman container terminal web --shell /bin/bash --user root
 </Steps>
 
 <Callout type="warn">
-  バックアップパスは CLI 側で絶対ローカルパスに解決されてから daemon に送られます。daemon は相対パス、ワークスペース外を指すシンボリックリンク、ユーザーが読めないパスを拒否します。
+  バックアップパスは CLI 側で絶対ローカルパスに解決されてから daemon に送られます。daemon は絶対パスを要求しますが、bind mount が「安全な workspace」内かどうかは判定しません。
 </Callout>

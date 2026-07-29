@@ -15,7 +15,7 @@ La lista de volúmenes muestra el nombre, driver, punto de montaje, tamaño y fe
   <Step>
     ### Elige un nombre y driver
 
-    Selecciona el nombre del volumen, luego elige el driver que deseas. Local es el valor predeterminado, y los drivers de plugin aparecen cuando están instalados.
+    Elige el nombre y una opción ofrecida actualmente (`local`, `nfs` o `cifs`). La lista no se genera dinámicamente desde los plugins Docker instalados.
   </Step>
   <Step>
     ### Opciones del driver (opcional)
@@ -39,7 +39,7 @@ Abre Inspeccionar para revisar el JSON del volumen, incluyendo el punto de monta
 
 ## Limpiar volúmenes no utilizados
 
-Limpiar elimina todos los volúmenes que no están actualmente conectados a un contenedor.
+Limpiar reenvía la operación al runtime seleccionado, que decide qué volúmenes están sin uso. Revisa la confirmación antes de continuar.
 
 <Callout type="warn">
   Limpiar elimina todos los volúmenes no utilizados, incluyendo volúmenes con nombre que podrías querer conservar. Usa Eliminar en su lugar cuando quieras ser explícito.

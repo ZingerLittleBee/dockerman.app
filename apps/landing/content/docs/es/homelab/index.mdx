@@ -9,7 +9,7 @@ Las funciones de homelab de Dockerman te permiten monitorear tus servicios autoa
 
 La mayoría de la gestión de contenedores ocurre mientras estás en tu escritorio. El modo homelab cubre el resto: qué sucede cuando te alejas, cuando un servicio falla a las 3 AM, o cuando aparece una nueva versión de imagen mientras no estás atento.
 
-Dockerman es **desktop-first y local-first**. No despliega un contenedor de gestión ni expone un puerto de gestión. Todo se ejecuta dentro de la aplicación, las credenciales permanecen en tu Keychain del sistema, y los archivos Compose se guardan en tu sistema de archivos donde `git` y el CLI de `docker compose` pueden usarlos directamente.
+Dockerman es **desktop-first y local-first**. No despliega un contenedor de gestión ni expone un puerto. Los datos sensibles de registros, hosts remotos y notificaciones se guardan en los datos locales de la app; no se garantiza Keychain.
 
 ## El flujo de trabajo end-to-end
 
@@ -20,9 +20,9 @@ Dockerman es **desktop-first y local-first**. No despliega un contenedor de gest
     Conecta [Telegram, ntfy, Gotify, Discord o un webhook genérico](/es/docs/homelab/notifications) para que Dockerman pueda contactarte cuando estés ausente.
   </Step>
   <Step>
-    ### Habilita las reglas de alerta preestablecidas (o escribe las tuyas)
+    ### Habilita las reglas preestablecidas
 
-    Dos reglas — *Restart loop* y *Container crash (non-zero exit)* — vienen preconfiguradas pero deshabilitadas. Habilítalas con un clic, o agrega más [reglas de alerta](/es/docs/homelab/alerts) para umbrales de recursos o ámbito por stack.
+    *Restart loop* y *Container crash (non-zero exit)* vienen deshabilitadas. Crear reglas custom está marcado Próximamente.
   </Step>
   <Step>
     ### Suscríbete a actualizaciones de imágenes

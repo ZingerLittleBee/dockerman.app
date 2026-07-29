@@ -1,66 +1,27 @@
 ---
 title: "端口转发与 DNS"
-description: "将本地端口转发到 Services 或 Pods，并可选地注册自动 DNS 条目。"
+description: "转发 Pod、Service 或 Deployment 端口，并配置 Dockerman 本地 DNS。"
 ---
 
-将本地端口转发到 Services 或 Pods，然后让 Dockerman 为每个活动的转发注册一个本地 DNS 名称。
+Dockerman 可以把 Pod、Service 或 Deployment 的端口转发到本机。活动转发可按 Kubernetes 设置自动重连。
 
-## 转发 Service 或 Pod 端口
+## 启动转发
 
-当你希望转发在 pod 重启后仍然保持时，请使用 Service。
-
-<Steps>
-  <Step>
-    ### 选择目标
-
-    选择一个 Pod 或 Service。对于长期运行的转发，Service 是更安全的选择。
-  </Step>
-  <Step>
-    ### 选择目标端口和本地端口
-
-    Dockerman 会建议目标的第一个端口和一个未使用的本地端口。
-  </Step>
-  <Step>
-    ### 启动转发
-
-    启动连接，并观察它出现在活动转发列表中。
-  </Step>
-</Steps>
-
-## 管理活动转发
-
-活动转发列表显示目标、本地端口、状态和停止操作。
-
-Service 和 Deployment 转发在短暂的网络错误后使用指数退避自动重连，并在当前 Pod 不可用时切换到新的就绪 Pod。Pod 转发不会自动重连，因为没有选择器可用于查找替代 Pod。
+1. 打开支持的资源并选择**端口转发**。
+2. 选择远程端口和可用的本地端口。
+3. 启动转发并使用页面显示的本地地址。
+4. 完成后从活动转发列表中停止。
 
 ## 自动 DNS
 
-v4.8.0 新增。自动 DNS 为每个活动的端口转发注册一个主机名，并将其指向 `127.0.0.1`。
+转发启动时，Dockerman 会注册 `<target>.<namespace>.<suffix>` 形式的本地域名。默认 suffix 为 `k8s.local`，内置 UDP DNS 监听端口默认为 `5353`。
 
-<Steps>
-  <Step>
-    ### 在设置中启用自动 DNS
+DNS 没有独立启用开关，Dockerman 也不会修改 `/etc/hosts`。
 
-    打开设置 > Kubernetes DNS 设置 > 启用自动 DNS。
-  </Step>
-  <Step>
-    ### 创建端口转发
+### 平台 resolver 配置
 
-    Dockerman 会在转发启动后立即添加 DNS 条目。
-  </Step>
-  <Step>
-    ### 在浏览器中打开 URL
+- macOS：配置 `/etc/resolver/<suffix>` 并指向 Dockerman DNS 端口。
+- Linux：配置 systemd-resolved 或其他 resolver，把所选 suffix 发送到本地 DNS。
+- Windows：当前尚未实现系统 resolver 自动集成。
 
-    在 DNS 条目生效后，打开 `http://<alias>:<local-port>/`。
-  </Step>
-</Steps>
-
-<Callout type="warn">
-  自动 DNS 在 macOS 和 Linux 上会编辑 `/etc/hosts`，这需要提升的权限。在 Windows 上，它使用 `127.0.0.1:53` 上的本地 DNS 服务器。
-</Callout>
-
-## 故障排除
-
-- 端口已被占用：选择 Dockerman 建议的下一个可用本地端口。
-- DNS 条目无法解析：确认自动 DNS 已启用，并清除所有过时的浏览器缓存。
-- 转发持续断开：检查后端 Service 是否仍有健康的 Endpoints。
+修改 suffix 或端口会影响之后的注册；现有应用可能缓存 DNS 结果。

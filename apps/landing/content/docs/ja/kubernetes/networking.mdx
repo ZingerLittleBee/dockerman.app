@@ -26,6 +26,10 @@ Ingressesを使用して、クラスタへのHTTPルーティングを検査し�
 
 Serviceの背後にある生のバックエンドアドレスが必要な場合は、Endpointsを使用します。このビューは、Serviceに健全なバックエンドがない場合に最も役立ちます。
 
+## EndpointSlices
+
+EndpointSlice は Kubernetes が Service の背後で管理する現在の discovery object です。Dockerman は legacy Endpoints と別に list/detail route を提供します。
+
 ## NetworkPolicies
 
 NetworkPoliciesを使用して、どのPodが相互に通信できるかを理解します。

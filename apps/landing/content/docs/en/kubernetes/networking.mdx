@@ -26,6 +26,10 @@ Use Ingresses to inspect HTTP routing into the cluster. The list shows hosts, pa
 
 Use Endpoints when you need the raw backend addresses behind a Service. This view is most useful when a Service has no healthy backends.
 
+## EndpointSlices
+
+Use EndpointSlices for the discovery objects Kubernetes currently maintains behind Services. Dockerman provides a dedicated list and detail route alongside legacy Endpoints.
+
 ## NetworkPolicies
 
 Use NetworkPolicies to understand which pods can talk to each other.

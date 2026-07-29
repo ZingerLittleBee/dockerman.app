@@ -32,11 +32,11 @@ dockerman container rename web web-old
 
 ```bash
 dockerman container create web nginx:latest --platform linux/amd64
-dockerman container create web nginx:latest --config ./run.json
+dockerman container create web nginx:latest --config '{"Env":["NODE_ENV=production"]}'
 dockerman container commit web --repo myrepo --tag snapshot --pause
 ```
 
-`--config` 接受 JSON 文件，结构与 `bollard::ContainerCreateOptions` 一致。`commit` 把运行中的容器快照成新镜像。
+`--config` 接受内联 JSON 对象，不接受文件路径。`commit` 把运行中的容器快照成新镜像。
 
 ## 删除
 
@@ -91,7 +91,7 @@ dockerman container terminal web --shell /bin/bash --user root
     dockerman container backup-targets web --pretty
     ```
 
-    列出容器的卷和 bind mount，并为每个 bind mount 标注 `safe_to_archive`。
+    列出归档可包含的卷和 bind mount。纳入 bind mount 前应自行核对其内容和大小。
   </Step>
   <Step>
     ### 创建归档
@@ -103,7 +103,7 @@ dockerman container terminal web --shell /bin/bash --user root
       --include-all-safe-bind-mounts
     ```
 
-    使用 `--include-bind-mount <索引>` 单独选择 mount，`--no-pause` 跳过暂停/恢复，`--force` 忽略 `safe_to_archive` 警告。
+    使用 `--include-bind-mount <索引>` 单独选择 mount，`--no-pause` 跳过暂停/恢复。`--force` 只覆盖已存在的输出归档。
   </Step>
   <Step>
     ### 预览归档
@@ -130,5 +130,5 @@ dockerman container terminal web --shell /bin/bash --user root
 </Steps>
 
 <Callout type="warn">
-  备份路径在 CLI 端解析为绝对本地路径后才发给 daemon。daemon 拒绝相对路径、指向工作区外的符号链接，以及当前用户无法读取的路径。
+  备份路径在 CLI 端解析为绝对本地路径后才发给 daemon。daemon 要求绝对路径，但不会替你判断 bind mount 是否属于“安全工作区”。
 </Callout>

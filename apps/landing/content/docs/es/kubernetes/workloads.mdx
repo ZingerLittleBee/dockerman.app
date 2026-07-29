@@ -7,13 +7,13 @@ Gestiona todos los tipos de recursos de carga de trabajo desde una sola página.
 
 ## Pods
 
-Abre un Pod para ver su estado, el número de contenedores listos, reinicios y antigüedad. La vista de detalle muestra información a nivel de contenedor, incluyendo puertos, conteo de variables de entorno, solicitudes y límites de recursos, y montajes de volúmenes. Desde allí, accede directamente a [Logs y Terminal del Pod](/es/docs/kubernetes/logs-terminal) o inicia el [Asistente de Depuración](/es/docs/kubernetes/debug) cuando necesites una shell o comprobaciones de red más profundas.
+Abre un Pod para ver estado y detalles. Usa [Logs y Terminal](/es/docs/kubernetes/logs-terminal) para una shell; el [Asistente de Depuración](/es/docs/kubernetes/debug) sólo reenvía un puerto que un proceso existente ya escucha.
 
 Elimina un Pod desde la vista de lista cuando necesites forzar un reinicio o eliminar un pod atascado.
 
 ### Eliminación forzada
 
-Usa **Eliminación forzada** cuando un Pod está atascado en `Terminating` porque su nodo es inalcanzable o un finalizer está bloqueando la eliminación. La eliminación forzada envía `gracePeriodSeconds: 0`, omitiendo el apagado ordenado.
+**Eliminación forzada** envía `gracePeriodSeconds: 0`, pero no elimina finalizers. Un Pod bloqueado por finalizer puede seguir en Terminating.
 
 <Callout type="warn">
   La eliminación forzada quita el Pod de la API inmediatamente sin esperar la confirmación de kubelet. Si el contenedor subyacente sigue ejecutándose en el nodo, puedes acabar con procesos huérfanos — úsalo solo cuando la eliminación normal esté bloqueada.
@@ -62,9 +62,13 @@ Los ReplicaSets suelen estar bajo un Deployment. Ábrelo cuando necesites inspec
   Los Deployments gestionan sus propios ReplicaSets. Cambia el Deployment a menos que estés depurando el comportamiento del controlador.
 </Callout>
 
+## HorizontalPodAutoscalers
+
+La página HPA lista recursos autoscaling/v2, target, límites, réplicas actuales/deseadas, condiciones y antigüedad. Permite ajustar mínimo/máximo, inspeccionar YAML o eliminar.
+
 ## Editar cargas de trabajo con YAML
 
-Abre el botón Editar YAML en cualquier carga de trabajo cuando necesites editar el objeto completo en Monaco. Dockerman utiliza el esquema de Kubernetes para autocompletar y **ejecuta el guardado en modo de prueba contra el servidor de la API**, de modo que un YAML inválido — o un YAML que sería rechazado por un admission controller — se detecta antes de aplicarse.
+Edita el objeto con YAML. Dockerman ejecuta un **dry-run server-side** antes de aplicar, pero no promete autocomplete o validación client-side con el schema Kubernetes.
 
 ### Vista previa con dry-run
 

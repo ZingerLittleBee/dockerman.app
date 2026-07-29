@@ -7,7 +7,7 @@ description: "Schema、call エスケープハッチ、Cloudflare Quick Tunnels�
 
 ## `schema` と `call`
 
-daemon が公開するすべてのバックエンド RPC は自己記述的な schema を持ちます。`schema` で利用可能な RPC を発見し、`call` で専用サブコマンドなしに任意の RPC を名前で呼び出せます。
+schema は対応する daemon surface を記述します。`call` が呼べるのは hard-coded allowlist の unary RPC だけで、無制限の escape hatch ではありません。
 
 ```bash
 dockerman schema
@@ -15,8 +15,8 @@ dockerman schema fetch_logs
 dockerman schema --format mcp-tools
 
 dockerman call ping_host '{"address":"8.8.8.8"}'
-dockerman call hub_search '{"query":"alpine","page_size":5}'
-dockerman call remove_container '{"name":"web","force":true}' --yes
+dockerman call hub_search '{"query":"alpine","pageSize":5}'
+dockerman call remove_container '{"name":"web","options":{"force":true}}' --yes
 ```
 
 `call` は params の JSON オブジェクトを受け取ります。破壊的 RPC は専用サブコマンドと同じく `--yes`（または `-y`）が必要です。**ストリーミング RPC は `call` で呼べません**——正しいエンベロープを得るには専用のストリーミングコマンドを使ってください。
@@ -79,7 +79,7 @@ dockerman wsl unregister --yes
 ### `--json` を `jq` にパイプ
 
 ```bash
-dockerman container list --json | jq '.[] | select(.state=="running") | .name'
+dockerman container list | jq '.[] | select(.state=="running") | .name'
 dockerman trivy scan myrepo/app:v1 --json \
   | jq -c 'select(.kind=="result") | .payload.results[] | .vulnerabilities[]?'
 ```
@@ -98,7 +98,7 @@ CLI はスクリプトがどれほど自信を持っていても常に `--yes` �
 ## daemon 発見失敗の検知
 
 ```bash
-if ! dockerman host current >/dev/null 2>&1; then
+if ! dockerman system info >/dev/null 2>&1; then
   echo "daemon に到達できません" >&2
   exit 3
 fi

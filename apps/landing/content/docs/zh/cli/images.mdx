@@ -74,7 +74,7 @@ dockerman hub tags library/alpine --page 1 --page-size 25 --pretty
 
 ## 使用 Trivy 扫描
 
-Dockerman 内置受管的 Trivy 二进制；安装后即可离线扫描。
+Dockerman 可管理 Trivy 二进制。扫描仍可能需要下载或更新漏洞数据库，不承诺安装后二进制即可离线扫描。
 
 <Steps>
   <Step>
@@ -95,7 +95,7 @@ Dockerman 内置受管的 Trivy 二进制；安装后即可离线扫描。
     dockerman trivy update --json
     ```
 
-    两者都以 NDJSON 流式输出二进制和漏洞数据库下载进度。
+    两者安装或更新受管的 Trivy 二进制；不会预先保证漏洞数据库已下载。
   </Step>
   <Step>
     ### 扫描镜像

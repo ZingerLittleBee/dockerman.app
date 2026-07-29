@@ -22,17 +22,17 @@ Claude Code 内で：
 /plugin list
 ```
 
-`dockerman` が enabled として表示されるはずです。試しに *"List my running containers"* と入力すると、Claude は `dockerman container ls` を実行するはずです。
+`dockerman` が enabled として表示されるはずです。実行前に現在の `dockerman --help` と実際の出力を確認してください。plugin はアプリより古い場合があります。
 
 ## 何が手に入るか
 
 プラグインには 1 つの skill `dockerman-cli` だけが入っており、以下をカバーします：
 
 - 強気な SKILL description —— ユーザーが "dockerman" と言わなくても、Docker / Compose / Kubernetes / kubectl の話題なら必ず発火します。
-- トップレベルコマンドの完全マップ（`container`、`image`、`compose`、`k8s`、`tunnel`、`trivy`、`wsl`、`events`、`schema`、`call`）。
+- コマンドマップ（`container`、`image`、`compose`、`network`、`volume`、`host`、`system`、`hub`、`k8s`、`tunnel`、`trivy`、`wsl`、`events`、`schema`、`call`）。
 - 重要な出力形状の注意点 —— 例えば `dockerman k8s pod list` は `{ forbidden, items, truncated }` を返し、フィールドは **フラット** です（`.name`、`.namespace`、`.restarts`、`.status`）。kubectl の `metadata.*` ツリーではありません。
 - 初回必ず引っかかる k8s スコープ規則 2 つ：cluster が未選択なら `--cluster` が必須。`pod list` で `--namespace` を省くと `default` ネームスペースだけが返り、`kube-system` などが静かに抜け落ちます。
-- `container backup -y` と `container restore -y` への破壊的操作警告 —— Claude が "dry-run" と説明してしまうのを防ぎます。
+- `container restore -y` などの破壊的操作への警告。backup 自体には常に `-y` が必要なわけではありません。
 - `jq` cookbook（`references/output-parsing.md`）—— コンテキストを溢れさせずに JSON 出力を射影するレシピ集です。
 
 ## 更新・削除

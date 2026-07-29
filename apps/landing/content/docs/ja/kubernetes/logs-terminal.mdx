@@ -1,44 +1,16 @@
 ---
 title: "Pod ログとターミナル"
-description: "Pod のログをストリーミングし、xterm.js で Pod 内の任意のコンテナに接続。"
+description: "Pod log を表示し、running container で exec session を開きます。"
 ---
 
-Podのログをストリーミングし、xterm.jsでPod内の任意のコンテナに接続します。
+Pod から Logs を開き、regular container を選びます。viewer は [container logs](/ja/docs/docker/logs) と同じ実装済み search/follow control を使います。
 
-## Podログのストリーミング
+current picker は init container log selection を保証しません。表示されない場合は `kubectl logs --init-container` を使ってください。
 
-任意のPod行またはPod詳細ビューからログを開きます。ログストリームはPodの実行中は常にライブ状態を保ち、詳細ビューではページを離れることなく最近の出力間を移動できます。
+## Terminal
 
-## 検索ショートカット
+Terminal を開き、必要なら container を選び、shell command を選択または入力します。Dockerman は command を直接実行し、`bash`、`sh`、`zsh` の自動 probe はしません。
 
-Podログは[コンテナログ](/ja/docs/docker/logs#パワーショートカット)と同じキーボードショートカットを使用します。`/`, `n`と`N`, `g`と`G`, および`Esc`が含まれます。
-
-## マルチコンテナPod
-
-Podに複数のコンテナがある場合は、上部のコンテナドロップダウンを使用します。Initコンテナも同じリストに表示され、コンテナを切り替えるとストリームがリセットされます。
-
-## Podターミナル（exec）
-
-<Steps>
-  <Step>
-    ### ターミナルを開く
-
-    Podから、ターミナルをクリックするか、Podが選択されている状態で`T`を押します。
-  </Step>
-  <Step>
-    ### コンテナを選択
-
-    シングルコンテナPodの場合はこのステップをスキップします。
-  </Step>
-  <Step>
-    ### シェルを選択
-
-    Dockermanは`bash`、次に`sh`、次に`zsh`を試行します。これはDockerコンテナターミナルで使用しているのと同じフォールバック順序です。
-  </Step>
-</Steps>
-
-## 制限事項
-
-- 対象コンテナを終了させるとセッションが終了します。
-- セッション履歴は再起動後も保持されません。
-- 一部のTUIアプリは`TERM=xterm-256color`が必要です。
+<Callout type="warn">
+  target container の restart/delete で session は終了します。app restart 後に terminal history は復元されません。
+</Callout>

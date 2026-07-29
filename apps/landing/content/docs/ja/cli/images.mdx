@@ -74,7 +74,7 @@ dockerman hub tags library/alpine --page 1 --page-size 25 --pretty
 
 ## Trivy でスキャン
 
-Dockerman は管理対象の Trivy バイナリを同梱しているので、インストール後はオフラインでもスキャンできます。
+Dockerman は Trivy バイナリを管理できます。スキャン時には脆弱性データベースの取得や更新が必要な場合があり、オフライン動作は保証されません。
 
 <Steps>
   <Step>
@@ -95,7 +95,7 @@ Dockerman は管理対象の Trivy バイナリを同梱しているので、イ
     dockerman trivy update --json
     ```
 
-    両者とも、バイナリと脆弱性データベースのダウンロード進捗を NDJSON でストリーミングします。
+    管理対象の Trivy バイナリをインストールまたは更新します。脆弱性データベースの事前ダウンロードは保証しません。
   </Step>
   <Step>
     ### イメージをスキャン

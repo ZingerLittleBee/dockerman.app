@@ -7,13 +7,13 @@ Manage every workload resource type from one page. Use the list view to scan sta
 
 ## Pods
 
-Open a Pod to see its status, ready container count, restarts, and age. The detail view shows container-level information including ports, environment variable counts, resource requests and limits, and volume mounts. From there, jump straight to [Pod Logs & Terminal](/en/docs/kubernetes/logs-terminal) or launch the [Debug Assistant](/en/docs/kubernetes/debug) when you need a shell or deeper network checks.
+Open a Pod to see status and container details. Use [Pod Logs & Terminal](/en/docs/kubernetes/logs-terminal) for a shell, or [Debug Assistant](/en/docs/kubernetes/debug) only to forward a debug port that an existing process already exposes.
 
 Delete a Pod from the list view when you need to force a restart or remove a stuck pod.
 
 ### Force delete
 
-Use **Force delete** when a Pod is stuck in `Terminating` because its node is unreachable or a finalizer is blocking removal. Force delete sends `gracePeriodSeconds: 0`, skipping graceful shutdown.
+**Force delete** sends `gracePeriodSeconds: 0`, skipping graceful shutdown. It does not remove finalizers, so a finalizer-blocked Pod can remain terminating.
 
 <Callout type="warn">
   Force delete drops the Pod from the API immediately without waiting for kubelet confirmation. If the underlying container is still running on the node, you can end up with stale processes — only use this when the regular delete is blocked.
@@ -62,9 +62,13 @@ ReplicaSets usually sit underneath a Deployment. Open one when you need to inspe
   Deployments manage their own ReplicaSets. Change the Deployment unless you are debugging controller behavior.
 </Callout>
 
+## HorizontalPodAutoscalers
+
+The HPA page lists autoscaling/v2 resources, shows targets, replica bounds, current and desired replicas, conditions, and age. You can tune minimum and maximum replicas, inspect YAML, or delete an HPA.
+
 ## Edit workloads with YAML
 
-Open the Edit YAML button on any workload when you need to edit the full object in Monaco. Dockerman uses the Kubernetes schema for autocomplete and **dry-runs the save against the API server** so invalid YAML — or YAML that would be rejected by an admission controller — is caught before it lands.
+Open Edit YAML to change the full object. Dockerman performs a **server-side dry-run** before apply, but does not promise client-side Kubernetes-schema autocomplete or validation.
 
 ### Dry-run preview
 

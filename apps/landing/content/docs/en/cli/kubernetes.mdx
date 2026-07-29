@@ -3,7 +3,7 @@ title: Kubernetes
 description: Read-only Kubernetes commands for cluster discovery, namespace selection, and resource inspection.
 ---
 
-The `k8s` command group is **read-only**: it discovers clusters from your kubeconfig, switches between them, and inspects pods, deployments, configmaps, secrets, nodes, and any custom resource the cluster exposes. It does not create, update, or delete resources.
+The `k8s` command group is **read-only**: it discovers clusters from your kubeconfig, switches between them, and inspects an allowlisted set of built-in resources. It does not create, update, or delete resources, and it cannot query arbitrary CR kinds.
 
 ## Pick a cluster and namespace
 
@@ -29,7 +29,7 @@ dockerman k8s overview
 dockerman k8s overview --cluster kubeconfig:dev-context --namespace workloads --pretty
 ```
 
-Returns a single-shot snapshot: counts of nodes, pods, deployments, services, plus warning-level events. Useful as a health probe before drilling into individual resources.
+Returns a single-shot snapshot: counts of nodes, pods, deployments, services, plus recent events. The event list is not restricted to warning-level events.
 
 ## Workload resources
 
@@ -102,13 +102,13 @@ dockerman k8s event list --type Warning --involved-kind Pod
 
 ## Generic resources and YAML
 
-For any resource not listed above (custom resources, less-common built-ins), use the generic `resource` subcommand. Discover what's available with `api-resource list`.
+The generic `resource` subcommand supports a fixed allowlist of resource identifiers. `api-resource list` can show cluster discovery data, but discovery does not make every returned kind callable through `resource`.
 
 ```bash
 dockerman k8s api-resource list --cluster kubeconfig:dev-context
 dockerman k8s resource list deployments.apps/v1 --namespace workloads
 dockerman k8s resource yaml secrets.core/v1 app-secret
-dockerman k8s resource yaml mycrd.example.com/v1alpha1 my-instance --json
+dockerman k8s resource yaml secrets.core/v1 app-secret --json
 ```
 
 `resource yaml` prints the redacted manifest. Secret data is replaced with `<REDACTED>` before it leaves the daemon — you cannot retrieve secret values through the CLI.

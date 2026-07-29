@@ -1,158 +1,22 @@
 ---
-title: Compose & Templates
-description: Manage multi-container applications with Docker Compose and bootstrap projects from the template library.
+title: Compose
+description: Manage Compose projects and edit their YAML.
 ---
 
-Manage Docker Compose projects and bootstrap new ones from the built-in template library.
+The Compose page discovers projects from Docker Compose labels and exposes the lifecycle actions supported by the selected Docker runtime. Compose is unavailable for Podman targets.
 
-<Callout type="warn">
-  Compose is only available when connected to a Docker runtime. When Dockerman detects Podman, Compose actions and stack templates are automatically hidden.
-</Callout>
+## Lifecycle
 
-## Compose projects
+Start, stop, restart, pull, up, and remove are available according to project state. Volume removal is forwarded to Compose; Dockerman does not pre-enumerate every named volume or verify other consumers.
 
-The Compose page shows each project that Dockerman finds from the `com.docker.compose.project` label, along with its container count, status, and base path.
+## Edit YAML
 
-## Start, stop, and remove a project
+Open the project's Compose file in the editor, save it, then apply changes when ready. Saving does not run `docker compose config` first and the editor does not promise complete Compose-schema validation or autocomplete. Validate important files independently.
 
-<Steps>
-  <Step>
-    ### Select a project
+## Convert `docker run`
 
-    Pick the Compose project you want to manage.
-  </Step>
-  <Step>
-    ### Start
+The Run to Compose flow parses common `docker run` flags into a YAML preview. Review unsupported or advanced flags before saving and deploying.
 
-    Dockerman brings all services up and pulls any missing images first.
-  </Step>
-  <Step>
-    ### Stop
+## Current boundaries
 
-    Dockerman brings all services down, but keeps the containers.
-  </Step>
-  <Step>
-    ### Remove
-
-    Dockerman removes the containers and networks. Volumes stay unless you check Include volumes.
-  </Step>
-</Steps>
-
-<Callout type="warn">
-  Include volumes removes both anonymous and named volumes defined by the Compose file. Named volumes with other consumers are skipped.
-</Callout>
-
-## Pull project images
-
-Pull fetches every image referenced by the Compose file without starting any services. Use it before a cold start on a new host.
-
-## Edit compose.yaml
-
-Open the Compose YAML editor to edit the file in Monaco with full syntax highlighting, schema validation, and autocompletion for Compose spec fields (services, networks, volumes, configs).
-
-<Steps>
-  <Step>
-    ### Open the editor
-
-    Select a Compose project and click **Edit** to open its `compose.yaml` in the built-in Monaco editor.
-  </Step>
-  <Step>
-    ### Edit with validation
-
-    As you type, the editor validates against the Compose JSON schema and highlights errors inline. Common fields like `image`, `ports`, `volumes`, and `environment` offer autocompletion.
-  </Step>
-  <Step>
-    ### Save to disk
-
-    Click **Save** to write the file to its original location on disk. Dockerman runs `docker compose config` to verify the file before saving. Invalid YAML blocks the save.
-  </Step>
-  <Step>
-    ### Apply changes
-
-    Click **Apply** to run `docker compose up -d` with the updated file, recreating only the services that changed.
-  </Step>
-</Steps>
-
-<Callout type="info">
-  Compose files are saved directly to the project directory on your filesystem. You can version them with `git` or edit them with any external tool, and Dockerman picks up the changes next time you open the editor.
-</Callout>
-
-## Convert `docker run` to Compose
-
-Paste a `docker run` command and Dockerman converts it into a `compose.yaml` that you can save as a new stack.
-
-<Steps>
-  <Step>
-    ### Open the converter
-
-    Go to the Compose page and click **From docker run**, or search "run to compose" in [Spotlight](/en/docs/advanced/spotlight).
-  </Step>
-  <Step>
-    ### Paste the command
-
-    Paste a `docker run` command (multi-line `\` continuation is supported). The right panel shows a live YAML preview that updates as you edit.
-  </Step>
-  <Step>
-    ### Review the output
-
-    The converter handles common flags including `-p`, `-v`, `-e`, `--name`, `--restart`, `--network`, `--privileged`, `--cap-add`, and `--device`. Flags that the converter does not recognize are preserved as YAML comments so nothing is lost.
-  </Step>
-  <Step>
-    ### Save as a new stack
-
-    Click **Save as stack** to write the generated `compose.yaml` to your stacks directory and open it in the YAML editor for further tuning.
-  </Step>
-</Steps>
-
-<Callout type="warn">
-  The converter covers approximately 80% of `docker run` flags. Advanced flags like `--health-*` and `--ulimit` are preserved as comments. Review the output before deploying.
-</Callout>
-
-## View logs across services
-
-Use the project-level Logs view to merge logs from every service, color-code them by service, and keep the same search behavior as [container logs](/en/docs/docker/logs).
-
-{/* TODO(screenshot): compose/project-logs - Multi-service merged log view */}
-
-## Templates library
-
-Use the Templates library when you want to start from a curated stack instead of a blank Compose file.
-
-<Cards>
-  <Card title="Databases">
-    MySQL, PostgreSQL, MongoDB, Redis, CouchDB.
-  </Card>
-  <Card title="Message queues">
-    RabbitMQ, NATS, Kafka.
-  </Card>
-  <Card title="Observability">
-    Prometheus and Grafana, Loki, Tempo.
-  </Card>
-  <Card title="Development">
-    phpMyAdmin, pgAdmin, Adminer, MinIO.
-  </Card>
-</Cards>
-
-<Steps>
-  <Step>
-    ### Open the Templates page
-
-    Open the page that lists the built-in templates.
-  </Step>
-  <Step>
-    ### Pick a template
-
-    Review the services, required environment variables, and default ports.
-  </Step>
-  <Step>
-    ### Configure and launch
-
-    Fill in the requested values, choose a project name, then start it.
-  </Step>
-</Steps>
-
-{/* TODO(screenshot): compose/templates-library - Template library page */}
-
-## Create your own template
-
-Save any existing Compose file as a template, then edit or delete it from the Templates page when you need to update your starter projects.
+Dockerman does not currently provide a project-level merged log viewer on this page. Curated application templates live under **Apps**, not as a built-in Compose template editor, and existing Compose files cannot be saved as reusable templates from this page.

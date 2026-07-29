@@ -1,28 +1,17 @@
 ---
 title: Custom Resources
-description: Discover Custom Resource Definitions in your cluster and browse or edit their instances.
+description: Discover CRDs and inspect or edit custom resource instances.
 ---
 
-Added in v4.8.0. Use this page to discover CustomResourceDefinitions, browse their instances, and edit them as YAML.
+Dockerman discovers CustomResourceDefinitions from the connected cluster and lists their API group, kind, scope, served versions, and age.
 
-## List CRDs
+Select a CRD to browse its instances. The instance table shows the name, namespace when applicable, and available actions. You can inspect the object and edit its YAML using the same server dry-run and conflict checks as other supported resources.
 
-Open the CRDs list to see every installed definition, along with its group, version, scope, and instance count.
+## Current limitations
 
-## Browse resource instances
+- The CRD table does not calculate instance counts.
+- Dockerman does not render Kubernetes printer columns.
+- The editor does not load CRD OpenAPI schemas for client-side validation or autocomplete.
+- Final acceptance and validation still come from the Kubernetes API server.
 
-Select a CRD to browse its instances across namespaces or across the cluster, depending on the resource scope. The detail table uses the CRD's printer columns when they are available.
-
-## View and edit YAML
-
-Open any instance in the YAML editor when you need to change it. Dockerman uses the CRD schema for validation and autocomplete.
-
-<Callout type="info">
-  The YAML editor is not limited to custom resources. Open Edit YAML on any Kubernetes resource — Deployments, Services, ConfigMaps, and so on — to view and apply changes. Dockerman strips server-managed fields, supports dry-run validation, and detects conflicts before saving.
-</Callout>
-
-## Limitations
-
-<Callout type="info">
-  YAML-only editing for custom resources today. Field-level forms are on the roadmap.
-</Callout>
+These limitations also apply when a CRD itself advertises additional columns or a structural schema.

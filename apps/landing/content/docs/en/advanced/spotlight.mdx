@@ -7,26 +7,24 @@ Spotlight is Dockerman's command palette. One keystroke opens a searchable, keyb
 
 ## Open Spotlight
 
-Press `Cmd/Ctrl + K` by default, or open Spotlight from the tray menu. Spotlight opens as a separate, frameless window while leaving the main Dockerman window open in the background.
+Press `Cmd/Ctrl + ;` by default, or open Spotlight from the tray menu. Spotlight opens as a separate, frameless window while leaving the main Dockerman window open in the background.
 
 ## Navigate to resources
 
-Start typing a container name, image tag, Compose project, Kubernetes Pod, or Settings page. Results are ranked by usage and recency, and pressing `Enter` opens the selected result.
+Start typing a container name, image tag, or Compose project. Pressing `Enter` opens the selected result or action. Dockerman does not currently rank results by usage or recency.
 
 ## Quick actions
 
 Use inline actions directly from the result list when Spotlight shows them.
 
-- Containers: Start, Stop, Restart, Logs, Terminal, Backup, Diagnostic Bundle, Watch for Upgrades
-- Images: Pull (re-pull), Scan with Trivy, Delete
-- Compose stacks: Edit YAML, Diagnostic Bundle, Watch All Images
-- Settings pages: jump directly
-- Templates: Launch
-- Homelab: Run to Compose converter, Notifications, Alerts
+- Containers: Start, Stop, Restart, Logs, Terminal, Backup, and Diagnostic Bundle
+- Images: inspect the image actions currently exposed by the palette
+- Compose stacks: lifecycle actions, Edit YAML, and Diagnostic Bundle
+- Utilities: Docker Run to Compose
 
 ## Search highlights
 
-Matching characters are highlighted in each result as you type. Searches are fuzzy, so `cntlog` still matches "container logs".
+Search uses the command palette's current text matching. Dockerman does not add usage-based ranking or a separate documented match-highlighting contract.
 
 ## Customize the shortcut
 

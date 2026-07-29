@@ -7,26 +7,24 @@ Spotlight 是 Dockerman 的命令面板。一键即可打开可搜索、键盘�
 
 ## 打开 Spotlight
 
-默认按下 `Cmd/Ctrl + K`，或从托盘菜单打开 Spotlight。Spotlight 以独立的无边框窗口打开，同时保持主 Dockerman 窗口在后台运行。
+默认按下 `Cmd/Ctrl + ;`，或从托盘菜单打开 Spotlight。Spotlight 以独立的无边框窗口打开，同时保持主 Dockerman 窗口在后台运行。
 
 ## 导航到资源
 
-开始输入容器名称、镜像标签、Compose 项目、Kubernetes Pod 或设置页面。结果按使用频率和最近使用时间排序，按下 `Enter` 打开选中的结果。
+开始输入容器名称、镜像标签或 Compose 项目。按下 `Enter` 会打开选中的结果或操作。Dockerman 目前不会按使用频率或最近使用时间排序。
 
 ## 快捷操作
 
 当 Spotlight 显示内联操作时，直接从结果列表中使用它们。
 
-- 容器：启动、停止、重启、日志、终端、备份、诊断包、监控升级
-- 镜像：拉取（重新拉取）、使用 Trivy 扫描、删除
-- Compose 技术栈：编辑 YAML、诊断包、监控所有镜像
-- 设置页面：直接跳转
-- 模板：启动
-- Homelab：Run to Compose 转换器、通知、告警
+- 容器：启动、停止、重启、日志、终端、备份和诊断包
+- 镜像：使用面板当前显示的镜像操作
+- Compose 技术栈：生命周期操作、编辑 YAML 和诊断包
+- 工具：Docker Run to Compose
 
 ## 搜索高亮
 
-输入时，匹配的字符会在每个结果中高亮显示。搜索是模糊的，因此 `cntlog` 仍然可以匹配 "container logs"。
+搜索遵循命令面板当前的文本匹配行为。Dockerman 没有额外定义使用频率排序或独立的匹配高亮契约。
 
 ## 自定义快捷键
 

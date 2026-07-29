@@ -49,4 +49,6 @@ Use StorageClasses to inspect the cluster's storage options, including the provi
 
 ## Namespaces
 
-The Namespaces page lists every namespace with its phase and age, lets you create a new namespace inline, and lets you delete one (with the cascade warning the API returns). The sidebar namespace selector syncs with this page so refreshes here are reflected globally.
+Dedicated pages are also available for LimitRanges, ResourceQuotas, and PodDisruptionBudgets.
+
+The Namespaces page lists, creates, and deletes namespaces. Deleting a namespace can remove namespaced resources; the UI does not promise to reproduce every warning returned by the API.

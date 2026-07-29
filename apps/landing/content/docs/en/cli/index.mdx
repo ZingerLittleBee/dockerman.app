@@ -3,7 +3,7 @@ title: CLI Overview
 description: Daemon-first dockerman CLI for scripting Docker, Kubernetes, Compose, and Trivy workflows from the terminal.
 ---
 
-`dockerman` is a thin command-line client that talks to the local **dockerman-daemon** over an authenticated IPC socket. Every feature you can drive from the GUI — containers, images, Compose, Kubernetes read-only, Trivy, Docker Hub, tunnels, WSL — is also reachable from the CLI. Added in v5.3.0.
+`dockerman` is a thin command-line client that talks to the local **dockerman-daemon** over an authenticated IPC socket. It covers a substantial, explicitly allowlisted subset of Docker, Compose, read-only Kubernetes, Trivy, Docker Hub, tunnels, and WSL workflows. It does not mirror every GUI feature. Added in v5.3.0.
 
 <Callout type="info">
   The CLI auto-starts `dockerman-daemon` on demand. You do not need to launch the GUI to use it.
@@ -41,7 +41,7 @@ The CLI ships **bundled inside the Dockerman desktop app** — there is no separ
 
 | Flag | Purpose |
 | --- | --- |
-| `--host <id>` | Target a specific Docker host. Use `LOCALHOST` for the local socket, or any host id from `dockerman host current`. |
+| `--host <id>` | Target a specific Docker host. Use `LOCALHOST` for the local socket. `host current` only shows the current selection; it does not discover every host id. |
 | `--pretty` | Render human-friendly tables instead of raw JSON (only on commands that opt in). |
 | `--yes` / `-y` | Confirm a destructive command. Required for `remove`, `prune`, `restore`, `tunnel create`, `wsl unregister`, etc. |
 
@@ -82,6 +82,7 @@ The current schema version is `2`. See [Streaming contract](/en/docs/cli/streami
 | --- | --- |
 | `0` | Success, or stream ended naturally |
 | `1` | Generic failure (validation, RPC error, stream body error) |
+| `2` | CLI argument parsing error |
 | `3` | Discovery or handshake failure (daemon not reachable) |
 | `4` | Streaming heartbeat timeout (no frame for 30s) |
 | `130` | `SIGINT` (Ctrl+C) on a streaming command |
@@ -89,7 +90,7 @@ The current schema version is `2`. See [Streaming contract](/en/docs/cli/streami
 
 ## Use it from AI assistants
 
-If you drive `dockerman` from an AI assistant, install the official plugin so the assistant knows the command map, output shapes, and destructive-action rules without re-discovering them.
+If you drive `dockerman` from an AI assistant, treat the installed CLI's `--help` and JSON output as authoritative. The public plugin can help with discovery, but it may lag the current CLI and must not override live help or schema output.
 
 Claude Code:
 

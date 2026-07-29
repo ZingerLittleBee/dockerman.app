@@ -74,7 +74,7 @@ dockerman hub tags library/alpine --page 1 --page-size 25 --pretty
 
 ## Scan with Trivy
 
-Dockerman ships a managed Trivy binary so scans work offline once installed.
+Dockerman can install and manage the Trivy binary. A scan may still need network access to download or update the vulnerability database unless the local Trivy cache is already sufficient and Trivy is configured for offline use.
 
 <Steps>
   <Step>
@@ -95,7 +95,7 @@ Dockerman ships a managed Trivy binary so scans work offline once installed.
     dockerman trivy update --json
     ```
 
-    Both stream NDJSON progress while downloading the binary and the vulnerability database.
+    These commands manage the Trivy binary. They do not pre-download the vulnerability database as part of the install/update operation.
   </Step>
   <Step>
     ### Scan an image
@@ -105,7 +105,7 @@ Dockerman ships a managed Trivy binary so scans work offline once installed.
     dockerman trivy scan myrepo/app:v1 --json --db-repository ghcr.io/aquasecurity/trivy-db
     ```
 
-    Scans stream progress frames followed by a single `kind: result` frame containing the report. Pipe `--json` output into `jq` to filter findings.
+    Trivy `--json` uses Trivy's command-specific progress/result payloads rather than the daemon's outer `StreamFrameEnvelope`. Inspect an actual result before writing `jq` expressions.
   </Step>
   <Step>
     ### Remove

@@ -7,7 +7,7 @@ description: "浏览 ServiceAccounts、Roles、ClusterRoles 及其绑定，理�
 
 ## ServiceAccounts
 
-使用 ServiceAccounts 查看在当前命名空间中运行的身份。详情视图显示挂载的 secrets、镜像拉取 secrets 以及生成的 token secrets。
+使用 ServiceAccounts 查看当前命名空间中的身份。详情显示 API 返回的字段，包括存在时的 image pull secrets；现代集群不一定创建生成的 token Secret。
 
 ## Roles 和 ClusterRoles
 
@@ -19,4 +19,4 @@ description: "浏览 ServiceAccounts、Roles、ClusterRoles 及其绑定，理�
 
 ## 排查权限问题
 
-当 Pod 无法读取、列出、创建或执行到某个资源时，首先检查绑定链，然后验证 Pod 的 ServiceAccount。如果你仍然需要从集群内部确认访问权限，请使用 [调试助手](/zh/docs/kubernetes/debug)。
+在 Roles 页面使用 **Can I**，针对 verb、resource、namespace、group、subresource 和可选 name 执行 SelfSubjectAccessReview。它检查当前 kubeconfig 身份，而不是任意 Pod ServiceAccount。

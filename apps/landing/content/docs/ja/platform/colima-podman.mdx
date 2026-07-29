@@ -7,7 +7,7 @@ description: "macOS で Colima または Podman machine を無料の Docker バ�
 
 Colima と Podman machine は、macOS における無料でオープンソースな Docker Desktop の代替です。どちらも軽量な Linux 仮想マシンを起動して Docker 互換のソケットを公開し、Dockerman は他のエンジンと同じように接続できます。
 
-Dockerman がエンジンのバイナリをインストール・更新することはありません。Colima や Podman は自分でインストールし（Homebrew または公式リリース）、Dockerman がそれを自動検出します。
+Dockerman はこれらのエンジンをインストール、更新、起動、停止しません。Colima または Podman を自分で管理し、そのソケットを Dockerman に設定してください。
 
 ## インストール
 
@@ -25,7 +25,7 @@ brew install podman
 
 ```bash
 # Colima —— 初回起動時に約 330 MB のイメージをダウンロード
-colima start --cpu 4 --memory 8
+colima start --cpus 4 --memory 8
 
 # Podman —— quay.io から約 1 GB のイメージをダウンロード
 podman machine init --cpus 4 --memory 8192
@@ -50,10 +50,15 @@ colima start   # または: podman machine init
 
 ## 初回起動のあと
 
-仮想マシンができたら Dockerman を起動してください。エンジンのソケットは自動検出されます。以降の日常的なライフサイクルは Dockerman が管理します：エンジンの起動・停止、ステータス確認、設定画面からの CPU・メモリ・ディスクの調整が行えます。
+仮想マシンの起動後、設定 → Docker でローカルソケット接続を選び、エンジンのソケットパスを入力します。
+
+- Colima は通常 `$HOME/.colima/default/docker.sock` を使用します。
+- Podman machine は `podman machine inspect` で `ConnectionInfo.PodmanSocket.Path` を確認できます。
+
+Dockerman は現在、Colima または Podman machine のライフサイクル、CPU、メモリ、ディスクを管理しません。Podman の検証コマンドは machine ソケットを検出できますが、通常の接続には明示的に動作するソケットパスが必要です。
 
 ## トラブルシューティング
 
-- 「Socket not found」は仮想マシンが動いていないことを意味します。Dockerman から起動するか、`colima start` / `podman machine start` を実行してください。
+- 「Socket not found」は、仮想マシンが停止しているか、設定したパスが誤っていることを示します。`colima start` / `podman machine start` を実行し、設定のパスを確認してください。
 - 制限のあるネットワークでダウンロードが進まない場合は、上記のプロキシ変数を設定して再試行してください。
 - 仮想マシンのホスト側メモリ使用量は稼働中は増える一方です。エンジンを再起動すると回収されます。

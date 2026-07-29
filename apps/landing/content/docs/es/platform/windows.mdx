@@ -78,7 +78,6 @@ El Asistente de configuración se ejecuta automáticamente en el primer inicio c
   No cierres Dockerman mientras el asistente está en ejecución. La primera configuración tarda unos minutos y debe finalizar antes de que la aplicación sea utilizable.
 </Callout>
 
-{/* TODO(screenshot): windows/setup-wizard - WSL2 Setup Wizard welcome step */}
 
 ### Qué hace el asistente
 
@@ -106,7 +105,11 @@ Si el daemon de Docker falla, Dockerman muestra un banner con un botón de Reini
 
 ### Reinstala la distro WSL2
 
-Añadido en v5.3.0. Si la distro Alpine entra en un estado defectuoso, abre el asistente de configuración de WSL desde la página WSL y haz clic en **Reinstall** para borrar la distro existente y reimportar una imagen Alpine nueva. El botón es destructivo: cualquier dato almacenado dentro de la propia distro se pierde. Los volúmenes de Docker gestionados por el daemon se conservan, salvo que también restablezcas Docker.
+Añadido en v5.3.0. Si la distro Alpine entra en un estado defectuoso, abre el asistente de configuración de WSL y haz clic en **Reinstall** para anular el registro de `dockerman-backend` e importar una imagen Alpine nueva.
+
+<Callout type="warn">
+  La reinstalación elimina toda la distribución WSL, incluidas las imágenes, los contenedores y los volúmenes de Docker, además de cualquier otro dato guardado en ella. Exporta o crea una copia de seguridad antes de continuar. Dockerman no conserva los volúmenes durante esta operación.
+</Callout>
 
 ### Cambia la fuente del motor
 

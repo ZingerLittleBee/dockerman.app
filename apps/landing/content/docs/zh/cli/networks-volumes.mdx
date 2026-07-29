@@ -51,7 +51,7 @@ dockerman network connect my-net web
 dockerman network disconnect my-net web --force
 ```
 
-容器正在运行、需要在不停止容器的情况下脱离网络时，必须传 `disconnect --force`。
+`--force` 会直接转发给 Docker API；是否需要它取决于 daemon 和网络状态，并非运行中容器一律必需。
 
 ## 卷
 
@@ -82,7 +82,7 @@ dockerman volume create data \
 dockerman volume remove data --force --yes
 ```
 
-`remove` 需要 `--yes`。`--force` 在卷被已停止容器引用时仍强制删除。
+`remove` 需要 `--yes`。`--force` 会转发给 Docker，但不保证删除仍被容器引用的卷。
 
 ### 清理
 

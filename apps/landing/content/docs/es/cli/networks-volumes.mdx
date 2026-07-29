@@ -51,7 +51,7 @@ dockerman network connect my-net web
 dockerman network disconnect my-net web --force
 ```
 
-`disconnect --force` es necesario cuando el contenedor está en marcha y quieres desconectarlo sin pararlo.
+`--force` se reenvía a la API de Docker. Que sea necesario depende del daemon y del estado de la red.
 
 ## Volúmenes
 
@@ -82,7 +82,7 @@ dockerman volume create data \
 dockerman volume remove data --force --yes
 ```
 
-`remove` requiere `--yes`. `--force` elimina un volumen incluso si está referenciado por un contenedor parado.
+`remove` requiere `--yes`. `--force` se reenvía a Docker, pero no garantiza eliminar un volumen todavía referenciado.
 
 ### Purgar
 

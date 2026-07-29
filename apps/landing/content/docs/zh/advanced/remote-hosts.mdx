@@ -3,7 +3,7 @@ title: "远程主机 (SSH)"
 description: "通过 SSH 隧道管理远程 Docker 主机，并在主机选择器中切换。"
 ---
 
-Dockerman 通过 SSH 将远程 Docker 守护进程的 Unix 套接字转发到本地来连接远程主机。配置完成后，所有功能（容器、镜像、日志、终端）都与在本地主机上运行完全一致。
+Dockerman 通过 SSH 转发远程 Docker 守护进程的 Unix socket。核心 Docker 操作、日志和终端可通过转发后的 API 工作，但依赖运行时或主机的功能不保证与本地完全一致，例如 Dockerman 不支持 Podman 目标的 Compose。
 
 ## 添加远程主机
 
@@ -13,7 +13,7 @@ Dockerman 通过 SSH 将远程 Docker 守护进程的 Unix 套接字转发到本
   <Step>
     ### 打开主机管理
 
-    从托盘菜单或主机视图中打开主机管理。
+    从主机视图或主窗口的主机切换器打开主机管理。
   </Step>
   <Step>
     ### 点击添加主机
@@ -43,14 +43,14 @@ Dockerman 通过 SSH 将远程 Docker 守护进程的 Unix 套接字转发到本
 
 <Tabs items={['SSH 密钥', '密码']}>
   <Tab>
-    直接粘贴私钥内容，或指定私钥文件路径给 Dockerman。
+    直接粘贴私钥或选择密钥文件。选择文件后，Dockerman 会读取并保存密钥内容，而不是只保留路径。
 
     <Callout type="warn">
-      私钥在磁盘上必须是 600 权限；OpenSSH 会拒绝权限过于宽松的密钥。
+      当前桌面应用使用可逆的 Base64 编码把私钥内容保存在本地应用数据库中。Base64 不是加密，请保护本地账户和应用数据目录。
     </Callout>
   </Tab>
   <Tab>
-    密码认证信息存储在本地。仅建议在临时设置或共享笔记本场景中使用。
+    密码同样使用可逆 Base64 编码保存在本地应用数据库中。只在你信任的设备和用户账户上使用。
   </Tab>
 </Tabs>
 
@@ -60,11 +60,11 @@ Dockerman 通过 SSH 将远程 Docker 守护进程的 Unix 套接字转发到本
 
 ## 自动重连
 
-Dockerman 会监控 SSH 隧道健康状态，并在短暂故障后自动重连。当主机离线超过 30 秒时，会显示警告横幅。
+Dockerman 会监控 SSH 隧道健康状态，并在 3、5、10 秒后依次重试。全部失败后会打开连接失败对话框。
 
 ## SSH 隧道工作原理
 
-Dockerman 建立 SSH 会话，并将本地 Unix 套接字转发到远程运行时 socket。Docker 默认使用 `/var/run/docker.sock`，当运行时偏好设置为 Podman 或 Auto 检测到 Podman 时则使用 Podman socket。所有 API 调用都通过该隧道传输，因此数据不会离开 SSH 通道。
+Dockerman 建立 SSH 会话，并将本地 Unix socket 转发到远程运行时 socket。该主机的 Docker API 流量通过隧道传输；Registry、更新、分析及其他应用流量是独立连接，不会经由 SSH 转发。
 
 ## 安全注意事项
 

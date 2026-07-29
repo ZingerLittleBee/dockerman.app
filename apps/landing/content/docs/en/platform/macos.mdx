@@ -1,9 +1,9 @@
 ---
 title: macOS
-description: Run Dockerman on macOS with Docker Desktop as the default backend.
+description: Run Dockerman on macOS with Docker Desktop, a compatible socket, or Apple Container.
 ---
 
-Dockerman on macOS ships as a signed, notarized DMG with Intel, Apple Silicon, and Universal builds.
+Dockerman publishes one Universal DMG for macOS. Verify the current release asset and its signature on the release page before installation.
 
 ## Install
 
@@ -11,7 +11,7 @@ Dockerman on macOS ships as a signed, notarized DMG with Intel, Apple Silicon, a
   <Step>
     ### Download the DMG
 
-    Pick the Intel, Apple Silicon, or Universal build from the release page. Use Universal if you want one download for every Mac.
+    Download the Universal DMG from the release page.
   </Step>
   <Step>
     ### Open and drag to Applications
@@ -25,17 +25,19 @@ Dockerman on macOS ships as a signed, notarized DMG with Intel, Apple Silicon, a
   </Step>
 </Steps>
 
-## Docker backend
+## Container backends
 
-Docker Desktop is the supported backend on macOS, and Dockerman connects automatically when Docker Desktop is running.
+Dockerman can connect to Docker Desktop or another Docker-compatible socket. Set a custom socket path in Settings → Docker when automatic detection does not find it.
 
 <Callout type="info">
   Docker-compatible sockets such as `/var/run/docker.sock` and `~/.docker/run/docker.sock` also work. If Dockerman does not detect your socket automatically, set the path in Settings → Docker settings.
 </Callout>
 
+On Apple Silicon with macOS 26 or later, Dockerman also exposes the Apple Container backend. Select **Apple Container** during engine onboarding or in Settings. It runs Linux containers in lightweight virtual machines and is not available on Intel Macs or older macOS versions.
+
 ## Menu bar and tray
 
-Dockerman adds a menu bar icon with quick actions and recent targets. Control the tray icon behavior in Settings → Tray settings.
+Dockerman adds a menu bar icon with application actions. Settings → General lets you choose the standard icon or the CPU/memory status style.
 
 ## Apple Silicon notes
 
@@ -45,4 +47,4 @@ On Apple Silicon, watch the image platform before you run a container. Many publ
 
 - "Socket not found" means Docker Desktop is not running, or Dockerman is pointed at the wrong socket path.
 - "Gatekeeper blocks the app" means you need to right-click the app and choose Open on first launch.
-- "Keychain prompts repeatedly" means Dockerman has not been allowed to save the per-host credential yet.
+- Remote-host passwords and private-key contents are stored locally by Dockerman. The current desktop implementation does not place these values in macOS Keychain.

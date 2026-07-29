@@ -1,9 +1,9 @@
 ---
 title: "网络"
-description: "创建和管理 Docker 网络，连接容器，并按端口搜索容器。"
+description: "创建和管理 Docker 网络及其容器连接。"
 ---
 
-使用此页面列出网络、创建新网络、连接或断开容器，以及按端口搜索。
+使用此页面列出网络、创建新网络，以及连接或断开容器。
 
 ## 网络列表
 
@@ -15,7 +15,7 @@ description: "创建和管理 Docker 网络，连接容器，并按端口搜索�
   <Step>
     ### 选择名称和驱动
 
-    选择网络名称，然后选择驱动，如 bridge、overlay、macvlan、ipvlan、host 或 null。
+    Docker 运行时可选择 `bridge`、`host`、`overlay`、`macvlan` 或 `none`。Apple Container 不显示驱动选择器。
   </Step>
   <Step>
     ### 配置 IPAM（可选）
@@ -36,36 +36,6 @@ description: "创建和管理 Docker 网络，连接容器，并按端口搜索�
 ## 连接和断开容器
 
 打开网络，选择"连接容器"，然后选择目标容器和可选别名。如需将容器从网络中移除，可在同一视图中使用"断开连接"。
-
-## 按端口搜索
-
-v4.7.0 新增。
-
-当你需要查找暴露特定服务或主机映射的容器时，可按端口搜索。
-
-<Steps>
-  <Step>
-    ### 打开端口搜索对话框
-
-    从网络页面开始，选择"端口搜索"。
-  </Step>
-  <Step>
-    ### 输入端口号和协议
-
-    提供端口号并选择 TCP 或 UDP。
-  </Step>
-  <Step>
-    ### 查看匹配的容器
-
-    结果显示容器、其所在网络以及确切的端口映射。
-  </Step>
-</Steps>
-
-<Callout type="info">
-  端口搜索涵盖暴露的端口和主机端口映射。
-</Callout>
-
-{/* TODO(screenshot): networks/port-search - Port search dialog with results */}
 
 ## 检查网络
 

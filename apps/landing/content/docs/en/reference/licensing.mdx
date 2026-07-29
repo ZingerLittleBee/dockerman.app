@@ -31,11 +31,11 @@ Local Docker and Podman features are free forever and do not require a license. 
 
 ## Manage devices
 
-Each activation is bound to a device identifier. If you replace a machine, lose access to one, or reach the device limit, open [License Self-Service](https://license.dockerman.app/manage) and enter the purchase email and license key. After you confirm the email, the service deactivates every device linked to the license so you can activate it again. The confirmation link expires after 30 minutes.
+Each activation is bound to a device identifier. If you replace a machine, lose access to one, or reach the device limit, open [License Self-Service](https://license.dockerman.app/manage) and enter the purchase email and license key. The public license policy allows resetting all linked devices once every seven days. Follow the confirmation instructions sent by the service; Dockerman does not publish a guaranteed email-link lifetime in this documentation.
 
-## Offline verification
+## Startup and offline verification
 
-After activation, Dockerman verifies the license locally on every launch with an Ed25519 signature. Day-to-day use does not require network access.
+Dockerman verifies the stored Ed25519 signature locally and also attempts an online revalidation on every launch. If the network request fails, the last valid license remains usable during a grace period. After 30 days without a successful validation, Dockerman removes the stored license and requires activation again.
 
 ## Troubleshooting
 

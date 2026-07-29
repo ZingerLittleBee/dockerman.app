@@ -1,9 +1,9 @@
 ---
 title: "macOS"
-description: "macOS でデフォルトバックエンドとして Docker Desktop を使用して Dockerman を実行。"
+description: "macOS で Docker Desktop、互換ソケット、または Apple Container を使用する。"
 ---
 
-macOS版Dockermanは、署名済みかつ公証済みのDMGとして提供されており、Intel、Apple Silicon、Universalビルドが含まれています。
+macOS 版 Dockerman は 1 つの Universal DMG として公開されます。インストール前にリリースページで現在の資産と署名を確認してください。
 
 ## インストール
 
@@ -11,7 +11,7 @@ macOS版Dockermanは、署名済みかつ公証済みのDMGとして提供され
   <Step>
     ### DMGのダウンロード
 
-    リリースページからIntel、Apple Silicon、またはUniversalビルドを選択してください。すべてのMacで使用できる1つのダウンロードが必要な場合はUniversalを選択してください。
+    リリースページから Universal DMG をダウンロードします。
   </Step>
   <Step>
     ### 開いてApplicationsにドラッグ
@@ -25,17 +25,19 @@ macOS版Dockermanは、署名済みかつ公証済みのDMGとして提供され
   </Step>
 </Steps>
 
-## Dockerバックエンド
+## コンテナバックエンド
 
-Docker DesktopはmacOSでサポートされているバックエンドであり、Docker Desktopが実行中の場合、Dockermanは自動的に接続します。
+Dockerman は Docker Desktop または Docker 互換ソケットに接続できます。自動検出されない場合は、設定 → Docker でソケットパスを指定してください。
 
 <Callout type="info">
   `/var/run/docker.sock`や`~/.docker/run/docker.sock`などのDocker互換ソケットも動作します。Dockermanがソケットを自動検出しない場合は、設定→Docker設定でパスを設定してください。
 </Callout>
 
+macOS 26 以降を実行する Apple Silicon Mac では、Apple Container バックエンドも利用できます。エンジンのオンボーディングまたは設定で **Apple Container** を選択してください。Intel Mac と古い macOS では利用できません。
+
 ## メニューバーとトレイ
 
-Dockermanはクイックアクションと最近のターゲットを備えたメニューバーアイコンを追加します。トレイアイコンの動作は設定→トレイ設定で制御できます。
+Dockerman はアプリ操作用のメニューバーアイコンを追加します。設定 → 一般で標準アイコンまたは CPU/メモリ表示を選べます。
 
 ## Apple Siliconに関する注意事項
 
@@ -45,4 +47,4 @@ Apple Siliconでは、コンテナを実行する前にイメージプラット�
 
 - 「Socket not found」は、Docker Desktopが実行されていないか、Dockermanが誤ったソケットパスを指していることを意味します。
 - 「Gatekeeper blocks the app」は、初回起動時にアプリを右クリックして「開く」を選択する必要があることを意味します。
-- 「Keychain prompts repeatedly」は、Dockermanがホストごとの認証情報を保存することをまだ許可されていないことを意味します。
+- リモートホストのパスワードと秘密鍵の内容は Dockerman のローカルアプリデータに保存されます。現在のデスクトップ実装は macOS Keychain を使用しません。

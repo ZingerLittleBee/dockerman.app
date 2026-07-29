@@ -1,92 +1,61 @@
 ---
 title: Settings
-description: Reference for every settings page in Dockerman, from Docker connections to notifications.
+description: Reference for the settings currently available in Dockerman.
 ---
 
-Reference for every settings page. Each section links back to the feature it controls.
+Settings use a left navigation and a scrollable panel. Open them from the gear button, the system tray, or [Spotlight](/en/docs/advanced/spotlight).
 
-## Workspace dialog layout
+## General
 
-Settings open in a workspace-style dialog: a fixed sidebar on the left lists every panel, and the right side renders one panel at a time as a flat scrollable surface (no nested tabs). The activated-license footer sits in the dialog chrome so it stays visible regardless of which panel you are on. Open Settings from the gear icon, the system tray, or [Spotlight](/en/docs/advanced/spotlight) (`Cmd/Ctrl+;` then search "Settings").
+General contains:
 
-## Sidebar visibility controls
+- License activation and status
+- Default container terminal shell (`/bin/sh`, `/bin/bash`, `/bin/zsh`, or a custom path)
+- Menu bar style: standard icon or CPU/memory statistics
+- The customizable Spotlight shortcut, which defaults to `Cmd/Ctrl + ;`
 
-Two settings let you tailor the main app sidebar and the Kubernetes sidebar to your workflow:
+Terminal font, cursor, theme, close-to-tray behavior, and tray menu editing are not settings in the current app.
 
-- **Main sidebar — per-item show/hide** — hide entries you never use (for example *Networks* if you only run host networking, or *Templates* if you write your own Compose files). Hidden items still show up in [Spotlight](/en/docs/advanced/spotlight).
-- **Kubernetes sidebar — per-group default expand state** — choose which groups (Workloads, Networking, Config & Storage, RBAC, Cluster) open by default when you connect to a cluster. The setting is decoupled from runtime collapse, so flipping a section closed during a session does not overwrite your default.
-- **Kubernetes sidebar — per-item visibility** — same hide/show control as the main sidebar, scoped to the K8s tree.
+## Sidebar
 
-Reset to defaults at any time from the same panel.
+Choose which main and Kubernetes navigation items are visible. Hiding an item removes it from the sidebar; it does not disable the underlying feature. Use **Reset** to restore the defaults.
 
-## Runtime settings
+## Engine
 
-Use the runtime preference selector to choose between Auto, Docker, and Podman. Auto tries Docker first, then Podman. The detected runtime is shown below the selector after a successful connection. When connected to Podman, Compose features are automatically disabled.
+Choose Docker or Apple Container as the local engine. Docker settings include:
 
-## Docker settings
+- Runtime preference: Auto, Docker, or Podman
+- Local socket or TCP connection
+- Custom socket path and connection test
+- Image upgrade watch settings
 
-Use Docker settings to choose the connection type, set a socket path, and inspect connection status. For SSH-backed connections, see [Remote Hosts](/en/docs/advanced/remote-hosts).
+Dockerman does not currently start, stop, or resize Colima or Podman machines. See [Colima & Podman](/en/docs/platform/colima-podman).
 
-## Daemon config panel
+## Kubernetes
 
-Use the Daemon config panel to edit `daemon.json` in either a form view or a raw JSON view. Registry mirrors are especially useful on Windows with the WSL2 Engine, and [Windows platform](/en/docs/platform/windows#edit-daemonjson) shows where that file lives.
+Configure port-forward defaults and automatic DNS. DNS registrations are created when a port forward starts; there is no separate enable switch. Platform resolver setup is documented in [Port Forward & DNS](/en/docs/kubernetes/port-forward).
 
-## Kubernetes DNS settings
+## Apps
 
-Use Kubernetes DNS settings to enable automatic DNS for port forwards. See [Port Forward & DNS](/en/docs/kubernetes/port-forward#automatic-dns) for the behavior it controls.
+Configure application template sources and the host data root used by Apps.
 
-## Kubernetes port forward settings
+## Notifications
 
-Use Kubernetes port forward settings to set the default local port range, retry behavior, and auto-reconnect.
+The current page lists configured channels and can send a test notification. A complete add, edit, disable, and delete workflow is not available in the current desktop UI. See [Notifications](/en/docs/homelab/notifications) for storage and security details.
 
-## License settings
+## Security
 
-Use License settings to activate, view, and reset your Dockerman license. See [Licensing](/en/docs/reference/licensing) for the full flow.
+Security contains:
 
-## Notification settings
+- Trivy binary, version, update, and scan defaults when the connected engine supports Trivy
+- Anonymous product analytics
 
-Use Notification settings to control which events trigger a notification and whether Dockerman shows an in-app banner, a system notification, or both.
+Analytics is enabled by default and can be disabled here. The current app has no crash-reporting switch.
 
-### Notification channels
+## CLI
 
-Manage external notification channels (Telegram, ntfy, Gotify, Discord, Webhook) from the dedicated [Notifications](/en/docs/homelab/notifications) page. Each channel uses a Shoutrrr-compatible URL, and credentials are stored in your system Keychain.
+Install, update, or remove the bundled `dockerman` CLI and view install commands for the supported AI assistant integrations. See the [CLI overview](/en/docs/cli).
 
-### Alert rules
+## Settings that do not exist
 
-Configure alert rules that connect Docker events and resource metrics to your notification channels. See [Alert Rules](/en/docs/homelab/alerts) for the full setup.
-
-### Image upgrade watches
-
-Configure background image monitoring and default notification channels from the [Image Upgrade Watches](/en/docs/homelab/image-watches) page.
-
-## Privacy settings
-
-Use Privacy settings to toggle product analytics and crash reporting. Both are opt-in by default.
-
-## Shortcut settings
-
-Use Shortcut settings to change the global Command Palette shortcut. Reset restores the default `Cmd/Ctrl + ;` combination. Other [keyboard shortcuts](/en/docs/reference/keyboard-shortcuts) are fixed.
-
-## Terminal settings
-
-Use Terminal settings to change the font family, font size, cursor style, theme, and default shell preference for new terminals.
-
-## Tray settings
-
-Use Tray settings to show or hide the tray icon, minimize Dockerman to the tray on close, and edit the tray menu actions.
-
-## CLI settings
-
-Added in v5.3.0. Use the CLI panel to install, update, or uninstall the bundled `dockerman` CLI binary on your `PATH`. The same panel hosts the **AI Assistant Plugins** section with one-line install commands for Claude Code (`/plugin marketplace add ...`) and Codex (`codex plugin marketplace add ...`), each with a per-agent Copy button. See the [CLI overview](/en/docs/cli) for the binary install flow and [AI Assistant Plugins](/en/docs/cli/skills) for what the plugin bundles.
-
-## Trivy settings
-
-Use Trivy settings to set the Trivy binary path, the vulnerability database update interval, and the default severity filters. The panel also runs a CLI version check and offers a one-click **Update** button when a newer Trivy CLI release is available (added in v5.3.0). See [Scan with Trivy](/en/docs/docker/images#scan-with-trivy) for the scan flow.
-
-## Tasks settings
-
-Manage the [background task scheduler](/en/docs/homelab/scheduler) from this panel: enable/disable individual tasks, change their schedule, and trigger an immediate run. Built-in tasks (`stats_aggregation`, `stats_retention_prune`, `image_upgrade_check`) are locked from deletion but remain fully configurable.
-
-## Language and region
-
-Dockerman ships with full localization for English, 简体中文, 日本語, and Español. Pick a language to change every UI string, including dialog copy, alerts, and the diagnostic bundle UI. Relative time formatting follows your selected locale via `Intl.RelativeTimeFormat`.
+Dockerman currently has no Tasks settings panel or Settings → About page. Background task and alert creation workflows described elsewhere may also be unavailable; those pages state their current limitations.

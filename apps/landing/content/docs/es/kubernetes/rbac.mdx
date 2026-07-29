@@ -7,7 +7,7 @@ Usa la página de RBAC para responder una pregunta rápidamente: quién puede ha
 
 ## ServiceAccounts
 
-Usa ServiceAccounts para ver qué identidades se ejecutan dentro del namespace actual. La vista de detalle muestra los secretos montados, los secretos de extracción de imágenes y los secretos de tokens generados.
+ServiceAccounts muestra identidades del namespace. La vista refleja campos de la API, como image pull secrets cuando existen; un cluster moderno no tiene por qué crear Secrets de token.
 
 ## Roles y ClusterRoles
 
@@ -19,4 +19,4 @@ Usa RoleBindings y ClusterRoleBindings para ver qué subjects apuntan a cada rol
 
 ## Solución de problemas de permisos
 
-Cuando un pod no puede leer, listar, crear o ejecutar algo, verifica primero la cadena de vinculación y luego confirma el ServiceAccount del pod. Si aún necesitas confirmar el acceso desde dentro del clúster, usa el [Asistente de Depuración](/es/docs/kubernetes/debug).
+Usa **Can I** en Roles para ejecutar SelfSubjectAccessReview con verbo, recurso, namespace, grupo, subrecurso y nombre opcional. Comprueba la identidad kubeconfig actual, no un ServiceAccount arbitrario.

@@ -34,7 +34,7 @@ Dockerman 的 Kubernetes 支持提供了一种轻量级、以 GUI 为先的方�
     转发端口并注册自动本地 DNS 条目。
   </Card>
   <Card title="调试助手" href="/zh/docs/kubernetes/debug">
-    启动带有你所需工具的临时调试 Pod。
+    转发现有进程的调试端口，并生成编辑器 attach 配置。
   </Card>
   <Card title="自定义资源" href="/zh/docs/kubernetes/custom-resources">
     发现 CRD 并浏览或编辑其实例的 YAML。
@@ -76,7 +76,7 @@ Dockerman **独立于活动 Docker 主机**追踪当前活动的 Kubernetes 集�
 
 ## 侧边栏自定义
 
-Kubernetes 侧边栏分为 Workloads、Networking、Config & Storage、RBAC 和 Cluster 几个分组。两个控制项让你按工作流定制：
+Kubernetes 侧边栏有七组：Cluster、Workloads、Service & Network、Config & Storage、Access Control、Helm 和 Tools。
 
 - **每组默认展开状态** — 选择连接到集群时哪些分组自动展开，与运行时的折叠状态解耦。
 - **每项可见性** — 隐藏你从不使用的单个资源条目；运行时的展开/折叠状态会保留到下次会话。
@@ -93,7 +93,6 @@ Kubernetes 侧边栏分为 Workloads、Networking、Config & Storage、RBAC 和 
   以下工作流尚未纳入支持范围：
 
   - k3d 之外的集群创建，如 kubeadm 或托管服务配置。
-  - Horizontal Pod Autoscaler。
   - Ingress 之外的 Gateway API。
   - 可视化 CRD 编辑器 — 请改用 YAML 编辑。
   - 可视化 NetworkPolicy 编辑器 — 请使用 YAML 编辑。

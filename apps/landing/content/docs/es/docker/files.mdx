@@ -39,7 +39,6 @@ La previsualización maneja los tipos de archivo comunes que esperas inspecciona
   Los archivos de más de 10 MB son solo para descarga, así Dockerman no carga todo el archivo en memoria.
 </Callout>
 
-{/* TODO(screenshot): files/preview-image - Image preview with zoom */}
 
 ## Editar archivos
 
@@ -57,11 +56,10 @@ Abre archivos de texto y código en Monaco, haz tus cambios, luego guárdalos de
 - **Detección binaria** — el editor se niega a abrir un archivo que contiene un byte NUL y muestra una solicitud de descarga en su lugar, evitando corrupción accidental cuando una extensión es engañosa.
 - **Tope de edición de 1 MB** — los archivos de más de 1 MB son de solo lectura en el editor. Descarga, edita localmente y vuelve a subir cuando necesites hacer un cambio mayor.
 
-{/* TODO(screenshot): files/edit-monaco - File editor with Monaco syntax highlighting */}
 
 ## Subir y descargar
 
-Arrastra un archivo o carpeta al navegador, o usa el botón Subir, para añadir contenido al directorio actual. Descarga archivos individuales directamente, o deja que Dockerman comprima una carpeta en zip antes de guardarla.
+Usa las acciones explícitas de subida para elegir un archivo o carpeta local. La descarga es para archivos individuales. El navegador actual no promete drag-and-drop, descargas múltiples ni ZIP automático de carpetas.
 
 ## Eliminar archivos
 
@@ -73,19 +71,4 @@ Eliminar quita el archivo o carpeta seleccionado del volumen o contenedor actual
   La eliminación de archivos es irreversible y omite cualquier papelera de reciclaje del host.
 </Callout>
 
-## Selección múltiple
-
-Añadido en la v4.4.0.
-
-Usa la selección múltiple cuando quieras descargar un grupo de archivos, eliminar varios a la vez, o arrastrar una selección a un objetivo de subida.
-
-| Atajo | Acción |
-| --- | --- |
-| Ctrl/Cmd + Clic | Alternar un solo archivo |
-| Shift + Clic | Seleccionar un rango contiguo |
-| Ctrl/Cmd + A | Seleccionar todo en el directorio actual |
-| Esc | Borrar la selección actual |
-
-<Callout type="warn">
-  La eliminación por lotes pide confirmación una sola vez para toda la selección. No hay aviso por archivo.
-</Callout>
+Eliminar opera sobre la entrada seleccionada. El navegador actual no ofrece esos atajos de selección múltiple ni borrado por lotes.

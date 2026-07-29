@@ -7,7 +7,7 @@ description: "在 macOS 上使用 Colima 或 Podman machine 作为免费的 Dock
 
 Colima 和 Podman machine 是 macOS 上免费开源的 Docker Desktop 替代方案。两者都会运行一个轻量的 Linux 虚拟机并暴露 Docker 兼容的 socket，Dockerman 可以像连接其他引擎一样连接它。
 
-Dockerman 不会替你安装或更新引擎二进制文件——你需要自行安装 Colima 或 Podman（Homebrew 或官方发布渠道），Dockerman 会自动检测它们。
+Dockerman 不会替你安装、更新、启动或停止这些引擎。请自行安装和管理 Colima 或 Podman，然后在 Dockerman 中配置其 socket。
 
 ## 安装
 
@@ -25,7 +25,7 @@ brew install podman
 
 ```bash
 # Colima —— 首次启动会下载约 330 MB 的系统镜像
-colima start --cpu 4 --memory 8
+colima start --cpus 4 --memory 8
 
 # Podman —— 会从 quay.io 下载约 1 GB 的虚拟机镜像
 podman machine init --cpus 4 --memory 8192
@@ -50,10 +50,15 @@ colima start   # 或：podman machine init
 
 ## 首次启动之后
 
-虚拟机就绪后，启动 Dockerman——它会自动检测引擎的 socket。之后的日常生命周期都由 Dockerman 管理：启动和停止引擎、查看状态，以及在设置中调整 CPU、内存和磁盘。
+虚拟机运行后，打开设置 → Docker，选择本地 socket 连接并填写引擎的 socket 路径。
+
+- Colima 通常使用 `$HOME/.colima/default/docker.sock`。
+- Podman machine 可通过 `podman machine inspect` 查看 `ConnectionInfo.PodmanSocket.Path`。
+
+Dockerman 目前不管理 Colima 或 Podman machine 的生命周期、CPU、内存或磁盘设置。Podman 验证命令可以探测 machine socket，但正常连接流程仍需要明确可用的 socket 路径。
 
 ## 故障排查
 
-- 提示 "Socket not found" 说明虚拟机没有在运行——在 Dockerman 里启动它，或执行 `colima start` / `podman machine start`。
+- 提示 "Socket not found" 说明虚拟机没有运行或配置路径错误。执行 `colima start` / `podman machine start`，然后检查设置中的路径。
 - 受限网络下下载卡住——按上文配置代理变量后重试。
 - 虚拟机在宿主机上的内存占用只增不减；重启引擎即可回收。

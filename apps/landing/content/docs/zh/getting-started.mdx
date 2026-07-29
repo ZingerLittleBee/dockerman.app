@@ -73,7 +73,7 @@ description: "在几分钟内安装 Dockerman 并连接到你的第一个 Docker
       <Step>
         ### 启动 Dockerman
 
-        从桌面菜单启动 Dockerman，或通过运行 `dockerman` 启动。
+        从桌面菜单启动 Dockerman。发布包不承诺在 `PATH` 中提供名为 `dockerman` 的 GUI 可执行文件。
       </Step>
     </Steps>
   </Tab>
@@ -87,7 +87,6 @@ description: "在几分钟内安装 Dockerman 并连接到你的第一个 Docker
 
     Dockerman 会自动尝试连接本地 Docker，并显示进度或错误信息。
 
-    {/* TODO(screenshot): getting-started/connect-dialog - Connect dialog on first launch */}
   </Step>
   <Step>
     ### 选择运行时来源
@@ -104,7 +103,6 @@ description: "在几分钟内安装 Dockerman 并连接到你的第一个 Docker
 
     查看运行中和已停止容器的快照，以及实时图表。
 
-    {/* TODO(screenshot): getting-started/dashboard - Dashboard after first connect */}
   </Step>
 </Steps>
 
@@ -130,7 +128,7 @@ description: "在几分钟内安装 Dockerman 并连接到你的第一个 Docker
 | 平台 | 最低版本 | 架构 |
 | --- | --- | --- |
 | macOS | 11 (Big Sur) | Intel, Apple Silicon, Universal |
-| Windows | 10 (1903) / 11 | x86_64 |
-| Linux | kernel 5.x | x86_64, aarch64 |
+| Windows | 受支持的 Windows 10 / 11 版本 | x86_64 |
+| Linux | 现代桌面发行版 | x86_64 |
 
-在开始管理容器之前，必须有一个可用的 Docker 守护进程（Engine 20.10+）或 Podman（4.0+）；在 Windows 上，Dockerman 可以通过可选的 WSL2 路径为你配置一个。Kubernetes 支持使用可选的 k3d 捆绑包。
+管理容器前必须有兼容的 Docker 或 Podman 端点；项目目前没有发布单独验证过的最低引擎版本矩阵。Windows 可通过可选 WSL2 路径配置 Docker。

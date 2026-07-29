@@ -7,7 +7,7 @@ description: Use Colima or Podman machine as a free Docker backend on macOS.
 
 Colima and Podman machine are free, open-source alternatives to Docker Desktop on macOS. Both run a lightweight Linux VM that exposes a Docker-compatible socket, and Dockerman connects to it like any other engine.
 
-Dockerman never installs or updates the engine binaries for you — you install Colima or Podman yourself (Homebrew or the official releases), and Dockerman detects them.
+Dockerman never installs, updates, starts, or stops these engines. Install and manage Colima or Podman yourself, then configure its socket in Dockerman.
 
 ## Install
 
@@ -25,7 +25,7 @@ The engine creates its VM on the first start, and that step downloads a guest OS
 
 ```bash
 # Colima — downloads a ~330 MB guest image on first start
-colima start --cpu 4 --memory 8
+colima start --cpus 4 --memory 8
 
 # Podman — downloads a ~1 GB machine image from quay.io
 podman machine init --cpus 4 --memory 8192
@@ -50,10 +50,15 @@ colima start   # or: podman machine init
 
 ## After the first start
 
-Once the VM exists, launch Dockerman — it detects the engine socket automatically. From there Dockerman manages the day-to-day lifecycle: start and stop the engine, check its status, and adjust CPU, memory, and disk from Settings.
+Once the VM is running, open Settings → Docker, select a local socket connection, and enter the engine socket path.
+
+- Colima normally exposes `$HOME/.colima/default/docker.sock`.
+- For Podman machine, run `podman machine inspect` and use the socket reported by `ConnectionInfo.PodmanSocket.Path`.
+
+Dockerman currently does not manage Colima or Podman machine lifecycle, CPU, memory, or disk settings. Its Podman verification command can detect a machine socket, but the normal connection flow still requires an explicit working socket path.
 
 ## Troubleshooting
 
-- "Socket not found" means the VM is not running — start it from Dockerman or run `colima start` / `podman machine start`.
+- "Socket not found" means the VM is not running or the configured path is wrong. Run `colima start` or `podman machine start`, then verify the path in Settings.
 - Downloads stall on restricted networks — configure the proxy variables shown above and retry.
 - The VM's memory usage on the host only grows while it runs; restart the engine to reclaim it.
