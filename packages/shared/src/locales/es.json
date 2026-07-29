@@ -434,7 +434,7 @@
       "items": [
         {
           "question": "¿Qué significa Licencia de por Vida?",
-          "answer": "Compra una vez y usa Dockerman para siempre. Tu licencia incluye actualizaciones gratuitas de por vida para todas las versiones futuras."
+          "answer": "Las funciones locales de Docker y Podman son gratuitas para siempre y no requieren licencia. Una licencia de pago de por vida se compra una sola vez y desbloquea para siempre los hosts remotos y las demás funciones de pago en tus dispositivos con licencia, incluidas las actualizaciones gratuitas de todas las versiones futuras."
         },
         {
           "question": "¿Qué significa la Limitación de Dispositivos?",

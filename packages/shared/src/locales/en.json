@@ -434,7 +434,7 @@
       "items": [
         {
           "question": "What does Lifetime License mean?",
-          "answer": "Purchase once and use Dockerman forever. Your license includes lifetime free updates for all future versions."
+          "answer": "Local Docker and Podman features are free forever and do not require a license. A paid lifetime license is a one-time purchase that unlocks remote hosts and the other paid features on your licensed devices forever, including free updates for all future versions."
         },
         {
           "question": "What does Device Limitation mean?",
