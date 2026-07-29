@@ -438,7 +438,8 @@
         },
         {
           "question": "¿Qué significa la Limitación de Dispositivos?",
-          "answer": "Puedes activar Dockerman en la cantidad de dispositivos especificada por tu licencia. Puedes desactivar un dispositivo en cualquier momento y transferir la licencia a otro dispositivo. Si pierdes acceso a un dispositivo, puedes reiniciar tu licencia para desactivar todos los dispositivos (límite: una vez cada 7 días)."
+          "answer": "Puedes activar Dockerman en la cantidad de dispositivos especificada por tu licencia. Puedes desactivar un dispositivo en cualquier momento y transferir la licencia a otro dispositivo. Si pierdes acceso a un dispositivo, puedes reiniciar tu licencia para desactivar todos los dispositivos (límite: una vez cada 7 días).",
+          "actionLabel": "Abrir el autoservicio de licencias"
         },
         {
           "question": "¿Puedo usar la licencia tanto en macOS como en Windows?",
