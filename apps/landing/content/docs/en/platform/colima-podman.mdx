@@ -1,0 +1,59 @@
+---
+title: Colima & Podman
+description: Use Colima or Podman machine as a free Docker backend on macOS.
+---
+
+## Overview
+
+Colima and Podman machine are free, open-source alternatives to Docker Desktop on macOS. Both run a lightweight Linux VM that exposes a Docker-compatible socket, and Dockerman connects to it like any other engine.
+
+Dockerman never installs or updates the engine binaries for you — you install Colima or Podman yourself (Homebrew or the official releases), and Dockerman detects them.
+
+## Install
+
+```bash
+# Colima (plus the Docker CLI it drives)
+brew install colima docker
+
+# or Podman
+brew install podman
+```
+
+## First start (run in your terminal)
+
+The engine creates its VM on the first start, and that step downloads a guest OS image from the internet. Run it yourself in a terminal so you can watch the progress:
+
+```bash
+# Colima — downloads a ~330 MB guest image on first start
+colima start --cpu 4 --memory 8
+
+# Podman — downloads a ~1 GB machine image from quay.io
+podman machine init --cpus 4 --memory 8192
+podman machine start
+```
+
+<Callout type="info">
+  The first start can take several minutes depending on your connection. Later starts reuse the downloaded image and finish in seconds.
+</Callout>
+
+Pick CPU and memory values that fit your machine — half your CPU cores and 4–8 GB of memory is a good starting point. The upstream default of 2 GB is too small for most image builds.
+
+### Behind a proxy
+
+The image download runs inside the engine's own process, so set proxy variables in the same terminal session before the first start:
+
+```bash
+export HTTPS_PROXY=http://127.0.0.1:7890
+export HTTP_PROXY=http://127.0.0.1:7890
+colima start   # or: podman machine init
+```
+
+## After the first start
+
+Once the VM exists, launch Dockerman — it detects the engine socket automatically. From there Dockerman manages the day-to-day lifecycle: start and stop the engine, check its status, and adjust CPU, memory, and disk from Settings.
+
+## Troubleshooting
+
+- "Socket not found" means the VM is not running — start it from Dockerman or run `colima start` / `podman machine start`.
+- Downloads stall on restricted networks — configure the proxy variables shown above and retry.
+- The VM's memory usage on the host only grows while it runs; restart the engine to reclaim it.

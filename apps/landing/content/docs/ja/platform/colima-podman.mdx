@@ -1,0 +1,59 @@
+---
+title: "Colima と Podman"
+description: "macOS で Colima または Podman machine を無料の Docker バックエンドとして使う。"
+---
+
+## 概要
+
+Colima と Podman machine は、macOS における無料でオープンソースな Docker Desktop の代替です。どちらも軽量な Linux 仮想マシンを起動して Docker 互換のソケットを公開し、Dockerman は他のエンジンと同じように接続できます。
+
+Dockerman がエンジンのバイナリをインストール・更新することはありません。Colima や Podman は自分でインストールし（Homebrew または公式リリース）、Dockerman がそれを自動検出します。
+
+## インストール
+
+```bash
+# Colima（および操作対象の Docker CLI）
+brew install colima docker
+
+# または Podman
+brew install podman
+```
+
+## 初回起動（ターミナルで実行してください）
+
+エンジンは初回起動時に仮想マシンを作成し、その際にゲスト OS イメージをネットワークからダウンロードします。進捗が見えるよう、ターミナルで自分で実行してください：
+
+```bash
+# Colima —— 初回起動時に約 330 MB のイメージをダウンロード
+colima start --cpu 4 --memory 8
+
+# Podman —— quay.io から約 1 GB のイメージをダウンロード
+podman machine init --cpus 4 --memory 8192
+podman machine start
+```
+
+<Callout type="info">
+  初回起動は回線速度によっては数分かかります。以降の起動はダウンロード済みイメージを再利用するため数秒で完了します。
+</Callout>
+
+CPU とメモリはマシンに合わせて設定してください。CPU コア数の半分、メモリ 4–8 GB が良い出発点です。アップストリームのデフォルトである 2 GB は、ほとんどのイメージビルドには不足します。
+
+### プロキシ環境の場合
+
+イメージのダウンロードはエンジン自身のプロセス内で行われるため、初回起動の前に同じターミナルセッションでプロキシ変数を設定してください：
+
+```bash
+export HTTPS_PROXY=http://127.0.0.1:7890
+export HTTP_PROXY=http://127.0.0.1:7890
+colima start   # または: podman machine init
+```
+
+## 初回起動のあと
+
+仮想マシンができたら Dockerman を起動してください。エンジンのソケットは自動検出されます。以降の日常的なライフサイクルは Dockerman が管理します：エンジンの起動・停止、ステータス確認、設定画面からの CPU・メモリ・ディスクの調整が行えます。
+
+## トラブルシューティング
+
+- 「Socket not found」は仮想マシンが動いていないことを意味します。Dockerman から起動するか、`colima start` / `podman machine start` を実行してください。
+- 制限のあるネットワークでダウンロードが進まない場合は、上記のプロキシ変数を設定して再試行してください。
+- 仮想マシンのホスト側メモリ使用量は稼働中は増える一方です。エンジンを再起動すると回収されます。
