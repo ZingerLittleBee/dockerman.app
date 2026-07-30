@@ -3,54 +3,54 @@ title: "远程主机 (SSH)"
 description: "通过 SSH 隧道管理远程 Docker 主机，并在主机选择器中切换。"
 ---
 
-Dockerman 通过 SSH 转发远程 Docker 守护进程的 Unix socket。核心 Docker 操作、日志和终端可通过转发后的 API 工作，但依赖运行时或主机的功能不保证与本地完全一致，例如 Dockerman 不支持 Podman 目标的 Compose。
+Dockerman 通过 SSH 转发远程 Docker 守护进程的 Unix socket。核心 Docker 操作、日志和终端均可通过转发后的 API 使用，但与运行时或主机相关的功能不一定与 `localhost` 完全一致。例如，Dockerman 不支持在 Podman 目标上使用 Compose。
 
 ## 添加远程主机
 
-只需添加一次主机，然后像切换其他 Docker 目标一样切换到它。
+添加主机后，即可像切换其他 Docker 目标一样切换到该主机。
 
 <Steps>
   <Step>
     ### 打开主机管理
 
-    从主机视图或主窗口的主机切换器打开主机管理。
+    打开主机视图，或使用主窗口中的主机切换器。
   </Step>
   <Step>
     ### 点击添加主机
 
-    点击**添加主机**。对话框会要求输入连接详情。
+    点击**添加主机**，打开连接对话框。
   </Step>
   <Step>
     ### 填写 SSH 详情
 
-    填写对话框要求的连接详情。
+    填写对话框中要求的连接信息。
   </Step>
   <Step>
     ### 选择运行时偏好
 
-    选择 Auto、Docker 或 Podman。Auto 模式会探测远程主机，并连接到首先发现的运行时 socket。Podman 模式会自动发现 rootless（`$XDG_RUNTIME_DIR/podman/podman.sock`）和 rootful（`/run/podman/podman.sock`）socket。
+    选择 Auto、Docker 或 Podman。Auto 模式会探测远程主机，并连接到最先检测到的运行时 socket。Podman 模式会自动发现 rootless（`$XDG_RUNTIME_DIR/podman/podman.sock`）和 rootful（`/run/podman/podman.sock`）socket。
   </Step>
   <Step>
     ### 测试并保存
 
-    测试连接，然后保存。Dockerman 会打开测试隧道、探测运行时并显示检测到的类型。
+    保存前先测试连接。Dockerman 会建立测试隧道、探测运行时，并显示检测到的类型。
   </Step>
 </Steps>
 
 ## 切换主机
 
-使用顶部栏的主机切换器在 `localhost` 和所有已配置的远程主机之间切换。切换主机会重新加载新选中目标的所有数据。
+使用顶部栏中的主机切换器，在 `localhost` 与任意已配置的远程主机之间切换。切换后，Dockerman 会重新加载所选目标的数据。
 
 ## 自动重连
 
-Dockerman 会监控 SSH 隧道健康状态，并在 3、5、10 秒后依次重试。全部失败后会打开连接失败对话框。
+Dockerman 会监控 SSH 隧道状态，并分别在 3、5 和 10 秒后重试。若所有尝试均失败，应用会打开连接失败对话框。
 
 ## SSH 隧道工作原理
 
-Dockerman 建立 SSH 会话，并将本地 Unix socket 转发到远程运行时 socket。该主机的 Docker API 流量通过隧道传输；Registry、更新、分析及其他应用流量是独立连接，不会经由 SSH 转发。
+Dockerman 会建立 SSH 会话，并将本地 Unix socket 转发至远程运行时 socket。该主机的 Docker API 流量会通过隧道传输；Registry、更新、分析及其他应用流量使用独立连接，不会通过 SSH 隧道。
 
 ## 安全注意事项
 
 <Callout type="warn">
-  仅在受信任的网络上配置你信任的远程主机。
+  仅配置可信的远程主机，并仅通过可信网络进行连接。
 </Callout>

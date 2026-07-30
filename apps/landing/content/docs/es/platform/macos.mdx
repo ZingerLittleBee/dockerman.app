@@ -37,13 +37,13 @@ En un Mac con Apple Silicon y macOS 26 o posterior, Dockerman también ofrece el
 
 ## Barra de menús y bandeja
 
-Dockerman añade un icono de acciones en la barra de menús. En Ajustes → General puedes elegir el icono normal o el estilo de CPU/memoria.
+Dockerman añade un icono a la barra de menús para acceder a las acciones más habituales. En Ajustes → General, puedes elegir entre el icono estándar y el indicador de CPU/memoria.
 
 ## Notas sobre Apple Silicon
 
-En Apple Silicon, verifica la plataforma de la imagen antes de ejecutar un contenedor. Muchas imágenes públicas usan `amd64` por defecto, así que descarga la variante `arm64` cuando puedas o configura `--platform=linux/arm64` explícitamente.
+En Apple Silicon, comprueba la plataforma de la imagen antes de ejecutar un contenedor. Muchas imágenes públicas usan `amd64` de forma predeterminada, así que utiliza la variante `arm64` cuando esté disponible o configura `--platform=linux/arm64` explícitamente.
 
 ## Solución de problemas
 
-- "Socket not found" significa que Docker Desktop no está en ejecución, o Dockerman está apuntando a la ruta de socket incorrecta.
-- "Gatekeeper blocks the app" significa que necesitas hacer clic derecho en la aplicación y elegir Abrir en la primera ejecución.
+- “Socket not found” significa que Docker Desktop no está en ejecución o que Dockerman utiliza una ruta de socket incorrecta.
+- Si Gatekeeper bloquea Dockerman, haz clic con el botón derecho en la aplicación y selecciona **Abrir** la primera vez que la ejecutes.

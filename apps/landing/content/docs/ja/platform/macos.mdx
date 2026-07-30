@@ -37,13 +37,13 @@ macOS 26 以降を実行する Apple Silicon Mac では、Apple Container バッ
 
 ## メニューバーとトレイ
 
-Dockerman はアプリ操作用のメニューバーアイコンを追加します。設定 → 一般で標準アイコンまたは CPU/メモリ表示を選べます。
+Dockerman は、よく使うアプリ操作のためのメニューバーアイコンを追加します。設定 → 一般では、標準アイコンと CPU/メモリ表示を切り替えられます。
 
-## Apple Siliconに関する注意事項
+## Apple Silicon に関する注意事項
 
-Apple Siliconでは、コンテナを実行する前にイメージプラットフォームに注意してください。多くの公開イメージはデフォルトで`amd64`のため、可能な場合は`arm64`バリアントをプルするか、`--platform=linux/arm64`を明示的に設定してください。
+Apple Silicon でコンテナを実行する前に、イメージのプラットフォームを確認してください。多くの公開イメージでは `amd64` がデフォルトのため、利用可能であれば `arm64` バリアントを使用するか、`--platform=linux/arm64` を明示的に設定してください。
 
 ## トラブルシューティング
 
-- 「Socket not found」は、Docker Desktopが実行されていないか、Dockermanが誤ったソケットパスを指していることを意味します。
-- 「Gatekeeper blocks the app」は、初回起動時にアプリを右クリックして「開く」を選択する必要があることを意味します。
+- 「Socket not found」は、Docker Desktop が実行されていないか、Dockerman が誤ったソケットパスを使用していることを示します。
+- Gatekeeper によって Dockerman がブロックされた場合は、アプリを右クリックし、初回起動時に**開く**を選択してください。

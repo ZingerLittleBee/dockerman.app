@@ -37,13 +37,13 @@ Dockerman 可连接 Docker Desktop 或其他兼容 Docker 的 socket。如果自
 
 ## 菜单栏和托盘
 
-Dockerman 会在菜单栏添加应用操作图标。设置 → 通用允许选择普通图标或 CPU/内存状态样式。
+Dockerman 会在菜单栏添加常用操作图标。你可以在设置 → 通用中选择普通图标或 CPU/内存状态样式。
 
 ## Apple Silicon 注意事项
 
-在 Apple Silicon 上，运行容器前请注意镜像平台。许多公共镜像默认为 `amd64`，因此尽可能拉取 `arm64` 版本，或显式设置 `--platform=linux/arm64`。
+在 Apple Silicon 上运行容器前，请先确认镜像平台。许多公共镜像默认为 `amd64`，因此应尽量使用 `arm64` 版本，或显式设置 `--platform=linux/arm64`。
 
 ## 故障排除
 
-- "Socket not found" 表示 Docker Desktop 未运行，或 Dockerman 指向了错误的 socket 路径。
-- "Gatekeeper blocks the app" 表示你需要右键点击应用并在首次启动时选择"打开"。
+- “Socket not found” 表示 Docker Desktop 未运行，或 Dockerman 使用了错误的 socket 路径。
+- 如果 Gatekeeper 阻止 Dockerman 启动，请右键点击应用，并在首次启动时选择**打开**。

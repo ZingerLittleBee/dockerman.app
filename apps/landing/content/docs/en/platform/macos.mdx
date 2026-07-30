@@ -37,13 +37,13 @@ On Apple Silicon with macOS 26 or later, Dockerman also exposes the Apple Contai
 
 ## Menu bar and tray
 
-Dockerman adds a menu bar icon with application actions. Settings → General lets you choose the standard icon or the CPU/memory status style.
+Dockerman adds a menu bar icon for common application actions. In Settings → General, you can choose between the standard icon and the CPU/memory status style.
 
 ## Apple Silicon notes
 
-On Apple Silicon, watch the image platform before you run a container. Many public images default to `amd64`, so pull the `arm64` variant when you can or set `--platform=linux/arm64` explicitly.
+On Apple Silicon, check the image platform before running a container. Many public images default to `amd64`, so use the `arm64` variant when available or set `--platform=linux/arm64` explicitly.
 
 ## Troubleshooting
 
-- "Socket not found" means Docker Desktop is not running, or Dockerman is pointed at the wrong socket path.
-- "Gatekeeper blocks the app" means you need to right-click the app and choose Open on first launch.
+- “Socket not found” means that Docker Desktop is not running or that Dockerman is using the wrong socket path.
+- If Gatekeeper blocks Dockerman, right-click the app and choose **Open** the first time you launch it.

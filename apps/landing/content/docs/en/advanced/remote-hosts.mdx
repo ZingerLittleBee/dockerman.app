@@ -3,54 +3,54 @@ title: Remote Hosts (SSH)
 description: Manage remote Docker hosts over SSH tunnels and switch between them from the host selector.
 ---
 
-Dockerman connects to remote Docker daemons by forwarding their Unix socket over SSH. Core Docker operations, logs, and terminals work through the forwarded API, but runtime- and host-dependent features are not guaranteed to match localhost. Podman targets, for example, do not support Compose in Dockerman.
+Dockerman connects to remote Docker daemons by forwarding their Unix sockets over SSH. Core Docker operations, logs, and terminals work through the forwarded API, but runtime- and host-dependent features may differ from those available on `localhost`. For example, Dockerman does not support Compose on Podman targets.
 
 ## Add a remote host
 
-Add a host once, then switch to it like any other Docker target.
+After adding a host, you can switch to it like any other Docker target.
 
 <Steps>
   <Step>
     ### Open Hosts
 
-    Open the Hosts view or the Host Switcher in the main window.
+    Open the Hosts view or use the Host Switcher in the main window.
   </Step>
   <Step>
     ### Click Add Host
 
-    Click **Add Host**. A dialog asks for connection details.
+    Click **Add Host** to open the connection dialog.
   </Step>
   <Step>
     ### Fill in the SSH details
 
-    Enter the connection details requested by the dialog.
+    Enter the requested connection details.
   </Step>
   <Step>
     ### Choose a runtime preference
 
-    Select Auto, Docker, or Podman. Auto probes the remote host and connects to whichever runtime socket it finds first. Podman mode discovers rootless (`$XDG_RUNTIME_DIR/podman/podman.sock`) and rootful (`/run/podman/podman.sock`) sockets automatically.
+    Select Auto, Docker, or Podman. Auto probes the remote host and connects to the first runtime socket it detects. Podman mode automatically discovers rootless (`$XDG_RUNTIME_DIR/podman/podman.sock`) and rootful (`/run/podman/podman.sock`) sockets.
   </Step>
   <Step>
     ### Test and save
 
-    Test the connection, then save it. Dockerman opens a test tunnel, probes the runtime, and shows the detected type.
+    Test the connection before saving. Dockerman opens a tunnel for the test, probes the runtime, and displays the detected type.
   </Step>
 </Steps>
 
 ## Switch between hosts
 
-Use the Host Switcher in the top bar to move between `localhost` and every configured remote host. Switching hosts reloads all data for the newly selected target.
+Use the Host Switcher in the top bar to move between `localhost` and any configured remote host. Switching hosts reloads the data for the newly selected target.
 
 ## Auto reconnect
 
-Dockerman watches SSH tunnel health and retries after 3, 5, and 10 seconds. If all attempts fail, it opens the connection-failure dialog.
+Dockerman monitors the SSH tunnel and retries after 3, 5, and 10 seconds. If every attempt fails, it opens the connection failure dialog.
 
 ## How the SSH tunnel works
 
-Dockerman opens an SSH session and forwards a local Unix socket to the remote runtime socket. The default is `/var/run/docker.sock` for Docker, or the detected Podman socket. Docker API traffic for that host flows through the tunnel. Registry, update, analytics, and other application traffic are separate and are not routed through SSH.
+Dockerman opens an SSH session and forwards a local Unix socket to the remote runtime socket. It uses `/var/run/docker.sock` by default for Docker and the detected socket for Podman. Docker API traffic for that host flows through the tunnel. Registry, update, analytics, and other application traffic use separate connections and are not routed through SSH.
 
 ## Security notes
 
 <Callout type="warn">
-  Only configure remote hosts you trust on trusted networks.
+  Configure only trusted remote hosts, and connect to them only over trusted networks.
 </Callout>
