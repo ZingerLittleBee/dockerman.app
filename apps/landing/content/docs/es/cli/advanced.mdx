@@ -7,7 +7,7 @@ Esta página recopila los comandos CLI menos frecuentes y los patrones que usamo
 
 ## `schema` y `call`
 
-Cada RPC backend que el daemon expone está descrito en un schema autocontenido. `schema` te permite descubrir lo que hay disponible; `call` te permite invocar cualquier RPC por nombre sin un subcomando dedicado.
+El schema describe la superficie soportada del daemon. `call` sólo invoca su lista fija de RPC unary; no es un escape hatch sin restricciones.
 
 ```bash
 dockerman schema
@@ -15,8 +15,8 @@ dockerman schema fetch_logs
 dockerman schema --format mcp-tools
 
 dockerman call ping_host '{"address":"8.8.8.8"}'
-dockerman call hub_search '{"query":"alpine","page_size":5}'
-dockerman call remove_container '{"name":"web","force":true}' --yes
+dockerman call hub_search '{"query":"alpine","pageSize":5}'
+dockerman call remove_container '{"name":"web","options":{"force":true}}' --yes
 ```
 
 `call` espera un objeto JSON de params. Los RPCs destructivos requieren `--yes` (o `-y`) igual que los subcomandos dedicados. **Los RPCs en streaming no se pueden invocar mediante `call`** — usa los comandos de streaming dedicados para obtener el envelope correcto.
@@ -79,7 +79,7 @@ dockerman wsl unregister --yes
 ### Canalizar `--json` a `jq`
 
 ```bash
-dockerman container list --json | jq '.[] | select(.state=="running") | .name'
+dockerman container list | jq '.[] | select(.state=="running") | .name'
 dockerman trivy scan myrepo/app:v1 --json \
   | jq -c 'select(.kind=="result") | .payload.results[] | .vulnerabilities[]?'
 ```
@@ -98,7 +98,7 @@ La CLI siempre exige `--yes`, sin importar lo confiado que esté tu script. **No
 ### Detectar fallo de descubrimiento del daemon
 
 ```bash
-if ! dockerman host current >/dev/null 2>&1; then
+if ! dockerman system info >/dev/null 2>&1; then
   echo "daemon inalcanzable" >&2
   exit 3
 fi

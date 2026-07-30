@@ -78,7 +78,6 @@ Dockerman 为你内置了 WSL2 方案，因此你无需安装 Docker Desktop 或
   向导运行期间请勿关闭 Dockerman。首次设置需要几分钟时间，必须完成后才能使用应用。
 </Callout>
 
-{/* TODO(screenshot): windows/setup-wizard - WSL2 Setup Wizard welcome step */}
 
 ### 向导执行的操作
 
@@ -106,7 +105,11 @@ Dockerman 为你内置了 WSL2 方案，因此你无需安装 Docker Desktop 或
 
 ### 重新安装 WSL2 发行版
 
-v5.3.0 新增。如果 Alpine 发行版进入异常状态，可在 WSL 页面打开设置向导，点击 **Reinstall** 清除现有发行版并重新导入一份全新的 Alpine 镜像。该按钮是破坏性操作——发行版内部存储的任何数据都会丢失，但由 daemon 管理的 Docker 卷保留（除非你同时重置 Docker）。
+v5.3.0 新增。如果 Alpine 发行版进入异常状态，可在 WSL 页面打开设置向导，点击 **Reinstall** 注销现有的 `dockerman-backend` 发行版并重新导入一份全新的 Alpine 镜像。
+
+<Callout type="warn">
+  重新安装会删除整个 WSL 发行版，包括 Docker 镜像、容器、卷以及保存在其中的其他数据。继续前请导出或备份需要的数据。Dockerman 不会在此操作中保留卷。
+</Callout>
 
 ### 切换引擎源
 

@@ -1,0 +1,64 @@
+---
+title: "Colima y Podman"
+description: "Usa Colima o Podman machine como backend de Docker gratuito en macOS."
+---
+
+## Descripción general
+
+Colima y Podman machine son alternativas gratuitas y de código abierto a Docker Desktop en macOS. Ambos ejecutan una máquina virtual Linux ligera que expone un socket compatible con Docker, y Dockerman se conecta a él como a cualquier otro motor.
+
+Dockerman no instala, actualiza, inicia ni detiene estos motores. Instala y administra Colima o Podman y configura su socket en Dockerman.
+
+## Instalación
+
+```bash
+# Colima (más el CLI de Docker que utiliza)
+brew install colima docker
+
+# o Podman
+brew install podman
+```
+
+## Primer arranque (ejecútalo en tu terminal)
+
+El motor crea su máquina virtual en el primer arranque, y ese paso descarga una imagen del sistema invitado desde internet. Ejecútalo tú mismo en una terminal para ver el progreso:
+
+```bash
+# Colima — descarga una imagen de ~330 MB en el primer arranque
+colima start --cpus 4 --memory 8
+
+# Podman — descarga una imagen de ~1 GB desde quay.io
+podman machine init --cpus 4 --memory 8192
+podman machine start
+```
+
+<Callout type="info">
+  El primer arranque puede tardar varios minutos según tu conexión. Los siguientes arranques reutilizan la imagen descargada y terminan en segundos.
+</Callout>
+
+Elige valores de CPU y memoria acordes a tu máquina: la mitad de tus núcleos de CPU y 4–8 GB de memoria es un buen punto de partida. El valor predeterminado de 2 GB es demasiado pequeño para la mayoría de las compilaciones de imágenes.
+
+### Detrás de un proxy
+
+La descarga de la imagen se ejecuta dentro del propio proceso del motor, así que define las variables de proxy en la misma sesión de terminal antes del primer arranque:
+
+```bash
+export HTTPS_PROXY=http://127.0.0.1:7890
+export HTTP_PROXY=http://127.0.0.1:7890
+colima start   # o: podman machine init
+```
+
+## Después del primer arranque
+
+Cuando la máquina virtual esté en ejecución, abre Ajustes → Docker, selecciona una conexión por socket local e introduce la ruta del motor.
+
+- Colima normalmente usa `$HOME/.colima/default/docker.sock`.
+- Para Podman machine, ejecuta `podman machine inspect` y usa `ConnectionInfo.PodmanSocket.Path`.
+
+Dockerman no administra actualmente el ciclo de vida, la CPU, la memoria ni el disco de Colima o Podman machine. El comando de verificación de Podman puede detectar el socket, pero la conexión normal todavía necesita una ruta de socket válida explícita.
+
+## Solución de problemas
+
+- «Socket not found» significa que la máquina virtual no está en ejecución o que la ruta configurada es incorrecta. Ejecuta `colima start` / `podman machine start` y revisa la ruta en Ajustes.
+- Si la descarga se atasca en redes restringidas, configura las variables de proxy indicadas arriba y reintenta.
+- El uso de memoria de la máquina virtual en el host solo crece mientras se ejecuta; reinicia el motor para recuperarla.

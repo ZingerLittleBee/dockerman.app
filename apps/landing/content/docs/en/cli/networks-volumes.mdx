@@ -51,7 +51,7 @@ dockerman network connect my-net web
 dockerman network disconnect my-net web --force
 ```
 
-`disconnect --force` is required when the container is running and you need to detach it without stopping it.
+`--force` is forwarded to Docker. Dockerman does not require it solely because a container is running; use it only when Docker's disconnect semantics require it.
 
 ## Volumes
 
@@ -82,7 +82,7 @@ dockerman volume create data \
 dockerman volume remove data --force --yes
 ```
 
-`remove` requires `--yes`. `--force` removes a volume even if it is referenced by a stopped container.
+`remove` requires `--yes`. `--force` is forwarded to Docker and does not guarantee removal of a volume that Docker still considers in use.
 
 ### Prune
 

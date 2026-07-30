@@ -7,13 +7,13 @@ description: "Pods、Deployments、StatefulSets、DaemonSets、Jobs、CronJobs�
 
 ## Pods
 
-Podを開くと、ステータス、準備完了コンテナ数、再起動回数、経過時間が表示されます。詳細ビューにはコンテナレベルの情報（ポート、環境変数数、リソースリクエストとリミット、ボリュームマウント）が表示されます。そこから[Podログとターミナル](/ja/docs/kubernetes/logs-terminal)に直接移動するか、シェルや詳細なネットワークチェックが必要な場合は[デバッグアシスタント](/ja/docs/kubernetes/debug)を起動できます。
+Pod の state と container detail を表示します。shell には [Pod logs と terminal](/ja/docs/kubernetes/logs-terminal) を使い、[Debug Assistant](/ja/docs/kubernetes/debug) は既存 process が listen する debug port の forward にだけ使います。
 
 リストビューからPodを削除して、強制的に再起動したり、スタックしたPodを除去したりできます。
 
 ### 強制削除
 
-ノードに到達できない、またはファイナライザが削除をブロックしているために Pod が `Terminating` でスタックしている場合は、**強制削除**を使用してください。強制削除は `gracePeriodSeconds: 0` を送信し、グレースフルシャットダウンをスキップします。
+**強制削除**は `gracePeriodSeconds: 0` を送り graceful shutdown を省略しますが、finalizer は削除しません。finalizer に block された Pod は Terminating のまま残る場合があります。
 
 <Callout type="warn">
   強制削除は kubelet の確認を待たずに API から Pod を即座に削除します。基盤となるコンテナがまだノードで実行中の場合、古いプロセスが残る可能性があります。通常の削除がブロックされている場合のみ使用してください。
@@ -62,9 +62,13 @@ ReplicaSetは通常Deploymentの下に配置されます。コントローラー
   Deploymentは自身のReplicaSetを管理します。コントローラーの動作をデバッグする場合を除き、Deploymentを変更してください。
 </Callout>
 
+## HorizontalPodAutoscalers
+
+HPA page は autoscaling/v2 resource、target、replica bounds、current/desired replicas、condition、age を表示します。min/max replicas の tune、YAML inspect、delete ができます。
+
 ## YAMLでワークロードを編集
 
-ワークロードの編集YAMLボタンを開くと、Monacoで完全なオブジェクトを編集できます。DockermanはKubernetesスキーマを使用して自動補完を行い、**APIサーバーに対して保存をドライラン実行**するため、無効なYAML — または admission コントローラーに拒否されるような YAML — は適用前に検出されます。
+Edit YAML で object を変更できます。apply 前に **server-side dry-run** を行いますが、client-side Kubernetes schema autocomplete や validation は保証しません。
 
 ### ドライランプレビュー
 

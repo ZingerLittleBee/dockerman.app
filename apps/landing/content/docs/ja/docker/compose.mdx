@@ -1,158 +1,22 @@
 ---
-title: "Compose とテンプレート"
-description: "Docker Compose でマルチコンテナアプリケーションを管理し、テンプレートライブラリからプロジェクトを起動。"
+title: "Compose"
+description: "Compose project の管理と YAML 編集。"
 ---
 
-Docker Composeプロジェクトを管理し、組み込みテンプレートライブラリから新規プロジェクトをブートストラップします。
+Compose page は Docker Compose label から project を発見し、選択中の Docker runtime が対応する lifecycle action を提供します。Podman target では利用できません。
 
-<Callout type="warn">
-  ComposeはDockerランタイム専用の機能です。Podmanが検出された場合、Composeセクションは自動的に非表示になります。
-</Callout>
+## Lifecycle
 
-## Composeプロジェクト
+project state に応じて start、stop、restart、pull、up、remove が使えます。volume removal option は Compose に渡され、Dockerman が全 named volume や他 consumer を事前確認するわけではありません。
 
-Composeページには、`com.docker.compose.project`ラベルからDockermanが検出した各プロジェクトと、そのコンテナ数、ステータス、ベースパスが表示されます。
+## YAML edit
 
-## プロジェクトの開始、停止、削除
+project の Compose file を editor で開き、save 後に apply します。save 前に `docker compose config` は実行されず、完全な schema validation/autocomplete も保証しません。
 
-<Steps>
-  <Step>
-    ### プロジェクトを選択
+## `docker run` conversion
 
-    管理したいComposeプロジェクトを選択してください。
-  </Step>
-  <Step>
-    ### 開始
+Run to Compose は一般的な flag を YAML preview に変換します。unsupported/advanced flag は deploy 前に確認してください。
 
-    Dockermanはすべてのサービスを起動し、不足しているイメージがあれば先にプルします。
-  </Step>
-  <Step>
-    ### 停止
+## Current boundaries
 
-    Dockermanはすべてのサービスを停止しますが、コンテナは保持されます。
-  </Step>
-  <Step>
-    ### 削除
-
-    Dockermanはコンテナとネットワークを削除します。ボリュームを含めるにチェックしない限り、ボリュームは保持されます。
-  </Step>
-</Steps>
-
-<Callout type="warn">
-  ボリュームを含めると、Composeファイルで定義された匿名ボリュームと名前付きボリュームの両方が削除されます。他のコンシューマーがいる名前付きボリュームはスキップされます。
-</Callout>
-
-## プロジェクトイメージのプル
-
-プルは、サービスを起動せずにComposeファイルで参照されているすべてのイメージをフェッチします。新しいホストでコールドスタートする前に使用してください。
-
-## compose.yamlの編集
-
-ComposeファイルをMonacoで編集し、ディスクに保存します。Dockermanは保存時にファイルを検証します。
-
-<Steps>
-  <Step>
-    ### エディタを開く
-
-    Composeプロジェクトを選択し、**編集**をクリックして組み込みMonacoエディタでその`compose.yaml`を開きます。
-  </Step>
-  <Step>
-    ### 検証付きで編集
-
-    入力すると、エディタはCompose JSONスキーマに対して検証し、エラーをインラインでハイライトします。`image`、`ports`、`volumes`、`environment`などの一般的なフィールドは自動補完を提供します。
-  </Step>
-  <Step>
-    ### ディスクに保存
-
-    **保存**をクリックしてファイルをディスク上の元の場所に書き込みます。Dockermanは保存前に`docker compose config`を実行してファイルを検証します。無効なYAMLは保存をブロックします。
-  </Step>
-  <Step>
-    ### 変更を適用
-
-    **適用**をクリックして更新されたファイルで`docker compose up -d`を実行し、変更されたサービスのみを再作成します。
-  </Step>
-</Steps>
-
-<Callout type="info">
-  Composeファイルはファイルシステム上のプロジェクトディレクトリに直接保存されます。`git`でバージョン管理したり、外部ツールで編集したりでき、Dockermanは次にエディタを開いたときに変更を反映します。
-</Callout>
-
-## `docker run`をComposeに変換
-
-`docker run`コマンドを貼り付けると、Dockermanはそれを新しいスタックとして保存できる`compose.yaml`に変換します。
-
-<Steps>
-  <Step>
-    ### コンバータを開く
-
-    Composeページに移動し、**docker runから**をクリックするか、[Spotlight](/ja/docs/advanced/spotlight)で「run to compose」を検索します。
-  </Step>
-  <Step>
-    ### コマンドを貼り付け
-
-    `docker run`コマンドを貼り付けます（複数行の`\`継続がサポートされています）。右側のパネルには、編集に応じて更新されるライブYAMLプレビューが表示されます。
-  </Step>
-  <Step>
-    ### 出力を確認
-
-    コンバータは`-p`、`-v`、`-e`、`--name`、`--restart`、`--network`、`--privileged`、`--cap-add`、`--device`などの一般的なフラグを処理します。コンバータが認識しないフラグはYAMLコメントとして保持されるため、何も失われません。
-  </Step>
-  <Step>
-    ### 新しいスタックとして保存
-
-    **スタックとして保存**をクリックして生成された`compose.yaml`をスタックディレクトリに書き込み、さらに調整するためにYAMLエディタで開きます。
-  </Step>
-</Steps>
-
-<Callout type="warn">
-  コンバータは約80%の`docker run`フラグをカバーします。`--health-*`や`--ulimit`などの高度なフラグはコメントとして保持されます。デプロイ前に出力を確認してください。
-</Callout>
-
-## サービス横断ログの表示
-
-プロジェクトレベルのログビューを使用して、すべてのサービスからのログをマージし、サービスごとにカラーコーディングし、[コンテナログ](/ja/docs/docker/logs)と同じ検索動作を維持します。
-
-{/* TODO(screenshot): compose/project-logs - Multi-service merged log view */}
-
-## テンプレートライブラリ
-
-空白のComposeファイルではなく、厳選されたスタックから開始したい場合は、テンプレートライブラリを使用してください。
-
-<Cards>
-  <Card title="データベース">
-    MySQL、PostgreSQL、MongoDB、Redis、CouchDB。
-  </Card>
-  <Card title="メッセージキュー">
-    RabbitMQ、NATS、Kafka。
-  </Card>
-  <Card title="オブザーバビリティ">
-    PrometheusとGrafana、Loki、Tempo。
-  </Card>
-  <Card title="開発">
-    phpMyAdmin、pgAdmin、Adminer、MinIO。
-  </Card>
-</Cards>
-
-<Steps>
-  <Step>
-    ### テンプレートページを開く
-
-    組み込みテンプレートが一覧表示されるページを開きます。
-  </Step>
-  <Step>
-    ### テンプレートを選択
-
-    サービス、必要な環境変数、デフォルトポートを確認します。
-  </Step>
-  <Step>
-    ### 設定と起動
-
-    要求された値を入力し、プロジェクト名を選択してから開始します。
-  </Step>
-</Steps>
-
-{/* TODO(screenshot): compose/templates-library - Template library page */}
-
-## 独自テンプレートの作成
-
-既存のComposeファイルをテンプレートとして保存し、スタータープロジェクトを更新する必要があるときにテンプレートページから編集または削除してください。
+project-level merged log viewer はありません。curated app template は **Apps** にあり、Compose page の built-in template editor ではありません。existing file を reusable template として保存する操作もありません。

@@ -7,7 +7,7 @@ description: "Schema、call escape hatch、Cloudflare Quick Tunnels、受管 WSL
 
 ## `schema` 与 `call`
 
-daemon 暴露的每个后端 RPC 都有自描述 schema。`schema` 用于发现可用 RPC，`call` 用于按名称调用任意 RPC，无需专用子命令。
+schema 描述受支持的 daemon 接口。`call` 只能调用自身硬编码允许列表中的一元 RPC，并不是不受限制的逃生口。
 
 ```bash
 dockerman schema
@@ -15,8 +15,8 @@ dockerman schema fetch_logs
 dockerman schema --format mcp-tools
 
 dockerman call ping_host '{"address":"8.8.8.8"}'
-dockerman call hub_search '{"query":"alpine","page_size":5}'
-dockerman call remove_container '{"name":"web","force":true}' --yes
+dockerman call hub_search '{"query":"alpine","pageSize":5}'
+dockerman call remove_container '{"name":"web","options":{"force":true}}' --yes
 ```
 
 `call` 接受 JSON 形式的参数对象。破坏性 RPC 与专用子命令一样需要 `--yes`（或 `-y`）。**流式 RPC 不能通过 `call` 调用**——请使用对应的流式命令以获得正确的封装。
@@ -79,7 +79,7 @@ dockerman wsl unregister --yes
 ### 用 `jq` 解析 `--json`
 
 ```bash
-dockerman container list --json | jq '.[] | select(.state=="running") | .name'
+dockerman container list | jq '.[] | select(.state=="running") | .name'
 dockerman trivy scan myrepo/app:v1 --json \
   | jq -c 'select(.kind=="result") | .payload.results[] | .vulnerabilities[]?'
 ```
@@ -98,7 +98,7 @@ CLI 始终要求 `--yes`，无论脚本自身多确定。**不存在** `--force-
 ### 检测 daemon 发现失败
 
 ```bash
-if ! dockerman host current >/dev/null 2>&1; then
+if ! dockerman system info >/dev/null 2>&1; then
   echo "daemon 不可达" >&2
   exit 3
 fi

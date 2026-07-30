@@ -1,48 +1,22 @@
 ---
 title: "Eventos"
-description: "Transmite, filtra, persiste y exporta eventos del daemon de Docker."
+description: "Transmite, filtra, persiste y exporta eventos del daemon Docker."
 ---
 
-Usa esta página para ver `docker events` en una interfaz que permite buscar, filtrar y exportar.
+La página Eventos recibe eventos del host Docker seleccionado y ofrece búsqueda, filtros, detalles y exportación.
 
-## Abrir la transmisión de eventos
+## Pausa
 
-Abre la página de Eventos para comenzar a transmitir desde el momento actual. Pausa la transmisión cuando quieras inspeccionar lo que ya está en pantalla sin perder el historial que has recopilado.
+Mientras está pausada, los eventos nuevos no entran en la lista ni en la cola persistente. Se descartan, no se almacenan para reproducirlos después.
 
-## Filtrar eventos
+## Historial local
 
-Filtra los eventos por las siguientes dimensiones cuando quieras reducir una transmisión ruidosa.
+Dockerman guarda JSONL por host en el directorio de datos. Cada fichero rota a 5 MiB y se conservan hasta 20 ficheros rotados más el actual. No hay un ajuste de retención por tiempo.
 
-- Tipo de recurso: contenedor, imagen, red, volumen, daemon
-- Acción: create, start, stop, die, destroy, pull, push, connect, disconnect, y más
-- Rango de tiempo: ventana deslizante o rango absoluto personalizado
-- Texto libre: coincide con cualquier campo
+## Filtros y exportación
 
-## Persistir el historial
+Usa los controles visibles para filtrar por tipo, acción, tiempo y texto. Exporta el resultado como JSON o CSV cuando esté disponible.
 
-Dockerman escribe los eventos en un archivo JSONL local en su directorio de datos de aplicación para que el historial sobreviva a los reinicios. Usa la configuración de retención en el área de gestión de datos cuando quieras cambiar cuánto tiempo los conserva Dockerman.
-
-## Buscar y consultar
-
-Busca por nombre de contenedor, imagen o etiqueta, luego combina la búsqueda con filtros cuando quieras enfocarte en una cadena específica de eventos.
-
-## Exportar
-
-Exporta la transmisión actual cuando necesites mover los datos a otro lugar.
-
-- JSON: objetos de evento sin procesar para pipelines o archivo
-- CSV: columnas aplanadas para hojas de cálculo
-
-## Solución de problemas con eventos
-
-<Accordions>
-  <Accordion title="¿Por qué se reinició mi contenedor?">
-    Busca un evento `die` seguido de `start`, luego abre el payload para leer el código de salida y la razón del reinicio.
-  </Accordion>
-  <Accordion title="¿Por qué falló la descarga de la imagen?">
-    Los fallos de descarga aparecen en eventos `pull`, y el payload incluye el mensaje de error que Docker devolvió.
-  </Accordion>
-  <Accordion title="¿Quién se desconectó de mi red?">
-    Los eventos `disconnect` identifican el contenedor que abandonó la red, para que puedas rastrear el cambio rápidamente.
-  </Accordion>
-</Accordions>
+<Callout type="warn">
+  Los eventos Docker describen transiciones de estado; no son un registro de auditoría completo de errores o identidades humanas.
+</Callout>

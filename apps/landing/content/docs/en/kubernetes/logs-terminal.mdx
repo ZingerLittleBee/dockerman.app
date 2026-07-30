@@ -1,44 +1,16 @@
 ---
 title: Pod Logs & Terminal
-description: Stream Pod logs with searchable history and attach to any container inside a Pod via xterm.js.
+description: View Pod logs and open an exec session in a running container.
 ---
 
-Stream Pod logs and attach to any container inside a Pod via xterm.js.
+Open Logs from a Pod and choose one of its regular containers. The viewer uses the same implemented search and follow controls documented for [container logs](/en/docs/docker/logs).
 
-## Stream pod logs
+The current picker does not promise init-container log selection. Use `kubectl logs --init-container` when you need an init container that is not offered.
 
-Open Logs from any Pod row or from the Pod detail view. The log stream stays live while the Pod runs, and the detail view lets you move between recent output without leaving the page.
+## Terminal
 
-## Search shortcuts
+Open Terminal, select a container when required, and choose or enter a shell command. Dockerman runs that command directly; it does not automatically probe `bash`, `sh`, and `zsh`. If the command is missing, choose one that exists in the image.
 
-Pod logs use the same keyboard shortcuts as [container logs](/en/docs/docker/logs#power-shortcuts), including `/`, `n` and `N`, `g` and `G`, and `Esc`.
-
-## Multi-container pods
-
-Use the container dropdown at the top when a Pod has more than one container. Init containers appear in the same list, and switching containers resets the stream.
-
-## Pod terminal (exec)
-
-<Steps>
-  <Step>
-    ### Open the terminal
-
-    From a Pod, click Terminal or press `T` when the Pod is selected.
-  </Step>
-  <Step>
-    ### Pick a container
-
-    Skip this step for single-container pods.
-  </Step>
-  <Step>
-    ### Pick a shell
-
-    Dockerman tries `bash`, then `sh`, then `zsh`, the same fallback order it uses for Docker container terminals.
-  </Step>
-</Steps>
-
-## Limitations
-
-- Killing the target container ends the session.
-- Session history does not persist across restarts.
-- Some TUI apps need `TERM=xterm-256color`.
+<Callout type="warn">
+  Restarting or deleting the target container ends the session. Terminal history is not restored after an application restart.
+</Callout>

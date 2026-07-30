@@ -18,39 +18,16 @@ Dockerman can push notifications through multiple channels so you know when some
 
 System notifications are always available and enabled by default. They do not count as an "external" channel.
 
-## Add a notification channel
+## Current desktop support
 
-<Steps>
-  <Step>
-    ### Open notification settings
-
-    Go to the Notifications page from the sidebar or via [Spotlight](/en/docs/advanced/spotlight).
-  </Step>
-  <Step>
-    ### Add a channel
-
-    Click **Add channel**, give it a name, and paste the Shoutrrr URL.
-  </Step>
-  <Step>
-    ### Test the channel
-
-    Click **Test** to send a test message immediately. If the message arrives, the channel is ready.
-  </Step>
-  <Step>
-    ### Save
-
-    Save the channel. It is now available for [alert rules](/en/docs/homelab/alerts) and [image upgrade watches](/en/docs/homelab/image-watches).
-  </Step>
-</Steps>
-
-{/* TODO(screenshot): homelab/notifications-add - Add notification channel dialog */}
+The Notifications page can list configured channels and send a test notification. The current desktop UI does not provide a complete add, edit, disable, or delete workflow. The underlying notification adapters are not a supported substitute for that missing UI.
 
 ## Credential security
 
-Sensitive parts of the Shoutrrr URL, such as tokens and passwords, are stored in your system Keychain (macOS Keychain, Windows DPAPI, or Linux Secret Service). The database only stores a redacted version of the URL with secrets replaced by placeholders.
+The current daemon stores complete notification channel secrets in `secrets/notification-channels.json` inside the Dockerman application data directory. On Unix, Dockerman restricts the file permissions to the current user, but the values are not stored in the system Keychain.
 
-<Callout type="info">
-  Dockerman never sends your credentials to any server other than the notification channel itself. Credentials are read from the Keychain at send time and are never logged.
+<Callout type="warn">
+  Treat the Dockerman application data directory as sensitive. Generic webhook URLs may contain credentials in their path or query string; review logs and diagnostic data before sharing them.
 </Callout>
 
 ## Where notifications are used
@@ -65,15 +42,6 @@ Notification channels are consumed by two systems:
     Image watches use a global default channel list. When a new image version is found, all default channels receive the notification.
   </Card>
 </Cards>
-
-## Managing channels
-
-From the Notifications page you can:
-
-- **Edit** a channel's name or URL
-- **Disable** a channel without deleting it (disabled channels are skipped during delivery)
-- **Delete** a channel (alert rules that referenced it will stop delivering to it)
-- **Re-test** a channel at any time
 
 ## Tips
 

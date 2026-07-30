@@ -39,7 +39,6 @@ Preview handles the common file types you expect to inspect without downloading 
   Files larger than 10 MB are download-only so Dockerman does not load the whole file into memory.
 </Callout>
 
-{/* TODO(screenshot): files/preview-image - Image preview with zoom */}
 
 ## Edit files
 
@@ -57,11 +56,10 @@ Open text and code files in Monaco, make your changes, then save them back to th
 - **Binary detection** — the editor refuses to open a file that contains a NUL byte and shows a download prompt instead, preventing accidental corruption when an extension is misleading.
 - **1 MB edit cap** — files larger than 1 MB are read-only in the editor. Download, edit locally, and re-upload when you need to make a bigger change.
 
-{/* TODO(screenshot): files/edit-monaco - File editor with Monaco syntax highlighting */}
 
 ## Upload and download
 
-Drag a file or folder into the browser, or use the Upload button, to add content to the current directory. Download single files directly, or let Dockerman zip a folder before it saves.
+Use the explicit upload actions to choose a local file or folder and add it to the current directory. Download is available for individual files. The current browser does not advertise drag-and-drop upload, multi-file download, or automatic folder ZIP download.
 
 ## Delete files
 
@@ -73,19 +71,4 @@ Delete removes the selected file or folder from the current volume or container.
   File deletion is irreversible and bypasses any host recycle bin.
 </Callout>
 
-## Multi-select
-
-Added in v4.4.0.
-
-Use multi-select when you want to download a group of files, delete several at once, or drag a selection to an upload target.
-
-| Shortcut | Action |
-| --- | --- |
-| Ctrl/Cmd + Click | Toggle a single file |
-| Shift + Click | Select a contiguous range |
-| Ctrl/Cmd + A | Select all in the current directory |
-| Esc | Clear the current selection |
-
-<Callout type="warn">
-  Batch delete asks for confirmation once for the whole selection. There is no per-file prompt.
-</Callout>
+Delete operates on the selected entry. The current browser does not provide the documented multi-select shortcut set or batch deletion.

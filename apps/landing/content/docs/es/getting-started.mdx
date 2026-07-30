@@ -73,7 +73,7 @@ Usa esta página para instalar Dockerman y hacer tu primera conexión. Si estás
       <Step>
         ### Inicia Dockerman
 
-        Inicia Dockerman desde el menú de escritorio o ejecutando `dockerman`.
+        Inicia Dockerman desde el menú de escritorio. Los paquetes publicados no prometen un ejecutable GUI `dockerman` en `PATH`.
       </Step>
     </Steps>
   </Tab>
@@ -87,7 +87,6 @@ Usa esta página para instalar Dockerman y hacer tu primera conexión. Si estás
 
     Dockerman intenta conectarse automáticamente al Docker local y muestra el progreso o errores.
 
-    {/* TODO(screenshot): getting-started/connect-dialog - Connect dialog on first launch */}
   </Step>
   <Step>
     ### Elige una fuente de runtime
@@ -104,7 +103,6 @@ Usa esta página para instalar Dockerman y hacer tu primera conexión. Si estás
 
     Revisa una instantánea de los contenedores en ejecución y detenidos, más gráficos en tiempo real.
 
-    {/* TODO(screenshot): getting-started/dashboard - Dashboard after first connect */}
   </Step>
 </Steps>
 
@@ -130,7 +128,7 @@ Usa esta página para instalar Dockerman y hacer tu primera conexión. Si estás
 | Plataforma | Versión mínima | Arquitectura |
 | --- | --- | --- |
 | macOS | 11 (Big Sur) | Intel, Apple Silicon, Universal |
-| Windows | 10 (1903) / 11 | x86_64 |
-| Linux | kernel 5.x | x86_64, aarch64 |
+| Windows | Builds soportadas de Windows 10 / 11 | x86_64 |
+| Linux | Distribución de escritorio moderna | x86_64 |
 
-Un daemon de Docker (Engine 20.10+) o Podman (4.0+) debe estar disponible antes de que empieces a gestionar contenedores; en Windows, Dockerman puede aprovisionar Docker a través de la ruta opcional de WSL2. El soporte de Kubernetes usa el paquete opcional de k3d.
+Necesitas un endpoint compatible de Docker o Podman. El proyecto no publica una matriz de versiones mínimas probadas. Windows puede aprovisionar Docker con la ruta WSL2 opcional.

@@ -49,4 +49,6 @@ description: "管理 ConfigMaps、Secrets、PersistentVolumeClaims 和 StorageCl
 
 ## Namespaces
 
-Namespaces 页面列出所有命名空间及其阶段和创建时长，允许你内联创建新命名空间，并删除已有命名空间（带 API 返回的级联警告）。侧边栏的命名空间选择器会与此页面同步，因此这里的刷新会全局生效。
+Dockerman 还为 LimitRange、ResourceQuota 和 PodDisruptionBudget 提供单独页面。
+
+Namespaces 页面可列出、创建和删除命名空间。删除命名空间可能移除其中的资源；界面不承诺复现 API 返回的每一条级联警告。

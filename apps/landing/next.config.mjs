@@ -22,6 +22,24 @@ const nextConfig = {
       }
     ]
   },
+  async redirects() {
+    const guideRedirects = {
+      compose: 'compose',
+      containers: 'containers',
+      'file-browser': 'files',
+      images: 'images',
+      monitoring: 'stats',
+      networks: 'networks',
+      terminal: 'terminal',
+      volumes: 'volumes'
+    }
+
+    return Object.entries(guideRedirects).map(([source, destination]) => ({
+      source: `/:locale(en|zh|ja|es)/docs/guides/${source}`,
+      destination: `/:locale/docs/docker/${destination}`,
+      permanent: true
+    }))
+  },
   skipTrailingSlashRedirect: true,
   experimental: {
     optimizePackageImports: ['@remixicon/react', 'motion']

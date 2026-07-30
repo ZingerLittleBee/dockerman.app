@@ -26,6 +26,10 @@ Usa Ingresses para inspeccionar el enrutamiento HTTP hacia el clúster. La lista
 
 Usa Endpoints cuando necesites las direcciones de backend sin procesar detrás de un Service. Esta vista es más útil cuando un Service no tiene backends saludables.
 
+## EndpointSlices
+
+EndpointSlice es el objeto de discovery que Kubernetes mantiene detrás de Services. Dockerman ofrece rutas de lista y detalle además de Endpoints legacy.
+
 ## NetworkPolicies
 
 Usa NetworkPolicies para entender qué pods pueden comunicarse entre sí.

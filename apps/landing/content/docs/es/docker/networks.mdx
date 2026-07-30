@@ -1,9 +1,9 @@
 ---
 title: "Redes"
-description: "Crea y gestiona redes Docker, conecta contenedores y busca contenedores por puerto."
+description: "Crea y gestiona redes Docker y conexiones de contenedores."
 ---
 
-Usa esta página para listar redes, crear nuevas, conectar o desconectar contenedores, y buscar por puerto.
+Usa esta página para listar redes, crear nuevas y conectar o desconectar contenedores.
 
 ## La lista de redes
 
@@ -15,7 +15,7 @@ La lista de redes muestra el nombre, el controlador, el ámbito, la cantidad de 
   <Step>
     ### Elige un nombre y un controlador
 
-    Elige el nombre de la red, luego selecciona un controlador como bridge, overlay, macvlan, ipvlan, host o null.
+    En Docker puedes elegir `bridge`, `host`, `overlay`, `macvlan` o `none`. Apple Container no muestra el selector de controlador.
   </Step>
   <Step>
     ### Configurar IPAM (opcional)
@@ -36,36 +36,6 @@ La lista de redes muestra el nombre, el controlador, el ámbito, la cantidad de 
 ## Conectar y desconectar contenedores
 
 Abre una red, selecciona Conectar contenedor, luego elige el contenedor objetivo y un alias opcional. Usa Desconectar desde la misma vista cuando quieras eliminar el contenedor de la red nuevamente.
-
-## Buscar por puerto
-
-Añadido en la v4.7.0.
-
-Busca por puerto cuando quieras encontrar contenedores que expongan un servicio específico o un mapeo de host.
-
-<Steps>
-  <Step>
-    ### Abre el diálogo de búsqueda por puerto
-
-    Comienza desde la página de Redes y selecciona Búsqueda por puerto.
-  </Step>
-  <Step>
-    ### Introduce el número de puerto y el protocolo
-
-    Proporciona el puerto y elige TCP o UDP.
-  </Step>
-  <Step>
-    ### Revisa los contenedores coincidentes
-
-    Los resultados muestran el contenedor, la red en la que está y el mapeo de puerto exacto.
-  </Step>
-</Steps>
-
-<Callout type="info">
-  La búsqueda por puerto cubre tanto los puertos expuestos como los mapeos de puerto del host.
-</Callout>
-
-{/* TODO(screenshot): networks/port-search - Port search dialog with results */}
 
 ## Inspeccionar una red
 

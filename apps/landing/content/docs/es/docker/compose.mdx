@@ -1,158 +1,22 @@
 ---
-title: "Compose y Plantillas"
-description: "Gestiona aplicaciones multi-contenedor con Docker Compose e inicia proyectos desde la biblioteca de plantillas."
+title: "Compose"
+description: "Gestiona proyectos Compose y edita su YAML."
 ---
 
-Gestiona proyectos de Docker Compose e inicia nuevos desde la biblioteca de plantillas integrada.
+La página descubre proyectos por labels Docker Compose y ofrece acciones soportadas por el runtime Docker. No está disponible para targets Podman.
 
-<Callout type="warn">
-  Compose es una función exclusiva de Docker. Cuando Dockerman detecta un runtime Podman, la sección de Compose se oculta automáticamente.
-</Callout>
+## Ciclo de vida
 
-## Proyectos de Compose
+Según el estado puedes iniciar, detener, reiniciar, pull, up o eliminar. La opción de volúmenes se reenvía a Compose; Dockerman no enumera previamente todos los volúmenes nombrados ni otros consumidores.
 
-La página de Compose muestra cada proyecto que Dockerman encuentra a partir de la etiqueta `com.docker.compose.project`, junto con el número de contenedores, el estado y la ruta base.
+## Editar YAML
 
-## Iniciar, detener y eliminar un proyecto
+Abre el fichero, guarda y aplica cuando proceda. Guardar no ejecuta `docker compose config` y el editor no promete validación/autocomplete completo del schema. Valida aparte los cambios importantes.
 
-<Steps>
-  <Step>
-    ### Selecciona un proyecto
+## Convertir `docker run`
 
-    Elige el proyecto de Compose que quieras gestionar.
-  </Step>
-  <Step>
-    ### Iniciar
+Run to Compose transforma flags comunes en una vista YAML. Revisa flags no soportados antes de guardar y desplegar.
 
-    Dockerman levanta todos los servicios y descarga primero las imágenes que falten.
-  </Step>
-  <Step>
-    ### Detener
+## Límites actuales
 
-    Dockerman baja todos los servicios, pero mantiene los contenedores.
-  </Step>
-  <Step>
-    ### Eliminar
-
-    Dockerman elimina los contenedores y las redes. Los volúmenes permanecen a menos que marques Incluir volúmenes.
-  </Step>
-</Steps>
-
-<Callout type="warn">
-  Incluir volúmenes elimina tanto los volúmenes anónimos como los nombrados definidos por el archivo de Compose. Los volúmenes nombrados que tienen otros consumidores se omiten.
-</Callout>
-
-## Descargar imágenes del proyecto
-
-Descargar obtiene todas las imágenes referenciadas por el archivo de Compose sin iniciar ningún servicio. Úsalo antes de un inicio en frío en un nuevo host.
-
-## Editar compose.yaml
-
-Abre el editor de YAML de Compose para editar el archivo en Monaco con resaltado de sintaxis completo, validación de esquema y autocompletado para campos de especificación de Compose (services, networks, volumes, configs).
-
-<Steps>
-  <Step>
-    ### Abrir el editor
-
-    Selecciona un proyecto de Compose y haz clic en **Editar** para abrir su `compose.yaml` en el editor Monaco integrado.
-  </Step>
-  <Step>
-    ### Editar con validación
-
-    Mientras escribes, el editor valida contra el esquema JSON de Compose y resalta errores inline. Campos comunes como `image`, `ports`, `volumes` y `environment` ofrecen autocompletado.
-  </Step>
-  <Step>
-    ### Guardar en disco
-
-    Haz clic en **Guardar** para escribir el archivo en su ubicación original en disco. Dockerman ejecuta `docker compose config` para verificar el archivo antes de guardar. YAML inválido bloquea el guardado.
-  </Step>
-  <Step>
-    ### Aplicar cambios
-
-    Haz clic en **Aplicar** para ejecutar `docker compose up -d` con el archivo actualizado, recreando solo los servicios que cambiaron.
-  </Step>
-</Steps>
-
-<Callout type="info">
-  Los archivos de Compose se guardan directamente en el directorio del proyecto en tu sistema de archivos. Puedes versionarlos con `git` o editarlos con cualquier herramienta externa, y Dockerman detectará los cambios la próxima vez que abras el editor.
-</Callout>
-
-## Convertir `docker run` a Compose
-
-Pega un comando `docker run` y Dockerman lo convierte en un `compose.yaml` que puedes guardar como un nuevo stack.
-
-<Steps>
-  <Step>
-    ### Abrir el convertidor
-
-    Ve a la página de Compose y haz clic en **Desde docker run**, o busca "run to compose" en [Spotlight](/es/docs/advanced/spotlight).
-  </Step>
-  <Step>
-    ### Pegar el comando
-
-    Pega un comando `docker run` (se soporta continuación multi-línea con `\`). El panel derecho muestra una vista previa de YAML en vivo que se actualiza mientras editas.
-  </Step>
-  <Step>
-    ### Revisar la salida
-
-    El convertidor maneja flags comunes incluyendo `-p`, `-v`, `-e`, `--name`, `--restart`, `--network`, `--privileged`, `--cap-add` y `--device`. Flags que el convertidor no reconoce se preservan como comentarios YAML para que nada se pierda.
-  </Step>
-  <Step>
-    ### Guardar como nuevo stack
-
-    Haz clic en **Guardar como stack** para escribir el `compose.yaml` generado en tu directorio de stacks y abrirlo en el editor YAML para ajustes adicionales.
-  </Step>
-</Steps>
-
-<Callout type="warn">
-  El convertidor cubre aproximadamente el 80% de los flags de `docker run`. Flags avanzados como `--health-*` y `--ulimit` se preservan como comentarios. Revisa la salida antes de desplegar.
-</Callout>
-
-## Ver logs entre servicios
-
-Usa la vista de Logs a nivel de proyecto para fusionar los logs de cada servicio, codificarlos por color según el servicio, y mantener el mismo comportamiento de búsqueda que en los [logs de contenedores](/es/docs/docker/logs).
-
-{/* TODO(screenshot): compose/project-logs - Multi-service merged log view */}
-
-## Biblioteca de plantillas
-
-Usa la biblioteca de plantillas cuando quieras empezar desde un stack curado en lugar de un archivo de Compose en blanco.
-
-<Cards>
-  <Card title="Bases de datos">
-    MySQL, PostgreSQL, MongoDB, Redis, CouchDB.
-  </Card>
-  <Card title="Colas de mensajes">
-    RabbitMQ, NATS, Kafka.
-  </Card>
-  <Card title="Observabilidad">
-    Prometheus y Grafana, Loki, Tempo.
-  </Card>
-  <Card title="Desarrollo">
-    phpMyAdmin, pgAdmin, Adminer, MinIO.
-  </Card>
-</Cards>
-
-<Steps>
-  <Step>
-    ### Abre la página de Plantillas
-
-    Abre la página que lista las plantillas integradas.
-  </Step>
-  <Step>
-    ### Elige una plantilla
-
-    Revisa los servicios, las variables de entorno requeridas y los puertos por defecto.
-  </Step>
-  <Step>
-    ### Configura y lanza
-
-    Rellena los valores solicitados, elige un nombre de proyecto, luego inícialo.
-  </Step>
-</Steps>
-
-{/* TODO(screenshot): compose/templates-library - Template library page */}
-
-## Crea tu propia plantilla
-
-Guarda cualquier archivo de Compose existente como plantilla, luego edítalo o elimínalo desde la página de Plantillas cuando necesites actualizar tus proyectos de inicio.
+No hay visor combinado de logs de proyecto. Las plantillas curadas viven en **Apps**, no en un editor Compose, y esta página no guarda ficheros existentes como plantillas reutilizables.

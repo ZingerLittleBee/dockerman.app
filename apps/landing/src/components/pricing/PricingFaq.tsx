@@ -7,9 +7,16 @@ import { AccordionItem } from '@/components/AccordionItem'
 import { AccordionTrigger } from '@/components/AccordionTrigger'
 import { PricingFaqAnswer } from './PricingFaqAnswer'
 
+const LICENSE_MANAGE_URL = 'https://license.dockerman.app/manage'
+
 interface FaqItem {
-  question: string
+  actionLabel?: string
   answer: string
+  question: string
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null
 }
 
 function isFaqItemArray(value: unknown): value is FaqItem[] {
@@ -17,10 +24,10 @@ function isFaqItemArray(value: unknown): value is FaqItem[] {
     Array.isArray(value) &&
     value.every(
       (v) =>
-        typeof v === 'object' &&
-        v !== null &&
-        typeof (v as FaqItem).question === 'string' &&
-        typeof (v as FaqItem).answer === 'string'
+        isRecord(v) &&
+        typeof v.question === 'string' &&
+        typeof v.answer === 'string' &&
+        (v.actionLabel === undefined || typeof v.actionLabel === 'string')
     )
   )
 }
@@ -42,7 +49,14 @@ export function PricingFaq() {
                 {item.question}
               </AccordionTrigger>
               <AccordionContent className="text-[14px] text-dm-ink-2">
-                <PricingFaqAnswer text={item.answer} />
+                <PricingFaqAnswer
+                  action={
+                    item.actionLabel
+                      ? { href: LICENSE_MANAGE_URL, label: item.actionLabel }
+                      : undefined
+                  }
+                  text={item.answer}
+                />
               </AccordionContent>
             </AccordionItem>
           ))}

@@ -69,7 +69,6 @@ Use the built-in Hub browser to search, inspect, and pull public images without 
   </Step>
 </Steps>
 
-{/* TODO(screenshot): images/hub-browser - Docker Hub browser with readme */}
 
 ## Build from a Dockerfile
 
@@ -106,7 +105,7 @@ Build uses the same Docker daemon as the rest of Dockerman, and BuildKit is used
 
 Added in v4.6.0.
 
-Push a tagged image after you sign in to the target registry or provide credentials for the push.
+Push a tagged image after selecting a registry configured in Dockerman's registry manager.
 
 <Steps>
   <Step>
@@ -117,7 +116,7 @@ Push a tagged image after you sign in to the target registry or provide credenti
   <Step>
     ### Configure registry credentials
 
-    Dockerman reads existing Docker auth from `~/.docker/config.json`, or you can add credentials per push.
+    Add or select a registry in the registry manager. The push dialog requests credentials from that saved entry; it does not promise to import `~/.docker/config.json` or accept ad-hoc credentials per push.
   </Step>
   <Step>
     ### Push with streaming progress
@@ -150,10 +149,10 @@ Scan an image to find known vulnerabilities in its installed layers.
 
 ### First-time install
 
-The first scan downloads the Trivy binary and its vulnerability database.
+If the managed Trivy binary is missing, Dockerman prompts you to install it. Trivy may then download or update its vulnerability database during a scan.
 
 <Callout type="warn">
-  The first scan downloads the Trivy binary, about 50 MB, plus the vulnerability database. The download is one-time and cached locally. See [Trivy settings](/en/docs/reference/settings#trivy-settings) if you need a custom binary path.
+  Network access may be required for both binary installation and database updates. Cache state and download size depend on the installed Trivy version.
 </Callout>
 
 ### Run a scan
@@ -180,10 +179,9 @@ The first scan downloads the Trivy binary and its vulnerability database.
 
 Dockerman groups findings by severity, then lets you expand each finding to see the CVE ID, description, affected versions, and fix versions when available. Export the raw report as JSON when you want to feed it into CI or archive the result.
 
-{/* TODO(screenshot): images/trivy-report - Trivy report with expanded finding */}
 
 ## Cleanup
 
 - Remove dangling images from the Dangling tab when you want to clear build leftovers quickly.
 - Delete old versions with multi-select when you no longer need a tag.
-- Use the system prune controls in [Docker settings](/en/docs/reference/settings#docker-settings) when you want to remove all unused images at once.
+- Use **Prune** on the Images page to ask the selected runtime to remove unused images.

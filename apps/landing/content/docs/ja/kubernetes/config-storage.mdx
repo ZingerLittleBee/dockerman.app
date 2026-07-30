@@ -49,4 +49,6 @@ StorageClasses を使用して、プロビジョナー、再利用ポリシー�
 
 ## ネームスペース
 
-ネームスペースページには、フェーズと経過時間とともにすべてのネームスペースが一覧表示され、新しいネームスペースをインラインで作成したり、削除（API が返すカスケード警告とともに）したりできます。サイドバーのネームスペースセレクタはこのページと同期するため、ここでの更新はグローバルに反映されます。
+LimitRange、ResourceQuota、PodDisruptionBudget にも dedicated page があります。
+
+Namespace page では list、create、delete ができます。namespace deletion は namespaced resource を削除する可能性があり、UI は API の全 cascade warning を再現するとは限りません。

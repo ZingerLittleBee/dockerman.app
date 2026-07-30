@@ -32,11 +32,11 @@ dockerman container rename web web-old
 
 ```bash
 dockerman container create web nginx:latest --platform linux/amd64
-dockerman container create web nginx:latest --config ./run.json
+dockerman container create web nginx:latest --config '{"Env":["NODE_ENV=production"]}'
 dockerman container commit web --repo myrepo --tag snapshot --pause
 ```
 
-`--config` admite un fichero JSON con la misma forma que `bollard::ContainerCreateOptions`. `commit` toma una snapshot de un contenedor en ejecución como nueva imagen.
+`--config` acepta un objeto JSON inline, no una ruta de fichero. `commit` crea una imagen desde el contenedor.
 
 ## Eliminar
 
@@ -91,7 +91,7 @@ Backup empaqueta el sistema de ficheros del contenedor (y los bind mounts opcion
     dockerman container backup-targets web --pretty
     ```
 
-    Lista los volúmenes y bind mounts del contenedor, con un flag `safe_to_archive` por cada bind mount.
+    Lista los volúmenes y bind mounts que puede incluir el archivo. Revisa por tu cuenta su contenido y tamaño.
   </Step>
   <Step>
     ### Crear el archivo
@@ -103,7 +103,7 @@ Backup empaqueta el sistema de ficheros del contenedor (y los bind mounts opcion
       --include-all-safe-bind-mounts
     ```
 
-    Usa `--include-bind-mount <índice>` para activar mounts uno a uno, `--no-pause` para saltarte el ciclo pause/unpause, `--force` para anular las advertencias `safe_to_archive`.
+    Usa `--include-bind-mount <índice>` para elegir mounts y `--no-pause` para saltarte pause/unpause. `--force` sólo sobrescribe un archivo de salida existente.
   </Step>
   <Step>
     ### Previsualizar un archivo
@@ -130,5 +130,5 @@ Backup empaqueta el sistema de ficheros del contenedor (y los bind mounts opcion
 </Steps>
 
 <Callout type="warn">
-  Las rutas de backup se resuelven en la CLI a rutas locales absolutas antes de enviarlas al daemon. El daemon rechaza rutas relativas, symlinks que apunten fuera del workspace y rutas que el usuario no pueda leer.
+  Las rutas de backup se resuelven en la CLI a rutas locales absolutas antes de enviarlas al daemon. El daemon exige una ruta absoluta, pero no decide si un bind mount pertenece a un “workspace seguro”.
 </Callout>

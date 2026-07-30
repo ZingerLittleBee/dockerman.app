@@ -1,28 +1,17 @@
 ---
-title: "Recursos Personalizados"
-description: "Descubre CRDs en tu clúster y explora o edita sus instancias."
+title: "Recursos personalizados"
+description: "Descubre CRD y consulta o edita instancias de recursos personalizados."
 ---
 
-Añadido en la v4.8.0. Usa esta página para descubrir CustomResourceDefinitions, explorar sus instancias y editarlas como YAML.
+Dockerman descubre CustomResourceDefinition en el clúster conectado y muestra API group, Kind, scope, served versions y age.
 
-## Listar CRDs
+Selecciona un CRD para consultar sus instancias. La tabla muestra nombre, namespace cuando corresponde y acciones disponibles. Puedes inspeccionar el objeto y editar YAML con el mismo server dry-run y control de conflictos de otros recursos compatibles.
 
-Abre la lista de CRDs para ver cada definición instalada, junto con su grupo, versión, ámbito y conteo de instancias.
+## Limitaciones actuales
 
-## Explorar instancias de recursos
+- La tabla de CRD no calcula el número de instancias.
+- Dockerman no renderiza printer columns de Kubernetes.
+- El editor no carga el esquema OpenAPI del CRD para validar o completar en el cliente.
+- La aceptación y validación finales corresponden al API server de Kubernetes.
 
-Selecciona un CRD para explorar sus instancias entre namespaces o en todo el clúster, dependiendo del ámbito del recurso. La tabla de detalles utiliza las columnas de impresión del CRD cuando están disponibles.
-
-## Ver y editar YAML
-
-Abre cualquier instancia en el editor YAML cuando necesites modificarla. Dockerman utiliza el esquema del CRD para validación y autocompletado.
-
-<Callout type="info">
-  El editor YAML no se limita a recursos personalizados. Abre Editar YAML en cualquier recurso de Kubernetes — Deployments, Services, ConfigMaps, y demás — para ver y aplicar cambios. Dockerman elimina los campos gestionados por el servidor, admite validación en modo de prueba y detecta conflictos antes de guardar.
-</Callout>
-
-## Limitaciones
-
-<Callout type="info">
-  Hoy solo se admite edición YAML para recursos personalizados. Los formularios a nivel de campo están en la hoja de ruta.
-</Callout>
+Estas limitaciones también se aplican cuando el CRD publica columnas adicionales o un esquema estructural.

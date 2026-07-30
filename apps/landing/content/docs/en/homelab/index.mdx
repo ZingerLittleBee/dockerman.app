@@ -9,7 +9,7 @@ Dockerman's homelab features let you monitor your self-hosted services, get noti
 
 Most container management happens while you are at your desk. Homelab mode covers the rest: what happens when you step away, when a service crashes at 3 AM, or when a new image version drops while you are not looking.
 
-Dockerman is **desktop-first and local-first**. It does not deploy a management container and does not expose a management port. Everything runs inside the app, credentials stay in your system Keychain, and Compose files land on your filesystem where `git` and `docker compose` CLI can use them directly.
+Dockerman is **desktop-first and local-first**. It does not deploy a management container or expose a management port. Sensitive registry, remote-host, and notification data is stored in the application's local data, not guaranteed to use the system Keychain; protect that directory accordingly.
 
 ## The end-to-end workflow
 
@@ -22,7 +22,7 @@ Dockerman is **desktop-first and local-first**. It does not deploy a management 
   <Step>
     ### Enable the preset alert rules (or write your own)
 
-    Two rules — *Restart loop* and *Container crash (non-zero exit)* — ship preconfigured but disabled. Enable them with one click, or add more [alert rules](/en/docs/homelab/alerts) for resource thresholds or per-stack scoping.
+    Two rules — *Restart loop* and *Container crash (non-zero exit)* — ship preconfigured but disabled. Custom rule creation is currently marked Coming Soon.
   </Step>
   <Step>
     ### Subscribe to image updates

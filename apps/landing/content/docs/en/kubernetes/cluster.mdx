@@ -49,7 +49,7 @@ Import a kubeconfig when you already have a cluster and want Dockerman to manage
   <Step>
     ### Select a kubeconfig file
 
-    Dockerman parses the file and **auto-detects every context** in it. Pick the context you want to import; Dockerman pre-fills cluster name, server URL, and user binding for you.
+    Dockerman parses the file and lists its contexts. Pick the context you want to import; the current flow does not promise separate pre-filled server URL and user-binding fields.
   </Step>
   <Step>
     ### Verify the connection
@@ -79,13 +79,13 @@ Use the action that matches the cluster type.
 
 ## Cluster version and status
 
-The Cluster page shows the server version, the current status, and the node list, including each node's kubelet and kube-proxy versions, so you can spot version drift or a broken connection at a glance.
+The Cluster page shows the API server version, connection state, and node information. Kubernetes Node objects expose kubelet and container-runtime versions, not a per-node kube-proxy version.
 
 ## Nodes, PersistentVolumes, and Namespaces
 
 Each of these gets a dedicated in-app page under the Kubernetes section. Reach them from the K8s sidebar:
 
-- **Nodes** — node list with conditions, capacity, allocatable resources, and labels. Open a node to see kubelet/kube-proxy versions, container runtime, and pods scheduled on it.
+- **Nodes** — node list with conditions, capacity, allocatable resources, labels, kubelet version, container runtime, and scheduled Pods.
 - **PersistentVolumes** — cluster-scoped PV list with phase, claim binding, reclaim policy, and capacity. See [Config & Storage → PersistentVolumes](/en/docs/kubernetes/config-storage#persistentvolumes) for the full reference.
 - **Namespaces** — create, delete, and inspect namespaces directly. The sidebar namespace selector syncs with this page.
 

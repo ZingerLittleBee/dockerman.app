@@ -7,7 +7,7 @@ RBACページを使用して、このクラスターで誰が何をできるか�
 
 ## ServiceAccounts
 
-ServiceAccountsを使用して、現在のネームスペース内で実行されているIDを確認します。詳細ビューには、マウントされたシークレット、イメージプルシークレット、および生成されたトークンシークレットが表示されます。
+ServiceAccounts page は current namespace の identity を表示します。API が返す image pull secret などを表示しますが、modern cluster が generated token Secret を作成するとは限りません。
 
 ## Roles and ClusterRoles
 
@@ -19,4 +19,4 @@ RoleBindingsおよびClusterRoleBindingsを使用して、各ロールを指し�
 
 ## Troubleshooting permissions
 
-Podが読み取り、リスト表示、作成、または実行ができない場合は、まずバインディングチェーンを確認し、PodのServiceAccountを検証してください。クラスター内からのアクセスを確認する必要がある場合は、[Debug Assistant](/ja/docs/kubernetes/debug)を使用してください。
+Roles page の **Can I** は verb、resource、namespace、group、subresource、optional name で SelfSubjectAccessReview を行います。対象は current kubeconfig identity であり、任意の Pod ServiceAccount ではありません。

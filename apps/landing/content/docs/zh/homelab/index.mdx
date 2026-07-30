@@ -9,7 +9,7 @@ Dockerman 的 homelab 功能让你监控自托管服务，在出现问题时收�
 
 大多数容器管理发生在你坐在桌前时。Homelab 模式覆盖其余场景：当你离开时、凌晨 3 点服务崩溃时，或者当你没有关注时新版本镜像发布时。
 
-Dockerman 是**桌面优先和本地优先**的。它不会部署管理容器，也不会暴露管理端口。所有功能都在应用内部运行，凭证保存在系统 Keychain 中，Compose 文件直接存放在文件系统上，`git` 和 `docker compose` CLI 可以直接使用它们。
+Dockerman 是**桌面优先和本地优先**的，不会部署管理容器或暴露管理端口。Registry、远程主机和通知中的敏感数据存放在应用本地数据中，不保证使用系统 Keychain，请相应保护该目录。
 
 ## 端到端工作流
 
@@ -20,9 +20,9 @@ Dockerman 是**桌面优先和本地优先**的。它不会部署管理容器，
     连接 [Telegram、ntfy、Gotify、Discord 或通用 webhook](/zh/docs/homelab/notifications)，让 Dockerman 在你离开时也能联系到你。
   </Step>
   <Step>
-    ### 启用预设告警规则（或编写自定义规则）
+    ### 启用预设告警规则
 
-    两条规则 — *Restart loop* 和 *Container crash (non-zero exit)* — 已预配置但默认禁用。一键即可启用，或添加更多[告警规则](/zh/docs/homelab/alerts)以处理资源阈值或按 stack 限定范围。
+    两条规则 — *Restart loop* 和 *Container crash (non-zero exit)* — 已预配置但默认禁用。自定义规则创建目前标记为“即将推出”。
   </Step>
   <Step>
     ### 订阅镜像更新

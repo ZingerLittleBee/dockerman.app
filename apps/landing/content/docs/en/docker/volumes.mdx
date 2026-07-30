@@ -15,7 +15,7 @@ The volume list shows the name, driver, mountpoint, size, and created time. Sort
   <Step>
     ### Pick a name and driver
 
-    Choose the volume name, then pick the driver you want. Local is the default, and plugin drivers appear when they are installed.
+    Choose the volume name and one of the options currently offered by the dialog (`local`, `nfs`, or `cifs`). The list is not dynamically populated from installed Docker plugins.
   </Step>
   <Step>
     ### Driver options (optional)
@@ -39,7 +39,7 @@ Open Inspect to review the volume JSON, including the mountpoint, driver options
 
 ## Prune unused volumes
 
-Prune removes every volume that is not currently attached to a container.
+Prune forwards the operation to the selected runtime, which decides which volumes are unused. Review the confirmation before continuing.
 
 <Callout type="warn">
   Prune removes all unused volumes, including named volumes you might want to keep. Use Delete instead when you want to be explicit.

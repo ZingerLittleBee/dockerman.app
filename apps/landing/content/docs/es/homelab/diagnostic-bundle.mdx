@@ -23,9 +23,9 @@ El paquete de diagnóstico empaqueta todo lo que necesitas para depurar un conte
 | Archivo | Contenido |
 | --- | --- |
 | `manifest.json` | Timestamp de generación, versión de Dockerman, tipo de host, inventario de archivos, conteo de redacción y cualquier error encontrado |
-| `system.json` | Versión de Docker e información del sistema (campos sensibles excluidos) |
+| `system.json` | Versión de Docker e información del sistema. Se elimina el usuario del registro, pero no se aplica una limpieza general de secretos. |
 | `events.json` | Eventos de Docker filtrados por la ventana de tiempo seleccionada y contenedores objetivo |
-| `inspect.json` | Datos combinados de inspect de contenedor, imagen, red y volumen. Las variables de entorno se redactan por defecto. `State.Health` se incluye. |
+| `inspect.json` | Datos de inspect de contenedor, imagen, red y volumen. Por defecto solo se redactan los valores con nombre coincidente en la lista `Env` de la configuración del contenedor. Incluye `State.Health`. |
 | `logs.txt` | Logs de contenedor con timestamps dentro de la ventana de tiempo seleccionada |
 | `stats.json` | Muestras de uso de recursos del almacén de series temporales (muestras crudas de 5 segundos cuando están disponibles, fallback a agregados de 5 minutos para ventanas más largas, o un snapshot actual si no hay datos de series temporales disponibles) |
 
@@ -84,7 +84,7 @@ Por defecto, los valores de variables de entorno que coinciden con el siguiente 
 Esto se aplica a los archivos `inspect.json` en el paquete. Puedes deshabilitar la redacción en el diálogo del paquete cuando necesites los valores sin procesar para tu propia depuración.
 
 <Callout type="warn">
-  Incluso con la redacción habilitada, los logs de contenedor pueden contener datos sensibles impresos por la aplicación. Revisa el paquete antes de compartirlo públicamente.
+  La redacción es limitada. El entorno de la imagen, las etiquetas, los comandos, las rutas de montaje, el inspect de redes y volúmenes y los logs todavía pueden contener secretos o rutas privadas. Revisa todos los archivos antes de compartir el paquete.
 </Callout>
 
 ## Consejos

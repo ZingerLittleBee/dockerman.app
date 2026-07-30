@@ -31,7 +31,7 @@ Dockermanは初回使用時にHelmバイナリを自動的にダウンロード�
 
 ## チャートを参照
 
-追加したすべてのリポジトリを横断検索し、チャートを開いてREADMEと利用可能なバージョンを確認します。
+追加 repository の index を検索して chart を選びます。embedded README や完全な version browser は保証しません。
 
 ## リリースをインストール
 
@@ -39,7 +39,7 @@ Dockermanは初回使用時にHelmバイナリを自動的にダウンロード�
   <Step>
     ### チャートとバージョンを選択
 
-    インストールしたいチャートバージョンを選択します。
+    repository result が提供する chart を選び、install 前に effective version を確認します。
   </Step>
   <Step>
     ### リリース名とネームスペースを設定
@@ -54,7 +54,7 @@ Dockermanは初回使用時にHelmバイナリを自動的にダウンロード�
   <Step>
     ### インストール
 
-    リリースを開始し、成功するまで進捗を監視します。
+    release を開始して command result を待ちます。continuous Helm progress stream はありません。
   </Step>
 </Steps>
 
@@ -69,7 +69,7 @@ Dockermanは初回使用時にHelmバイナリを自動的にダウンロード�
   <Step>
     ### アップグレード
 
-    新しいチャートバージョンを選択するか値を編集し、アップグレードを実行します。
+    values と利用可能な chart reference を編集して upgrade します。独立した new-version picker は保証しません。
   </Step>
   <Step>
     ### ロールバック

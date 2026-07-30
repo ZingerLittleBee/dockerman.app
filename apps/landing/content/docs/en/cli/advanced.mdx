@@ -7,7 +7,7 @@ This page collects the less-frequent CLI commands and the patterns we use when w
 
 ## `schema` and `call`
 
-Every backend RPC the daemon exposes is described in a self-documenting schema. `schema` lets you discover what's available; `call` lets you invoke any RPC by name without a dedicated subcommand.
+The schema describes the supported daemon surface. `call` can invoke only its own hard-coded allowlist of unary RPCs; it is not an unrestricted escape hatch.
 
 ```bash
 dockerman schema
@@ -15,8 +15,8 @@ dockerman schema fetch_logs
 dockerman schema --format mcp-tools
 
 dockerman call ping_host '{"address":"8.8.8.8"}'
-dockerman call hub_search '{"query":"alpine","page_size":5}'
-dockerman call remove_container '{"name":"web","force":true}' --yes
+dockerman call hub_search '{"query":"alpine","pageSize":5}'
+dockerman call remove_container '{"name":"web","options":{"force":true}}' --yes
 ```
 
 `call` expects a JSON params object. Destructive RPCs require `--yes` (or `-y`) just like the dedicated subcommands. Streaming RPCs cannot be invoked through `call` — use the dedicated streaming commands so you get the proper envelope.
@@ -79,9 +79,9 @@ dockerman wsl unregister --yes
 ### Pipe `--json` into `jq`
 
 ```bash
-dockerman container list --json | jq '.[] | select(.state=="running") | .name'
+dockerman container list | jq '.[] | select(.state=="running") | .name'
 dockerman trivy scan myrepo/app:v1 --json \
-  | jq -c 'select(.kind=="result") | .payload.results[] | .vulnerabilities[]?'
+  | jq -c 'select(.kind=="result")'
 ```
 
 ### Combine `--yes` with confirmation gates
@@ -98,13 +98,13 @@ The CLI requires `--yes` regardless of how confident your script is. There is no
 ### Detecting daemon discovery failure
 
 ```bash
-if ! dockerman host current >/dev/null 2>&1; then
+if ! dockerman system info >/dev/null 2>&1; then
   echo "daemon not reachable" >&2
   exit 3
 fi
 ```
 
-Daemon discovery and handshake failures exit with code `3`, distinct from RPC-level failures (`1`) and stream failures (`4`).
+`host current` is local-only and cannot test daemon reachability. Use a daemon-backed command such as `system info`; discovery and handshake failures exit with code `3`.
 
 ### Long-running streams in CI
 

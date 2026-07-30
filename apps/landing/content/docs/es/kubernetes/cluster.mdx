@@ -49,7 +49,7 @@ Importa un kubeconfig cuando ya tienes un clúster y quieres que Dockerman lo ge
   <Step>
     ### Selecciona un archivo kubeconfig
 
-    Dockerman analiza el archivo y **detecta automáticamente cada contexto** que contiene. Elige el contexto que quieras importar; Dockerman precompleta el nombre del clúster, la URL del servidor y el binding de usuario por ti.
+    Dockerman analiza el fichero y lista sus contextos. El flujo actual no promete campos separados precompletados para URL del servidor y binding de usuario.
   </Step>
   <Step>
     ### Verifica la conexión
@@ -79,13 +79,13 @@ Usa la acción que coincida con el tipo de clúster.
 
 ## Versión y estado del clúster
 
-La página de Clúster muestra la versión del servidor, el estado actual y la lista de nodos, incluyendo las versiones de kubelet y kube-proxy de cada nodo, para que puedas detectar desviaciones de versión o una conexión rota de un vistazo.
+La página muestra la versión del API server, conexión y nodos. Los objetos Node exponen kubelet y runtime, no una versión de kube-proxy por nodo.
 
 ## Nodos, PersistentVolumes y Namespaces
 
 Cada uno de estos tiene una página dedicada en la aplicación dentro de la sección de Kubernetes. Accede a ellas desde la barra lateral de K8s:
 
-- **Nodos** — lista de nodos con condiciones, capacidad, recursos asignables y etiquetas. Abre un nodo para ver las versiones de kubelet/kube-proxy, el runtime de contenedores y los pods programados en él.
+- **Nodos** — condiciones, capacidad, recursos asignables, etiquetas, versión de kubelet, runtime y Pods programados.
 - **PersistentVolumes** — lista de PV con ámbito de clúster, con fase, vinculación de claim, política de reclamación y capacidad. Consulta [Configuración y Almacenamiento → PersistentVolumes](/es/docs/kubernetes/config-storage#persistentvolumes) para la referencia completa.
 - **Namespaces** — crea, elimina e inspecciona namespaces directamente. El selector de namespace de la barra lateral se sincroniza con esta página.
 

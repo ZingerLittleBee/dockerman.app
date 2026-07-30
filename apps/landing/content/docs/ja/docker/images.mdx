@@ -69,7 +69,6 @@ v4.6.0で追加されました。
   </Step>
 </Steps>
 
-{/* TODO(screenshot): images/hub-browser - Docker Hub browser with readme */}
 
 ## Dockerfileからビルド
 
@@ -106,7 +105,7 @@ v4.6.0で追加されました。
 
 v4.6.0で追加されました。
 
-ターゲットレジストリにサインインするか、プッシュ用の認証情報を提供した後、タグ付けされたイメージをプッシュできます。
+Dockerman の registry manager に設定した registry を選んで、tagged image を push します。
 
 <Steps>
   <Step>
@@ -117,7 +116,7 @@ v4.6.0で追加されました。
   <Step>
     ### レジストリ認証情報を設定
 
-    Dockermanは`~/.docker/config.json`から既存のDocker認証情報を読み取るか、プッシュごとに認証情報を追加できます。
+    registry manager の保存済み entry を選びます。`~/.docker/config.json` の自動 import や push ごとの ad-hoc credential 入力は保証しません。
   </Step>
   <Step>
     ### ストリーミング進捗でプッシュ
@@ -150,10 +149,10 @@ v4.6.0で追加されました。
 
 ### 初回インストール
 
-初回スキャン時にTrivyバイナリと脆弱性データベースがダウンロードされます。
+managed Trivy binary がなければ install を促します。scan 時には database の download または update が必要な場合があります。
 
 <Callout type="warn">
-  初回スキャンはTrivyバイナリ（約50MB）と脆弱性データベースをダウンロードします。ダウンロードは一度だけで、ローカルにキャッシュされます。カスタムバイナリパスが必要な場合は[Trivy設定](/ja/docs/reference/settings#trivy設定)を参照してください。
+  binary install と database update の両方で network が必要な場合があります。download size と cache state は Trivy version に依存します。
 </Callout>
 
 ### スキャンを実行
@@ -180,10 +179,9 @@ v4.6.0で追加されました。
 
 Dockermanは重大度ごとに調査結果をグループ化し、各調査結果を展開してCVE ID、説明、影響を受けるバージョン、利用可能な場合は修正バージョンを確認できます。生のレポートをJSONとしてエクスポートして、CIに投入したり結果をアーカイブしたりできます。
 
-{/* TODO(screenshot): images/trivy-report - Trivy report with expanded finding */}
 
 ## クリーンアップ
 
 - ビルドの残りを素早くクリアしたい場合は、ダングリングタブからダングリングイメージを削除します。
 - タグが不要になった場合は、マルチセレクトで古いバージョンを削除します。
-- 未使用のイメージをすべて一度に削除したい場合は、[Docker設定](/ja/docs/reference/settings#docker設定)のシステムプルーンコントロールを使用します。
+- Images page の **Prune** で、選択中の runtime に unused image の削除を依頼します。

@@ -1,245 +1,40 @@
 ---
 title: "コンテナ"
-description: "Docker コンテナの作成、検査、管理 — クローン、コミット、一時停止、バックアップがワンクリックで可能。"
+description: "コンテナの作成、確認、管理、backup、restore。"
 ---
 
-ここからコンテナの作成、検査、クローン、コミット、バックアップ、リストアを行えます。
+Containers page で、選択中の runtime 上の container を検索、確認、管理します。
 
-## コンテナリスト
+## Lifecycle
 
-コンテナリストには名前とID、イメージ、ステータス、ポートマッピング、作成時刻が表示されます。検索バーを使用して名前、イメージ、ポートでフィルタリングし、バッチアクションを実行したい場合はCtrl/Cmd+Clickで複数選択してください。
-
-{/* TODO(screenshot): containers/list - Container list with multi-select */}
-
-## ライフサイクルアクション
-
-ライフサイクルアクションを使用して、詳細ビューを開かずに選択したコンテナを制御できます。
-
-| アクション | 効果 |
-| --- | --- |
-| Start | 停止したコンテナを起動します |
-| Stop | 実行中のコンテナを正常に停止します（SIGTERM、タイムアウト後にSIGKILL） |
-| Restart | コンテナを停止して起動します |
-| Pause | `SIGSTOP`ですべてのプロセスを凍結します |
-| Unpause | `SIGCONT`で一時停止したプロセスを再開します |
-| Remove | コンテナを削除しますが、停止後にのみ実行されます |
+利用できる action は container state と runtime に依存します。対応している場合、start、stop、restart、pause、unpause、rename、remove、inspect、logs、terminal、stats、clone、commit、backup、restore が表示されます。
 
 <Callout type="info">
-  **PauseとStopの違い** — Pauseはコンテナのプロセスをメモリ内で凍結するため、Unpause時に即座に再開されます。Stopはプロセスを終了し、コンテナのPID名前空間を解放します。
+  Pause は runtime の pause API を使い、`SIGSTOP` を送るという契約ではありません。UI に force option がある場合は running container も remove できます。
 </Callout>
 
-## コンテナの作成
+## Create
 
-Dockermanに新しいコンテナをイメージ、`docker run`コマンド、既存のコンテナ、またはテンプレートからビルドさせたい場合は、作成ダイアログを使用してください。
+create dialog は選択した local image と option から設定を作ります。missing image の自動 pull や、作成後の自動 start は保証しません。必要なら先に pull し、作成後に明示的に start してください。
 
-<Tabs items={['フォーム', 'docker runから', '既存のクローン', 'テンプレートから']}>
-  <Tab>
-    <Steps>
-      <Step>
-        ### ベースイメージの選択
+ports、mounts、environment、resource limits、restart policy、network を確認します。runtime capability によって unsupported option は非表示になります。
 
-        ローカルイメージを選択するか、続行する前にオンデマンドでプルしてください。
-      </Step>
-      <Step>
-        ### 名前とコマンドの設定
+## Inspect、clone、commit
 
-        コンテナに名前を付け、必要な場合のみエントリポイントまたはコマンドを上書きしてください。
-      </Step>
-      <Step>
-        ### ポートとネットワーク
+- **Inspect** は runtime が返す container data を表示します。
+- **Clone** は対応する設定を create flow にコピーしますが、volume data はコピーしません。
+- **Commit** は writable layer を image に保存し、mounted volume data は含みません。
 
-        ポートマッピングを追加し、コンテナが参加するネットワークを選択してください。
-      </Step>
-      <Step>
-        ### 環境変数とボリューム
+## Backup と restore
 
-        キーと値の環境変数を追加し、バインドパスまたは名前付きボリュームをマウントしてください。
-      </Step>
-      <Step>
-        ### リソース制限と再起動ポリシー
+backup archive には manifest と、選択した container、volume、bind mount data が入ります。restore 前に preview し、任意の host path は自動的に「safe」と判定されないため各 bind mount を確認してください。
 
-        CPUとメモリの制限を設定し、再起動ポリシーを選択してください。
-      </Step>
-    </Steps>
-
-    {/* TODO(screenshot): containers/create-form - Create container dialog form tab */}
-  </Tab>
-  <Tab>
-    `docker run`コマンドを貼り付けると、Dockermanがそれをフォームタブに解析し、コンテナ作成前にレビューできます。
-
-    ```bash
-    docker run -d -p 8080:80 --name web nginx:latest
-    ```
-  </Tab>
-  <Tab>
-    既存のクローンは、コンテナの設定を新しい作成ダイアログにコピーし、起動前に任意のフィールドを変更できます。v4.6.0で追加されました。ボリュームデータはコピーされません。
-  </Tab>
-  <Tab>
-    空白のフォームからではなく、厳選されたプロジェクトから開始したい場合は、[Composeテンプレート](/ja/docs/docker/compose#テンプレートライブラリ)を使用してください。
-  </Tab>
-</Tabs>
-
-## 検査と更新
-
-Inspectを開いて、ネットワーク設定、マウント、環境変数、ラベルを含む完全なコンテナJSONを確認してください。Updateは、CPU、メモリ、再起動ポリシーなど、コンテナを再作成せずに変更できる少数のライブ設定に使用してください。イメージ、環境、ポートの変更については、コンテナを停止して新しいコンテナを作成してください。
-
-## 実行中コンテナのコミット
-
-v4.6.0で追加されました。
-
-Commitは、コンテナの現在の書き込み可能レイヤーを新しいイメージタグとして保存します。
-
-<Steps>
-  <Step>
-    ### コンテナの選択
-
-    スナップショットを取得したい実行中のコンテナを選択してください。
-  </Step>
-  <Step>
-    ### 新しいイメージ名とタグの入力
-
-    新しいイメージのリポジトリとタグを選択してください。
-  </Step>
-  <Step>
-    ### 確認
-
-    新しいイメージがイメージリストに表示されます。
-  </Step>
-</Steps>
+restore は対応する resource を再作成しますが、元の network の存在や container の自動 start は保証しません。name、ports、volumes、networks、image を確認してから必要に応じて start します。
 
 <Callout type="warn">
-  Commitはマウントされたボリュームのデータは含みません。コンテナ自身のファイルシステムの変更のみをキャプチャします。
+  archive には filesystem data、environment value、bind mount content が含まれる可能性があります。
 </Callout>
 
-## コンテナのクローン
+## Batch action
 
-v4.6.0で追加されました。
-
-Cloneは、イメージ参照、ポート、環境変数、マウント、ネットワークを含むコンテナ設定を新しい作成ダイアログにコピーします。小さな変更を加えた2番目のインスタンスが必要な場合に使用してください。Cloneは設定の再利用用で、Commitはファイルシステムの変更を新しいイメージに保存するためのものです。
-
-## バックアップとリストア
-
-v4.8.0で追加されました。
-
-コンテナの設定、ファイルシステム、ボリュームデータを単一の`.tar.gz`アーカイブに保存して、同じホストまたは別のホストでリストアしたい場合は、コンテナをバックアップしてください。
-
-### バックアップの内容
-
-アーカイブにはマニフェスト、コンテナ設定、ファイルシステムスナップショット、接続されたボリューム、サポートされているバインドマウントのデータが含まれます。
-
-<Files>
-  <Folder name="backup-<name>-<timestamp>.tar.gz" defaultOpen>
-    <File name="manifest.json" />
-    <File name="config.json" />
-    <File name="filesystem.tar" />
-    <Folder name="volumes">
-      <File name="<volume-name>.tar" />
-    </Folder>
-    <Folder name="bind-mounts">
-      <File name="<mount-id>.tar" />
-    </Folder>
-  </Folder>
-</Files>
-
-### バインドマウントのサポート
-
-バックアップにはサポートされているバインドマウントのデータが含まれるため、コンテナのホスト側ファイルもまとめて移動できます。
-
-- 各バインドマウントは、ボリュームアーカイブと並んで独自のアーカイブエントリとしてキャプチャされます。
-- リストア時には、**各マウントを新しいホストパスに再マッピング** したり、完全にスキップしたりできます。元のマウントパスは参考のために表示されます。
-- 読み取り専用バインドマウントや、ホストパスが読み取れないマウントはスキップされ、マニフェストに注記されます。
-
-<Callout type="info">
-  システムパス（例：`/var/run/docker.sock`、`/proc`、`/sys`）を指すバインドマウントは意図的に除外されます — それらはコンテナではなくホストに属するためです。
-</Callout>
-
-### バックアップの作成
-
-<Steps>
-  <Step>
-    ### バックアップダイアログを開く
-
-    コンテナリストから、コンテナを右クリックしてBackupを選択してください。
-  </Step>
-  <Step>
-    ### 含める項目の選択
-
-    設定は常に含まれます。必要に応じてファイルシステムとボリュームを切り替えてください。
-  </Step>
-  <Step>
-    ### 出力パスの選択
-
-    ローカルマシン上の保存先ディレクトリを選択してください。
-  </Step>
-  <Step>
-    ### プログレスバーを待つ
-
-    バックアップはディスクにストリーミングされ、いつでもキャンセルできます。
-  </Step>
-</Steps>
-
-{/* TODO(screenshot): containers/backup-dialog - Backup dialog with progress */}
-
-### バックアップからのリストア
-
-<Steps>
-  <Step>
-    ### `.tar.gz`ファイルの選択
-
-    コンテナページから、Restoreを選択してアーカイブを選択してください。
-  </Step>
-  <Step>
-    ### バックアップのプレビュー
-
-    Dockermanはマニフェストを読み取り、イメージ参照、ポート、マウント、環境を表示します。
-  </Step>
-  <Step>
-    ### 名前、ポート、イメージタグの編集
-
-    競合する場合はコンテナ名を変更し、ホストポートを再マッピングし、ローカルに存在しない場合はイメージタグを変更してください。
-  </Step>
-  <Step>
-    ### リストアの確認
-
-    新しいコンテナが作成されて起動されます。
-  </Step>
-</Steps>
-
-<Callout type="warn">
-  名前の競合は事前に検出されます。ポートの競合は起動時にのみ検出されるため、確認前にホストポートを確認してください。
-</Callout>
-
-{/* TODO(screenshot): containers/restore-preview - Restore preview with editable fields */}
-
-### ヒント
-
-- 大きなコンテナのバックアップはボリュームサイズに比例して増大するため、アーカイブは接続されたデータ量に応じて増大します。
-- ホスト間でコンテナを移動するには、ソースホストでバックアップを作成し、`.tar.gz`をコピーして、ターゲットホストでリストアしてください。
-- バックアップにはネットワーク定義は含まれません。ターゲットホストに一致するネットワークがあることを確認するか、Dockermanに再作成させてください。
-
-## ビジュアル `.env` エディタ
-
-テキストエディタで `.env` を開く代わりに、キー/値テーブルで環境変数を編集できます。コンテナのアクションメニュー（または、スタックに `.env` ファイルがある場合は Compose プロジェクトメニュー）から開くと、Dockerman が実行中のサービスに変更を適用します。
-
-- **コメントと空行の保持** — 元のファイル内のコメントと間隔は保存ラウンドトリップ後も保たれ、エディタは変更した行のみを書き換えます。
-- **アトミックな保存と適用** — 単一のボタンでファイルを書き込み、影響を受けたサービスを再作成するため、`docker compose up -d` を再実行することを覚えておく必要はありません。
-- **タイプセーフな入力** — 引用符付きの値、エスケープ、複数行の値が正しく解析されます。
-
-## バッチ操作
-
-Ctrl/Cmd+ClickまたはShift+Clickでコンテナを複数選択し、選択範囲全体でアクションを実行してください。バッチアクションにはStart、Stop、Restart、Pause、Removeが含まれます。
-
-<Callout type="warn">
-  バッチRemoveは元に戻せず、選択範囲全体に対して1回のみ確認を求めます。
-</Callout>
-
-## キーボードショートカット
-
-完全なキーマップについては[コンテナアクションショートカット](/ja/docs/reference/keyboard-shortcuts#コンテナアクション)を参照してください。行がフォーカスされている場合、以下のキーで一般的なアクションを実行できます。
-
-| アクション | ショートカット |
-| --- | --- |
-| Start | `S` |
-| Stop | `X` |
-| Logs | `L` |
-| Terminal | `T` |
+page の batch mode を有効にして複数 row を選びます。現在の toolbar に出る action だけが対象で、通常の Ctrl/Cmd+Click や single-letter shortcut は契約ではありません。

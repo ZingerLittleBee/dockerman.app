@@ -434,11 +434,12 @@
       "items": [
         {
           "question": "What does Lifetime License mean?",
-          "answer": "Purchase once and use Dockerman forever. Your license includes lifetime free updates for all future versions."
+          "answer": "Local Docker and Podman features are free forever and do not require a license. A paid lifetime license is a one-time purchase that unlocks remote hosts and the other paid features on your licensed devices forever, including free updates for all future versions."
         },
         {
           "question": "What does Device Limitation mean?",
-          "answer": "You can activate Dockerman on the number of devices specified by your license. You can deactivate a device anytime and transfer the license to another device. If you lose access to a device, you can reset your license to deactivate all devices (limit: once per 7 days)."
+          "answer": "You can activate Dockerman on the number of devices specified by your license. You can deactivate a device anytime and transfer the license to another device. If you lose access to a device, you can reset your license to deactivate all devices (limit: once per 7 days).",
+          "actionLabel": "Open License Self-Service"
         },
         {
           "question": "Can I use the license on both macOS and Windows?",

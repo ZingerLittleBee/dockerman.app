@@ -9,7 +9,7 @@ DockermanのHomelab機能を使用すると、セルフホストサービスを�
 
 ほとんどのコンテナ管理はデスクで行われます。Homelabモードはそれ以外の時間をカバーします：離席中、深夜3時にサービスがクラッシュしたとき、または見ていない間に新しいイメージバージョンがリリースされたときのことです。
 
-Dockermanは**デスクトップファーストかつローカルファースト**です。管理コンテナをデプロイせず、管理ポートを公開しません。すべてがアプリ内で実行され、認証情報はシステムKeychainに保存され、Composeファイルは`git`や`docker compose` CLIが直接使用できるファイルシステム上に配置されます。
+Dockerman は desktop-first/local-first で、management container や port を公開しません。registry、remote host、notification の sensitive data は app local data に保存され、system Keychain の利用は保証されません。
 
 ## エンドツーエンドのワークフロー
 
@@ -20,9 +20,9 @@ Dockermanは**デスクトップファーストかつローカルファースト
     [Telegram、ntfy、Gotify、Discord、または汎用webhook](/ja/docs/homelab/notifications)を接続し、離席中でもDockermanが連絡できるようにします。
   </Step>
   <Step>
-    ### プリセットアラートルールを有効化（または独自に作成）
+    ### Preset alert rule を有効化
 
-    *Restart loop* と *Container crash (non-zero exit)* の 2 つのルールが事前設定されて無効状態で同梱されています。1 クリックで有効化するか、リソース閾値やスタックごとのスコープ用に[アラートルール](/ja/docs/homelab/alerts)を追加してください。
+    *Restart loop* と *Container crash (non-zero exit)* が disabled で同梱されています。custom rule creation は Coming Soon です。
   </Step>
   <Step>
     ### イメージ更新の購読

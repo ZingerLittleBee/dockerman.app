@@ -34,7 +34,7 @@ Usa Dockerman cuando quieras Kubernetes en la misma aplicación que ya usas para
     Redirige puertos y registra entradas DNS locales automáticas.
   </Card>
   <Card title="Asistente de depuración" href="/es/docs/kubernetes/debug">
-    Lanza un pod de depuración efímero con las herramientas que necesitas.
+    Reenvía el puerto de debug de un proceso existente y genera una configuración attach.
   </Card>
   <Card title="Recursos Personalizados" href="/es/docs/kubernetes/custom-resources">
     Descubre CRDs y explora o edita sus instancias como YAML.
@@ -76,7 +76,7 @@ Usa el selector de namespaces en la barra superior para filtrar cada lista de Ku
 
 ## Personalización de la barra lateral
 
-La barra lateral de Kubernetes está agrupada en las secciones Cargas de trabajo, Redes, Configuración y Almacenamiento, RBAC y Clúster. Dos controles te permiten adaptarla a tu flujo:
+La barra lateral tiene siete grupos: Clúster, Workloads, Service & Network, Config & Storage, Access Control, Helm y Tools.
 
 - **Estado de expansión por defecto por grupo** — elige qué grupos se abren automáticamente al conectarte a un clúster, desacoplado del estado de colapso en tiempo de ejecución.
 - **Visibilidad por elemento** — oculta entradas individuales de recursos que nunca usas; el expandir/colapsar en tiempo de ejecución retoma donde lo dejaste en la próxima sesión.
@@ -93,7 +93,6 @@ Las listas devuelven `K8sListResult<T>` tipado, por lo que un `403 Forbidden` se
   Estos flujos de trabajo aún no están en el alcance:
 
   - Creación de clústeres fuera de k3d, como kubeadm o aprovisionamiento de servicios gestionados.
-  - Horizontal pod autoscalers.
   - Gateway API más allá de Ingress.
   - Editores visuales de CRDs — usa edición YAML en su lugar.
   - Editor visual de NetworkPolicy — autorízalo con YAML.

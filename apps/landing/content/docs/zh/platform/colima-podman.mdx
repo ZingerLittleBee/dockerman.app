@@ -1,0 +1,64 @@
+---
+title: "Colima 与 Podman"
+description: "在 macOS 上使用 Colima 或 Podman machine 作为免费的 Docker 后端。"
+---
+
+## 概述
+
+Colima 和 Podman machine 是 macOS 上免费开源的 Docker Desktop 替代方案。两者都会运行一个轻量的 Linux 虚拟机并暴露 Docker 兼容的 socket，Dockerman 可以像连接其他引擎一样连接它。
+
+Dockerman 不会替你安装、更新、启动或停止这些引擎。请自行安装和管理 Colima 或 Podman，然后在 Dockerman 中配置其 socket。
+
+## 安装
+
+```bash
+# Colima（以及它驱动的 Docker CLI）
+brew install colima docker
+
+# 或 Podman
+brew install podman
+```
+
+## 首次启动（请在终端中执行）
+
+引擎会在首次启动时创建虚拟机，这一步需要从网络下载虚拟机的系统镜像。请自行在终端中执行，方便观察进度：
+
+```bash
+# Colima —— 首次启动会下载约 330 MB 的系统镜像
+colima start --cpus 4 --memory 8
+
+# Podman —— 会从 quay.io 下载约 1 GB 的虚拟机镜像
+podman machine init --cpus 4 --memory 8192
+podman machine start
+```
+
+<Callout type="info">
+  首次启动可能需要几分钟，取决于网络状况。之后的启动会复用已下载的镜像，几秒即可完成。
+</Callout>
+
+CPU 和内存请按你的机器情况设置——CPU 核数的一半、4–8 GB 内存是不错的起点。上游默认的 2 GB 内存对大多数镜像构建来说太小了。
+
+### 使用代理
+
+镜像下载发生在引擎自己的进程里，所以请在首次启动前、同一个终端会话中设置代理变量：
+
+```bash
+export HTTPS_PROXY=http://127.0.0.1:7890
+export HTTP_PROXY=http://127.0.0.1:7890
+colima start   # 或：podman machine init
+```
+
+## 首次启动之后
+
+虚拟机运行后，打开设置 → Docker，选择本地 socket 连接并填写引擎的 socket 路径。
+
+- Colima 通常使用 `$HOME/.colima/default/docker.sock`。
+- Podman machine 可通过 `podman machine inspect` 查看 `ConnectionInfo.PodmanSocket.Path`。
+
+Dockerman 目前不管理 Colima 或 Podman machine 的生命周期、CPU、内存或磁盘设置。Podman 验证命令可以探测 machine socket，但正常连接流程仍需要明确可用的 socket 路径。
+
+## 故障排查
+
+- 提示 "Socket not found" 说明虚拟机没有运行或配置路径错误。执行 `colima start` / `podman machine start`，然后检查设置中的路径。
+- 受限网络下下载卡住——按上文配置代理变量后重试。
+- 虚拟机在宿主机上的内存占用只增不减；重启引擎即可回收。

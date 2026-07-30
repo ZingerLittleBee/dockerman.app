@@ -1,66 +1,27 @@
 ---
-title: "Reenvío de puertos y DNS"
-description: "Reenvía puertos locales a Services o Pods y opcionalmente registra entradas DNS automáticas."
+title: "Port Forward y DNS"
+description: "Reenvía puertos de Pod, Service o Deployment y configura el DNS local de Dockerman."
 ---
 
-Reenvía puertos locales a Services o Pods, y luego deja que Dockerman registre un nombre DNS local para cada reenvío activo.
+Dockerman puede reenviar un puerto de un Pod, Service o Deployment a la máquina local. Los forwards activos pueden reconectarse según los ajustes de Kubernetes.
 
-## Reenvío de puertos de un Service o Pod
+## Iniciar un forward
 
-Usa un Service cuando quieras que el reenvío sobreviva a los reinicios de los pods.
-
-<Steps>
-  <Step>
-    ### Selecciona un objetivo
-
-    Elige un Pod o Service. Los Services son la opción más segura para reenvíos de larga duración.
-  </Step>
-  <Step>
-    ### Selecciona los puertos de destino y local
-
-    Dockerman sugiere el primer puerto del objetivo y un puerto local sin usar.
-  </Step>
-  <Step>
-    ### Inicia el reenvío
-
-    Inicia la conexión y obsérvala aparecer en Reenvíos activos.
-  </Step>
-</Steps>
-
-## Gestión de reenvíos activos
-
-La lista de reenvíos activos muestra el objetivo, el puerto local, el estado y la acción Detener.
-
-Los reenvíos de Services y Deployments se reconectan automáticamente después de errores de red transitorios usando retroceso exponencial, y cambian a un nuevo pod listo cuando el actual desaparece. Los reenvíos de Pods no se reconectan porque no hay un selector para encontrar un reemplazo.
+1. Abre un recurso compatible y selecciona **Port forward**.
+2. Elige el puerto remoto y un puerto local libre.
+3. Inicia el forward y usa la dirección local mostrada.
+4. Deténlo desde la lista de forwards activos al terminar.
 
 ## DNS automático
 
-Añadido en la v4.8.0. El DNS automático registra un nombre de host para cada reenvío de puerto activo y lo apunta a `127.0.0.1`.
+Al iniciar un forward, Dockerman registra un nombre `<target>.<namespace>.<suffix>`. El suffix inicial es `k8s.local` y el listener UDP usa el puerto `5353`.
 
-<Steps>
-  <Step>
-    ### Habilita el DNS automático en Ajustes
+No existe un interruptor independiente y Dockerman no modifica `/etc/hosts`.
 
-    Abre Ajustes > Configuración de DNS de Kubernetes > Habilitar DNS automático.
-  </Step>
-  <Step>
-    ### Crea un reenvío de puerto
+### Configuración del resolver
 
-    Dockerman añade la entrada DNS tan pronto como inicia el reenvío.
-  </Step>
-  <Step>
-    ### Abre la URL en tu navegador
+- macOS: configura `/etc/resolver/<suffix>` para apuntar al puerto DNS de Dockerman.
+- Linux: configura systemd-resolved u otro resolver para enviar el suffix al DNS local.
+- Windows: la integración automática con el resolver del sistema no está implementada.
 
-    Abre `http://<alias>:<puerto-local>/` después de que la entrada DNS esté en su lugar.
-  </Step>
-</Steps>
-
-<Callout type="warn">
-  El DNS automático edita `/etc/hosts` en macOS y Linux, lo que requiere privilegios elevados. En Windows, utiliza un servidor DNS local en `127.0.0.1:53`.
-</Callout>
-
-## Solución de problemas
-
-- Puerto ya en uso: selecciona el siguiente puerto local libre que sugiere Dockerman.
-- Entrada DNS no resuelta: confirma que el DNS automático está habilitado y borra cualquier caché del navegador obsoleto.
-- El reenvío sigue cayendo: verifica que el Service de respaldo aún tenga Endpoints saludables.
+Los cambios de suffix o puerto afectan a registros futuros. Las aplicaciones existentes pueden guardar respuestas DNS en caché.

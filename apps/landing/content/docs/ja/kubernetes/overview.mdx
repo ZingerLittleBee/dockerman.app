@@ -34,7 +34,7 @@ Docker用に既に使用している同じアプリでKubernetesが必要な場�
     ポートをフォワードし、自動ローカルDNSエントリを登録します。
   </Card>
   <Card title="デバッグアシスタント" href="/ja/docs/kubernetes/debug">
-    必要なツールを備えた一時的なデバッグPodを起動します。
+    既存 process の debug port を forward し、editor attach 設定を生成します。
   </Card>
   <Card title="カスタムリソース" href="/ja/docs/kubernetes/custom-resources">
     CRDを発見し、そのインスタンスをYAMLとして参照または編集します。
@@ -76,7 +76,7 @@ Dockerman はアクティブな Kubernetes クラスターを **アクティブ�
 
 ## サイドバーのカスタマイズ
 
-Kubernetes サイドバーは Workloads、Networking、Config & Storage、RBAC、Cluster の各セクションにグループ化されています。2 つのコントロールでワークフローに合わせて調整できます。
+Kubernetes sidebar は Cluster、Workloads、Service & Network、Config & Storage、Access Control、Helm、Tools の 7 group です。
 
 - **グループごとのデフォルト展開状態** — クラスターに接続したときに自動的に開くグループを選択できます。ランタイムの折りたたみ状態とは独立しています。
 - **項目ごとの可視性** — 使用しないリソースエントリを個別に非表示にできます。ランタイムの展開/折りたたみ状態は次回セッションでも維持されます。
@@ -93,7 +93,6 @@ Kubernetes サイドバーは Workloads、Networking、Config & Storage、RBAC�
   以下のワークフローはまだ範囲外です：
 
   - k3d以外のクラスター作成（kubeadmやマネージドサービスのプロビジョニングなど）。
-  - Horizontal Pod Autoscaler。
   - Ingress以外のGateway API。
   - ビジュアルCRDエディタ — 代わりにYAML編集を使用してください。
   - ビジュアルNetworkPolicyエディタ — YAMLで作成してください。

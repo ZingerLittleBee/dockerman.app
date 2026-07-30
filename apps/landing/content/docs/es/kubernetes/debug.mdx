@@ -1,92 +1,22 @@
 ---
-title: "Asistente de Depuración"
-description: "Lanza un pod de depuración efímero junto a un pod objetivo para diagnosticar problemas de red, DNS y sistema de archivos."
+title: "Asistente de depuración"
+description: "Reenvía el puerto de depuración de un proceso existente y genera una configuración de conexión."
 ---
 
-Añadido en la v4.8.0. Usa el Asistente de Depuración para lanzar un pod de depuración efímero junto a un pod objetivo y abrir un shell con herramientas de depuración preinstaladas.
+El Asistente de depuración conecta un depurador local con un proceso que ya se ejecuta en un Pod. Crea un port forward de Kubernetes y genera una configuración de conexión para el editor.
 
-## Cuándo usar el Asistente de Depuración
+## Iniciar una sesión
 
-- La imagen objetivo es mínima, como distroless o scratch, y no tiene shell.
-- Necesitas herramientas como `tcpdump`, `dig`, `curl` o `nc` que no están en la imagen objetivo.
-- Necesitas inspeccionar volúmenes montados o el espacio de nombres de red del pod sin tocar el pod mismo.
-- Estás depurando un `CrashLoopBackOff` y el pod nunca permanece activo el tiempo suficiente para `kubectl exec`.
+1. Selecciona un Pod y un contenedor existentes.
+2. Elige un preset compatible o introduce el puerto remoto y la ruta de código.
+3. Inicia la sesión.
+4. Copia el JSON generado en la configuración del editor.
+5. Detén la sesión al terminar para cerrar el port forward.
 
-## Lanzar un pod de depuración
+## Funciones no incluidas
 
-<Steps>
-  <Step>
-    ### Selecciona el pod objetivo
+<Callout type="warn">
+  Dockerman no crea un Pod temporal de herramientas, no inyecta depuradores, no comparte namespaces ni volúmenes de otro Pod y no abre un terminal de depuración. El proceso de destino debe estar escuchando ya en el puerto elegido.
+</Callout>
 
-    Desde Pods o Workloads, elige Depurar en el pod que quieres inspeccionar.
-  </Step>
-  <Step>
-    ### Configura las opciones de compartición
-
-    Elige si compartir el espacio de nombres de proceso, el espacio de nombres de red y los volúmenes montados.
-  </Step>
-  <Step>
-    ### Espera a que el pod de depuración esté Listo
-
-    Dockerman crea el pod y espera a que esté Listo antes de abrir el terminal.
-  </Step>
-  <Step>
-    ### Interactúa mediante el terminal integrado
-
-    El pod de depuración se abre en una pestaña de terminal de Dockerman.
-
-    {/* TODO(screenshot): kubernetes/debug-assistant - Debug pod terminal with target info */}
-  </Step>
-</Steps>
-
-## Presets de depuración
-
-Dockerman incluye tres presets integrados que preconfiguran el puerto y el protocolo de depuración para runtimes comunes:
-
-| Preset | Puerto | Protocolo |
-| --- | --- | --- |
-| Node.js | 9229 | Inspector |
-| Go (Delve) | 2345 | DAP |
-| Python (debugpy) | 5678 | DAP |
-
-Selecciona un preset al lanzar el pod de depuración para omitir la configuración manual de puertos.
-
-## Qué hay dentro del pod de depuración
-
-| Herramienta | Propósito |
-| --- | --- |
-| `bash`, `sh` | Shells |
-| `ps`, `top`, `htop` | Inspección de procesos |
-| `netstat`, `ss` | Estado de conexiones |
-| `tcpdump` | Captura de paquetes |
-| `curl`, `wget` | Sondas HTTP |
-| `dig`, `nslookup` | Resolución DNS |
-| `nc` | Comprobaciones TCP y UDP raw |
-| `vim`, `less` | Inspección de archivos |
-| `strace` | Tracing de syscalls cuando el kernel lo permite |
-
-## Flujos de trabajo comunes de depuración
-
-<Accordions>
-  <Accordion title="Diagnostica un problema de DNS">
-    - Ejecuta `dig @<cluster-dns>` para el Service o nombre que esperas resolver.
-    - Verifica `/etc/resolv.conf` dentro del pod de depuración.
-    - Verifica los Endpoints de kube-dns desde la página de Redes.
-    - Prueba `getent hosts` antes de salir del pod.
-  </Accordion>
-  <Accordion title="Captura el tráfico entre pods">
-    - Ejecuta `tcpdump -i any port 8080 -w /tmp/capture.pcap`.
-    - Reproduce la solicitud desde el pod objetivo o un pod cliente.
-    - Copia la captura con `kubectl cp`.
-    - Abre la captura en Wireshark.
-  </Accordion>
-  <Accordion title="Inspecciona un volumen montado">
-    - Lanza el pod de depuración con los montajes de volúmenes habilitados.
-    - `cd` a la ruta de montaje.
-    - Inspecciona el contenido en su lugar.
-  </Accordion>
-</Accordions>
-
-## Limpieza
-
-El pod de depuración es efímero. Cierra la pestaña del terminal o sal del shell cuando termines, y Dockerman lo limpiará por ti.
+Usa el [terminal del Pod](/es/docs/kubernetes/logs-terminal) cuando el contenedor ya incluya un shell válido.

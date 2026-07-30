@@ -3,7 +3,7 @@ title: "CLI 概要"
 description: "Daemon-first の dockerman CLI で、ターミナルから Docker、Kubernetes、Compose、Trivy のワークフローをスクリプト化できます。"
 ---
 
-`dockerman` は、認証付きの IPC ソケット経由でローカルの **dockerman-daemon** と通信する軽量なコマンドラインクライアントです。GUI で利用できるすべての機能——コンテナ、イメージ、Compose、Kubernetes 読み取り専用、Trivy、Docker Hub、トンネル、WSL——は CLI からも操作できます。v5.3.0 で追加。
+`dockerman` は、認証付きの IPC ソケット経由でローカルの **dockerman-daemon** と通信する軽量なコマンドラインクライアントです。CLI が公開するのは明示的に許可された操作だけで、GUI の全機能と同一ではありません。
 
 <Callout type="info">
   CLI は必要に応じて `dockerman-daemon` を自動起動します。CLI を使うだけなら GUI を立ち上げる必要はありません。
@@ -41,7 +41,7 @@ CLI は **Dockerman デスクトップアプリに同梱** されています �
 
 | フラグ | 用途 |
 | --- | --- |
-| `--host <id>` | 特定の Docker ホストを指定。ローカルソケットには `LOCALHOST`、または `dockerman host current` で表示される host id を渡す。 |
+| `--host <id>` | 特定の Docker ホストを指定。ローカルソケットには `LOCALHOST` を使います。`dockerman host current` は現在の選択だけを表示します。 |
 | `--pretty` | 生 JSON ではなく整形済みテーブルを出力（対応コマンドのみ）。 |
 | `--yes` / `-y` | 破壊的操作を確認。`remove`、`prune`、`restore`、`tunnel create`、`wsl unregister` などで必須。 |
 
@@ -82,6 +82,7 @@ dockerman schema fetch_logs
 | --- | --- |
 | `0` | 成功、または stream が自然終了 |
 | `1` | 一般的な失敗（バリデーション、RPC エラー、stream 本体エラー） |
+| `2` | コマンドライン引数の解析エラー |
 | `3` | 発見またはハンドシェイク失敗（daemon に到達不能） |
 | `4` | ストリーミングのハートビートタイムアウト（30 秒間フレームなし） |
 | `130` | ストリーミングコマンドへの `SIGINT`（Ctrl+C） |

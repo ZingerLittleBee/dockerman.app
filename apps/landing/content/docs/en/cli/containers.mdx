@@ -32,11 +32,11 @@ dockerman container rename web web-old
 
 ```bash
 dockerman container create web nginx:latest --platform linux/amd64
-dockerman container create web nginx:latest --config ./run.json
+dockerman container create web nginx:latest --config '{"HostConfig":{"AutoRemove":true}}'
 dockerman container commit web --repo myrepo --tag snapshot --pause
 ```
 
-`--config` accepts a JSON file with the same shape as `bollard::ContainerCreateOptions`. `commit` snapshots a running container into a new image.
+`--config` accepts the JSON object itself. It does not read a file path. `commit` snapshots a running container into a new image.
 
 ## Remove
 
@@ -91,7 +91,7 @@ Backup snapshots a container's filesystem (and optional bind mounts) into a sing
     dockerman container backup-targets web --pretty
     ```
 
-    Lists the container's volumes and bind mounts, plus a `safe_to_archive` flag for each bind mount.
+    Lists the container's volumes and bind mounts. The response does not include a `safe_to_archive` field.
   </Step>
   <Step>
     ### Create the archive
@@ -103,7 +103,7 @@ Backup snapshots a container's filesystem (and optional bind mounts) into a sing
       --include-all-safe-bind-mounts
     ```
 
-    Use `--include-bind-mount <index>` to opt in per mount, `--no-pause` to skip the pause/unpause cycle, `--force` to override `safe_to_archive` warnings.
+    Use `--include-bind-mount <index>` to opt in per mount and `--no-pause` to skip the pause/unpause cycle. `--force` only allows overwriting an existing output archive; it does not bypass a bind-mount safety decision.
   </Step>
   <Step>
     ### Preview an archive
@@ -130,5 +130,5 @@ Backup snapshots a container's filesystem (and optional bind mounts) into a sing
 </Steps>
 
 <Callout type="warn">
-  Backup paths are resolved on the CLI side to absolute local paths before being sent to the daemon. The daemon refuses relative paths, symlinks pointing outside the workspace, and paths the user cannot read.
+  Backup paths are resolved on the CLI side to absolute local paths before being sent to the daemon. The daemon itself requires an absolute path but does not enforce the additional workspace and symlink policy previously documented here. Review every included bind mount before archiving it.
 </Callout>

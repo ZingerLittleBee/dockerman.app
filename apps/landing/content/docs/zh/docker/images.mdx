@@ -69,7 +69,6 @@ v4.6.0 新增。
   </Step>
 </Steps>
 
-{/* TODO(screenshot): images/hub-browser - Docker Hub browser with readme */}
 
 ## 从 Dockerfile 构建
 
@@ -106,7 +105,7 @@ v4.6.0 新增。
 
 v4.6.0 新增。
 
-在登录到目标仓库或为推送提供凭据后，推送已标记的镜像。
+选择在 Dockerman 仓库管理器中配置的仓库后推送已标记镜像。
 
 <Steps>
   <Step>
@@ -117,7 +116,7 @@ v4.6.0 新增。
   <Step>
     ### 配置仓库凭据
 
-    Dockerman 从 `~/.docker/config.json` 读取现有的 Docker 认证，或者你可以为每次推送添加凭据。
+    在仓库管理器中添加或选择条目。推送对话框从该保存条目获取凭据，不承诺导入 `~/.docker/config.json` 或逐次输入临时凭据。
   </Step>
   <Step>
     ### 推送并观看流式进度
@@ -150,10 +149,10 @@ v4.6.0 新增。
 
 ### 首次安装
 
-首次扫描会下载 Trivy 二进制文件及其漏洞数据库。
+如果受管 Trivy 二进制不存在，Dockerman 会提示安装。扫描时 Trivy 仍可能下载或更新漏洞数据库。
 
 <Callout type="warn">
-  首次扫描会下载 Trivy 二进制文件（约 50 MB）以及漏洞数据库。此下载是一次性的，并在本地缓存。如果你需要自定义二进制文件路径，请参阅 [Trivy 设置](/zh/docs/reference/settings#trivy-设置)。
+  安装二进制和更新数据库都可能需要网络。缓存状态与下载大小取决于安装的 Trivy 版本。
 </Callout>
 
 ### 运行扫描
@@ -180,10 +179,9 @@ v4.6.0 新增。
 
 Dockerman 按严重程度对发现进行分组，然后让你展开每个发现以查看 CVE ID、描述、受影响版本和可用的修复版本。当你想要将其输入 CI 或存档结果时，将原始报告导出为 JSON。
 
-{/* TODO(screenshot): images/trivy-report - Trivy report with expanded finding */}
 
 ## 清理
 
 - 当你想要快速清除构建残留时，从悬空标签页删除悬空镜像。
 - 当你不再需要某个标签时，使用多选删除旧版本。
-- 当你想要一次性删除所有未使用的镜像时，在 [Docker 设置](/zh/docs/reference/settings#docker-设置) 中使用系统清理控件。
+- 使用镜像页的**清理**，请求所选运行时删除未使用镜像。

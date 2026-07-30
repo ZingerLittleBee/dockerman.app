@@ -1,67 +1,25 @@
 ---
 title: Stats
-description: Real-time and historical resource dashboards with ring gauges and sparkline charts for every container.
+description: Live and historical resource charts for containers.
 ---
 
-Use this page as your resource dashboard. Redesigned in v4.5.0, it combines ring gauges with sparkline charts so you can spot pressure quickly. With historical stats, you can also look back at trends over the past 7 days.
+Open Stats from a container to view its CPU, memory, network, disk, and process data. The ordinary Stats route expects a selected container; it is not a host-wide overview dashboard.
 
-## Overview dashboard
+## Time ranges
 
-The Stats page shows an overview of running containers first, then lets you drill into per-container panels when you need more detail.
+- Live: 1 minute, 5 minutes, or 15 minutes.
+- Historical: 1 hour, 6 hours, 24 hours, or 7 days.
 
-## Ring gauges
+Historical data depends on the stats aggregation and retention tasks. Raw samples are retained for 1 hour and five-minute aggregates for 7 days.
 
-Ring gauges show instantaneous CPU and memory usage per container. The outer ring shows the current value, and the faded inner arc shows the average over the selected time range. Green stays below 50 percent, amber covers 50 to 80 percent, and red marks anything above that.
+## Charts
 
-## Sparkline charts
+CPU and memory cards use ring gauges and history charts; network and disk cards show rates and expandable details. Ring colors are visual presentation, not documented alert thresholds.
 
-The four sparkline charts below each gauge row give you a compact history for each metric.
+## Compare
 
-- CPU percent
-- Memory in MB (live ranges) or memory percent (historical ranges)
-- Network I/O in bytes per second for receive and transmit
-- Disk I/O in bytes per second for read and write
-
-Hover a point to see the exact value for that moment.
-
-## Time range selector
-
-The selector at the top offers seven ranges split into two modes:
-
-| Range | Mode | Data source |
-| --- | --- | --- |
-| 1 min, 5 min, 15 min | Live | Real-time stream from the Docker daemon |
-| 1 hour, 6 hours, 24 hours, 7 days | Historical | Time series store (5-second raw samples for 1h, 5-minute aggregates for longer ranges) |
-
-Live ranges show data as it arrives from the Docker stats stream. Historical ranges query the time series database, which is populated by the [background task scheduler](/en/docs/homelab/scheduler).
+Enable Compare to select up to six host/container pairs. Compare uses historical aggregates and disables live mode. The selection persists locally.
 
 <Callout type="info">
-  Historical ranges require the `stats_aggregation` and `stats_retention_prune` background tasks to be enabled. They are on by default. Raw 5-second samples are retained for 1 hour; 5-minute aggregates are retained for 7 days.
+  Empty historical ranges mean no samples were recorded for that host and container during the window; they are not reconstructed from Docker after the fact.
 </Callout>
-
-## Network interfaces and disk devices
-
-Expand a container row when you want to break out network I/O by interface or disk I/O by device. This is useful when a container has multiple network attachments or several bind mounts.
-
-## Multi-container compare
-
-Select up to **6 containers** and the stats page renders side-by-side CPU and memory charts that share a common time axis. Use it to:
-
-- Confirm that a problem is isolated to one container vs. host-wide noise.
-- Compare a baseline replica against a canary while you tweak resource limits.
-- Watch a Compose stack's services line up when traffic spikes.
-
-Selections persist across page navigation, so you can drill into a container and come back without losing your comparison set. The compare chart's tooltip uses forward-fill to show every series at every hovered timestamp, even when one container's samples land off-grid.
-
-<Callout type="info">
-  Multi-container compare uses the same historical store as single-container charts, so the time range selector behaves the same way.
-</Callout>
-
-## Tips
-
-- Spiky CPU over 1h that flattens out over 24h usually means short-lived batch work, not a leak.
-- Memory that climbs over 24h and never drops is a strong leak signal.
-- Disk I/O spikes that line up with log growth often mean unrotated logs, so check [Logs](/en/docs/docker/logs).
-- Use the 7-day range to identify weekly patterns, such as backup jobs that spike resources on a schedule.
-
-{/* TODO(screenshot): stats/dashboard - Stats overview with ring gauges and sparklines */}

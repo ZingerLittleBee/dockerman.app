@@ -50,7 +50,7 @@ codex plugin marketplace add mandocker/skills
 - 完整的顶层命令地图（`container`、`image`、`compose`、`k8s`、`tunnel`、`trivy`、`wsl`、`events`、`schema`、`call`）。
 - 关键的输出形状提醒 —— 例如 `dockerman k8s pod list` 返回 `{ forbidden, items, truncated }`，且字段是 **扁平化** 的（`.name`、`.namespace`、`.restarts`、`.status`），不是 kubectl 的 `metadata.*` 嵌套结构。
 - 两条最常出错的 k8s scoping 规则：未选中 cluster 时必须传 `--cluster`；`pod list` 不加 `--namespace` 时只返回 `default` 命名空间（会静默漏掉 `kube-system`）。
-- 针对 `container backup -y` 和 `container restore -y` 的破坏性操作警告，避免助手把它们错说成 "dry-run"。
+- 针对 `container restore -y` 等破坏性操作的警告。backup 本身并不始终要求 `-y`。
 - 一个 `jq` cookbook（`references/output-parsing.md`），帮助投影 JSON 输出而不撑爆上下文。
 
 ## 更新或移除

@@ -40,9 +40,9 @@ dockerman compose remove myproject --remove-volumes --yes
 | `--dry-run` | 仅打印将要执行的操作，不实际修改 |
 | `--service <名称>` | 将 `restart`/`stop`/`start` 限制为单个服务 |
 
-`compose up` 接受 `--detach`（默认）或 `--attach`（流式输出日志直到流关闭）。
+`compose up` 接受 `--detach`（默认）或 `--attach`。当前 attach 输出在进程结束后返回，不是实时日志流。
 
-`compose remove`（别名 `compose down`）是破坏性操作，必须传 `--yes`。加 `--remove-volumes` 同时删除项目命名卷。
+`compose remove`（别名 `compose down`）是破坏性操作，必须传 `--yes`。`--remove-volumes` 会请求 Compose 删除其识别到的卷，但不保证枚举所有项目命名卷。
 
 ## Pull
 
@@ -61,8 +61,8 @@ dockerman compose deploy myproject ./docker-compose.yml \
   --env LOG_LEVEL=info
 ```
 
-`deploy` 接受项目名 + compose 文件路径。CLI 读取文件、按其父目录解析相对路径、然后请求 daemon 创建或更新项目。多次 `--env` 注入变量，无需修改磁盘上的 compose 文件。
+`deploy` 接受项目名 + compose 文件路径。daemon 会在临时目录中执行该文件，因此相对 build context、bind mount 或 env 文件路径可能失效；请改用绝对路径或已有项目的 `up`。
 
 <Callout type="info">
-  `deploy` 与 `up` 最终走同一个 daemon RPC。compose 文件还未被 Docker 识别时用 `deploy`；`compose list` 中已经能看到的项目用 `up`。
+  `deploy` 与 `up` 使用不同的 daemon RPC。前者上传文件内容，后者操作已有项目。
 </Callout>

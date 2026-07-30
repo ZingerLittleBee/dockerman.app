@@ -1,28 +1,17 @@
 ---
 title: "カスタムリソース"
-description: "クラスター内の CRD を発見し、そのインスタンスを参照または編集。"
+description: "CRD を検出し、カスタムリソースのインスタンスを表示・編集する。"
 ---
 
-v4.8.0 で追加されました。このページでは、CustomResourceDefinition を発見し、そのインスタンスを参照して YAML として編集できます。
+Dockerman は接続中のクラスターから CustomResourceDefinition を検出し、API group、Kind、scope、served versions、age を一覧表示します。
 
-## CRD 一覧
+CRD を選択するとインスタンスを表示できます。表には名前、必要な場合の namespace、利用可能な操作が表示されます。他の対応リソースと同じ server dry-run と競合チェックを使って YAML を編集できます。
 
-CRD 一覧を開くと、インストールされているすべての定義と、そのグループ、バージョン、スコープ、インスタンス数を確認できます。
+## 現在の制限
 
-## リソースインスタンスの参照
+- CRD 表はインスタンス数を計算しません。
+- Kubernetes printer columns は表示しません。
+- エディターは CRD OpenAPI schema を読み込まないため、クライアント側 schema 検証と補完はありません。
+- 最終的な受付と検証は Kubernetes API server が行います。
 
-CRD を選択すると、リソーススコープに応じて、ネームスペース全体またはクラスター全体でインスタンスを参照できます。詳細テーブルでは、CRD のプリンターカラムが利用可能な場合にそれを使用します。
-
-## YAML の表示と編集
-
-変更が必要な場合は、任意のインスタンスを YAML エディタで開くことができます。Dockerman は CRD スキーマを使用して、バリデーションとオートコンプリートを提供します。
-
-<Callout type="info">
-  YAMLエディタはカスタムリソースに限定されません。Deployment、Service、ConfigMapなど、任意のKubernetesリソースでYAML編集を開いて変更を表示・適用できます。Dockermanはサーバー管理フィールドを除去し、ドライラン検証をサポートし、保存前に競合を検出します。
-</Callout>
-
-## 制限事項
-
-<Callout type="info">
-  現時点ではカスタムリソースは YAML のみで編集できます。フィールドレベルのフォームはロードマップ上にあります。
-</Callout>
+CRD 自身が追加列や構造化 schema を公開していても、この制限は変わりません。

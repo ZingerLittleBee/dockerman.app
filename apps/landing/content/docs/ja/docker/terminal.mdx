@@ -1,39 +1,18 @@
 ---
 title: "ターミナル"
-description: "内蔵 xterm.js ターミナルで実行中の任意のコンテナにインタラクティブシェルで接続。"
+description: "実行中のコンテナでインタラクティブ shell を開きます。"
 ---
 
-xterm.jsを通じて、実行中の任意のコンテナにインタラクティブシェルを開くにはこのページを使用します。
+実行中のコンテナから **Terminal** を開くと、xterm.js の対話セッションが始まります。
 
-## ターミナルを開く
+## Shell command
 
-コンテナリストからコンテナを選択し、ターミナルを開きます。Dockermanはコンテナ内にインタラクティブシェルがある新しいターミナルビューを開きます。
+Dockerman はセッションで選択した shell command を実行します。複数の shell を自動探索したり `sh` で再試行したりはしません。command が存在しない場合は、image 内にあるものを選択してください。
 
-## シェルを選択する
+## 現在の controls
 
-Dockermanは`bash`、次に`sh`、次に`zsh`を試行します。別のコマンドが必要な場合は、ターミナル設定コントロールからセッションのシェルを上書きできます。
-
-<Callout type="info">
-  Alpineやdistrolessなどの最小限のイメージにはbashが含まれていない場合があります。Dockermanは自動的に`sh`にフォールバックします。
-</Callout>
-
-## コピー、ペースト、スクロール
-
-| ショートカット | アクション |
-| --- | --- |
-| Ctrl/Cmd + Shift + C | 選択範囲をコピー |
-| Ctrl/Cmd + Shift + V | ペースト |
-| マウスホイール | スクロール |
-| Ctrl/Cmd + Shift + K | ターミナルをクリア |
-
-## テーマとフォント
-
-組み込みのテーマから1つを選択し、[ターミナル設定](/ja/docs/reference/settings#ターミナル設定)でフォントファミリーとサイズをカスタマイズします。
-
-## 制限事項
+terminal toolbar と terminal 標準の選択、copy、paste、scroll を使います。desktop settings には global terminal font、cursor、theme の設定や、独自の terminal shortcut map はありません。
 
 <Callout type="warn">
-  - コンテナを停止するとターミナルセッションが終了します。
-  - 長時間アイドル状態の接続はDockerによって切断される場合があるため、ターミナルを再度開いて再接続してください。
-  - 一部のTUIアプリを起動する前に`TERM=xterm-256color`が必要な場合があります。
+  コンテナを停止すると session は終了します。distroless image には shell 自体がない場合があります。
 </Callout>

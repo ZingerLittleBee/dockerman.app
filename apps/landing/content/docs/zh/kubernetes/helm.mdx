@@ -31,7 +31,7 @@ Dockerman 在首次使用时自动下载和管理 Helm 二进制文件，并进�
 
 ## 浏览 charts
 
-在所有已添加的仓库中搜索，然后打开 chart 查看其 README 和可用版本。
+搜索已添加仓库的索引并选择 chart。当前浏览器不承诺内嵌 README 或完整版本列表。
 
 ## 安装 release
 
@@ -39,7 +39,7 @@ Dockerman 在首次使用时自动下载和管理 Helm 二进制文件，并进�
   <Step>
     ### 选择 chart 和版本
 
-    选择你要安装的 chart 版本。
+    选择当前仓库结果提供的 chart，并在安装前核对实际版本。
   </Step>
   <Step>
     ### 选择 release 名称和命名空间
@@ -54,7 +54,7 @@ Dockerman 在首次使用时自动下载和管理 Helm 二进制文件，并进�
   <Step>
     ### 安装
 
-    启动 release 并观察进度流直到成功。
+    启动 release 并等待命令结果。界面不提供持续的 Helm 进度流。
   </Step>
 </Steps>
 
@@ -69,7 +69,7 @@ Dockerman 在首次使用时自动下载和管理 Helm 二进制文件，并进�
   <Step>
     ### 升级
 
-    选择新的 chart 版本或编辑值，然后运行升级。
+    编辑 values 和可用的 chart 引用后运行升级。当前表单不承诺单独的新版本选择器。
   </Step>
   <Step>
     ### 回滚

@@ -22,17 +22,17 @@ Para verificar:
 /plugin list
 ```
 
-Deberías ver `dockerman` habilitado. Prueba un prompt como *"List my running containers"* y Claude debería ejecutar `dockerman container ls`.
+Deberías ver `dockerman` habilitado. Antes de automatizar, comprueba `dockerman --help` y la salida real; el plugin puede ir por detrás de la app.
 
 ## Qué obtienes
 
 El plugin contiene un único skill, `dockerman-cli`, que cubre:
 
 - Una descripción de SKILL "agresiva" para que Claude lo dispare en prompts de Docker / Compose / Kubernetes / kubectl incluso cuando el usuario no diga "dockerman".
-- El mapa completo de comandos top-level (`container`, `image`, `compose`, `k8s`, `tunnel`, `trivy`, `wsl`, `events`, `schema`, `call`).
+- El mapa de comandos (`container`, `image`, `compose`, `network`, `volume`, `host`, `system`, `hub`, `k8s`, `tunnel`, `trivy`, `wsl`, `events`, `schema`, `call`).
 - Notas críticas sobre la forma de la salida — por ejemplo, que `dockerman k8s pod list` devuelve `{ forbidden, items, truncated }` con campos **aplanados** (`.name`, `.namespace`, `.restarts`, `.status`), no el árbol `metadata.*` de kubectl.
 - Las dos reglas de scope de k8s en las que todo el mundo cae al primer intento: `--cluster` es obligatorio si no hay cluster seleccionado, y `pod list` sin `--namespace` sólo devuelve el namespace `default` (omite silenciosamente `kube-system`).
-- Una advertencia sobre acciones destructivas para `container backup -y` y `container restore -y`, para que Claude nunca las describa como "dry-run".
+- Advertencias para operaciones destructivas como `container restore -y`. Un backup no requiere siempre `-y`.
 - Un cookbook de `jq` (`references/output-parsing.md`) para proyectar la salida JSON sin saturar el contexto.
 
 ## Actualizar o desinstalar

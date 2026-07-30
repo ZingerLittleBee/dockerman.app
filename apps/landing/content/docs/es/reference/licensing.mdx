@@ -1,13 +1,13 @@
 ---
 title: "Licencias"
-description: "Activa, gestiona y restablece tu licencia de Dockerman entre dispositivos."
+description: "Las funciones locales son gratuitas para siempre. Descubre cuándo necesitas una licencia y cómo gestionarla."
 ---
 
-Activa, gestiona y restablece tu licencia de Dockerman.
+Las funciones locales son gratuitas para siempre. Activa, gestiona y restablece una licencia cuando necesites funciones remotas de pago.
 
 ## Descripción general
 
-El núcleo de Dockerman es gratuito. Algunas funciones avanzadas pueden requerir una licencia, y la aplicación te lo solicita en el momento de uso cuando eso ocurre.
+Las funciones locales de Docker y Podman son gratuitas para siempre y no requieren licencia. Una licencia de pago de por vida desbloquea hosts remotos mediante SSH, gestión multi-host, túneles de Cloudflared y gestión de clústeres de Kubernetes. Dockerman solo te pide que actives una licencia cuando utilizas una de estas funciones de pago. Consulta [Precios](/es/pricing) para ver los planes actuales.
 
 ## Activar
 
@@ -31,22 +31,22 @@ El núcleo de Dockerman es gratuito. Algunas funciones avanzadas pueden requerir
 
 ## Gestionar dispositivos
 
-Cada licencia está vinculada a un identificador de dispositivo. Si reemplazas una máquina o pierdes el acceso a una, restablece la vinculación en el portal de autoservicio de licencias antes de activar en una máquina nueva.
+Cada activación está vinculada a un dispositivo. Si reemplazas una máquina o alcanzas el límite, abre el [autoservicio de licencias](https://license.dockerman.app/manage) e introduce el correo de compra y la clave. La política pública permite restablecer todos los dispositivos vinculados una vez cada siete días. Sigue las instrucciones de confirmación del servicio; esta documentación no garantiza una duración fija para el enlace enviado por correo.
 
-## Verificación sin conexión
+## Verificación al iniciar y sin conexión
 
-Después de la activación, Dockerman verifica la licencia localmente en cada inicio con una firma Ed25519. El uso diario no requiere acceso a la red.
+Dockerman verifica localmente la firma Ed25519 guardada y también intenta revalidar en línea en cada inicio. Si falla la red, la última licencia válida sigue funcionando durante un período de gracia. Tras 30 días sin una validación correcta, Dockerman elimina la licencia guardada y requiere activarla de nuevo.
 
 ## Solución de problemas
 
 <Accordions>
   <Accordion title="La activación falla con error de red">
-    Comprueba la configuración de tu firewall y proxy, luego intenta la activación de nuevo desde Ajustes → Licencia. Si el error persiste, utiliza el portal de autoservicio de licencias.
+    Comprueba la configuración de tu firewall y proxy, luego intenta la activación de nuevo desde Ajustes → Licencia. Si el error persiste, utiliza el [autoservicio de restablecimiento de licencias](https://license.dockerman.app/manage).
   </Accordion>
   <Accordion title="Límite de dispositivos alcanzado">
-    Restablece la vinculación del dispositivo antiguo en el portal de autoservicio de licencias, luego activa la licencia de nuevo en la máquina nueva.
+    Usa el [autoservicio de restablecimiento de licencias](https://license.dockerman.app/manage) para desactivar todos los dispositivos y, después, vuelve a activar la licencia en las máquinas que sigas usando.
   </Accordion>
   <Accordion title="Licencia inválida después de una actualización">
-    Intenta reactivar la licencia primero. Si eso no ayuda, contacta con soporte y adjunta la exportación del Registro de la aplicación.
+    Intenta reactivar la licencia primero. Si eso no ayuda, escribe a [support@dockerman.app](mailto:support@dockerman.app) y adjunta la exportación del Registro de la aplicación.
   </Accordion>
 </Accordions>

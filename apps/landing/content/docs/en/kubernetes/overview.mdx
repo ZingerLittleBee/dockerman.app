@@ -34,7 +34,7 @@ Use Dockerman when you want Kubernetes in the same app you already use for Docke
     Forward ports and register automatic local DNS entries.
   </Card>
   <Card title="Debug Assistant" href="/en/docs/kubernetes/debug">
-    Launch an ephemeral debug pod with the tools you need.
+    Forward an existing process's debug port and generate an editor attach configuration.
   </Card>
   <Card title="Custom Resources" href="/en/docs/kubernetes/custom-resources">
     Discover CRDs and browse or edit their instances as YAML.
@@ -76,7 +76,7 @@ Use the namespace switcher in the top bar to scope every Kubernetes list. Switch
 
 ## Sidebar customization
 
-The Kubernetes sidebar is grouped into Workloads, Networking, Config & Storage, RBAC, and Cluster sections. Two controls let you tailor it to your workflow:
+The Kubernetes sidebar has seven groups: Cluster, Workloads, Service & Network, Config & Storage, Access Control, Helm, and Tools.
 
 - **Per-group default expand state** — pick which groups open automatically when you connect to a cluster, decoupled from runtime collapse state.
 - **Per-item visibility** — hide individual resource entries you never use; runtime expand/collapse picks up where you left it next session.
@@ -93,7 +93,6 @@ Lists return typed `K8sListResult<T>` so a `403 Forbidden` is surfaced **at the 
   These workflows are not in scope yet:
 
   - Cluster creation outside k3d, such as kubeadm or managed-service provisioning.
-  - Horizontal pod autoscalers.
   - Gateway API beyond Ingress.
   - Visual CRD editors — use YAML editing instead.
   - Visual NetworkPolicy editor — author with YAML.

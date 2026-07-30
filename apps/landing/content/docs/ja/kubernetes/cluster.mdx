@@ -49,7 +49,7 @@ description: "ローカル k3d クラスターを起動するか、既存の kub
   <Step>
     ### kubeconfigファイルを選択
 
-    Dockermanはファイルを解析し、その中の**すべてのコンテキストを自動検出**します。インポートしたいコンテキストを選択すると、Dockermanがクラスター名、サーバーURL、ユーザーバインディングを事前入力します。
+    Dockerman は file を parse して context を一覧します。現在の flow は server URL と user binding の個別 prefill field を保証しません。
   </Step>
   <Step>
     ### 接続を確認
@@ -79,13 +79,13 @@ Kubernetesセクション上部のクラスタースイッチャーを使用し�
 
 ## クラスターバージョンとステータス
 
-クラスターページにはサーバーバージョン、現在のステータス、およびノードリストが表示されます。各ノードのkubeletとkube-proxyのバージョンも含まれているため、バージョンのずれや切断された接続を一目で確認できます。
+Cluster page は API server version、connection state、node information を表示します。Node object には kubelet と container runtime version があり、node ごとの kube-proxy version はありません。
 
 ## ノード、PersistentVolume、ネームスペース
 
 これらにはそれぞれ Kubernetes セクション内に専用のアプリ内ページがあります。K8s サイドバーから到達できます。
 
-- **ノード** — 状態、容量、割り当て可能リソース、ラベルを含むノードリスト。ノードを開くと、kubelet/kube-proxy のバージョン、コンテナランタイム、そのノードにスケジュールされている Pod を確認できます。
+- **ノード** — condition、capacity、allocatable、label、kubelet version、container runtime、scheduled Pod を表示します。
 - **PersistentVolume** — フェーズ、クレームバインディング、再利用ポリシー、容量を含むクラスタースコープの PV リスト。完全なリファレンスは [設定とストレージ → PersistentVolume](/ja/docs/kubernetes/config-storage#persistentvolume) を参照してください。
 - **ネームスペース** — ネームスペースを直接作成、削除、検査します。サイドバーのネームスペースセレクタはこのページと同期します。
 

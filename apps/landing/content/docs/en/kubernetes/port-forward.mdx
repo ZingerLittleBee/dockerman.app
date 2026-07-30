@@ -1,66 +1,27 @@
 ---
 title: Port Forward & DNS
-description: Forward local ports to Services or Pods and optionally register automatic DNS entries for them.
+description: Forward Pod, Service, or Deployment ports and configure Dockerman's local DNS helper.
 ---
 
-Forward local ports to Services or Pods, then let Dockerman register a local DNS name for each active forward.
+Dockerman can forward a port from a Pod, Service, or Deployment to the local machine. Active forwards can reconnect automatically according to the Kubernetes settings.
 
-## Forward a Service or Pod port
+## Start a forward
 
-Use a Service when you want the forward to survive pod restarts.
-
-<Steps>
-  <Step>
-    ### Pick a target
-
-    Choose a Pod or Service. Services are the safer default for long-lived forwards.
-  </Step>
-  <Step>
-    ### Pick the target and local ports
-
-    Dockerman suggests the target's first port and an unused local port.
-  </Step>
-  <Step>
-    ### Start the forward
-
-    Start the connection and watch it appear in Active Forwards.
-  </Step>
-</Steps>
-
-## Manage active forwards
-
-The active forwards list shows the target, local port, status, and Stop action.
-
-Service and Deployment forwards automatically reconnect after transient network errors using exponential backoff, and switch to a new ready pod when the current one goes away. Pod forwards do not reconnect because there is no selector to find a replacement.
+1. Open a supported resource and choose **Port forward**.
+2. Select the remote port and a free local port.
+3. Start the forward and use the displayed local address.
+4. Stop the forward from the active forwards list when finished.
 
 ## Automatic DNS
 
-Added in v4.8.0. Automatic DNS registers a hostname for each active port-forward and points it at `127.0.0.1`.
+When a forward starts, Dockerman registers a local name in the form `<target>.<namespace>.<suffix>`. The default suffix is `k8s.local`, and the built-in UDP DNS listener defaults to port `5353`.
 
-<Steps>
-  <Step>
-    ### Enable automatic DNS in Settings
+There is no separate DNS enable switch and Dockerman does not edit `/etc/hosts`.
 
-    Open Settings > Kubernetes DNS settings > Enable automatic DNS.
-  </Step>
-  <Step>
-    ### Create a port forward
+### Platform resolver setup
 
-    Dockerman adds the DNS entry as soon as the forward starts.
-  </Step>
-  <Step>
-    ### Open the URL in your browser
+- macOS: configure an `/etc/resolver/<suffix>` file that points to the Dockerman DNS port.
+- Linux: configure systemd-resolved or another resolver to send the selected suffix to the local DNS listener.
+- Windows: automatic system resolver integration is not currently implemented.
 
-    Open `http://<alias>:<local-port>/` after the DNS entry is in place.
-  </Step>
-</Steps>
-
-<Callout type="warn">
-  Automatic DNS edits `/etc/hosts` on macOS and Linux, which requires elevated privileges. On Windows, it uses a local DNS server on `127.0.0.1:53`.
-</Callout>
-
-## Troubleshooting
-
-- Port already in use: pick the next free local port that Dockerman suggests.
-- DNS entry not resolving: confirm automatic DNS is enabled and clear any stale browser cache.
-- Forward keeps dropping: check that the backing Service still has healthy Endpoints.
+Changing the suffix or port affects future registrations. Existing applications may cache DNS responses.

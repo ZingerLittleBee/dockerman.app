@@ -69,7 +69,6 @@ Usa el navegador de Hub integrado para buscar, inspeccionar y extraer imágenes 
   </Step>
 </Steps>
 
-{/* TODO(screenshot): images/hub-browser - Docker Hub browser with readme */}
 
 ## Construir desde un Dockerfile
 
@@ -106,7 +105,7 @@ La construcción usa el mismo daemon de Docker que el resto de Dockerman, y Buil
 
 Añadido en la v4.6.0.
 
-Envía una imagen etiquetada después de iniciar sesión en el registro objetivo o proporcionar credenciales para el envío.
+Envía una imagen etiquetada tras elegir un registro configurado en el gestor de registros de Dockerman.
 
 <Steps>
   <Step>
@@ -117,7 +116,7 @@ Envía una imagen etiquetada después de iniciar sesión en el registro objetivo
   <Step>
     ### Configurar las credenciales del registro
 
-    Dockerman lee la autenticación existente de Docker desde `~/.docker/config.json`, o puedes añadir credenciales por envío.
+    Añade o elige una entrada del gestor. El diálogo obtiene las credenciales de esa entrada; no promete importar `~/.docker/config.json` ni credenciales ad-hoc por envío.
   </Step>
   <Step>
     ### Enviar con progreso en streaming
@@ -150,10 +149,10 @@ Escanea una imagen para encontrar vulnerabilidades conocidas en sus capas instal
 
 ### Instalación por primera vez
 
-El primer escaneo descarga el binario de Trivy y su base de datos de vulnerabilidades.
+Si falta el binario gestionado, Dockerman pide instalarlo. Trivy aún puede descargar o actualizar su base de datos durante el escaneo.
 
 <Callout type="warn">
-  El primer escaneo descarga el binario de Trivy, unos 50 MB, más la base de datos de vulnerabilidades. La descarga es única y se almacena en caché localmente. Consulta [Configuración de Trivy](/es/docs/reference/settings#configuración-de-trivy) si necesitas una ruta de binario personalizada.
+  La instalación y las actualizaciones de base de datos pueden requerir red. El tamaño y la caché dependen de la versión instalada.
 </Callout>
 
 ### Ejecutar un escaneo
@@ -180,10 +179,9 @@ El primer escaneo descarga el binario de Trivy y su base de datos de vulnerabili
 
 Dockerman agrupa los hallazgos por severidad, luego te permite expandir cada hallazgo para ver el ID de CVE, descripción, versiones afectadas y versiones de corrección cuando estén disponibles. Exporta el informe raw como JSON cuando quieras alimentarlo en CI o archivar el resultado.
 
-{/* TODO(screenshot): images/trivy-report - Trivy report with expanded finding */}
 
 ## Limpieza
 
 - Elimina imágenes huérfanas desde la pestaña Huérfanas cuando quieras limpiar restos de construcción rápidamente.
 - Borra versiones antiguas con selección múltiple cuando ya no necesites una etiqueta.
-- Usa los controles de poda del sistema en [Configuración de Docker](/es/docs/reference/settings#configuración-de-docker) cuando quieras eliminar todas las imágenes no utilizadas a la vez.
+- Usa **Purgar** en la página de Imágenes para pedir al runtime que elimine imágenes no usadas.

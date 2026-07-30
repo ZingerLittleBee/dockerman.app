@@ -7,26 +7,24 @@ Spotlight es la paleta de comandos de Dockerman. Una pulsación abre un lanzador
 
 ## Abrir Spotlight
 
-Presiona `Cmd/Ctrl + K` por defecto, o abre Spotlight desde el menú de la bandeja. Spotlight se abre como una ventana separada sin marco mientras deja la ventana principal de Dockerman abierta en segundo plano.
+Presiona `Cmd/Ctrl + ;` por defecto, o abre Spotlight desde el menú de la bandeja. Spotlight se abre como una ventana separada sin marco.
 
 ## Navegar a recursos
 
-Empieza a escribir un nombre de contenedor, etiqueta de imagen, proyecto Compose, Pod de Kubernetes o página de Configuración. Los resultados se ordenan por uso y recencia, y presionar `Enter` abre el resultado seleccionado.
+Empieza a escribir un nombre de contenedor, una etiqueta de imagen o un proyecto Compose. `Enter` abre el resultado o la acción seleccionada. Dockerman no ordena actualmente por frecuencia de uso ni por recencia.
 
 ## Acciones rápidas
 
 Usa acciones inline directamente desde la lista de resultados cuando Spotlight las muestre.
 
-- Contenedores: Start, Stop, Restart, Logs, Terminal, Backup, Paquete de diagnóstico, Monitorear actualizaciones
-- Imágenes: Pull (re-pull), Scan with Trivy, Delete
-- Stacks Compose: Editar YAML, Paquete de diagnóstico, Monitorear todas las imágenes
-- Páginas de configuración: salta directamente
-- Plantillas: Launch
-- Homelab: Convertidor de Run a Compose, Notificaciones, Alertas
+- Contenedores: Start, Stop, Restart, Logs, Terminal, Backup y Paquete de diagnóstico
+- Imágenes: las acciones que la paleta muestre actualmente
+- Stacks Compose: acciones de ciclo de vida, Editar YAML y Paquete de diagnóstico
+- Utilidades: Docker Run to Compose
 
 ## Resaltados de búsqueda
 
-Los caracteres coincidentes se resaltan en cada resultado mientras escribes. Las búsquedas son difusas, así que `cntlog` aún coincide con "container logs".
+La búsqueda sigue la coincidencia de texto actual de la paleta. Dockerman no añade un contrato independiente de orden por uso ni de resaltado.
 
 ## Personalizar el atajo
 

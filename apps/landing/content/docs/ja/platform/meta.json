@@ -3,6 +3,7 @@
   "pages": [
     "windows",
     "macos",
+    "colima-podman",
     "linux",
     "wsl"
   ],

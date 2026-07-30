@@ -23,9 +23,9 @@ The diagnostic bundle packs everything you need to debug a container or Compose 
 | File | Contents |
 | --- | --- |
 | `manifest.json` | Generation timestamp, Dockerman version, host type, file inventory, redaction count, and any errors encountered |
-| `system.json` | Docker version and system info (sensitive fields excluded) |
+| `system.json` | Docker version and system info. Registry usernames are cleared, but the file is not a general-purpose secret scrubber. |
 | `events.json` | Docker events filtered by the selected time window and target containers |
-| `inspect.json` | Combined container, image, network, and volume inspect data. Environment variables are redacted by default. `State.Health` is included. |
+| `inspect.json` | Combined container, image, network, and volume inspect data. Matching values in the container config's `Env` list are redacted by default. `State.Health` is included. |
 | `logs.txt` | Timestamped container logs within the selected time window |
 | `stats.json` | Resource usage samples from the time series store (raw 5-second samples when available, falling back to 5-minute aggregates for longer windows, or a current snapshot if time series data is not available) |
 
@@ -84,7 +84,7 @@ By default, environment variable values that match the following pattern are rep
 This applies to the `inspect.json` files in the bundle. You can disable redaction in the bundle dialog when you need the raw values for your own debugging.
 
 <Callout type="warn">
-  Even with redaction enabled, container logs may contain sensitive data printed by the application. Review the bundle before sharing it publicly.
+  Redaction is intentionally narrow. Image environment values, labels, commands, mount paths, network and volume inspect data, and container logs can still contain secrets or private paths. Review every file before sharing a bundle.
 </Callout>
 
 ## Tips

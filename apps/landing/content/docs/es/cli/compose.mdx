@@ -40,9 +40,9 @@ dockerman compose remove myproject --remove-volumes --yes
 | `--dry-run` | Imprime qué pasaría sin aplicar cambios |
 | `--service <nombre>` | Limita `restart`/`stop`/`start` a un único servicio |
 
-`compose up` acepta `--detach` (por defecto) o `--attach` (transmite logs hasta que los streams se cierren).
+`compose up` acepta `--detach` (por defecto) o `--attach`. Actualmente la salida attach se devuelve al terminar el proceso, no como logs en tiempo real.
 
-`compose remove` (también con alias `compose down`) es destructivo y necesita `--yes`. Añade `--remove-volumes` para borrar los volúmenes nombrados del proyecto.
+`compose remove` (alias `compose down`) es destructivo y necesita `--yes`. `--remove-volumes` pide a Compose borrar los volúmenes que reconoce, pero no garantiza enumerarlos todos.
 
 ## Pull
 
@@ -61,8 +61,8 @@ dockerman compose deploy myproject ./docker-compose.yml \
   --env LOG_LEVEL=info
 ```
 
-`deploy` toma un nombre de proyecto más una ruta a un fichero compose. La CLI lee el fichero, resuelve las rutas relativas contra su directorio padre y pide al daemon que cree o actualice el proyecto. Repite `--env` para cada variable que quieras inyectar sin modificar el fichero compose en disco.
+`deploy` toma un nombre de proyecto y un fichero compose. El daemon lo ejecuta desde un directorio temporal, por lo que contextos de build, bind mounts o env files relativos pueden fallar. Usa rutas absolutas o `up`.
 
 <Callout type="info">
-  `deploy` y `up` acaban llamando al mismo RPC del daemon. Usa `deploy` cuando el fichero compose aún no es conocido por Docker, y `up` para un proyecto que ya aparece en `compose list`.
+  `deploy` y `up` usan RPC distintos. El primero envía el contenido del fichero; el segundo opera un proyecto existente.
 </Callout>

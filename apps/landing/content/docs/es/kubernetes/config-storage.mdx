@@ -49,4 +49,6 @@ Usa StorageClasses para inspeccionar las opciones de almacenamiento del clúster
 
 ## Namespaces
 
-La página de Namespaces lista cada namespace con su fase y antigüedad, te permite crear un nuevo namespace en línea y eliminar uno (con la advertencia de cascada que devuelve la API). El selector de namespace de la barra lateral se sincroniza con esta página, por lo que las actualizaciones aquí se reflejan globalmente.
+También hay páginas para LimitRange, ResourceQuota y PodDisruptionBudget.
+
+La página permite listar, crear y eliminar namespaces. Eliminar uno puede borrar recursos namespaced; la UI no promete reproducir cada aviso de cascada devuelto por la API.

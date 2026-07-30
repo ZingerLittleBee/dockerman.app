@@ -1,158 +1,22 @@
 ---
-title: "Compose 与模板"
-description: "通过 Docker Compose 管理多容器应用，并从模板库快速启动项目。"
+title: "Compose"
+description: "管理 Compose 项目并编辑其 YAML。"
 ---
 
-管理 Docker Compose 项目，并从内置模板库快速启动新项目。
+Compose 页根据 Docker Compose 标签发现项目，并提供当前 Docker 运行时支持的生命周期操作。Podman 目标不支持 Compose。
 
-<Callout type="warn">
-  Compose 仅在连接到 Docker 运行时时可用。当 Dockerman 检测到 Podman 时，Compose 操作和技术栈模板会自动隐藏。
-</Callout>
+## 生命周期
 
-## Compose 项目
+根据项目状态可启动、停止、重启、拉取、up 或移除。卷移除选项会转发给 Compose，Dockerman 不会预先枚举全部命名卷或核对其他使用者。
 
-Compose 页面显示 Dockerman 从 `com.docker.compose.project` 标签找到的每个项目，以及其容器数量、状态和基础路径。
+## 编辑 YAML
 
-## 启动、停止和移除项目
+在编辑器中打开项目 Compose 文件，保存后按需应用。保存前不会运行 `docker compose config`，编辑器也不承诺完整的 Compose schema 校验或自动补全。重要文件请另行验证。
 
-<Steps>
-  <Step>
-    ### 选择项目
+## 转换 `docker run`
 
-    选择你要管理的 Compose 项目。
-  </Step>
-  <Step>
-    ### 启动
+Run to Compose 会把常见 `docker run` 参数解析为 YAML 预览。保存与部署前请检查不支持或较高级的参数。
 
-    Dockerman 会先拉取所有缺失的镜像，然后启动所有服务。
-  </Step>
-  <Step>
-    ### 停止
+## 当前边界
 
-    Dockerman 会停止所有服务，但保留容器。
-  </Step>
-  <Step>
-    ### 移除
-
-    Dockerman 会移除容器和网络。卷会保留，除非你勾选"包含卷"。
-  </Step>
-</Steps>
-
-<Callout type="warn">
-  包含卷会移除 Compose 文件定义的匿名卷和命名卷。有其他使用者的命名卷会被跳过。
-</Callout>
-
-## 拉取项目镜像
-
-拉取会获取 Compose 文件引用的所有镜像，而不启动任何服务。在新主机上冷启动前使用此功能。
-
-## 编辑 compose.yaml
-
-在 Monaco 编辑器中打开 Compose YAML 编辑器进行编辑，具有完整的语法高亮、schema 验证和 Compose 规范字段（services、networks、volumes、configs）的自动补全。
-
-<Steps>
-  <Step>
-    ### 打开编辑器
-
-    选择一个 Compose 项目并点击**编辑**，在内置 Monaco 编辑器中打开其 `compose.yaml`。
-  </Step>
-  <Step>
-    ### 带验证编辑
-
-    输入时，编辑器会根据 Compose JSON schema 进行验证并内联高亮错误。常见字段如 `image`、`ports`、`volumes` 和 `environment` 提供自动补全。
-  </Step>
-  <Step>
-    ### 保存到磁盘
-
-    点击**保存**将文件写入磁盘上的原始位置。Dockerman 会在保存前运行 `docker compose config` 来验证文件。无效的 YAML 会阻止保存。
-  </Step>
-  <Step>
-    ### 应用更改
-
-    点击**应用**使用更新后的文件运行 `docker compose up -d`，只重新创建已更改的服务。
-  </Step>
-</Steps>
-
-<Callout type="info">
-  Compose 文件直接保存到项目目录的文件系统上。你可以使用 `git` 进行版本控制或使用任何外部工具编辑，Dockerman 会在下次打开编辑器时获取更改。
-</Callout>
-
-## 转换 `docker run` 为 Compose
-
-粘贴 `docker run` 命令，Dockerman 会将其转换为 `compose.yaml`，你可以将其保存为新的技术栈。
-
-<Steps>
-  <Step>
-    ### 打开转换器
-
-    进入 Compose 页面并点击**从 docker run**，或在 [Spotlight](/zh/docs/advanced/spotlight) 中搜索 "run to compose"。
-  </Step>
-  <Step>
-    ### 粘贴命令
-
-    粘贴 `docker run` 命令（支持多行 `\` 续行）。右侧面板显示实时 YAML 预览，随你编辑而更新。
-  </Step>
-  <Step>
-    ### 查看输出
-
-    转换器处理常见标志，包括 `-p`、`-v`、`-e`、`--name`、`--restart`、`--network`、`--privileged`、`--cap-add` 和 `--device`。转换器无法识别的标志会保留为 YAML 注释，因此不会丢失任何内容。
-  </Step>
-  <Step>
-    ### 保存为新技术栈
-
-    点击**保存为技术栈**将生成的 `compose.yaml` 写入你的技术栈目录，并在 YAML 编辑器中打开以进行进一步调整。
-  </Step>
-</Steps>
-
-<Callout type="warn">
-  转换器覆盖了大约 80% 的 `docker run` 标志。`--health-*` 和 `--ulimit` 等高级标志会保留为注释。部署前请查看输出。
-</Callout>
-
-## 查看跨服务日志
-
-使用项目级日志视图合并每个服务的日志，按服务进行颜色编码，并保持与[容器日志](/zh/docs/docker/logs)相同的搜索行为。
-
-{/* TODO(screenshot): compose/project-logs - 多服务合并日志视图 */}
-
-## 模板库
-
-当你想从精选的技术栈开始，而不是空白的 Compose 文件时，请使用模板库。
-
-<Cards>
-  <Card title="数据库">
-    MySQL、PostgreSQL、MongoDB、Redis、CouchDB。
-  </Card>
-  <Card title="消息队列">
-    RabbitMQ、NATS、Kafka。
-  </Card>
-  <Card title="可观测性">
-    Prometheus 和 Grafana、Loki、Tempo。
-  </Card>
-  <Card title="开发工具">
-    phpMyAdmin、pgAdmin、Adminer、MinIO。
-  </Card>
-</Cards>
-
-<Steps>
-  <Step>
-    ### 打开模板页面
-
-    打开列出内置模板的页面。
-  </Step>
-  <Step>
-    ### 选择模板
-
-    查看服务、所需环境变量和默认端口。
-  </Step>
-  <Step>
-    ### 配置并启动
-
-    填写所需值，选择项目名称，然后启动。
-  </Step>
-</Steps>
-
-{/* TODO(screenshot): compose/templates-library - 模板库页面 */}
-
-## 创建你自己的模板
-
-将任何现有的 Compose 文件保存为模板，然后在需要更新启动项目时从模板页面编辑或删除它。
+本页目前没有项目级合并日志查看器。精选应用模板位于 **Apps**，不是 Compose 内置模板编辑器；也不能从本页把现有 Compose 文件保存成可复用模板。
