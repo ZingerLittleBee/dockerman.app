@@ -2,8 +2,8 @@
 
 Language: 🇺🇸 English | [🇨🇳 简体中文](./README.zh-CN.md) | [🇯🇵 日本語](./README.ja.md) | [🇪🇸 Español](./README.es.md)
 
-[![Version](https://img.shields.io/badge/version-v5.6.1-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.6.1)
-[![Release Date](https://img.shields.io/badge/release%20date-Jul%2012%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.6.1)
+[![Version](https://img.shields.io/badge/version-v6.0.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.0.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Aug%202%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.0.0)
 
 A native desktop UI for managing Docker **and** Kubernetes — built with Tauri + Rust. Fast to launch, light on resources, and entirely local: nothing leaves your machine.
 
@@ -17,11 +17,13 @@ A native desktop UI for managing Docker **and** Kubernetes — built with Tauri 
 - ☸️ **Kubernetes, end to end** — multi-cluster, HPAs/quotas/CRDs plus core resources, guarded workload operations, Helm, port forwarding, RBAC, events, and YAML everywhere
 - 🩺 **Live container triage** — recent logs, healthcheck failures, exit diagnostics, and abnormal-event surfacing for failing containers
 - 🖥️ **Built-in tools** — terminal, log viewer with search, CPU/memory history, file browser with editing
+- 🧭 **Linkable container views** — Detail, Stats, Logs, Terminal, Process, and Files are nested routes under `/container/:id`, so every view can be linked, reloaded, and navigated back to
+- 🪟 **Titlebar page headers** — page titles and actions live in the window's top band, alongside the sidebar toggle and back/forward navigation
 - 🎬 **Polished motion** — app-wide animation refresh with instant tooltips, popover scaling, button press feedback, and reduced-motion support
 - 📈 **Smoother dashboard charts** — CPU/memory charts on a lightweight liveline engine with hover scrubbing and a proper y-axis
 - 🔔 **Image upgrade watch** — background service with desktop notifications when updates land
 - ☁️ **Cloudflared tunnels** — one-click public URLs with auto cleanup
-- 🐙 **Podman, WSL2 & Apple Container engines** — first-class alternatives to Docker Desktop
+- 🐙 **Podman, Colima, WSL2 & Apple Container engines** — first-class alternatives to Docker Desktop, with managed Colima/Podman machines on macOS
 - 🌐 Localized in English, 中文, 日本語, Español, with comprehensive dark mode
 
 ## Containers & Images
@@ -31,7 +33,7 @@ Manage everything from one place without dropping to a shell:
 - Group containers by Compose project or browse a flat list; quick filters by name, port, or status
 - Create from a guided form or paste a `docker run` command — convert it to Compose YAML in the built-in editor
 - Live logs with keyword/regex search and case-sensitive toggle; CPU/memory history with multi-container compare (up to 6)
-- Themeable terminal, process list, and a file browser with in-place editing, previews (text/code/images/PDF/video), and folder up/download
+- Themeable terminal that stays alive for five minutes after you leave the view, process list, and a file browser with in-place editing, previews (text/code/images/PDF/video), and folder up/download
 - Backup and restore the whole container — config, filesystem, volumes, and supported bind mounts
 - Image build (Dockerfile or parsed command), push to private registries, Docker Hub search, Trivy security scan, and per-layer size analysis
 - Edit a running container's port mappings inline — add, change, and remove published ports without recreating from scratch
@@ -56,9 +58,9 @@ Cluster management on par with `kubectl`, but visual:
 ## Beyond Docker
 
 - **Cloudflared Tunnels** — expose any container port with one click; tunnels auto-clean on stop/destroy and survive crashes
-- **Podman** — auto-detected runtime with per-host preference and feature gating for Compose-only flows
+- **Podman** — auto-detected runtime with per-host preference, plus Compose support when the toolchain is present
 - **Apple Container** — connect to Apple's container engine on macOS: containers, images, volumes, networks, logs, stats, builds, pulls, and interactive terminals
-- **Guided engine setup on macOS** — detect, start, stop, and switch engines from onboarding and Settings
+- **Managed engines on macOS** — detect, start, stop, repair, and switch between Colima and Podman machines from onboarding, Settings, and the host switcher, with VM CPU/memory/disk configurable in-app (Dockerman guides you to the engine binaries; it never installs or updates them)
 - **WSL2 Engine on Windows** — no Docker Desktop required; one-click Alpine setup with crash recovery, registry mirrors, reinstall, and a Settings switch between WSL2 engine and OS-native Docker
 - **Remote daemons** — custom socket, TCP, or SSH forwarding with heartbeat reconnect and per-host latency display
 - **Deploy to SSH hosts** — install and manage apps on remote hosts reachable only over SSH

@@ -1,3 +1,39 @@
+<ChangelogEntry version="v6.0.0" date="Aug 2, 2026">
+## Linkable Container Views, Titlebar Page Headers & Managed Engines
+
+The interface was rebuilt around two ideas: every way of looking at a container is its own page, and the window's top band is where a page's title and actions live. Alongside that, macOS gains managed engines — Dockerman can now run and switch between Colima and Podman machines, not just talk to a socket.
+
+### ✨ Features
+
+- 🧭 <Bold>Every container view has its own URL:</Bold> Detail, Stats, Logs, Terminal, Process and Files became nested tabs under `/container/:id`, so they can be linked, gone back to, and reloaded into. Switching containers keeps the view you were on, and stopped, unsupported or deleted containers each explain themselves in place instead of showing a dead panel.
+- 🪟 <Bold>Page headers moved into the titlebar:</Bold> Every list page hands its title and actions to the window's top band, which buys a row of table height per page and gives the actions the full width. The band also carries the sidebar toggle and back/forward navigation, with shortcut hints in the tooltips.
+- 🖥️ <Bold>Managed engines on macOS:</Bold> Detect, start, stop, repair and switch between Colima and Podman machines from onboarding, Settings and the host switcher, with VM CPU/memory/disk configurable in-app. Dockerman never installs or updates the engine binaries — it guides you to them.
+- 🐳 <Bold>Compose on Podman:</Bold> The Compose gate now opens for Podman when the toolchain is there, with the environment Podman needs injected automatically and Podman-specific hints when a deploy fails.
+- ⌨️ <Bold>Terminal keep-alive:</Bold> Leaving a container's Terminal view keeps the shell alive for five minutes, with scrollback intact when you come back.
+
+### 🔧 Improvements
+
+- 🔄 <Bold>One refresh control everywhere:</Bold> Every refresh, retry and reconnect button is the same control now, and its icon morphs through the action's states instead of swapping abruptly.
+- 📋 <Bold>Copy confirms in place:</Bold> Copy buttons show an inline check mark rather than raising a toast.
+- 🗂️ <Bold>Roomier Files and Logs:</Bold> Both views run full bleed, previewability is decided from a file's content instead of its name (so dotfiles preview as text), and a failed preview shows the reason.
+- 🎛️ <Bold>Clearer Settings:</Bold> The engine picker is a full radio card and the license panel became a proper card.
+- 🧮 <Bold>Consistent count badges:</Bold> The sidebar, image, volume, network and storage tables share one badge — filled while something holds the resource, outlined once nothing does.
+- 🪟 <Bold>Better window controls on Windows and Linux:</Bold> The caption buttons are keyboard- and screen-reader-reachable, follow the theme, and swap maximize for restore while the window is maximized.
+
+### 🐛 Bug Fixes
+
+- 📈 <Bold>Accurate CPU% in history and alerts:</Bold> Container CPU history (and the alerts built on it) now measures real per-interval usage instead of a lifetime average, and Podman no longer over-reports CPU — existing CPU alert thresholds may start firing where they previously never did.
+- 🍎 <Bold>Steady macOS window controls:</Bold> The traffic lights sit centred in the band and no longer jitter while the window is resized.
+- 🐧 <Bold>Round corners on Linux:</Bold> The window's rounded corners survive the new titlebar instead of being painted over square.
+- 🏷️ <Bold>No title flicker:</Bold> The titlebar hands its title over across a route change without an empty or doubled frame.
+
+### ⚠️ Breaking Changes
+
+- <Bold>Container selection lives only in the URL:</Bold> The old flat container routes redirect, but the app no longer restores the container you had selected when it last closed.
+- <Bold>The sidebar's Actions section is gone:</Bold> Container actions live on the row menu and in the container's own toolbar, and lifecycle actions (start, stop, restart) moved into that actions menu rather than sitting as standalone buttons.
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v5.6.1" date="Jul 12, 2026">
 ## Polished Motion & Smoother Dashboard Charts
 

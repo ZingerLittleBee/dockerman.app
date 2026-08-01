@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | [🇨🇳 简体中文](./README.zh-CN.md) | 🇯🇵 日本語 | [🇪🇸 Español](./README.es.md)
 
-[![Version](https://img.shields.io/badge/version-v5.6.1-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.6.1)
-[![Release Date](https://img.shields.io/badge/release%20date-Jul%2012%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v5.6.1)
+[![Version](https://img.shields.io/badge/version-v6.0.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.0.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Aug%202%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.0.0)
 
 Docker **と** Kubernetes をまとめて管理できるネイティブデスクトップ UI。Tauri + Rust 製で、起動が速く、軽量、完全ローカル動作――データはマシンの外に出ません。
 
@@ -17,11 +17,13 @@ Docker **と** Kubernetes をまとめて管理できるネイティブデスク
 - ☸️ **エンドツーエンドの Kubernetes** — マルチクラスタ、HPA/クォータ/CRD と主要リソース、確認付きのワークロード操作、Helm、ポートフォワード、RBAC、イベント、あらゆる場所の YAML
 - 🩺 **リアルタイムなコンテナ診断** — 失敗したコンテナの最近のログ、ヘルスチェック失敗、終了診断、異常イベントの表示
 - 🖥️ **組み込みツール** — ターミナル、検索可能なログビューア、CPU/メモリ履歴、編集可能なファイルブラウザ
+- 🧭 **リンク可能なコンテナビュー** — 詳細・統計・ログ・ターミナル・プロセス・ファイルが `/container/:id` 配下のネストされたルートになり、どのビューもリンク・再読み込み・戻る操作が可能
+- 🪟 **タイトルバーのページヘッダー** — ページのタイトルとアクションがウィンドウ上部のバーに配置され、サイドバー開閉と進む/戻るナビゲーションも同居
 - 🎬 **洗練されたモーション** — アプリ全体のアニメーション刷新：即時ツールチップ、トリガーから広がるポップオーバー、ボタン押下フィードバック、視差効果を減らす設定に完全対応
 - 📈 **より滑らかなダッシュボードチャート** — CPU/メモリチャートを軽量な liveline エンジンで描画、ホバースクラブと適切な y 軸に対応
 - 🔔 **イメージ更新監視** — バックグラウンド購読サービスでアップデートを通知
 - ☁️ **Cloudflared トンネル** — ワンクリックで公開 URL、自動クリーンアップ
-- 🐙 **Podman・WSL2・Apple Container エンジン** — Docker Desktop の代替を一級でサポート
+- 🐙 **Podman・Colima・WSL2・Apple Container エンジン** — Docker Desktop の代替を一級でサポート。macOS では Colima/Podman マシンをマネージド運用
 - 🌐 多言語：English、中文、日本語、Español、フルダークモード対応
 
 ## コンテナ・イメージ
@@ -31,7 +33,7 @@ Docker **と** Kubernetes をまとめて管理できるネイティブデスク
 - Compose プロジェクト単位でグループ化、または平坦リストで閲覧。名前・ポート・ステータスでクイックフィルタ
 - ガイド付きフォームから作成、または `docker run` コマンドを貼り付け――内蔵エディタで Compose YAML に変換
 - リアルタイムログ、キーワード／正規表現検索、大文字小文字切替；CPU/メモリ履歴、最大 6 コンテナの並列比較
-- テーマ可能なターミナル、プロセス一覧、ファイルブラウザ（インライン編集、テキスト/コード/画像/PDF/動画プレビュー、フォルダ アップロード/ダウンロード）
+- テーマ可能なターミナル（ビューを離れても 5 分間セッションを維持）、プロセス一覧、ファイルブラウザ（インライン編集、テキスト/コード/画像/PDF/動画プレビュー、フォルダ アップロード/ダウンロード）
 - 設定、ファイルシステム、ボリューム、対応する bind マウントまでまとめてバックアップ・リストア
 - イメージビルド（Dockerfile またはコマンド解析）、プライベートレジストリへの push、Docker Hub 検索、Trivy セキュリティスキャン、レイヤサイズ分析
 - 実行中コンテナのポートマッピングをインライン編集——再作成せずに公開ポートを追加・変更・削除
@@ -56,9 +58,9 @@ Docker **と** Kubernetes をまとめて管理できるネイティブデスク
 ## Docker の枠を超えて
 
 - **Cloudflared トンネル** — 任意のコンテナポートをワンクリックで公開、停止／削除で自動クリーンアップ、クラッシュ後も復旧
-- **Podman** — ランタイム自動検出、ホスト単位の優先設定、Compose 系操作の機能ゲート
+- **Podman** — ランタイム自動検出、ホスト単位の優先設定、ツールチェーンが揃っていれば Compose にも対応
 - **Apple Container** — macOS 上で Apple のコンテナエンジンに接続：コンテナ、イメージ、ボリューム、ネットワーク、ログ、統計、ビルド、プル、対話型ターミナル
-- **macOS のガイド付きエンジンセットアップ** — オンボーディングと設定からエンジンの検出、起動、停止、切り替え
+- **macOS のマネージドエンジン** — オンボーディング、設定、ホストスイッチャーから Colima と Podman のマシンを検出、起動、停止、修復、切り替え。VM の CPU/メモリ/ディスクもアプリ内で設定可能（エンジンのバイナリは Dockerman がインストールも更新もせず、入手方法を案内します）
 - **Windows の WSL2 エンジン** — Docker Desktop 不要、Alpine をワンクリックでセットアップ、クラッシュ自動復旧、レジストリミラー、再インストールに対応。設定から WSL2 エンジンと OS ネイティブ Docker を切替可能
 - **リモートデーモン** — カスタム socket、TCP、SSH 転送、ハートビート再接続とホスト別レイテンシ表示
 - **SSH ホストへのデプロイ** — SSH 経由でのみ到達できるリモートホスト上でアプリをインストール・管理
