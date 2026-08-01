@@ -1,3 +1,39 @@
+<ChangelogEntry version="v6.0.0" date="2 de agosto de 2026">
+## Vistas de contenedor enlazables, cabeceras en la barra de título y motores gestionados
+
+La interfaz se reconstruyó en torno a dos ideas: cada forma de mirar un contenedor es su propia página, y la banda superior de la ventana es donde viven el título y las acciones de la página. Además, macOS gana motores gestionados: Dockerman ahora puede ejecutar y alternar entre máquinas Colima y Podman, no solo hablar con un socket.
+
+### ✨ Funciones
+
+- 🧭 <Bold>Cada vista de contenedor tiene su propia URL:</Bold> Detalle, Estadísticas, Logs, Terminal, Procesos y Archivos pasaron a ser pestañas anidadas bajo `/container/:id`, así que se pueden enlazar, volver a ellas y recargarlas. Al cambiar de contenedor se conserva la vista en la que estabas, y los contenedores detenidos, no compatibles o eliminados se explican en el sitio en lugar de mostrar un panel muerto.
+- 🪟 <Bold>Las cabeceras de página se mudaron a la barra de título:</Bold> Cada página de lista cede su título y sus acciones a la banda superior de la ventana, lo que gana una fila de altura de tabla por página y da a las acciones todo el ancho. La banda también lleva el conmutador de la barra lateral y la navegación atrás/adelante, con los atajos indicados en los tooltips.
+- 🖥️ <Bold>Motores gestionados en macOS:</Bold> Detecta, inicia, detén, repara y alterna entre máquinas Colima y Podman desde el onboarding, los Ajustes y el selector de host, con CPU, memoria y disco de la VM configurables desde la app. Dockerman nunca instala ni actualiza los binarios del motor: te guía hasta ellos.
+- 🐳 <Bold>Compose en Podman:</Bold> La puerta de Compose ahora se abre para Podman cuando el toolchain está presente, inyectando automáticamente el entorno que Podman necesita y mostrando pistas específicas de Podman cuando falla un despliegue.
+- ⌨️ <Bold>Terminal que sigue viva:</Bold> Al salir de la vista Terminal de un contenedor, la shell se mantiene viva durante cinco minutos, con el scrollback intacto al volver.
+
+### 🔧 Mejoras
+
+- 🔄 <Bold>Un único control de refresco:</Bold> Todos los botones de refrescar, reintentar y reconectar son ahora el mismo control, y su icono transforma entre los estados de la acción en vez de cambiar de golpe.
+- 📋 <Bold>La copia se confirma en el sitio:</Bold> Los botones de copiar muestran una marca de verificación en línea en lugar de lanzar un toast.
+- 🗂️ <Bold>Archivos y Logs más amplios:</Bold> Ambas vistas ocupan todo el ancho, la previsualización se decide por el contenido del archivo y no por su nombre (así los dotfiles se previsualizan como texto) y una previsualización fallida muestra el motivo.
+- 🎛️ <Bold>Ajustes más claros:</Bold> El selector de motor es una tarjeta de radio completa y el panel de licencia pasó a ser una tarjeta en condiciones.
+- 🧮 <Bold>Insignias de recuento consistentes:</Bold> La barra lateral y las tablas de imágenes, volúmenes, redes y almacenamiento comparten una misma insignia: rellena mientras algo usa el recurso, con contorno cuando ya no.
+- 🪟 <Bold>Mejores controles de ventana en Windows y Linux:</Bold> Los botones de la barra son accesibles por teclado y lector de pantalla, siguen el tema y cambian maximizar por restaurar mientras la ventana está maximizada.
+
+### 🐛 Correcciones
+
+- 📈 <Bold>CPU% correcto en el historial y las alertas:</Bold> El historial de CPU de contenedores (y las alertas construidas sobre él) mide ahora el uso real por intervalo en vez de un promedio de toda la vida del contenedor, y Podman ya no sobreestima la CPU: los umbrales de alerta de CPU existentes pueden empezar a dispararse donde antes nunca lo hacían.
+- 🍎 <Bold>Controles de ventana estables en macOS:</Bold> Los semáforos quedan centrados en la banda y ya no tiemblan al redimensionar la ventana.
+- 🐧 <Bold>Esquinas redondeadas en Linux:</Bold> Las esquinas redondeadas de la ventana sobreviven a la nueva barra de título en lugar de quedar pintadas en cuadrado.
+- 🏷️ <Bold>Sin parpadeo del título:</Bold> La barra de título traspasa su título a través de un cambio de ruta sin un fotograma vacío ni duplicado.
+
+### ⚠️ Cambios incompatibles
+
+- <Bold>La selección de contenedor vive solo en la URL:</Bold> Las antiguas rutas planas de contenedor redirigen, pero la app ya no restaura el contenedor que tenías seleccionado al cerrarla.
+- <Bold>La sección de Acciones de la barra lateral desaparece:</Bold> Las acciones de contenedor viven en el menú de la fila y en la barra de herramientas del propio contenedor, y las acciones de ciclo de vida (iniciar, detener, reiniciar) se movieron a ese menú en lugar de ser botones sueltos.
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v5.6.1" date="12 de julio de 2026">
 ## Animaciones pulidas y gráficos del panel más fluidos
 

@@ -12,7 +12,7 @@
     "closeMenu": "メニューを閉じる"
   },
   "hero": {
-    "eyebrow": "v{{version}} — 洗練されたモーション、より滑らかなダッシュボードチャート、統一されたストリーミングコア",
+    "eyebrow": "v{{version}} — すべてのコンテナビューに URL、タイトルバーに収まったページヘッダー、macOS のマネージドエンジン",
     "eyebrowTag": "NEW",
     "headline1Lead": "Docker を",
     "headline1Accent": "ローカルに",

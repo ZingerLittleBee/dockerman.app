@@ -12,7 +12,7 @@
     "closeMenu": "关闭菜单"
   },
   "hero": {
-    "eyebrow": "v{{version}} — 动效全面打磨、更流畅的仪表盘图表、统一的流式核心",
+    "eyebrow": "v{{version}} — 每个容器视图都有独立地址、页面标题移入标题栏、macOS 托管引擎",
     "eyebrowTag": "新",
     "headline1Lead": "Docker，用起来像",
     "headline1Accent": "本地",
