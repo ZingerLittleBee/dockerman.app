@@ -352,7 +352,7 @@
       "stars": "{{value}}+ GitHub Stars"
     },
     "compare": {
-      "titleLead": "逐项对比,",
+      "titleLead": "逐项对比，",
       "titleAccent": "一目了然。",
       "description": "每个方案都包含完整的本地体验，含 Kubernetes 与 Cloudflared。付费方案只增加远程主机连接。",
       "columns": {
@@ -422,7 +422,7 @@
       }
     },
     "finalCta": {
-      "titleLead": "发布容器,",
+      "titleLead": "发布容器，",
       "titleAccent": "随处可达。",
       "description": "一次付费,永久使用。无席位计算,无续订,无推销。",
       "ctaTeam": "购买 Team — ${{price}}",
