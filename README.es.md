@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | [🇨🇳 简体中文](./README.zh-CN.md) | [🇯🇵 日本語](./README.ja.md) | 🇪🇸 Español
 
-[![Version](https://img.shields.io/badge/version-v6.0.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.0.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Aug%202%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.0.0)
+[![Version](https://img.shields.io/badge/version-v6.1.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.1.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Aug%2016%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.1.0)
 
 Una UI de escritorio nativa para gestionar Docker **y** Kubernetes — construida con Tauri + Rust. Arranque rápido, ligera en recursos y completamente local: nada sale de tu máquina.
 
@@ -22,6 +22,7 @@ Una UI de escritorio nativa para gestionar Docker **y** Kubernetes — construid
 - 🎬 **Animaciones pulidas** — renovación de animaciones en toda la app: tooltips instantáneos, popovers que escalan desde su disparador, retroalimentación al pulsar y compatibilidad con movimiento reducido
 - 📈 **Gráficos del panel más fluidos** — gráficos de CPU/memoria con un motor liveline ligero, exploración al pasar el cursor y un eje y adecuado
 - 🔔 **Vigilancia de actualizaciones de imagen** — servicio en segundo plano con notificaciones de escritorio
+- 🌐 **Dominios locales** — direcciones `*.dockerman.localhost` memorables para servicios Docker locales, sin números de puerto
 - ☁️ **Túneles Cloudflared** — URLs públicas en un clic con limpieza automática
 - 🐙 **Motores Podman, Colima, WSL2 y Apple Container** — alternativas de primera clase a Docker Desktop, con máquinas Colima/Podman gestionadas en macOS
 - 🌐 Localizado en English, 中文, 日本語, Español, con modo oscuro completo
@@ -37,6 +38,7 @@ Gestiona todo desde un solo lugar sin tener que recurrir a la terminal:
 - Backup y restore del contenedor completo — configuración, sistema de archivos, volúmenes y bind mounts soportados
 - Build de imágenes (Dockerfile o comando parseado), push a registries privados, búsqueda en Docker Hub, escaneo de seguridad Trivy y análisis por capas
 - Edita en línea los mapeos de puertos de un contenedor en ejecución: añade, cambia y elimina puertos publicados sin recrearlo desde cero
+- Da a los servicios Docker locales direcciones `*.dockerman.localhost` memorables que sobreviven a la recreación del contenedor
 - Vigilancia de actualizaciones de imagen en segundo plano con suscripciones por canal, resolutor de credenciales y deep links `dockerman://`
 
 ![Logs de contenedor](apps/landing/public/screenshots/readme/logs.png)

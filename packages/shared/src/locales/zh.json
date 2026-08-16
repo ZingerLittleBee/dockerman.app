@@ -12,7 +12,7 @@
     "closeMenu": "关闭菜单"
   },
   "hero": {
-    "eyebrow": "v{{version}} — 每个容器视图都有独立地址、页面标题移入标题栏、macOS 托管引擎",
+    "eyebrow": "v{{version}} — 好记的 *.dockerman.localhost 地址、引导式本地域名设置、域名在容器重建后仍可用",
     "eyebrowTag": "新",
     "headline1Lead": "Docker，用起来像",
     "headline1Accent": "本地",

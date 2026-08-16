@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文 | [🇯🇵 日本語](./README.ja.md) | [🇪🇸 Español](./README.es.md)
 
-[![Version](https://img.shields.io/badge/version-v6.0.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.0.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Aug%202%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.0.0)
+[![Version](https://img.shields.io/badge/version-v6.1.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.1.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Aug%2016%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.1.0)
 
 一个原生桌面端 Docker **与** Kubernetes 管理工具，基于 Tauri + Rust。启动快、占用低、完全本地运行——数据不出本机。
 
@@ -22,6 +22,7 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文 | [🇯🇵 �
 - 🎬 **动效全面打磨** — 应用级动画刷新：即时工具提示、从触发位置缩放的弹出层、按钮按压反馈，并完整支持减弱动态效果
 - 📈 **更流畅的仪表盘图表** — CPU/内存图表基于轻量级 liveline 引擎渲染，支持悬停查看历史并新增 y 轴
 - 🔔 **镜像升级监控** — 后台订阅服务，更新时桌面通知
+- 🌐 **本地域名** — 为本地 Docker 服务提供无需端口号、好记的 `*.dockerman.localhost` 地址
 - ☁️ **Cloudflared 隧道** — 一键生成公网 URL，自动清理
 - 🐙 **Podman、Colima、WSL2 与 Apple Container 引擎** — Docker Desktop 的一流替代方案，macOS 上还可托管 Colima/Podman 虚拟机
 - 🌐 多语言：English、中文、日本語、Español，全面深色模式
@@ -37,6 +38,7 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文 | [🇯🇵 �
 - 整体备份与恢复——配置、文件系统、卷以及支持的绑定挂载
 - 镜像构建（Dockerfile 或解析命令）、推送到私有仓库、Docker Hub 搜索、Trivy 安全扫描、按层大小分析
 - 就地编辑运行中容器的端口映射——无需重新创建即可添加、修改和移除已发布端口
+- 为本地 Docker 服务提供好记的 `*.dockerman.localhost` 地址，容器重建后仍可用
 - 后台镜像升级监控，支持按通道订阅、仓库凭证解析与 `dockerman://` 深链
 
 ![容器日志](apps/landing/public/screenshots/readme/logs.png)

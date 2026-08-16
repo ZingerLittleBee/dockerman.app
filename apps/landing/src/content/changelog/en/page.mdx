@@ -1,3 +1,27 @@
+<ChangelogEntry version="v6.1.0" date="Aug 16, 2026">
+## Local Domains for Docker Services
+
+Give local Docker services memorable `*.dockerman.localhost` addresses without port numbers. Setup is guided in the add dialog, domains survive container recreation, and a handful of upgrade and navigation papercuts are gone.
+
+### ✨ Features
+
+- 🌐 <Bold>Local Domains:</Bold> give local Docker services memorable `*.dockerman.localhost` addresses without port numbers — on macOS after one explicit administrator approval, on Windows with no setup at all, and on Linux through the system broker shipped with the .deb/.rpm packages. Dockerman routes HTTP and WebSocket traffic over IPv4 and IPv6 loopback and starts the listener only while domains exist.
+
+### 🔧 Improvements
+
+- 🧭 <Bold>Guided Local Domains setup:</Bold> the add dialog surfaces the service state before you save — it explains what the port-80 listener does and offers the enable, approval and repair actions in place, instead of saving a name that fails afterwards.
+- 🔁 <Bold>Domains survive container recreation:</Bold> a local domain binds to the container's name and container-side port, so recreating the container with a different published host port keeps the address working without reconfiguration.
+- 🪜 <Bold>Steadier upgrade dialog:</Bold> the container image upgrade dialog keeps its size and frame through every phase, shows progress in a contained bar, and marks per-container status with icons and tooltips instead of shifting text badges.
+- 🖱️ <Bold>Deliberate row clicks:</Bold> a container row opens its detail only from the id and name cells, so clicking near other controls no longer navigates away.
+
+### 🐛 Bug Fixes
+
+- 🔎 <Bold>No more phantom image updates:</Bold> update checks compare every local repo digest against the registry instead of only the first one, so a stale digest entry can no longer produce an endless "update available" loop — and scheduled notifications only fire for images that are genuinely stale.
+- 🧯 <Bold>Upgrade failures explain themselves:</Bold> a failed image pull keeps the dialog in an explicit error state with the full registry error, and Retry returns to confirmation instead of auto-submitting; a successful upgrade hands the detail view over to the new container exactly once, without flicker or duplicate containers.
+- 🚢 <Bold>Dock icon follows the window on macOS:</Bold> closing the main window hides the Dock icon again instead of leaving a dead entry.
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v6.0.0" date="Aug 2, 2026">
 ## Linkable Container Views, Titlebar Page Headers & Managed Engines
 

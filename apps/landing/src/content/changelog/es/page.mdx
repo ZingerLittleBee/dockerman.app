@@ -1,3 +1,27 @@
+<ChangelogEntry version="v6.1.0" date="16 de agosto de 2026">
+## Dominios locales para servicios Docker
+
+Da a los servicios Docker locales direcciones `*.dockerman.localhost` memorables, sin números de puerto. La configuración se guía en el diálogo de alta, los dominios sobreviven a la recreación del contenedor, y desaparecen varios fallos de actualización y navegación.
+
+### ✨ Funciones
+
+- 🌐 <Bold>Dominios locales:</Bold> da a los servicios Docker locales direcciones `*.dockerman.localhost` memorables, sin números de puerto — en macOS tras una aprobación explícita de administrador, en Windows sin configuración alguna, y en Linux a través del broker del sistema incluido en los paquetes .deb/.rpm. Dockerman enruta el tráfico HTTP y WebSocket por el loopback IPv4 e IPv6 y arranca el listener solo mientras existan dominios.
+
+### 🔧 Mejoras
+
+- 🧭 <Bold>Configuración guiada de Local Domains:</Bold> el diálogo de alta muestra el estado del servicio antes de guardar: explica qué hace el listener del puerto 80 y ofrece in situ las acciones de activar, aprobar y reparar, en lugar de guardar un nombre que luego falla.
+- 🔁 <Bold>Los dominios sobreviven a la recreación del contenedor:</Bold> un dominio local se vincula al nombre del contenedor y al puerto del lado del contenedor, así que recrearlo con otro puerto publicado en el host mantiene la dirección funcionando sin reconfigurar.
+- 🪜 <Bold>Diálogo de actualización más estable:</Bold> el diálogo de actualización de imagen del contenedor mantiene su tamaño y marco en cada fase, muestra el progreso en una barra contenida y marca el estado de cada contenedor con iconos y tooltips en lugar de insignias de texto que desplazan el layout.
+- 🖱️ <Bold>Clics de fila deliberados:</Bold> una fila de contenedor abre su detalle solo desde las celdas de id y nombre, así que hacer clic cerca de otros controles ya no navega fuera.
+
+### 🐛 Correcciones
+
+- 🔎 <Bold>Se acabaron las actualizaciones de imagen fantasma:</Bold> las comprobaciones comparan cada digest local del repositorio con el registry, no solo el primero, así que una entrada de digest caducada ya no produce un bucle infinito de "actualización disponible" — y las notificaciones programadas solo se disparan para imágenes realmente desactualizadas.
+- 🧯 <Bold>Los fallos de actualización se explican solos:</Bold> si falla el pull de una imagen, el diálogo permanece en un estado de error explícito con el error completo del registry, y Reintentar vuelve a la confirmación en vez de enviar automáticamente; una actualización correcta entrega la vista de detalle al nuevo contenedor exactamente una vez, sin parpadeo ni contenedores duplicados.
+- 🚢 <Bold>El icono del Dock sigue a la ventana en macOS:</Bold> al cerrar la ventana principal, el icono del Dock se oculta de nuevo en lugar de dejar una entrada muerta.
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v6.0.0" date="2 de agosto de 2026">
 ## Vistas de contenedor enlazables, cabeceras en la barra de título y motores gestionados
 

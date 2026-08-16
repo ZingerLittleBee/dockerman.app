@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | [🇨🇳 简体中文](./README.zh-CN.md) | 🇯🇵 日本語 | [🇪🇸 Español](./README.es.md)
 
-[![Version](https://img.shields.io/badge/version-v6.0.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.0.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Aug%202%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.0.0)
+[![Version](https://img.shields.io/badge/version-v6.1.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.1.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Aug%2016%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.1.0)
 
 Docker **と** Kubernetes をまとめて管理できるネイティブデスクトップ UI。Tauri + Rust 製で、起動が速く、軽量、完全ローカル動作――データはマシンの外に出ません。
 
@@ -22,6 +22,7 @@ Docker **と** Kubernetes をまとめて管理できるネイティブデスク
 - 🎬 **洗練されたモーション** — アプリ全体のアニメーション刷新：即時ツールチップ、トリガーから広がるポップオーバー、ボタン押下フィードバック、視差効果を減らす設定に完全対応
 - 📈 **より滑らかなダッシュボードチャート** — CPU/メモリチャートを軽量な liveline エンジンで描画、ホバースクラブと適切な y 軸に対応
 - 🔔 **イメージ更新監視** — バックグラウンド購読サービスでアップデートを通知
+- 🌐 **ローカルドメイン** — ポート番号なしで覚えやすい `*.dockerman.localhost` アドレスをローカル Docker サービスに付与
 - ☁️ **Cloudflared トンネル** — ワンクリックで公開 URL、自動クリーンアップ
 - 🐙 **Podman・Colima・WSL2・Apple Container エンジン** — Docker Desktop の代替を一級でサポート。macOS では Colima/Podman マシンをマネージド運用
 - 🌐 多言語：English、中文、日本語、Español、フルダークモード対応
@@ -37,6 +38,7 @@ Docker **と** Kubernetes をまとめて管理できるネイティブデスク
 - 設定、ファイルシステム、ボリューム、対応する bind マウントまでまとめてバックアップ・リストア
 - イメージビルド（Dockerfile またはコマンド解析）、プライベートレジストリへの push、Docker Hub 検索、Trivy セキュリティスキャン、レイヤサイズ分析
 - 実行中コンテナのポートマッピングをインライン編集——再作成せずに公開ポートを追加・変更・削除
+- ポート番号なしの `*.dockerman.localhost` アドレスをローカル Docker サービスに付けられ、コンテナ再作成後もそのまま使える
 - バックグラウンドのイメージ更新監視、チャネル単位の購読、レジストリ資格情報リゾルバ、`dockerman://` ディープリンク
 
 ![コンテナログ](apps/landing/public/screenshots/readme/logs.png)
