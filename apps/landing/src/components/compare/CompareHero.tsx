@@ -1,10 +1,12 @@
 import type { Locale } from '@repo/shared/i18n'
 import { getTranslation } from '@repo/shared/i18n/server'
+import { cx } from '@repo/shared/utils'
 import Link from 'next/link'
 import { siteConfig } from '@/app/siteConfig'
 
 export async function CompareHero({ locale }: { locale: Locale }) {
   const { t } = await getTranslation(locale)
+  const cjk = locale === 'zh' || locale === 'ja'
   return (
     <section className="relative overflow-hidden px-5 pt-12 pb-8 sm:px-8 sm:pt-16 sm:pb-10">
       <div
@@ -31,17 +33,30 @@ export async function CompareHero({ locale }: { locale: Locale }) {
         </span>
 
         <h1
-          className="mt-[22px] font-bold text-[clamp(44px,6.4vw,84px)] text-dm-ink leading-[0.98] tracking-[-0.04em]"
-          style={{ maxWidth: locale === 'zh' || locale === 'ja' ? 'none' : '16ch' }}
+          className={cx(
+            'mt-[22px] font-bold text-[clamp(44px,6.4vw,84px)] text-dm-ink',
+            cjk
+              ? 'leading-[1.08] tracking-normal'
+              : 'max-w-[16ch] leading-[0.98] tracking-[-0.04em]'
+          )}
         >
-          {t('compare.hero.titleLead')}{' '}
+          {t('compare.hero.titleLead')}
+          {cjk ? <br /> : ' '}
           <em
-            className="bg-clip-text font-[var(--font-dm-display)] font-normal text-transparent italic"
-            style={{
-              backgroundImage:
-                'linear-gradient(135deg, var(--color-dm-accent), var(--color-dm-accent-2))',
-              letterSpacing: '-0.02em'
-            }}
+            className={
+              cjk
+                ? 'font-normal text-dm-accent not-italic'
+                : 'bg-clip-text font-[var(--font-dm-display)] font-normal text-transparent italic'
+            }
+            style={
+              cjk
+                ? undefined
+                : {
+                    backgroundImage:
+                      'linear-gradient(135deg, var(--color-dm-accent), var(--color-dm-accent-2))',
+                    letterSpacing: '-0.02em'
+                  }
+            }
           >
             {t('compare.hero.titleAccent')}
           </em>

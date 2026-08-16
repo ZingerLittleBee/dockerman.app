@@ -24,9 +24,22 @@ export async function CompareFaq({ locale }: { locale: Locale }) {
           <span aria-hidden="true" className="text-dm-ink-4 before:content-['//_']" />
           {t('compare.faq.kicker')}
         </div>
-        <h2 className="mx-0 mt-[10px] mb-8 font-bold text-[clamp(28px,3.6vw,40px)] text-dm-ink leading-[1.05] tracking-[-0.03em]">
-          {t('compare.faq.titleLead')}{' '}
-          <em className="font-[var(--font-dm-display)] font-normal text-dm-ink-2 italic">
+        <h2
+          className={
+            locale === 'zh' || locale === 'ja'
+              ? 'mx-0 mt-[10px] mb-8 font-bold text-[clamp(28px,3.6vw,40px)] text-dm-ink leading-[1.2] tracking-normal'
+              : 'mx-0 mt-[10px] mb-8 font-bold text-[clamp(28px,3.6vw,40px)] text-dm-ink leading-[1.05] tracking-[-0.03em]'
+          }
+        >
+          {t('compare.faq.titleLead')}
+          {locale === 'zh' || locale === 'ja' ? '' : ' '}
+          <em
+            className={
+              locale === 'zh' || locale === 'ja'
+                ? 'font-normal text-dm-ink-2 not-italic'
+                : 'font-[var(--font-dm-display)] font-normal text-dm-ink-2 italic'
+            }
+          >
             {t('compare.faq.titleAccent')}
           </em>
         </h2>

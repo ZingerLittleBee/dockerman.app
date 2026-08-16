@@ -990,7 +990,7 @@
   "compare": {
     "hero": {
       "kicker": "Docker Desktop 替代方案",
-      "titleLead": "更轻的 Docker 界面。",
+      "titleLead": "更轻的界面。",
       "titleAccent": "同样的容器。",
       "description": "Dockerman 是面向 Docker、Podman 与 Kubernetes 的本地优先桌面客户端，也是 Docker Desktop 的轻量界面替代，不是 Docker Inc. 平台的复制品。后端由你选。使用本地 Docker，全部功能完全免费。唯一付费的是远程主机连接。"
     },
