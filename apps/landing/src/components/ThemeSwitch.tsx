@@ -62,14 +62,14 @@ function ThemeSwitch() {
   return (
     <RadioGroupPrimitives.Root
       aria-label="Toggle color theme"
-      className="inline-flex h-8 items-center gap-[2px] rounded-full border border-dm-line bg-dm-bg-elev p-[2px]"
+      className="inline-flex h-9 items-center gap-[2px] rounded-full border border-dm-line bg-dm-bg-elev p-[2px]"
       onValueChange={onChange}
       value={active}
     >
       {OPTIONS.map(({ value, label, Icon }) => (
         <RadioGroupPrimitives.Item
           aria-label={`Switch to ${label} mode`}
-          className="dm-focus-ring group relative grid h-[26px] w-[26px] cursor-pointer place-items-center rounded-full text-dm-ink-3 outline-none transition-[color,background-color,border-color,transform] fine-hover:hover:text-dm-ink active:scale-[0.96] data-[state=checked]:text-dm-ink"
+          className="dm-focus-ring group relative grid aspect-square h-full cursor-pointer place-items-center rounded-full text-dm-ink-3 outline-none transition-[color,background-color,border-color,transform] fine-hover:hover:text-dm-ink active:scale-[0.96] data-[state=checked]:text-dm-ink"
           key={value}
           value={value}
         >

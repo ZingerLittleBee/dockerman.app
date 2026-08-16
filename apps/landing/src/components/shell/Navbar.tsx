@@ -94,7 +94,7 @@ export function Navbar({ locale }: { locale: Locale }) {
           <ThemeSwitch />
           <a
             aria-label={t('nav.github')}
-            className="dm-focus-ring hidden h-8 w-8 place-items-center rounded-md text-dm-ink-2 fine-hover:hover:bg-dm-bg-soft fine-hover:hover:text-dm-ink sm:grid"
+            className="dm-focus-ring hidden h-9 w-9 place-items-center rounded-md text-dm-ink-2 fine-hover:hover:bg-dm-bg-soft fine-hover:hover:text-dm-ink sm:grid"
             href="https://github.com/ZingerLittleBee/dockerman.app"
             rel="noopener noreferrer"
             target="_blank"
@@ -102,7 +102,7 @@ export function Navbar({ locale }: { locale: Locale }) {
             <RiGithubFill className="h-4 w-4" />
           </a>
           <Link
-            className="dm-focus-ring inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-lg border border-dm-ink bg-dm-ink px-[12px] py-[7px] font-medium text-[12.5px] text-dm-bg transition-transform fine-hover:hover:-translate-y-px active:translate-y-0 active:scale-[0.96] sm:px-[14px] sm:py-2 sm:text-[13px]"
+            className="dm-focus-ring inline-flex h-9 shrink-0 items-center gap-2 whitespace-nowrap rounded-lg border border-dm-ink bg-dm-ink px-[12px] font-medium text-[12.5px] text-dm-bg transition-transform fine-hover:hover:-translate-y-px active:translate-y-0 active:scale-[0.96] sm:px-[14px] sm:text-[13px]"
             href={hrefFor('/download')}
           >
             {t('nav.download')}
@@ -111,7 +111,7 @@ export function Navbar({ locale }: { locale: Locale }) {
             aria-controls="dm-mobile-menu"
             aria-expanded={menuOpen}
             aria-label={menuOpen ? t('nav.closeMenu') : t('nav.openMenu')}
-            className="dm-focus-ring grid h-8 w-8 cursor-pointer place-items-center rounded-md border border-dm-line bg-dm-bg-elev text-dm-ink-2 transition-[color,background-color,border-color,transform] fine-hover:hover:border-dm-line-strong fine-hover:hover:text-dm-ink active:scale-[0.96] md:hidden"
+            className="dm-focus-ring grid h-9 w-9 cursor-pointer place-items-center rounded-md border border-dm-line bg-dm-bg-elev text-dm-ink-2 transition-[color,background-color,border-color,transform] fine-hover:hover:border-dm-line-strong fine-hover:hover:text-dm-ink active:scale-[0.96] md:hidden"
             onClick={() =>
               setMenu((current) => ({
                 open: current.pathname === pathname ? !current.open : true,
@@ -144,7 +144,7 @@ export function Navbar({ locale }: { locale: Locale }) {
         {/* Backdrop */}
         <button
           aria-label={t('nav.closeMenu')}
-          className={`fixed inset-x-0 top-[57px] bottom-0 z-40 cursor-default bg-dm-bg/60 backdrop-blur-[2px] transition-opacity duration-200 ${
+          className={`absolute inset-x-0 top-full z-40 h-[100dvh] cursor-default bg-dm-bg/60 backdrop-blur-[2px] transition-opacity duration-200 ${
             menuOpen ? 'opacity-100' : 'opacity-0'
           }`}
           onClick={() => setMenu({ open: false, pathname })}

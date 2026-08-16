@@ -73,7 +73,7 @@ export function LocaleSwitch({ locale }: { locale: Locale }) {
         aria-expanded={open}
         aria-haspopup="menu"
         aria-label={t('nav.changeLanguage')}
-        className="dm-focus-ring grid h-8 w-8 cursor-pointer place-items-center rounded-md text-dm-ink-2 transition-[color,background-color,border-color,transform] fine-hover:hover:bg-dm-bg-soft fine-hover:hover:text-dm-ink active:scale-[0.96]"
+        className="dm-focus-ring grid h-9 w-9 cursor-pointer place-items-center rounded-md text-dm-ink-2 transition-[color,background-color,border-color,transform] fine-hover:hover:bg-dm-bg-soft fine-hover:hover:text-dm-ink active:scale-[0.96]"
         onClick={() => setOpen((o) => !o)}
         type="button"
       >
@@ -96,7 +96,7 @@ export function LocaleSwitch({ locale }: { locale: Locale }) {
 
       {open ? (
         <div
-          className="absolute top-[40px] right-0 z-50 w-[168px] overflow-hidden rounded-[10px] border border-dm-line-strong bg-dm-bg-elev p-1"
+          className="absolute top-full right-0 z-50 mt-2 w-[168px] overflow-hidden rounded-[10px] border border-dm-line-strong bg-dm-bg-elev p-1"
           id="dm-locale-menu"
           onKeyDown={onMenuKeyDown}
           role="menu"
