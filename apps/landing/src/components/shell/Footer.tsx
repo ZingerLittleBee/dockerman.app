@@ -147,7 +147,7 @@ function BrandMark() {
       className="relative grid h-[26px] w-[26px] place-items-center overflow-hidden rounded-[7px] text-white"
       style={{
         background: 'var(--dm-grad)',
-        boxShadow: 'inset 0 0 0 1px rgb(255 255 255 / 0.1), 0 4px 12px -4px var(--color-dm-grad-from)'
+        boxShadow: 'inset 0 0 0 1px rgb(255 255 255 / 0.1), 0 4px 12px -4px var(--color-dm-accent)'
       }}
     >
       <svg

@@ -42,28 +42,23 @@ a user needs to read, you're using it wrong.
 
 ### 1.3 Accents
 
-| Token             | Light      | Dark       | Role                                                       |
-| ----------------- | ---------- | ---------- | ---------------------------------------------------------- |
-| `dm-accent`       | `#0c7a73`  | `#2aa89c`  | Primary accent. Mineral teal. `$` prompt, eyebrows, links. |
-| `dm-accent-2`     | `#3d44b8`  | `#8a8ef0`  | Secondary accent. Ink indigo. Focus rings.                 |
-| `dm-accent-warm`  | `#c45e14`  | `#e0893a`  | Warm accent. Used sparingly for contrast.                  |
-| `dm-grad-from`    | `#0a6560`  | same       | CTA / brand-mark gradient start                            |
-| `dm-grad-mid`     | `#1b5f92`  | same       | Azure mid-stop so the blend does not go gray               |
-| `dm-grad-to`      | `#3238ad`  | same       | CTA / brand-mark gradient end                              |
+| Token            | Value     | Role                                                       |
+| ---------------- | --------- | ---------------------------------------------------------- |
+| `dm-accent`      | `#14b8a6` | Primary accent. Teal. `$` prompt, section eyebrows, links. |
+| `dm-accent-2`    | `#6366f1` | Secondary accent. Indigo. Focus rings.                     |
+| `dm-accent-warm` | `#f97316` | Warm accent. Orange. Sparingly, for emphasis contrast.     |
 
-**Pair them, don't collide.** Never hand-type the teal → indigo blend.
-Use `background: var(--dm-grad)` — `135deg in oklab` with the three
-`--color-dm-grad-*` stops. Horizontal fills use `--dm-grad-90`. These
-are the only gradients that carry white type; every stop is ≥ 4.5:1
-against `#fff`.
+**Pair them, don't collide.** The canonical gradient is
+`background: var(--dm-grad)` — teal → indigo, `135deg in oklab`.
+Horizontal fills use `--dm-grad-90`. Do not hand-type the blend.
 
 ### 1.4 Status
 
-| Token     | Light      | Dark       | Use                              |
-| --------- | ---------- | ---------- | -------------------------------- |
-| `dm-ok`   | `#1b8554`  | `#3dba7a`  | Running, healthy, success dot    |
-| `dm-warn` | `#a67c0a`  | `#d4a017`  | Pending, degraded                |
-| `dm-err`  | `#c73636`  | `#ef6b6b`  | Failed, destructive confirmation |
+| Token     | Value     | Use                              |
+| --------- | --------- | -------------------------------- |
+| `dm-ok`   | `#10b981` | Running, healthy, success dot    |
+| `dm-warn` | `#f59e0b` | Pending, degraded                |
+| `dm-err`  | `#ef4444` | Failed, destructive confirmation |
 
 Status tokens carry meaning — don't use `dm-ok` for decoration just
 because you like green.
@@ -136,7 +131,7 @@ critical to comprehension, gate it via `.dm-animated`.
   className="inline-flex items-center gap-[10px] rounded-[10px] px-5 py-3 font-semibold text-[14px] text-white no-underline transition-all hover:-translate-y-px"
   style={{
     background: 'var(--dm-grad)',
-    boxShadow: '0 10px 30px -10px color-mix(in srgb, var(--color-dm-grad-to) 55%, transparent)',
+    boxShadow: '0 10px 30px -10px color-mix(in srgb, var(--color-dm-accent-2) 55%, transparent)',
   }}
 >
   Download Dockerman

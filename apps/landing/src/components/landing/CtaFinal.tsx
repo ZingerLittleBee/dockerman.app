@@ -45,7 +45,7 @@ export async function CtaFinal({ locale }: { locale: Locale }) {
               style={{
                 background: 'var(--dm-grad)',
                 boxShadow:
-                  '0 10px 30px -10px color-mix(in srgb, var(--color-dm-grad-to) 55%, transparent)'
+                  '0 10px 30px -10px color-mix(in srgb, var(--color-dm-accent-2) 55%, transparent)'
               }}
             >
               <svg

@@ -135,7 +135,7 @@ export function Hero({ locale }: { locale: Locale }) {
             style={{
               background: 'var(--dm-grad)',
               boxShadow:
-                '0 10px 30px -10px color-mix(in srgb, var(--color-dm-grad-to) 55%, transparent)'
+                '0 10px 30px -10px color-mix(in srgb, var(--color-dm-accent-2) 55%, transparent)'
             }}
           >
             <svg aria-hidden="true" fill="currentColor" height="14" viewBox="0 0 24 24" width="14">

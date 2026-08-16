@@ -51,7 +51,7 @@ export function GET(request: NextRequest) {
             width: 44,
             height: 44,
             borderRadius: 10,
-            background: 'linear-gradient(135deg, #0a6560, #1b5f92, #3238ad)'
+            background: 'linear-gradient(135deg, #14b8a6, #6366f1)'
           }}
         />
         <div style={{ fontSize: 28, fontWeight: 600, letterSpacing: '-0.02em' }}>
