@@ -130,7 +130,7 @@ export function Hero({ locale }: { locale: Locale }) {
         <div className="mt-7 flex flex-wrap items-center gap-3">
           {/* Gradient download button */}
           <Link
-            className="dm-focus-ring inline-flex items-center gap-[10px] rounded-[10px] px-5 py-3 font-semibold text-[14px] text-white no-underline transition-transform fine-hover:hover:-translate-y-px active:translate-y-0 active:scale-[0.96]"
+            className="dm-focus-ring inline-flex h-12 items-center gap-[10px] rounded-[10px] px-5 font-semibold text-[14px] text-white no-underline transition-transform fine-hover:hover:-translate-y-px active:translate-y-0 active:scale-[0.96]"
             href={`/${locale}/download`}
             style={{
               background:
@@ -158,7 +158,7 @@ export function Hero({ locale }: { locale: Locale }) {
           <button
             aria-label={copied ? t('hero.copied') : t('hero.copyAria', { cmd: INSTALL_CMD })}
             aria-live="polite"
-            className="dm-focus-ring inline-flex max-w-full cursor-pointer items-center gap-[10px] rounded-[10px] border border-dm-line bg-dm-bg-elev px-[12px] py-[10px] pr-3 font-[var(--font-dm-mono)] text-[11.5px] text-dm-ink-2 transition-[color,background-color,border-color,transform] fine-hover:hover:border-dm-line-strong active:scale-[0.96] sm:px-[14px] sm:text-[13px]"
+            className="dm-focus-ring inline-flex h-12 max-w-full cursor-pointer items-center gap-[10px] rounded-[10px] border border-dm-line bg-dm-bg-elev px-[12px] pr-3 font-[var(--font-dm-mono)] text-[11.5px] text-dm-ink-2 transition-[color,background-color,border-color,transform] fine-hover:hover:border-dm-line-strong active:scale-[0.96] sm:px-[14px] sm:text-[13px]"
             onClick={copyInstall}
             type="button"
           >
