@@ -1,5 +1,6 @@
 import type { Locale } from '@repo/shared/i18n'
 import { getTranslation } from '@repo/shared/i18n/server'
+import { cx } from '@repo/shared/utils'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { siteConfig } from '@/app/siteConfig'
@@ -263,11 +264,12 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
               }}
             />
             <h2
-              className={
+              className={cx(
+                'relative m-0 font-bold text-[clamp(36px,5vw,64px)] text-dm-ink',
                 l === 'zh' || l === 'ja'
-                  ? 'relative m-0 font-bold text-[clamp(28px,3.6vw,40px)] text-dm-ink leading-[1.2] tracking-normal'
-                  : 'relative m-0 font-bold text-[clamp(28px,3.6vw,40px)] text-dm-ink leading-[1.1] tracking-[-0.03em]'
-              }
+                  ? 'leading-[1.15] tracking-normal'
+                  : 'text-balance leading-[1.02] tracking-[-0.04em]'
+              )}
             >
               {t('pricing.finalCta.titleLead')}
               {l === 'zh' || l === 'ja' ? <br /> : ' '}
