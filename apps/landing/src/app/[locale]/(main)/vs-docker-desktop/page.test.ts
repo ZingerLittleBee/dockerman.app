@@ -2,8 +2,7 @@ import { describe, expect, test } from 'bun:test'
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
-const landingRoot = join(import.meta.dir, '../../../..')
-const localesRoot = join(landingRoot, '../../packages/shared/src/locales')
+const localesRoot = join(process.cwd(), '../../packages/shared/src/locales')
 
 function readJson(name: string) {
   return JSON.parse(readFileSync(join(localesRoot, name), 'utf8')) as {
