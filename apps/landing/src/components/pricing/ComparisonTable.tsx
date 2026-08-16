@@ -45,16 +45,16 @@ function buildGroups(t: TFn): GroupDef[] {
         { key: 'palette', hasDesc: true, free: true, team: true, solo: true },
         { key: 'terminal', free: true, team: true, solo: true },
         { key: 'compose', hasDesc: true, free: true, team: true, solo: true },
-        { key: 'trivy', free: true, team: true, solo: true }
+        { key: 'trivy', free: true, team: true, solo: true },
+        { key: 'k8s', hasDesc: true, free: true, team: true, solo: true },
+        { key: 'cloudflared', hasDesc: true, free: true, team: true, solo: true }
       ]
     },
     {
       key: 'remote',
       rows: [
         { key: 'remoteSsh', hasDesc: true, free: false, team: true, solo: true },
-        { key: 'bookmarks', free: false, team: true, solo: true },
-        { key: 'k8s', hasDesc: true, free: false, team: true, solo: true },
-        { key: 'cloudflared', hasDesc: true, free: false, team: true, solo: true }
+        { key: 'bookmarks', free: false, team: true, solo: true }
       ]
     },
     {

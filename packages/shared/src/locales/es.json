@@ -2,6 +2,7 @@
   "nav": {
     "features": "Características",
     "snapshot": "Vista previa",
+    "compare": "Comparar",
     "pricing": "Precios",
     "changelog": "Cambios",
     "docs": "Docs",
@@ -15,11 +16,12 @@
   "hero": {
     "eyebrow": "Direcciones *.dockerman.localhost memorables, configuración guiada de Local Domains, dominios que sobreviven a la recreación",
     "eyebrowTag": "NUEVO",
-    "headline1Lead": "Docker que se siente",
-    "headline1Accent": "local",
-    "headline2Lead": "Kubernetes que se siente",
-    "headline2Accent": "fácil",
-    "description": "Una UI de escritorio ligera para Docker, Podman y Kubernetes — hecha con Rust y Tauri. Arranca en ~0 ms y usa menos de 30 MB de memoria.",
+    "headline1Lead": "Una alternativa",
+    "headline1Accent": "ligera",
+    "headline2Lead": "a Docker",
+    "headline2Accent": "Desktop",
+    "description": "Dockerman es una UI de escritorio local-first para Docker, Podman y Kubernetes — hecha con Rust y Tauri. Arranca en ~0 ms, usa menos de 30 MB de memoria. Todas las funciones de Docker local son completamente gratis.",
+    "compareLink": "Comparar con Docker Desktop →",
     "downloadFor": {
       "mac": "Descargar para macOS",
       "windows": "Descargar para Windows",
@@ -74,7 +76,7 @@
   "cta": {
     "titleLead": "Abre la bandeja.",
     "titleAccent": "Lanza contenedores.",
-    "description": "Gratis y sin restricciones para uso local. Actualiza para desbloquear hosts remotos y gestión de Kubernetes.",
+    "description": "Todas las funciones de Docker local son completamente gratis. Solo pagas por las conexiones a hosts remotos.",
     "downloadButton": "Descargar Dockerman",
     "platformsBadge": "macOS · Win · Linux",
     "reportIssue": "Reportar un problema en GitHub →"
@@ -93,6 +95,7 @@
       "features": "Características",
       "changelog": "Cambios",
       "pricing": "Precios",
+      "compare": "vs Docker Desktop",
       "gettingStarted": "Primeros pasos",
       "kubernetes": "Kubernetes",
       "homelab": "Homelab",
@@ -287,7 +290,7 @@
       "free": {
         "label": "gratis",
         "name": "Free",
-        "description": "Todas las funciones, sin límite de tiempo. Solo Docker y Podman locales.",
+        "description": "Todas las funciones de Docker local son completamente gratis. No incluye hosts remotos.",
         "freq": "para siempre · solo local",
         "cta": "Plan actual",
         "ctaNote": "estás en este plan",
@@ -297,6 +300,8 @@
           "palette": "Paleta de comandos, terminal, logs",
           "podmanTrivy": "Podman, escaneo Trivy, explorador de archivos",
           "themesI18n": "Temas claro y oscuro, i18n (en/zh/ja/es)",
+          "k8s": "Gestión de clústeres Kubernetes",
+          "cloudflared": "Gestión de túneles Cloudflared",
           "remoteSsh": "Hosts remotos vía SSH",
           "multiHost": "Gestión multi-host"
         }
@@ -325,7 +330,7 @@
       "solo": {
         "label": "1 dispositivo",
         "name": "Solo",
-        "description": "Para el usuario individual. Una licencia, una máquina, todo desbloqueado.",
+        "description": "Para el usuario individual. Una licencia, una máquina, con conexiones a hosts remotos.",
         "freq": "pago único · 1 dispositivo",
         "cta": "Obtener Solo — ${{price}}",
         "ctaNote": "un pago, reembolso de {{days}} días",
@@ -349,7 +354,7 @@
     "compare": {
       "titleLead": "Lo que obtienes,",
       "titleAccent": "función por función.",
-      "description": "Todos los planes incluyen la experiencia local completa. Los planes pagos añaden hosts remotos y soporte prioritario.",
+      "description": "Todos los planes incluyen la experiencia local completa, Kubernetes y Cloudflared incluidos. Los planes de pago añaden conexiones a hosts remotos.",
       "columns": {
         "feature": "Función",
         "free": "Free",
@@ -423,6 +428,11 @@
       "ctaTeam": "Obtener Team — ${{price}}",
       "ctaFree": "o empieza gratis →"
     },
+    "vsDesktop": {
+      "title": "¿Buscas una alternativa a Docker Desktop?",
+      "body": "Compara tamaño de instalación, uso local gratuito, pago único frente a suscripción, y backends que eliges — incluido WSL que Dockerman puede gestionar en Windows.",
+      "cta": "Dockerman vs Docker Desktop →"
+    },
     "success": {
       "title": "¡Pago Exitoso!",
       "description": "Gracias por comprar Dockerman. Tu clave de licencia será enviada a tu correo electrónico en breve.",
@@ -438,7 +448,7 @@
       "items": [
         {
           "question": "¿Qué significa Licencia de por Vida?",
-          "answer": "Las funciones locales de Docker y Podman son gratuitas para siempre y no requieren licencia. Una licencia de pago de por vida se compra una sola vez y desbloquea para siempre los hosts remotos y las demás funciones de pago en tus dispositivos con licencia, incluidas las actualizaciones gratuitas de todas las versiones futuras."
+          "answer": "Todas las funciones de Docker local son completamente gratis y no requieren licencia. Una licencia de pago de por vida se compra una sola vez y desbloquea para siempre las conexiones a hosts remotos en tus dispositivos con licencia, incluidas las actualizaciones gratuitas de todas las versiones futuras. No hay otros ítems de pago."
         },
         {
           "question": "¿Qué significa la Limitación de Dispositivos?",
@@ -974,10 +984,151 @@
       }
     }
   },
+  "compare": {
+    "hero": {
+      "kicker": "Alternativa a Docker Desktop",
+      "titleLead": "Una UI Docker más ligera.",
+      "titleAccent": "Los mismos contenedores.",
+      "description": "Dockerman es una UI de escritorio local-first para Docker, Podman y Kubernetes — una alternativa ligera a Docker Desktop, no un clon de la plataforma de Docker Inc. Tú eliges el backend. Todas las funciones de Docker local son completamente gratis. Lo único de pago son las conexiones a hosts remotos."
+    },
+    "table": {
+      "kicker": "lado a lado",
+      "titleLead": "Lo que de verdad",
+      "titleAccent": "cambia.",
+      "description": "Las cifras de Dockerman salen de este sitio. Docker Desktop es una plataforma completa, así que lo describimos cualitativamente en lugar de inventar mediciones.",
+      "columns": {
+        "topic": "Tema",
+        "dockerman": "Dockerman",
+        "desktop": "Docker Desktop"
+      },
+      "rows": {
+        "install": {
+          "label": "Tamaño del instalador",
+          "dockerman": "Windows {{windows}} · macOS {{macos}}",
+          "desktop": "Un instalador de plataforma completa (motor, VM y herramientas)"
+        },
+        "memory": {
+          "label": "Memoria de la app",
+          "dockerman": "Menos de 30 MB para la UI",
+          "desktop": "Una plataforma completa: motor, herramientas y una VM en Mac/Windows"
+        },
+        "local": {
+          "label": "Docker y Podman locales",
+          "dockerman": "Todas las funciones de Docker local son completamente gratis",
+          "desktop": "Gratis para uso personal y pequeñas empresas que califican; suscripción para organizaciones más grandes"
+        },
+        "license": {
+          "label": "Funciones de pago",
+          "dockerman": "Solo hosts remotos — pago único Solo ${{solo}} / Team ${{team}}",
+          "desktop": "Planes de suscripción para organizaciones que necesitan Docker Desktop de pago"
+        },
+        "windows": {
+          "label": "Windows sin Docker Desktop",
+          "dockerman": "Tú eliges — incluido WSL que Dockerman gestiona para instalar Docker",
+          "desktop": "Desktop sigue siendo un backend que puedes usar"
+        },
+        "macos": {
+          "label": "Motores en macOS",
+          "dockerman": "Tú eliges el backend — Docker Desktop, OrbStack, Colima, Podman, Apple Container",
+          "desktop": "Motor Docker y VM incluidos"
+        },
+        "domains": {
+          "label": "Dominios locales",
+          "dockerman": "*.dockerman.localhost — nombres memorables, sobreviven a la recreación",
+          "desktop": "Publicación de puertos y red de Desktop"
+        },
+        "remote": {
+          "label": "SSH remoto y multi-host",
+          "dockerman": "Desbloqueo de pago único",
+          "desktop": "Local-first; también puede usar contextos de Docker"
+        },
+        "k8s": {
+          "label": "Kubernetes",
+          "dockerman": "kubeconfig o k3d local — incluido, no es de pago",
+          "desktop": "Kubernetes de un nodo opcional dentro de Desktop"
+        },
+        "platforms": {
+          "label": "Plataformas",
+          "dockerman": "macOS, Windows, Linux",
+          "desktop": "macOS, Windows, Linux"
+        }
+      }
+    },
+    "topics": {
+      "kicker": "los detalles",
+      "titleLead": "Diferencias honestas,",
+      "titleAccent": "sin despreciar.",
+      "footprint": {
+        "title": "Tamaño de instalación y memoria",
+        "body": "Dockerman es una UI en Rust + Tauri. El instalador de Windows es {{windows}}; el DMG universal de macOS es {{macos}}. La app está pensada para quedarse por debajo de 30 MB de memoria. Docker Desktop es una plataforma completa (motor, herramientas y una VM en Mac/Windows), así que la descarga y el uso en reposo son mayores. No publicamos cifras de Desktop aquí."
+      },
+      "license": {
+        "title": "Local gratis frente a la licencia de Desktop",
+        "body": "Todas las funciones de Docker local son completamente gratis, incluido el uso comercial. Lo único de pago son las conexiones a hosts remotos: una licencia de pago único (${{solo}} Solo / ${{team}} Team). No hay otros ítems de pago. Docker Desktop es gratis para uso personal y para organizaciones que califican según los términos de Docker; las organizaciones más grandes necesitan una suscripción. Son productos distintos, con licencias distintas."
+      },
+      "engines": {
+        "title": "Tú eliges el backend",
+        "body": "Dockerman es una UI. Tú eliges el motor: Docker Desktop, OrbStack, Colima, Podman, Apple Container en Apple Silicon con macOS 26+, o en Windows un WSL que Dockerman gestiona y puede usar para instalar Docker. Esa elección es lo que lo hace una alternativa a Docker Desktop: Desktop es opcional, no obligatorio. En macOS, la v6.0.0 puede detectar, iniciar, detener y reparar máquinas Colima y Podman; no instala esos binarios."
+      },
+      "domains": {
+        "title": "Dominios locales",
+        "body": "La v6.1.0 añade direcciones *.dockerman.localhost memorables para servicios Docker locales, sin números de puerto. La configuración es guiada. Los dominios se vinculan al nombre del contenedor y al puerto interno, así que sobreviven a la recreación. En macOS hace falta una aprobación de administrador; en Windows no hay configuración extra; en Linux se usa el broker del sistema que va con los paquetes .deb/.rpm."
+      },
+      "pricing": {
+        "title": "Pago único frente a suscripción",
+        "body": "Dockerman no vende una suscripción. Lo único de pago son las conexiones a hosts remotos: un pago, actualizaciones de por vida. Todas las funciones de Docker local son completamente gratis. Los planes de pago de Docker Desktop son suscripciones de Docker Inc."
+      }
+    },
+    "orbstack": {
+      "title": "¿Y OrbStack?",
+      "body": "OrbStack es un backend que puedes elegir, no una UI rival. En Mac elige OrbStack, Docker Desktop, Colima, Podman o Apple Container. Apunta Dockerman al socket y sigue con el motor que ya usas. Ser alternativa a Docker Desktop no choca con elegir el motor: la decisión es tuya."
+    },
+    "desktopWins": {
+      "title": "Dónde Docker Desktop sigue ganando",
+      "body": "Docker Desktop es el producto oficial de Docker Inc. Elígelo cuando quieras la plataforma oficial — Engine, Compose, Buildx — y extras como Extensions, Docker Scout, Build Cloud y controles de organización. Desktop también puede activar un clúster Kubernetes local. Si quieres esa plataforma oficial todo-en-uno, Desktop es la herramienta correcta. Aun así puedes conectar Dockerman."
+    },
+    "faq": {
+      "kicker": "faq",
+      "titleLead": "Respuestas",
+      "titleAccent": "directas.",
+      "items": [
+        {
+          "question": "¿Es Dockerman una alternativa a Docker Desktop?",
+          "answer": "Sí, como UI ligera y local-first. Tú eliges el backend. Gestiona Docker, Podman y Kubernetes. Las funciones de Docker local — Kubernetes incluido — son completamente gratis. Lo único de pago son las conexiones a hosts remotos. No sustituye todos los productos de Docker Inc."
+        },
+        {
+          "question": "¿Sigo necesitando Docker Desktop en Windows?",
+          "answer": "No. Conserva Docker Desktop y conecta Dockerman, o elige WSL que Dockerman gestiona para instalar Docker. El backend lo eliges tú."
+        },
+        {
+          "question": "¿El uso local es gratis?",
+          "answer": "Sí. Todas las funciones de Docker local son completamente gratis. Solo pagas por las conexiones a hosts remotos."
+        },
+        {
+          "question": "¿Cómo se comparan los precios?",
+          "answer": "Los planes de pago de Dockerman son de pago único: Solo 19 $ y Team 29 $. Docker Desktop usa suscripciones para organizaciones que no califican para su nivel gratuito."
+        }
+      ]
+    },
+    "cta": {
+      "download": "Descargar Dockerman",
+      "pricing": "Ver precios"
+    },
+    "links": {
+      "windowsDocs": "Configuración en Windows",
+      "macosDocs": "Configuración en macOS",
+      "pricing": "Precios",
+      "download": "Descargar"
+    }
+  },
   "meta": {
     "home": {
-      "title": "Dockerman — Docker, Podman y Kubernetes local-first",
-      "description": "Una superficie de control local-first para Docker, Podman y Kubernetes. Construido en Rust y Tauri. Rápido, preciso, diseñado para no estorbar."
+      "title": "Dockerman — Alternativa ligera a Docker Desktop",
+      "description": "Dockerman es una alternativa ligera a Docker Desktop para macOS, Windows y Linux. UI local-first para Docker, Podman y Kubernetes. Todas las funciones de Docker local son completamente gratis."
+    },
+    "compare": {
+      "title": "Alternativa a Docker Desktop — Dockerman",
+      "description": "Compara Dockerman y Docker Desktop: tamaño de instalación, memoria, WSL2, Colima, Podman, licencias y dominios locales. Todas las funciones de Docker local son completamente gratis. Solo los hosts remotos son de pago."
     },
     "pricing": {
       "title": "Precios — Dockerman",
