@@ -286,7 +286,7 @@
       "free": {
         "label": "無料",
         "name": "Free",
-        "description": "全機能、期限なし。ローカル Docker と Podman のみ。",
+        "description": "ローカル Docker の機能はすべて完全に無料です。リモートホスト接続は含まれません。",
         "freq": "永久 · ローカル限定",
         "cta": "現在のプラン",
         "ctaNote": "このプランをご利用中です",
@@ -296,6 +296,8 @@
           "palette": "コマンドパレット、ターミナル、ログ",
           "podmanTrivy": "Podman、Trivy スキャン、ファイルブラウザ",
           "themesI18n": "ライト/ダークテーマ、多言語 (en/zh/ja/es)",
+          "k8s": "Kubernetes クラスター管理",
+          "cloudflared": "Cloudflared トンネル管理",
           "remoteSsh": "SSH 経由のリモートホスト",
           "multiHost": "マルチホスト管理"
         }
@@ -324,7 +326,7 @@
       "solo": {
         "label": "1 デバイス",
         "name": "Solo",
-        "description": "個人ユーザー向け。1 ライセンス、1 台のマシンで全機能解放。",
+        "description": "個人ユーザー向け。1 ライセンス、1 台のマシンでリモートホスト接続を含みます。",
         "freq": "一括払い · 1 デバイス",
         "cta": "Solo を購入 — ${{price}}",
         "ctaNote": "一括払い、{{days}} 日間返金保証",
@@ -348,7 +350,7 @@
     "compare": {
       "titleLead": "機能ごとに、",
       "titleAccent": "一目瞭然。",
-      "description": "すべてのプランにローカル機能を完全収録。有料プランはリモートホストと優先サポートを追加。",
+      "description": "すべてのプランにローカル機能を完全収録（Kubernetes と Cloudflared を含む）。有料プランが追加するのはリモートホスト接続だけです。",
       "columns": {
         "feature": "機能",
         "free": "Free",

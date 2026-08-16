@@ -124,6 +124,8 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
                 { id: 'palette', label: t('pricing.plans.free.features.palette') },
                 { id: 'podmanTrivy', label: t('pricing.plans.free.features.podmanTrivy') },
                 { id: 'themesI18n', label: t('pricing.plans.free.features.themesI18n') },
+                { id: 'k8s', label: t('pricing.plans.free.features.k8s') },
+                { id: 'cloudflared', label: t('pricing.plans.free.features.cloudflared') },
                 {
                   id: 'remoteSsh',
                   label: t('pricing.plans.free.features.remoteSsh'),
@@ -174,8 +176,6 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
                 },
                 { id: 'remote', label: t('pricing.plans.team.features.remote') },
                 { id: 'multiHost', label: t('pricing.plans.team.features.multiHost') },
-                { id: 'cloudflared', label: t('pricing.plans.team.features.cloudflared') },
-                { id: 'k8s', label: t('pricing.plans.team.features.k8s') },
                 { id: 'updates', label: t('pricing.plans.team.features.updates') }
               ]}
               freq={t('pricing.plans.team.freq', { devices: plans.team.devices })}
@@ -211,8 +211,6 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
                 },
                 { id: 'remote', label: t('pricing.plans.solo.features.remote') },
                 { id: 'multiHost', label: t('pricing.plans.solo.features.multiHost') },
-                { id: 'cloudflared', label: t('pricing.plans.solo.features.cloudflared') },
-                { id: 'k8s', label: t('pricing.plans.solo.features.k8s') },
                 { id: 'updates', label: t('pricing.plans.solo.features.updates') }
               ]}
               freq={t('pricing.plans.solo.freq')}

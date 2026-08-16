@@ -286,7 +286,7 @@
       "free": {
         "label": "gratis",
         "name": "Free",
-        "description": "Todas las funciones, sin límite de tiempo. Solo Docker y Podman locales.",
+        "description": "Todas las funciones de Docker local son completamente gratis. No incluye hosts remotos.",
         "freq": "para siempre · solo local",
         "cta": "Plan actual",
         "ctaNote": "estás en este plan",
@@ -296,6 +296,8 @@
           "palette": "Paleta de comandos, terminal, logs",
           "podmanTrivy": "Podman, escaneo Trivy, explorador de archivos",
           "themesI18n": "Temas claro y oscuro, i18n (en/zh/ja/es)",
+          "k8s": "Gestión de clústeres Kubernetes",
+          "cloudflared": "Gestión de túneles Cloudflared",
           "remoteSsh": "Hosts remotos vía SSH",
           "multiHost": "Gestión multi-host"
         }
@@ -324,7 +326,7 @@
       "solo": {
         "label": "1 dispositivo",
         "name": "Solo",
-        "description": "Para el usuario individual. Una licencia, una máquina, todo desbloqueado.",
+        "description": "Para el usuario individual. Una licencia, una máquina, con conexiones a hosts remotos.",
         "freq": "pago único · 1 dispositivo",
         "cta": "Obtener Solo — ${{price}}",
         "ctaNote": "un pago, reembolso de {{days}} días",
@@ -348,7 +350,7 @@
     "compare": {
       "titleLead": "Lo que obtienes,",
       "titleAccent": "función por función.",
-      "description": "Todos los planes incluyen la experiencia local completa. Los planes pagos añaden hosts remotos y soporte prioritario.",
+      "description": "Todos los planes incluyen la experiencia local completa, Kubernetes y Cloudflared incluidos. Los planes de pago añaden conexiones a hosts remotos."
       "columns": {
         "feature": "Función",
         "free": "Free",

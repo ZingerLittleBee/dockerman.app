@@ -286,7 +286,7 @@
       "free": {
         "label": "free",
         "name": "Free",
-        "description": "Every feature, no time limit. Local Docker and Podman only.",
+        "description": "Every local Docker feature is completely free. Remote hosts are not included.",
         "freq": "forever · local only",
         "cta": "Current plan",
         "ctaNote": "you're on this plan",
@@ -296,6 +296,8 @@
           "palette": "Command palette, terminal, logs",
           "podmanTrivy": "Podman, Trivy scan, file browser",
           "themesI18n": "Light & dark themes, i18n (en/zh/ja/es)",
+          "k8s": "Kubernetes cluster management",
+          "cloudflared": "Cloudflared tunnel management",
           "remoteSsh": "Remote hosts via SSH",
           "multiHost": "Multi-host management"
         }
@@ -324,7 +326,7 @@
       "solo": {
         "label": "1 device",
         "name": "Solo",
-        "description": "For the individual user. One license, one machine, everything unlocked.",
+        "description": "For the individual user. One license, one machine, remote host connections included.",
         "freq": "one-time · 1 device",
         "cta": "Get Solo — ${{price}}",
         "ctaNote": "one payment, {{days}}-day refund",
@@ -348,7 +350,7 @@
     "compare": {
       "titleLead": "What you get,",
       "titleAccent": "feature by feature.",
-      "description": "Every plan includes the full local experience. Paid tiers add remote hosts and priority support.",
+      "description": "Every plan includes the full local experience, including Kubernetes and Cloudflared. Paid plans add remote host connections.",
       "columns": {
         "feature": "Feature",
         "free": "Free",

@@ -286,7 +286,7 @@
       "free": {
         "label": "免费",
         "name": "Free",
-        "description": "全部功能，永不过期。仅支持本地 Docker 与 Podman。",
+        "description": "使用本地 Docker，全部功能完全免费。不含远程主机连接。",
         "freq": "永久 · 仅限本地",
         "cta": "当前方案",
         "ctaNote": "您正在使用此方案",
@@ -296,6 +296,8 @@
           "palette": "命令面板、终端、日志",
           "podmanTrivy": "Podman、Trivy 扫描、文件浏览器",
           "themesI18n": "浅色/深色主题，多语言 (en/zh/ja/es)",
+          "k8s": "Kubernetes 集群管理",
+          "cloudflared": "Cloudflared 隧道管理",
           "remoteSsh": "通过 SSH 连接远程主机",
           "multiHost": "多主机管理"
         }
@@ -324,7 +326,7 @@
       "solo": {
         "label": "1 台设备",
         "name": "Solo",
-        "description": "为个人用户而生。一个许可证,一台机器,全部功能解锁。",
+        "description": "为个人用户而生。一个许可证，一台机器，含远程主机连接。",
         "freq": "一次付费 · 1 台设备",
         "cta": "购买 Solo — ${{price}}",
         "ctaNote": "一次付费,{{days}} 天退款保证",
@@ -348,7 +350,7 @@
     "compare": {
       "titleLead": "逐项对比,",
       "titleAccent": "一目了然。",
-      "description": "每个方案都包含完整的本地体验。付费版增加远程主机与优先支持。",
+      "description": "每个方案都包含完整的本地体验，含 Kubernetes 与 Cloudflared。付费方案只增加远程主机连接。",
       "columns": {
         "feature": "功能",
         "free": "Free",
