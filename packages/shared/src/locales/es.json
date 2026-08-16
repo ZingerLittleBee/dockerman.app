@@ -9,7 +9,8 @@
     "github": "GitHub",
     "changeLanguage": "Cambiar idioma",
     "openMenu": "Abrir menú",
-    "closeMenu": "Cerrar menú"
+    "closeMenu": "Cerrar menú",
+    "skipToContent": "Saltar al contenido"
   },
   "hero": {
     "eyebrow": "v{{version}} — Direcciones *.dockerman.localhost memorables, configuración guiada de Local Domains, dominios que sobreviven a la recreación",
@@ -107,6 +108,7 @@
     "download": "Descargar"
   },
   "featuresSection": {
+    "kicker": "funciones",
     "titleLead": "Todo lo que te importa,",
     "titleAccent": "a una tecla de distancia.",
     "description": "Contenedores, imágenes, volúmenes, redes, proyectos Compose, cargas de Kubernetes, túneles Cloudflared — todo en una sola interfaz de baja latencia.",
@@ -148,6 +150,7 @@
     }
   },
   "modulesSection": {
+    "kicker": "módulos",
     "titleLead": "Construido para lo que",
     "titleAccent": "realmente",
     "titleTrail": "haces cada día.",
@@ -229,6 +232,7 @@
         "file": "Archivos"
       },
       "containersHeader": "Contenedores",
+      "running": "en ejecución",
       "idle": "inactivo"
     },
     "main": {

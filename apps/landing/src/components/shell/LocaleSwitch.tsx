@@ -3,7 +3,7 @@
 import { cookieName, type Locale, localeConfig, locales } from '@repo/shared/i18n'
 import { useTranslation } from '@repo/shared/i18n/client'
 import { usePathname, useRouter } from 'next/navigation'
-import { useEffect, useRef, useState } from 'react'
+import { type KeyboardEvent, useEffect, useRef, useState } from 'react'
 
 export function LocaleSwitch({ locale }: { locale: Locale }) {
   const [open, setOpen] = useState(false)
@@ -34,6 +34,26 @@ export function LocaleSwitch({ locale }: { locale: Locale }) {
     }
   }, [open])
 
+  const onMenuKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    const buttons = Array.from(
+      e.currentTarget.querySelectorAll<HTMLButtonElement>('[role="menuitem"]')
+    )
+    const current = buttons.indexOf(document.activeElement as HTMLButtonElement)
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+      e.preventDefault()
+      buttons[(current + 1 + buttons.length) % buttons.length]?.focus()
+    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+      e.preventDefault()
+      buttons[(current - 1 + buttons.length) % buttons.length]?.focus()
+    } else if (e.key === 'Home') {
+      e.preventDefault()
+      buttons[0]?.focus()
+    } else if (e.key === 'End') {
+      e.preventDefault()
+      buttons.at(-1)?.focus()
+    }
+  }
+
   const switchTo = (next: Locale) => {
     setOpen(false)
     if (next === locale) {
@@ -49,10 +69,11 @@ export function LocaleSwitch({ locale }: { locale: Locale }) {
   return (
     <div className="relative" ref={ref}>
       <button
+        aria-controls="dm-locale-menu"
         aria-expanded={open}
         aria-haspopup="menu"
         aria-label={t('nav.changeLanguage')}
-        className="grid h-8 w-8 cursor-pointer place-items-center rounded-md text-dm-ink-2 transition-[color,background-color,border-color,transform] hover:bg-dm-bg-soft hover:text-dm-ink active:scale-[0.97]"
+        className="dm-focus-ring grid h-8 w-8 cursor-pointer place-items-center rounded-md text-dm-ink-2 transition-[color,background-color,border-color,transform] fine-hover:hover:bg-dm-bg-soft fine-hover:hover:text-dm-ink active:scale-[0.96]"
         onClick={() => setOpen((o) => !o)}
         type="button"
       >
@@ -76,6 +97,8 @@ export function LocaleSwitch({ locale }: { locale: Locale }) {
       {open ? (
         <div
           className="absolute top-[40px] right-0 z-50 w-[168px] overflow-hidden rounded-[10px] border border-dm-line-strong bg-dm-bg-elev p-1"
+          id="dm-locale-menu"
+          onKeyDown={onMenuKeyDown}
           role="menu"
           style={{ boxShadow: '0 20px 40px -20px rgb(0 0 0 / 0.35)' }}
         >
@@ -84,8 +107,10 @@ export function LocaleSwitch({ locale }: { locale: Locale }) {
             return (
               <button
                 aria-current={isActive ? 'true' : undefined}
-                className={`flex w-full cursor-pointer items-center justify-between gap-2 rounded-md px-[10px] py-[7px] text-left text-[13px] transition-[color,background-color,border-color,transform] active:scale-[0.97] ${
-                  isActive ? 'text-dm-ink' : 'text-dm-ink-2 hover:bg-dm-bg-soft hover:text-dm-ink'
+                className={`dm-focus-ring flex w-full cursor-pointer items-center justify-between gap-2 rounded-md px-[10px] py-[7px] text-left text-[13px] transition-[color,background-color,border-color,transform] active:scale-[0.96] ${
+                  isActive
+                    ? 'text-dm-ink'
+                    : 'text-dm-ink-2 fine-hover:hover:bg-dm-bg-soft fine-hover:hover:text-dm-ink'
                 }`}
                 key={code}
                 onClick={() => switchTo(code)}

@@ -5,6 +5,7 @@
 @source "../node_modules/fumadocs-ui/dist/**/*.js";
 
 @custom-variant dark (&:where(.dark, .dark *));
+@custom-variant fine-hover (@media (hover: hover));
 
 @plugin "@tailwindcss/forms";
 
@@ -150,6 +151,42 @@
 
   --radius-dm: 12px;
   --radius-dm-sm: 8px;
+}
+
+@layer components {
+  .dm-focus-ring {
+    outline: none;
+  }
+
+  .dm-focus-ring:focus-visible {
+    outline: 2px solid var(--color-dm-accent-2);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 3px
+      color-mix(in srgb, var(--color-dm-accent-2) 18%, transparent);
+  }
+
+  .dm-skip-link {
+    position: absolute;
+    inset-inline-start: 16px;
+    top: 16px;
+    z-index: 100;
+    transform: translateY(-200%);
+    border-radius: 10px;
+    background: var(--color-dm-bg-elev);
+    padding: 10px 14px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-dm-ink);
+    text-decoration: none;
+    box-shadow: 0 0 0 3px
+      color-mix(in srgb, var(--color-dm-accent-2) 18%, transparent);
+  }
+
+  .dm-skip-link:focus {
+    transform: translateY(0);
+    outline: 2px solid var(--color-dm-accent-2);
+    outline-offset: 2px;
+  }
 }
 
 @layer base {

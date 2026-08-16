@@ -32,7 +32,10 @@ const MOCK_CONTAINERS = [
 export function LiveDashboard({ locale }: { locale: Locale }) {
   const { t } = useTranslation(locale)
   return (
-    <div className="mx-auto mt-10 max-w-[1240px] overflow-hidden rounded-[14px] border border-dm-line-strong bg-dm-bg-elev shadow-[0_20px_60px_-20px_rgb(0_0_0_/_0.3)]">
+    <div
+      aria-hidden="true"
+      className="mx-auto mt-10 max-w-[1240px] overflow-hidden rounded-[14px] border border-dm-line-strong bg-dm-bg-elev shadow-[0_20px_60px_-20px_rgb(0_0_0_/_0.3)]"
+    >
       <Titlebar />
       <div className="grid grid-cols-[220px_1fr]">
         <Sidebar t={t} />
@@ -90,6 +93,7 @@ function Sidebar({ t }: { t: TFn }) {
           img={c.img}
           key={c.name}
           name={c.name}
+          runningLabel={t('liveDashboard.sidebar.running')}
           state={c.state}
         />
       ))}
@@ -208,30 +212,39 @@ function ContainerRow({
   name,
   img,
   state,
-  idleLabel
+  idleLabel,
+  runningLabel
 }: {
   name: string
   img?: string
   state: 'running' | 'stopped'
   idleLabel: string
+  runningLabel: string
 }) {
   return (
     <div className="flex items-center gap-2 rounded-md px-2 py-[6px] font-[var(--font-dm-mono)] text-[11.5px] text-dm-ink-2">
       <span
-        className="h-[6px] w-[6px] rounded-full"
-        style={{
-          background: state === 'running' ? 'var(--color-dm-ok)' : 'var(--color-dm-ink-4)',
-          boxShadow:
-            state === 'running'
-              ? '0 0 8px color-mix(in srgb, var(--color-dm-ok) 60%, transparent)'
-              : undefined
-        }}
+        className={
+          state === 'running'
+            ? 'h-[6px] w-[6px] shrink-0 rounded-full'
+            : 'h-[6px] w-[6px] shrink-0 rounded-full border border-dm-ink-3 bg-transparent'
+        }
+        style={
+          state === 'running'
+            ? {
+                background: 'var(--color-dm-ok)',
+                boxShadow: '0 0 8px color-mix(in srgb, var(--color-dm-ok) 60%, transparent)'
+              }
+            : undefined
+        }
       />
       <span className="flex flex-1 flex-col overflow-hidden leading-tight">
         <span className="truncate text-dm-ink">{name}</span>
-        {img ? <span className="truncate text-[10px] text-dm-ink-4">{img}</span> : null}
+        {img ? <span className="truncate text-[10px] text-dm-ink-3">{img}</span> : null}
       </span>
-      {state === 'stopped' ? <span className="text-[10px] text-dm-ink-4">{idleLabel}</span> : null}
+      <span className="text-[10px] text-dm-ink-3">
+        {state === 'stopped' ? idleLabel : runningLabel}
+      </span>
     </div>
   )
 }
@@ -347,30 +360,31 @@ function ChartRow({ t }: { t: TFn }) {
   return (
     <div className="mt-3 grid grid-cols-2 gap-3">
       <ChartCard
-        stroke="#6366f1"
+        stroke="var(--color-dm-accent-2)"
         title={t('liveDashboard.main.charts.cpu')}
         value={`${Math.round(cpu.at(-1) ?? 0)}%`}
       >
         <Sparkline
           className="block h-[120px] w-full"
           data={cpu}
+          fill="color-mix(in srgb, var(--color-dm-accent-2) 12%, transparent)"
           height={120}
-          stroke="#6366f1"
+          stroke="var(--color-dm-accent-2)"
           strokeWidth={1.75}
           width={500}
         />
       </ChartCard>
       <ChartCard
-        stroke="#10b981"
+        stroke="var(--color-dm-ok)"
         title={t('liveDashboard.main.charts.memory')}
         value={`${Math.round(mem.at(-1) ?? 0)}%`}
       >
         <Sparkline
           className="block h-[120px] w-full"
           data={mem}
-          fill="#10b98122"
+          fill="color-mix(in srgb, var(--color-dm-ok) 12%, transparent)"
           height={120}
-          stroke="#10b981"
+          stroke="var(--color-dm-ok)"
           strokeWidth={1.75}
           width={500}
         />
@@ -393,11 +407,15 @@ function ChartCard({
   return (
     <div className="rounded-[12px] border border-dm-line bg-dm-bg-elev p-4">
       <div className="flex items-baseline justify-between">
-        <span className="text-[12px] text-dm-ink-3">{title}</span>
-        <span
-          className="font-[var(--font-dm-mono)] font-semibold text-[20px]"
-          style={{ color: stroke }}
-        >
+        <span className="inline-flex items-center gap-[6px] text-[12px] text-dm-ink-3">
+          <span
+            aria-hidden="true"
+            className="h-[6px] w-[6px] rounded-full"
+            style={{ background: stroke }}
+          />
+          {title}
+        </span>
+        <span className="font-[var(--font-dm-mono)] font-semibold text-[20px] text-dm-ink tabular-nums">
           {value}
         </span>
       </div>
@@ -424,31 +442,31 @@ function IoRow({ t }: { t: TFn }) {
   return (
     <div className="mt-3 grid grid-cols-2 gap-3">
       <ChartCard
-        stroke="#a855f7"
+        stroke="var(--color-dm-accent)"
         title={t('liveDashboard.main.charts.networkIo')}
         value={`${(net.at(-1) ?? 0).toFixed(1)} MB/s`}
       >
         <Sparkline
           className="block h-[100px] w-full"
           data={net}
-          fill="#a855f722"
+          fill="color-mix(in srgb, var(--color-dm-accent) 12%, transparent)"
           height={100}
-          stroke="#a855f7"
+          stroke="var(--color-dm-accent)"
           strokeWidth={1.5}
           width={500}
         />
       </ChartCard>
       <ChartCard
-        stroke="#ec4899"
+        stroke="var(--color-dm-accent-warm)"
         title={t('liveDashboard.main.charts.diskIo')}
         value={`${(disk.at(-1) ?? 0).toFixed(1)} MB/s`}
       >
         <Sparkline
           className="block h-[100px] w-full"
           data={disk}
-          fill="#ec489922"
+          fill="color-mix(in srgb, var(--color-dm-accent-warm) 12%, transparent)"
           height={100}
-          stroke="#ec4899"
+          stroke="var(--color-dm-accent-warm)"
           strokeWidth={1.5}
           width={500}
         />

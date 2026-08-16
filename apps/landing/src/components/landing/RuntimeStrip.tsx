@@ -7,7 +7,7 @@ export async function RuntimeStrip({ locale }: { locale: Locale }) {
   const { t } = await getTranslation(locale)
   return (
     <section className="border-dm-line border-y bg-dm-bg-elev/50">
-      <div className="mx-auto flex max-w-[1240px] flex-wrap items-center justify-between gap-x-6 gap-y-3 px-5 py-5 text-[12px] text-dm-ink-3 sm:px-8 sm:py-6">
+      <div className="mx-auto flex max-w-[1240px] flex-wrap items-center justify-center gap-x-5 gap-y-2 px-5 py-5 text-[12px] text-dm-ink-3 sm:justify-between sm:gap-x-6 sm:px-8 sm:py-6">
         <span className="font-[var(--font-dm-mono)] uppercase tracking-wider">
           {t('runtimeStrip.label')}
         </span>

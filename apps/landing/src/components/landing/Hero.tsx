@@ -91,35 +91,37 @@ export function Hero({ locale }: { locale: Locale }) {
       <div className="relative mx-auto max-w-[1240px]">
         <HeroStage locale={locale} />
         {/* Eyebrow: pulsing dot + version note + NEW tag */}
-        <span className="inline-flex items-center gap-[10px] rounded-full border border-dm-line-strong bg-dm-bg-elev px-[10px] py-[5px] font-[var(--font-dm-mono)] text-[12px] text-dm-ink-2">
+        <span className="inline-flex max-w-full items-start gap-[10px] rounded-[20px] border border-dm-line-strong bg-dm-bg-elev px-[10px] py-[5px] font-[var(--font-dm-mono)] text-[11px] text-dm-ink-2 sm:items-center sm:rounded-full sm:text-[12px]">
           <span
-            className="dm-animated h-[6px] w-[6px] rounded-full"
+            className="dm-animated mt-[6px] h-[6px] w-[6px] shrink-0 rounded-full sm:mt-0"
             style={{
               background: 'var(--color-dm-ok)',
               boxShadow: '0 0 0 4px color-mix(in srgb, var(--color-dm-ok) 30%, transparent)',
               animation: 'dm-pulse 900ms ease-in-out infinite'
             }}
           />
-          <span>{t('hero.eyebrow', { version: siteConfig.latestVersion })}</span>
-          <span className="rounded-full bg-dm-ink px-2 py-[2px] font-semibold text-[10px] text-dm-bg tracking-[0.04em]">
+          <span className="min-w-0 flex-1 text-pretty leading-snug">
+            {t('hero.eyebrow', { version: siteConfig.latestVersion })}
+          </span>
+          <span className="shrink-0 self-center rounded-full bg-dm-ink px-2 py-[2px] font-semibold text-[10px] text-dm-bg tracking-[0.04em]">
             {t('hero.eyebrowTag')}
           </span>
         </span>
 
         {/* Two-line headline with accent on the final word of each line */}
-        <h1 className="mt-[22px] max-w-[14ch] font-bold text-[clamp(44px,7.2vw,96px)] text-dm-ink leading-[0.95] tracking-[-0.045em]">
+        <h1 className="mt-[22px] max-w-[14ch] text-balance font-bold text-[clamp(44px,7.2vw,96px)] text-dm-ink leading-[0.95] tracking-[-0.045em]">
           {t('hero.headline1Lead')} <Accent>{t('hero.headline1Accent')}</Accent>.<br />
           {t('hero.headline2Lead')} <Accent>{t('hero.headline2Accent')}</Accent>.
         </h1>
 
-        <p className="mt-6 max-w-[52ch] text-[18px] text-dm-ink-3 leading-[1.5]">
+        <p className="mt-6 max-w-[52ch] text-pretty text-[18px] text-dm-ink-3 leading-[1.5]">
           {t('hero.description')}
         </p>
 
         <div className="mt-7 flex flex-wrap items-center gap-3">
           {/* Gradient download button */}
           <Link
-            className="inline-flex items-center gap-[10px] rounded-[10px] px-5 py-3 pr-[6px] font-semibold text-[14px] text-white no-underline transition-transform hover:-translate-y-px active:translate-y-0 active:scale-[0.97]"
+            className="dm-focus-ring inline-flex items-center gap-[10px] rounded-[10px] px-5 py-3 pr-[6px] font-semibold text-[14px] text-white no-underline transition-transform fine-hover:hover:-translate-y-px active:translate-y-0 active:scale-[0.96]"
             href={`/${locale}/download`}
             style={{
               background:
@@ -146,7 +148,8 @@ export function Hero({ locale }: { locale: Locale }) {
           {/* Inline copy install command */}
           <button
             aria-label={copied ? t('hero.copied') : t('hero.copyAria', { cmd: INSTALL_CMD })}
-            className="inline-flex max-w-full cursor-pointer items-center gap-[10px] rounded-[10px] border border-dm-line bg-dm-bg-elev px-[12px] py-[10px] pr-3 font-[var(--font-dm-mono)] text-[11.5px] text-dm-ink-2 transition-[color,background-color,border-color,transform] hover:border-dm-line-strong active:scale-[0.97] sm:px-[14px] sm:text-[13px]"
+            aria-live="polite"
+            className="dm-focus-ring inline-flex max-w-full cursor-pointer items-center gap-[10px] rounded-[10px] border border-dm-line bg-dm-bg-elev px-[12px] py-[10px] pr-3 font-[var(--font-dm-mono)] text-[11.5px] text-dm-ink-2 transition-[color,background-color,border-color,transform] fine-hover:hover:border-dm-line-strong active:scale-[0.96] sm:px-[14px] sm:text-[13px]"
             onClick={copyInstall}
             type="button"
           >

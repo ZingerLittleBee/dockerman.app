@@ -17,8 +17,10 @@ export function StatCard({
         <span>{title}</span>
         {icon}
       </div>
-      <div className="mt-2 font-bold text-[28px] text-dm-ink tracking-[-0.02em]">{value}</div>
-      {subtitle && <div className="mt-1 text-[12px] text-dm-ink-4">{subtitle}</div>}
+      <div className="mt-2 font-bold text-[28px] text-dm-ink tabular-nums tracking-[-0.02em]">
+        {value}
+      </div>
+      {subtitle ? <div className="mt-1 text-[12px] text-dm-ink-3">{subtitle}</div> : null}
     </div>
   )
 }

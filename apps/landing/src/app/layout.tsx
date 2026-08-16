@@ -119,7 +119,7 @@ export default function RootLayout({
         )}
       </head>
       <body
-        className={`${inter.variable} min-h-screen scroll-auto antialiased selection:bg-indigo-100 selection:text-indigo-700 dark:bg-gray-950`}
+        className={`${inter.variable} min-h-screen scroll-auto bg-dm-bg antialiased selection:bg-[color-mix(in_srgb,var(--color-dm-accent-2)_22%,transparent)] selection:text-dm-ink`}
       >
         {children}
         {process.env.NODE_ENV === 'development' ? <AgentationClient /> : null}
