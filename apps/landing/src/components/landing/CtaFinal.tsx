@@ -1,9 +1,11 @@
 import type { Locale } from '@repo/shared/i18n'
 import { getTranslation } from '@repo/shared/i18n/server'
+import { cx } from '@repo/shared/utils'
 import Link from 'next/link'
 
 export async function CtaFinal({ locale }: { locale: Locale }) {
   const { t } = await getTranslation(locale)
+  const cjk = locale === 'zh' || locale === 'ja'
   return (
     <section className="px-5 sm:px-8">
       <div className="mx-auto my-16 max-w-[1240px] sm:my-24">
@@ -24,9 +26,23 @@ export async function CtaFinal({ locale }: { locale: Locale }) {
               backgroundSize: '40px 40px'
             }}
           />
-          <h2 className="relative m-0 text-balance font-bold text-[clamp(36px,5vw,64px)] text-dm-ink leading-[1.02] tracking-[-0.04em]">
-            {t('cta.titleLead')}{' '}
-            <em className="font-[var(--font-dm-display)] font-normal text-dm-accent italic">
+          <h2
+            className={cx(
+              'relative m-0 font-bold text-[clamp(36px,5vw,64px)] text-dm-ink',
+              cjk
+                ? 'leading-[1.15] tracking-normal'
+                : 'text-balance leading-[1.02] tracking-[-0.04em]'
+            )}
+          >
+            {t('cta.titleLead')}
+            {cjk ? <br /> : ' '}
+            <em
+              className={
+                cjk
+                  ? 'font-normal text-dm-accent not-italic'
+                  : 'font-[var(--font-dm-display)] font-normal text-dm-accent italic'
+              }
+            >
               {t('cta.titleAccent')}
             </em>
           </h2>

@@ -1,6 +1,8 @@
 import type { Locale } from '@repo/shared/i18n'
 import { getTranslation } from '@repo/shared/i18n/server'
+import { cx } from '@repo/shared/utils'
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { siteConfig } from '@/app/siteConfig'
 import { ComparisonTable } from '@/components/pricing/ComparisonTable'
 import { Countdown } from '@/components/pricing/Countdown'
@@ -123,6 +125,8 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
                 { id: 'palette', label: t('pricing.plans.free.features.palette') },
                 { id: 'podmanTrivy', label: t('pricing.plans.free.features.podmanTrivy') },
                 { id: 'themesI18n', label: t('pricing.plans.free.features.themesI18n') },
+                { id: 'k8s', label: t('pricing.plans.free.features.k8s') },
+                { id: 'cloudflared', label: t('pricing.plans.free.features.cloudflared') },
                 {
                   id: 'remoteSsh',
                   label: t('pricing.plans.free.features.remoteSsh'),
@@ -142,6 +146,7 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
 
             {/* Team (highlighted) */}
             <PlanCard
+              cjk={l === 'zh' || l === 'ja'}
               ctaHref={`/api/checkout?plan=3-devices&locale=${l}`}
               ctaLabel={t('pricing.plans.team.cta', { price: teamPrice })}
               ctaMethod="post"
@@ -173,8 +178,6 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
                 },
                 { id: 'remote', label: t('pricing.plans.team.features.remote') },
                 { id: 'multiHost', label: t('pricing.plans.team.features.multiHost') },
-                { id: 'cloudflared', label: t('pricing.plans.team.features.cloudflared') },
-                { id: 'k8s', label: t('pricing.plans.team.features.k8s') },
                 { id: 'updates', label: t('pricing.plans.team.features.updates') }
               ]}
               freq={t('pricing.plans.team.freq', { devices: plans.team.devices })}
@@ -210,8 +213,6 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
                 },
                 { id: 'remote', label: t('pricing.plans.solo.features.remote') },
                 { id: 'multiHost', label: t('pricing.plans.solo.features.multiHost') },
-                { id: 'cloudflared', label: t('pricing.plans.solo.features.cloudflared') },
-                { id: 'k8s', label: t('pricing.plans.solo.features.k8s') },
                 { id: 'updates', label: t('pricing.plans.solo.features.updates') }
               ]}
               freq={t('pricing.plans.solo.freq')}
@@ -227,6 +228,27 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
       </section>
 
       <ComparisonTable locale={l} />
+
+      <section className="px-5 pt-4 sm:px-8">
+        <div className="mx-auto max-w-[1140px]">
+          <div className="rounded-[14px] border border-dm-line bg-dm-bg-elev px-6 py-6 sm:px-8 sm:py-7">
+            <h2 className="m-0 font-semibold text-[20px] text-dm-ink tracking-[-0.02em]">
+              {t('pricing.vsDesktop.title')}
+            </h2>
+            <p className="mt-2 mb-4 max-w-[62ch] text-[14.5px] text-dm-ink-3 leading-[1.55]">
+              {t('pricing.vsDesktop.body')}
+            </p>
+            <Link
+              className="font-medium text-[14px] text-dm-ink underline-offset-4 hover:underline"
+              href={`/${l}/vs-docker-desktop`}
+              style={{ color: 'var(--color-dm-accent-2)' }}
+            >
+              {t('pricing.vsDesktop.cta')}
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <PricingFaq />
 
       {/* Final CTA */}
@@ -241,9 +263,23 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
                   'radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--color-dm-accent-2) 10%, transparent), transparent 55%)'
               }}
             />
-            <h2 className="relative m-0 font-bold text-[clamp(28px,3.6vw,40px)] text-dm-ink leading-[1.1] tracking-[-0.03em]">
-              {t('pricing.finalCta.titleLead')}{' '}
-              <em className="font-[var(--font-dm-display)] font-normal text-dm-accent italic">
+            <h2
+              className={cx(
+                'relative m-0 font-bold text-[clamp(36px,5vw,64px)] text-dm-ink',
+                l === 'zh' || l === 'ja'
+                  ? 'leading-[1.15] tracking-normal'
+                  : 'text-balance leading-[1.02] tracking-[-0.04em]'
+              )}
+            >
+              {t('pricing.finalCta.titleLead')}
+              {l === 'zh' || l === 'ja' ? <br /> : ' '}
+              <em
+                className={
+                  l === 'zh' || l === 'ja'
+                    ? 'font-normal text-dm-accent not-italic'
+                    : 'font-[var(--font-dm-display)] font-normal text-dm-accent italic'
+                }
+              >
                 {t('pricing.finalCta.titleAccent')}
               </em>
             </h2>

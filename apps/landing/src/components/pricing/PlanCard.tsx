@@ -13,6 +13,7 @@ interface PlanName {
 }
 
 export interface PlanCardProps {
+  cjk?: boolean
   label: string
   name: ReactNode | PlanName
   description: string
@@ -46,7 +47,8 @@ export function PlanCard(p: PlanCardProps) {
     ctaVariant = 'ghost',
     ctaNote,
     highlighted,
-    ribbon
+    ribbon,
+    cjk = false
   } = p
 
   const ctaClassName = `mt-auto inline-flex cursor-pointer items-center justify-center gap-2 rounded-[10px] px-[18px] py-[13px] font-semibold text-[14px] no-underline transition-[transform,background-color,border-color,color] active:scale-[0.97] ${
@@ -126,9 +128,16 @@ export function PlanCard(p: PlanCardProps) {
         {isPlanName(name) ? (
           <>
             {name.lead}{' '}
-            <em className="font-[var(--font-dm-display)] font-normal text-dm-ink-3 italic">
+            <em
+              className={
+                cjk
+                  ? 'font-normal text-dm-ink-3 not-italic'
+                  : 'font-[var(--font-dm-display)] font-normal text-dm-ink-3 italic'
+              }
+            >
               {name.accent}
-            </em>{' '}
+            </em>
+            {cjk ? '' : ' '}
             {name.trail}
           </>
         ) : (

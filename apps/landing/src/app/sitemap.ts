@@ -10,6 +10,7 @@ const STATIC_ROUTES = [
   '/download',
   '/pricing',
   '/snapshot',
+  '/vs-docker-desktop',
   '/privacy',
   '/terms',
   '/dpa'
@@ -33,8 +34,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       entries.push({
         url: `${SITE_URL}/${locale}${route}`,
         lastModified: now,
-        changeFrequency: route === '' ? 'weekly' : 'monthly',
-        priority: route === '' ? 1.0 : 0.7,
+        changeFrequency: route === '' || route === '/vs-docker-desktop' ? 'weekly' : 'monthly',
+        priority: route === '' ? 1.0 : route === '/vs-docker-desktop' ? 0.8 : 0.7,
         alternates: { languages: buildLanguageAlternates(route) }
       })
     }

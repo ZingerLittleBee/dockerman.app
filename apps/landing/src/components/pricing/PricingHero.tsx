@@ -1,5 +1,6 @@
 import type { Locale } from '@repo/shared/i18n'
 import { getTranslation } from '@repo/shared/i18n/server'
+import { cx } from '@repo/shared/utils'
 
 export async function PricingHero({
   locale,
@@ -9,6 +10,7 @@ export async function PricingHero({
   earlyBirdActive?: boolean
 }) {
   const { t } = await getTranslation(locale)
+  const cjk = locale === 'zh' || locale === 'ja'
   return (
     <section className="relative overflow-hidden px-5 pt-12 pb-8 sm:px-8 sm:pt-16 sm:pb-10">
       <div
@@ -41,11 +43,23 @@ export async function PricingHero({
         ) : null}
 
         <h1
-          className={`mx-auto ${earlyBirdActive ? 'mt-[22px]' : ''} font-bold text-[clamp(48px,7vw,88px)] text-dm-ink leading-[0.98] tracking-[-0.04em]`}
-          style={{ maxWidth: locale === 'zh' || locale === 'ja' ? 'none' : '16ch' }}
+          className={cx(
+            'mx-auto font-bold text-[clamp(48px,7vw,88px)] text-dm-ink',
+            earlyBirdActive && 'mt-[22px]',
+            cjk
+              ? 'leading-[1.08] tracking-normal'
+              : 'max-w-[16ch] leading-[0.98] tracking-[-0.04em]'
+          )}
         >
-          {t('pricing.hero.titleLead')}{' '}
-          <em className="font-[var(--font-dm-display)] font-normal text-dm-accent italic tracking-[-0.02em]">
+          {t('pricing.hero.titleLead')}
+          {cjk ? <br /> : ' '}
+          <em
+            className={
+              cjk
+                ? 'font-normal text-dm-accent not-italic'
+                : 'font-[var(--font-dm-display)] font-normal text-dm-accent italic tracking-[-0.02em]'
+            }
+          >
             {t('pricing.hero.titleAccent')}
           </em>
         </h1>
