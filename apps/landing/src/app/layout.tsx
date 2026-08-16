@@ -72,7 +72,7 @@ export const metadata: Metadata = {
         url: '/opengraph-image.png',
         width: 1200,
         height: 630,
-        alt: 'Dockerman — local-first Docker, Podman & Kubernetes UI'
+        alt: 'Dockerman — lightweight Docker Desktop alternative'
       }
     ]
   },

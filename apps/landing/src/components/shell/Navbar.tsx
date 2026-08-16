@@ -13,6 +13,7 @@ import ThemeSwitch from '@/components/ThemeSwitch'
 const LINKS: { href: string; labelKey: string; anchor?: boolean }[] = [
   { href: '/#features', labelKey: 'nav.features', anchor: true },
   { href: '/snapshot', labelKey: 'nav.snapshot' },
+  { href: '/vs-docker-desktop', labelKey: 'nav.compare' },
   { href: '/pricing', labelKey: 'nav.pricing' },
   { href: '/changelog', labelKey: 'nav.changelog' },
   { href: '/docs', labelKey: 'nav.docs' }

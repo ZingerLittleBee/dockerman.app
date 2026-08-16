@@ -30,7 +30,7 @@ export async function generateMetadata({
   const title = t('meta.home.title')
   const description = t('meta.home.description')
   return {
-    title,
+    title: { absolute: title },
     description,
     alternates: buildAlternates(locale as Locale),
     openGraph: { title, description, url: `${SITE_URL}/${locale}` },

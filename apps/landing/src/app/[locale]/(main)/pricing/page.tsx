@@ -1,6 +1,7 @@
 import type { Locale } from '@repo/shared/i18n'
 import { getTranslation } from '@repo/shared/i18n/server'
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { siteConfig } from '@/app/siteConfig'
 import { ComparisonTable } from '@/components/pricing/ComparisonTable'
 import { Countdown } from '@/components/pricing/Countdown'
@@ -227,6 +228,27 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
       </section>
 
       <ComparisonTable locale={l} />
+
+      <section className="px-5 pt-4 sm:px-8">
+        <div className="mx-auto max-w-[1140px]">
+          <div className="rounded-[14px] border border-dm-line bg-dm-bg-elev px-6 py-6 sm:px-8 sm:py-7">
+            <h2 className="m-0 font-semibold text-[20px] text-dm-ink tracking-[-0.02em]">
+              {t('pricing.vsDesktop.title')}
+            </h2>
+            <p className="mt-2 mb-4 max-w-[62ch] text-[14.5px] text-dm-ink-3 leading-[1.55]">
+              {t('pricing.vsDesktop.body')}
+            </p>
+            <Link
+              className="font-medium text-[14px] text-dm-ink underline-offset-4 hover:underline"
+              href={`/${l}/vs-docker-desktop`}
+              style={{ color: 'var(--color-dm-accent-2)' }}
+            >
+              {t('pricing.vsDesktop.cta')}
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <PricingFaq />
 
       {/* Final CTA */}

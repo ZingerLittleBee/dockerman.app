@@ -1,10 +1,10 @@
 export const siteConfig = {
   name: 'Dockerman',
-  title: 'Dockerman - Modern Docker Management UI',
+  title: 'Dockerman - Lightweight Docker Desktop Alternative',
   url: 'https://dockerman.app',
   issuesLink: 'https://github.com/ZingerLittleBee/dockerman.app/issues/new',
   description:
-    'A modern, lightweight Docker management UI built with Tauri and Rust. Focus on simplicity and performance for Docker container management.',
+    'A lightweight Docker Desktop alternative. Local-first desktop UI for Docker, Podman, and Kubernetes, built with Tauri and Rust. Local use is free forever.',
   baseLinks: {
     home: '/',
     about: '/about',

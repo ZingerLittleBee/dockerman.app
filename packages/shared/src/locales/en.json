@@ -2,6 +2,7 @@
   "nav": {
     "features": "Features",
     "snapshot": "Snapshot",
+    "compare": "Compare",
     "pricing": "Pricing",
     "changelog": "Changelog",
     "docs": "Docs",
@@ -14,11 +15,12 @@
   "hero": {
     "eyebrow": "v{{version}} — Memorable *.dockerman.localhost addresses, guided Local Domains setup, domains that survive recreation",
     "eyebrowTag": "NEW",
-    "headline1Lead": "Docker that feels",
-    "headline1Accent": "local",
-    "headline2Lead": "Kubernetes that feels",
-    "headline2Accent": "easy",
-    "description": "A lightweight desktop UI for Docker, Podman, and Kubernetes — built with Rust and Tauri. Boots in ~0ms and lives in under 30 MB of memory.",
+    "headline1Lead": "A lightweight",
+    "headline1Accent": "alternative",
+    "headline2Lead": "to Docker",
+    "headline2Accent": "Desktop",
+    "description": "Dockerman is a local-first desktop UI for Docker, Podman, and Kubernetes — built with Rust and Tauri. Boots in ~0ms, under 30 MB of memory, free for local use.",
+    "compareLink": "Compare with Docker Desktop →",
     "downloadFor": {
       "mac": "Download for macOS",
       "windows": "Download for Windows",
@@ -92,6 +94,7 @@
       "features": "Features",
       "changelog": "Changelog",
       "pricing": "Pricing",
+      "compare": "vs Docker Desktop",
       "gettingStarted": "Getting started",
       "kubernetes": "Kubernetes",
       "homelab": "Homelab",
@@ -418,6 +421,11 @@
       "description": "Pay once, keep it forever. No seat math, no renewals, no upsells.",
       "ctaTeam": "Get Team — ${{price}}",
       "ctaFree": "or start free →"
+    },
+    "vsDesktop": {
+      "title": "Looking for a Docker Desktop alternative?",
+      "body": "See how Dockerman compares on install size, local-free licensing, WSL2 / Colima / Podman, and a one-time license versus a subscription.",
+      "cta": "Dockerman vs Docker Desktop →"
     },
     "success": {
       "title": "Payment Successful!",
@@ -973,10 +981,151 @@
       }
     }
   },
+  "compare": {
+    "hero": {
+      "kicker": "Docker Desktop alternative",
+      "titleLead": "A lighter Docker UI.",
+      "titleAccent": "Same containers.",
+      "description": "Dockerman is a local-first desktop UI for Docker, Podman, and Kubernetes. It is a lightweight alternative to Docker Desktop — not a clone of Docker Inc.'s platform. Local Docker and Podman stay free forever."
+    },
+    "table": {
+      "kicker": "side by side",
+      "titleLead": "What actually",
+      "titleAccent": "differs.",
+      "description": "Dockerman figures come from this site. Docker Desktop is a full platform, so we describe it qualitatively instead of inventing measurements.",
+      "columns": {
+        "topic": "Topic",
+        "dockerman": "Dockerman",
+        "desktop": "Docker Desktop"
+      },
+      "rows": {
+        "install": {
+          "label": "Installer size",
+          "dockerman": "Windows {{windows}} · macOS {{macos}}",
+          "desktop": "A full platform installer (engine, VM, and tooling)"
+        },
+        "memory": {
+          "label": "App memory",
+          "dockerman": "Under 30 MB for the UI",
+          "desktop": "Typically much higher idle use — Desktop includes a Linux VM"
+        },
+        "local": {
+          "label": "Local Docker & Podman",
+          "dockerman": "Free forever",
+          "desktop": "Free for personal use and qualifying small businesses; subscription for larger organizations"
+        },
+        "license": {
+          "label": "Paid features",
+          "dockerman": "One-time license — ${{solo}} Solo / ${{team}} Team",
+          "desktop": "Subscription plans for organizations that need paid Docker Desktop"
+        },
+        "windows": {
+          "label": "Windows without Docker Desktop",
+          "dockerman": "Bundled WSL2 Docker Engine (Alpine), one-click setup",
+          "desktop": "Not applicable — Desktop is the official Windows installer"
+        },
+        "macos": {
+          "label": "macOS engines",
+          "dockerman": "Existing Docker socket, managed Colima / Podman, Apple Container",
+          "desktop": "Bundled Docker Engine and VM"
+        },
+        "domains": {
+          "label": "Local domains",
+          "dockerman": "*.dockerman.localhost — memorable names, survive recreation",
+          "desktop": "Port publishing and Desktop networking"
+        },
+        "remote": {
+          "label": "Remote SSH & multi-host",
+          "dockerman": "Paid one-time unlock",
+          "desktop": "Local-first platform; other Docker products cover remote workflows"
+        },
+        "k8s": {
+          "label": "Kubernetes",
+          "dockerman": "Paid: kubeconfig or local k3d",
+          "desktop": "Optional single-node Kubernetes inside Desktop"
+        },
+        "platforms": {
+          "label": "Platforms",
+          "dockerman": "macOS, Windows, Linux",
+          "desktop": "macOS, Windows, Linux"
+        }
+      }
+    },
+    "topics": {
+      "kicker": "the details",
+      "titleLead": "Honest differences,",
+      "titleAccent": "no trash-talk.",
+      "footprint": {
+        "title": "Install size and memory",
+        "body": "Dockerman is a Rust + Tauri UI. The Windows installer is {{windows}}; the macOS universal DMG is {{macos}}. The app is built to stay under 30 MB of memory. Docker Desktop installs a complete Docker platform, including a Linux VM — expect a larger download and higher idle use. We do not publish Desktop's numbers here."
+      },
+      "license": {
+        "title": "Local free vs Desktop licensing",
+        "body": "Local Docker and Podman in Dockerman are free forever, including commercial use. A one-time license (${{solo}} Solo / ${{team}} Team) unlocks remote SSH, multi-host, Cloudflared, and Kubernetes. Docker Desktop is free for personal use and for organizations that qualify under Docker's terms; larger organizations need a Docker Desktop subscription. Those are different products with different license shapes."
+      },
+      "engines": {
+        "title": "WSL2, Colima, Podman, Apple Container",
+        "body": "On Windows, Dockerman can set up a bundled WSL2 Docker Engine — no Docker Desktop required. On macOS, v6.0.0 added managed Colima and Podman machines (Dockerman detects, starts, stops, and repairs them; it does not install the engine binaries). Apple Container is available on Apple Silicon with macOS 26 or later. Linux talks to Docker or Podman sockets, including rootless."
+      },
+      "domains": {
+        "title": "Local domains",
+        "body": "v6.1.0 adds memorable *.dockerman.localhost addresses for local Docker services, without port numbers. Setup is guided. Domains bind to the container name and container-side port, so they survive recreation. On macOS this needs one administrator approval; on Windows there is no extra setup; Linux uses the system broker shipped with the .deb/.rpm packages."
+      },
+      "pricing": {
+        "title": "One-time license vs subscription",
+        "body": "Dockerman does not sell a subscription. Paid features are a lifetime license with lifetime updates. Docker Desktop's paid plans are subscriptions from Docker Inc. If you only need a local UI, Dockerman's free tier is enough."
+      }
+    },
+    "orbstack": {
+      "title": "What about OrbStack?",
+      "body": "On Mac, OrbStack is a strong, polished Docker Desktop alternative. Dockerman is not trying to out-Mac OrbStack. The difference is coverage: macOS, Windows, and Linux; local use that stays free; and a one-time license instead of a subscription for paid features."
+    },
+    "desktopWins": {
+      "title": "Where Docker Desktop still wins",
+      "body": "Docker Desktop is the official Docker Inc. product. Choose it when you want the full first-party toolchain in one installer — Engine, Compose, Buildx, Extensions, Docker Scout, Build Cloud, and Docker's organization controls. Desktop can also enable a local Kubernetes cluster without Dockerman's paid tier. If you need that official all-in-one platform, Desktop is the right tool."
+    },
+    "faq": {
+      "kicker": "faq",
+      "titleLead": "Straight",
+      "titleAccent": "answers.",
+      "items": [
+        {
+          "question": "Is Dockerman a Docker Desktop alternative?",
+          "answer": "Yes, for people who want a lightweight, local-first UI. It manages Docker, Podman, and Kubernetes. It does not replace every Docker Inc. product."
+        },
+        {
+          "question": "Do I still need Docker Desktop on Windows?",
+          "answer": "No. Dockerman can install a bundled WSL2 Docker Engine. You can also keep Docker Desktop and point Dockerman at it."
+        },
+        {
+          "question": "Is local use free?",
+          "answer": "Yes. Local Docker and Podman are free forever. Remote SSH, multi-host, Cloudflared, and Kubernetes need a one-time license."
+        },
+        {
+          "question": "How does pricing compare?",
+          "answer": "Dockerman paid plans are one-time: $19 Solo and $29 Team. Docker Desktop uses subscriptions for organizations that do not qualify for its free tier."
+        }
+      ]
+    },
+    "cta": {
+      "download": "Download Dockerman",
+      "pricing": "See pricing"
+    },
+    "links": {
+      "windowsDocs": "Windows setup",
+      "macosDocs": "macOS setup",
+      "pricing": "Pricing",
+      "download": "Download"
+    }
+  },
   "meta": {
     "home": {
-      "title": "Dockerman — local-first Docker, Podman & Kubernetes",
-      "description": "A local-first control surface for Docker, Podman and Kubernetes. Built in Rust and Tauri. Fast, precise, designed to stay out of your way."
+      "title": "Dockerman — Lightweight Docker Desktop Alternative",
+      "description": "Dockerman is a lightweight Docker Desktop alternative for macOS, Windows, and Linux. Local-first UI for Docker, Podman, and Kubernetes. Local use is free forever."
+    },
+    "compare": {
+      "title": "Docker Desktop Alternative — Dockerman",
+      "description": "Compare Dockerman and Docker Desktop: install size, memory, WSL2, Colima, Podman, licensing, and local domains. Local Docker is free forever."
     },
     "pricing": {
       "title": "Pricing — Dockerman",

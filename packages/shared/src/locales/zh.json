@@ -2,6 +2,7 @@
   "nav": {
     "features": "特性",
     "snapshot": "功能预览",
+    "compare": "对比",
     "pricing": "定价",
     "changelog": "更新日志",
     "docs": "文档",
@@ -14,11 +15,12 @@
   "hero": {
     "eyebrow": "v{{version}} — 好记的 *.dockerman.localhost 地址、引导式本地域名设置、域名在容器重建后仍可用",
     "eyebrowTag": "新",
-    "headline1Lead": "Docker，用起来像",
-    "headline1Accent": "本地",
-    "headline2Lead": "Kubernetes，变得",
-    "headline2Accent": "轻松",
-    "description": "为 Docker、Podman 和 Kubernetes 打造的轻量级桌面客户端 —— 基于 Rust 与 Tauri。毫秒级启动，内存占用不到 30 MB。",
+    "headline1Lead": "不用 Docker",
+    "headline1Accent": "Desktop",
+    "headline2Lead": "轻量 Docker",
+    "headline2Accent": "界面",
+    "description": "Dockerman 是为 Docker、Podman 和 Kubernetes 打造的本地优先桌面客户端 —— 基于 Rust 与 Tauri。毫秒级启动，内存不到 30 MB，本地使用永久免费。",
+    "compareLink": "对比 Docker Desktop →",
     "downloadFor": {
       "mac": "下载 macOS 版",
       "windows": "下载 Windows 版",
@@ -92,6 +94,7 @@
       "features": "特性",
       "changelog": "更新日志",
       "pricing": "定价",
+      "compare": "对比 Docker Desktop",
       "gettingStarted": "快速开始",
       "kubernetes": "Kubernetes",
       "homelab": "家庭实验室",
@@ -418,6 +421,11 @@
       "description": "一次付费,永久使用。无席位计算,无续订,无推销。",
       "ctaTeam": "购买 Team — ${{price}}",
       "ctaFree": "或免费开始 →"
+    },
+    "vsDesktop": {
+      "title": "在找不用 Docker Desktop 的方案？",
+      "body": "看看 Dockerman 在安装体积、本地免费、WSL2 / Colima / Podman，以及一次买断对比订阅上有何不同。",
+      "cta": "Dockerman 对比 Docker Desktop →"
     },
     "success": {
       "title": "支付成功！",
@@ -973,10 +981,151 @@
       }
     }
   },
+  "compare": {
+    "hero": {
+      "kicker": "Docker Desktop 替代方案",
+      "titleLead": "更轻的 Docker 界面。",
+      "titleAccent": "同样的容器。",
+      "description": "Dockerman 是面向 Docker、Podman 与 Kubernetes 的本地优先桌面客户端。它是 Docker Desktop 的轻量替代，不是 Docker Inc. 平台的复制品。本地 Docker 与 Podman 永久免费。"
+    },
+    "table": {
+      "kicker": "并排对比",
+      "titleLead": "真正不同的",
+      "titleAccent": "地方。",
+      "description": "Dockerman 的数字来自本站。Docker Desktop 是完整平台，因此我们只做定性描述，不编造对方的测量值。",
+      "columns": {
+        "topic": "项目",
+        "dockerman": "Dockerman",
+        "desktop": "Docker Desktop"
+      },
+      "rows": {
+        "install": {
+          "label": "安装包体积",
+          "dockerman": "Windows {{windows}} · macOS {{macos}}",
+          "desktop": "完整平台安装包（引擎、虚拟机与工具链）"
+        },
+        "memory": {
+          "label": "应用内存",
+          "dockerman": "界面占用不到 30 MB",
+          "desktop": "空闲占用通常高得多 —— Desktop 包含 Linux 虚拟机"
+        },
+        "local": {
+          "label": "本地 Docker 与 Podman",
+          "dockerman": "永久免费",
+          "desktop": "个人与符合条件的小企业免费；更大规模组织需订阅"
+        },
+        "license": {
+          "label": "付费功能",
+          "dockerman": "一次买断 — Solo ${{solo}} / Team ${{team}}",
+          "desktop": "需要付费 Docker Desktop 的组织使用订阅方案"
+        },
+        "windows": {
+          "label": "Windows 不用 Docker Desktop",
+          "dockerman": "内置 WSL2 Docker Engine（Alpine），一键安装",
+          "desktop": "不适用 —— Desktop 本身就是官方 Windows 安装方式"
+        },
+        "macos": {
+          "label": "macOS 引擎",
+          "dockerman": "已有 Docker socket、托管的 Colima / Podman、Apple Container",
+          "desktop": "自带 Docker Engine 与虚拟机"
+        },
+        "domains": {
+          "label": "本地域名",
+          "dockerman": "*.dockerman.localhost — 好记，容器重建后仍可用",
+          "desktop": "端口发布与 Desktop 网络"
+        },
+        "remote": {
+          "label": "远程 SSH 与多主机",
+          "dockerman": "一次买断解锁",
+          "desktop": "以本地为主；远程工作流由 Docker 的其他产品覆盖"
+        },
+        "k8s": {
+          "label": "Kubernetes",
+          "dockerman": "付费：kubeconfig 或本地 k3d",
+          "desktop": "可在 Desktop 内启用单节点 Kubernetes"
+        },
+        "platforms": {
+          "label": "平台",
+          "dockerman": "macOS、Windows、Linux",
+          "desktop": "macOS、Windows、Linux"
+        }
+      }
+    },
+    "topics": {
+      "kicker": "细节",
+      "titleLead": "如实对比，",
+      "titleAccent": "不贬低对方。",
+      "footprint": {
+        "title": "安装体积与内存",
+        "body": "Dockerman 是 Rust + Tauri 界面。Windows 安装包 {{windows}}，macOS 通用 DMG {{macos}}。应用按不到 30 MB 内存来设计。Docker Desktop 安装的是完整 Docker 平台，包含 Linux 虚拟机 —— 下载更大、空闲占用也更高。我们不在此公布 Desktop 的具体数字。"
+      },
+      "license": {
+        "title": "本地免费 vs Desktop 许可",
+        "body": "Dockerman 的本地 Docker 与 Podman 永久免费，包含商业使用。一次买断（Solo ${{solo}} / Team ${{team}}）解锁远程 SSH、多主机、Cloudflared 与 Kubernetes。Docker Desktop 对个人及符合 Docker 条款的组织免费；更大规模组织需要 Desktop 订阅。这是两种不同形态的产品与许可。"
+      },
+      "engines": {
+        "title": "WSL2、Colima、Podman、Apple Container",
+        "body": "在 Windows 上，Dockerman 可安装内置 WSL2 Docker Engine —— 不必安装 Docker Desktop。macOS 上，v6.0.0 增加了托管的 Colima 与 Podman 虚拟机（检测、启动、停止、修复；不会安装引擎二进制文件）。Apple Container 适用于 Apple Silicon 且 macOS 26 或更高版本。Linux 连接 Docker 或 Podman socket，包括 rootless。"
+      },
+      "domains": {
+        "title": "本地域名",
+        "body": "v6.1.0 为本地 Docker 服务提供好记的 *.dockerman.localhost 地址，不用带端口号。设置有引导。域名绑定容器名与容器侧端口，因此重建后仍可用。macOS 需要一次管理员授权；Windows 无需额外设置；Linux 使用 .deb/.rpm 附带的系统 broker。"
+      },
+      "pricing": {
+        "title": "一次买断 vs 订阅",
+        "body": "Dockerman 不卖订阅。付费功能是含终身更新的买断许可。Docker Desktop 的付费方案是 Docker Inc. 的订阅。如果只需要本地界面，Dockerman 免费档就够用。"
+      }
+    },
+    "orbstack": {
+      "title": "那 OrbStack 呢？",
+      "body": "在 Mac 上，OrbStack 是很强、很完整的 Docker Desktop 替代。Dockerman 并不打算在 Mac 体验上压过 OrbStack。差别在覆盖面：macOS、Windows 与 Linux；本地使用保持免费；付费功能是一次买断，而不是订阅。"
+    },
+    "desktopWins": {
+      "title": "Docker Desktop 仍然更合适的时候",
+      "body": "Docker Desktop 是 Docker Inc. 的官方产品。如果你要在一个安装包里拿到完整的官方工具链 —— Engine、Compose、Buildx、Extensions、Docker Scout、Build Cloud，以及 Docker 的组织管控 —— 选它。Desktop 也可以启用本地 Kubernetes，而不需要购买 Dockerman 的付费档。需要官方一体化平台时，Desktop 是对的工具。"
+    },
+    "faq": {
+      "kicker": "常见问题",
+      "titleLead": "直接",
+      "titleAccent": "回答。",
+      "items": [
+        {
+          "question": "Dockerman 是 Docker Desktop 的替代吗？",
+          "answer": "对需要轻量、本地优先界面的人来说，是的。它管理 Docker、Podman 与 Kubernetes。它并不替代 Docker Inc. 的每一款产品。"
+        },
+        {
+          "question": "Windows 上还需要 Docker Desktop 吗？",
+          "answer": "不需要。Dockerman 可以安装内置的 WSL2 Docker Engine。你也可以继续使用 Docker Desktop，并让 Dockerman 连接它。"
+        },
+        {
+          "question": "本地使用免费吗？",
+          "answer": "是的。本地 Docker 与 Podman 永久免费。远程 SSH、多主机、Cloudflared 与 Kubernetes 需要一次买断许可。"
+        },
+        {
+          "question": "价格怎么比？",
+          "answer": "Dockerman 付费方案是一次买断：Solo $19，Team $29。Docker Desktop 对不符合免费条件的组织使用订阅。"
+        }
+      ]
+    },
+    "cta": {
+      "download": "下载 Dockerman",
+      "pricing": "查看定价"
+    },
+    "links": {
+      "windowsDocs": "Windows 安装",
+      "macosDocs": "macOS 安装",
+      "pricing": "定价",
+      "download": "下载"
+    }
+  },
   "meta": {
     "home": {
-      "title": "Dockerman — 本地优先的 Docker、Podman 与 Kubernetes",
-      "description": "面向 Docker、Podman 与 Kubernetes 的本地优先控制台。基于 Rust 与 Tauri 构建。快速、精确,不打扰你的工作流。"
+      "title": "Dockerman — 不用 Docker Desktop 的轻量 Docker UI",
+      "description": "Dockerman 是不用 Docker Desktop 的轻量 Docker UI，支持 macOS、Windows 与 Linux。本地优先管理 Docker、Podman 与 Kubernetes，本地使用永久免费。"
+    },
+    "compare": {
+      "title": "Docker Desktop 替代方案 — Dockerman",
+      "description": "对比 Dockerman 与 Docker Desktop：安装体积、内存、WSL2、Colima、Podman、许可与本地域名。本地 Docker 永久免费。"
     },
     "pricing": {
       "title": "定价 — Dockerman",

@@ -36,6 +36,9 @@ export async function Footer({ locale }: { locale: Locale }) {
             <Link className="hover:text-dm-ink" href={prefix('/pricing')}>
               {t('footer.links.pricing')}
             </Link>
+            <Link className="hover:text-dm-ink" href={prefix('/vs-docker-desktop')}>
+              {t('footer.links.compare')}
+            </Link>
           </FooterCol>
 
           {/* Docs */}

@@ -107,7 +107,7 @@ export function Hero({ locale }: { locale: Locale }) {
         </span>
 
         {/* Two-line headline with accent on the final word of each line */}
-        <h1 className="mt-[22px] max-w-[14ch] font-bold text-[clamp(44px,7.2vw,96px)] text-dm-ink leading-[0.95] tracking-[-0.045em]">
+        <h1 className="mt-[22px] max-w-[16ch] font-bold text-[clamp(44px,7.2vw,96px)] text-dm-ink leading-[0.95] tracking-[-0.045em]">
           {t('hero.headline1Lead')} <Accent>{t('hero.headline1Accent')}</Accent>.<br />
           {t('hero.headline2Lead')} <Accent>{t('hero.headline2Accent')}</Accent>.
         </h1>
@@ -186,6 +186,15 @@ export function Hero({ locale }: { locale: Locale }) {
             </span>
           </button>
         </div>
+
+        <p className="mt-5">
+          <Link
+            className="font-medium text-[14px] text-dm-ink-2 underline-offset-4 transition-colors hover:text-dm-ink hover:underline"
+            href={`/${locale}/vs-docker-desktop`}
+          >
+            {t('hero.compareLink')}
+          </Link>
+        </p>
 
         {/* Meta strip: OS + license + version */}
         <div className="mt-10 flex flex-wrap items-center gap-6 font-[var(--font-dm-mono)] text-[12px] text-dm-ink-3">
