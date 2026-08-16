@@ -31,7 +31,7 @@ describe('pricing page paid-feature copy', () => {
     expect(table).toContain(
       "{ key: 'cloudflared', hasDesc: true, free: true, team: true, solo: true }"
     )
-    expect(table).not.toMatch(/key: 'k8s'[\s\S]*free: false/)
+    expect(table).not.toContain("{ key: 'k8s', hasDesc: true, free: false")
   })
 
   test('every locale says paid plans add remote hosts only', () => {

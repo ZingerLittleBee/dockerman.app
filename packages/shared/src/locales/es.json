@@ -350,7 +350,7 @@
     "compare": {
       "titleLead": "Lo que obtienes,",
       "titleAccent": "función por función.",
-      "description": "Todos los planes incluyen la experiencia local completa, Kubernetes y Cloudflared incluidos. Los planes de pago añaden conexiones a hosts remotos."
+      "description": "Todos los planes incluyen la experiencia local completa, Kubernetes y Cloudflared incluidos. Los planes de pago añaden conexiones a hosts remotos.",
       "columns": {
         "feature": "Función",
         "free": "Free",
