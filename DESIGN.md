@@ -42,15 +42,15 @@ a user needs to read, you're using it wrong.
 
 ### 1.3 Accents
 
-| Token            | Value     | Role                                                       |
-| ---------------- | --------- | ---------------------------------------------------------- |
-| `dm-accent`      | `#14b8a6` | Primary accent. Teal. `$` prompt, section eyebrows, links. |
-| `dm-accent-2`    | `#6366f1` | Secondary accent. Indigo. Focus rings.                     |
-| `dm-accent-warm` | `#f97316` | Warm accent. Orange. Sparingly, for emphasis contrast.     |
+| Token            | Light     | Dark      | Role                                                       |
+| ---------------- | --------- | --------- | ---------------------------------------------------------- |
+| `dm-accent`      | `#4f46e5` | `#818cf8` | Primary accent. Indigo. `$` prompt, eyebrows, italics.     |
+| `dm-accent-2`    | `#6366f1` | same      | Focus rings.                                               |
+| `dm-accent-warm` | `#f97316` | same      | Warm accent. Orange. Sparingly, for emphasis contrast.     |
 
-**Pair them, don't collide.** Accents are solid fills or solid type —
-never a teal → indigo gradient. Primary actions use `dm-ink` on
-`dm-bg`. Display italics use `dm-accent`.
+**Pair them, don't collide.** Accents are solid fills or solid type.
+Primary actions use `dm-ink` on `dm-bg`. Display italics use `dm-accent`.
+Status green (`dm-ok`) is not the brand color.
 
 ### 1.4 Status
 

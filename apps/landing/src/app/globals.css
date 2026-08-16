@@ -137,7 +137,7 @@
   --color-dm-ink-2: #3a3a3a;
   --color-dm-ink-3: #6a6a6a;
   --color-dm-ink-4: #9a9a98;
-  --color-dm-accent: #14b8a6;
+  --color-dm-accent: #4f46e5;
   --color-dm-accent-2: #6366f1;
   --color-dm-accent-warm: #f97316;
   --color-dm-ok: #10b981;
@@ -227,6 +227,7 @@
     --color-dm-ink-3: #8c8c8a;
     --color-dm-ink-4: #5c5c5a;
     --color-dm-grid: rgb(255 255 255 / 0.04);
+    --color-dm-accent: #818cf8;
   }
 
   @keyframes dm-pulse {
