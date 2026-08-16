@@ -48,9 +48,9 @@ a user needs to read, you're using it wrong.
 | `dm-accent-2`    | `#6366f1` | Secondary accent. Indigo. Focus rings.                     |
 | `dm-accent-warm` | `#f97316` | Warm accent. Orange. Sparingly, for emphasis contrast.     |
 
-**Pair them, don't collide.** The canonical gradient is
-`background: var(--dm-grad)` — teal → indigo, `135deg in oklab`.
-Horizontal fills use `--dm-grad-90`. Do not hand-type the blend.
+**Pair them, don't collide.** Accents are solid fills or solid type —
+never a teal → indigo gradient. Primary actions use `dm-ink` on
+`dm-bg`. Display italics use `dm-accent`.
 
 ### 1.4 Status
 
@@ -75,11 +75,10 @@ because you like green.
 **Display italic is the accent voice.** The site has two kinds of
 headline emphasis:
 
-1. **Gradient word** — `bg-clip-text` with the 135° accent gradient,
-   display italic. Used once per heading for the key verb/noun
-   (`Hero.tsx:87-90`, `CtaFinal.tsx:27-35`).
-2. **Quiet italic** — `dm-display` italic at `dm-ink-2`, no gradient.
-   Used for reflective subclauses (`FeaturesGrid.tsx:33-36`).
+1. **Accent italic** — `dm-display` italic at `dm-accent`. Used once
+   per heading for the key verb/noun (`Hero.tsx`, `CtaFinal.tsx`).
+2. **Quiet italic** — `dm-display` italic at `dm-ink-2`. Used for
+   reflective subclauses (`FeaturesGrid.tsx`).
 
 Never use display italic for more than one phrase per heading; it loses
 its weight.
@@ -128,11 +127,7 @@ critical to comprehension, gate it via `.dm-animated`.
 
 ```tsx
 <Link
-  className="inline-flex items-center gap-[10px] rounded-[10px] px-5 py-3 font-semibold text-[14px] text-white no-underline transition-all hover:-translate-y-px"
-  style={{
-    background: 'var(--dm-grad)',
-    boxShadow: '0 10px 30px -10px color-mix(in srgb, var(--color-dm-accent-2) 55%, transparent)',
-  }}
+  className="inline-flex items-center gap-[10px] rounded-[10px] bg-dm-ink px-5 py-3 font-semibold text-[14px] text-dm-bg no-underline transition-transform hover:-translate-y-px"
 >
   Download Dockerman
   <span
@@ -145,10 +140,9 @@ critical to comprehension, gate it via `.dm-animated`.
 ```
 
 Recipe:
-- Gradient fill (135° accent → accent-2)
-- Soft drop shadow in the _same_ indigo with `color-mix`
+- Solid `dm-ink` fill, `dm-bg` label
 - 1px lift on hover (`-translate-y-px`), never a scale
-- Inline meta pill at 18% white fill inside the gradient body
+- Inline meta pill at 18% white fill inside the body
 
 ### 2.2 The secondary button
 

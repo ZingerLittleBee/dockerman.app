@@ -112,7 +112,7 @@ function VersionPill({
         style={
           highlighted
             ? {
-                background: 'var(--dm-grad)',
+                background: 'var(--color-dm-accent)',
                 boxShadow:
                   '0 4px 10px -3px color-mix(in srgb, var(--color-dm-accent-2) 50%, transparent)'
               }
@@ -183,7 +183,7 @@ function SectionBlock({ section }: { section: ChangelogSection }) {
           aria-hidden="true"
           className="inline-block h-[18px] w-[4px] rounded-[2px]"
           style={{
-            background: 'var(--dm-grad)'
+            background: 'var(--color-dm-accent)'
           }}
         />
         {section.title}

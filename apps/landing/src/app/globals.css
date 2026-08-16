@@ -153,21 +153,6 @@
   --radius-dm-sm: 8px;
 }
 
-@layer base {
-  :root {
-    --dm-grad: linear-gradient(
-      135deg in oklab,
-      var(--color-dm-accent),
-      var(--color-dm-accent-2)
-    );
-    --dm-grad-90: linear-gradient(
-      90deg in oklab,
-      var(--color-dm-accent),
-      var(--color-dm-accent-2)
-    );
-  }
-}
-
 @layer components {
   .dm-focus-ring {
     outline: none;

@@ -45,13 +45,7 @@ export async function PricingHero({
           style={{ maxWidth: locale === 'zh' || locale === 'ja' ? 'none' : '16ch' }}
         >
           {t('pricing.hero.titleLead')}{' '}
-          <em
-            className="bg-clip-text font-[var(--font-dm-display)] font-normal text-transparent italic"
-            style={{
-              backgroundImage: 'var(--dm-grad)',
-              letterSpacing: '-0.02em'
-            }}
-          >
+          <em className="font-[var(--font-dm-display)] font-normal text-dm-accent italic tracking-[-0.02em]">
             {t('pricing.hero.titleAccent')}
           </em>
         </h1>

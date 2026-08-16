@@ -26,12 +26,7 @@ export async function CtaFinal({ locale }: { locale: Locale }) {
           />
           <h2 className="relative m-0 text-balance font-bold text-[clamp(36px,5vw,64px)] text-dm-ink leading-[1.02] tracking-[-0.04em]">
             {t('cta.titleLead')}{' '}
-            <em
-              className="bg-clip-text font-[var(--font-dm-display)] font-normal text-transparent italic"
-              style={{
-                backgroundImage: 'var(--dm-grad)'
-              }}
-            >
+            <em className="font-[var(--font-dm-display)] font-normal text-dm-accent italic">
               {t('cta.titleAccent')}
             </em>
           </h2>
@@ -40,13 +35,8 @@ export async function CtaFinal({ locale }: { locale: Locale }) {
           </p>
           <div className="relative flex flex-wrap justify-center gap-3">
             <Link
-              className="dm-focus-ring inline-flex items-center gap-[10px] rounded-[10px] px-5 py-3 font-semibold text-[14px] text-white no-underline transition-transform fine-hover:hover:-translate-y-px active:translate-y-0 active:scale-[0.96]"
+              className="dm-focus-ring inline-flex items-center gap-[10px] rounded-[10px] bg-dm-ink px-5 py-3 font-semibold text-[14px] text-dm-bg no-underline transition-transform fine-hover:hover:-translate-y-px active:translate-y-0 active:scale-[0.96]"
               href={`/${locale}/download`}
-              style={{
-                background: 'var(--dm-grad)',
-                boxShadow:
-                  '0 10px 30px -10px color-mix(in srgb, var(--color-dm-accent-2) 55%, transparent)'
-              }}
             >
               <svg
                 aria-hidden="true"

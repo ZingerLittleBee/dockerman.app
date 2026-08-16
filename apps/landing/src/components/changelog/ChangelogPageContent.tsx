@@ -92,13 +92,7 @@ function TitleWithAccent({ title }: { title: string }) {
   return (
     <>
       {head}{' '}
-      <em
-        className="bg-clip-text font-[var(--font-dm-display)] font-normal text-transparent italic"
-        style={{
-          backgroundImage: 'var(--dm-grad)',
-          letterSpacing: '-0.02em'
-        }}
-      >
+      <em className="font-[var(--font-dm-display)] font-normal text-dm-accent italic tracking-[-0.02em]">
         {tail}
       </em>
     </>

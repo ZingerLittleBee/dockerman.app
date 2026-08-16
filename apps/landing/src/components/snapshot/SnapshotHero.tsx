@@ -18,31 +18,13 @@ export async function SnapshotHero({ locale }: { locale: Locale }) {
       />
       <div className="mx-auto max-w-[1320px]">
         <span className="inline-flex items-center gap-[10px] rounded-full border border-dm-line-strong bg-dm-bg-elev py-[5px] pr-[11px] pl-[11px] font-[var(--font-dm-mono)] text-[11.5px] text-dm-ink-2 tracking-[0.02em]">
-          <span
-            className="bg-clip-text px-[5px] font-bold text-transparent"
-            style={{
-              backgroundImage: 'var(--dm-grad)'
-            }}
-          >
-            {count}
-          </span>
+          <span className="px-[5px] font-bold text-dm-accent">{count}</span>
           <span>{t('snapshot.hero.kickerLabel')}</span>
         </span>
 
         <h1 className="mt-[18px] max-w-[16ch] font-bold text-[clamp(44px,6.2vw,84px)] text-dm-ink leading-[0.98] tracking-[-0.04em]">
           {t('snapshot.hero.titleLead')}{' '}
-          <em
-            className="bg-clip-text font-[var(--font-dm-display)] font-normal text-transparent italic tracking-[-0.02em]"
-            style={{
-              backgroundImage: 'var(--dm-grad)',
-              paddingInline: '0.18em',
-              marginInline: '-0.18em',
-              paddingBlock: '0.18em',
-              marginBlock: '-0.18em',
-              WebkitBoxDecorationBreak: 'clone',
-              boxDecorationBreak: 'clone'
-            }}
-          >
+          <em className="font-[var(--font-dm-display)] font-normal text-dm-accent italic tracking-[-0.02em]">
             {t('snapshot.hero.titleAccent')}
           </em>
         </h1>

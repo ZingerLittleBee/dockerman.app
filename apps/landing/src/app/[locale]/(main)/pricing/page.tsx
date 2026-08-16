@@ -243,12 +243,7 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
             />
             <h2 className="relative m-0 font-bold text-[clamp(28px,3.6vw,40px)] text-dm-ink leading-[1.1] tracking-[-0.03em]">
               {t('pricing.finalCta.titleLead')}{' '}
-              <em
-                className="bg-clip-text font-[var(--font-dm-display)] font-normal text-transparent italic"
-                style={{
-                  backgroundImage: 'var(--dm-grad)'
-                }}
-              >
+              <em className="font-[var(--font-dm-display)] font-normal text-dm-accent italic">
                 {t('pricing.finalCta.titleAccent')}
               </em>
             </h2>

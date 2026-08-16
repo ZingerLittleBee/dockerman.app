@@ -128,15 +128,9 @@ export function Hero({ locale }: { locale: Locale }) {
         </p>
 
         <div className="mt-7 flex flex-wrap items-center gap-3">
-          {/* Gradient download button */}
           <Link
-            className="dm-focus-ring inline-flex h-12 items-center gap-[10px] rounded-[10px] px-5 font-semibold text-[14px] text-white no-underline transition-transform fine-hover:hover:-translate-y-px active:translate-y-0 active:scale-[0.96]"
+            className="dm-focus-ring inline-flex h-12 items-center gap-[10px] rounded-[10px] bg-dm-ink px-5 font-semibold text-[14px] text-dm-bg no-underline transition-transform fine-hover:hover:-translate-y-px active:translate-y-0 active:scale-[0.96]"
             href={`/${locale}/download`}
-            style={{
-              background: 'var(--dm-grad)',
-              boxShadow:
-                '0 10px 30px -10px color-mix(in srgb, var(--color-dm-accent-2) 55%, transparent)'
-            }}
           >
             <svg aria-hidden="true" fill="currentColor" height="14" viewBox="0 0 24 24" width="14">
               <path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 4v-2h14v2H5z" />
@@ -345,7 +339,7 @@ function TerminalCard({ locale }: { locale: Locale }) {
                 className="absolute inset-y-0 left-0 block rounded-full"
                 style={{
                   width: '0',
-                  background: 'var(--dm-grad-90)',
+                  background: 'var(--color-dm-accent)',
                   animation: 'dm-progress 900ms var(--ease-out-strong) forwards',
                   animationDelay: `${STAGE_STEPS.progress}ms`,
                   ['--dm-progress' as string]: '100%'
@@ -469,7 +463,7 @@ function MiniBars({ delayMs }: { delayMs: number }) {
 
 function Accent({ children }: { children: React.ReactNode }) {
   return (
-    <span className="-me-[0.18em] -mb-[0.18em] bg-clip-text pe-[0.18em] pb-[0.18em] font-[var(--font-dm-display)] font-normal text-transparent italic tracking-[-0.02em] [background-image:var(--dm-grad)]">
+    <span className="font-[var(--font-dm-display)] font-normal text-dm-accent italic tracking-[-0.02em]">
       {children}
     </span>
   )

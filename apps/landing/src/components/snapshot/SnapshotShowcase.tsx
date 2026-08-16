@@ -377,8 +377,7 @@ function RailItem({
         style={
           active
             ? {
-                background:
-                  'var(--dm-grad)',
+                background: 'var(--color-dm-accent)',
                 boxShadow:
                   '0 3px 10px -3px color-mix(in srgb, var(--color-dm-accent) 55%, transparent)'
               }
