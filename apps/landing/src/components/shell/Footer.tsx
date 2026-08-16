@@ -144,10 +144,9 @@ function FooterCol({ heading, children }: { heading: string; children: React.Rea
 function BrandMark() {
   return (
     <span
-      className="relative grid h-[26px] w-[26px] place-items-center overflow-hidden rounded-[7px] text-white"
+      className="relative grid h-[26px] w-[26px] place-items-center overflow-hidden rounded-[7px] bg-[#0a0a0a] text-[#fafaf9]"
       style={{
-        background: 'var(--color-dm-accent)',
-        boxShadow: 'inset 0 0 0 1px rgb(255 255 255 / 0.1), 0 4px 12px -4px var(--color-dm-accent)'
+        boxShadow: 'inset 0 0 0 1px rgb(255 255 255 / 0.12), 0 4px 12px -4px rgb(0 0 0 / 0.35)'
       }}
     >
       <svg

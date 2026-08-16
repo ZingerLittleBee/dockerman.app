@@ -273,7 +273,7 @@ ones.
 | Overlay / lightbox| `0 30px 60px -20px rgb(0 0 0 / 0.6)`                                                                        |
 | Focus halo        | `0 0 0 3px color-mix(in srgb, var(--color-dm-accent-2) 18%, transparent)`                                  |
 | Live dot halo     | `0 0 0 4px color-mix(in srgb, var(--color-dm-ok) 30%, transparent)`                                        |
-| Brand mark        | `inset 0 0 0 1px rgb(255 255 255 / 0.1), 0 4px 12px -4px var(--color-dm-accent)`                           |
+| Brand mark        | `inset 0 0 0 1px rgb(255 255 255 / 0.12), 0 4px 12px -4px rgb(0 0 0 / 0.35)` on `#0a0a0a`                  |
 
 Notice the pattern: **glows use `color-mix` with the glow's own accent,
 never plain black-on-color**. This keeps the glow chromatically coherent
