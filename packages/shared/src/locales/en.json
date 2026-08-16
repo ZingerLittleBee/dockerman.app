@@ -12,7 +12,7 @@
     "closeMenu": "Close menu"
   },
   "hero": {
-    "eyebrow": "v{{version}} — A URL for every container view, page headers in the titlebar, managed engines on macOS",
+    "eyebrow": "v{{version}} — Memorable *.dockerman.localhost addresses, guided Local Domains setup, domains that survive recreation",
     "eyebrowTag": "NEW",
     "headline1Lead": "Docker that feels",
     "headline1Accent": "local",

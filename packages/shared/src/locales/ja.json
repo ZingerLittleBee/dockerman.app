@@ -12,7 +12,7 @@
     "closeMenu": "メニューを閉じる"
   },
   "hero": {
-    "eyebrow": "v{{version}} — すべてのコンテナビューに URL、タイトルバーに収まったページヘッダー、macOS のマネージドエンジン",
+    "eyebrow": "v{{version}} — 覚えやすい *.dockerman.localhost アドレス、ガイド付き Local Domains セットアップ、再作成後も残るドメイン",
     "eyebrowTag": "NEW",
     "headline1Lead": "Docker を",
     "headline1Accent": "ローカルに",

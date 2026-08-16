@@ -2,8 +2,8 @@
 
 Language: 🇺🇸 English | [🇨🇳 简体中文](./README.zh-CN.md) | [🇯🇵 日本語](./README.ja.md) | [🇪🇸 Español](./README.es.md)
 
-[![Version](https://img.shields.io/badge/version-v6.0.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.0.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Aug%202%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.0.0)
+[![Version](https://img.shields.io/badge/version-v6.1.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.1.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Aug%2016%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.1.0)
 
 A native desktop UI for managing Docker **and** Kubernetes — built with Tauri + Rust. Fast to launch, light on resources, and entirely local: nothing leaves your machine.
 
@@ -22,6 +22,7 @@ A native desktop UI for managing Docker **and** Kubernetes — built with Tauri 
 - 🎬 **Polished motion** — app-wide animation refresh with instant tooltips, popover scaling, button press feedback, and reduced-motion support
 - 📈 **Smoother dashboard charts** — CPU/memory charts on a lightweight liveline engine with hover scrubbing and a proper y-axis
 - 🔔 **Image upgrade watch** — background service with desktop notifications when updates land
+- 🌐 **Local Domains** — memorable `*.dockerman.localhost` addresses for local Docker services, no port numbers
 - ☁️ **Cloudflared tunnels** — one-click public URLs with auto cleanup
 - 🐙 **Podman, Colima, WSL2 & Apple Container engines** — first-class alternatives to Docker Desktop, with managed Colima/Podman machines on macOS
 - 🌐 Localized in English, 中文, 日本語, Español, with comprehensive dark mode
@@ -37,6 +38,7 @@ Manage everything from one place without dropping to a shell:
 - Backup and restore the whole container — config, filesystem, volumes, and supported bind mounts
 - Image build (Dockerfile or parsed command), push to private registries, Docker Hub search, Trivy security scan, and per-layer size analysis
 - Edit a running container's port mappings inline — add, change, and remove published ports without recreating from scratch
+- Give local Docker services memorable `*.dockerman.localhost` addresses that survive container recreation
 - Background image-upgrade watch with per-channel subscriptions, registry credential resolver, and `dockerman://` deep links
 
 ![Container logs](apps/landing/public/screenshots/readme/logs.png)
