@@ -3,7 +3,7 @@
 import { cookieName, type Locale, localeConfig, locales } from '@repo/shared/i18n'
 import { useTranslation } from '@repo/shared/i18n/client'
 import { usePathname, useRouter } from 'next/navigation'
-import { type KeyboardEvent, useEffect, useRef, useState } from 'react'
+import { type KeyboardEvent as ReactKeyboardEvent, useEffect, useRef, useState } from 'react'
 
 export function LocaleSwitch({ locale }: { locale: Locale }) {
   const [open, setOpen] = useState(false)
@@ -34,7 +34,7 @@ export function LocaleSwitch({ locale }: { locale: Locale }) {
     }
   }, [open])
 
-  const onMenuKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+  const onMenuKeyDown = (e: ReactKeyboardEvent<HTMLDivElement>) => {
     const buttons = Array.from(
       e.currentTarget.querySelectorAll<HTMLButtonElement>('[role="menuitem"]')
     )
