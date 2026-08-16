@@ -13,7 +13,7 @@
     "skipToContent": "Skip to content"
   },
   "hero": {
-    "eyebrow": "v{{version}} — Memorable *.dockerman.localhost addresses, guided Local Domains setup, domains that survive recreation",
+    "eyebrow": "Memorable *.dockerman.localhost addresses, guided Local Domains setup, domains that survive recreation",
     "eyebrowTag": "NEW",
     "headline1Lead": "Docker that feels",
     "headline1Accent": "local",

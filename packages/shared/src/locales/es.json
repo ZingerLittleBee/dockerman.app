@@ -13,7 +13,7 @@
     "skipToContent": "Saltar al contenido"
   },
   "hero": {
-    "eyebrow": "v{{version}} — Direcciones *.dockerman.localhost memorables, configuración guiada de Local Domains, dominios que sobreviven a la recreación",
+    "eyebrow": "Direcciones *.dockerman.localhost memorables, configuración guiada de Local Domains, dominios que sobreviven a la recreación",
     "eyebrowTag": "NUEVO",
     "headline1Lead": "Docker que se siente",
     "headline1Accent": "local",

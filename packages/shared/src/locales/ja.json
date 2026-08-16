@@ -13,7 +13,7 @@
     "skipToContent": "コンテンツへスキップ"
   },
   "hero": {
-    "eyebrow": "v{{version}} — 覚えやすい *.dockerman.localhost アドレス、ガイド付き Local Domains セットアップ、再作成後も残るドメイン",
+    "eyebrow": "覚えやすい *.dockerman.localhost アドレス、ガイド付き Local Domains セットアップ、再作成後も残るドメイン",
     "eyebrowTag": "NEW",
     "headline1Lead": "Docker を",
     "headline1Accent": "ローカルに",
