@@ -2,6 +2,7 @@
 
 import type { Locale } from '@repo/shared/i18n'
 import { useTranslation } from '@repo/shared/i18n/client'
+import { cx } from '@repo/shared/utils'
 import Link from 'next/link'
 import { useState, useSyncExternalStore } from 'react'
 import { siteConfig } from '@/app/siteConfig'
@@ -57,6 +58,7 @@ function getServerDetectedOSSnapshot(): OS {
 
 export function Hero({ locale }: { locale: Locale }) {
   const { t } = useTranslation(locale)
+  const cjk = locale === 'zh' || locale === 'ja'
   const [copied, setCopied] = useState(false)
   const os = useSyncExternalStore(
     subscribeDetectedOS,
@@ -118,9 +120,21 @@ export function Hero({ locale }: { locale: Locale }) {
         </div>
 
         {/* Two-line headline with accent on the final word of each line */}
-        <h1 className="mt-[22px] max-w-[14ch] text-balance font-bold text-[clamp(44px,7.2vw,96px)] text-dm-ink leading-[0.95] tracking-[-0.045em]">
-          {t('hero.headline1Lead')} <Accent>{t('hero.headline1Accent')}</Accent>.<br />
-          {t('hero.headline2Lead')} <Accent>{t('hero.headline2Accent')}</Accent>.
+        <h1
+          className={cx(
+            'mt-[22px] font-bold text-[clamp(44px,7.2vw,96px)] text-dm-ink',
+            cjk
+              ? 'max-w-[10em] whitespace-pre-line leading-[1.08] tracking-normal'
+              : 'max-w-[14ch] text-balance leading-[0.95] tracking-[-0.045em]'
+          )}
+        >
+          {t('hero.headline1Lead')}
+          {cjk ? '' : ' '}
+          <Accent cjk={cjk}>{t('hero.headline1Accent')}</Accent>.
+          <br />
+          {t('hero.headline2Lead')}
+          {cjk ? '' : ' '}
+          <Accent cjk={cjk}>{t('hero.headline2Accent')}</Accent>.
         </h1>
 
         <p className="mt-6 max-w-[52ch] text-pretty text-[18px] text-dm-ink-3 leading-[1.5]">
@@ -470,9 +484,15 @@ function MiniBars({ delayMs }: { delayMs: number }) {
   )
 }
 
-function Accent({ children }: { children: React.ReactNode }) {
+function Accent({ children, cjk = false }: { children: React.ReactNode; cjk?: boolean }) {
   return (
-    <span className="font-[var(--font-dm-display)] font-normal text-dm-accent italic tracking-[-0.02em]">
+    <span
+      className={
+        cjk
+          ? 'font-normal text-dm-accent'
+          : 'font-[var(--font-dm-display)] font-normal text-dm-accent italic tracking-[-0.02em]'
+      }
+    >
       {children}
     </span>
   )

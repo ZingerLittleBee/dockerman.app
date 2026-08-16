@@ -16,9 +16,9 @@
   "hero": {
     "eyebrow": "好记的 *.dockerman.localhost 地址、引导式本地域名设置、域名在容器重建后仍可用",
     "eyebrowTag": "新",
-    "headline1Lead": "Docker，用起来像",
+    "headline1Lead": "Docker，\n用起来像",
     "headline1Accent": "本地",
-    "headline2Lead": "Kubernetes，变得",
+    "headline2Lead": "Kubernetes，\n变得",
     "headline2Accent": "轻松",
     "description": "为 Docker、Podman 和 Kubernetes 打造的轻量级桌面客户端 —— 基于 Rust 与 Tauri。毫秒级启动，内存占用不到 30 MB。",
     "compareLink": "对比 Docker Desktop →",
