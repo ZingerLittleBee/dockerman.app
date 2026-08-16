@@ -21,8 +21,7 @@ export async function SnapshotHero({ locale }: { locale: Locale }) {
           <span
             className="bg-clip-text px-[5px] font-bold text-transparent"
             style={{
-              backgroundImage:
-                'linear-gradient(135deg, var(--color-dm-accent), var(--color-dm-accent-2))'
+              backgroundImage: 'var(--dm-grad)'
             }}
           >
             {count}
@@ -35,8 +34,7 @@ export async function SnapshotHero({ locale }: { locale: Locale }) {
           <em
             className="bg-clip-text font-[var(--font-dm-display)] font-normal text-transparent italic tracking-[-0.02em]"
             style={{
-              backgroundImage:
-                'linear-gradient(135deg, var(--color-dm-accent), var(--color-dm-accent-2))',
+              backgroundImage: 'var(--dm-grad)',
               paddingInline: '0.18em',
               marginInline: '-0.18em',
               paddingBlock: '0.18em',

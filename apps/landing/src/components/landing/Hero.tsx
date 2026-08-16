@@ -133,10 +133,9 @@ export function Hero({ locale }: { locale: Locale }) {
             className="dm-focus-ring inline-flex h-12 items-center gap-[10px] rounded-[10px] px-5 font-semibold text-[14px] text-white no-underline transition-transform fine-hover:hover:-translate-y-px active:translate-y-0 active:scale-[0.96]"
             href={`/${locale}/download`}
             style={{
-              background:
-                'linear-gradient(135deg, var(--color-dm-accent), var(--color-dm-accent-2))',
+              background: 'var(--dm-grad)',
               boxShadow:
-                '0 10px 30px -10px color-mix(in srgb, var(--color-dm-accent-2) 60%, transparent)'
+                '0 10px 30px -10px color-mix(in srgb, var(--color-dm-grad-to) 55%, transparent)'
             }}
           >
             <svg aria-hidden="true" fill="currentColor" height="14" viewBox="0 0 24 24" width="14">
@@ -346,8 +345,7 @@ function TerminalCard({ locale }: { locale: Locale }) {
                 className="absolute inset-y-0 left-0 block rounded-full"
                 style={{
                   width: '0',
-                  background:
-                    'linear-gradient(90deg, var(--color-dm-accent), var(--color-dm-accent-2))',
+                  background: 'var(--dm-grad-90)',
                   animation: 'dm-progress 900ms var(--ease-out-strong) forwards',
                   animationDelay: `${STAGE_STEPS.progress}ms`,
                   ['--dm-progress' as string]: '100%'
@@ -471,7 +469,7 @@ function MiniBars({ delayMs }: { delayMs: number }) {
 
 function Accent({ children }: { children: React.ReactNode }) {
   return (
-    <span className="-me-[0.18em] -mb-[0.18em] bg-[linear-gradient(135deg,var(--color-dm-accent)_0%,var(--color-dm-accent-2)_100%)] bg-clip-text pe-[0.18em] pb-[0.18em] font-[var(--font-dm-display)] font-normal text-transparent italic tracking-[-0.02em]">
+    <span className="-me-[0.18em] -mb-[0.18em] bg-clip-text pe-[0.18em] pb-[0.18em] font-[var(--font-dm-display)] font-normal text-transparent italic tracking-[-0.02em] [background-image:var(--dm-grad)]">
       {children}
     </span>
   )

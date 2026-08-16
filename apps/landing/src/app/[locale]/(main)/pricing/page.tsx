@@ -246,7 +246,7 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
               <em
                 className="bg-clip-text font-[var(--font-dm-display)] font-normal text-transparent italic"
                 style={{
-                  backgroundImage: 'linear-gradient(135deg, var(--color-dm-accent-2), #8b5cf6)'
+                  backgroundImage: 'var(--dm-grad)'
                 }}
               >
                 {t('pricing.finalCta.titleAccent')}

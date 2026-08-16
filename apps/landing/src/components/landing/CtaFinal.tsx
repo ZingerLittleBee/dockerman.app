@@ -29,8 +29,7 @@ export async function CtaFinal({ locale }: { locale: Locale }) {
             <em
               className="bg-clip-text font-[var(--font-dm-display)] font-normal text-transparent italic"
               style={{
-                backgroundImage:
-                  'linear-gradient(135deg, var(--color-dm-accent), var(--color-dm-accent-2))'
+                backgroundImage: 'var(--dm-grad)'
               }}
             >
               {t('cta.titleAccent')}
@@ -44,10 +43,9 @@ export async function CtaFinal({ locale }: { locale: Locale }) {
               className="dm-focus-ring inline-flex items-center gap-[10px] rounded-[10px] px-5 py-3 font-semibold text-[14px] text-white no-underline transition-transform fine-hover:hover:-translate-y-px active:translate-y-0 active:scale-[0.96]"
               href={`/${locale}/download`}
               style={{
-                background:
-                  'linear-gradient(135deg, var(--color-dm-accent), var(--color-dm-accent-2))',
+                background: 'var(--dm-grad)',
                 boxShadow:
-                  '0 10px 30px -10px color-mix(in srgb, var(--color-dm-accent-2) 60%, transparent)'
+                  '0 10px 30px -10px color-mix(in srgb, var(--color-dm-grad-to) 55%, transparent)'
               }}
             >
               <svg

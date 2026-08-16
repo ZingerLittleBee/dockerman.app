@@ -48,7 +48,7 @@ export async function PricingHero({
           <em
             className="bg-clip-text font-[var(--font-dm-display)] font-normal text-transparent italic"
             style={{
-              backgroundImage: 'linear-gradient(135deg, var(--color-dm-accent-2), #8b5cf6)',
+              backgroundImage: 'var(--dm-grad)',
               letterSpacing: '-0.02em'
             }}
           >

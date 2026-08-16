@@ -112,7 +112,7 @@ export function PlanCard(p: PlanCardProps) {
         <span
           className="absolute top-[18px] right-[18px] rounded-full px-[10px] py-1 font-[var(--font-dm-mono)] font-bold text-[10.5px] text-white uppercase tracking-[0.04em]"
           style={{
-            background: 'linear-gradient(135deg, var(--color-dm-accent-2), #8b5cf6)',
+            background: 'var(--dm-grad)',
             boxShadow:
               '0 8px 20px -6px color-mix(in srgb, var(--color-dm-accent-2) 50%, transparent)'
           }}

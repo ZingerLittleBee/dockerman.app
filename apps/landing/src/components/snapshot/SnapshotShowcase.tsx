@@ -378,7 +378,7 @@ function RailItem({
           active
             ? {
                 background:
-                  'linear-gradient(135deg, var(--color-dm-accent), var(--color-dm-accent-2))',
+                  'var(--dm-grad)',
                 boxShadow:
                   '0 3px 10px -3px color-mix(in srgb, var(--color-dm-accent) 55%, transparent)'
               }

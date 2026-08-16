@@ -137,12 +137,15 @@
   --color-dm-ink-2: #3a3a3a;
   --color-dm-ink-3: #6a6a6a;
   --color-dm-ink-4: #9a9a98;
-  --color-dm-accent: #14b8a6;
-  --color-dm-accent-2: #6366f1;
-  --color-dm-accent-warm: #f97316;
-  --color-dm-ok: #10b981;
-  --color-dm-warn: #f59e0b;
-  --color-dm-err: #ef4444;
+  --color-dm-accent: #0c7a73;
+  --color-dm-accent-2: #3d44b8;
+  --color-dm-accent-warm: #c45e14;
+  --color-dm-ok: #1b8554;
+  --color-dm-warn: #a67c0a;
+  --color-dm-err: #c73636;
+  --color-dm-grad-from: #0a6560;
+  --color-dm-grad-mid: #1b5f92;
+  --color-dm-grad-to: #3238ad;
   --color-dm-grid: rgb(0 0 0 / 0.05);
 
   --font-dm-mono:
@@ -151,6 +154,23 @@
 
   --radius-dm: 12px;
   --radius-dm-sm: 8px;
+}
+
+@layer base {
+  :root {
+    --dm-grad: linear-gradient(
+      135deg in oklab,
+      var(--color-dm-grad-from),
+      var(--color-dm-grad-mid),
+      var(--color-dm-grad-to)
+    );
+    --dm-grad-90: linear-gradient(
+      90deg in oklab,
+      var(--color-dm-grad-from),
+      var(--color-dm-grad-mid),
+      var(--color-dm-grad-to)
+    );
+  }
 }
 
 @layer components {
@@ -227,6 +247,12 @@
     --color-dm-ink-3: #8c8c8a;
     --color-dm-ink-4: #5c5c5a;
     --color-dm-grid: rgb(255 255 255 / 0.04);
+    --color-dm-accent: #2aa89c;
+    --color-dm-accent-2: #8a8ef0;
+    --color-dm-accent-warm: #e0893a;
+    --color-dm-ok: #3dba7a;
+    --color-dm-warn: #d4a017;
+    --color-dm-err: #ef6b6b;
   }
 
   @keyframes dm-pulse {
