@@ -19,7 +19,7 @@
     "headline1Accent": "代替",
     "headline2Lead": "軽量な",
     "headline2Accent": "UI",
-    "description": "Dockerman は Docker、Podman、Kubernetes のためのローカルファーストなデスクトップ UI。Rust と Tauri で構築。ほぼ瞬時に起動し、メモリは 30 MB 未満。ローカル利用は永久無料。",
+    "description": "Dockerman は Docker、Podman、Kubernetes のためのローカルファーストなデスクトップ UI。Rust と Tauri で構築。ほぼ瞬時に起動し、メモリは 30 MB 未満。ローカル Docker の機能はすべて完全に無料。",
     "compareLink": "Docker Desktop と比較 →",
     "downloadFor": {
       "mac": "macOS 版をダウンロード",
@@ -442,7 +442,7 @@
       "items": [
         {
           "question": "生涯ライセンスとは何ですか？",
-          "answer": "ローカルの Docker と Podman の機能は永久に無料で、ライセンスは不要です。有料の買い切りライセンスは一度購入するだけで、ライセンス対象デバイスのリモートホストとその他の有料機能を永久に利用でき、今後のすべてのバージョンへの無料アップデートも含まれます。"
+          "answer": "ローカル Docker の機能はすべて完全に無料で、ライセンスは不要です。有料の買い切りライセンスは一度購入するだけで、ライセンス対象デバイスのリモートホスト接続を永久に利用でき、今後のすべてのバージョンへの無料アップデートも含まれます。それ以外に有料項目はありません。"
         },
         {
           "question": "デバイス制限とは何ですか？",
@@ -983,7 +983,7 @@
       "kicker": "Docker Desktop の代替",
       "titleLead": "より軽い Docker UI。",
       "titleAccent": "同じコンテナ。",
-      "description": "Dockerman は Docker、Podman、Kubernetes のためのローカルファーストなデスクトップ UI であり、Docker Desktop の軽量な代替です。Docker Inc. のプラットフォームの複製ではありません。バックエンドは自分で選びます。ローカルの Docker と Podman は永久に無料です。"
+      "description": "Dockerman は Docker、Podman、Kubernetes のためのローカルファーストなデスクトップ UI であり、Docker Desktop の軽量な代替です。Docker Inc. のプラットフォームの複製ではありません。バックエンドは自分で選びます。ローカル Docker の機能はすべて完全に無料です。有料なのはリモートホスト接続だけです。"
     },
     "table": {
       "kicker": "並べて比較",
@@ -1008,12 +1008,12 @@
         },
         "local": {
           "label": "ローカル Docker と Podman",
-          "dockerman": "永久無料",
+          "dockerman": "ローカル Docker の機能はすべて完全に無料",
           "desktop": "個人利用と条件を満たす中小企業は無料。より大きな組織はサブスクリプション"
         },
         "license": {
           "label": "有料機能",
-          "dockerman": "買い切り — Solo ${{solo}} / Team ${{team}}",
+          "dockerman": "リモートホストのみ — 買い切り Solo ${{solo}} / Team ${{team}}",
           "desktop": "有料の Docker Desktop が必要な組織向けサブスクリプション"
         },
         "windows": {
@@ -1038,7 +1038,7 @@
         },
         "k8s": {
           "label": "Kubernetes",
-          "dockerman": "有料：kubeconfig またはローカル k3d",
+          "dockerman": "kubeconfig またはローカル k3d — 含まれており、有料ではない",
           "desktop": "Desktop 内のオプションの単一ノード Kubernetes"
         },
         "platforms": {
@@ -1058,7 +1058,7 @@
       },
       "license": {
         "title": "ローカル無料と Desktop ライセンス",
-        "body": "ローカル Docker の機能はすべて完全に無料です。商用利用も含みます。有料機能はリモートホスト接続で、買い切り（Solo ${{solo}} / Team ${{team}}）です。Docker Desktop は個人利用と Docker の条件を満たす組織は無料で、より大きな組織は Desktop のサブスクリプションが必要です。製品もライセンスの形も違います。"
+        "body": "ローカル Docker の機能はすべて完全に無料です。商用利用も含みます。有料なのはリモートホスト接続だけで、買い切り（Solo ${{solo}} / Team ${{team}}）です。それ以外に有料項目はありません。Docker Desktop は個人利用と Docker の条件を満たす組織は無料で、より大きな組織は Desktop のサブスクリプションが必要です。製品もライセンスの形も違います。"
       },
       "engines": {
         "title": "バックエンドは自分で選ぶ",
@@ -1070,7 +1070,7 @@
       },
       "pricing": {
         "title": "買い切りとサブスクリプション",
-        "body": "Dockerman にサブスクリプションはありません。有料機能はリモートホスト接続で、一度払えば生涯アップデート付きです。ローカル Docker の機能はすべて完全に無料です。Docker Desktop の有料プランは Docker Inc. のサブスクリプションです。"
+        "body": "Dockerman にサブスクリプションはありません。有料なのはリモートホスト接続だけで、一度払えば生涯アップデート付きです。ローカル Docker の機能はすべて完全に無料です。Docker Desktop の有料プランは Docker Inc. のサブスクリプションです。"
       }
     },
     "orbstack": {
@@ -1079,7 +1079,7 @@
     },
     "desktopWins": {
       "title": "Docker Desktop がまだ勝つところ",
-      "body": "Docker Desktop は Docker Inc. の公式製品です。公式プラットフォーム（Engine、Compose、Buildx）と、Extensions、Docker Scout、Build Cloud、組織向け管理などが必要なら Desktop を選んでください。Desktop は Dockerman のリモートホスト機能に支払わなくてもローカル Kubernetes を有効化できます。公式の一体型プラットフォームが必要なら、Desktop が正しい選択です。Dockerman をそこに接続することもできます。"
+      "body": "Docker Desktop は Docker Inc. の公式製品です。公式プラットフォーム（Engine、Compose、Buildx）と、Extensions、Docker Scout、Build Cloud、組織向け管理などが必要なら Desktop を選んでください。Desktop はローカル Kubernetes も有効化できます。公式の一体型プラットフォームが必要なら、Desktop が正しい選択です。Dockerman をそこに接続することもできます。"
     },
     "faq": {
       "kicker": "faq",
@@ -1088,7 +1088,7 @@
       "items": [
         {
           "question": "Dockerman は Docker Desktop の代替ですか？",
-          "answer": "軽量でローカルファーストな UI としては、はい。バックエンドは自分で選びます。Docker、Podman、Kubernetes を管理します。Docker Inc. のすべての製品を置き換えるものではありません。"
+          "answer": "軽量でローカルファーストな UI としては、はい。バックエンドは自分で選びます。Docker、Podman、Kubernetes を管理します。ローカル Docker の機能（Kubernetes を含む）はすべて完全に無料です。有料なのはリモートホスト接続だけです。Docker Inc. のすべての製品を置き換えるものではありません。"
         },
         {
           "question": "Windows でも Docker Desktop は必要ですか？",
@@ -1118,11 +1118,11 @@
   "meta": {
     "home": {
       "title": "Dockerman — 軽量な Docker Desktop 代替 UI",
-      "description": "Dockerman は Docker Desktop の軽量な代替 UI。macOS、Windows、Linux 対応。Docker、Podman、Kubernetes をローカルファーストで管理。ローカル利用は永久無料。"
+      "description": "Dockerman は Docker Desktop の軽量な代替 UI。macOS、Windows、Linux 対応。Docker、Podman、Kubernetes をローカルファーストで管理。ローカル Docker の機能はすべて完全に無料。"
     },
     "compare": {
       "title": "Docker Desktop の代替 — Dockerman",
-      "description": "Dockerman と Docker Desktop を比較：インストールサイズ、メモリ、WSL2、Colima、Podman、ライセンス、ローカルドメイン。ローカル Docker は永久無料。"
+      "description": "Dockerman と Docker Desktop を比較：インストールサイズ、メモリ、WSL2、Colima、Podman、ライセンス、ローカルドメイン。ローカル Docker の機能はすべて完全に無料。有料なのはリモートホストだけです。"
     },
     "pricing": {
       "title": "価格 — Dockerman",

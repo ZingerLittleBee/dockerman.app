@@ -54,9 +54,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
   const descriptions: Record<Locale, string> = {
     en: siteConfig.description,
-    zh: '不用 Docker Desktop 的轻量 Docker UI。基于 Tauri 和 Rust 的本地优先桌面客户端，管理 Docker、Podman 与 Kubernetes。本地使用永久免费。',
-    ja: 'Docker Desktop の軽量な代替 UI。Tauri と Rust で構築されたローカルファーストのデスクトップ。Docker、Podman、Kubernetes を管理。ローカル利用は永久無料。',
-    es: 'Alternativa ligera a Docker Desktop. UI local-first construida con Tauri y Rust para Docker, Podman y Kubernetes. El uso local es gratis para siempre.'
+    zh: '不用 Docker Desktop 的轻量 Docker UI。基于 Tauri 和 Rust 的本地优先桌面客户端，管理 Docker、Podman 与 Kubernetes。使用本地 Docker，全部功能完全免费。',
+    ja: 'Docker Desktop の軽量な代替 UI。Tauri と Rust で構築されたローカルファーストのデスクトップ。Docker、Podman、Kubernetes を管理。ローカル Docker の機能はすべて完全に無料。',
+    es: 'Alternativa ligera a Docker Desktop. UI local-first construida con Tauri y Rust para Docker, Podman y Kubernetes. Todas las funciones de Docker local son completamente gratis.'
   }
 
   const alternateLocales: string[] = []

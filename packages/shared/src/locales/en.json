@@ -19,7 +19,7 @@
     "headline1Accent": "alternative",
     "headline2Lead": "to Docker",
     "headline2Accent": "Desktop",
-    "description": "Dockerman is a local-first desktop UI for Docker, Podman, and Kubernetes — built with Rust and Tauri. Boots in ~0ms, under 30 MB of memory, free for local use.",
+    "description": "Dockerman is a local-first desktop UI for Docker, Podman, and Kubernetes — built with Rust and Tauri. Boots in ~0ms, under 30 MB of memory. Every local Docker feature is completely free.",
     "compareLink": "Compare with Docker Desktop →",
     "downloadFor": {
       "mac": "Download for macOS",
@@ -442,7 +442,7 @@
       "items": [
         {
           "question": "What does Lifetime License mean?",
-          "answer": "Local Docker and Podman features are free forever and do not require a license. A paid lifetime license is a one-time purchase that unlocks remote hosts and the other paid features on your licensed devices forever, including free updates for all future versions."
+          "answer": "Every local Docker feature is completely free and does not require a license. A paid lifetime license is a one-time purchase that unlocks remote host connections on your licensed devices forever, including free updates for all future versions. Nothing else is paid."
         },
         {
           "question": "What does Device Limitation mean?",
@@ -986,7 +986,7 @@
       "kicker": "Docker Desktop alternative",
       "titleLead": "A lighter Docker UI.",
       "titleAccent": "Same containers.",
-      "description": "Dockerman is a local-first desktop UI for Docker, Podman, and Kubernetes — a lightweight alternative to Docker Desktop, not a clone of Docker Inc.'s platform. You choose the backend. Local Docker and Podman stay free forever."
+      "description": "Dockerman is a local-first desktop UI for Docker, Podman, and Kubernetes — a lightweight alternative to Docker Desktop, not a clone of Docker Inc.'s platform. You choose the backend. Every local Docker feature is completely free. The only paid feature is remote host connections."
     },
     "table": {
       "kicker": "side by side",
@@ -1011,12 +1011,12 @@
         },
         "local": {
           "label": "Local Docker & Podman",
-          "dockerman": "Free forever",
+          "dockerman": "Every local Docker feature is completely free",
           "desktop": "Free for personal use and qualifying small businesses; subscription for larger organizations"
         },
         "license": {
           "label": "Paid features",
-          "dockerman": "One-time license — ${{solo}} Solo / ${{team}} Team",
+          "dockerman": "Remote hosts only — one-time ${{solo}} Solo / ${{team}} Team",
           "desktop": "Subscription plans for organizations that need paid Docker Desktop"
         },
         "windows": {
@@ -1041,7 +1041,7 @@
         },
         "k8s": {
           "label": "Kubernetes",
-          "dockerman": "Paid: kubeconfig or local k3d",
+          "dockerman": "kubeconfig or local k3d — included, not paid",
           "desktop": "Optional single-node Kubernetes inside Desktop"
         },
         "platforms": {
@@ -1061,7 +1061,7 @@
       },
       "license": {
         "title": "Local free vs Desktop licensing",
-        "body": "Every local Docker feature is completely free, including commercial use. Paid features are remote host connections — a one-time license (${{solo}} Solo / ${{team}} Team). Docker Desktop is free for personal use and for organizations that qualify under Docker's terms; larger organizations need a Docker Desktop subscription. Those are different products with different license shapes."
+        "body": "Every local Docker feature is completely free, including commercial use. The only paid feature is remote host connections — a one-time license (${{solo}} Solo / ${{team}} Team). Nothing else is paid. Docker Desktop is free for personal use and for organizations that qualify under Docker's terms; larger organizations need a Docker Desktop subscription. Those are different products with different license shapes."
       },
       "engines": {
         "title": "You choose the backend",
@@ -1073,7 +1073,7 @@
       },
       "pricing": {
         "title": "One-time license vs subscription",
-        "body": "Dockerman does not sell a subscription. Paid features are remote host connections: one payment, lifetime updates. Every local Docker feature is completely free. Docker Desktop's paid plans are subscriptions from Docker Inc."
+        "body": "Dockerman does not sell a subscription. The only paid feature is remote host connections: one payment, lifetime updates. Every local Docker feature is completely free. Docker Desktop's paid plans are subscriptions from Docker Inc."
       }
     },
     "orbstack": {
@@ -1082,7 +1082,7 @@
     },
     "desktopWins": {
       "title": "Where Docker Desktop still wins",
-      "body": "Docker Desktop is the official Docker Inc. product. Choose it when you want Docker's first-party platform — Engine, Compose, Buildx — and extras such as Extensions, Docker Scout, Build Cloud, and organization controls. Desktop can also enable a local Kubernetes cluster without paying for Dockerman's remote-host features. If you want that official all-in-one platform, Desktop is the right tool. You can still point Dockerman at it."
+      "body": "Docker Desktop is the official Docker Inc. product. Choose it when you want Docker's first-party platform — Engine, Compose, Buildx — and extras such as Extensions, Docker Scout, Build Cloud, and organization controls. Desktop can also enable a local Kubernetes cluster. If you want that official all-in-one platform, Desktop is the right tool. You can still point Dockerman at it."
     },
     "faq": {
       "kicker": "faq",
@@ -1091,7 +1091,7 @@
       "items": [
         {
           "question": "Is Dockerman a Docker Desktop alternative?",
-          "answer": "Yes — as a lightweight, local-first UI. You choose the backend. It manages Docker, Podman, and Kubernetes. It does not replace every Docker Inc. product."
+          "answer": "Yes — as a lightweight, local-first UI. You choose the backend. It manages Docker, Podman, and Kubernetes. Local Docker features — including Kubernetes — are completely free. The only paid feature is remote host connections. It does not replace every Docker Inc. product."
         },
         {
           "question": "Do I still need Docker Desktop on Windows?",
@@ -1121,11 +1121,11 @@
   "meta": {
     "home": {
       "title": "Dockerman — Lightweight Docker Desktop Alternative",
-      "description": "Dockerman is a lightweight Docker Desktop alternative for macOS, Windows, and Linux. Local-first UI for Docker, Podman, and Kubernetes. Local use is free forever."
+      "description": "Dockerman is a lightweight Docker Desktop alternative for macOS, Windows, and Linux. Local-first UI for Docker, Podman, and Kubernetes. Every local Docker feature is completely free."
     },
     "compare": {
       "title": "Docker Desktop Alternative — Dockerman",
-      "description": "Compare Dockerman and Docker Desktop: install size, memory, WSL2, Colima, Podman, licensing, and local domains. Local Docker is free forever."
+      "description": "Compare Dockerman and Docker Desktop: install size, memory, WSL2, Colima, Podman, licensing, and local domains. Every local Docker feature is completely free. Only remote hosts are paid."
     },
     "pricing": {
       "title": "Pricing — Dockerman",

@@ -4,7 +4,7 @@ export const siteConfig = {
   url: 'https://dockerman.app',
   issuesLink: 'https://github.com/ZingerLittleBee/dockerman.app/issues/new',
   description:
-    'A lightweight Docker Desktop alternative. Local-first desktop UI for Docker, Podman, and Kubernetes, built with Tauri and Rust. Local use is free forever.',
+    'A lightweight Docker Desktop alternative. Local-first desktop UI for Docker, Podman, and Kubernetes, built with Tauri and Rust. Every local Docker feature is completely free.',
   baseLinks: {
     home: '/',
     about: '/about',
