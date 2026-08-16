@@ -424,7 +424,7 @@
     },
     "vsDesktop": {
       "title": "Looking for a Docker Desktop alternative?",
-      "body": "See how Dockerman compares on install size, local-free licensing, WSL2 / Colima / Podman, and a one-time license versus a subscription.",
+      "body": "See how Dockerman compares on install size, local-free licensing, a one-time license versus a subscription, and backends you choose — including WSL that Dockerman can manage on Windows.",
       "cta": "Dockerman vs Docker Desktop →"
     },
     "success": {
@@ -986,7 +986,7 @@
       "kicker": "Docker Desktop alternative",
       "titleLead": "A lighter Docker UI.",
       "titleAccent": "Same containers.",
-      "description": "Dockerman is a local-first desktop UI for Docker, Podman, and Kubernetes. It does not ship its own engine — you choose the backend. A lightweight UI alternative to Docker Desktop, not a clone of Docker Inc.'s platform. Local Docker and Podman stay free forever."
+      "description": "Dockerman is a local-first desktop UI for Docker, Podman, and Kubernetes — a lightweight alternative to Docker Desktop, not a clone of Docker Inc.'s platform. You choose the backend. Local Docker and Podman stay free forever."
     },
     "table": {
       "kicker": "side by side",
@@ -1007,7 +1007,7 @@
         "memory": {
           "label": "App memory",
           "dockerman": "Under 30 MB for the UI",
-          "desktop": "Typically much higher idle use — Desktop includes a Linux VM"
+          "desktop": "A full platform — engine, tooling, and a VM on Mac/Windows"
         },
         "local": {
           "label": "Local Docker & Podman",
@@ -1021,8 +1021,8 @@
         },
         "windows": {
           "label": "Windows without Docker Desktop",
-          "dockerman": "Bundled WSL2 Docker Engine (Alpine), one-click setup",
-          "desktop": "Not applicable — Desktop is the official Windows installer"
+          "dockerman": "Your choice — including WSL that Dockerman manages to install Docker",
+          "desktop": "Desktop is one backend you can keep using"
         },
         "macos": {
           "label": "macOS engines",
@@ -1037,7 +1037,7 @@
         "remote": {
           "label": "Remote SSH & multi-host",
           "dockerman": "Paid one-time unlock",
-          "desktop": "Local-first platform; other Docker products cover remote workflows"
+          "desktop": "Local-first; can also use Docker contexts"
         },
         "k8s": {
           "label": "Kubernetes",
@@ -1057,15 +1057,15 @@
       "titleAccent": "no trash-talk.",
       "footprint": {
         "title": "Install size and memory",
-        "body": "Dockerman is a Rust + Tauri UI. The Windows installer is {{windows}}; the macOS universal DMG is {{macos}}. The app is built to stay under 30 MB of memory. Docker Desktop installs a complete Docker platform, including a Linux VM — expect a larger download and higher idle use. We do not publish Desktop's numbers here."
+        "body": "Dockerman is a Rust + Tauri UI. The Windows installer is {{windows}}; the macOS universal DMG is {{macos}}. The app is built to stay under 30 MB of memory. Docker Desktop is a full platform (engine, tooling, and a VM on Mac/Windows), so the download and idle use are larger. We do not publish Desktop's numbers here."
       },
       "license": {
         "title": "Local free vs Desktop licensing",
         "body": "Local Docker and Podman in Dockerman are free forever, including commercial use. A one-time license (${{solo}} Solo / ${{team}} Team) unlocks remote SSH, multi-host, Cloudflared, and Kubernetes. Docker Desktop is free for personal use and for organizations that qualify under Docker's terms; larger organizations need a Docker Desktop subscription. Those are different products with different license shapes."
       },
       "engines": {
-        "title": "Bring your own backend",
-        "body": "Dockerman is a UI. It does not ship a Docker engine of its own — you pick the backend. Connect a Docker-compatible socket (Docker Desktop, OrbStack, Colima, Podman) or Apple Container on Apple Silicon with macOS 26+. On Windows, an optional WSL2 Docker Engine is available if you do not want Desktop. On macOS, v6.0.0 can detect, start, stop, and repair Colima and Podman machines; it does not install those binaries."
+        "title": "You choose the backend",
+        "body": "Dockerman is a UI. You pick the engine: Docker Desktop, OrbStack, Colima, Podman, Apple Container on Apple Silicon with macOS 26+, or on Windows a WSL engine that Dockerman manages and can install Docker into. That choice is why it works as a Docker Desktop alternative — Desktop is optional, not required. On macOS, v6.0.0 can detect, start, stop, and repair Colima and Podman machines; it does not install those binaries."
       },
       "domains": {
         "title": "Local domains",
@@ -1073,16 +1073,16 @@
       },
       "pricing": {
         "title": "One-time license vs subscription",
-        "body": "Dockerman does not sell a subscription. Paid features are a lifetime license with lifetime updates. Docker Desktop's paid plans are subscriptions from Docker Inc. If you only need a local UI, Dockerman's free tier is enough."
+        "body": "Dockerman does not sell a subscription. Paid features are a lifetime license with lifetime updates. Docker Desktop's paid plans are subscriptions from Docker Inc. Local Docker and Podman stay on the free tier. Kubernetes, remote SSH, multi-host, and Cloudflared need a one-time license."
       }
     },
     "orbstack": {
       "title": "What about OrbStack?",
-      "body": "OrbStack is a backend, not a competing UI. Dockerman does not come with its own Docker engine — you choose one. On Mac, that can be OrbStack, Docker Desktop, Colima, Podman, or Apple Container. Point Dockerman at the socket and keep the engine you already run. They work together; they are not alternatives to each other."
+      "body": "OrbStack is a backend you can choose, not a competing UI. On Mac, pick OrbStack, Docker Desktop, Colima, Podman, or Apple Container. Point Dockerman at the socket and keep the engine you already run. Being a Docker Desktop alternative does not mean replacing every engine — the backend is your choice."
     },
     "desktopWins": {
       "title": "Where Docker Desktop still wins",
-      "body": "Docker Desktop is the official Docker Inc. product. Choose it when you want the full first-party toolchain in one installer — Engine, Compose, Buildx, Extensions, Docker Scout, Build Cloud, and Docker's organization controls. Desktop can also enable a local Kubernetes cluster without Dockerman's paid tier. If you need that official all-in-one platform, Desktop is the right tool."
+      "body": "Docker Desktop is the official Docker Inc. product. Choose it when you want Docker's first-party platform — Engine, Compose, Buildx — and extras such as Extensions, Docker Scout, Build Cloud, and organization controls. Desktop can also enable a local Kubernetes cluster without Dockerman's paid tier. If you want that official all-in-one platform, Desktop is the right tool. You can still point Dockerman at it."
     },
     "faq": {
       "kicker": "faq",
@@ -1091,11 +1091,11 @@
       "items": [
         {
           "question": "Is Dockerman a Docker Desktop alternative?",
-          "answer": "Yes — as a lightweight, local-first UI. Dockerman does not ship its own Docker engine. It talks to the backend you choose and manages Docker, Podman, and Kubernetes. It does not replace every Docker Inc. product."
+          "answer": "Yes — as a lightweight, local-first UI. You choose the backend. It manages Docker, Podman, and Kubernetes. It does not replace every Docker Inc. product."
         },
         {
           "question": "Do I still need Docker Desktop on Windows?",
-          "answer": "No. Dockerman can install a bundled WSL2 Docker Engine. You can also keep Docker Desktop and point Dockerman at it."
+          "answer": "No. Keep Docker Desktop and point Dockerman at it, or choose WSL that Dockerman manages to install Docker. The backend is your choice."
         },
         {
           "question": "Is local use free?",

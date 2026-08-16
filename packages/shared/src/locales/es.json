@@ -983,7 +983,7 @@
       "kicker": "Alternativa a Docker Desktop",
       "titleLead": "Una UI Docker más ligera.",
       "titleAccent": "Los mismos contenedores.",
-      "description": "Dockerman es una UI de escritorio local-first para Docker, Podman y Kubernetes. No trae su propio motor: tú eliges el backend. Es una alternativa de UI ligera a Docker Desktop, no un clon de la plataforma de Docker Inc. Docker y Podman locales siguen siendo gratis para siempre."
+      "description": "Dockerman es una UI de escritorio local-first para Docker, Podman y Kubernetes — una alternativa ligera a Docker Desktop, no un clon de la plataforma de Docker Inc. Tú eliges el backend. Docker y Podman locales siguen siendo gratis para siempre."
     },
     "table": {
       "kicker": "lado a lado",
@@ -1004,7 +1004,7 @@
         "memory": {
           "label": "Memoria de la app",
           "dockerman": "Menos de 30 MB para la UI",
-          "desktop": "El uso en reposo suele ser mucho mayor: Desktop incluye una VM Linux"
+          "desktop": "Una plataforma completa: motor, herramientas y una VM en Mac/Windows"
         },
         "local": {
           "label": "Docker y Podman locales",
@@ -1018,8 +1018,8 @@
         },
         "windows": {
           "label": "Windows sin Docker Desktop",
-          "dockerman": "Motor Docker WSL2 incluido (Alpine), configuración en un clic",
-          "desktop": "No aplica: Desktop es el instalador oficial de Windows"
+          "dockerman": "Tú eliges — incluido WSL que Dockerman gestiona para instalar Docker",
+          "desktop": "Desktop sigue siendo un backend que puedes usar"
         },
         "macos": {
           "label": "Motores en macOS",
@@ -1034,7 +1034,7 @@
         "remote": {
           "label": "SSH remoto y multi-host",
           "dockerman": "Desbloqueo de pago único",
-          "desktop": "Plataforma local-first; otros productos de Docker cubren flujos remotos"
+          "desktop": "Local-first; también puede usar contextos de Docker"
         },
         "k8s": {
           "label": "Kubernetes",
@@ -1054,7 +1054,7 @@
       "titleAccent": "sin despreciar.",
       "footprint": {
         "title": "Tamaño de instalación y memoria",
-        "body": "Dockerman es una UI en Rust + Tauri. El instalador de Windows es {{windows}}; el DMG universal de macOS es {{macos}}. La app está pensada para quedarse por debajo de 30 MB de memoria. Docker Desktop instala una plataforma Docker completa, incluida una VM Linux: espera una descarga mayor y más uso en reposo. No publicamos cifras de Desktop aquí."
+        "body": "Dockerman es una UI en Rust + Tauri. El instalador de Windows es {{windows}}; el DMG universal de macOS es {{macos}}. La app está pensada para quedarse por debajo de 30 MB de memoria. Docker Desktop es una plataforma completa (motor, herramientas y una VM en Mac/Windows), así que la descarga y el uso en reposo son mayores. No publicamos cifras de Desktop aquí."
       },
       "license": {
         "title": "Local gratis frente a la licencia de Desktop",
@@ -1062,7 +1062,7 @@
       },
       "engines": {
         "title": "Tú eliges el backend",
-        "body": "Dockerman es una UI. No trae su propio motor Docker: tú eliges el backend. Conecta un socket compatible con Docker (Docker Desktop, OrbStack, Colima, Podman) o Apple Container en Apple Silicon con macOS 26+. En Windows hay un motor Docker WSL2 opcional si no quieres Desktop. En macOS, la v6.0.0 puede detectar, iniciar, detener y reparar máquinas Colima y Podman; no instala esos binarios."
+        "body": "Dockerman es una UI. Tú eliges el motor: Docker Desktop, OrbStack, Colima, Podman, Apple Container en Apple Silicon con macOS 26+, o en Windows un WSL que Dockerman gestiona y puede usar para instalar Docker. Esa elección es lo que lo hace una alternativa a Docker Desktop: Desktop es opcional, no obligatorio. En macOS, la v6.0.0 puede detectar, iniciar, detener y reparar máquinas Colima y Podman; no instala esos binarios."
       },
       "domains": {
         "title": "Dominios locales",
@@ -1070,16 +1070,16 @@
       },
       "pricing": {
         "title": "Pago único frente a suscripción",
-        "body": "Dockerman no vende una suscripción. Las funciones de pago son una licencia de por vida con actualizaciones de por vida. Los planes de pago de Docker Desktop son suscripciones de Docker Inc. Si solo necesitas una UI local, el plan gratuito de Dockerman basta."
+        "body": "Dockerman no vende una suscripción. Las funciones de pago son una licencia de por vida con actualizaciones de por vida. Los planes de pago de Docker Desktop son suscripciones de Docker Inc. Docker y Podman locales se quedan en el plan gratuito. Kubernetes, SSH remoto, multi-host y Cloudflared necesitan un pago único."
       }
     },
     "orbstack": {
       "title": "¿Y OrbStack?",
-      "body": "OrbStack es un backend, no una UI rival. Dockerman no trae su propio motor Docker: tú eliges uno. En Mac puede ser OrbStack, Docker Desktop, Colima, Podman o Apple Container. Apunta Dockerman al socket y sigue con el motor que ya usas. Van juntos; no son alternativas entre sí."
+      "body": "OrbStack es un backend que puedes elegir, no una UI rival. En Mac elige OrbStack, Docker Desktop, Colima, Podman o Apple Container. Apunta Dockerman al socket y sigue con el motor que ya usas. Ser alternativa a Docker Desktop no choca con elegir el motor: la decisión es tuya."
     },
     "desktopWins": {
       "title": "Dónde Docker Desktop sigue ganando",
-      "body": "Docker Desktop es el producto oficial de Docker Inc. Elígelo cuando quieras la herramienta oficial completa en un solo instalador: Engine, Compose, Buildx, Extensions, Docker Scout, Build Cloud y los controles de organización de Docker. Desktop también puede activar un clúster Kubernetes local sin el plan de pago de Dockerman. Si necesitas esa plataforma oficial todo-en-uno, Desktop es la herramienta correcta."
+      "body": "Docker Desktop es el producto oficial de Docker Inc. Elígelo cuando quieras la plataforma oficial — Engine, Compose, Buildx — y extras como Extensions, Docker Scout, Build Cloud y controles de organización. Desktop también puede activar un clúster Kubernetes local sin el plan de pago de Dockerman. Si quieres esa plataforma oficial todo-en-uno, Desktop es la herramienta correcta. Aun así puedes conectar Dockerman."
     },
     "faq": {
       "kicker": "faq",
@@ -1088,11 +1088,11 @@
       "items": [
         {
           "question": "¿Es Dockerman una alternativa a Docker Desktop?",
-          "answer": "Sí, como UI ligera y local-first. Dockerman no trae su propio motor Docker. Habla con el backend que elijas y gestiona Docker, Podman y Kubernetes. No sustituye todos los productos de Docker Inc."
+          "answer": "Sí, como UI ligera y local-first. Tú eliges el backend. Gestiona Docker, Podman y Kubernetes. No sustituye todos los productos de Docker Inc."
         },
         {
           "question": "¿Sigo necesitando Docker Desktop en Windows?",
-          "answer": "No. Dockerman puede instalar un motor Docker WSL2 incluido. También puedes conservar Docker Desktop y conectar Dockerman a él."
+          "answer": "No. Conserva Docker Desktop y conecta Dockerman, o elige WSL que Dockerman gestiona para instalar Docker. El backend lo eliges tú."
         },
         {
           "question": "¿El uso local es gratis?",

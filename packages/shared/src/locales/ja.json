@@ -983,7 +983,7 @@
       "kicker": "Docker Desktop の代替",
       "titleLead": "より軽い Docker UI。",
       "titleAccent": "同じコンテナ。",
-      "description": "Dockerman は Docker、Podman、Kubernetes のためのローカルファーストなデスクトップ UI です。独自エンジンは同梱せず、バックエンドは自分で選びます。Docker Desktop の軽量な UI 代替であり、Docker Inc. のプラットフォームの複製ではありません。ローカルの Docker と Podman は永久に無料です。"
+      "description": "Dockerman は Docker、Podman、Kubernetes のためのローカルファーストなデスクトップ UI であり、Docker Desktop の軽量な代替です。Docker Inc. のプラットフォームの複製ではありません。バックエンドは自分で選びます。ローカルの Docker と Podman は永久に無料です。"
     },
     "table": {
       "kicker": "並べて比較",
@@ -1004,7 +1004,7 @@
         "memory": {
           "label": "アプリメモリ",
           "dockerman": "UI は 30 MB 未満",
-          "desktop": "アイドル時は通常かなり多い — Desktop は Linux VM を含む"
+          "desktop": "フルプラットフォーム — エンジン、ツール、Mac/Windows では VM"
         },
         "local": {
           "label": "ローカル Docker と Podman",
@@ -1018,8 +1018,8 @@
         },
         "windows": {
           "label": "Docker Desktop なしの Windows",
-          "dockerman": "同梱の WSL2 Docker Engine（Alpine）、ワンクリックセットアップ",
-          "desktop": "該当なし — Desktop が公式の Windows インストーラ"
+          "dockerman": "自分で選ぶ — Dockerman が管理する WSL で Docker を入れることもできる",
+          "desktop": "Desktop をバックエンドとして使い続けられる"
         },
         "macos": {
           "label": "macOS エンジン",
@@ -1034,7 +1034,7 @@
         "remote": {
           "label": "リモート SSH とマルチホスト",
           "dockerman": "買い切りで解除",
-          "desktop": "ローカル中心。リモートは Docker の他製品が担う"
+          "desktop": "ローカル中心。Docker context も使える"
         },
         "k8s": {
           "label": "Kubernetes",
@@ -1054,7 +1054,7 @@
       "titleAccent": "貶めない。",
       "footprint": {
         "title": "インストールサイズとメモリ",
-        "body": "Dockerman は Rust + Tauri の UI です。Windows インストーラは {{windows}}、macOS ユニバーサル DMG は {{macos}}。アプリはメモリ 30 MB 未満を目指しています。Docker Desktop は Linux VM を含む完全な Docker プラットフォームを入れます。ダウンロードは大きく、アイドル時の使用量も高くなりがちです。Desktop の数値はここでは公表しません。"
+        "body": "Dockerman は Rust + Tauri の UI です。Windows インストーラは {{windows}}、macOS ユニバーサル DMG は {{macos}}。アプリはメモリ 30 MB 未満を目指しています。Docker Desktop はフルプラットフォーム（エンジン、ツール、Mac/Windows では VM）なので、ダウンロードとアイドル時の使用量は大きくなります。Desktop の数値はここでは公表しません。"
       },
       "license": {
         "title": "ローカル無料と Desktop ライセンス",
@@ -1062,7 +1062,7 @@
       },
       "engines": {
         "title": "バックエンドは自分で選ぶ",
-        "body": "Dockerman は UI です。独自の Docker エンジンは同梱しません。バックエンドは自分で選びます。Docker 互換ソケット（Docker Desktop、OrbStack、Colima、Podman）か、Apple Silicon かつ macOS 26 以降の Apple Container に接続します。Windows では Desktop が不要なら、任意の WSL2 Docker Engine も使えます。macOS の v6.0.0 は Colima と Podman マシンの検出、起動、停止、修復ができますが、それらのバイナリはインストールしません。"
+        "body": "Dockerman は UI です。エンジンは自分で選びます。Docker Desktop、OrbStack、Colima、Podman、Apple Silicon かつ macOS 26 以降の Apple Container、または Windows では Dockerman が管理する WSL で Docker を入れることもできます。選べるから Docker Desktop の代替になれるのであり、Desktop は必須ではありません。macOS の v6.0.0 は Colima と Podman マシンの検出、起動、停止、修復ができますが、それらのバイナリはインストールしません。"
       },
       "domains": {
         "title": "ローカルドメイン",
@@ -1070,16 +1070,16 @@
       },
       "pricing": {
         "title": "買い切りとサブスクリプション",
-        "body": "Dockerman にサブスクリプションはありません。有料機能は生涯アップデート付きの買い切りです。Docker Desktop の有料プランは Docker Inc. のサブスクリプションです。ローカル UI だけなら、Dockerman の無料枠で足ります。"
+        "body": "Dockerman にサブスクリプションはありません。有料機能は生涯アップデート付きの買い切りです。Docker Desktop の有料プランは Docker Inc. のサブスクリプションです。ローカルの Docker と Podman は無料枠のままです。Kubernetes、リモート SSH、マルチホスト、Cloudflared には買い切りが必要です。"
       }
     },
     "orbstack": {
       "title": "OrbStack は？",
-      "body": "OrbStack はバックエンドであり、競合する UI ではありません。Dockerman に独自の Docker エンジンは付属しません。バックエンドは自分で選びます。Mac では OrbStack、Docker Desktop、Colima、Podman、Apple Container が使えます。ソケットを指せば、今使っているエンジンのままです。一緒に使うものであり、互いの代替ではありません。"
+      "body": "OrbStack は選べるバックエンドであり、競合する UI ではありません。Mac では OrbStack、Docker Desktop、Colima、Podman、Apple Container を選べます。ソケットを指せば、今使っているエンジンのままです。Docker Desktop の代替であることと、エンジンを自分で選ぶことは矛盾しません。"
     },
     "desktopWins": {
       "title": "Docker Desktop がまだ勝つところ",
-      "body": "Docker Desktop は Docker Inc. の公式製品です。Engine、Compose、Buildx、Extensions、Docker Scout、Build Cloud、組織向け管理まで、公式ツールチェーンを一つのインストーラで欲しいときは Desktop を選んでください。Desktop は Dockerman の有料枠なしでローカル Kubernetes も有効化できます。公式の一体型プラットフォームが必要なら、Desktop が正しい選択です。"
+      "body": "Docker Desktop は Docker Inc. の公式製品です。公式プラットフォーム（Engine、Compose、Buildx）と、Extensions、Docker Scout、Build Cloud、組織向け管理などが必要なら Desktop を選んでください。Desktop は Dockerman の有料枠なしでローカル Kubernetes も有効化できます。公式の一体型プラットフォームが必要なら、Desktop が正しい選択です。Dockerman をそこに接続することもできます。"
     },
     "faq": {
       "kicker": "faq",
@@ -1088,11 +1088,11 @@
       "items": [
         {
           "question": "Dockerman は Docker Desktop の代替ですか？",
-          "answer": "軽量でローカルファーストな UI としては、はい。Dockerman に独自の Docker エンジンは付属しません。選んだバックエンドに接続し、Docker、Podman、Kubernetes を管理します。Docker Inc. のすべての製品を置き換えるものではありません。"
+          "answer": "軽量でローカルファーストな UI としては、はい。バックエンドは自分で選びます。Docker、Podman、Kubernetes を管理します。Docker Inc. のすべての製品を置き換えるものではありません。"
         },
         {
           "question": "Windows でも Docker Desktop は必要ですか？",
-          "answer": "いいえ。Dockerman は同梱の WSL2 Docker Engine をインストールできます。Docker Desktop を残して、Dockerman から接続することもできます。"
+          "answer": "いいえ。Docker Desktop を残して Dockerman から接続してもよいし、Dockerman が管理する WSL で Docker を入れてもよいです。バックエンドは自分で選びます。"
         },
         {
           "question": "ローカル利用は無料ですか？",

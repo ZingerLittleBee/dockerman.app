@@ -424,7 +424,7 @@
     },
     "vsDesktop": {
       "title": "在找不用 Docker Desktop 的方案？",
-      "body": "看看 Dockerman 在安装体积、本地免费、WSL2 / Colima / Podman，以及一次买断对比订阅上有何不同。",
+      "body": "看看安装体积、本地免费、一次买断对比订阅，以及后端由你选 —— Windows 上也可以由 Dockerman 管理 WSL 来安装 Docker。",
       "cta": "Dockerman 对比 Docker Desktop →"
     },
     "success": {
@@ -986,7 +986,7 @@
       "kicker": "Docker Desktop 替代方案",
       "titleLead": "更轻的 Docker 界面。",
       "titleAccent": "同样的容器。",
-      "description": "Dockerman 是面向 Docker、Podman 与 Kubernetes 的本地优先桌面客户端。它不自带引擎，后端由你选。它是 Docker Desktop 的轻量界面替代，不是 Docker Inc. 平台的复制品。本地 Docker 与 Podman 永久免费。"
+      "description": "Dockerman 是面向 Docker、Podman 与 Kubernetes 的本地优先桌面客户端，也是 Docker Desktop 的轻量界面替代，不是 Docker Inc. 平台的复制品。后端由你选。本地 Docker 与 Podman 永久免费。"
     },
     "table": {
       "kicker": "并排对比",
@@ -1007,7 +1007,7 @@
         "memory": {
           "label": "应用内存",
           "dockerman": "界面占用不到 30 MB",
-          "desktop": "空闲占用通常高得多 —— Desktop 包含 Linux 虚拟机"
+          "desktop": "完整平台 —— 引擎、工具链，Mac/Windows 上还有虚拟机"
         },
         "local": {
           "label": "本地 Docker 与 Podman",
@@ -1021,8 +1021,8 @@
         },
         "windows": {
           "label": "Windows 不用 Docker Desktop",
-          "dockerman": "内置 WSL2 Docker Engine（Alpine），一键安装",
-          "desktop": "不适用 —— Desktop 本身就是官方 Windows 安装方式"
+          "dockerman": "由你选 — 包括由 Dockerman 管理的 WSL 来安装 Docker",
+          "desktop": "Desktop 仍可作为后端继续用"
         },
         "macos": {
           "label": "macOS 引擎",
@@ -1037,7 +1037,7 @@
         "remote": {
           "label": "远程 SSH 与多主机",
           "dockerman": "一次买断解锁",
-          "desktop": "以本地为主；远程工作流由 Docker 的其他产品覆盖"
+          "desktop": "以本地为主；也可以用 Docker context"
         },
         "k8s": {
           "label": "Kubernetes",
@@ -1057,7 +1057,7 @@
       "titleAccent": "不贬低对方。",
       "footprint": {
         "title": "安装体积与内存",
-        "body": "Dockerman 是 Rust + Tauri 界面。Windows 安装包 {{windows}}，macOS 通用 DMG {{macos}}。应用按不到 30 MB 内存来设计。Docker Desktop 安装的是完整 Docker 平台，包含 Linux 虚拟机 —— 下载更大、空闲占用也更高。我们不在此公布 Desktop 的具体数字。"
+        "body": "Dockerman 是 Rust + Tauri 界面。Windows 安装包 {{windows}}，macOS 通用 DMG {{macos}}。应用按不到 30 MB 内存来设计。Docker Desktop 是完整平台（引擎、工具链，Mac/Windows 上还有虚拟机），所以下载和空闲占用都会更大。我们不在此公布 Desktop 的具体数字。"
       },
       "license": {
         "title": "本地免费 vs Desktop 许可",
@@ -1065,7 +1065,7 @@
       },
       "engines": {
         "title": "后端由你选",
-        "body": "Dockerman 是界面，不自带 Docker 引擎。你自己选后端：兼容 Docker 的 socket（Docker Desktop、OrbStack、Colima、Podman），或 Apple Silicon 且 macOS 26+ 上的 Apple Container。Windows 上如果不想用 Desktop，也可以选用可选的 WSL2 Docker Engine。macOS 的 v6.0.0 能检测、启动、停止、修复 Colima 与 Podman 虚拟机，但不会安装这些二进制文件。"
+        "body": "Dockerman 是界面，后端由你选：Docker Desktop、OrbStack、Colima、Podman、Apple Silicon 且 macOS 26+ 上的 Apple Container；在 Windows 上也可以选由 Dockerman 管理的 WSL 来安装 Docker。选择权在用户，所以它可以当 Docker Desktop 的替代 —— Desktop 不是必须的。macOS 的 v6.0.0 能检测、启动、停止、修复 Colima 与 Podman 虚拟机，但不会安装这些二进制文件。"
       },
       "domains": {
         "title": "本地域名",
@@ -1073,16 +1073,16 @@
       },
       "pricing": {
         "title": "一次买断 vs 订阅",
-        "body": "Dockerman 不卖订阅。付费功能是含终身更新的买断许可。Docker Desktop 的付费方案是 Docker Inc. 的订阅。如果只需要本地界面，Dockerman 免费档就够用。"
+        "body": "Dockerman 不卖订阅。付费功能是含终身更新的买断许可。Docker Desktop 的付费方案是 Docker Inc. 的订阅。本地 Docker 与 Podman 留在免费档。Kubernetes、远程 SSH、多主机和 Cloudflared 需要一次买断。"
       }
     },
     "orbstack": {
       "title": "那 OrbStack 呢？",
-      "body": "OrbStack 是后端，不是和 Dockerman 对打的界面。Dockerman 不自带 Docker 引擎，后端由你选。在 Mac 上可以是 OrbStack、Docker Desktop、Colima、Podman 或 Apple Container。把 Dockerman 指到对应 socket 即可，继续用你已经在跑的引擎。它们是一起用的，不是互相替代。"
+      "body": "OrbStack 是你可以选的后端，不是和 Dockerman 对打的界面。在 Mac 上可以选 OrbStack、Docker Desktop、Colima、Podman 或 Apple Container。把 Dockerman 指到对应 socket，继续用你已经在跑的引擎。当 Docker Desktop 的替代，并不等于要换掉每一种引擎 —— 选择权在用户。"
     },
     "desktopWins": {
       "title": "Docker Desktop 仍然更合适的时候",
-      "body": "Docker Desktop 是 Docker Inc. 的官方产品。如果你要在一个安装包里拿到完整的官方工具链 —— Engine、Compose、Buildx、Extensions、Docker Scout、Build Cloud，以及 Docker 的组织管控 —— 选它。Desktop 也可以启用本地 Kubernetes，而不需要购买 Dockerman 的付费档。需要官方一体化平台时，Desktop 是对的工具。"
+      "body": "Docker Desktop 是 Docker Inc. 的官方产品。如果你要官方平台 —— Engine、Compose、Buildx —— 以及 Extensions、Docker Scout、Build Cloud、组织管控这类能力，选它。Desktop 也可以启用本地 Kubernetes，而不需要购买 Dockerman 的付费档。需要官方一体化平台时，Desktop 是对的工具。你仍然可以把 Dockerman 连上去。"
     },
     "faq": {
       "kicker": "常见问题",
@@ -1091,11 +1091,11 @@
       "items": [
         {
           "question": "Dockerman 是 Docker Desktop 的替代吗？",
-          "answer": "作为轻量、本地优先的界面，是的。Dockerman 不自带 Docker 引擎，连接你选择的后端，管理 Docker、Podman 与 Kubernetes。它并不替代 Docker Inc. 的每一款产品。"
+          "answer": "作为轻量、本地优先的界面，是的。后端由你选。它管理 Docker、Podman 与 Kubernetes。它并不替代 Docker Inc. 的每一款产品。"
         },
         {
           "question": "Windows 上还需要 Docker Desktop 吗？",
-          "answer": "不需要。Dockerman 可以安装内置的 WSL2 Docker Engine。你也可以继续使用 Docker Desktop，并让 Dockerman 连接它。"
+          "answer": "不必须。可以继续用 Docker Desktop 并让 Dockerman 连接它，也可以选由 Dockerman 管理的 WSL 来安装 Docker。后端由你选。"
         },
         {
           "question": "本地使用免费吗？",
