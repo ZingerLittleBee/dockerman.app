@@ -16,7 +16,7 @@ export default function PricingSuccess() {
           <RiCheckboxCircleFill className="size-16 text-green-500" />
         </div>
 
-        <h1 className="mt-6 bg-gradient-to-br from-gray-900 to-gray-800 bg-clip-text font-bold text-3xl text-transparent tracking-tighter sm:text-4xl dark:from-gray-50 dark:to-gray-300">
+        <h1 className="mt-6 font-bold text-3xl text-dm-ink tracking-tighter sm:text-4xl">
           {t('pricing.success.title')}
         </h1>
 

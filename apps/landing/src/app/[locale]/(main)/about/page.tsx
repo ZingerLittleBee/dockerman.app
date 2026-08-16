@@ -57,7 +57,7 @@ export default function About() {
       <section aria-labelledby="about-overview" className="animate-slide-up-fade">
         <Badge>{t('about.badge')}</Badge>
         <h1
-          className="mt-2 inline-block bg-gradient-to-br from-gray-900 to-gray-800 bg-clip-text py-2 font-bold text-4xl text-transparent tracking-tighter sm:text-6xl md:text-6xl dark:from-gray-50 dark:to-gray-300"
+          className="mt-2 inline-block py-2 font-bold text-4xl text-dm-ink tracking-tighter sm:text-6xl md:text-6xl"
           id="about-overview"
         >
           <Balancer>{t('about.title')}</Balancer>
@@ -154,7 +154,7 @@ export default function About() {
 
       {/* Join Us Section */}
       <section className="mt-24">
-        <div className="rounded-xl bg-gradient-to-br from-indigo-100 to-indigo-50 p-8 dark:from-indigo-900/50 dark:to-indigo-800/50">
+        <div className="rounded-xl border border-dm-line bg-dm-bg-soft p-8">
           <h2 className="font-bold text-2xl text-gray-900 tracking-tight dark:text-gray-100">
             {t('about.connect.title')}
           </h2>

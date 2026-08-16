@@ -14,7 +14,7 @@ export async function ModulesSection({ locale }: { locale: Locale }) {
   const { t } = await getTranslation(locale)
 
   return (
-    <section className="px-5 py-16 sm:px-8 sm:py-24" id="modules">
+    <section className="scroll-mt-24 px-5 py-16 sm:px-8 sm:py-24" id="modules">
       <div className="mx-auto max-w-[1240px]">
         <div className="mb-10 flex max-w-[780px] flex-col gap-[14px] sm:mb-12">
           <div
@@ -22,16 +22,16 @@ export async function ModulesSection({ locale }: { locale: Locale }) {
             style={{ color: 'var(--color-dm-accent)' }}
           >
             <span aria-hidden="true" className="text-dm-ink-4 before:content-['//_']" />
-            modules
+            {t('modulesSection.kicker')}
           </div>
-          <h2 className="m-0 font-bold text-[clamp(32px,4.5vw,56px)] text-dm-ink leading-[1.02] tracking-[-0.035em]">
+          <h2 className="m-0 text-balance font-bold text-[clamp(32px,4.5vw,56px)] text-dm-ink leading-[1.02] tracking-[-0.035em]">
             {t('modulesSection.titleLead')}{' '}
             <em className="font-[var(--font-dm-display)] font-normal text-dm-ink-2 italic">
               {t('modulesSection.titleAccent')}
             </em>{' '}
             {t('modulesSection.titleTrail')}
           </h2>
-          <p className="m-0 max-w-[52ch] text-[17px] text-dm-ink-3 leading-[1.5]">
+          <p className="m-0 max-w-[52ch] text-pretty text-[17px] text-dm-ink-3 leading-[1.5]">
             {t('modulesSection.descriptionPre')}
             <code className="rounded bg-dm-bg-soft px-[6px] py-[1px] font-[var(--font-dm-mono)] text-[14px]">
               docker
@@ -59,7 +59,7 @@ export async function ModulesSection({ locale }: { locale: Locale }) {
                     {t(`modulesSection.modules.${key}.chip`)}
                   </span>
                 </div>
-                <h3 className="mb-[10px] font-semibold text-[24px] text-dm-ink tracking-[-0.02em]">
+                <h3 className="mb-[10px] text-balance font-semibold text-[24px] text-dm-ink tracking-[-0.02em]">
                   {t(`modulesSection.modules.${key}.title`)}
                   <em className="font-[var(--font-dm-display)] font-normal text-dm-ink-2 italic">
                     {t(`modulesSection.modules.${key}.titleEm`)}

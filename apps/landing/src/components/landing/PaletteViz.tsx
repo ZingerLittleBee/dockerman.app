@@ -162,7 +162,10 @@ export function PaletteViz() {
   const showResults = text.length > 0
 
   return (
-    <div className="overflow-hidden rounded-[10px] border border-dm-line-strong bg-dm-bg shadow-[0_20px_40px_-20px_rgb(0_0_0_/_0.35)]">
+    <div
+      aria-hidden="true"
+      className="overflow-hidden rounded-[10px] border border-dm-line-strong bg-dm-bg shadow-[0_20px_40px_-20px_rgb(0_0_0_/_0.35)]"
+    >
       <div className="flex items-center gap-[10px] border-dm-line border-b bg-dm-bg-soft px-[14px] py-3">
         <svg
           aria-hidden="true"
@@ -188,7 +191,7 @@ export function PaletteViz() {
             }}
           />
         </div>
-        <span className="ml-auto rounded border border-dm-line px-[5px] py-[1px] font-[var(--font-dm-mono)] text-[10px] text-dm-ink-4">
+        <span className="ml-auto rounded border border-dm-line px-[5px] py-[1px] font-[var(--font-dm-mono)] text-[10px] text-dm-ink-3">
           ⌘;
         </span>
       </div>
@@ -224,7 +227,7 @@ export function PaletteViz() {
                 >
                   {r.n}
                 </span>
-                <span className="ml-auto font-[var(--font-dm-mono)] text-[10.5px] text-dm-ink-4">
+                <span className="ml-auto font-[var(--font-dm-mono)] text-[10.5px] text-dm-ink-3">
                   {r.t} · {r.s}
                 </span>
               </div>

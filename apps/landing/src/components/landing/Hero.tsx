@@ -91,42 +91,46 @@ export function Hero({ locale }: { locale: Locale }) {
       <div className="relative mx-auto max-w-[1240px]">
         <HeroStage locale={locale} />
         {/* Eyebrow: pulsing dot + version note + NEW tag */}
-        <span className="inline-flex items-center gap-[10px] rounded-full border border-dm-line-strong bg-dm-bg-elev px-[10px] py-[5px] font-[var(--font-dm-mono)] text-[12px] text-dm-ink-2">
-          <span
-            className="dm-animated h-[6px] w-[6px] rounded-full"
-            style={{
-              background: 'var(--color-dm-ok)',
-              boxShadow: '0 0 0 4px color-mix(in srgb, var(--color-dm-ok) 30%, transparent)',
-              animation: 'dm-pulse 900ms ease-in-out infinite'
-            }}
-          />
-          <span>{t('hero.eyebrow', { version: siteConfig.latestVersion })}</span>
-          <span className="rounded-full bg-dm-ink px-2 py-[2px] font-semibold text-[10px] text-dm-bg tracking-[0.04em]">
+        <div className="flex w-full max-w-[52ch] flex-col gap-1.5 rounded-[14px] border border-dm-line-strong bg-dm-bg-elev px-3 py-2.5 font-[var(--font-dm-mono)] text-[12px] text-dm-ink-2 sm:inline-flex sm:w-auto sm:max-w-none sm:flex-row sm:items-center sm:gap-[10px] sm:rounded-full sm:px-[10px] sm:py-[5px]">
+          <div className="flex items-center gap-[10px]">
+            <span
+              className="dm-animated h-[6px] w-[6px] shrink-0 rounded-full"
+              style={{
+                background: 'var(--color-dm-ok)',
+                boxShadow: '0 0 0 4px color-mix(in srgb, var(--color-dm-ok) 30%, transparent)',
+                animation: 'dm-pulse 900ms ease-in-out infinite'
+              }}
+            />
+            <span className="font-medium text-dm-ink">v{siteConfig.latestVersion}</span>
+            <span className="ml-auto shrink-0 rounded-full bg-dm-ink px-2 py-[2px] font-semibold text-[10px] text-dm-bg tracking-[0.04em] sm:hidden">
+              {t('hero.eyebrowTag')}
+            </span>
+          </div>
+          <span className="min-w-0 text-pretty break-words leading-[1.45] sm:flex-1">
+            <span aria-hidden="true" className="hidden text-dm-ink-4 sm:inline">
+              —{' '}
+            </span>
+            {t('hero.eyebrow')}
+          </span>
+          <span className="hidden shrink-0 rounded-full bg-dm-ink px-2 py-[2px] font-semibold text-[10px] text-dm-bg tracking-[0.04em] sm:inline-flex">
             {t('hero.eyebrowTag')}
           </span>
-        </span>
+        </div>
 
         {/* Two-line headline with accent on the final word of each line */}
-        <h1 className="mt-[22px] max-w-[14ch] font-bold text-[clamp(44px,7.2vw,96px)] text-dm-ink leading-[0.95] tracking-[-0.045em]">
+        <h1 className="mt-[22px] max-w-[14ch] text-balance font-bold text-[clamp(44px,7.2vw,96px)] text-dm-ink leading-[0.95] tracking-[-0.045em]">
           {t('hero.headline1Lead')} <Accent>{t('hero.headline1Accent')}</Accent>.<br />
           {t('hero.headline2Lead')} <Accent>{t('hero.headline2Accent')}</Accent>.
         </h1>
 
-        <p className="mt-6 max-w-[52ch] text-[18px] text-dm-ink-3 leading-[1.5]">
+        <p className="mt-6 max-w-[52ch] text-pretty text-[18px] text-dm-ink-3 leading-[1.5]">
           {t('hero.description')}
         </p>
 
         <div className="mt-7 flex flex-wrap items-center gap-3">
-          {/* Gradient download button */}
           <Link
-            className="inline-flex items-center gap-[10px] rounded-[10px] px-5 py-3 pr-[6px] font-semibold text-[14px] text-white no-underline transition-transform hover:-translate-y-px active:translate-y-0 active:scale-[0.97]"
+            className="dm-focus-ring inline-flex h-12 items-center gap-[10px] rounded-[10px] bg-dm-ink px-5 font-semibold text-[14px] text-dm-bg no-underline transition-transform fine-hover:hover:-translate-y-px active:translate-y-0 active:scale-[0.96]"
             href={`/${locale}/download`}
-            style={{
-              background:
-                'linear-gradient(135deg, var(--color-dm-accent), var(--color-dm-accent-2))',
-              boxShadow:
-                '0 10px 30px -10px color-mix(in srgb, var(--color-dm-accent-2) 60%, transparent)'
-            }}
           >
             <svg aria-hidden="true" fill="currentColor" height="14" viewBox="0 0 24 24" width="14">
               <path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 4v-2h14v2H5z" />
@@ -146,7 +150,8 @@ export function Hero({ locale }: { locale: Locale }) {
           {/* Inline copy install command */}
           <button
             aria-label={copied ? t('hero.copied') : t('hero.copyAria', { cmd: INSTALL_CMD })}
-            className="inline-flex max-w-full cursor-pointer items-center gap-[10px] rounded-[10px] border border-dm-line bg-dm-bg-elev px-[12px] py-[10px] pr-3 font-[var(--font-dm-mono)] text-[11.5px] text-dm-ink-2 transition-[color,background-color,border-color,transform] hover:border-dm-line-strong active:scale-[0.97] sm:px-[14px] sm:text-[13px]"
+            aria-live="polite"
+            className="dm-focus-ring inline-flex h-12 max-w-full cursor-pointer items-center gap-[10px] rounded-[10px] border border-dm-line bg-dm-bg-elev px-[12px] pr-3 font-[var(--font-dm-mono)] text-[11.5px] text-dm-ink-2 transition-[color,background-color,border-color,transform] fine-hover:hover:border-dm-line-strong active:scale-[0.96] sm:px-[14px] sm:text-[13px]"
             onClick={copyInstall}
             type="button"
           >
@@ -334,8 +339,7 @@ function TerminalCard({ locale }: { locale: Locale }) {
                 className="absolute inset-y-0 left-0 block rounded-full"
                 style={{
                   width: '0',
-                  background:
-                    'linear-gradient(90deg, var(--color-dm-accent), var(--color-dm-accent-2))',
+                  background: 'var(--color-dm-accent)',
                   animation: 'dm-progress 900ms var(--ease-out-strong) forwards',
                   animationDelay: `${STAGE_STEPS.progress}ms`,
                   ['--dm-progress' as string]: '100%'
@@ -459,7 +463,7 @@ function MiniBars({ delayMs }: { delayMs: number }) {
 
 function Accent({ children }: { children: React.ReactNode }) {
   return (
-    <span className="-me-[0.18em] -mb-[0.18em] bg-[linear-gradient(135deg,var(--color-dm-accent)_0%,var(--color-dm-accent-2)_100%)] bg-clip-text pe-[0.18em] pb-[0.18em] font-[var(--font-dm-display)] font-normal text-transparent italic tracking-[-0.02em]">
+    <span className="font-[var(--font-dm-display)] font-normal text-dm-accent italic tracking-[-0.02em]">
       {children}
     </span>
   )

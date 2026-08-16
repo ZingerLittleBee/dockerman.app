@@ -19,7 +19,9 @@ export default async function MainLayout({
       <GridBackground />
       <div className="relative z-10">
         <Navbar locale={locale} />
-        {children}
+        <div className="outline-none" id="main" tabIndex={-1}>
+          {children}
+        </div>
         <Footer locale={locale} />
       </div>
     </LenisProvider>

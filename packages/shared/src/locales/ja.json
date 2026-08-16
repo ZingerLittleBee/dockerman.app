@@ -9,10 +9,11 @@
     "github": "GitHub",
     "changeLanguage": "言語を変更",
     "openMenu": "メニューを開く",
-    "closeMenu": "メニューを閉じる"
+    "closeMenu": "メニューを閉じる",
+    "skipToContent": "コンテンツへスキップ"
   },
   "hero": {
-    "eyebrow": "v{{version}} — 覚えやすい *.dockerman.localhost アドレス、ガイド付き Local Domains セットアップ、再作成後も残るドメイン",
+    "eyebrow": "覚えやすい *.dockerman.localhost アドレス、ガイド付き Local Domains セットアップ、再作成後も残るドメイン",
     "eyebrowTag": "NEW",
     "headline1Lead": "Docker を",
     "headline1Accent": "ローカルに",
@@ -107,6 +108,7 @@
     "download": "ダウンロード"
   },
   "featuresSection": {
+    "kicker": "機能",
     "titleLead": "気にかけるあらゆるもの、",
     "titleAccent": "キー一打で。",
     "description": "コンテナ、イメージ、ボリューム、ネットワーク、Compose プロジェクト、Kubernetes ワークロード、Cloudflared トンネル — すべてを低遅延の単一 UI に。",
@@ -148,6 +150,7 @@
     }
   },
   "modulesSection": {
+    "kicker": "モジュール",
     "titleLead": "あなたが",
     "titleAccent": "実際に",
     "titleTrail": "毎日やっていることのために。",
@@ -229,6 +232,7 @@
         "file": "ファイル"
       },
       "containersHeader": "コンテナ",
+      "running": "稼働中",
       "idle": "待機"
     },
     "main": {

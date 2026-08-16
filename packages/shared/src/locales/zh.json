@@ -9,10 +9,11 @@
     "github": "GitHub",
     "changeLanguage": "切换语言",
     "openMenu": "打开菜单",
-    "closeMenu": "关闭菜单"
+    "closeMenu": "关闭菜单",
+    "skipToContent": "跳到正文"
   },
   "hero": {
-    "eyebrow": "v{{version}} — 好记的 *.dockerman.localhost 地址、引导式本地域名设置、域名在容器重建后仍可用",
+    "eyebrow": "好记的 *.dockerman.localhost 地址、引导式本地域名设置、域名在容器重建后仍可用",
     "eyebrowTag": "新",
     "headline1Lead": "Docker，用起来像",
     "headline1Accent": "本地",
@@ -107,6 +108,7 @@
     "download": "下载"
   },
   "featuresSection": {
+    "kicker": "特性",
     "titleLead": "你关心的每一个对象，",
     "titleAccent": "只差一次击键。",
     "description": "容器、镜像、卷、网络、Compose 项目、Kubernetes 工作负载、Cloudflared 隧道 —— 全部汇聚于单一的低延迟界面。",
@@ -148,6 +150,7 @@
     }
   },
   "modulesSection": {
+    "kicker": "模块",
     "titleLead": "为你每天",
     "titleAccent": "真正",
     "titleTrail": "在做的事打造。",
@@ -229,6 +232,7 @@
         "file": "文件"
       },
       "containersHeader": "容器",
+      "running": "运行中",
       "idle": "空闲"
     },
     "main": {

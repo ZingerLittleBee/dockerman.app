@@ -76,8 +76,18 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
     <main>
       <JsonLd data={[ORGANIZATION_LD, websiteLd, softwareLd]} />
       <Hero locale={l} />
-      <div className="relative hidden px-5 md:block md:px-8">
-        <LiveDashboard locale={l} />
+      <div className="relative px-5 md:px-8">
+        <div
+          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 md:hidden"
+          style={{
+            background: 'linear-gradient(to left, var(--color-dm-bg), transparent)'
+          }}
+        />
+        <div className="overflow-x-auto overscroll-x-contain [-ms-overflow-style:none] [scrollbar-width:none] md:overflow-visible [&::-webkit-scrollbar]:hidden">
+          <div className="min-w-[880px] md:min-w-0">
+            <LiveDashboard locale={l} />
+          </div>
+        </div>
       </div>
       <RuntimeStrip locale={l} />
       <FeaturesGrid locale={l} />

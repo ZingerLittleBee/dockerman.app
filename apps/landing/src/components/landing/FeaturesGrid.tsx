@@ -5,7 +5,7 @@ import { PaletteViz } from './PaletteViz'
 export async function FeaturesGrid({ locale }: { locale: Locale }) {
   const { t } = await getTranslation(locale)
   return (
-    <section className="px-5 py-16 sm:px-8 sm:py-24" id="features">
+    <section className="scroll-mt-24 px-5 py-16 sm:px-8 sm:py-24" id="features">
       <div className="mx-auto max-w-[1240px]">
         <SectionHead t={t} />
         <div className="grid grid-cols-1 gap-4 md:auto-rows-[minmax(200px,auto)] md:grid-cols-6">
@@ -33,15 +33,15 @@ function SectionHead({ t }: { t: TFn }) {
         style={{ color: 'var(--color-dm-accent)' }}
       >
         <span aria-hidden="true" className="text-dm-ink-4 before:content-['//_']" />
-        features
+        {t('featuresSection.kicker')}
       </div>
-      <h2 className="m-0 font-bold text-[clamp(32px,4.5vw,56px)] text-dm-ink leading-[1.02] tracking-[-0.035em]">
+      <h2 className="m-0 text-balance font-bold text-[clamp(32px,4.5vw,56px)] text-dm-ink leading-[1.02] tracking-[-0.035em]">
         {t('featuresSection.titleLead')}{' '}
         <em className="font-[var(--font-dm-display)] font-normal text-dm-ink-2 italic">
           {t('featuresSection.titleAccent')}
         </em>
       </h2>
-      <p className="m-0 max-w-[52ch] text-[17px] text-dm-ink-3 leading-[1.5]">
+      <p className="m-0 max-w-[52ch] text-pretty text-[17px] text-dm-ink-3 leading-[1.5]">
         {t('featuresSection.description')}
       </p>
     </div>
@@ -100,7 +100,7 @@ function FeatCard({
 }) {
   return (
     <article
-      className={`relative flex flex-col overflow-hidden rounded-[14px] border border-dm-line bg-dm-bg-elev p-5 transition-[transform,border-color] hover:-translate-y-px hover:border-dm-line-strong sm:p-6 ${SHAPE_CLASSES[shape]}`}
+      className={`relative flex flex-col overflow-hidden rounded-[14px] border border-dm-line bg-dm-bg-elev p-5 transition-[transform,border-color] fine-hover:hover:-translate-y-px fine-hover:hover:border-dm-line-strong sm:p-6 ${SHAPE_CLASSES[shape]}`}
     >
       <div
         className="mb-[14px] grid h-8 w-8 place-items-center rounded-[8px]"
@@ -111,9 +111,17 @@ function FeatCard({
       >
         {icon}
       </div>
-      <h3 className="mb-2 font-semibold text-[18px] text-dm-ink tracking-[-0.015em]">{title}</h3>
-      <p className="m-0 text-[13.5px] text-dm-ink-3 leading-[1.5]">{children}</p>
-      {visual ? <div className="relative mt-auto min-h-[140px] pt-[18px]">{visual}</div> : null}
+      <h3 className="mb-2 text-balance font-semibold text-[18px] text-dm-ink tracking-[-0.015em]">
+        {title}
+      </h3>
+      <p className="m-0 text-pretty text-[13.5px] text-dm-ink-3 leading-[1.5]">{children}</p>
+      {visual ? (
+        <div
+          className={`relative mt-auto pt-[18px] ${shape === 'large' || shape === 'tall' ? 'min-h-[140px]' : ''}`}
+        >
+          {visual}
+        </div>
+      ) : null}
     </article>
   )
 }
@@ -124,6 +132,7 @@ function PaletteCard({ t }: { t: TFn }) {
     <FeatCard
       icon={
         <svg
+          aria-hidden="true"
           fill="none"
           height="16"
           stroke="currentColor"
@@ -151,6 +160,7 @@ function ImageUpgradeCard({ t }: { t: TFn }) {
     <FeatCard
       icon={
         <svg
+          aria-hidden="true"
           fill="none"
           height="16"
           stroke="currentColor"
@@ -164,6 +174,23 @@ function ImageUpgradeCard({ t }: { t: TFn }) {
       }
       shape="med"
       title={t('featuresSection.cards.imageUpgrade.title')}
+      visual={
+        <div aria-hidden="true" className="flex flex-col gap-[6px]">
+          <span className="inline-flex items-center gap-2 font-[var(--font-dm-mono)] text-[11px] text-dm-ink-2">
+            <span className="text-dm-ink-3">redis:7.2</span>
+            <span style={{ color: 'var(--color-dm-accent)' }}>→</span>
+            <span className="text-dm-ink">redis:7.4</span>
+          </span>
+          <span className="inline-flex items-center gap-[6px] font-[var(--font-dm-mono)] text-[10.5px] text-dm-ink-3">
+            <span className="rounded border border-dm-line bg-dm-bg-soft px-[6px] py-[2px]">
+              sha256:a1f3…
+            </span>
+            <span className="rounded border border-dm-line bg-dm-bg-soft px-[6px] py-[2px]">
+              backup ready
+            </span>
+          </span>
+        </div>
+      }
     >
       {t('featuresSection.cards.imageUpgrade.body')}
     </FeatCard>
@@ -176,6 +203,7 @@ function PodmanCard({ t }: { t: TFn }) {
     <FeatCard
       icon={
         <svg
+          aria-hidden="true"
           fill="none"
           height="16"
           stroke="currentColor"
@@ -191,6 +219,18 @@ function PodmanCard({ t }: { t: TFn }) {
       iconColor="accent-warm"
       shape="med"
       title={t('featuresSection.cards.podman.title')}
+      visual={
+        <div aria-hidden="true" className="flex flex-wrap gap-[6px]">
+          <span className="inline-flex items-center gap-[6px] rounded-md border border-dm-line bg-dm-bg-soft px-2 py-[4px] font-[var(--font-dm-mono)] text-[10.5px] text-dm-ink-2">
+            docker.sock
+            <span className="text-dm-ink-3">detected</span>
+          </span>
+          <span className="inline-flex items-center gap-[6px] rounded-md border border-dm-line bg-dm-bg-soft px-2 py-[4px] font-[var(--font-dm-mono)] text-[10.5px] text-dm-ink-2">
+            podman.sock
+            <span className="text-dm-ink-3">rootless</span>
+          </span>
+        </div>
+      }
     >
       {t('featuresSection.cards.podman.body')}
     </FeatCard>
@@ -203,6 +243,7 @@ function KubernetesCard({ t }: { t: TFn }) {
     <FeatCard
       icon={
         <svg
+          aria-hidden="true"
           fill="none"
           height="16"
           stroke="currentColor"
@@ -219,7 +260,7 @@ function KubernetesCard({ t }: { t: TFn }) {
       shape="tall"
       title={t('featuresSection.cards.kubernetes.title')}
       visual={
-        <div className="flex flex-col gap-[6px]">
+        <div aria-hidden="true" className="flex flex-col gap-[6px]">
           <VizBadge state="running">deployment/web · 3/3 ready</VizBadge>
           <VizBadge state="running">service/api · forwarded :8080</VizBadge>
           <VizBadge state="running">pod/worker-7d4f · 2d 14h</VizBadge>
@@ -252,15 +293,26 @@ function VizBadge({
       style={{ opacity }}
     >
       <span
-        className="inline-block h-2 w-2 rounded-full"
-        style={{
-          background: VIZ_BADGE_BACKGROUND_BY_STATE[state],
-          boxShadow:
-            state === 'running'
-              ? '0 0 8px color-mix(in srgb, var(--color-dm-ok) 60%, transparent)'
+        aria-hidden="true"
+        className={
+          state === 'stopped'
+            ? 'inline-block h-2 w-2 rounded-full border border-dm-ink-3 bg-transparent'
+            : state === 'paused'
+              ? 'inline-block h-2 w-2 rounded-[1px] bg-dm-warn'
+              : 'inline-block h-2 w-2 rounded-full'
+        }
+        style={
+          state === 'running'
+            ? {
+                background: VIZ_BADGE_BACKGROUND_BY_STATE[state],
+                boxShadow: '0 0 8px color-mix(in srgb, var(--color-dm-ok) 60%, transparent)'
+              }
+            : state === 'paused'
+              ? { background: VIZ_BADGE_BACKGROUND_BY_STATE[state] }
               : undefined
-        }}
+        }
       />
+      <span className="sr-only">{state} </span>
       {children}
     </span>
   )
@@ -272,6 +324,7 @@ function EventsCard({ t }: { t: TFn }) {
     <FeatCard
       icon={
         <svg
+          aria-hidden="true"
           fill="none"
           height="16"
           stroke="currentColor"
@@ -287,6 +340,27 @@ function EventsCard({ t }: { t: TFn }) {
       iconColor="err"
       shape="wide"
       title={t('featuresSection.cards.events.title')}
+      visual={
+        <div
+          aria-hidden="true"
+          className="flex flex-col gap-[6px] font-[var(--font-dm-mono)] text-[10.5px]"
+        >
+          <span className="inline-flex items-center gap-2 text-dm-ink-2">
+            <span className="rounded-sm bg-[color-mix(in_srgb,var(--color-dm-err)_16%,transparent)] px-[6px] py-[2px] text-dm-err">
+              exit 137
+            </span>
+            worker
+            <span className="ml-auto text-dm-ink-3">2s</span>
+          </span>
+          <span className="inline-flex items-center gap-2 text-dm-ink-2">
+            <span className="rounded-sm bg-[color-mix(in_srgb,var(--color-dm-warn)_16%,transparent)] px-[6px] py-[2px] text-dm-warn">
+              OOM
+            </span>
+            plex
+            <span className="ml-auto text-dm-ink-3">14s</span>
+          </span>
+        </div>
+      }
     >
       {t('featuresSection.cards.events.body')}
     </FeatCard>
@@ -299,6 +373,7 @@ function CloudflaredCard({ t }: { t: TFn }) {
     <FeatCard
       icon={
         <svg
+          aria-hidden="true"
           fill="none"
           height="16"
           stroke="currentColor"
@@ -311,6 +386,16 @@ function CloudflaredCard({ t }: { t: TFn }) {
       }
       shape="wide"
       title={t('featuresSection.cards.cloudflared.title')}
+      visual={
+        <div
+          aria-hidden="true"
+          className="inline-flex max-w-full items-center gap-2 overflow-hidden rounded-md border border-dm-line bg-dm-bg-soft px-2 py-[5px] font-[var(--font-dm-mono)] text-[10.5px] text-dm-ink-2"
+        >
+          <span className="shrink-0 text-dm-ink-3">:8080</span>
+          <span style={{ color: 'var(--color-dm-accent)' }}>→</span>
+          <span className="truncate">trycloudflare.com</span>
+        </div>
+      }
     >
       {t('featuresSection.cards.cloudflared.body')}
     </FeatCard>
@@ -323,6 +408,7 @@ function LogsCard({ t }: { t: TFn }) {
     <FeatCard
       icon={
         <svg
+          aria-hidden="true"
           fill="none"
           height="16"
           stroke="currentColor"
@@ -336,6 +422,21 @@ function LogsCard({ t }: { t: TFn }) {
       }
       shape="wide"
       title={t('featuresSection.cards.logs.title')}
+      visual={
+        <div
+          aria-hidden="true"
+          className="flex flex-col gap-[4px] font-[var(--font-dm-mono)] text-[10.5px] text-dm-ink-3"
+        >
+          <span>
+            <span className="text-dm-ink-4">14:02:11</span> <span className="text-dm-ok">GET</span>{' '}
+            /health 200
+          </span>
+          <span>
+            <span className="text-dm-ink-4">14:02:12</span>{' '}
+            <span className="text-dm-warn">WARN</span> retry redis
+          </span>
+        </div>
+      }
     >
       {t('featuresSection.cards.logs.bodyPre')}
       <code className="rounded bg-dm-bg-soft px-[5px] py-[1px] font-[var(--font-dm-mono)] text-[11px]">
@@ -356,6 +457,7 @@ function SecurityCard({ t }: { t: TFn }) {
     <FeatCard
       icon={
         <svg
+          aria-hidden="true"
           fill="none"
           height="16"
           stroke="currentColor"
@@ -371,6 +473,22 @@ function SecurityCard({ t }: { t: TFn }) {
       iconColor="ok"
       shape="wide"
       title={t('featuresSection.cards.security.title')}
+      visual={
+        <div
+          aria-hidden="true"
+          className="flex flex-wrap gap-[6px] font-[var(--font-dm-mono)] text-[10.5px]"
+        >
+          <span className="rounded-md bg-[color-mix(in_srgb,var(--color-dm-err)_14%,transparent)] px-2 py-[3px] text-dm-err">
+            CRITICAL 2
+          </span>
+          <span className="rounded-md bg-[color-mix(in_srgb,var(--color-dm-warn)_14%,transparent)] px-2 py-[3px] text-dm-warn">
+            HIGH 6
+          </span>
+          <span className="rounded-md border border-dm-line bg-dm-bg-soft px-2 py-[3px] text-dm-ink-3">
+            MEDIUM 11
+          </span>
+        </div>
+      }
     >
       {t('featuresSection.cards.security.body')}
     </FeatCard>

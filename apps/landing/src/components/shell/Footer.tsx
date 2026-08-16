@@ -13,7 +13,10 @@ export async function Footer({ locale }: { locale: Locale }) {
         <div className="flex flex-wrap items-start justify-between gap-10">
           {/* Brand column */}
           <div className="flex max-w-[300px] flex-col gap-[10px]">
-            <Link className="flex items-center gap-[10px]" href={prefix('/')}>
+            <Link
+              className="dm-focus-ring flex items-center gap-[10px] rounded-md"
+              href={prefix('/')}
+            >
               <BrandMark />
               <span className="font-bold text-[15px] text-dm-ink tracking-[-0.01em]">
                 Dockerman
@@ -24,32 +27,56 @@ export async function Footer({ locale }: { locale: Locale }) {
 
           {/* Product */}
           <FooterCol heading={t('footer.columns.product')}>
-            <Link className="hover:text-dm-ink" href={prefix('/download')}>
+            <Link
+              className="dm-focus-ring rounded-sm fine-hover:hover:text-dm-ink"
+              href={prefix('/download')}
+            >
               {t('footer.links.download')}
             </Link>
-            <Link className="hover:text-dm-ink" href={prefix('/#features')}>
+            <Link
+              className="dm-focus-ring rounded-sm fine-hover:hover:text-dm-ink"
+              href={prefix('/#features')}
+            >
               {t('footer.links.features')}
             </Link>
-            <Link className="hover:text-dm-ink" href={prefix('/changelog')}>
+            <Link
+              className="dm-focus-ring rounded-sm fine-hover:hover:text-dm-ink"
+              href={prefix('/changelog')}
+            >
               {t('footer.links.changelog')}
             </Link>
-            <Link className="hover:text-dm-ink" href={prefix('/pricing')}>
+            <Link
+              className="dm-focus-ring rounded-sm fine-hover:hover:text-dm-ink"
+              href={prefix('/pricing')}
+            >
               {t('footer.links.pricing')}
             </Link>
           </FooterCol>
 
           {/* Docs */}
           <FooterCol heading={t('footer.columns.docs')}>
-            <Link className="hover:text-dm-ink" href={prefix('/docs/getting-started')}>
+            <Link
+              className="dm-focus-ring rounded-sm fine-hover:hover:text-dm-ink"
+              href={prefix('/docs/getting-started')}
+            >
               {t('footer.links.gettingStarted')}
             </Link>
-            <Link className="hover:text-dm-ink" href={prefix('/docs/kubernetes/overview')}>
+            <Link
+              className="dm-focus-ring rounded-sm fine-hover:hover:text-dm-ink"
+              href={prefix('/docs/kubernetes/overview')}
+            >
               {t('footer.links.kubernetes')}
             </Link>
-            <Link className="hover:text-dm-ink" href={prefix('/docs/homelab')}>
+            <Link
+              className="dm-focus-ring rounded-sm fine-hover:hover:text-dm-ink"
+              href={prefix('/docs/homelab')}
+            >
               {t('footer.links.homelab')}
             </Link>
-            <Link className="hover:text-dm-ink" href={prefix('/docs/reference/troubleshooting')}>
+            <Link
+              className="dm-focus-ring rounded-sm fine-hover:hover:text-dm-ink"
+              href={prefix('/docs/reference/troubleshooting')}
+            >
               {t('footer.links.troubleshooting')}
             </Link>
           </FooterCol>
@@ -57,7 +84,7 @@ export async function Footer({ locale }: { locale: Locale }) {
           {/* Community */}
           <FooterCol heading={t('footer.columns.community')}>
             <a
-              className="hover:text-dm-ink"
+              className="dm-focus-ring rounded-sm fine-hover:hover:text-dm-ink"
               href="https://github.com/ZingerLittleBee/dockerman.app"
               rel="noopener noreferrer"
               target="_blank"
@@ -65,7 +92,7 @@ export async function Footer({ locale }: { locale: Locale }) {
               {t('footer.links.github')}
             </a>
             <a
-              className="font-[var(--font-dm-mono)] text-[12.5px] hover:text-dm-ink"
+              className="dm-focus-ring rounded-sm font-[var(--font-dm-mono)] text-[12.5px] fine-hover:hover:text-dm-ink"
               href="mailto:support@dockerman.app"
             >
               support@dockerman.app
@@ -74,20 +101,29 @@ export async function Footer({ locale }: { locale: Locale }) {
 
           {/* Legal */}
           <FooterCol heading={t('footer.columns.legal')}>
-            <Link className="hover:text-dm-ink" href={prefix('/privacy')}>
+            <Link
+              className="dm-focus-ring rounded-sm fine-hover:hover:text-dm-ink"
+              href={prefix('/privacy')}
+            >
               {t('footer.links.privacy')}
             </Link>
-            <Link className="hover:text-dm-ink" href={prefix('/terms')}>
+            <Link
+              className="dm-focus-ring rounded-sm fine-hover:hover:text-dm-ink"
+              href={prefix('/terms')}
+            >
               {t('footer.links.terms')}
             </Link>
-            <Link className="hover:text-dm-ink" href={prefix('/dpa')}>
+            <Link
+              className="dm-focus-ring rounded-sm fine-hover:hover:text-dm-ink"
+              href={prefix('/dpa')}
+            >
               {t('footer.links.dpa')}
             </Link>
           </FooterCol>
         </div>
 
         {/* Foot note: copyright + tagline */}
-        <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-dm-line border-t pt-5 font-[var(--font-dm-mono)] text-[12px] text-dm-ink-4">
+        <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-dm-line border-t pt-5 font-[var(--font-dm-mono)] text-[12px] text-dm-ink-3">
           <span>© {copyrightYear} Dockerman</span>
           <span>{t('footer.note')}</span>
         </div>
@@ -108,10 +144,9 @@ function FooterCol({ heading, children }: { heading: string; children: React.Rea
 function BrandMark() {
   return (
     <span
-      className="relative grid h-[26px] w-[26px] place-items-center overflow-hidden rounded-[7px] text-white"
+      className="relative grid h-[26px] w-[26px] place-items-center overflow-hidden rounded-[7px] bg-[#0a0a0a] text-[#fafaf9]"
       style={{
-        background: 'linear-gradient(135deg, var(--color-dm-accent), var(--color-dm-accent-2))',
-        boxShadow: 'inset 0 0 0 1px rgb(255 255 255 / 0.1), 0 4px 12px -4px var(--color-dm-accent)'
+        boxShadow: 'inset 0 0 0 1px rgb(255 255 255 / 0.12), 0 4px 12px -4px rgb(0 0 0 / 0.35)'
       }}
     >
       <svg

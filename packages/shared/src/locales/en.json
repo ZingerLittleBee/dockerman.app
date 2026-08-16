@@ -9,10 +9,11 @@
     "github": "GitHub",
     "changeLanguage": "Change language",
     "openMenu": "Open menu",
-    "closeMenu": "Close menu"
+    "closeMenu": "Close menu",
+    "skipToContent": "Skip to content"
   },
   "hero": {
-    "eyebrow": "v{{version}} — Memorable *.dockerman.localhost addresses, guided Local Domains setup, domains that survive recreation",
+    "eyebrow": "Memorable *.dockerman.localhost addresses, guided Local Domains setup, domains that survive recreation",
     "eyebrowTag": "NEW",
     "headline1Lead": "Docker that feels",
     "headline1Accent": "local",
@@ -107,6 +108,7 @@
     "download": "Download"
   },
   "featuresSection": {
+    "kicker": "features",
     "titleLead": "Every object you care about,",
     "titleAccent": "one keystroke away.",
     "description": "Containers, images, volumes, networks, compose projects, Kubernetes workloads, Cloudflared tunnels — all surfaced in a single, low-latency interface.",
@@ -148,6 +150,7 @@
     }
   },
   "modulesSection": {
+    "kicker": "modules",
     "titleLead": "Built for the things you",
     "titleAccent": "actually",
     "titleTrail": "do every day.",
@@ -229,6 +232,7 @@
         "file": "File"
       },
       "containersHeader": "Containers",
+      "running": "running",
       "idle": "idle"
     },
     "main": {

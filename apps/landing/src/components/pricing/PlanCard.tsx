@@ -51,7 +51,7 @@ export function PlanCard(p: PlanCardProps) {
 
   const ctaClassName = `mt-auto inline-flex cursor-pointer items-center justify-center gap-2 rounded-[10px] px-[18px] py-[13px] font-semibold text-[14px] no-underline transition-[transform,background-color,border-color,color] active:scale-[0.97] ${
     ctaVariant === 'primary'
-      ? 'text-white hover:-translate-y-px active:translate-y-0'
+      ? 'text-dm-bg hover:-translate-y-px active:translate-y-0'
       : ctaVariant === 'disabled'
         ? 'cursor-not-allowed border border-dm-line bg-dm-bg-soft text-dm-ink-3'
         : 'border border-dm-line-strong bg-transparent text-dm-ink hover:bg-dm-bg-soft'
@@ -59,11 +59,9 @@ export function PlanCard(p: PlanCardProps) {
   const ctaStyle =
     ctaVariant === 'primary'
       ? {
-          background:
-            'linear-gradient(180deg, var(--color-dm-accent-2), color-mix(in srgb, var(--color-dm-accent-2) 80%, black))',
-          borderColor: 'transparent',
-          boxShadow:
-            '0 10px 24px -8px color-mix(in srgb, var(--color-dm-accent-2) 55%, transparent)'
+          background: 'var(--color-dm-ink)',
+          color: 'var(--color-dm-bg)',
+          borderColor: 'transparent'
         }
       : undefined
   const ctaContent = (
@@ -112,7 +110,7 @@ export function PlanCard(p: PlanCardProps) {
         <span
           className="absolute top-[18px] right-[18px] rounded-full px-[10px] py-1 font-[var(--font-dm-mono)] font-bold text-[10.5px] text-white uppercase tracking-[0.04em]"
           style={{
-            background: 'linear-gradient(135deg, var(--color-dm-accent-2), #8b5cf6)',
+            background: 'var(--color-dm-accent)',
             boxShadow:
               '0 8px 20px -6px color-mix(in srgb, var(--color-dm-accent-2) 50%, transparent)'
           }}

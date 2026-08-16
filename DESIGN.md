@@ -42,16 +42,15 @@ a user needs to read, you're using it wrong.
 
 ### 1.3 Accents
 
-| Token             | Value      | Role                                                       |
-| ----------------- | ---------- | ---------------------------------------------------------- |
-| `dm-accent`       | `#14b8a6`  | Primary accent. Teal. `$` prompt, section eyebrows, links. |
-| `dm-accent-2`     | `#6366f1`  | Secondary accent. Indigo. Focus rings, `NEW` badges.       |
-| `dm-accent-warm`  | `#f97316`  | Warm accent. Orange. Sparingly, for emphasis contrast.     |
+| Token            | Light     | Dark      | Role                                                       |
+| ---------------- | --------- | --------- | ---------------------------------------------------------- |
+| `dm-accent`      | `#4f46e5` | `#818cf8` | Primary accent. Indigo. `$` prompt, eyebrows, italics.     |
+| `dm-accent-2`    | `#6366f1` | same      | Focus rings.                                               |
+| `dm-accent-warm` | `#f97316` | same      | Warm accent. Orange. Sparingly, for emphasis contrast.     |
 
-**Pair them, don't collide.** The canonical gradient is
-`linear-gradient(135deg, var(--color-dm-accent), var(--color-dm-accent-2))`
-— teal → indigo, top-left to bottom-right — used on CTAs, brand marks,
-and italic display accents.
+**Pair them, don't collide.** Accents are solid fills or solid type.
+Primary actions use `dm-ink` on `dm-bg`. Display italics use `dm-accent`.
+Status green (`dm-ok`) is not the brand color.
 
 ### 1.4 Status
 
@@ -76,11 +75,10 @@ because you like green.
 **Display italic is the accent voice.** The site has two kinds of
 headline emphasis:
 
-1. **Gradient word** — `bg-clip-text` with the 135° accent gradient,
-   display italic. Used once per heading for the key verb/noun
-   (`Hero.tsx:87-90`, `CtaFinal.tsx:27-35`).
-2. **Quiet italic** — `dm-display` italic at `dm-ink-2`, no gradient.
-   Used for reflective subclauses (`FeaturesGrid.tsx:33-36`).
+1. **Accent italic** — `dm-display` italic at `dm-accent`. Used once
+   per heading for the key verb/noun (`Hero.tsx`, `CtaFinal.tsx`).
+2. **Quiet italic** — `dm-display` italic at `dm-ink-2`. Used for
+   reflective subclauses (`FeaturesGrid.tsx`).
 
 Never use display italic for more than one phrase per heading; it loses
 its weight.
@@ -129,11 +127,7 @@ critical to comprehension, gate it via `.dm-animated`.
 
 ```tsx
 <Link
-  className="inline-flex items-center gap-[10px] rounded-[10px] px-5 py-3 font-semibold text-[14px] text-white no-underline transition-all hover:-translate-y-px"
-  style={{
-    background: 'linear-gradient(135deg, var(--color-dm-accent), var(--color-dm-accent-2))',
-    boxShadow: '0 10px 30px -10px color-mix(in srgb, var(--color-dm-accent-2) 60%, transparent)',
-  }}
+  className="inline-flex items-center gap-[10px] rounded-[10px] bg-dm-ink px-5 py-3 font-semibold text-[14px] text-dm-bg no-underline transition-transform hover:-translate-y-px"
 >
   Download Dockerman
   <span
@@ -146,10 +140,9 @@ critical to comprehension, gate it via `.dm-animated`.
 ```
 
 Recipe:
-- Gradient fill (135° accent → accent-2)
-- Soft drop shadow in the _same_ indigo with `color-mix`
+- Solid `dm-ink` fill, `dm-bg` label
 - 1px lift on hover (`-translate-y-px`), never a scale
-- Inline meta pill at 18% white fill inside the gradient body
+- Inline meta pill at 18% white fill inside the body
 
 ### 2.2 The secondary button
 
@@ -280,7 +273,7 @@ ones.
 | Overlay / lightbox| `0 30px 60px -20px rgb(0 0 0 / 0.6)`                                                                        |
 | Focus halo        | `0 0 0 3px color-mix(in srgb, var(--color-dm-accent-2) 18%, transparent)`                                  |
 | Live dot halo     | `0 0 0 4px color-mix(in srgb, var(--color-dm-ok) 30%, transparent)`                                        |
-| Brand mark        | `inset 0 0 0 1px rgb(255 255 255 / 0.1), 0 4px 12px -4px var(--color-dm-accent)`                           |
+| Brand mark        | `inset 0 0 0 1px rgb(255 255 255 / 0.12), 0 4px 12px -4px rgb(0 0 0 / 0.35)` on `#0a0a0a`                  |
 
 Notice the pattern: **glows use `color-mix` with the glow's own accent,
 never plain black-on-color**. This keeps the glow chromatically coherent

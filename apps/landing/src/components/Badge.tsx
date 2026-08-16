@@ -15,9 +15,7 @@ function Badge({ children, className, ref, ...props }: BadgeProps) {
       ref={ref}
       {...props}
     >
-      <span className="bg-gradient-to-b from-indigo-500 to-indigo-600 bg-clip-text text-transparent dark:from-indigo-200 dark:to-indigo-400">
-        {children}
-      </span>
+      <span className="text-dm-accent">{children}</span>
     </span>
   )
 }

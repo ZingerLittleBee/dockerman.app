@@ -34,14 +34,7 @@ export function PolicyHero({
 
         <h1 className="mt-3 font-bold text-[clamp(40px,6vw,68px)] text-dm-ink leading-[1.02] tracking-[-0.035em]">
           {titleLead}{' '}
-          <em
-            className="bg-clip-text font-[var(--font-dm-display)] font-normal text-transparent italic"
-            style={{
-              backgroundImage:
-                'linear-gradient(135deg, var(--color-dm-accent), var(--color-dm-accent-2))',
-              letterSpacing: '-0.02em'
-            }}
-          >
+          <em className="font-[var(--font-dm-display)] font-normal text-dm-accent italic tracking-[-0.02em]">
             {titleAccent}
           </em>
         </h1>

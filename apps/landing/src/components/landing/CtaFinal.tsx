@@ -24,31 +24,19 @@ export async function CtaFinal({ locale }: { locale: Locale }) {
               backgroundSize: '40px 40px'
             }}
           />
-          <h2 className="relative m-0 font-bold text-[clamp(36px,5vw,64px)] text-dm-ink leading-[1.02] tracking-[-0.04em]">
+          <h2 className="relative m-0 text-balance font-bold text-[clamp(36px,5vw,64px)] text-dm-ink leading-[1.02] tracking-[-0.04em]">
             {t('cta.titleLead')}{' '}
-            <em
-              className="bg-clip-text font-[var(--font-dm-display)] font-normal text-transparent italic"
-              style={{
-                backgroundImage:
-                  'linear-gradient(135deg, var(--color-dm-accent), var(--color-dm-accent-2))'
-              }}
-            >
+            <em className="font-[var(--font-dm-display)] font-normal text-dm-accent italic">
               {t('cta.titleAccent')}
             </em>
           </h2>
-          <p className="relative mx-auto mt-[18px] mb-8 max-w-[68ch] text-[17px] text-dm-ink-3">
+          <p className="relative mx-auto mt-[18px] mb-8 max-w-[68ch] text-pretty text-[17px] text-dm-ink-3">
             {t('cta.description')}
           </p>
           <div className="relative flex flex-wrap justify-center gap-3">
             <Link
-              className="inline-flex items-center gap-[10px] rounded-[10px] px-5 py-3 pr-[6px] font-semibold text-[14px] text-white no-underline transition-transform hover:-translate-y-px active:translate-y-0 active:scale-[0.97]"
+              className="dm-focus-ring inline-flex items-center gap-[10px] rounded-[10px] bg-dm-ink px-5 py-3 font-semibold text-[14px] text-dm-bg no-underline transition-transform fine-hover:hover:-translate-y-px active:translate-y-0 active:scale-[0.96]"
               href={`/${locale}/download`}
-              style={{
-                background:
-                  'linear-gradient(135deg, var(--color-dm-accent), var(--color-dm-accent-2))',
-                boxShadow:
-                  '0 10px 30px -10px color-mix(in srgb, var(--color-dm-accent-2) 60%, transparent)'
-              }}
             >
               <svg
                 aria-hidden="true"
@@ -71,7 +59,7 @@ export async function CtaFinal({ locale }: { locale: Locale }) {
               </span>
             </Link>
             <a
-              className="inline-flex items-center gap-2 rounded-[10px] border border-dm-line-strong bg-transparent px-[18px] py-3 font-medium text-[14px] text-dm-ink-2 transition-[color,background-color,border-color,transform] hover:bg-dm-bg-soft hover:text-dm-ink active:scale-[0.97]"
+              className="dm-focus-ring inline-flex items-center gap-2 rounded-[10px] border border-dm-line-strong bg-transparent px-[18px] py-3 font-medium text-[14px] text-dm-ink-2 transition-[color,background-color,border-color,transform] fine-hover:hover:bg-dm-bg-soft fine-hover:hover:text-dm-ink active:scale-[0.96]"
               href="https://github.com/ZingerLittleBee/dockerman.app/issues/new"
               rel="noopener noreferrer"
               target="_blank"
