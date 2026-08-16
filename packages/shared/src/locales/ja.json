@@ -16,11 +16,11 @@
   "hero": {
     "eyebrow": "覚えやすい *.dockerman.localhost アドレス、ガイド付き Local Domains セットアップ、再作成後も残るドメイン",
     "eyebrowTag": "NEW",
-    "headline1Lead": "Docker Desktop の",
-    "headline1Accent": "代替",
-    "headline2Lead": "軽量な",
-    "headline2Accent": "UI",
-    "description": "Dockerman は Docker、Podman、Kubernetes のためのローカルファーストなデスクトップ UI。Rust と Tauri で構築。ほぼ瞬時に起動し、メモリは 30 MB 未満。ローカル Docker の機能はすべて完全に無料。",
+    "headline1Lead": "Docker を",
+    "headline1Accent": "ローカルに",
+    "headline2Lead": "Kubernetes を",
+    "headline2Accent": "手軽に",
+    "description": "Docker、Podman、Kubernetes のための軽量デスクトップ UI。Rust と Tauri で構築。ほぼ瞬時に起動し、メモリ消費は 30 MB 未満。",
     "compareLink": "Docker Desktop と比較 →",
     "downloadFor": {
       "mac": "macOS 版をダウンロード",

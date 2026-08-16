@@ -16,11 +16,11 @@
   "hero": {
     "eyebrow": "Memorable *.dockerman.localhost addresses, guided Local Domains setup, domains that survive recreation",
     "eyebrowTag": "NEW",
-    "headline1Lead": "A lightweight",
-    "headline1Accent": "alternative",
-    "headline2Lead": "to Docker",
-    "headline2Accent": "Desktop",
-    "description": "Dockerman is a local-first desktop UI for Docker, Podman, and Kubernetes — built with Rust and Tauri. Boots in ~0ms, under 30 MB of memory. Every local Docker feature is completely free.",
+    "headline1Lead": "Docker that feels",
+    "headline1Accent": "local",
+    "headline2Lead": "Kubernetes that feels",
+    "headline2Accent": "easy",
+    "description": "A lightweight desktop UI for Docker, Podman, and Kubernetes — built with Rust and Tauri. Boots in ~0ms and lives in under 30 MB of memory.",
     "compareLink": "Compare with Docker Desktop →",
     "downloadFor": {
       "mac": "Download for macOS",

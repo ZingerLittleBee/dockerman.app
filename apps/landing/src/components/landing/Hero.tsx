@@ -118,7 +118,7 @@ export function Hero({ locale }: { locale: Locale }) {
         </div>
 
         {/* Two-line headline with accent on the final word of each line */}
-        <h1 className="mt-[22px] max-w-[16ch] text-balance font-bold text-[clamp(44px,7.2vw,96px)] text-dm-ink leading-[0.95] tracking-[-0.045em]">
+        <h1 className="mt-[22px] max-w-[14ch] text-balance font-bold text-[clamp(44px,7.2vw,96px)] text-dm-ink leading-[0.95] tracking-[-0.045em]">
           {t('hero.headline1Lead')} <Accent>{t('hero.headline1Accent')}</Accent>.<br />
           {t('hero.headline2Lead')} <Accent>{t('hero.headline2Accent')}</Accent>.
         </h1>
