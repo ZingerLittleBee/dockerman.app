@@ -75,7 +75,7 @@
   "cta": {
     "titleLead": "トレイを開く。",
     "titleAccent": "コンテナを動かす。",
-    "description": "ローカル利用は完全無料・無制限。アップグレードでリモートホストと Kubernetes 管理が利用できます。",
+    "description": "ローカル Docker の機能はすべて完全に無料です。支払う必要があるのはリモートホスト接続だけです。",
     "downloadButton": "Dockerman をダウンロード",
     "platformsBadge": "macOS · Win · Linux",
     "reportIssue": "GitHub で問題を報告 →"

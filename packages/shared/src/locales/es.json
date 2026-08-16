@@ -75,7 +75,7 @@
   "cta": {
     "titleLead": "Abre la bandeja.",
     "titleAccent": "Lanza contenedores.",
-    "description": "Gratis y sin restricciones para uso local. Actualiza para desbloquear hosts remotos y gestión de Kubernetes.",
+    "description": "Todas las funciones de Docker local son completamente gratis. Solo pagas por las conexiones a hosts remotos.",
     "downloadButton": "Descargar Dockerman",
     "platformsBadge": "macOS · Win · Linux",
     "reportIssue": "Reportar un problema en GitHub →"

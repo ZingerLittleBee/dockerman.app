@@ -8,6 +8,7 @@ function readJson(name: string) {
   return JSON.parse(readFileSync(join(localesRoot, name), 'utf8')) as {
     meta: { home: { title: string; description: string }; compare: { title: string; description: string } }
     hero: { compareLink: string; description: string }
+    cta: { description: string }
     nav: { compare: string }
     footer: { links: { compare: string } }
     pricing: { vsDesktop: { cta: string } }
@@ -56,6 +57,7 @@ describe('vs-docker-desktop page', () => {
       expect(pack.hero.description).not.toMatch(vagueLocalFree)
       expect(pack.meta.home.description).not.toMatch(vagueLocalFree)
       expect(pack.compare.hero.description).not.toMatch(/Local Docker and Podman stay free forever|本地 Docker 与 Podman 永久免费/)
+      expect(pack.cta.description).not.toMatch(/Kubernetes/)
     }
   })
 })

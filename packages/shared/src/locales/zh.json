@@ -75,7 +75,7 @@
   "cta": {
     "titleLead": "打开托盘。",
     "titleAccent": "发布你的容器。",
-    "description": "本地使用完全免费，无任何限制。升级即可解锁远程主机与 Kubernetes 管理。",
+    "description": "使用本地 Docker，全部功能完全免费。只有连接远程主机才需要付费。",
     "downloadButton": "下载 Dockerman",
     "platformsBadge": "macOS · Win · Linux",
     "reportIssue": "到 GitHub 反馈问题 →"
