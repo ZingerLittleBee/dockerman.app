@@ -986,7 +986,7 @@
       "kicker": "Docker Desktop alternative",
       "titleLead": "A lighter Docker UI.",
       "titleAccent": "Same containers.",
-      "description": "Dockerman is a local-first desktop UI for Docker, Podman, and Kubernetes. It is a lightweight alternative to Docker Desktop — not a clone of Docker Inc.'s platform. Local Docker and Podman stay free forever."
+      "description": "Dockerman is a local-first desktop UI for Docker, Podman, and Kubernetes. It does not ship its own engine — you choose the backend. A lightweight UI alternative to Docker Desktop, not a clone of Docker Inc.'s platform. Local Docker and Podman stay free forever."
     },
     "table": {
       "kicker": "side by side",
@@ -1026,7 +1026,7 @@
         },
         "macos": {
           "label": "macOS engines",
-          "dockerman": "Existing Docker socket, managed Colima / Podman, Apple Container",
+          "dockerman": "You choose the backend — Docker Desktop, OrbStack, Colima, Podman, Apple Container",
           "desktop": "Bundled Docker Engine and VM"
         },
         "domains": {
@@ -1064,8 +1064,8 @@
         "body": "Local Docker and Podman in Dockerman are free forever, including commercial use. A one-time license (${{solo}} Solo / ${{team}} Team) unlocks remote SSH, multi-host, Cloudflared, and Kubernetes. Docker Desktop is free for personal use and for organizations that qualify under Docker's terms; larger organizations need a Docker Desktop subscription. Those are different products with different license shapes."
       },
       "engines": {
-        "title": "WSL2, Colima, Podman, Apple Container",
-        "body": "On Windows, Dockerman can set up a bundled WSL2 Docker Engine — no Docker Desktop required. On macOS, v6.0.0 added managed Colima and Podman machines (Dockerman detects, starts, stops, and repairs them; it does not install the engine binaries). Apple Container is available on Apple Silicon with macOS 26 or later. Linux talks to Docker or Podman sockets, including rootless."
+        "title": "Bring your own backend",
+        "body": "Dockerman is a UI. It does not ship a Docker engine of its own — you pick the backend. Connect a Docker-compatible socket (Docker Desktop, OrbStack, Colima, Podman) or Apple Container on Apple Silicon with macOS 26+. On Windows, an optional WSL2 Docker Engine is available if you do not want Desktop. On macOS, v6.0.0 can detect, start, stop, and repair Colima and Podman machines; it does not install those binaries."
       },
       "domains": {
         "title": "Local domains",
@@ -1078,7 +1078,7 @@
     },
     "orbstack": {
       "title": "What about OrbStack?",
-      "body": "On Mac, OrbStack is a strong, polished Docker Desktop alternative. Dockerman is not trying to out-Mac OrbStack. The difference is coverage: macOS, Windows, and Linux; local use that stays free; and a one-time license instead of a subscription for paid features."
+      "body": "OrbStack is a backend, not a competing UI. Dockerman does not come with its own Docker engine — you choose one. On Mac, that can be OrbStack, Docker Desktop, Colima, Podman, or Apple Container. Point Dockerman at the socket and keep the engine you already run. They work together; they are not alternatives to each other."
     },
     "desktopWins": {
       "title": "Where Docker Desktop still wins",
@@ -1091,7 +1091,7 @@
       "items": [
         {
           "question": "Is Dockerman a Docker Desktop alternative?",
-          "answer": "Yes, for people who want a lightweight, local-first UI. It manages Docker, Podman, and Kubernetes. It does not replace every Docker Inc. product."
+          "answer": "Yes — as a lightweight, local-first UI. Dockerman does not ship its own Docker engine. It talks to the backend you choose and manages Docker, Podman, and Kubernetes. It does not replace every Docker Inc. product."
         },
         {
           "question": "Do I still need Docker Desktop on Windows?",

@@ -986,7 +986,7 @@
       "kicker": "Docker Desktop 替代方案",
       "titleLead": "更轻的 Docker 界面。",
       "titleAccent": "同样的容器。",
-      "description": "Dockerman 是面向 Docker、Podman 与 Kubernetes 的本地优先桌面客户端。它是 Docker Desktop 的轻量替代，不是 Docker Inc. 平台的复制品。本地 Docker 与 Podman 永久免费。"
+      "description": "Dockerman 是面向 Docker、Podman 与 Kubernetes 的本地优先桌面客户端。它不自带引擎，后端由你选。它是 Docker Desktop 的轻量界面替代，不是 Docker Inc. 平台的复制品。本地 Docker 与 Podman 永久免费。"
     },
     "table": {
       "kicker": "并排对比",
@@ -1026,7 +1026,7 @@
         },
         "macos": {
           "label": "macOS 引擎",
-          "dockerman": "已有 Docker socket、托管的 Colima / Podman、Apple Container",
+          "dockerman": "后端自选 — Docker Desktop、OrbStack、Colima、Podman、Apple Container",
           "desktop": "自带 Docker Engine 与虚拟机"
         },
         "domains": {
@@ -1064,8 +1064,8 @@
         "body": "Dockerman 的本地 Docker 与 Podman 永久免费，包含商业使用。一次买断（Solo ${{solo}} / Team ${{team}}）解锁远程 SSH、多主机、Cloudflared 与 Kubernetes。Docker Desktop 对个人及符合 Docker 条款的组织免费；更大规模组织需要 Desktop 订阅。这是两种不同形态的产品与许可。"
       },
       "engines": {
-        "title": "WSL2、Colima、Podman、Apple Container",
-        "body": "在 Windows 上，Dockerman 可安装内置 WSL2 Docker Engine —— 不必安装 Docker Desktop。macOS 上，v6.0.0 增加了托管的 Colima 与 Podman 虚拟机（检测、启动、停止、修复；不会安装引擎二进制文件）。Apple Container 适用于 Apple Silicon 且 macOS 26 或更高版本。Linux 连接 Docker 或 Podman socket，包括 rootless。"
+        "title": "后端由你选",
+        "body": "Dockerman 是界面，不自带 Docker 引擎。你自己选后端：兼容 Docker 的 socket（Docker Desktop、OrbStack、Colima、Podman），或 Apple Silicon 且 macOS 26+ 上的 Apple Container。Windows 上如果不想用 Desktop，也可以选用可选的 WSL2 Docker Engine。macOS 的 v6.0.0 能检测、启动、停止、修复 Colima 与 Podman 虚拟机，但不会安装这些二进制文件。"
       },
       "domains": {
         "title": "本地域名",
@@ -1078,7 +1078,7 @@
     },
     "orbstack": {
       "title": "那 OrbStack 呢？",
-      "body": "在 Mac 上，OrbStack 是很强、很完整的 Docker Desktop 替代。Dockerman 并不打算在 Mac 体验上压过 OrbStack。差别在覆盖面：macOS、Windows 与 Linux；本地使用保持免费；付费功能是一次买断，而不是订阅。"
+      "body": "OrbStack 是后端，不是和 Dockerman 对打的界面。Dockerman 不自带 Docker 引擎，后端由你选。在 Mac 上可以是 OrbStack、Docker Desktop、Colima、Podman 或 Apple Container。把 Dockerman 指到对应 socket 即可，继续用你已经在跑的引擎。它们是一起用的，不是互相替代。"
     },
     "desktopWins": {
       "title": "Docker Desktop 仍然更合适的时候",
@@ -1091,7 +1091,7 @@
       "items": [
         {
           "question": "Dockerman 是 Docker Desktop 的替代吗？",
-          "answer": "对需要轻量、本地优先界面的人来说，是的。它管理 Docker、Podman 与 Kubernetes。它并不替代 Docker Inc. 的每一款产品。"
+          "answer": "作为轻量、本地优先的界面，是的。Dockerman 不自带 Docker 引擎，连接你选择的后端，管理 Docker、Podman 与 Kubernetes。它并不替代 Docker Inc. 的每一款产品。"
         },
         {
           "question": "Windows 上还需要 Docker Desktop 吗？",
