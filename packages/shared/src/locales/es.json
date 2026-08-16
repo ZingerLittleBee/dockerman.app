@@ -424,7 +424,7 @@
     },
     "vsDesktop": {
       "title": "¿Buscas una alternativa a Docker Desktop?",
-      "body": "Compara tamaño de instalación, uso local gratuito, WSL2 / Colima / Podman y una licencia de pago único frente a una suscripción.",
+      "body": "Compara tamaño de instalación, uso local gratuito, pago único frente a suscripción, y backends que eliges — incluido WSL que Dockerman puede gestionar en Windows.",
       "cta": "Dockerman vs Docker Desktop →"
     },
     "success": {
@@ -1058,7 +1058,7 @@
       },
       "license": {
         "title": "Local gratis frente a la licencia de Desktop",
-        "body": "Docker y Podman locales en Dockerman son gratis para siempre, incluido el uso comercial. Una licencia de pago único (${{solo}} Solo / ${{team}} Team) desbloquea SSH remoto, multi-host, Cloudflared y Kubernetes. Docker Desktop es gratis para uso personal y para organizaciones que califican según los términos de Docker; las organizaciones más grandes necesitan una suscripción. Son productos distintos, con licencias distintas."
+        "body": "Todas las funciones de Docker local son completamente gratis, incluido el uso comercial. Las funciones de pago son las conexiones a hosts remotos: una licencia de pago único (${{solo}} Solo / ${{team}} Team). Docker Desktop es gratis para uso personal y para organizaciones que califican según los términos de Docker; las organizaciones más grandes necesitan una suscripción. Son productos distintos, con licencias distintas."
       },
       "engines": {
         "title": "Tú eliges el backend",
@@ -1070,7 +1070,7 @@
       },
       "pricing": {
         "title": "Pago único frente a suscripción",
-        "body": "Dockerman no vende una suscripción. Las funciones de pago son una licencia de por vida con actualizaciones de por vida. Los planes de pago de Docker Desktop son suscripciones de Docker Inc. Docker y Podman locales se quedan en el plan gratuito. Kubernetes, SSH remoto, multi-host y Cloudflared necesitan un pago único."
+        "body": "Dockerman no vende una suscripción. Las funciones de pago son las conexiones a hosts remotos: un pago, actualizaciones de por vida. Todas las funciones de Docker local son completamente gratis. Los planes de pago de Docker Desktop son suscripciones de Docker Inc."
       }
     },
     "orbstack": {
@@ -1079,7 +1079,7 @@
     },
     "desktopWins": {
       "title": "Dónde Docker Desktop sigue ganando",
-      "body": "Docker Desktop es el producto oficial de Docker Inc. Elígelo cuando quieras la plataforma oficial — Engine, Compose, Buildx — y extras como Extensions, Docker Scout, Build Cloud y controles de organización. Desktop también puede activar un clúster Kubernetes local sin el plan de pago de Dockerman. Si quieres esa plataforma oficial todo-en-uno, Desktop es la herramienta correcta. Aun así puedes conectar Dockerman."
+      "body": "Docker Desktop es el producto oficial de Docker Inc. Elígelo cuando quieras la plataforma oficial — Engine, Compose, Buildx — y extras como Extensions, Docker Scout, Build Cloud y controles de organización. Desktop también puede activar un clúster Kubernetes local sin pagar las conexiones remotas de Dockerman. Si quieres esa plataforma oficial todo-en-uno, Desktop es la herramienta correcta. Aun así puedes conectar Dockerman."
     },
     "faq": {
       "kicker": "faq",
@@ -1096,7 +1096,7 @@
         },
         {
           "question": "¿El uso local es gratis?",
-          "answer": "Sí. Docker y Podman locales son gratis para siempre. SSH remoto, multi-host, Cloudflared y Kubernetes necesitan una licencia de pago único."
+          "answer": "Sí. Todas las funciones de Docker local son completamente gratis. Solo pagas por las conexiones a hosts remotos."
         },
         {
           "question": "¿Cómo se comparan los precios?",

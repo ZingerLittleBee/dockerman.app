@@ -1061,7 +1061,7 @@
       },
       "license": {
         "title": "本地免费 vs Desktop 许可",
-        "body": "Dockerman 的本地 Docker 与 Podman 永久免费，包含商业使用。一次买断（Solo ${{solo}} / Team ${{team}}）解锁远程 SSH、多主机、Cloudflared 与 Kubernetes。Docker Desktop 对个人及符合 Docker 条款的组织免费；更大规模组织需要 Desktop 订阅。这是两种不同形态的产品与许可。"
+        "body": "使用本地 Docker，全部功能完全免费，含商业使用。付费功能是远程主机连接 —— 一次买断（Solo ${{solo}} / Team ${{team}}）。Docker Desktop 对个人及符合 Docker 条款的组织免费；更大规模组织需要 Desktop 订阅。这是两种不同形态的产品与许可。"
       },
       "engines": {
         "title": "后端由你选",
@@ -1073,7 +1073,7 @@
       },
       "pricing": {
         "title": "一次买断 vs 订阅",
-        "body": "Dockerman 不卖订阅。付费功能是含终身更新的买断许可。Docker Desktop 的付费方案是 Docker Inc. 的订阅。本地 Docker 与 Podman 留在免费档。Kubernetes、远程 SSH、多主机和 Cloudflared 需要一次买断。"
+        "body": "Dockerman 不卖订阅。付费功能是远程主机连接：一次买断，含终身更新。使用本地 Docker，全部功能完全免费。Docker Desktop 的付费方案是 Docker Inc. 的订阅。"
       }
     },
     "orbstack": {
@@ -1082,7 +1082,7 @@
     },
     "desktopWins": {
       "title": "Docker Desktop 仍然更合适的时候",
-      "body": "Docker Desktop 是 Docker Inc. 的官方产品。如果你要官方平台 —— Engine、Compose、Buildx —— 以及 Extensions、Docker Scout、Build Cloud、组织管控这类能力，选它。Desktop 也可以启用本地 Kubernetes，而不需要购买 Dockerman 的付费档。需要官方一体化平台时，Desktop 是对的工具。你仍然可以把 Dockerman 连上去。"
+      "body": "Docker Desktop 是 Docker Inc. 的官方产品。如果你要官方平台 —— Engine、Compose、Buildx —— 以及 Extensions、Docker Scout、Build Cloud、组织管控这类能力，选它。Desktop 也可以启用本地 Kubernetes，而不需要为 Dockerman 的远程主机连接付费。需要官方一体化平台时，Desktop 是对的工具。你仍然可以把 Dockerman 连上去。"
     },
     "faq": {
       "kicker": "常见问题",
@@ -1099,7 +1099,7 @@
         },
         {
           "question": "本地使用免费吗？",
-          "answer": "是的。本地 Docker 与 Podman 永久免费。远程 SSH、多主机、Cloudflared 与 Kubernetes 需要一次买断许可。"
+          "answer": "是的。使用本地 Docker，全部功能完全免费。只有连接远程主机才需要付费。"
         },
         {
           "question": "价格怎么比？",

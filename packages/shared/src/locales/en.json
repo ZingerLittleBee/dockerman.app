@@ -1061,7 +1061,7 @@
       },
       "license": {
         "title": "Local free vs Desktop licensing",
-        "body": "Local Docker and Podman in Dockerman are free forever, including commercial use. A one-time license (${{solo}} Solo / ${{team}} Team) unlocks remote SSH, multi-host, Cloudflared, and Kubernetes. Docker Desktop is free for personal use and for organizations that qualify under Docker's terms; larger organizations need a Docker Desktop subscription. Those are different products with different license shapes."
+        "body": "Every local Docker feature is completely free, including commercial use. Paid features are remote host connections — a one-time license (${{solo}} Solo / ${{team}} Team). Docker Desktop is free for personal use and for organizations that qualify under Docker's terms; larger organizations need a Docker Desktop subscription. Those are different products with different license shapes."
       },
       "engines": {
         "title": "You choose the backend",
@@ -1073,7 +1073,7 @@
       },
       "pricing": {
         "title": "One-time license vs subscription",
-        "body": "Dockerman does not sell a subscription. Paid features are a lifetime license with lifetime updates. Docker Desktop's paid plans are subscriptions from Docker Inc. Local Docker and Podman stay on the free tier. Kubernetes, remote SSH, multi-host, and Cloudflared need a one-time license."
+        "body": "Dockerman does not sell a subscription. Paid features are remote host connections: one payment, lifetime updates. Every local Docker feature is completely free. Docker Desktop's paid plans are subscriptions from Docker Inc."
       }
     },
     "orbstack": {
@@ -1082,7 +1082,7 @@
     },
     "desktopWins": {
       "title": "Where Docker Desktop still wins",
-      "body": "Docker Desktop is the official Docker Inc. product. Choose it when you want Docker's first-party platform — Engine, Compose, Buildx — and extras such as Extensions, Docker Scout, Build Cloud, and organization controls. Desktop can also enable a local Kubernetes cluster without Dockerman's paid tier. If you want that official all-in-one platform, Desktop is the right tool. You can still point Dockerman at it."
+      "body": "Docker Desktop is the official Docker Inc. product. Choose it when you want Docker's first-party platform — Engine, Compose, Buildx — and extras such as Extensions, Docker Scout, Build Cloud, and organization controls. Desktop can also enable a local Kubernetes cluster without paying for Dockerman's remote-host features. If you want that official all-in-one platform, Desktop is the right tool. You can still point Dockerman at it."
     },
     "faq": {
       "kicker": "faq",
@@ -1099,7 +1099,7 @@
         },
         {
           "question": "Is local use free?",
-          "answer": "Yes. Local Docker and Podman are free forever. Remote SSH, multi-host, Cloudflared, and Kubernetes need a one-time license."
+          "answer": "Yes. Every local Docker feature is completely free. You only pay for remote host connections."
         },
         {
           "question": "How does pricing compare?",

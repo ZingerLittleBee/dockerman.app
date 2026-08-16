@@ -424,7 +424,7 @@
     },
     "vsDesktop": {
       "title": "Docker Desktop の代替をお探しですか？",
-      "body": "インストールサイズ、ローカル無料、WSL2 / Colima / Podman、買い切りとサブスクリプションの違いを比較できます。",
+      "body": "インストールサイズ、ローカル無料、買い切りとサブスクリプション、そして自分で選ぶバックエンド（Windows では Dockerman が管理する WSL で Docker を入れることもできます）を比較できます。",
       "cta": "Dockerman vs Docker Desktop →"
     },
     "success": {
@@ -1058,7 +1058,7 @@
       },
       "license": {
         "title": "ローカル無料と Desktop ライセンス",
-        "body": "Dockerman のローカル Docker と Podman は商用利用を含めて永久無料です。買い切り（Solo ${{solo}} / Team ${{team}}）でリモート SSH、マルチホスト、Cloudflared、Kubernetes が解除されます。Docker Desktop は個人利用と Docker の条件を満たす組織は無料で、より大きな組織は Desktop のサブスクリプションが必要です。製品もライセンスの形も違います。"
+        "body": "ローカル Docker の機能はすべて完全に無料です。商用利用も含みます。有料機能はリモートホスト接続で、買い切り（Solo ${{solo}} / Team ${{team}}）です。Docker Desktop は個人利用と Docker の条件を満たす組織は無料で、より大きな組織は Desktop のサブスクリプションが必要です。製品もライセンスの形も違います。"
       },
       "engines": {
         "title": "バックエンドは自分で選ぶ",
@@ -1070,7 +1070,7 @@
       },
       "pricing": {
         "title": "買い切りとサブスクリプション",
-        "body": "Dockerman にサブスクリプションはありません。有料機能は生涯アップデート付きの買い切りです。Docker Desktop の有料プランは Docker Inc. のサブスクリプションです。ローカルの Docker と Podman は無料枠のままです。Kubernetes、リモート SSH、マルチホスト、Cloudflared には買い切りが必要です。"
+        "body": "Dockerman にサブスクリプションはありません。有料機能はリモートホスト接続で、一度払えば生涯アップデート付きです。ローカル Docker の機能はすべて完全に無料です。Docker Desktop の有料プランは Docker Inc. のサブスクリプションです。"
       }
     },
     "orbstack": {
@@ -1079,7 +1079,7 @@
     },
     "desktopWins": {
       "title": "Docker Desktop がまだ勝つところ",
-      "body": "Docker Desktop は Docker Inc. の公式製品です。公式プラットフォーム（Engine、Compose、Buildx）と、Extensions、Docker Scout、Build Cloud、組織向け管理などが必要なら Desktop を選んでください。Desktop は Dockerman の有料枠なしでローカル Kubernetes も有効化できます。公式の一体型プラットフォームが必要なら、Desktop が正しい選択です。Dockerman をそこに接続することもできます。"
+      "body": "Docker Desktop は Docker Inc. の公式製品です。公式プラットフォーム（Engine、Compose、Buildx）と、Extensions、Docker Scout、Build Cloud、組織向け管理などが必要なら Desktop を選んでください。Desktop は Dockerman のリモートホスト機能に支払わなくてもローカル Kubernetes を有効化できます。公式の一体型プラットフォームが必要なら、Desktop が正しい選択です。Dockerman をそこに接続することもできます。"
     },
     "faq": {
       "kicker": "faq",
@@ -1096,7 +1096,7 @@
         },
         {
           "question": "ローカル利用は無料ですか？",
-          "answer": "はい。ローカルの Docker と Podman は永久無料です。リモート SSH、マルチホスト、Cloudflared、Kubernetes には買い切りライセンスが必要です。"
+          "answer": "はい。ローカル Docker の機能はすべて完全に無料です。支払う必要があるのはリモートホスト接続だけです。"
         },
         {
           "question": "価格はどう違いますか？",
