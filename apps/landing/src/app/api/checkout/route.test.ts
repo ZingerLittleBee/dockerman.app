@@ -73,9 +73,7 @@ describe('checkout route', () => {
     }
     expect(requestId).toMatch(UUID_PATTERN)
     expect(creemBody.metadata).toEqual({ plan: '1-device', locale: 'en' })
-    expect(creemBody.success_url).toBe(
-      `https://dockerman.app/en/pricing/success?transaction_id=${requestId}&plan=1-device`
-    )
+    expect(creemBody.success_url).toBe('https://dockerman.app/en/pricing/success')
 
     expect(parseJsonRequestBody(fetchMock.mock.calls[1][1]?.body)).toEqual({
       api_key: 'posthog-test-key',
@@ -116,9 +114,7 @@ describe('checkout route', () => {
 
     expect(response.status).toBe(303)
     const creemBody = parseJsonRequestBody(fetchMock.mock.calls[0][1]?.body)
-    expect(creemBody.success_url).toBe(
-      `https://dockerman.app/en/pricing/success?transaction_id=${creemBody.request_id}&plan=1-device`
-    )
+    expect(creemBody.success_url).toBe('https://dockerman.app/en/pricing/success')
     expect(creemBody.metadata).toEqual({ plan: '1-device', locale: 'en' })
 
     const posthogBody = parseJsonRequestBody(fetchMock.mock.calls[1][1]?.body)

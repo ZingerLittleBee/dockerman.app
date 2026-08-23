@@ -1,33 +1,37 @@
-import { pricingConfig } from '@/config/pricing'
-import { type PaidPlan, parsePaidPlan } from '@/lib/creem/checkoutMetadata'
+import { isRecord } from '@/lib/typeGuards'
 
 export const GOOGLE_ADS_ID = 'AW-18367949196'
 export const GOOGLE_ADS_PURCHASE_DESTINATION = `${GOOGLE_ADS_ID}/K-4DCNvMh9scEIzTwrZE`
 
-const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
-
-const PLAN_VALUES: Record<PaidPlan, number> = {
-  '1-device': pricingConfig.plans.solo.priceRegular,
-  '3-devices': pricingConfig.plans.team.priceRegular
-}
+const CURRENCY_PATTERN = /^[a-z]{3}$/i
 
 export interface GoogleAdsPurchase {
-  currency: 'USD'
+  currency: string
   transactionId: string
   value: number
 }
 
-export function parseGoogleAdsPurchase(searchParams: URLSearchParams): GoogleAdsPurchase | null {
-  const transactionId = searchParams.get('transaction_id')
-  const plan = parsePaidPlan(searchParams.get('plan'))
+export function parseGoogleAdsPurchase(value: unknown): GoogleAdsPurchase | null {
+  if (!isRecord(value)) {
+    return null
+  }
 
-  if (!(transactionId && UUID_PATTERN.test(transactionId) && plan)) {
+  const { currency, transactionId, value: purchaseValue } = value
+  if (
+    typeof currency !== 'string' ||
+    !CURRENCY_PATTERN.test(currency) ||
+    typeof transactionId !== 'string' ||
+    transactionId.length === 0 ||
+    typeof purchaseValue !== 'number' ||
+    !Number.isFinite(purchaseValue) ||
+    purchaseValue < 0
+  ) {
     return null
   }
 
   return {
-    currency: 'USD',
+    currency: currency.toUpperCase(),
     transactionId,
-    value: PLAN_VALUES[plan]
+    value: purchaseValue
   }
 }

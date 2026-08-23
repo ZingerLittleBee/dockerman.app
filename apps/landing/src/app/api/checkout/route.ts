@@ -35,8 +35,6 @@ export async function POST(request: NextRequest) {
 
   const requestId = crypto.randomUUID()
   const successUrl = new URL(`/${locale}/pricing/success`, siteConfig.url)
-  successUrl.searchParams.set('transaction_id', requestId)
-  successUrl.searchParams.set('plan', plan)
   const body = {
     product_id: productId,
     success_url: successUrl.toString(),
