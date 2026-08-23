@@ -33,12 +33,13 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Payment service not configured' }, { status: 500 })
   }
 
-  const successUrl = `${siteConfig.url}/${locale}/pricing/success`
-
   const requestId = crypto.randomUUID()
+  const successUrl = new URL(`/${locale}/pricing/success`, siteConfig.url)
+  successUrl.searchParams.set('transaction_id', requestId)
+  successUrl.searchParams.set('plan', plan)
   const body = {
     product_id: productId,
-    success_url: successUrl,
+    success_url: successUrl.toString(),
     request_id: requestId,
     metadata: { plan, locale },
     ...(discountCode ? { discount_code: discountCode } : {})

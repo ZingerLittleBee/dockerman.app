@@ -6,6 +6,7 @@ import { Inter } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
 import AgentationClient from '@/components/AgentationClient'
+import { GoogleAdsTag } from '@/components/GoogleAdsTag'
 import { LangScript } from '@/components/shell/LangScript'
 import { ThemeScript } from '@/components/shell/ThemeScript'
 import { siteConfig } from './siteConfig'
@@ -123,6 +124,7 @@ export default function RootLayout({
       >
         {children}
         {process.env.NODE_ENV === 'development' ? <AgentationClient /> : null}
+        {process.env.NODE_ENV === 'production' ? <GoogleAdsTag /> : null}
         <Analytics />
         <SpeedInsights />
       </body>
