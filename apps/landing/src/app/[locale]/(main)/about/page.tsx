@@ -1,6 +1,7 @@
 'use client'
 
 import { RiGithubFill, RiTwitterXFill } from '@remixicon/react'
+import { captureBrowserEvent } from '@repo/shared/analytics/browserPostHog'
 import { useTranslation } from '@repo/shared/i18n/client'
 import Image from 'next/image'
 import Balancer from 'react-wrap-balancer'
@@ -22,13 +23,7 @@ type SocialPlatform = 'github' | 'twitter'
 type SocialSection = 'team_member' | 'join_us'
 
 function captureSocialClick(platform: SocialPlatform, section: SocialSection, url: string) {
-  import('posthog-js')
-    .then(({ default: posthog }) => {
-      posthog.capture('about_social_clicked', { platform, section, url })
-    })
-    .catch(() => {
-      // Analytics failures should never interfere with navigation.
-    })
+  captureBrowserEvent('about_social_clicked', { platform, section, url })
 }
 
 export default function About() {

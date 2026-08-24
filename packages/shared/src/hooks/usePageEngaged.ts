@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react'
 
+import { captureBrowserEvent } from '../analytics/browserPostHog'
 import { createPageEngagementTracker, ENGAGE_THRESHOLD_MS } from '../analytics/pageTracking'
 
 export function usePageEngaged(pagePath: string) {
@@ -10,11 +11,9 @@ export function usePageEngaged(pagePath: string) {
       pagePath,
       Date.now(),
       (duration, trackedPagePath) => {
-        import('posthog-js').then(({ default: posthog }) => {
-          posthog.capture('page_engaged', {
-            page_path: trackedPagePath,
-            duration_seconds: duration
-          })
+        captureBrowserEvent('page_engaged', {
+          page_path: trackedPagePath,
+          duration_seconds: duration
         })
       }
     )
