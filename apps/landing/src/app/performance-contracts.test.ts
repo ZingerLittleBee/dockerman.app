@@ -23,13 +23,28 @@ describe('landing performance contracts', () => {
   })
 
   test('browser instrumentation defers PostHog out of the initial module graph', () => {
-    const source = readAppFile('instrumentation-client.ts')
-    const posthogKeyGuard = source.indexOf('if (!posthogKey)')
-    const posthogImport = source.indexOf("import('posthog-js')")
+    const instrumentation = readAppFile('instrumentation-client.ts')
+    const initializer = readAppFile('src/lib/analytics/initBrowserPostHog.ts')
+    const posthogKeyGuard = initializer.indexOf('if (!posthogKey)')
+    const posthogImport = initializer.indexOf("import('posthog-js')")
 
-    expect(source).not.toContain("import posthog from 'posthog-js'")
+    expect(instrumentation).not.toContain("import posthog from 'posthog-js'")
+    expect(instrumentation).not.toContain("import('posthog-js')")
+    expect(instrumentation).toContain('scheduleAfterLoadIdle(initPostHog)')
+    expect(initializer).not.toContain("import posthog from 'posthog-js'")
     expect(posthogKeyGuard).toBeGreaterThan(-1)
+    expect(initializer.indexOf('dependencies.importPostHog()')).toBeGreaterThan(posthogKeyGuard)
     expect(posthogImport).toBeGreaterThan(posthogKeyGuard)
+  })
+
+  test('Google Ads library is not preloaded on the first-paint path', () => {
+    const tag = readAppFile('src/components/GoogleAdsTag.tsx')
+    const layout = readAppFile('src/app/layout.tsx')
+
+    expect(tag).toContain('www.googletagmanager.com/gtag/js')
+    expect(tag).toContain('strategy="afterInteractive"')
+    expect(tag).toContain('strategy="lazyOnload"')
+    expect(layout).toContain("process.env.NODE_ENV === 'production' ? <GoogleAdsTag /> : null")
   })
 
   test('production builds upload PostHog source maps when credentials are available', () => {

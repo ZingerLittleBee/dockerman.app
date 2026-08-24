@@ -13,7 +13,7 @@ gtag('config', '${GOOGLE_ADS_ID}');`}
       </Script>
       <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_ID}`}
-        strategy="afterInteractive"
+        strategy="lazyOnload"
       />
     </>
   )
