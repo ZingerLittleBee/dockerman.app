@@ -2,16 +2,15 @@
 
 import { useEffect } from 'react'
 
+import { captureBrowserEvent } from '../analytics/browserPostHog'
 import { createScrollDepthTracker } from '../analytics/pageTracking'
 
 export function useScrollDepth(pagePath: string) {
   useEffect(() => {
     const tracker = createScrollDepthTracker(pagePath, (depth, trackedPagePath) => {
-      import('posthog-js').then(({ default: posthog }) => {
-        posthog.capture('page_scroll_depth', {
-          depth,
-          page_path: trackedPagePath
-        })
+      captureBrowserEvent('page_scroll_depth', {
+        depth,
+        page_path: trackedPagePath
       })
     })
 

@@ -1,7 +1,14 @@
+import {
+  type BrowserEventProperties,
+  type BrowserPostHogCaptureSeam,
+  markBrowserPostHogFailed,
+  markBrowserPostHogReady
+} from '@repo/shared/analytics/browserPostHog'
 import { createPostHogConfig } from './posthogConfig'
 
 interface PostHogClient {
   init: (apiKey: string, config: ReturnType<typeof createPostHogConfig>) => void
+  capture: (event: string, properties?: BrowserEventProperties) => unknown
 }
 
 export interface BrowserPostHogDependencies {
@@ -9,10 +16,17 @@ export interface BrowserPostHogDependencies {
   getHost: () => string | undefined
   isDebug: () => boolean
   importPostHog: () => Promise<{ default: PostHogClient }>
+  captureSeam?: BrowserPostHogCaptureSeam
+}
+
+const defaultCaptureSeam: BrowserPostHogCaptureSeam = {
+  markReady: markBrowserPostHogReady,
+  markFailed: markBrowserPostHogFailed
 }
 
 export function createBrowserPostHogInitializer(dependencies: BrowserPostHogDependencies) {
   let started = false
+  const captureSeam = dependencies.captureSeam ?? defaultCaptureSeam
 
   return async function initBrowserPostHog() {
     if (started) {
@@ -21,13 +35,20 @@ export function createBrowserPostHogInitializer(dependencies: BrowserPostHogDepe
 
     const posthogKey = dependencies.getKey()
     if (!posthogKey) {
+      started = true
+      captureSeam.markFailed()
       return
     }
 
     started = true
 
-    const { default: posthog } = await dependencies.importPostHog()
-    posthog.init(posthogKey, createPostHogConfig(dependencies.getHost(), dependencies.isDebug()))
+    try {
+      const { default: posthog } = await dependencies.importPostHog()
+      posthog.init(posthogKey, createPostHogConfig(dependencies.getHost(), dependencies.isDebug()))
+      captureSeam.markReady(posthog)
+    } catch {
+      captureSeam.markFailed()
+    }
   }
 }
 

@@ -37,6 +37,22 @@ describe('landing performance contracts', () => {
     expect(posthogImport).toBeGreaterThan(posthogKeyGuard)
   })
 
+  test('browser PostHog capture callers share the deferred queue instead of importing posthog-js', () => {
+    const callers = [
+      'src/components/ThemeSwitch.tsx',
+      'src/app/[locale]/(main)/about/page.tsx',
+      '../../packages/shared/src/hooks/usePageEngaged.ts',
+      '../../packages/shared/src/hooks/useScrollDepth.ts'
+    ]
+
+    for (const path of callers) {
+      const source = readAppFile(path)
+      expect(source).not.toContain("import('posthog-js')")
+      expect(source).not.toContain("from 'posthog-js'")
+      expect(source).toContain('captureBrowserEvent')
+    }
+  })
+
   test('Google Ads library is not preloaded on the first-paint path', () => {
     const tag = readAppFile('src/components/GoogleAdsTag.tsx')
     const layout = readAppFile('src/app/layout.tsx')
