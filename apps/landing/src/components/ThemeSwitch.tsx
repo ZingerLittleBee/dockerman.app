@@ -2,6 +2,7 @@
 
 import * as RadioGroupPrimitives from '@radix-ui/react-radio-group'
 import { RiMoonLine, RiSunLine } from '@remixicon/react'
+import { captureBrowserEvent } from '@repo/shared/analytics/browserPostHog'
 import { useTheme } from 'next-themes'
 import { useSyncExternalStore } from 'react'
 import { applyThemeWithTransition } from '@/lib/theme-transition'
@@ -46,17 +47,11 @@ function ThemeSwitch() {
 
     applyThemeWithTransition(() => setTheme(value))
 
-    import('posthog-js')
-      .then(({ default: posthog }) => {
-        posthog.capture('footer_theme_changed', {
-          from_theme: fromTheme,
-          to_theme: value,
-          location: 'navbar'
-        })
-      })
-      .catch(() => {
-        /* analytics failures shouldn't block theme changes */
-      })
+    captureBrowserEvent('footer_theme_changed', {
+      from_theme: fromTheme,
+      to_theme: value,
+      location: 'navbar'
+    })
   }
 
   return (

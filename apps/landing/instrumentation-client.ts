@@ -1,23 +1,6 @@
-import { createPostHogConfig } from './src/lib/analytics/posthogConfig'
+import { createProductionBrowserPostHogInitializer } from './src/lib/analytics/initBrowserPostHog'
+import { scheduleAfterLoadIdle } from './src/lib/analytics/scheduleAfterLoadIdle'
 
-const initPostHog = async () => {
-  const posthogKey = process.env.NEXT_PUBLIC_POSTHOG_KEY
+const initPostHog = createProductionBrowserPostHogInitializer()
 
-  if (!posthogKey) {
-    return
-  }
-
-  const { default: posthog } = await import('posthog-js')
-
-  posthog.init(
-    posthogKey,
-    createPostHogConfig(
-      process.env.NEXT_PUBLIC_POSTHOG_HOST,
-      process.env.NODE_ENV === 'development'
-    )
-  )
-}
-
-initPostHog().catch(() => {
-  // Analytics failures should not block app initialization.
-})
+scheduleAfterLoadIdle(initPostHog)

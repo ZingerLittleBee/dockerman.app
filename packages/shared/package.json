@@ -8,6 +8,7 @@
     "./i18n/server": "./src/i18n/server.ts",
     "./i18n/settings": "./src/i18n/settings.ts",
     "./utils": "./src/utils.ts",
+    "./analytics/browserPostHog": "./src/analytics/browserPostHog.ts",
     "./components/I18nProvider": "./src/components/I18nProvider.tsx",
     "./components/LenisProvider": "./src/components/LenisProvider.tsx",
     "./components/AnalyticsTracker": "./src/components/AnalyticsTracker.tsx",
