@@ -3,11 +3,11 @@ title: "高度な機能とスクリプト化"
 description: "Schema、call エスケープハッチ、Cloudflare Quick Tunnels、管理対象 WSL2 エンジン、自動化のヒント。"
 ---
 
-使用頻度の低い CLI コマンドと、シェルスクリプト、CI パイプライン、LLM ツールチェーンから `dockerman` を包むときに使うパターンをまとめます。
+使用頻度の低い CLI コマンドと、シェルスクリプト、CI パイプライン、LLM ツールチェーンから `dockerman` をラップするときに使うパターンをまとめます。
 
 ## `schema` と `call`
 
-schema は対応するデーモン面を記述します。`call` が呼べるのは、ハードコードされた allowlist の unary RPC だけです。無制限の逃げ道ではありません。
+schema は対応するデーモン側の API 面を記述します。`call` が呼べるのは、ハードコードされた許可リスト上の unary RPC だけです。無制限のエスケープハッチではありません。
 
 ```bash
 dockerman schema
@@ -19,7 +19,7 @@ dockerman call hub_search '{"query":"alpine","pageSize":5}'
 dockerman call remove_container '{"name":"web","options":{"force":true}}' --yes
 ```
 
-`call` は params の JSON オブジェクトを受け取ります。破壊的 RPC は専用サブコマンドと同じく `--yes`（または `-y`）が必要です。**ストリーミング RPC は `call` で呼べません**——正しいエンベロープを得るには専用のストリーミングコマンドを使ってください。
+`call` は JSON 形式のパラメータオブジェクトを受け取ります。破壊的 RPC は専用サブコマンドと同じく `--yes`（または `-y`）が必要です。**ストリーミング RPC は `call` で呼べません**——正しいエンベロープを得るには専用のストリーミングコマンドを使ってください。
 
 <Callout type="info">
   `schema --format mcp-tools` は MCP 互換のツールレジストリを出力します。Model Context Protocol を話す LLM エージェントにそのまま渡せます。
@@ -37,7 +37,7 @@ dockerman events --since 2026-05-01T00:00:00Z --until 2026-05-01T01:00:00Z
 
 ## Cloudflare Quick Tunnels
 
-ローカルコンテナのポートを公開 `trycloudflare.com` URL で公開します。Quick Tunnels はその場限りで認証なし——開発やライブデモ用途に限り、本番 ingress には絶対使わないでください。
+ローカルコンテナのポートを公開 `trycloudflare.com` URL で公開します。Quick Tunnels はその場限りで認証なし——開発やライブデモ用途に限り、本番の公開入口としては使わないでください。
 
 ```bash
 dockerman tunnel status --json
@@ -57,7 +57,7 @@ dockerman tunnel close-container web
 
 ## 管理対象 WSL2 エンジン（Windows）
 
-Windows では、daemon が `dockerman-backend` という専用 WSL2 ディストリを管理し、その中で Docker Engine を動かして Linux コンテナを実行できます。CLI と GUI は同一エンジンを共有します。
+Windows では、デーモンが `dockerman-backend` という専用 WSL2 ディストリを管理し、その中で Docker Engine を動かして Linux コンテナを実行できます。CLI と GUI は同一エンジンを共有します。
 
 ```bash
 dockerman wsl status
@@ -95,7 +95,7 @@ fi
 
 CLI はスクリプトがどれほど自信を持っていても常に `--yes` を要求します。**`--force-yes` も環境変数によるバイパスも存在しません**——これは意図的な設計です。
 
-## daemon 発見失敗の検知
+## デーモン発見失敗の検知
 
 ```bash
 if ! dockerman system info >/dev/null 2>&1; then
@@ -108,4 +108,4 @@ fi
 
 ### CI での長時間ストリーム
 
-CI ランナーは数分間出力がないプロセスを kill しがちです。daemon の 15 秒ハートビートはストリーミングコマンドが*何かしら*ワイヤに流すことを保証しますが、平文モードではハートビートは隠れます。CI では `--json` を使ってハートビートを可視行として現すか、`ts` にパイプして各行にタイムスタンプを付けてください。
+CI ランナーは数分間出力がないプロセスを強制終了しがちです。デーモンの 15 秒ハートビートは、ストリーミングコマンドが通信路上に何らかの出力を流すことを保証しますが、平文モードではハートビートは隠れます。CI では `--json` を使ってハートビートを可視行として現すか、`ts` にパイプして各行にタイムスタンプを付けてください。

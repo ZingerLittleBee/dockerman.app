@@ -3,7 +3,7 @@ title: "Linux"
 description: "Linux ディストリビューションに Dockerman をインストールし、セットアップ用に Docker Engine を構成。"
 ---
 
-Dockerman は `.deb`、`.rpm`、または AppImage として出ているので、お使いのディストリビューションに入れられます。
+Dockerman は `.deb`、`.rpm`、または AppImage として提供されているため、お使いのディストリビューションにインストールできます。
 
 ## インストール
 
@@ -71,13 +71,13 @@ Dockerman は Wayland または X11 で実行できます。グローバルシ�
 
 ## Freedesktop 統合
 
-Dockerman は `.desktop` ファイルを入れるので、アプリケーションメニューに出ます。トレイアイコンは StatusNotifierItem 仕様で、KDE、拡張機能付き GNOME、XFCE、MATE で動きます。
+Dockerman は `.desktop` ファイルをインストールするため、アプリケーションメニューに表示されます。トレイアイコンは StatusNotifierItem 仕様を使用しており、KDE、拡張機能付き GNOME、XFCE、MATE でサポートされています。
 
 ## トラブルシューティング
 
 <Accordions>
   <Accordion title="docker コマンドが見つからない">
-    まず Docker Engine を入れ、新しいシェルを開いて PATH が Docker CLI を見つけるようにしてください。
+    まず Docker Engine をインストールし、新しいシェルを開いて PATH が Docker CLI を認識できるようにしてください。
   </Accordion>
   <Accordion title="/var/run/docker.sock でのアクセス権拒否">
     ユーザを`docker`グループに追加し、ログアウトして再ログインして新しいグループメンバーシップを有効にしてください。
