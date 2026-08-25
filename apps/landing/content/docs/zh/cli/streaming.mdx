@@ -3,7 +3,7 @@ title: "流式契约"
 description: "NDJSON envelope、命令特定输出、心跳、背压和信号行为。"
 ---
 
-多个 CLI 命令会消费 daemon stream，但并非所有长时间运行命令都使用相同输出。编写解析器前请检查对应命令的 `--help`。
+多个 CLI 命令会消费 daemon stream，但长时间运行的命令输出并不都一样。写解析器前先看对应命令的 `--help`。
 
 ## Daemon stream envelope
 

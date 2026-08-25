@@ -5,7 +5,7 @@ description: 在 Windows WSL 环境下使用 Dockerman
 
 ## 概览
 
-Dockerman 支持通过 Windows Subsystem for Linux (WSL 2) 运行的 Docker。本指南介绍设置方法和常见配置。
+Dockerman 支持通过 Windows Subsystem for Linux (WSL 2) 运行的 Docker。下面是设置方法和常见问题。
 
 ## 前提条件
 
@@ -43,7 +43,7 @@ sudo service docker start
 
 ### 性能较慢
 
-WSL 2 使用虚拟机运行。为获得最佳性能：
+WSL 2 跑在虚拟机里。文件和内存在 WSL 侧时会快一些：
 
 - 将项目文件存储在 WSL 2 文件系统中（而非 Windows 驱动器上）
 - 在 `.wslconfig` 中为 WSL 2 分配足够的内存

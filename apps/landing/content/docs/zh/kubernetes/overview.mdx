@@ -3,11 +3,11 @@ title: "概览"
 description: "Dockerman 的原生 Kubernetes 支持 — 工作负载、网络、配置、存储、RBAC、CRD、Helm 与调试。"
 ---
 
-Dockerman 的 Kubernetes 支持提供了一种轻量级、以 GUI 为先的方式，让你无需切换工具或学习新仪表板即可运行和检查真实的 Kubernetes 集群。
+Dockerman 的 Kubernetes 支持以 GUI 为主，体量也轻，用来运行和检查真实集群，不必换工具或另学一套仪表板。
 
 ## 为什么使用 Dockerman 管理 Kubernetes
 
-当你希望在管理 Docker 的同一应用中使用 Kubernetes 时，请选择 Dockerman。保持界面本地化且快速，随身携带 k3d 实现一键集群设置，并始终停留在原生 Rust 和 Tauri 桌面应用中，无需跳转到其他仪表板。它比 Docker Desktop 内置的 Kubernetes 路径更轻量，适用于本地开发、小型集群和 CI 健康检查。
+已经在用 Dockerman 管 Docker 时，Kubernetes 也在同一个应用里。界面在本地、也快，k3d 可以一键拉起集群，过程留在 Rust + Tauri 桌面应用里，不必跳到别的仪表板。比 Docker Desktop 自带的 Kubernetes 更轻，适合本地开发、小型集群和 CI 健康检查。
 
 ## 功能概览
 
@@ -48,31 +48,31 @@ Dockerman 的 Kubernetes 支持提供了一种轻量级、以 GUI 为先的方�
 
 打开 Kubernetes 概览查看集群的实时摘要。
 
-- **CPU 和内存卡片** — 集群范围的使用情况以醒目卡片形式展示。需要目标集群中安装 `metrics-server`。
+- **CPU 和内存卡片** — 以卡片显示集群范围的使用情况。需要目标集群中安装 `metrics-server`。
 - **工作负载计数** — 在**所有命名空间**中（不仅是当前活动命名空间）统计运行中和待定的 Pod、Deployment、Service 等资源。
-- **节点状态** — 一目了然地查看节点数量和就绪状态。
+- **节点状态** — 节点数量和就绪状态。
 - **最近事件** — 最近的集群事件，并提供链接跳转到完整的[事件](/zh/docs/kubernetes/events)浏览器。
 
-在深入查看具体资源之前，可以将仪表板作为起点。
+先看仪表板，再进具体资源。
 
 ## 多集群切换
 
-Dockerman **独立于活动 Docker 主机**追踪当前活动的 Kubernetes 集群。切换集群时会尽量保留当前 K8s 页面，应用重启后会恢复深层页面（CRD 实例、YAML 编辑器），并刷新命名空间选择器以匹配新集群。重启后重新连接集群会恢复上次访问的资源，让你不丢失上下文。
+Dockerman **独立于活动 Docker 主机**追踪当前活动的 Kubernetes 集群。切换集群时会尽量保留当前 K8s 页面，应用重启后会恢复深层页面（CRD 实例、YAML 编辑器），并刷新命名空间选择器以匹配新集群。重启后重新连接集群会恢复上次访问的资源。
 
 ## 两种启动方式
 
 <Tabs items={['k3d（本地）', '现有集群']}>
   <Tab>
-    当你需要用于开发或测试的一次性本地集群时，打开[集群](/zh/docs/kubernetes/cluster)并使用[使用 k3d 启动本地集群](/zh/docs/kubernetes/cluster#使用-k3d-启动本地集群)流程。
+    需要一次性本地开发或测试集群时，打开[集群](/zh/docs/kubernetes/cluster)并使用[使用 k3d 启动本地集群](/zh/docs/kubernetes/cluster#使用-k3d-启动本地集群)流程。
   </Tab>
   <Tab>
-    当你已有 kind、minikube、EKS、GKE、AKS 或本地部署的 kubeconfig 时，打开[集群](/zh/docs/kubernetes/cluster)并使用[导入已有集群](/zh/docs/kubernetes/cluster#导入已有集群)流程。
+    已有 kind、minikube、EKS、GKE、AKS 或本地部署的 kubeconfig 时，打开[集群](/zh/docs/kubernetes/cluster)并使用[导入已有集群](/zh/docs/kubernetes/cluster#导入已有集群)流程。
   </Tab>
 </Tabs>
 
 ## 命名空间
 
-使用顶部栏中的命名空间切换器来限定每个 Kubernetes 列表的范围。无需断开集群连接即可切换命名空间，然后继续在新命名空间中浏览工作负载、网络、配置和 RBAC。
+用顶部栏的命名空间切换器限定每个 Kubernetes 列表的范围。切换命名空间不必断开集群，然后继续在新命名空间里浏览工作负载、网络、配置和 RBAC。
 
 ## 侧边栏自定义
 
@@ -85,7 +85,7 @@ Kubernetes 侧边栏有七组：Cluster、Workloads、Service & Network、Config
 
 ## 权限错误
 
-列表返回类型化的 `K8sListResult<T>`，这样 `403 Forbidden` 会**在列表本身展示**，而不会让整个页面失败。你能精确看到当前上下文缺少哪个资源的访问权限，同时仍可继续使用集群的其他部分，方便修复 RBAC。
+列表返回类型化的 `K8sListResult<T>`，这样 `403 Forbidden` 会**在列表本身展示**，而不会让整个页面失败。你能精确看到当前上下文缺少哪个资源的访问权限，同时仍可继续使用集群的其他部分，再去修 RBAC。
 
 ## 暂不支持的功能
 
