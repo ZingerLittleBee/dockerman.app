@@ -1,9 +1,9 @@
 ---
 title: Networks and Volumes
-description: Manage Docker networks and volumes from the CLI — create, inspect, connect, prune.
+description: Create, inspect, connect, and prune Docker networks and volumes from the CLI.
 ---
 
-The `network` and `volume` command groups expose every operation the GUI offers for these two resource types. Both follow the same patterns as `container` and `image`: `list`, `inspect`, `create`, `remove`/`prune`, plus relationship commands for networks.
+`network` and `volume` follow the same patterns as `container` and `image`: `list`, `inspect`, `create`, `remove`/`prune`, plus connect/disconnect for networks.
 
 ## Networks
 
@@ -90,4 +90,4 @@ dockerman volume remove data --force --yes
 dockerman volume prune --filter "label=temp=true" --yes
 ```
 
-`prune` deletes every dangling (unreferenced) volume that matches the filter set. `--filter` is repeatable and uses Docker's standard filter syntax (`label=`, `label!=`, etc.). Always combine with explicit filters in scripts — bare `volume prune --yes` deletes every dangling volume on the host.
+`prune` deletes every dangling (unreferenced) volume that matches the filter set. `--filter` is repeatable and uses Docker's standard filter syntax (`label=`, `label!=`, etc.). Always combine with explicit filters in scripts. Bare `volume prune --yes` deletes every dangling volume on the host.

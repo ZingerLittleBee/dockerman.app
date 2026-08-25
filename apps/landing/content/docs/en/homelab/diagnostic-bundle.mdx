@@ -1,9 +1,9 @@
 ---
 title: Diagnostic Bundle
-description: Generate a one-click zip of inspect data, events, logs, and stats for a container or Compose stack.
+description: Export a zip of inspect data, events, logs, and stats for a container or Compose stack.
 ---
 
-The diagnostic bundle packs everything you need to debug a container or Compose stack into a single `.zip` file. Share it with a friend, post it in an issue, or keep it for your own reference.
+A diagnostic bundle is a `.zip` of inspect data, events, logs, and stats for a container or Compose stack. Use it when filing an issue or debugging locally.
 
 ## What the bundle contains
 
@@ -89,6 +89,6 @@ This applies to the `inspect.json` files in the bundle. You can disable redactio
 
 ## Tips
 
-- Use diagnostic bundles when asking for help in GitHub issues or community forums. The structured format makes it easy for others to understand your setup.
-- The stats data in the bundle depends on the [background task scheduler](/en/docs/homelab/scheduler) having collected time series data. If the scheduler was recently enabled, the stats section may only contain a current snapshot.
-- For Compose stacks with many containers, bundles can grow large. Use a shorter time window to keep the file size manageable.
+- Attach a diagnostic bundle when you open a GitHub issue or ask for help in a forum. The files are structured so others can inspect the same data you see.
+- Stats in the bundle depend on the [background task scheduler](/en/docs/homelab/scheduler) having collected time series data. If the scheduler was recently enabled, the stats section may only contain a current snapshot.
+- For Compose stacks with many containers, bundles can grow large. Use a shorter time window to keep the file size down.

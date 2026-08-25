@@ -3,7 +3,7 @@ title: Kubernetes
 description: Read-only Kubernetes commands for cluster discovery, namespace selection, and resource inspection.
 ---
 
-The `k8s` command group is **read-only**: it discovers clusters from your kubeconfig, switches between them, and inspects an allowlisted set of built-in resources. It does not create, update, or delete resources, and it cannot query arbitrary CR kinds.
+The `k8s` command group is **read-only**. It discovers clusters from your kubeconfig, switches between them, and inspects an allowlisted set of built-in resources. It does not create, update, or delete resources, and it cannot query arbitrary CR kinds.
 
 ## Pick a cluster and namespace
 
@@ -111,8 +111,8 @@ dockerman k8s resource yaml secrets.core/v1 app-secret
 dockerman k8s resource yaml secrets.core/v1 app-secret --json
 ```
 
-`resource yaml` prints the redacted manifest. Secret data is replaced with `<REDACTED>` before it leaves the daemon — you cannot retrieve secret values through the CLI.
+`resource yaml` prints the redacted manifest. Secret data is replaced with `<REDACTED>` before it leaves the daemon. You cannot retrieve secret values through the CLI.
 
 <Callout type="warn">
-  All k8s commands are read-only by design. To apply changes, use `kubectl` directly. Dockerman's k8s surface is intended for safe inspection from automation and from the GUI.
+  All k8s commands are read-only. To apply changes, use `kubectl` directly. Dockerman's k8s commands are for inspection from automation or the GUI.
 </Callout>

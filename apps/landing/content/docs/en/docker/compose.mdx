@@ -3,7 +3,7 @@ title: Compose
 description: Manage Compose projects and edit their YAML.
 ---
 
-The Compose page discovers projects from Docker Compose labels and exposes the lifecycle actions supported by the selected Docker runtime. Compose is unavailable for Podman targets.
+The Compose page discovers projects from Docker Compose labels and offers the lifecycle actions supported by the selected Docker runtime. Compose is unavailable for Podman targets.
 
 ## Lifecycle
 
@@ -11,7 +11,7 @@ Start, stop, restart, pull, up, and remove are available according to project st
 
 ## Edit YAML
 
-Open the project's Compose file in the editor, save it, then apply changes when ready. Saving does not run `docker compose config` first and the editor does not promise complete Compose-schema validation or autocomplete. Validate important files independently.
+Open the project's Compose file in the editor, save it, then apply changes when ready. Saving does not run `docker compose config` first, and the editor does not validate against the full Compose schema or provide complete autocomplete. Validate important files independently.
 
 ## Convert `docker run`
 
@@ -19,4 +19,4 @@ The Run to Compose flow parses common `docker run` flags into a YAML preview. Re
 
 ## Current boundaries
 
-Dockerman does not currently provide a project-level merged log viewer on this page. Curated application templates live under **Apps**, not as a built-in Compose template editor, and existing Compose files cannot be saved as reusable templates from this page.
+Dockerman does not provide a project-level merged log viewer on this page. Application templates live under **Apps**, not as a built-in Compose template editor, and existing Compose files cannot be saved as reusable templates from this page.

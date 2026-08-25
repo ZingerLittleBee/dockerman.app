@@ -1,13 +1,11 @@
 ---
 title: Colima & Podman
-description: Use Colima or Podman machine as a free Docker backend on macOS.
+description: Connect Dockerman to Colima or Podman machine on macOS.
 ---
 
-## Overview
+Colima and Podman machine are free, open-source Docker Desktop alternatives on macOS. Each runs a Linux VM that exposes a Docker-compatible socket, and Dockerman connects to that socket like any other engine.
 
-Colima and Podman machine are free, open-source alternatives to Docker Desktop on macOS. Both run a lightweight Linux VM that exposes a Docker-compatible socket, and Dockerman connects to it like any other engine.
-
-Dockerman never installs, updates, starts, or stops these engines. Install and manage Colima or Podman yourself, then configure its socket in Dockerman.
+Dockerman never installs, updates, starts, or stops these engines. Install and manage Colima or Podman yourself, then set the socket path in Dockerman.
 
 ## Install
 
@@ -21,7 +19,7 @@ brew install podman
 
 ## First start (run in your terminal)
 
-The engine creates its VM on the first start, and that step downloads a guest OS image from the internet. Run it yourself in a terminal so you can watch the progress:
+The engine creates its VM on the first start, and that step downloads a guest OS image from the internet. Run it in a terminal so you can see the download progress:
 
 ```bash
 # Colima — downloads a ~330 MB guest image on first start
@@ -36,7 +34,7 @@ podman machine start
   The first start can take several minutes depending on your connection. Later starts reuse the downloaded image and finish in seconds.
 </Callout>
 
-Pick CPU and memory values that fit your machine — half your CPU cores and 4–8 GB of memory is a good starting point. The upstream default of 2 GB is too small for most image builds.
+Pick CPU and memory values that fit your machine. Half your CPU cores and 4–8 GB of memory is a workable starting point; the upstream default of 2 GB is too small for most image builds.
 
 ### Behind a proxy
 

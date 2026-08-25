@@ -1,9 +1,9 @@
 ---
 title: Workloads
-description: Manage Pods, Deployments, StatefulSets, DaemonSets, Jobs, CronJobs, and ReplicaSets in one place.
+description: Manage Pods, Deployments, StatefulSets, DaemonSets, Jobs, CronJobs, and ReplicaSets.
 ---
 
-Manage every workload resource type from one page. Use the list view to scan status, open the detail view for actions, and drop into the YAML editor when you need to edit the object directly.
+The Workloads page lists every supported workload type. Scan status in the list, open a row for actions, and use the YAML editor when you need to edit the object directly.
 
 ## Pods
 
@@ -21,9 +21,7 @@ Delete a Pod from the list view when you need to force a restart or remove a stu
 
 ## Deployments
 
-Use Deployments when you want replica management in one place.
-
-The list shows ready, updated, and available replicas so you can see health at a glance.
+The list shows ready, updated, and available replicas.
 
 <Steps>
   <Step>
@@ -40,19 +38,19 @@ The list shows ready, updated, and available replicas so you can see health at a
 
 ## StatefulSets
 
-Use StatefulSets for ordered pod names, stable identities, and persistent storage templates. The detail view shows the current replicas and associated pods. Scale and restart work the same way as Deployments.
+StatefulSets keep ordered pod names, stable identities, and persistent storage templates. The detail view shows the current replicas and associated pods. Scale and restart work the same way as Deployments.
 
 ## DaemonSets
 
-Use DaemonSets when you need one pod per matching node, such as log collectors, monitoring agents, or node-level networking components.
+DaemonSets run one pod per matching node — for example log collectors, monitoring agents, or node-level networking components.
 
 ## Jobs
 
-Use Jobs for run-to-completion work. Track completions, backoff limits, and active deadlines from the list and detail view. Delete a Job from the list when the run is finished and no longer needed.
+Jobs run work to completion. Track completions, backoff limits, and active deadlines from the list and detail view. Delete a Job from the list when the run is finished and no longer needed.
 
 ## CronJobs
 
-Use CronJobs when you need scheduled Jobs. Review the cron expression, suspend state, last run, and manual trigger controls from the detail view.
+CronJobs schedule Jobs. Review the cron expression, suspend state, last run, and manual trigger controls from the detail view.
 
 ## ReplicaSets
 

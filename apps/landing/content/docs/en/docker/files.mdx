@@ -3,7 +3,7 @@ title: Files
 description: Browse, preview, edit, upload, download, and delete files inside volumes and running containers.
 ---
 
-Use the Files browser the same way whether you are inside a volume or inside a running container. This page covers both entry points and every file operation.
+Use the Files browser the same way whether you are inside a volume or inside a running container.
 
 ## Entry points
 
@@ -18,13 +18,13 @@ Use the Files browser the same way whether you are inside a volume or inside a r
 
 ## Navigation
 
-Use the tree on the left to move through folders, use the breadcrumb at the top to jump back up, double-click folders to descend, and use Back or Home when you want to jump quickly. The path input lets you jump straight to a known path.
+Use the tree on the left to move through folders, the breadcrumb at the top to move up, double-click folders to descend, and Back or Home for quick jumps. The path input jumps straight to a known path.
 
 ## Preview files
 
 Added in v4.4.0.
 
-Preview handles the common file types you expect to inspect without downloading the file first.
+Preview opens common file types without downloading first.
 
 | Type | Formats |
 | --- | --- |
@@ -47,7 +47,7 @@ Added in v4.4.0.
 Open text and code files in Monaco, make your changes, then save them back to the volume or container. Unsaved changes stay visible until you save or discard them.
 
 <Callout type="warn">
-  Editing a file inside a running container changes the container's writable layer, not the image. Restarting from the same image discards the edit unless you commit the container first, see [Commit a running container](/en/docs/docker/containers#commit-a-running-container).
+  Editing a file inside a running container changes the container's writable layer, not the image. Restarting from the same image discards the edit unless you commit the container first; see [Inspect, clone, and commit](/en/docs/docker/containers#inspect-clone-and-commit).
 </Callout>
 
 ### Editor safety guards
@@ -71,4 +71,4 @@ Delete removes the selected file or folder from the current volume or container.
   File deletion is irreversible and bypasses any host recycle bin.
 </Callout>
 
-Delete operates on the selected entry. The current browser does not provide the documented multi-select shortcut set or batch deletion.
+Delete operates on the selected entry. The current browser does not provide multi-select shortcuts or batch deletion.
