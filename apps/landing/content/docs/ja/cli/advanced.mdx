@@ -37,7 +37,7 @@ dockerman events --since 2026-05-01T00:00:00Z --until 2026-05-01T01:00:00Z
 
 ## Cloudflare Quick Tunnels
 
-ローカルコンテナのポートを公開 `trycloudflare.com` URL で公開します。Quick Tunnels はその場限りで認証なし——開発やライブデモ用途に限り、本番の公開入口としては使わないでください。
+ローカルコンテナのポートをトンネル経由で公開し、一時的な `trycloudflare.com` URL を発行します。Quick Tunnels はその場限りで認証なし——開発やライブデモ用途に限り、本番の公開入口としては使わないでください。
 
 ```bash
 dockerman tunnel status --json
@@ -51,7 +51,7 @@ dockerman tunnel close web --host-port 8080 --host-ip 0.0.0.0
 dockerman tunnel close-container web
 ```
 
-`tunnel create` はネットワーク露出面を変えるので破壊的扱い、`--yes` が必須です。`cloudflared` が未インストールなら `--install` を付けてください；CLI はインストール進捗をストリーミングしてからトンネルを開きます。SSH 転送のリモート Docker ホストはトンネルターゲットとしてサポートされません。
+`tunnel create` はネットワークの公開範囲が変わるため、破壊的な操作として扱われ、`--yes` が必須です。`cloudflared` が未インストールなら `--install` を付けてください；CLI はインストール進捗をストリーミングしてからトンネルを開きます。SSH 転送のリモート Docker ホストはトンネルターゲットとしてサポートされません。
 
 `--host-port` と `--all` は互いに排他的です：特定の公開ポートを選ぶか、コンテナが公開しているすべてのポートを露出するかのどちらか。`--host-ip` は最低 1 つの `--host-port` と組み合わせる必要があります；ポートを指定せず IP だけでバインドすることはできません。
 
