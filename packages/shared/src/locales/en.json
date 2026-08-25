@@ -354,7 +354,7 @@
     "compare": {
       "titleLead": "What you get,",
       "titleAccent": "feature by feature.",
-      "description": "Every plan includes the full local feature set, Kubernetes and Cloudflared included. Paid plans add remote host connections.",
+      "description": "Every plan gets the full local feature set — including Kubernetes and Cloudflared. Paid plans add remote host connections.",
       "columns": {
         "feature": "Feature",
         "free": "Free",
@@ -505,10 +505,10 @@
   "about": {
     "badge": "about",
     "title": "Building the Docker management tool we always wanted",
-    "description": "We're a team of developers and designers who think managing Docker containers should be simple and efficient.",
+    "description": "We're a team of developers and designers who think managing Docker containers should be simple to pick up and efficient to use.",
     "mission": {
       "title": "Our Mission",
-      "p1": "Dockerman grew out of our own frustration with existing Docker management tools. We wanted something fast, cross-platform, and focused on developer productivity.",
+      "p1": "Dockerman grew out of our own frustration with existing Docker management tools. We wanted something fast and cross-platform, built around everyday developer work.",
       "p2": "We want container management to be approachable for individual developers and large teams alike, without giving up what Docker can do."
     },
     "team": {
@@ -520,15 +520,15 @@
       "title": "Our Values",
       "performanceFirst": {
         "title": "Performance First",
-        "description": "Built with Rust and Tauri to stay fast on minimal resources."
+        "description": "Built with Rust and Tauri to be fast and light on system resources."
       },
       "developerExperience": {
         "title": "Developer Experience",
-        "description": "An interface designed by the developers who use it daily."
+        "description": "An interface built by the developers it's for."
       },
       "privacyFocused": {
         "title": "Privacy Focused",
-        "description": "Your data stays local. Analytics are anonymous and opt-out."
+        "description": "Your data stays local, and we're transparent about the rest: analytics are anonymous, and you can disable them at any time."
       }
     },
     "connect": {
