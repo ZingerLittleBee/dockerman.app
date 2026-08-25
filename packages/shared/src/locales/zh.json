@@ -76,13 +76,13 @@
   "cta": {
     "titleLead": "打开托盘。",
     "titleAccent": "发布你的容器。",
-    "description": "使用本地 Docker，全部功能完全免费。只有连接远程主机才需要付费。",
+    "description": "使用本地 Docker，全部功能免费。只有连接远程主机才需要付费。",
     "downloadButton": "下载 Dockerman",
     "platformsBadge": "macOS · Win · Linux",
     "reportIssue": "到 GitHub 反馈问题 →"
   },
   "footer": {
-    "tagline": "现代、轻量的 Docker 与 Kubernetes 桌面客户端，基于 Rust + Tauri 构建。",
+    "tagline": "轻量的 Docker 与 Kubernetes 桌面客户端，基于 Rust + Tauri 构建。",
     "columns": {
       "product": "产品",
       "docs": "文档",
@@ -114,7 +114,7 @@
     "kicker": "特性",
     "titleLead": "你关心的每一个对象，",
     "titleAccent": "只差一次击键。",
-    "description": "容器、镜像、卷、网络、Compose 项目、Kubernetes 工作负载、Cloudflared 隧道 —— 全部汇聚于单一的低延迟界面。",
+    "description": "容器、镜像、卷、网络、Compose 项目、Kubernetes 工作负载、Cloudflared 隧道 —— 都在同一个低延迟界面里。",
     "cards": {
       "palette": {
         "title": "命令面板即应用",
@@ -290,7 +290,7 @@
       "free": {
         "label": "免费",
         "name": "Free",
-        "description": "使用本地 Docker，全部功能完全免费。不含远程主机连接。",
+        "description": "使用本地 Docker，全部功能免费。不含远程主机连接。",
         "freq": "永久 · 仅限本地",
         "cta": "当前方案",
         "ctaNote": "您正在使用此方案",
@@ -330,7 +330,7 @@
       "solo": {
         "label": "1 台设备",
         "name": "Solo",
-        "description": "为个人用户而生。一个许可证，一台机器，含远程主机连接。",
+        "description": "面向个人用户。一个许可证，一台机器，含远程主机连接。",
         "freq": "一次付费 · 1 台设备",
         "cta": "购买 Solo — ${{price}}",
         "ctaNote": "一次付费,{{days}} 天退款保证",
@@ -354,7 +354,7 @@
     "compare": {
       "titleLead": "逐项对比，",
       "titleAccent": "一目了然。",
-      "description": "每个方案都包含完整的本地体验，含 Kubernetes 与 Cloudflared。付费方案只增加远程主机连接。",
+      "description": "每个方案都包含完整的本地功能，含 Kubernetes 与 Cloudflared。付费方案只增加远程主机连接。",
       "columns": {
         "feature": "功能",
         "free": "Free",
@@ -434,7 +434,7 @@
       "cta": "Dockerman 对比 Docker Desktop →"
     },
     "success": {
-      "title": "支付成功！",
+      "title": "支付成功",
       "description": "感谢您购买 Dockerman。许可证密钥将很快发送到您的邮箱。",
       "nextSteps": "后续步骤",
       "step1": "查收邮件中的许可证密钥",
@@ -448,7 +448,7 @@
       "items": [
         {
           "question": "终身许可证是什么意思？",
-          "answer": "使用本地 Docker，全部功能完全免费，无需购买许可证。付费终身许可证只需购买一次，即可在许可设备上永久解锁远程主机连接，并包含所有未来版本的终身免费更新。没有其他付费项。"
+          "answer": "使用本地 Docker，全部功能免费，无需购买许可证。付费终身许可证只需购买一次，即可在许可设备上永久解锁远程主机连接，并包含所有未来版本的终身免费更新。没有其他付费项。"
         },
         {
           "question": "设备限制是什么意思？",
@@ -457,11 +457,11 @@
         },
         {
           "question": "许可证可以同时用于 macOS 和 Windows 吗？",
-          "answer": "可以！您的许可证同时适用于 macOS 和 Windows。您可以在设备限制内自由混合使用不同平台。"
+          "answer": "可以。您的许可证同时适用于 macOS 和 Windows，可在设备限制内混用不同平台。"
         },
         {
           "question": "可以将 Dockerman 用于商业用途吗？",
-          "answer": "完全可以！我们不限制个人或商业使用。您可以将 Dockerman 用于任何用途，包括专业和企业环境。"
+          "answer": "可以。个人或商业使用均无限制，包括专业和企业环境。"
         },
         {
           "question": "有退款政策吗？",
@@ -505,11 +505,11 @@
   "about": {
     "badge": "关于",
     "title": "打造我们一直想要的 Docker 管理工具",
-    "description": "我们是一群开发者和设计师，相信管理 Docker 容器应该简单、直观且高效。",
+    "description": "我们是一群开发者和设计师，认为管理 Docker 容器应该简单、高效。",
     "mission": {
       "title": "我们的使命",
-      "p1": "Dockerman 诞生于我们对现有 Docker 管理工具的不满。我们想要一个快速、跨平台、专注于开发者生产力的工具。",
-      "p2": "我们的使命是让容器管理对每个人都触手可及，无论是个人开发者还是大型团队，同时保持 Docker 所提供的强大功能和灵活性。"
+      "p1": "Dockerman 源于我们对现有 Docker 管理工具的不满。我们想要的是快速、跨平台、专注于开发者生产力。",
+      "p2": "我们希望个人开发者和大型团队都能上手容器管理，同时不丢掉 Docker 能做的事。"
     },
     "team": {
       "title": "认识团队",
@@ -520,20 +520,20 @@
       "title": "我们的价值观",
       "performanceFirst": {
         "title": "性能优先",
-        "description": "基于 Rust 和 Tauri 构建，提供强大的性能和极低的资源占用。"
+        "description": "基于 Rust 和 Tauri 构建，用极少资源保持速度。"
       },
       "developerExperience": {
         "title": "开发者体验",
-        "description": "由开发者为开发者设计的直观界面。"
+        "description": "由每天都在用它的开发者设计的界面。"
       },
       "privacyFocused": {
         "title": "隐私至上",
-        "description": "您的数据留在本地。我们相信透明度和用户隐私。"
+        "description": "您的数据留在本地。分析匿名，可关闭。"
       }
     },
     "connect": {
       "title": "保持联系",
-      "description": "关注 Dockerman 的开发动态，第一时间了解新功能和更新。",
+      "description": "关注 Dockerman 的开发动态，了解功能和版本更新。",
       "followGithub": "在 GitHub 关注",
       "followX": "在 X 关注"
     }
@@ -992,7 +992,7 @@
       "kicker": "Docker Desktop 替代方案",
       "titleLead": "更轻的界面。",
       "titleAccent": "同样的容器。",
-      "description": "Dockerman 是面向 Docker、Podman 与 Kubernetes 的本地优先桌面客户端，也是 Docker Desktop 的轻量界面替代，不是 Docker Inc. 平台的复制品。后端由你选。使用本地 Docker，全部功能完全免费。唯一付费的是远程主机连接。"
+      "description": "Dockerman 是面向 Docker、Podman 与 Kubernetes 的本地优先桌面客户端，也是 Docker Desktop 的轻量界面替代，不是 Docker Inc. 平台的复制品。后端由你选。使用本地 Docker，全部功能免费。唯一付费的是远程主机连接。"
     },
     "table": {
       "kicker": "并排对比",
@@ -1017,7 +1017,7 @@
         },
         "local": {
           "label": "本地 Docker 与 Podman",
-          "dockerman": "使用本地 Docker，全部功能完全免费",
+          "dockerman": "使用本地 Docker，全部功能免费",
           "desktop": "个人与符合条件的小企业免费；更大规模组织需订阅"
         },
         "license": {
@@ -1067,7 +1067,7 @@
       },
       "license": {
         "title": "本地免费 vs Desktop 许可",
-        "body": "使用本地 Docker，全部功能完全免费，含商业使用。唯一付费的是远程主机连接 —— 一次买断（Solo ${{solo}} / Team ${{team}}）。没有其他付费项。Docker Desktop 对个人及符合 Docker 条款的组织免费；更大规模组织需要 Desktop 订阅。这是两种不同形态的产品与许可。"
+        "body": "使用本地 Docker，全部功能免费，含商业使用。唯一付费的是远程主机连接 —— 一次买断（Solo ${{solo}} / Team ${{team}}）。没有其他付费项。Docker Desktop 对个人及符合 Docker 条款的组织免费；更大规模组织需要 Desktop 订阅。这是两种不同形态的产品与许可。"
       },
       "engines": {
         "title": "后端由你选",
@@ -1079,7 +1079,7 @@
       },
       "pricing": {
         "title": "一次买断 vs 订阅",
-        "body": "Dockerman 不卖订阅。唯一付费的是远程主机连接：一次买断，含终身更新。使用本地 Docker，全部功能完全免费。Docker Desktop 的付费方案是 Docker Inc. 的订阅。"
+        "body": "Dockerman 不卖订阅。唯一付费的是远程主机连接：一次买断，含终身更新。使用本地 Docker，全部功能免费。Docker Desktop 的付费方案是 Docker Inc. 的订阅。"
       }
     },
     "orbstack": {
@@ -1097,7 +1097,7 @@
       "items": [
         {
           "question": "Dockerman 是 Docker Desktop 的替代吗？",
-          "answer": "作为轻量、本地优先的界面，是的。后端由你选。它管理 Docker、Podman 与 Kubernetes。使用本地 Docker 的功能（含 Kubernetes）完全免费。唯一付费的是远程主机连接。它并不替代 Docker Inc. 的每一款产品。"
+          "answer": "作为轻量、本地优先的界面，是的。后端由你选。它管理 Docker、Podman 与 Kubernetes。使用本地 Docker 的功能（含 Kubernetes）免费。唯一付费的是远程主机连接。它并不替代 Docker Inc. 的每一款产品。"
         },
         {
           "question": "Windows 上还需要 Docker Desktop 吗？",
@@ -1105,7 +1105,7 @@
         },
         {
           "question": "本地使用免费吗？",
-          "answer": "是的。使用本地 Docker，全部功能完全免费。只有连接远程主机才需要付费。"
+          "answer": "是的。使用本地 Docker，全部功能免费。只有连接远程主机才需要付费。"
         },
         {
           "question": "价格怎么比？",
@@ -1127,11 +1127,11 @@
   "meta": {
     "home": {
       "title": "Dockerman — 不用 Docker Desktop 的轻量 Docker UI",
-      "description": "Dockerman 是不用 Docker Desktop 的轻量 Docker UI，支持 macOS、Windows 与 Linux。本地优先管理 Docker、Podman 与 Kubernetes。使用本地 Docker，全部功能完全免费。"
+      "description": "Dockerman 是不用 Docker Desktop 的轻量 Docker UI，支持 macOS、Windows 与 Linux。本地优先管理 Docker、Podman 与 Kubernetes。使用本地 Docker，全部功能免费。"
     },
     "compare": {
       "title": "Docker Desktop 替代方案 — Dockerman",
-      "description": "对比 Dockerman 与 Docker Desktop：安装体积、内存、WSL2、Colima、Podman、许可与本地域名。使用本地 Docker，全部功能完全免费。只有远程主机需要付费。"
+      "description": "对比 Dockerman 与 Docker Desktop：安装体积、内存、WSL2、Colima、Podman、许可与本地域名。使用本地 Docker，全部功能免费。只有远程主机需要付费。"
     },
     "pricing": {
       "title": "定价 — Dockerman",
