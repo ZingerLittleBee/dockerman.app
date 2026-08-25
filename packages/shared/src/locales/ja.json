@@ -76,13 +76,13 @@
   "cta": {
     "titleLead": "トレイを開く。",
     "titleAccent": "コンテナを動かす。",
-    "description": "ローカル Docker の機能はすべて完全に無料です。支払う必要があるのはリモートホスト接続だけです。",
+    "description": "ローカル Docker の機能はすべて無料です。支払う必要があるのはリモートホスト接続だけです。",
     "downloadButton": "Dockerman をダウンロード",
     "platformsBadge": "macOS · Win · Linux",
     "reportIssue": "GitHub で問題を報告 →"
   },
   "footer": {
-    "tagline": "Rust + Tauri で構築された、モダンで軽量な Docker & Kubernetes デスクトップ。",
+    "tagline": "Rust + Tauri で構築された、軽量な Docker & Kubernetes デスクトップ。",
     "columns": {
       "product": "製品",
       "docs": "ドキュメント",
@@ -290,7 +290,7 @@
       "free": {
         "label": "無料",
         "name": "Free",
-        "description": "ローカル Docker の機能はすべて完全に無料です。リモートホスト接続は含まれません。",
+        "description": "ローカル Docker の機能はすべて無料です。リモートホスト接続は含まれません。",
         "freq": "永久 · ローカル限定",
         "cta": "現在のプラン",
         "ctaNote": "このプランをご利用中です",
@@ -434,7 +434,7 @@
       "cta": "Dockerman vs Docker Desktop →"
     },
     "success": {
-      "title": "支払いが完了しました！",
+      "title": "支払いが完了しました",
       "description": "Dockerman をご購入いただきありがとうございます。ライセンスキーはまもなくメールで送信されます。",
       "nextSteps": "次のステップ",
       "step1": "メールでライセンスキーを確認する",
@@ -448,7 +448,7 @@
       "items": [
         {
           "question": "生涯ライセンスとは何ですか？",
-          "answer": "ローカル Docker の機能はすべて完全に無料で、ライセンスは不要です。有料の買い切りライセンスは一度購入するだけで、ライセンス対象デバイスのリモートホスト接続を永久に利用でき、今後のすべてのバージョンへの無料アップデートも含まれます。それ以外に有料項目はありません。"
+          "answer": "ローカル Docker の機能はすべて無料で、ライセンスは不要です。有料の買い切りライセンスは一度購入するだけで、ライセンス対象デバイスのリモートホスト接続を永久に利用でき、今後のすべてのバージョンへの無料アップデートも含まれます。それ以外に有料項目はありません。"
         },
         {
           "question": "デバイス制限とは何ですか？",
@@ -457,11 +457,11 @@
         },
         {
           "question": "ライセンスは macOS と Windows の両方で使用できますか？",
-          "answer": "はい！ライセンスは macOS と Windows の両方で動作します。デバイス制限内でプラットフォームを自由に組み合わせて使用できます。"
+          "answer": "はい。ライセンスは macOS と Windows の両方で動作し、デバイス制限内でプラットフォームを混在できます。"
         },
         {
           "question": "Dockerman を商用目的で使用できますか？",
-          "answer": "もちろんです！個人または商用での使用に制限はありません。Dockerman はプロフェッショナルおよびエンタープライズ環境を含む、あらゆる目的で使用できます。"
+          "answer": "はい。個人利用・商用利用に制限はなく、プロフェッショナル環境やエンタープライズ環境でも使用できます。"
         },
         {
           "question": "返金ポリシーはありますか？",
@@ -505,11 +505,11 @@
   "about": {
     "badge": "会社概要",
     "title": "私たちが常に望んでいた Docker 管理ツールを構築する",
-    "description": "私たちは、Docker コンテナの管理がシンプルで直感的かつ効率的であるべきだと信じる開発者とデザイナーのチームです。",
+    "description": "私たちは、Docker コンテナの管理はとっつきやすく、効率よく使えるべきだと考える開発者とデザイナーのチームです。",
     "mission": {
       "title": "私たちの使命",
-      "p1": "Dockerman は、既存の Docker 管理ツールへの不満から生まれました。高速でクロスプラットフォームであり、開発者の生産性に焦点を当てたものが欲しかったのです。",
-      "p2": "私たちの使命は、個人の開発者から大規模チームまで、すべての人にコンテナ管理をアクセス可能にしながら、Docker が提供する強力な機能と柔軟性を維持することです。"
+      "p1": "Dockerman は、既存の Docker 管理ツールへの不満から生まれました。高速でクロスプラットフォームな、開発者の日常業務に沿ったものが欲しかったのです。",
+      "p2": "個人の開発者にも大規模チームにも、コンテナ管理を扱いやすくしたいと考えています。Docker でできることを犠牲にはしません。"
     },
     "team": {
       "title": "チームを知る",
@@ -520,20 +520,20 @@
       "title": "私たちの価値観",
       "performanceFirst": {
         "title": "パフォーマンスファースト",
-        "description": "Rust と Tauri で構築され、強力なパフォーマンスと最小限のリソース使用量を実現。"
+        "description": "Rust と Tauri で構築。高速で、システムリソースの使用はごくわずか。"
       },
       "developerExperience": {
         "title": "開発者体験",
-        "description": "開発者のために、開発者によって設計された直感的なインターフェース。"
+        "description": "開発者のために、開発者自身が設計したインターフェース。"
       },
       "privacyFocused": {
         "title": "プライバシー重視",
-        "description": "あなたのデータはローカルに残ります。透明性とユーザープライバシーを信じています。"
+        "description": "あなたのデータはローカルに残ります。ユーザープライバシーについても透明です。分析は匿名で、いつでも無効にできます。"
       }
     },
     "connect": {
       "title": "つながりを保つ",
-      "description": "Dockerman の開発をフォローし、新機能とアップデートをいち早く知りましょう。",
+      "description": "Dockerman の開発をフォローして、機能とリリースの情報を得られます。",
       "followGithub": "GitHub でフォロー",
       "followX": "X でフォロー"
     }
@@ -989,7 +989,7 @@
       "kicker": "Docker Desktop の代替",
       "titleLead": "より軽い Docker UI。",
       "titleAccent": "同じコンテナ。",
-      "description": "Dockerman は Docker、Podman、Kubernetes のためのローカルファーストなデスクトップ UI であり、Docker Desktop の軽量な代替です。Docker Inc. のプラットフォームの複製ではありません。バックエンドは自分で選びます。ローカル Docker の機能はすべて完全に無料です。有料なのはリモートホスト接続だけです。"
+      "description": "Dockerman は Docker、Podman、Kubernetes のためのローカルファーストなデスクトップ UI であり、Docker Desktop の軽量な代替です。Docker Inc. のプラットフォームの複製ではありません。バックエンドは自分で選びます。ローカル Docker の機能はすべて無料です。有料なのはリモートホスト接続だけです。"
     },
     "table": {
       "kicker": "並べて比較",
@@ -1014,7 +1014,7 @@
         },
         "local": {
           "label": "ローカル Docker と Podman",
-          "dockerman": "ローカル Docker の機能はすべて完全に無料",
+          "dockerman": "ローカル Docker の機能はすべて無料",
           "desktop": "個人利用と条件を満たす中小企業は無料。より大きな組織はサブスクリプション"
         },
         "license": {
@@ -1064,7 +1064,7 @@
       },
       "license": {
         "title": "ローカル無料と Desktop ライセンス",
-        "body": "ローカル Docker の機能はすべて完全に無料です。商用利用も含みます。有料なのはリモートホスト接続だけで、買い切り（Solo ${{solo}} / Team ${{team}}）です。それ以外に有料項目はありません。Docker Desktop は個人利用と Docker の条件を満たす組織は無料で、より大きな組織は Desktop のサブスクリプションが必要です。製品もライセンスの形も違います。"
+        "body": "ローカル Docker の機能はすべて無料です。商用利用も含みます。有料なのはリモートホスト接続だけで、買い切り（Solo ${{solo}} / Team ${{team}}）です。それ以外に有料項目はありません。Docker Desktop は個人利用と Docker の条件を満たす組織は無料で、より大きな組織は Desktop のサブスクリプションが必要です。製品もライセンスの形も違います。"
       },
       "engines": {
         "title": "バックエンドは自分で選ぶ",
@@ -1076,7 +1076,7 @@
       },
       "pricing": {
         "title": "買い切りとサブスクリプション",
-        "body": "Dockerman にサブスクリプションはありません。有料なのはリモートホスト接続だけで、一度払えば生涯アップデート付きです。ローカル Docker の機能はすべて完全に無料です。Docker Desktop の有料プランは Docker Inc. のサブスクリプションです。"
+        "body": "Dockerman にサブスクリプションはありません。有料なのはリモートホスト接続だけで、一度払えば生涯アップデート付きです。ローカル Docker の機能はすべて無料です。Docker Desktop の有料プランは Docker Inc. のサブスクリプションです。"
       }
     },
     "orbstack": {
@@ -1094,7 +1094,7 @@
       "items": [
         {
           "question": "Dockerman は Docker Desktop の代替ですか？",
-          "answer": "軽量でローカルファーストな UI としては、はい。バックエンドは自分で選びます。Docker、Podman、Kubernetes を管理します。ローカル Docker の機能（Kubernetes を含む）はすべて完全に無料です。有料なのはリモートホスト接続だけです。Docker Inc. のすべての製品を置き換えるものではありません。"
+          "answer": "軽量でローカルファーストな UI としては、はい。バックエンドは自分で選びます。Docker、Podman、Kubernetes を管理します。ローカル Docker の機能（Kubernetes を含む）はすべて無料です。有料なのはリモートホスト接続だけです。Docker Inc. のすべての製品を置き換えるものではありません。"
         },
         {
           "question": "Windows でも Docker Desktop は必要ですか？",
@@ -1102,7 +1102,7 @@
         },
         {
           "question": "ローカル利用は無料ですか？",
-          "answer": "はい。ローカル Docker の機能はすべて完全に無料です。支払う必要があるのはリモートホスト接続だけです。"
+          "answer": "はい。ローカル Docker の機能はすべて無料です。支払う必要があるのはリモートホスト接続だけです。"
         },
         {
           "question": "価格はどう違いますか？",
@@ -1124,11 +1124,11 @@
   "meta": {
     "home": {
       "title": "Dockerman — 軽量な Docker Desktop 代替 UI",
-      "description": "Dockerman は Docker Desktop の軽量な代替 UI。macOS、Windows、Linux 対応。Docker、Podman、Kubernetes をローカルファーストで管理。ローカル Docker の機能はすべて完全に無料。"
+      "description": "Dockerman は Docker Desktop の軽量な代替 UI。macOS、Windows、Linux 対応。Docker、Podman、Kubernetes をローカルファーストで管理。ローカル Docker の機能はすべて無料。"
     },
     "compare": {
       "title": "Docker Desktop の代替 — Dockerman",
-      "description": "Dockerman と Docker Desktop を比較：インストールサイズ、メモリ、WSL2、Colima、Podman、ライセンス、ローカルドメイン。ローカル Docker の機能はすべて完全に無料。有料なのはリモートホストだけです。"
+      "description": "Dockerman と Docker Desktop を比較：インストールサイズ、メモリ、WSL2、Colima、Podman、ライセンス、ローカルドメイン。ローカル Docker の機能はすべて無料。有料なのはリモートホストだけです。"
     },
     "pricing": {
       "title": "価格 — Dockerman",
