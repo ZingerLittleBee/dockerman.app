@@ -46,10 +46,10 @@ If your Codex version does not expose the plugin UI yet, upgrade Codex first; th
 
 The plugin ships a single skill, `dockerman-cli`, which covers:
 
-- A pushy SKILL description so the assistant triggers it on Docker / Compose / Kubernetes / kubectl prompts even when the user does not say "dockerman".
+- A SKILL description written to trigger on Docker / Compose / Kubernetes / kubectl prompts even when the user does not say "dockerman".
 - Guidance for the main command groups. The installed CLI's top-level map also includes `network`, `volume`, `host`, `system`, and `hub`; `dockerman --help` is authoritative.
-- Output-shape notes, for example that `dockerman k8s pod list` returns `{ forbidden, items, truncated }` with **flattened** fields (`.name`, `.namespace`, `.restarts`, `.status`), not the kubectl-shaped `metadata.*` tree.
-- Two k8s scoping rules that trip up most first attempts: `--cluster` is required when no cluster is selected, and `pod list` without `--namespace` returns *only* the `default` namespace (silently misses `kube-system`).
+- Critical output-shape notes — for example that `dockerman k8s pod list` returns `{ forbidden, items, truncated }` with **flattened** fields (`.name`, `.namespace`, `.restarts`, `.status`), not the kubectl-shaped `metadata.*` tree.
+- The two k8s scoping rules that catch every first attempt: `--cluster` is required when no cluster is selected, and `pod list` without `--namespace` returns *only* the `default` namespace (silently misses `kube-system`).
 - Destructive-action guidance. `container restore` requires confirmation; `container backup` itself does not require `-y`.
 - A `jq` cookbook (`references/output-parsing.md`) for projecting JSON output without flooding context.
 

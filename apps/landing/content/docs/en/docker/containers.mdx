@@ -15,7 +15,7 @@ Available actions depend on the container state and runtime. Start, stop, restar
 
 ## Create
 
-The create dialog builds a container configuration from the selected local image and entered options. Creating a container does not pull a missing image or start the new container. Pull first when necessary, then start it explicitly.
+The create dialog builds a container configuration from the selected local image and entered options. Creating a container does not implicitly promise to pull a missing image or start the new container. Pull first when necessary, then start it explicitly.
 
 Review ports, mounts, environment variables, resource limits, restart policy, and network settings before creating. Runtime capability gates may hide options that the selected backend cannot support.
 
@@ -29,7 +29,7 @@ Review ports, mounts, environment variables, resource limits, restart policy, an
 
 Backup produces a Dockerman archive containing a manifest and the selected container, volume, and bind-mount data. Use the preview before restoring, and review every bind mount because Dockerman does not classify arbitrary host paths as safe.
 
-Restore recreates supported resources from the archive. It does not guarantee that the original runtime networks exist, and Dockerman does not start the restored container. Review name, ports, volumes, networks, and image availability, then start it explicitly if needed.
+Restore recreates supported resources from the archive. It does not guarantee that the original runtime networks exist, and the restored container is not automatically documented as started. Review name, ports, volumes, networks, and image availability, then start it explicitly if needed.
 
 <Callout type="warn">
   Treat archives as sensitive. They can contain filesystem data, environment values, and selected bind-mount contents.
