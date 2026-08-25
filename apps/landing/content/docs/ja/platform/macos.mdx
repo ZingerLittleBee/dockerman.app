@@ -1,9 +1,9 @@
 ---
 title: "macOS"
-description: "macOS で Docker Desktop、互換ソケット、または Apple Container を使用する。"
+description: "macOS で Docker Desktop、互換ソケット、または Apple Container を使う。"
 ---
 
-macOS 版 Dockerman は 1 つの Universal DMG として公開されます。インストール前にリリースページで現在の資産と署名を確認してください。
+macOS 版 Dockerman は Universal DMG 1 本として公開されます。入れる前に、リリースページで現在の資産と署名を確認してください。
 
 ## インストール
 
@@ -41,9 +41,9 @@ Dockerman は、よく使うアプリ操作のためのメニューバーアイ�
 
 ## Apple Silicon に関する注意事項
 
-Apple Silicon でコンテナを実行する前に、イメージのプラットフォームを確認してください。多くの公開イメージでは `amd64` がデフォルトのため、利用可能であれば `arm64` バリアントを使用するか、`--platform=linux/arm64` を明示的に設定してください。
+Apple Silicon でコンテナを実行する前に、イメージのプラットフォームを確認してください。多くの公開イメージでは `amd64` がデフォルトのため、あれば `arm64` バリアントを使うか、`--platform=linux/arm64` を明示してください。
 
 ## トラブルシューティング
 
-- 「Socket not found」は、Docker Desktop が実行されていないか、Dockerman が誤ったソケットパスを使用していることを示します。
+- 「Socket not found」は、Docker Desktop が動いていないか、Dockerman が誤ったソケットパスを見ていることを示します。
 - Gatekeeper によって Dockerman がブロックされた場合は、アプリを右クリックし、初回起動時に**開く**を選択してください。

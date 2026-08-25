@@ -16,7 +16,7 @@ dockerman image history nginx:latest
 dockerman image search nginx --pretty
 ```
 
-`image search` は接続先の daemon を通じて Docker Engine の `/images/search` エンドポイントを叩きます。より豊富な情報（説明、公式バッジ、タグ一覧）が必要な場合は、下の [`hub search`](#docker-hub-を検索) を使ってください——両者は別の API と通信します。
+`image search` は接続先のデーモン経由で Docker Engine の `/images/search` エンドポイントを叩きます。説明、公式バッジ、タグ一覧など、より詳しい情報が必要なら、下の [`hub search`](#docker-hub-を検索) を使ってください。両者は別の API と通信します。
 
 ## Pull と push
 

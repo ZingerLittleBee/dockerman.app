@@ -3,7 +3,7 @@ title: "Linux"
 description: "Linux ディストリビューションに Dockerman をインストールし、セットアップ用に Docker Engine を構成。"
 ---
 
-Dockermanは`.deb`、`.rpm`、またはAppImageとして提供されるため、お使いのディストリビューションにインストールできます。
+Dockerman は `.deb`、`.rpm`、または AppImage として出ているので、お使いのディストリビューションに入れられます。
 
 ## インストール
 
@@ -62,7 +62,7 @@ Dockermanは`.deb`、`.rpm`、またはAppImageとして提供されるため、
 </Steps>
 
 <Callout type="warn">
-  `docker`グループに所属することは、ホスト上での事実上のrootアクセス権を持つことを意味します。より厳格な境界が必要な場合は、rootless Dockerを使用してください。
+  `docker` グループに入ることは、ホスト上で事実上 root と同じ権限を持つことです。より厳しい境界が必要なら rootless Docker を使ってください。
 </Callout>
 
 ## ディスプレイサーバー
@@ -71,13 +71,13 @@ Dockerman は Wayland または X11 で実行できます。グローバルシ�
 
 ## Freedesktop 統合
 
-Dockermanは`.desktop`ファイルをインストールするため、アプリケーションメニューに表示されます。トレイアイコンはStatusNotifierItem仕様を使用しており、KDE、拡張機能付きGNOME、XFCE、MATEでサポートされています。
+Dockerman は `.desktop` ファイルを入れるので、アプリケーションメニューに出ます。トレイアイコンは StatusNotifierItem 仕様で、KDE、拡張機能付き GNOME、XFCE、MATE で動きます。
 
 ## トラブルシューティング
 
 <Accordions>
   <Accordion title="docker コマンドが見つからない">
-    まずDocker Engineをインストールし、新しいシェルを開いてPATHがDocker CLIを認識できるようにしてください。
+    まず Docker Engine を入れ、新しいシェルを開いて PATH が Docker CLI を見つけるようにしてください。
   </Accordion>
   <Accordion title="/var/run/docker.sock でのアクセス権拒否">
     ユーザを`docker`グループに追加し、ログアウトして再ログインして新しいグループメンバーシップを有効にしてください。

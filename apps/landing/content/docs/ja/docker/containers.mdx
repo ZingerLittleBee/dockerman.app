@@ -1,40 +1,40 @@
 ---
 title: "コンテナ"
-description: "コンテナの作成、確認、管理、backup、restore。"
+description: "コンテナの作成、確認、管理、バックアップ、リストア。"
 ---
 
-Containers page で、選択中の runtime 上の container を検索、確認、管理します。
+コンテナページで、選択中のランタイム上のコンテナを検索、確認、管理します。
 
-## Lifecycle
+## ライフサイクル
 
-利用できる action は container state と runtime に依存します。対応している場合、start、stop、restart、pause、unpause、rename、remove、inspect、logs、terminal、stats、clone、commit、backup、restore が表示されます。
+使えるアクションは、コンテナの状態とランタイムによって異なります。対応している場合は、開始、停止、再起動、一時停止、再開、名前変更、削除、検査、ログ、ターミナル、統計、クローン、コミット、バックアップ、リストアが表示されます。
 
 <Callout type="info">
-  Pause は runtime の pause API を使い、`SIGSTOP` を送るという契約ではありません。UI に force option がある場合は running container も remove できます。
+  一時停止はランタイムの pause API を使います。`SIGSTOP` を送るという契約ではありません。UI に force オプションがある場合は、実行中のコンテナも削除できます。先に停止する必要は必ずしもありません。
 </Callout>
 
-## Create
+## 作成
 
-create dialog は選択した local image と option から設定を作ります。missing image の自動 pull や、作成後の自動 start は保証しません。必要なら先に pull し、作成後に明示的に start してください。
+作成ダイアログは、選んだローカルイメージと入力したオプションから設定を組み立てます。欠けているイメージの自動 pull や、作成後の自動開始はしません。必要なら先に pull し、作成後に明示的に開始してください。
 
-ports、mounts、environment、resource limits、restart policy、network を確認します。runtime capability によって unsupported option は非表示になります。
+作成前に、ポート、マウント、環境変数、リソース制限、再起動ポリシー、ネットワークを確認します。ランタイムが対応していないオプションは非表示になることがあります。
 
-## Inspect、clone、commit
+## 検査、クローン、コミット
 
-- **Inspect** は runtime が返す container data を表示します。
-- **Clone** は対応する設定を create flow にコピーしますが、volume data はコピーしません。
-- **Commit** は writable layer を image に保存し、mounted volume data は含みません。
+- **Inspect** はランタイムが返すコンテナデータを表示します。
+- **Clone** は対応する設定を作成フローへコピーしますが、ボリュームデータはコピーしません。
+- **Commit** は書き込み可能なレイヤーをイメージとして保存します。マウントしたボリュームデータは含みません。
 
-## Backup と restore
+## バックアップとリストア
 
-backup archive には manifest と、選択した container、volume、bind mount data が入ります。restore 前に preview し、任意の host path は自動的に「safe」と判定されないため各 bind mount を確認してください。
+バックアップのアーカイブにはマニフェストと、選んだコンテナ、ボリューム、バインドマウントのデータが入ります。リストア前にプレビューしてください。任意のホストパスは自動的に安全とは判定されないため、各バインドマウントを確認してください。
 
-restore は対応する resource を再作成しますが、元の network の存在や container の自動 start は保証しません。name、ports、volumes、networks、image を確認してから必要に応じて start します。
+リストアは対応するリソースを再作成します。元のネットワークが存在する保証はなく、コンテナも自動では開始しません。名前、ポート、ボリューム、ネットワーク、イメージを確認してから、必要なら開始してください。
 
 <Callout type="warn">
-  archive には filesystem data、environment value、bind mount content が含まれる可能性があります。
+  アーカイブは機密情報として扱ってください。ファイルシステム、環境変数、バインドマウントの内容が含まれることがあります。
 </Callout>
 
-## Batch action
+## 一括アクション
 
-page の batch mode を有効にして複数 row を選びます。現在の toolbar に出る action だけが対象で、通常の Ctrl/Cmd+Click や single-letter shortcut は契約ではありません。
+ページの一括モードを有効にして、複数行を選びます。対象は現在のツールバーに出ているアクションだけです。通常の Ctrl/Cmd+Click や 1 文字ショートカットは契約ではありません。

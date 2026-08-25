@@ -3,7 +3,7 @@ title: Claude スキル
 description: Dockerman 公式の Claude Code プラグインをインストールし、AI アシスタントに dockerman CLI を安全かつ正確に操作させましょう。
 ---
 
-[Claude Code](https://docs.claude.com/en/docs/claude-code/overview) を使っているなら、Dockerman は公式 **plugin** を提供しています。このプラグインには `dockerman` CLI の使い方を教える skill が同梱されています：コマンドマップ、出力形状、ストリーミング規約、k8s スコープの落とし穴、破壊的操作の安全ルールなどです。一度インストールすれば、ユーザーが Docker / Compose / Kubernetes 関連の質問をするたびに、Claude は明示的に "use dockerman" と言われなくても自動的に `dockerman` を選びます。
+[Claude Code](https://docs.claude.com/en/docs/claude-code/overview) を使っているなら、Dockerman は公式 **plugin** を出しています。同梱の skill が `dockerman` CLI の使い方を教えます。コマンドマップ、出力形状、ストリーミング規約、k8s スコープの落とし穴、破壊的操作の安全ルールです。一度入れると、Docker / Compose / Kubernetes の質問のたびに、Claude は "use dockerman" と言われなくても `dockerman` を選びます。
 
 ## クイックインストール
 
@@ -28,7 +28,7 @@ Claude Code 内で：
 
 プラグインには 1 つの skill `dockerman-cli` だけが入っており、以下をカバーします：
 
-- 強気な SKILL description —— ユーザーが "dockerman" と言わなくても、Docker / Compose / Kubernetes / kubectl の話題なら必ず発火します。
+- 発火しやすい SKILL description。ユーザーが "dockerman" と言わなくても、Docker / Compose / Kubernetes / kubectl の話題なら発火します。
 - コマンドマップ（`container`、`image`、`compose`、`network`、`volume`、`host`、`system`、`hub`、`k8s`、`tunnel`、`trivy`、`wsl`、`events`、`schema`、`call`）。
 - 重要な出力形状の注意点 —— 例えば `dockerman k8s pod list` は `{ forbidden, items, truncated }` を返し、フィールドは **フラット** です（`.name`、`.namespace`、`.restarts`、`.status`）。kubectl の `metadata.*` ツリーではありません。
 - 初回必ず引っかかる k8s スコープ規則 2 つ：cluster が未選択なら `--cluster` が必須。`pod list` で `--namespace` を省くと `default` ネームスペースだけが返り、`kube-system` などが静かに抜け落ちます。
@@ -53,7 +53,7 @@ marketplace URL の末尾に `@<git-ref>`（ブランチ、タグ、コミット
 /plugin install dockerman
 ```
 
-チームで再現性のあるセットアップが欲しいときに使います —— marketplace pin を上げるまで、全員が同じリビジョンを使い続けます。
+チームで再現できるセットアップが欲しいときに使います。marketplace の pin を上げるまで、全員が同じリビジョンを使い続けます。
 
 ## チーム導入
 

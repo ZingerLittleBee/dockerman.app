@@ -1,18 +1,18 @@
 ---
 title: "ターミナル"
-description: "実行中のコンテナでインタラクティブ shell を開きます。"
+description: "実行中のコンテナでインタラクティブなシェルを開きます。"
 ---
 
 実行中のコンテナから **Terminal** を開くと、xterm.js の対話セッションが始まります。
 
-## Shell command
+## シェルコマンド
 
-Dockerman はセッションで選択した shell command を実行します。複数の shell を自動探索したり `sh` で再試行したりはしません。command が存在しない場合は、image 内にあるものを選択してください。
+Dockerman は、セッションで選んだシェルコマンドを実行します。複数のシェルを自動探索したり、`sh` で再試行したりはしません。コマンドが存在しない場合は、イメージ内にあるものを選んでください。
 
-## 現在の controls
+## 現在の操作
 
-terminal toolbar と terminal 標準の選択、copy、paste、scroll を使います。desktop settings には global terminal font、cursor、theme の設定や、独自の terminal shortcut map はありません。
+ターミナルのツールバーと、ターミナル標準の選択、コピー、貼り付け、スクロールを使います。デスクトップ設定には、全体のターミナルフォント、カーソル、テーマの設定や、独自のターミナルショートカットマップはありません。
 
 <Callout type="warn">
-  コンテナを停止すると session は終了します。distroless image には shell 自体がない場合があります。
+  コンテナを停止するとセッションは終了します。Distroless イメージにはシェル自体がない場合があります。
 </Callout>

@@ -3,7 +3,7 @@ title: 通知
 description: Telegram、ntfy、Gotify、Discord、Webhook、またはシステム通知でアラートを受信します。
 ---
 
-Dockermanは複数のチャンネルを通じて通知をプッシュできるため、デスクを離れている間に何かが発生したときに知ることができます。チャンネルは**Shoutrrr互換URLスキーム**を使用します。これはWatchtower、Beszel、その他のHomelabツールで使用されているものと同じ形式です。
+デスクを離れているあいだに起きたことを知るために、複数チャンネルへ通知を送れます。チャンネルは **Shoutrrr 互換 URL スキーム** です。Watchtower、Beszel、その他の Homelab ツールと同じ形式です。
 
 ## サポートされているチャンネル
 
@@ -16,15 +16,15 @@ Dockermanは複数のチャンネルを通じて通知をプッシュできる�
 | Webhook | `generic://example.com/webhook` | 任意のエンドポイントへの汎用JSON POST |
 | システム通知 | 組み込み、URL不要 | macOS、Windows、Linuxのネイティブ通知 |
 
-システム通知は常に利用可能でデフォルトで有効です。これらは「外部」チャンネルとしてカウントされません。
+システム通知は常に使え、デフォルトで有効です。「外部」チャンネルには数えません。
 
 ## 現在のデスクトップ対応範囲
 
-通知ページでは設定済みチャンネルの一覧とテスト送信を利用できます。現在のデスクトップ UI には、追加、編集、無効化、削除の完全な操作フローはありません。内部アダプターは、欠けている UI の代替としてサポートされません。
+通知ページでは、設定済みチャンネルの一覧とテスト送信が使えます。現在のデスクトップ UI には、追加、編集、無効化、削除の一通りの操作はありません。内部アダプターは、欠けている UI の代わりにはなりません。
 
 ## 認証情報のセキュリティ
 
-現在の daemon は通知チャンネルの完全なシークレットを Dockerman のアプリデータ内にある `secrets/notification-channels.json` へ保存します。Unix では現在のユーザーだけが読める権限に制限されますが、システム Keychain には保存されません。
+現在のデーモンは、通知チャンネルのシークレット一式を Dockerman のアプリデータ内 `secrets/notification-channels.json` へ保存します。Unix では現在のユーザーだけが読める権限にしますが、システム Keychain には入れません。
 
 <Callout type="warn">
   Dockerman のアプリデータを機密情報として扱ってください。汎用 webhook URL のパスやクエリに認証情報が含まれる場合があるため、ログや診断データを共有する前に確認してください。
@@ -32,19 +32,19 @@ Dockermanは複数のチャンネルを通じて通知をプッシュできる�
 
 ## 通知の使用場所
 
-通知チャンネルは2つのシステムで使用されます：
+通知チャンネルは次の 2 つで使われます。
 
 <Cards>
   <Card title="アラートルール" href="/ja/docs/homelab/alerts">
     各アラートルールは1つ以上のチャンネルにバインドされます。ルールが発火すると、バインドされたすべてのチャンネルにブロードキャストされます。
   </Card>
   <Card title="イメージアップグレード監視" href="/ja/docs/homelab/image-watches">
-    イメージ監視はグローバルなデフォルトチャンネルリストを使用します。新しいイメージバージョンが見つかったとき、すべてのデフォルトチャンネルが通知を受信します。
+    イメージ監視はグローバルなデフォルトチャンネル一覧を使います。新しいイメージバージョンが見つかると、すべてのデフォルトチャンネルが通知を受けます。
   </Card>
 </Cards>
 
 ## ヒント
 
-- WatchtowerやBeszelで既にShoutrrr URLを使用している場合は、同じURLをDockermanに貼り付けることができます。
+- Watchtower や Beszel ですでに Shoutrrr URL を使っているなら、同じ URL を Dockerman に貼り付けてください。
 - Discordの場合、webhook URL（`https://discord.com/api/webhooks/ID/TOKEN`）をShoutrrr形式に変換してください：`discord://TOKEN@ID`。
-- 汎用webhookチャンネルは`title`と`body`フィールドを含むJSON POSTを送信します。webhookを受け入れる任意のサービスとの統合に使用してください。
+- 汎用 webhook チャンネルは `title` と `body` フィールドを含む JSON POST を送ります。webhook を受け付ける任意のサービスにつないでください。

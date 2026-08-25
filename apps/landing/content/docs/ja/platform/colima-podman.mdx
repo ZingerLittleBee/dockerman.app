@@ -52,7 +52,7 @@ colima start   # または: podman machine init
 
 仮想マシンの起動後、設定 → Docker でローカルソケット接続を選び、エンジンのソケットパスを入力します。
 
-- Colima は通常 `$HOME/.colima/default/docker.sock` を使用します。
+- Colima は通常 `$HOME/.colima/default/docker.sock` を使います。
 - Podman machine は `podman machine inspect` で `ConnectionInfo.PodmanSocket.Path` を確認できます。
 
 Dockerman は現在、Colima または Podman machine のライフサイクル、CPU、メモリ、ディスクを管理しません。Podman の検証コマンドは machine ソケットを検出できますが、通常の接続には明示的に動作するソケットパスが必要です。

@@ -3,11 +3,11 @@ title: "高度な機能とスクリプト化"
 description: "Schema、call エスケープハッチ、Cloudflare Quick Tunnels、管理対象 WSL2 エンジン、自動化のヒント。"
 ---
 
-このページは使用頻度の低い CLI コマンドと、シェルスクリプト、CI パイプライン、LLM ツールチェーンから `dockerman` をラップする際によく使うパターンをまとめます。
+使用頻度の低い CLI コマンドと、シェルスクリプト、CI パイプライン、LLM ツールチェーンから `dockerman` を包むときに使うパターンをまとめます。
 
 ## `schema` と `call`
 
-schema は対応する daemon surface を記述します。`call` が呼べるのは hard-coded allowlist の unary RPC だけで、無制限の escape hatch ではありません。
+schema は対応するデーモン面を記述します。`call` が呼べるのは、ハードコードされた allowlist の unary RPC だけです。無制限の逃げ道ではありません。
 
 ```bash
 dockerman schema
@@ -22,7 +22,7 @@ dockerman call remove_container '{"name":"web","options":{"force":true}}' --yes
 `call` は params の JSON オブジェクトを受け取ります。破壊的 RPC は専用サブコマンドと同じく `--yes`（または `-y`）が必要です。**ストリーミング RPC は `call` で呼べません**——正しいエンベロープを得るには専用のストリーミングコマンドを使ってください。
 
 <Callout type="info">
-  `schema --format mcp-tools` は MCP 互換のツールレジストリを出力します。Model Context Protocol を喋る LLM agent にそのまま接続できます。
+  `schema --format mcp-tools` は MCP 互換のツールレジストリを出力します。Model Context Protocol を話す LLM エージェントにそのまま渡せます。
 </Callout>
 
 ## イベント
@@ -104,7 +104,7 @@ if ! dockerman system info >/dev/null 2>&1; then
 fi
 ```
 
-daemon 発見とハンドシェイク失敗の終了コードは `3` で、RPC レベルの失敗（`1`）や stream 失敗（`4`）とは別です。
+デーモン発見とハンドシェイク失敗の終了コードは `3` で、RPC レベルの失敗（`1`）やストリーム失敗（`4`）とは別です。
 
 ### CI での長時間ストリーム
 

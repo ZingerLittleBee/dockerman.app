@@ -1,22 +1,22 @@
 ---
 title: "Compose"
-description: "Compose project の管理と YAML 編集。"
+description: "Compose プロジェクトの管理と YAML 編集。"
 ---
 
-Compose page は Docker Compose label から project を発見し、選択中の Docker runtime が対応する lifecycle action を提供します。Podman target では利用できません。
+Compose ページは Docker Compose のラベルからプロジェクトを見つけます。選択中の Docker ランタイムが対応するライフサイクル操作が使えます。Podman ターゲットでは使えません。
 
-## Lifecycle
+## ライフサイクル
 
-project state に応じて start、stop、restart、pull、up、remove が使えます。volume removal option は Compose に渡され、Dockerman が全 named volume や他 consumer を事前確認するわけではありません。
+プロジェクトの状態に応じて、start、stop、restart、pull、up、remove が使えます。ボリューム削除のオプションは Compose に渡されます。Dockerman が名前付きボリュームや他の利用者を事前確認するわけではありません。
 
-## YAML edit
+## YAML の編集
 
-project の Compose file を editor で開き、save 後に apply します。save 前に `docker compose config` は実行されず、完全な schema validation/autocomplete も保証しません。
+プロジェクトの Compose ファイルをエディタで開き、保存してから適用します。保存前に `docker compose config` は実行されず、完全なスキーマ検証やオートコンプリートも保証しません。重要なファイルは別途検証してください。
 
-## `docker run` conversion
+## `docker run` の変換
 
-Run to Compose は一般的な flag を YAML preview に変換します。unsupported/advanced flag は deploy 前に確認してください。
+Run to Compose は一般的なフラグを YAML プレビューに変換します。未対応や高度なフラグは、保存とデプロイの前に確認してください。
 
-## Current boundaries
+## 現在の制限
 
-project-level merged log viewer はありません。curated app template は **Apps** にあり、Compose page の built-in template editor ではありません。existing file を reusable template として保存する操作もありません。
+プロジェクト単位の結合ログビューアはありません。厳選されたアプリテンプレートは **Apps** にあり、Compose ページの組み込みテンプレートエディタではありません。既存ファイルを再利用テンプレートとして保存する操作もありません。

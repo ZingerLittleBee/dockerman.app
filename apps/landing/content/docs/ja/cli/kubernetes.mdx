@@ -1,11 +1,11 @@
 ---
 title: "Kubernetes"
-description: "クラスタ発見、namespace 切替、リソース閲覧のための読み取り専用 Kubernetes コマンド。"
+description: "クラスター発見、namespace 切替、リソース閲覧のための読み取り専用 Kubernetes コマンド。"
 ---
 
-`k8s` コマンド群は**読み取り専用**です。kubeconfig からクラスタを発見し、明示的に許可された built-in resource を閲覧します。任意の CR kind は照会できません。
+`k8s` コマンド群は**読み取り専用**です。kubeconfig からクラスターを見つけ、明示的に許可された組み込みリソースを閲覧します。任意の CR kind は照会できません。
 
-## クラスタと namespace を選ぶ
+## クラスターと namespace を選ぶ
 
 ```bash
 dockerman k8s cluster list
@@ -19,17 +19,17 @@ dockerman k8s namespace current --cluster kubeconfig:dev-context
 `cluster use` と `namespace use` は選択をディスクに保存します。以降 `--cluster` / `--namespace` を省略したコマンドはこの選択を使います。
 
 <Callout type="info">
-  クラスタ id は `kubeconfig:<context-name>` の形式です。CLI が発見する各 context の正確な id は `dockerman k8s cluster list` で確認してください。
+  クラスター id は `kubeconfig:<context-name>` の形式です。CLI が見つける各 context の正確な id は `dockerman k8s cluster list` で確認してください。
 </Callout>
 
-## クラスタ概要
+## クラスター概要
 
 ```bash
 dockerman k8s overview
 dockerman k8s overview --cluster kubeconfig:dev-context --namespace workloads --pretty
 ```
 
-node、pod、deployment、service の数と最近の event を返します。event は Warning だけに限定されません。
+node、pod、deployment、service の数と最近のイベントを返します。イベントは Warning だけに限りません。
 
 ## ワークロードリソース
 
@@ -65,7 +65,7 @@ dockerman k8s secret get app-secret
 dockerman k8s pvc list
 ```
 
-## クラスタスコープ
+## クラスタースコープ
 
 ```bash
 dockerman k8s node list
@@ -102,7 +102,7 @@ dockerman k8s event list --type Warning --involved-kind Pod
 
 ## 汎用リソースと YAML
 
-汎用 `resource` サブコマンドも固定 allowlist だけをサポートします。`api-resource list` の discovery 結果が、そのまま callable になるわけではありません。
+汎用 `resource` サブコマンドも固定 allowlist だけをサポートします。`api-resource list` の discovery 結果が、そのまま呼べるわけではありません。
 
 ```bash
 dockerman k8s api-resource list --cluster kubeconfig:dev-context

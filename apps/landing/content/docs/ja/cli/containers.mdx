@@ -3,7 +3,7 @@ title: "コンテナ"
 description: "Docker コンテナのライフサイクル、ログ、stats、ターミナル、およびバックアップ/リストアコマンド。"
 ---
 
-`container` コマンド群は完全なライフサイクルに加えて、ストリーミングアタッチとバックアップ/リストアもカバーします。すべてのコマンドが `--host` を受け取り、特定のホストを対象にできます；指定しない場合は `dockerman host use` で固定したホストを使用します。
+`container` コマンド群はライフサイクルに加え、ストリーミングアタッチとバックアップ / リストアも扱います。すべてのコマンドが `--host` を受け取り、特定のホストを対象にできます。指定しない場合は `dockerman host use` で固定したホストを使います。
 
 ## 一覧と詳細
 
@@ -26,7 +26,7 @@ dockerman container unpause web
 dockerman container rename web web-old
 ```
 
-`stop` と `restart` の `--timeout` は秒単位；daemon はまず `SIGTERM` を送り、タイムアウト経過後に `SIGKILL` を送ります。
+`stop` と `restart` の `--timeout` は秒単位です。デーモンはまず `SIGTERM` を送り、タイムアウト経過後に `SIGKILL` を送ります。
 
 ## 作成とクローン
 
@@ -44,7 +44,7 @@ dockerman container commit web --repo myrepo --tag snapshot --pause
 dockerman container remove web --force --volumes --yes
 ```
 
-`remove` は破壊的操作です。`--yes`（またはグローバル `-y`）が必須で、なしでは daemon が拒否します。`--force` で実行中のコンテナを削除、`--volumes` で匿名ボリュームも削除します。
+`remove` は破壊的操作です。`--yes`（またはグローバル `-y`）が必須で、なしではデーモンが拒否します。`--force` で実行中のコンテナを削除、`--volumes` で匿名ボリュームも削除します。
 
 ## ログ
 
@@ -55,10 +55,10 @@ dockerman container logs web --since 2026-05-01T00:00:00Z --timestamps
 dockerman container logs web --follow --json
 ```
 
-`--json` なしの場合、stdout はログ行のみ；エラーは stderr に出ます。`--json` 付きの場合、各フレームを 1 行の [ストリーミングエンベロープ](/ja/docs/cli/streaming) として出力します。`--follow` は Ctrl+C を押すまで（終了コード `130`）、または stream が自然終了するまで（終了コード `0`）継続します。
+`--json` なしの場合、stdout はログ行のみ。エラーは stderr に出ます。`--json` 付きの場合、各フレームを 1 行の [ストリーミングエンベロープ](/ja/docs/cli/streaming) として出力します。`--follow` は Ctrl+C を押すまで（終了コード `130`）、またはストリームが自然終了するまで（終了コード `0`）続きます。
 
 <Callout type="warn">
-  `--until` は `--follow` と併用できません；CLI が stream を開く前に拒否します。履歴取得には `--since`/`--until`、追跡には `--follow`/`--since` を使ってください。
+  `--until` は `--follow` と併用できません。CLI がストリームを開く前に拒否します。履歴取得には `--since`/`--until`、追跡には `--follow`/`--since` を使ってください。
 </Callout>
 
 ## Stats
@@ -91,7 +91,7 @@ dockerman container terminal web --shell /bin/bash --user root
     dockerman container backup-targets web --pretty
     ```
 
-    アーカイブに含められる volume と bind mount を一覧します。内容とサイズは自分で確認してください。
+    アーカイブに含められるボリュームと bind mount を一覧します。内容とサイズは自分で確認してください。
   </Step>
   <Step>
     ### アーカイブ作成
@@ -130,5 +130,5 @@ dockerman container terminal web --shell /bin/bash --user root
 </Steps>
 
 <Callout type="warn">
-  バックアップパスは CLI 側で絶対ローカルパスに解決されてから daemon に送られます。daemon は絶対パスを要求しますが、bind mount が「安全な workspace」内かどうかは判定しません。
+  バックアップパスは CLI 側で絶対ローカルパスに解決されてからデーモンに送られます。デーモンは絶対パスを要求しますが、bind mount が「安全な workspace」内かどうかは判定しません。
 </Callout>

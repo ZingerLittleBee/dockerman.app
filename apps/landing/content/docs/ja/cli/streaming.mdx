@@ -1,13 +1,13 @@
 ---
 title: "ストリーミング契約"
-description: "NDJSON envelope、コマンド固有出力、heartbeat、backpressure、signal。"
+description: "NDJSON エンベロープ、コマンド固有の出力、heartbeat、backpressure、シグナル。"
 ---
 
-複数の CLI コマンドが daemon stream を利用しますが、すべての長時間コマンドが同じ出力形式ではありません。パーサーを作る前に各コマンドの `--help` を確認してください。
+複数の CLI コマンドがデーモンストリームを使いますが、長時間コマンドの出力形式は揃っていません。パーサーを書く前に、各コマンドの `--help` を確認してください。
 
-## Daemon stream envelope
+## デーモンストリームのエンベロープ
 
-daemon stream を JSON で公開するコマンドは、stdout に 1 行 1 envelope の NDJSON を出力します。シーケンス番号は `0` から始まります。
+デーモンストリームを JSON で出すコマンドは、stdout に 1 行 1 エンベロープの NDJSON を出力します。シーケンス番号は `0` から始まります。
 
 ```json
 {"seq":0,"type":"data","payload":{"line":"hello"}}
@@ -16,14 +16,14 @@ daemon stream を JSON で公開するコマンドは、stdout に 1 行 1 envel
 {"seq":3,"type":"end"}
 ```
 
-`end` と `error` はどちらも終端フレームで、1 つの stream が両方を出すことはありません。`error` には `code`、`message`、任意の `details` が含まれます。
+`end` と `error` はどちらも終端フレームで、1 つのストリームが両方を出すことはありません。`error` には `code`、`message`、任意の `details` が含まれます。
 
-daemon は通常 15 秒ごとに heartbeat を送り、30 秒間フレームがないと CLI はコード `4` で終了します。256 フレームのバッファでドロップが起きた場合、次の任意タイプのフレーム前に件数を送ります。
+デーモンは通常 15 秒ごとに heartbeat を送り、30 秒間フレームがないと CLI はコード `4` で終了します。256 フレームのバッファでドロップが起きた場合、次の任意タイプのフレームの前に件数を送ります。
 
 ## コマンド固有の例外
 
-- `events` は常に outer NDJSON envelope を出力し、プレーンログ行モードはありません。
-- Trivy `--json` は独自の progress/result payload を出力し、outer `StreamFrameEnvelope` を使いません。
+- `events` は常に外側の NDJSON エンベロープを出力し、プレーンログ行モードはありません。
+- Trivy `--json` は独自の progress/result ペイロードを出力し、外側の `StreamFrameEnvelope` を使いません。
 - 現在のイメージ進捗表示は stdout へ出力します。
 - プレーン出力はコマンドごとに異なり、進捗が常に stderr とは限りません。
 
@@ -34,11 +34,11 @@ daemon は通常 15 秒ごとに heartbeat を送り、30 秒間フレームが�
 | コード | 意味 |
 | --- | --- |
 | `0` | 正常終了 |
-| `1` | 検証、RPC、stream エラー |
+| `1` | 検証、RPC、ストリームエラー |
 | `2` | CLI 引数解析エラー |
-| `3` | Daemon 検出または handshake 失敗 |
+| `3` | デーモン検出または handshake 失敗 |
 | `4` | Heartbeat timeout |
 | `130` | `SIGINT` |
 | `143` | `SIGTERM` |
 
-`dockerman schema` で daemon RPC メタデータを確認できます。Trivy 固有出力は outer daemon envelope ではありません。
+`dockerman schema` でデーモン RPC のメタデータを確認できます。Trivy 固有の出力は、外側のデーモンエンベロープではありません。

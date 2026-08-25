@@ -3,11 +3,11 @@ title: "クラスター"
 description: "ローカル k3d クラスターを起動するか、既存の kubeconfig をインポートして任意の Kubernetes 環境を管理。"
 ---
 
-ローカルk3dクラスターを起動するか、既存のkubeconfigをインポートして、同じKubernetesセクションからクラスターを管理します。
+ローカル k3d クラスターを起動するか、既存の kubeconfig を取り込み、同じ Kubernetes セクションからクラスターを管理します。
 
 ## k3dでローカルクラスターを起動
 
-開発やテスト用の使い捨てローカルクラスターが必要な場合はk3dを使用します。
+開発やテスト用の使い捨てのローカルクラスターが必要なら k3d を使います。
 
 <Steps>
   <Step>
@@ -38,7 +38,7 @@ description: "ローカル k3d クラスターを起動するか、既存の kub
 
 ## 既存のクラスターをインポート
 
-すでにクラスターを持っていて、Dockermanで直接管理したい場合はkubeconfigをインポートします。
+すでにクラスターがあり、Dockerman で直接管理したい場合は kubeconfig を取り込みます。
 
 <Steps>
   <Step>
@@ -49,7 +49,7 @@ description: "ローカル k3d クラスターを起動するか、既存の kub
   <Step>
     ### kubeconfigファイルを選択
 
-    Dockerman は file を parse して context を一覧します。現在の flow は server URL と user binding の個別 prefill field を保証しません。
+    Dockerman はファイルを解析してコンテキストを一覧します。取り込みたいコンテキストを選んでください。現在の流れは、server URL とユーザー紐付けの個別の事前入力欄を保証しません。
   </Step>
   <Step>
     ### 接続を確認
@@ -60,7 +60,7 @@ description: "ローカル k3d クラスターを起動するか、既存の kub
 
 ## クラスターの切り替え
 
-Kubernetesセクション上部のクラスタースイッチャーを使用して、インポートしたクラスターと任意のローカルk3dクラスター間を移動します。
+Kubernetes セクション上部のクラスタースイッチャーで、取り込んだクラスターとローカル k3d クラスターを切り替えます。
 
 - クラスターの選択は **アクティブな Docker ホストとは独立しています**。別の K8s コンテキストに切り替えても Docker 接続には影響せず、その逆も同様です。
 - 同じリソースが存在する別のクラスターに切り替える場合、**現在の Kubernetes ページが維持されます**。ネームスペースセレクタは新しいクラスターと同期します。
@@ -68,7 +68,7 @@ Kubernetesセクション上部のクラスタースイッチャーを使用し�
 
 ## クラスターの削除
 
-クラスタータイプに応じたアクションを使用します。
+クラスターの種類に応じたアクションを使います。
 
 - 「Delete from Dockerman」でインポートしたkubeconfigを削除し、リモートクラスターは実行したままにします。
 - 「Tear down the local k3d cluster」でクラスターとそのデータを削除します。
@@ -79,16 +79,16 @@ Kubernetesセクション上部のクラスタースイッチャーを使用し�
 
 ## クラスターバージョンとステータス
 
-Cluster page は API server version、connection state、node information を表示します。Node object には kubelet と container runtime version があり、node ごとの kube-proxy version はありません。
+クラスターページには API サーバーのバージョン、接続状態、ノード情報が表示されます。Node オブジェクトには kubelet とコンテナランタイムのバージョンがあり、ノードごとの kube-proxy バージョンはありません。
 
 ## ノード、PersistentVolume、ネームスペース
 
-これらにはそれぞれ Kubernetes セクション内に専用のアプリ内ページがあります。K8s サイドバーから到達できます。
+それぞれ Kubernetes セクション内に専用ページがあり、K8s サイドバーから開けます。
 
-- **ノード** — condition、capacity、allocatable、label、kubelet version、container runtime、scheduled Pod を表示します。
+- **ノード** — 状態、容量、割り当て可能量、ラベル、kubelet バージョン、コンテナランタイム、スケジュール済み Pod を表示します。
 - **PersistentVolume** — フェーズ、クレームバインディング、再利用ポリシー、容量を含むクラスタースコープの PV リスト。完全なリファレンスは [設定とストレージ → PersistentVolume](/ja/docs/kubernetes/config-storage#persistentvolume) を参照してください。
 - **ネームスペース** — ネームスペースを直接作成、削除、検査します。サイドバーのネームスペースセレクタはこのページと同期します。
 
 ## クラスターイベント
 
-専用の[イベント](/ja/docs/kubernetes/events)ブラウザを開くと、ネームスペース、タイプ（Normal/Warning）、理由、関連オブジェクトでフィルタリングできます。特定のリソースに範囲を絞ることなく問題をトリアージするのに便利です。
+専用の[イベント](/ja/docs/kubernetes/events)ブラウザを開き、ネームスペース、タイプ（Normal/Warning）、理由、関連オブジェクトで絞り込めます。特定リソースに範囲を決めずに問題を切り分けるときに使います。
