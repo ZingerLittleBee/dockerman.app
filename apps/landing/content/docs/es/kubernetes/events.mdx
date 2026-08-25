@@ -3,14 +3,14 @@ title: "Eventos"
 description: "Consulta y exporta eventos de Kubernetes."
 ---
 
-La página obtiene una snapshot para el cluster y scope de namespace actuales. Se refresca a demanda o al cambiar el scope; no es un watch continuo.
+La página obtiene una instantánea del clúster y del ámbito de namespace actuales. Se refresca a demanda o al cambiar el ámbito; no es un watch continuo.
 
-Las filas muestran tipo, namespace, kind/objeto implicado, contador, razón, mensaje y timestamps. Los enlaces dependen de que Dockerman tenga una ruta para ese kind.
+Las filas muestran tipo, namespace, kind/objeto implicado, contador, razón, mensaje y marcas de tiempo. Los enlaces dependen de que Dockerman tenga una ruta para ese kind.
 
 ## Filtros
 
-Filtra por namespace actual/todos, Normal/Warning, kind, ventana all/5m/15m/1h y texto. No existe el selector dinámico de Reason antes documentado.
+Filtra por namespace actual/todos, Normal/Warning, kind, ventana all/5m/15m/1h y texto. No existe el selector dinámico de Reason que se documentó antes.
 
 ## Exportar
 
-Exporta las filas filtradas como CSV o JSON. Kubernetes expira Events según la política del cluster, así que no es un log de auditoría duradero.
+Exporta las filas filtradas como CSV o JSON. Kubernetes caduca los Events según la política del clúster; no es un log de auditoría duradero.

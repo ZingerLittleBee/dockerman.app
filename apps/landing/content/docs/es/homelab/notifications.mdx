@@ -1,9 +1,9 @@
 ---
 title: Notificaciones
-description: Recibe alertas a través de Telegram, ntfy, Gotify, Discord, Webhook o notificaciones del sistema.
+description: Recibe alertas por Telegram, ntfy, Gotify, Discord, Webhook o notificaciones del sistema.
 ---
 
-Dockerman puede enviar notificaciones a través de múltiples canales para que sepas cuando algo sucede mientras estás lejos de tu escritorio. Los canales usan un **esquema de URL compatible con Shoutrrr**, el mismo formato usado por Watchtower, Beszel y otras herramientas de homelab.
+Dockerman puede enviar notificaciones por varios canales para enterarte de lo que ocurre cuando no estás en el escritorio. Los canales usan un **esquema de URL compatible con Shoutrrr**, el mismo formato que Watchtower, Beszel y otras herramientas de homelab.
 
 ## Canales soportados
 
@@ -16,7 +16,7 @@ Dockerman puede enviar notificaciones a través de múltiples canales para que s
 | Webhook | `generic://example.com/webhook` | POST JSON genérico a cualquier endpoint |
 | Notificación del sistema | Integrado, no se necesita URL | Notificaciones nativas de macOS, Windows y Linux |
 
-Las notificaciones del sistema siempre están disponibles y habilitadas por defecto. No cuentan como un canal "externo".
+Las notificaciones del sistema siempre están disponibles y habilitadas por defecto. No cuentan como un canal «externo».
 
 ## Compatibilidad actual del escritorio
 
@@ -32,14 +32,14 @@ El daemon actual guarda los secretos completos en `secrets/notification-channels
 
 ## Dónde se usan las notificaciones
 
-Los canales de notificación son consumidos por dos sistemas:
+Los canales los consumen dos sistemas:
 
 <Cards>
   <Card title="Reglas de alerta" href="/es/docs/homelab/alerts">
-    Cada regla de alerta se vincula a uno o más canales. Cuando la regla se dispara, transmite a todos los canales vinculados.
+    Cada regla se vincula a uno o más canales. Al dispararse, envía a todos los canales vinculados.
   </Card>
-  <Card title="Monitoreo de actualizaciones de imágenes" href="/es/docs/homelab/image-watches">
-    Los monitoreos de imágenes usan una lista de canales por defecto global. Cuando se encuentra una nueva versión de imagen, todos los canales por defecto reciben la notificación.
+  <Card title="Seguimiento de actualizaciones de imágenes" href="/es/docs/homelab/image-watches">
+    Los seguimientos usan una lista global de canales por defecto. Cuando hay una versión nueva, todos esos canales reciben el aviso.
   </Card>
 </Cards>
 
@@ -47,4 +47,4 @@ Los canales de notificación son consumidos por dos sistemas:
 
 - Si ya usas URLs de Shoutrrr con Watchtower o Beszel, puedes pegar la misma URL en Dockerman.
 - Para Discord, convierte tu URL de webhook (`https://discord.com/api/webhooks/ID/TOKEN`) al formato Shoutrrr: `discord://TOKEN@ID`.
-- El canal de webhook genérico envía un POST JSON con campos `title` y `body`. Úsalo para integrar con cualquier servicio que acepte webhooks.
+- El canal de webhook genérico envía un POST JSON con campos `title` y `body`. Sirve para cualquier servicio que acepte webhooks.

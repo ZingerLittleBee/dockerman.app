@@ -3,28 +3,28 @@ title: "Archivos"
 description: "Navega, previsualiza, edita, sube, descarga y elimina archivos dentro de volúmenes y contenedores en ejecución."
 ---
 
-Usa el navegador de Archivos de la misma manera tanto si estás dentro de un volumen como dentro de un contenedor en ejecución. Esta página cubre ambos puntos de entrada y todas las operaciones de archivos.
+El navegador de Archivos funciona igual en un volumen y en un contenedor en ejecución. Esta página cubre ambos puntos de entrada y las operaciones de archivos.
 
 ## Puntos de entrada
 
 <Tabs items={['Desde un volumen', 'Desde un contenedor']}>
   <Tab>
-    Abre la página de Volúmenes, selecciona un volumen y haz clic en Explorar. La ruta se ve así `/volume/<nombre>/browse`.
+    Abre la página de Volúmenes, selecciona un volumen y haz clic en Explorar. La ruta se ve así: `/volume/<nombre>/browse`.
   </Tab>
   <Tab>
-    Abre un contenedor en ejecución, luego haz clic en Archivos o abre `/file` directamente. Los contenedores detenidos no exponen un navegador de archivos editable.
+    Abre un contenedor en ejecución y haz clic en Archivos, o entra en `/file` directamente. Los contenedores detenidos no exponen un navegador de archivos editable.
   </Tab>
 </Tabs>
 
 ## Navegación
 
-Usa el árbol de la izquierda para moverte entre carpetas, usa la ruta de navegación en la parte superior para volver atrás, haz doble clic en carpetas para descender, y usa Atrás o Inicio cuando quieras saltar rápidamente. El campo de ruta te permite ir directamente a una ruta conocida.
+El árbol de la izquierda cambia de carpeta; la ruta de navegación de arriba vuelve atrás; el doble clic desciende; Atrás e Inicio saltan de golpe. El campo de ruta abre una ruta conocida.
 
 ## Previsualizar archivos
 
 Añadido en la v4.4.0.
 
-La previsualización maneja los tipos de archivo comunes que esperas inspeccionar sin descargar el archivo primero.
+La previsualización cubre los tipos habituales para inspeccionar un archivo sin descargarlo primero.
 
 | Tipo | Formatos |
 | --- | --- |
@@ -36,7 +36,7 @@ La previsualización maneja los tipos de archivo comunes que esperas inspecciona
 | Audio | `.mp3`, `.wav`, `.ogg` |
 
 <Callout type="info">
-  Los archivos de más de 10 MB son solo para descarga, así Dockerman no carga todo el archivo en memoria.
+  Los archivos de más de 10 MB son solo para descarga: Dockerman no carga el archivo entero en memoria.
 </Callout>
 
 
@@ -44,22 +44,22 @@ La previsualización maneja los tipos de archivo comunes que esperas inspecciona
 
 Añadido en la v4.4.0.
 
-Abre archivos de texto y código en Monaco, haz tus cambios, luego guárdalos de vuelta en el volumen o contenedor. Los cambios no guardados permanecen visibles hasta que los guardes o descartes.
+Abre archivos de texto y código en Monaco, edita y guarda de vuelta en el volumen o contenedor. Los cambios sin guardar siguen visibles hasta que los guardes o los descartes.
 
 <Callout type="warn">
-  Editar un archivo dentro de un contenedor en ejecución cambia la capa editable del contenedor, no la imagen. Reiniciar desde la misma imagen descarta la edición a menos que primero hagas commit del contenedor, consulta [Confirmar un contenedor en ejecución](/es/docs/docker/containers#confirmar-un-contenedor-en-ejecución).
+  Editar un archivo dentro de un contenedor en ejecución cambia la capa editable del contenedor, no la imagen. Reiniciar desde la misma imagen descarta la edición salvo que primero hagas commit del contenedor; consulta [Confirmar un contenedor en ejecución](/es/docs/docker/containers#confirmar-un-contenedor-en-ejecución).
 </Callout>
 
-### Salvaguardas del editor
+### Protecciones del editor
 
-- **Preservación de modo** — al guardar un archivo se conservan sus permisos Unix originales (`0644`, `0755`, etc.) en lugar de reiniciarlos al escribir.
-- **Detección binaria** — el editor se niega a abrir un archivo que contiene un byte NUL y muestra una solicitud de descarga en su lugar, evitando corrupción accidental cuando una extensión es engañosa.
-- **Tope de edición de 1 MB** — los archivos de más de 1 MB son de solo lectura en el editor. Descarga, edita localmente y vuelve a subir cuando necesites hacer un cambio mayor.
+- **Permisos** — al guardar un archivo se conservan sus permisos Unix originales (`0644`, `0755`, etc.); no se reinician al escribir.
+- **Detección binaria** — el editor no abre un archivo que contiene un byte NUL y ofrece descargarlo, para no corromper contenido cuya extensión no coincide.
+- **Tope de edición de 1 MB** — los archivos de más de 1 MB son de solo lectura en el editor. Descarga, edita en local y vuelve a subir si necesitas un cambio mayor.
 
 
 ## Subir y descargar
 
-Usa las acciones explícitas de subida para elegir un archivo o carpeta local. La descarga es para archivos individuales. El navegador actual no promete drag-and-drop, descargas múltiples ni ZIP automático de carpetas.
+Usa las acciones explícitas de subida para elegir un archivo o carpeta local. La descarga es para archivos individuales. El navegador actual no promete arrastrar y soltar, descargas múltiples ni ZIP automático de carpetas.
 
 ## Eliminar archivos
 
@@ -68,7 +68,7 @@ Añadido en la v4.4.0.
 Eliminar quita el archivo o carpeta seleccionado del volumen o contenedor actual.
 
 <Callout type="warn">
-  La eliminación de archivos es irreversible y omite cualquier papelera de reciclaje del host.
+  La eliminación es irreversible y no pasa por ninguna papelera del host.
 </Callout>
 
-Eliminar opera sobre la entrada seleccionada. El navegador actual no ofrece esos atajos de selección múltiple ni borrado por lotes.
+Eliminar opera sobre la entrada seleccionada. El navegador actual no ofrece atajos de selección múltiple ni borrado por lotes.

@@ -3,13 +3,13 @@ title: "Helm"
 description: "Añade repositorios de charts e instala, actualiza, revierte y desinstala releases de Helm desde una GUI."
 ---
 
-Usa Helm para gestionar repositorios de charts y releases sin salir de Dockerman.
+Gestiona repositorios de charts y releases de Helm desde Dockerman.
 
-Dockerman descarga y gestiona el binario de Helm automáticamente en el primer uso, con verificación de checksum SHA-256. No necesitas instalar Helm por separado.
+Dockerman descarga y gestiona el binario de Helm en el primer uso, con verificación de checksum SHA-256. No hace falta instalar Helm por separado.
 
 ## Repositorios
 
-Añade los repositorios que más usas, luego actualízalos cuando necesites el índice de charts más reciente.
+Añade los repositorios que más uses y actualízalos cuando necesites el índice de charts más reciente.
 
 <Steps>
   <Step>
@@ -44,17 +44,17 @@ Busca en los índices añadidos y elige un chart. El navegador actual no promete
   <Step>
     ### Elegir nombre de release y namespace
 
-    Establece el nombre del release y el namespace de destino antes de instalar.
+    Fija el nombre del release y el namespace de destino antes de instalar.
   </Step>
   <Step>
     ### Editar values.yaml
 
-    Dockerman carga los valores por defecto del chart en Monaco, luego tú sobrescribes solo los valores que necesitas.
+    Dockerman carga los valores por defecto del chart en Monaco; tú sobrescribes solo los que necesitas.
   </Step>
   <Step>
     ### Instalar
 
-    Inicia el release y espera el resultado. La UI no ofrece un stream continuo de progreso Helm.
+    Inicia el release y espera el resultado. La UI no ofrece un stream continuo de progreso de Helm.
   </Step>
 </Steps>
 
@@ -64,12 +64,12 @@ Busca en los índices añadidos y elige un chart. El navegador actual no promete
   <Step>
     ### Abrir un release
 
-    Abre la vista de detalle del release para ver la revisión actual y el historial.
+    Abre el detalle del release para ver la revisión actual y el historial.
   </Step>
   <Step>
     ### Actualizar
 
-    Edita values y la referencia disponible, luego actualiza. El formulario no promete un selector separado de versión nueva.
+    Edita values y la referencia disponible, luego actualiza. El formulario no promete un selector aparte de versión nueva.
   </Step>
   <Step>
     ### Revertir
@@ -83,5 +83,5 @@ Busca en los índices añadidos y elige un chart. El navegador actual no promete
 Elimina un release cuando ya no lo necesites en el clúster.
 
 <Callout type="warn">
-  La desinstalación elimina los recursos de Kubernetes creados por Helm, pero no siempre elimina los PersistentVolumeClaims o CRDs que el chart instaló. Consulta la documentación del chart para conocer el comportamiento de `--keep-history` o `keepCRDs` antes de eliminar un release en producción.
+  La desinstalación elimina los recursos de Kubernetes creados por Helm, pero no siempre los PersistentVolumeClaims o CRDs que instaló el chart. Consulta la documentación del chart sobre `--keep-history` o `keepCRDs` antes de borrar un release en producción.
 </Callout>

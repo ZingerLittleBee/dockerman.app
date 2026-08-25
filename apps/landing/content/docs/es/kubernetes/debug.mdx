@@ -3,7 +3,7 @@ title: "Asistente de depuración"
 description: "Reenvía el puerto de depuración de un proceso existente y genera una configuración de conexión."
 ---
 
-El Asistente de depuración conecta un depurador local con un proceso que ya se ejecuta en un Pod. Crea un port forward de Kubernetes y genera una configuración de conexión para el editor.
+El Asistente de depuración conecta un depurador local con un proceso que ya corre en un Pod. Crea un port forward de Kubernetes y genera una configuración de conexión para el editor.
 
 ## Iniciar una sesión
 
@@ -16,7 +16,7 @@ El Asistente de depuración conecta un depurador local con un proceso que ya se 
 ## Funciones no incluidas
 
 <Callout type="warn">
-  Dockerman no crea un Pod temporal de herramientas, no inyecta depuradores, no comparte namespaces ni volúmenes de otro Pod y no abre un terminal de depuración. El proceso de destino debe estar escuchando ya en el puerto elegido.
+  Dockerman no crea un Pod temporal de herramientas, no inyecta depuradores, no comparte namespaces ni volúmenes de otro Pod y no abre un terminal de depuración. El proceso de destino ya debe estar escuchando en el puerto elegido.
 </Callout>
 
 Usa el [terminal del Pod](/es/docs/kubernetes/logs-terminal) cuando el contenedor ya incluya un shell válido.

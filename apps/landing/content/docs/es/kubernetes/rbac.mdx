@@ -1,21 +1,21 @@
 ---
 title: "RBAC"
-description: "Explora ServiceAccounts, Roles, ClusterRoles y sus bindings para entender quién puede hacer qué."
+description: "Explora ServiceAccounts, Roles, ClusterRoles y sus bindings para ver quién puede hacer qué."
 ---
 
-Usa la página de RBAC para responder una pregunta rápidamente: quién puede hacer qué en este clúster.
+La página de RBAC responde quién puede hacer qué en este clúster.
 
 ## ServiceAccounts
 
-ServiceAccounts muestra identidades del namespace. La vista refleja campos de la API, como image pull secrets cuando existen; un cluster moderno no tiene por qué crear Secrets de token.
+ServiceAccounts muestra identidades del namespace. La vista refleja campos de la API, como image pull secrets cuando existen; un clúster moderno no tiene por qué crear Secrets de token.
 
 ## Roles y ClusterRoles
 
-Usa Roles y ClusterRoles para inspeccionar los permisos asociados a esas identidades. La vista de detalle expande el array `rules` en una tabla legible con apiGroups, resources, verbs y resourceNames.
+Inspecciona los permisos asociados a esas identidades. El detalle expande el array `rules` en una tabla con apiGroups, resources, verbs y resourceNames.
 
 ## RoleBindings y ClusterRoleBindings
 
-Usa RoleBindings y ClusterRoleBindings para ver qué subjects apuntan a cada rol. La lista muestra la referencia del rol y los subjects, incluyendo usuarios, grupos y ServiceAccounts.
+Qué subjects apuntan a cada rol. La lista muestra la referencia del rol y los subjects, incluidos usuarios, grupos y ServiceAccounts.
 
 ## Solución de problemas de permisos
 

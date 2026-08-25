@@ -3,11 +3,11 @@ title: "Redes"
 description: "Crea y gestiona redes Docker y conexiones de contenedores."
 ---
 
-Usa esta página para listar redes, crear nuevas y conectar o desconectar contenedores.
+Lista redes, crea otras nuevas y conecta o desconecta contenedores.
 
 ## La lista de redes
 
-La lista de redes muestra el nombre, el controlador, el ámbito, la cantidad de contenedores conectados y la subred. Las redes integradas como `bridge`, `host` y `none` están marcadas para que no las elimines por error.
+Muestra el nombre, el controlador, el ámbito, cuántos contenedores hay conectados y la subred. Las redes integradas como `bridge`, `host` y `none` van marcadas para que no las elimines por error.
 
 ## Crear una red
 
@@ -20,12 +20,12 @@ La lista de redes muestra el nombre, el controlador, el ámbito, la cantidad de 
   <Step>
     ### Configurar IPAM (opcional)
 
-    Configura la subred, la puerta de enlace y el rango de IP si necesitas direccionamiento personalizado.
+    Configura la subred, la puerta de enlace y el rango de IP si necesitas direccionamiento propio.
   </Step>
   <Step>
     ### Etiquetas (opcional)
 
-    Añade etiquetas clave-valor cuando quieras organizar o automatizar la red más tarde.
+    Añade etiquetas clave-valor para organizar o automatizar la red más adelante.
   </Step>
 </Steps>
 
@@ -35,16 +35,16 @@ La lista de redes muestra el nombre, el controlador, el ámbito, la cantidad de 
 
 ## Conectar y desconectar contenedores
 
-Abre una red, selecciona Conectar contenedor, luego elige el contenedor objetivo y un alias opcional. Usa Desconectar desde la misma vista cuando quieras eliminar el contenedor de la red nuevamente.
+Abre una red, selecciona Conectar contenedor y elige el contenedor de destino y un alias opcional. Usa Desconectar en la misma vista para quitar el contenedor de la red.
 
 ## Inspeccionar una red
 
-Abre Inspeccionar para revisar el JSON de la red, incluyendo las opciones del controlador, la configuración de IPAM y los contenedores conectados con sus direcciones IP y alias.
+Abre Inspeccionar para revisar el JSON de la red: opciones del controlador, configuración de IPAM y contenedores conectados con sus direcciones IP y alias.
 
 ## Eliminar y purgar
 
-Eliminar quita una sola red después de que desconectes los contenedores adjuntos. Purgar elimina todas las redes que no estén siendo usadas por al menos un contenedor.
+Eliminar quita una sola red después de desconectar los contenedores unidos. Purgar elimina todas las redes que no use al menos un contenedor.
 
 <Callout type="warn">
-  Las redes integradas (`bridge`, `host`, `none`) no pueden eliminarse. Purgar las omite automáticamente.
+  Las redes integradas (`bridge`, `host`, `none`) no pueden eliminarse. Purgar las omite.
 </Callout>

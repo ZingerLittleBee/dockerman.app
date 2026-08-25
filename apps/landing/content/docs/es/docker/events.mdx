@@ -7,7 +7,7 @@ La página Eventos recibe eventos del host Docker seleccionado y ofrece búsqued
 
 ## Pausa
 
-Mientras está pausada, los eventos nuevos no entran en la lista ni en la cola persistente. Se descartan, no se almacenan para reproducirlos después.
+Mientras está pausada, los eventos nuevos no entran en la lista ni en la cola persistente. Se descartan; no se guardan para reproducirlos después.
 
 ## Historial local
 
@@ -18,5 +18,5 @@ Dockerman guarda JSONL por host en el directorio de datos. Cada fichero rota a 5
 Usa los controles visibles para filtrar por tipo, acción, tiempo y texto. Exporta el resultado como JSON o CSV cuando esté disponible.
 
 <Callout type="warn">
-  Los eventos Docker describen transiciones de estado; no son un registro de auditoría completo de errores o identidades humanas.
+  Los eventos Docker describen transiciones de estado; no son un registro de auditoría completo de errores ni de identidades humanas.
 </Callout>

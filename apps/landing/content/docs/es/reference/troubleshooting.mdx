@@ -1,17 +1,17 @@
 ---
-title: "Resolución de Problemas"
-description: "Problemas comunes y cómo resolverlos: conexión, permisos, rendimiento y Kubernetes."
+title: "Resolución de problemas"
+description: "Problemas habituales y cómo resolverlos: conexión, permisos, rendimiento y Kubernetes."
 ---
 
-Problemas comunes y la forma más rápida de resolver cada uno.
+Problemas habituales y cómo resolver cada uno.
 
 ## No se puede conectar al demonio de Docker
 
-Usa las pestañas de abajo para seleccionar tu plataforma.
+Elige tu plataforma:
 
 <Tabs items={['macOS', 'Windows', 'Linux']}>
   <Tab>
-    Asegúrate de que Docker Desktop esté en ejecución, luego revisa [Configuración → Ajustes de Docker](/es/docs/reference/settings#configuración-de-docker) para ver la ruta del socket que Dockerman debe usar.
+    Comprueba que Docker Desktop esté en ejecución y revisa [Configuración → Ajustes de Docker](/es/docs/reference/settings#configuración-de-docker) para ver la ruta del socket que Dockerman debe usar.
   </Tab>
   <Tab>
     Elige entre Docker Desktop y el motor WSL2 en [Windows](/es/docs/platform/windows). Si Dockerman apunta al backend incorrecto, cámbialo en [Configuración → Ajustes de Docker](/es/docs/reference/settings#configuración-de-docker).
@@ -31,12 +31,12 @@ Usa la sección de resolución de problemas de Windows para la ruta de WSL2: [Re
 
 ## La conexión al host SSH falla
 
-Comprueba los datos de conexión y si alguna regla del firewall bloquea el tráfico saliente por el puerto 22. Para ver el proceso de configuración completo, consulta [Hosts Remotos](/es/docs/advanced/remote-hosts).
+Comprueba los datos de conexión y si alguna regla del firewall bloquea el tráfico saliente por el puerto 22. El proceso de configuración completo está en [Hosts remotos](/es/docs/advanced/remote-hosts).
 
 ## Problemas de rendimiento
 
-- Un alto consumo de CPU en reposo generalmente significa que una pestaña de Registros está transmitiendo un conjunto de archivos grande. Pausa las pestañas que no estés usando.
-- Cargas lentas de listas con cientos de contenedores generalmente significa que necesitas filtrar primero por estado o proyecto de Compose.
+- Un consumo alto de CPU en reposo suele significar que una pestaña de Registros está transmitiendo un conjunto de archivos grande. Pausa las pestañas que no estés usando.
+- Cargas lentas de listas con cientos de contenedores suelen pedir filtrar primero por estado o proyecto de Compose.
 - Si las estadísticas van lentas, usa un rango existente más corto, por ejemplo 1h en vez de 6h o 24h.
 
 ## Kubernetes: k3d no se inicia
@@ -46,18 +46,18 @@ Comprueba los datos de conexión y si alguna regla del firewall bloquea el tráf
     Detén la otra herramienta de Kubernetes o cambia el puerto API de k3d antes de intentarlo de nuevo.
   </Accordion>
   <Accordion title="vm.max_map_count demasiado bajo">
-    Ejecuta `sudo sysctl -w vm.max_map_count=262144`, luego persiste el valor en `/etc/sysctl.conf` si quieres que sobreviva al reinicio.
+    Ejecuta `sudo sysctl -w vm.max_map_count=262144` y persiste el valor en `/etc/sysctl.conf` si quieres que sobreviva al reinicio.
   </Accordion>
   <Accordion title="Falló la descarga del binario de k3d">
-    Verifica el acceso HTTPS saliente, luego reintenta la descarga. Si es necesario, coloca el binario manualmente en la ruta mostrada en el error.
+    Comprueba el acceso HTTPS saliente y reintenta la descarga. Si hace falta, coloca el binario a mano en la ruta que muestra el error.
   </Accordion>
 </Accordions>
 
 ## Kubernetes: falla la importación de kubeconfig
 
 - Selecciona el nombre de contexto correcto cuando importes el kubeconfig.
-- Actualiza las credenciales expiradas, luego exporta el kubeconfig de nuevo.
-- Verifica que `kubectl get ns` funcione desde la línea de comandos antes de importar detrás de un proxy o firewall.
+- Actualiza las credenciales caducadas y exporta el kubeconfig de nuevo.
+- Comprueba que `kubectl get ns` funcione desde la línea de comandos antes de importar detrás de un proxy o firewall.
 
 ## Recopilación de registros
 

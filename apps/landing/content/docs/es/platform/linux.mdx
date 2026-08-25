@@ -3,7 +3,7 @@ title: "Linux"
 description: "Instala Dockerman en distribuciones Linux y configura el Docker Engine para tu entorno."
 ---
 
-Dockerman se distribuye como `.deb`, `.rpm` o AppImage para que puedas instalarlo en la distribución que ya utilizas.
+Dockerman se distribuye como `.deb`, `.rpm` o AppImage para instalarlo en la distribución que ya usas.
 
 ## Instalación
 
@@ -37,7 +37,7 @@ Dockerman se distribuye como `.deb`, `.rpm` o AppImage para que puedas instalarl
 
 ## Configurar Docker Engine
 
-Sigue las instrucciones oficiales de Docker Engine en [docs.docker.com/engine/install/](https://docs.docker.com/engine/install/) y asegúrate de que el daemon esté en ejecución. Dockerman no publica actualmente una versión mínima de Docker Engine probada por separado.
+Sigue las instrucciones oficiales de Docker Engine en [docs.docker.com/engine/install/](https://docs.docker.com/engine/install/) y comprueba que el daemon esté en ejecución. Dockerman no publica ahora una versión mínima de Docker Engine probada por separado.
 
 ## Permisos
 
@@ -52,7 +52,7 @@ Sigue las instrucciones oficiales de Docker Engine en [docs.docker.com/engine/in
   <Step>
     ### Cierra sesión y vuelve a iniciarla
 
-    La membresía del grupo solo se aplica a las nuevas sesiones de inicio.
+    La membresía del grupo solo se aplica a las sesiones nuevas.
   </Step>
   <Step>
     ### Verifica el acceso
@@ -62,27 +62,27 @@ Sigue las instrucciones oficiales de Docker Engine en [docs.docker.com/engine/in
 </Steps>
 
 <Callout type="warn">
-  Estar en el grupo `docker` es efectivamente acceso root en el host. Usa Docker rootless si necesitas un límite más estricto.
+  Estar en el grupo `docker` equivale a acceso root en el host. Usa Docker rootless si necesitas un límite más estricto.
 </Callout>
 
 ## Servidores de pantalla
 
-Dockerman puede ejecutarse con Wayland o X11. El comportamiento de los atajos globales depende del entorno de escritorio y su integración con Tauri/WebView; Dockerman no implementa un backend independiente de atajos de xdg-desktop-portal.
+Dockerman puede ejecutarse con Wayland o X11. El comportamiento de los atajos globales depende del entorno de escritorio y su integración con Tauri/WebView; Dockerman no implementa un backend propio de atajos de xdg-desktop-portal.
 
 ## Integración con Freedesktop
 
-Dockerman instala un archivo `.desktop` para que aparezca en tu menú de aplicaciones. El icono de la bandeja usa la especificación StatusNotifierItem, que es soportada por KDE, GNOME con extensiones, XFCE y MATE.
+Dockerman instala un archivo `.desktop` para aparecer en el menú de aplicaciones. El icono de la bandeja usa la especificación StatusNotifierItem, soportada por KDE, GNOME con extensiones, XFCE y MATE.
 
 ## Solución de problemas
 
 <Accordions>
   <Accordion title="comando docker no encontrado">
-    Instala Docker Engine primero, luego abre una nueva shell para que tu PATH reconozca el CLI de Docker.
+    Instala Docker Engine primero y abre una shell nueva para que tu PATH reconozca el CLI de Docker.
   </Accordion>
   <Accordion title="Permiso denegado en /var/run/docker.sock">
-    Añade tu usuario al grupo `docker` y cierra sesión y vuelve a iniciarla para que la nueva membresía del grupo surta efecto.
+    Añade tu usuario al grupo `docker` y cierra sesión y vuelve a iniciarla para que la membresía surta efecto.
   </Accordion>
   <Accordion title="Icono de bandeja no visible">
-    Instala una extensión StatusNotifierItem para tu entorno de escritorio. GNOME normalmente necesita AppIndicator y KStatusNotifierItem Support.
+    Instala una extensión StatusNotifierItem para tu entorno de escritorio. GNOME suele necesitar AppIndicator y KStatusNotifierItem Support.
   </Accordion>
 </Accordions>

@@ -3,11 +3,11 @@ title: "Volúmenes"
 description: "Gestiona volúmenes Docker: crea, inspecciona y limpia el almacenamiento persistente."
 ---
 
-Usa esta página para listar, crear, inspeccionar y limpiar volúmenes. Cuando necesites explorar el contenido de un volumen, ve a [Archivos](/es/docs/docker/files).
+Lista, crea, inspecciona y limpia volúmenes. Para explorar el contenido de un volumen, ve a [Archivos](/es/docs/docker/files).
 
 ## La lista de volúmenes
 
-La lista de volúmenes muestra el nombre, driver, punto de montaje, tamaño y fecha de creación. Ordena y filtra para encontrar el volumen que necesitas.
+Muestra el nombre, el driver, el punto de montaje, el tamaño y la fecha de creación. Ordena y filtra para encontrar el que buscas.
 
 ## Crear un volumen
 
@@ -15,32 +15,32 @@ La lista de volúmenes muestra el nombre, driver, punto de montaje, tamaño y fe
   <Step>
     ### Elige un nombre y driver
 
-    Elige el nombre y una opción ofrecida actualmente (`local`, `nfs` o `cifs`). La lista no se genera dinámicamente desde los plugins Docker instalados.
+    Elige el nombre y una opción de las que hay ahora (`local`, `nfs` o `cifs`). La lista no se genera al vuelo a partir de los plugins Docker instalados.
   </Step>
   <Step>
     ### Opciones del driver (opcional)
 
-    Agrega cualquier opción específica del driver, como configuraciones de montaje NFS para el driver local.
+    Añade cualquier opción propia del driver, por ejemplo montajes NFS para el driver local.
   </Step>
   <Step>
     ### Etiquetas (opcional)
 
-    Añade etiquetas cuando quieras agrupar o consultar el volumen más tarde.
+    Añade etiquetas para agrupar o consultar el volumen más adelante.
   </Step>
 </Steps>
 
 ## Explorar archivos del volumen
 
-Usa [Archivos](/es/docs/docker/files) para explorar el contenido de un volumen, previsualizar archivos, editar archivos de texto, subir archivos, descargar archivos y gestionar acciones de selección múltiple.
+Usa [Archivos](/es/docs/docker/files) para explorar el contenido, previsualizar, editar texto, subir, descargar y gestionar acciones de selección múltiple.
 
 ## Inspeccionar un volumen
 
-Abre Inspeccionar para revisar el JSON del volumen, incluyendo el punto de montaje, opciones del driver, etiquetas, ámbito y la lista de contenedores que actualmente usan el volumen.
+Abre Inspeccionar para revisar el JSON: punto de montaje, opciones del driver, etiquetas, ámbito y contenedores que lo usan ahora.
 
 ## Limpiar volúmenes no utilizados
 
-Limpiar reenvía la operación al runtime seleccionado, que decide qué volúmenes están sin uso. Revisa la confirmación antes de continuar.
+Limpiar reenvía la operación al runtime seleccionado, que decide qué volúmenes están sin uso. Revisa la confirmación antes de seguir.
 
 <Callout type="warn">
-  Limpiar elimina todos los volúmenes no utilizados, incluyendo volúmenes con nombre que podrías querer conservar. Usa Eliminar en su lugar cuando quieras ser explícito.
+  Limpiar elimina todos los volúmenes no utilizados, incluidos volúmenes con nombre que quizá quieras conservar. Usa Eliminar cuando quieras indicar el volumen concreto.
 </Callout>

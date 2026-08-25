@@ -26,12 +26,12 @@ Windows tiene dos rutas de Docker compatibles: Docker Desktop o el Docker Engine
   <Step>
     ### Asegúrate de que Docker Desktop esté en ejecución
 
-    Espera a que el icono de la ballena muestre que Docker Desktop está en ejecución.
+    Espera a que el icono de la ballena indique que Docker Desktop está en ejecución.
   </Step>
   <Step>
     ### Inicia Dockerman
 
-    Dockerman detecta Docker Desktop automáticamente y se conecta a él.
+    Dockerman detecta Docker Desktop y se conecta a él.
   </Step>
 </Steps>
 
@@ -39,7 +39,7 @@ Windows tiene dos rutas de Docker compatibles: Docker Desktop o el Docker Engine
 
 Añadido en la v4.3.0.
 
-Dockerman incluye la ruta WSL2 para ti, así que no necesitas Docker Desktop ni configuración manual de WSL.
+Dockerman incluye la ruta WSL2, así que no necesitas Docker Desktop ni configurar WSL a mano.
 
 ### Requisitos previos
 
@@ -49,7 +49,7 @@ Dockerman incluye la ruta WSL2 para ti, así que no necesitas Docker Desktop ni 
 
 ### Asistente de configuración
 
-El Asistente de configuración se ejecuta automáticamente en el primer inicio cuando no se detecta Docker Desktop.
+El Asistente de configuración se ejecuta en el primer inicio cuando no se detecta Docker Desktop.
 
 <Steps>
   <Step>
@@ -70,18 +70,18 @@ El Asistente de configuración se ejecuta automáticamente en el primer inicio c
   <Step>
     ### Verifica la conexión
 
-    Dockerman ejecuta una verificación de salud y se conecta al nuevo daemon.
+    Dockerman ejecuta una comprobación de salud y se conecta al nuevo daemon.
   </Step>
 </Steps>
 
 <Callout type="warn">
-  No cierres Dockerman mientras el asistente está en ejecución. La primera configuración tarda unos minutos y debe finalizar antes de que la aplicación sea utilizable.
+  No cierres Dockerman mientras el asistente está en ejecución. La primera configuración tarda unos minutos y debe terminar antes de que la aplicación sea usable.
 </Callout>
 
 
 ### Qué hace el asistente
 
-El asistente crea los archivos de la distro Alpine que Dockerman utiliza para ejecutar Docker.
+El asistente crea los archivos de la distro Alpine que Dockerman usa para ejecutar Docker.
 
 <Files>
   <Folder name="(Alpine WSL2 distro)" defaultOpen>
@@ -97,15 +97,15 @@ El asistente crea los archivos de la distro Alpine que Dockerman utiliza para ej
 
 ### Edita daemon.json
 
-Usa Configuración → Panel de configuración del daemon para editar `/etc/docker/daemon.json` ya sea en una vista de formulario para campos comunes o una vista JSON sin procesar para todo lo demás. Guardar reinicia Docker dentro de la distro Alpine.
+Usa Configuración → Panel de configuración del daemon para editar `/etc/docker/daemon.json` en una vista de formulario para campos habituales o una vista JSON en crudo para el resto. Guardar reinicia Docker dentro de la distro Alpine.
 
 ### Recuperación tras fallo del daemon
 
-Si el daemon de Docker falla, Dockerman muestra un banner con un botón de Reinicio y transmite los logs del fallo para que puedas diagnosticar el problema.
+Si el daemon de Docker falla, Dockerman muestra un banner con un botón de Reinicio y transmite los logs del fallo para diagnosticar.
 
 ### Reinstala la distro WSL2
 
-Añadido en v5.3.0. Si la distro Alpine entra en un estado defectuoso, abre el asistente de configuración de WSL y haz clic en **Reinstall** para anular el registro de `dockerman-backend` e importar una imagen Alpine nueva.
+Añadido en v5.3.0. Si la distro Alpine queda en un estado defectuoso, abre el asistente de configuración de WSL y haz clic en **Reinstall** para anular el registro de `dockerman-backend` e importar una imagen Alpine nueva.
 
 <Callout type="warn">
   La reinstalación elimina toda la distribución WSL, incluidas las imágenes, los contenedores y los volúmenes de Docker, además de cualquier otro dato guardado en ella. Exporta o crea una copia de seguridad antes de continuar. Dockerman no conserva los volúmenes durante esta operación.
@@ -113,25 +113,25 @@ Añadido en v5.3.0. Si la distro Alpine entra en un estado defectuoso, abre el a
 
 ### Cambia la fuente del motor
 
-Añadido en v5.3.0. La página WSL en Windows muestra un selector de **Fuente del motor** con dos tarjetas: el socket Docker nativo del sistema (Docker Desktop o cualquier Docker instalado en el sistema) y el Docker Engine WSL2 incluido en Dockerman. Selecciona una tarjeta y Dockerman reconectará silenciosamente el host local a la nueva fuente —sin toast ni guardado manual—. El tipo de conexión Docker anterior (`socket`, `tcp`, `npipe`) se recuerda, por lo que volver a Docker nativo del sistema restaura tu configuración anterior.
+Añadido en v5.3.0. La página WSL en Windows muestra un selector de **Fuente del motor** con dos tarjetas: el socket Docker nativo del sistema (Docker Desktop o cualquier Docker instalado en el sistema) y el Docker Engine WSL2 incluido en Dockerman. Elige una tarjeta y Dockerman reconecta el host local a esa fuente, sin toast ni guardado manual. El tipo de conexión Docker anterior (`socket`, `tcp`, `npipe`) se recuerda, así que volver a Docker nativo del sistema restaura tu configuración previa.
 
-Si prefieres el flujo anterior, también puedes cambiar el tipo de conexión desde **Configuración → Configuración de Docker** y reconectar manualmente.
+Si prefieres el flujo anterior, también puedes cambiar el tipo de conexión desde **Configuración → Configuración de Docker** y reconectar a mano.
 
-## Monitorización de recursos para WSL2
+## Supervisión de recursos para WSL2
 
-Usa [Stats](/es/docs/docker/stats) para monitorizar el Engine WSL2 como cualquier otro daemon de Docker. Si Windows parece consumir mucha memoria, verifica el ballooning de la VM WSL2 en el Administrador de tareas.
+Usa [Stats](/es/docs/docker/stats) para vigilar el Engine WSL2 como cualquier otro daemon de Docker. Si Windows parece consumir mucha memoria, comprueba el ballooning de la VM WSL2 en el Administrador de tareas.
 
 ## Solución de problemas
 
 <Accordions>
   <Accordion title="WSL2 no instalado">
-    Instala WSL2 con `wsl --install`, reinicia si Windows lo solicita, y verifica la instalación con `wsl --status`.
+    Instala WSL2 con `wsl --install`, reinicia si Windows lo pide y verifica la instalación con `wsl --status`.
   </Accordion>
   <Accordion title="Virtualización deshabilitada">
-    Habilita la virtualización en BIOS o UEFI, luego confirma que está activa desde el Administrador de tareas → Rendimiento → CPU.
+    Habilita la virtualización en BIOS o UEFI y confirma que está activa desde el Administrador de tareas → Rendimiento → CPU.
   </Accordion>
   <Accordion title="Fallo al importar Alpine">
-    Verifica el espacio libre en disco, cierra cualquier proceso WSL o Docker obsoleto, y revisa el Log de la aplicación para ver el error exacto de importación.
+    Comprueba el espacio libre en disco, cierra cualquier proceso WSL o Docker obsoleto y revisa el Log de la aplicación para ver el error exacto de importación.
   </Accordion>
   <Accordion title="El daemon no inicia tras reiniciar">
     Ve a [Recuperación tras fallo del daemon](/es/docs/platform/windows#recuperación-tras-fallo-del-daemon) y [Edita daemon.json](/es/docs/platform/windows#edita-daemonjson). Ambas secciones cubren los fallos de inicio habituales.

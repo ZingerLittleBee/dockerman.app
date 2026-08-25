@@ -3,7 +3,7 @@ title: "Imágenes, Hub y Trivy"
 description: "Pull, build, push, escaneo y búsqueda de imágenes Docker desde la CLI."
 ---
 
-Los grupos `image`, `hub` y `trivy` cubren juntos el ciclo de vida completo de las imágenes: descubrir en Docker Hub, hacer pull, escanear CVEs, build, push y limpieza.
+Los grupos `image`, `hub` y `trivy` cubren juntos el ciclo de vida de las imágenes: descubrir en Docker Hub, hacer pull, escanear CVEs, build, push y limpieza.
 
 ## Listar, inspeccionar y etiquetar
 
@@ -16,7 +16,7 @@ dockerman image history nginx:latest
 dockerman image search nginx --pretty
 ```
 
-`image search` consulta el endpoint `/images/search` del Docker Engine a través del daemon conectado. Para resultados más ricos (descripciones, badges oficiales, listado de tags), usa [`hub search`](#buscar-en-docker-hub) más abajo — los dos comandos hablan con APIs distintas.
+`image search` consulta el endpoint `/images/search` del Docker Engine a través del daemon conectado. Para resultados más ricos (descripciones, badges oficiales, listado de tags), usa [`hub search`](#buscar-en-docker-hub) más abajo: los dos comandos hablan con APIs distintas.
 
 ## Pull y push
 
@@ -74,7 +74,7 @@ dockerman hub tags library/alpine --page 1 --page-size 25 --pretty
 
 ## Escanear con Trivy
 
-Dockerman puede gestionar el binario de Trivy. Un escaneo aún puede necesitar descargar o actualizar la base de datos, por lo que no se garantiza el uso offline.
+Dockerman puede gestionar el binario de Trivy. Un escaneo aún puede necesitar descargar o actualizar la base de datos, así que no se garantiza el uso offline.
 
 <Steps>
   <Step>

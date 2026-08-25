@@ -1,30 +1,30 @@
 ---
 title: "Spotlight"
-description: "Paleta de comandos para navegar Dockerman, ejecutar acciones y buscar recursos con una sola pulsación."
+description: "Paleta de comandos para navegar Dockerman, ejecutar acciones y buscar recursos."
 ---
 
-Spotlight es la paleta de comandos de Dockerman. Una pulsación abre un lanzador buscable y controlado por teclado que puede navegar a cualquier parte de la aplicación, ejecutar acciones comunes y buscar recursos.
+Spotlight es la paleta de comandos de Dockerman. Se abre con un atajo y muestra un lanzador buscable, manejable con el teclado, para ir a cualquier parte de la aplicación, ejecutar acciones habituales y buscar recursos.
 
 ## Abrir Spotlight
 
-Presiona `Cmd/Ctrl + ;` por defecto, o abre Spotlight desde el menú de la bandeja. Spotlight se abre como una ventana separada sin marco.
+Pulsa `Cmd/Ctrl + ;` (valor inicial) o ábrelo desde el menú de la bandeja. Spotlight se abre como una ventana aparte, sin marco.
 
 ## Navegar a recursos
 
-Empieza a escribir un nombre de contenedor, una etiqueta de imagen o un proyecto Compose. `Enter` abre el resultado o la acción seleccionada. Dockerman no ordena actualmente por frecuencia de uso ni por recencia.
+Empieza a escribir un nombre de contenedor, una etiqueta de imagen o un proyecto Compose. `Enter` abre el resultado o la acción seleccionada. Dockerman no ordena por frecuencia de uso ni por recencia.
 
 ## Acciones rápidas
 
-Usa acciones inline directamente desde la lista de resultados cuando Spotlight las muestre.
+Cuando Spotlight las muestre, las acciones van en la propia lista de resultados.
 
 - Contenedores: Start, Stop, Restart, Logs, Terminal, Backup y Paquete de diagnóstico
-- Imágenes: las acciones que la paleta muestre actualmente
+- Imágenes: las acciones que la paleta muestre ahora
 - Stacks Compose: acciones de ciclo de vida, Editar YAML y Paquete de diagnóstico
 - Utilidades: Docker Run to Compose
 
 ## Resaltados de búsqueda
 
-La búsqueda sigue la coincidencia de texto actual de la paleta. Dockerman no añade un contrato independiente de orden por uso ni de resaltado.
+La búsqueda sigue la coincidencia de texto de la paleta. No hay un contrato aparte de orden por uso ni de resaltado.
 
 ## Personalizar el atajo
 
@@ -33,5 +33,5 @@ Cambia el atajo de Spotlight en [Configuración de atajos](/es/docs/reference/se
 ## Consejos
 
 <Callout type="info">
-  Spotlight se ejecuta en su propia ventana de Tauri para mantenerse instantáneo. Cerrarlo no cierra la ventana principal de Dockerman, y viceversa.
+  Spotlight corre en su propia ventana de Tauri. Cerrarlo no cierra la ventana principal de Dockerman, ni al revés.
 </Callout>

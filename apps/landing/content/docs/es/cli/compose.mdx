@@ -6,7 +6,7 @@ description: "Gestiona proyectos Docker Compose, despliega desde un fichero comp
 El grupo `compose` opera sobre proyectos Compose existentes (cualquier recurso con la etiqueta `com.docker.compose.project`) y también puede desplegar un proyecto nuevo desde un fichero compose.
 
 <Callout type="warn">
-  Los comandos de Compose requieren un runtime Docker. No están disponibles cuando el host seleccionado es un objetivo Podman.
+  Los comandos de Compose requieren un runtime Docker. No están disponibles cuando el host seleccionado es un destino Podman.
 </Callout>
 
 ## Listar proyectos
@@ -40,7 +40,7 @@ dockerman compose remove myproject --remove-volumes --yes
 | `--dry-run` | Imprime qué pasaría sin aplicar cambios |
 | `--service <nombre>` | Limita `restart`/`stop`/`start` a un único servicio |
 
-`compose up` acepta `--detach` (por defecto) o `--attach`. Actualmente la salida attach se devuelve al terminar el proceso, no como logs en tiempo real.
+`compose up` acepta `--detach` (por defecto) o `--attach`. Ahora mismo la salida attach se devuelve al terminar el proceso, no como logs en tiempo real.
 
 `compose remove` (alias `compose down`) es destructivo y necesita `--yes`. `--remove-volumes` pide a Compose borrar los volúmenes que reconoce, pero no garantiza enumerarlos todos.
 
@@ -51,7 +51,7 @@ dockerman compose pull myproject --json
 dockerman compose pull myproject --service web --json
 ```
 
-Transmite el progreso del pull como un envelope NDJSON por capa. Usa `--json` para salida procesable por máquinas, omítelo para las líneas de progreso legibles.
+Transmite el progreso del pull como un envelope NDJSON por capa. Usa `--json` para salida procesable por máquinas; omítelo para las líneas de progreso legibles.
 
 ## Desplegar desde un fichero compose
 
@@ -61,7 +61,7 @@ dockerman compose deploy myproject ./docker-compose.yml \
   --env LOG_LEVEL=info
 ```
 
-`deploy` toma un nombre de proyecto y un fichero compose. El daemon lo ejecuta desde un directorio temporal, por lo que contextos de build, bind mounts o env files relativos pueden fallar. Usa rutas absolutas o `up`.
+`deploy` toma un nombre de proyecto y un fichero compose. El daemon lo ejecuta desde un directorio temporal, así que contextos de build, bind mounts o env files relativos pueden fallar. Usa rutas absolutas o `up`.
 
 <Callout type="info">
   `deploy` y `up` usan RPC distintos. El primero envía el contenido del fichero; el segundo opera un proyecto existente.

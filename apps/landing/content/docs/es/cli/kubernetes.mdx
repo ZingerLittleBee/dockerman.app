@@ -3,7 +3,7 @@ title: "Kubernetes"
 description: "Comandos Kubernetes en modo lectura para descubrimiento de clusters, selección de namespaces e inspección de recursos."
 ---
 
-El grupo `k8s` es **sólo lectura**: descubre clusters e inspecciona una lista explícita de recursos integrados. No crea, actualiza ni elimina recursos, ni consulta tipos CR arbitrarios.
+El grupo `k8s` es **solo lectura**: descubre clusters e inspecciona una lista explícita de recursos integrados. No crea, actualiza ni elimina recursos, ni consulta tipos CR arbitrarios.
 
 ## Elegir cluster y namespace
 
@@ -102,7 +102,7 @@ dockerman k8s event list --type Warning --involved-kind Pod
 
 ## Recursos genéricos y YAML
 
-El subcomando `resource` sólo admite una lista fija de identificadores. `api-resource list` muestra discovery del cluster, pero no vuelve invocable cada tipo descubierto.
+El subcomando `resource` solo admite una lista fija de identificadores. `api-resource list` muestra discovery del cluster, pero no vuelve invocables todos los tipos descubiertos.
 
 ```bash
 dockerman k8s api-resource list --cluster kubeconfig:dev-context
@@ -111,8 +111,8 @@ dockerman k8s resource yaml secrets.core/v1 app-secret
 dockerman k8s resource yaml secrets.core/v1 app-secret --json
 ```
 
-`resource yaml` imprime el manifest sanitizado. El campo `data` de los Secret se reemplaza por `<REDACTED>` antes de salir del daemon — **no puedes leer el contenido en claro de un Secret a través de la CLI**.
+`resource yaml` imprime el manifest sanitizado. El campo `data` de los Secret se reemplaza por `<REDACTED>` antes de salir del daemon: **no puedes leer el contenido en claro de un Secret desde la CLI**.
 
 <Callout type="warn">
-  Todos los comandos k8s son sólo lectura por diseño. Para aplicar cambios, usa `kubectl` directamente. La superficie k8s de Dockerman está pensada para inspección segura desde automatización y desde la GUI.
+  Todos los comandos k8s son solo lectura por diseño. Para aplicar cambios, usa `kubectl` directamente. La superficie k8s de Dockerman está pensada para inspección segura desde automatización y desde la GUI.
 </Callout>

@@ -1,38 +1,38 @@
 ---
 title: Homelab
-description: Automatiza, monitorea y mantiene tus servicios autoalojados sin salir de Dockerman.
+description: Automatiza, supervisa y mantiene servicios autoalojados desde Dockerman.
 ---
 
-Las funciones de homelab de Dockerman te permiten monitorear tus servicios autoalojados, recibir notificaciones cuando algo falla y solucionar problemas sin tener que alternar entre múltiples herramientas.
+Las funciones de homelab sirven para vigilar servicios autoalojados, enterarte cuando algo falla y diagnosticar sin saltar entre varias herramientas.
 
 ## Por qué el modo homelab
 
-La mayoría de la gestión de contenedores ocurre mientras estás en tu escritorio. El modo homelab cubre el resto: qué sucede cuando te alejas, cuando un servicio falla a las 3 AM, o cuando aparece una nueva versión de imagen mientras no estás atento.
+La mayor parte de la gestión de contenedores ocurre mientras estás en el escritorio. El modo homelab cubre el resto: qué pasa cuando te alejas, cuando un servicio cae a las 3 AM, o cuando sale una versión nueva de imagen y no estás mirando.
 
 Dockerman es **desktop-first y local-first**. No despliega un contenedor de gestión ni expone un puerto. Los datos sensibles de registros, hosts remotos y notificaciones se guardan en los datos locales de la app; no se garantiza Keychain.
 
-## El flujo de trabajo end-to-end
+## El flujo de principio a fin
 
 <Steps>
   <Step>
     ### Configura canales de notificación
 
-    Conecta [Telegram, ntfy, Gotify, Discord o un webhook genérico](/es/docs/homelab/notifications) para que Dockerman pueda contactarte cuando estés ausente.
+    Conecta [Telegram, ntfy, Gotify, Discord o un webhook genérico](/es/docs/homelab/notifications) para que Dockerman te avise cuando no estás delante.
   </Step>
   <Step>
     ### Habilita las reglas preestablecidas
 
-    *Restart loop* y *Container crash (non-zero exit)* vienen deshabilitadas. Crear reglas custom está marcado Próximamente.
+    *Restart loop* y *Container crash (non-zero exit)* vienen deshabilitadas. Crear reglas propias está marcado como Próximamente.
   </Step>
   <Step>
     ### Suscríbete a actualizaciones de imágenes
 
-    Activa [monitoreo de actualizaciones de imágenes](/es/docs/homelab/image-watches) para los servicios que te importan. Dockerman verifica los registros en segundo plano y envía una notificación cuando hay una nueva versión disponible.
+    Activa el [seguimiento de actualizaciones de imágenes](/es/docs/homelab/image-watches) para los servicios que te importan. Dockerman consulta los registros en segundo plano y envía una notificación cuando hay una versión nueva.
   </Step>
   <Step>
-    ### Diagnostica y soluciona
+    ### Diagnostica y corrige
 
-    Cuando algo se rompe, genera un [paquete de diagnóstico](/es/docs/homelab/diagnostic-bundle) con un clic, edita el YAML de Compose en el [editor integrado](/es/docs/docker/compose#editar-composeyaml) o el [editor de .env](/es/docs/docker/containers#editor-visual-de-env) y aplica la solución.
+    Cuando algo se rompe, genera un [paquete de diagnóstico](/es/docs/homelab/diagnostic-bundle) en un clic, edita el YAML de Compose en el [editor integrado](/es/docs/docker/compose#editar-composeyaml) o el [editor de .env](/es/docs/docker/containers#editor-visual-de-env) y aplica el cambio.
   </Step>
 </Steps>
 
@@ -40,24 +40,24 @@ Dockerman es **desktop-first y local-first**. No despliega un contenedor de gest
 
 <Cards>
   <Card title="Tareas en segundo plano" href="/es/docs/homelab/scheduler">
-    Programación cron e intervalos que siguen ejecutándose cuando la ventana principal está cerrada.
+    Programación cron e intervalos que siguen ejecutándose con la ventana principal cerrada.
   </Card>
   <Card title="Notificaciones" href="/es/docs/homelab/notifications">
-    Telegram, ntfy, Gotify, Discord, Webhook y notificaciones del sistema a través de un esquema de URL compatible con Shoutrrr.
+    Telegram, ntfy, Gotify, Discord, Webhook y notificaciones del sistema, con un esquema de URL compatible con Shoutrrr.
   </Card>
   <Card title="Reglas de alerta" href="/es/docs/homelab/alerts">
-    Cuatro tipos de reglas que cubren salidas de contenedores, health checks, umbrales de recursos y ráfagas de reinicio.
+    Cuatro tipos de reglas: salidas de contenedores, health checks, umbrales de recursos y ráfagas de reinicio.
   </Card>
-  <Card title="Monitoreo de actualizaciones de imágenes" href="/es/docs/homelab/image-watches">
-    Sondeo de registros en segundo plano con comparación de digest y notificación multi-canal cuando llega una nueva versión.
+  <Card title="Seguimiento de actualizaciones de imágenes" href="/es/docs/homelab/image-watches">
+    Sondeo de registros en segundo plano, comparación de digest y aviso por varios canales cuando llega una versión nueva.
   </Card>
   <Card title="Paquete de diagnóstico" href="/es/docs/homelab/diagnostic-bundle">
-    Zip de un clic con inspect, eventos, logs y estadísticas para un contenedor o un stack Compose completo.
+    Zip en un clic con inspect, eventos, logs y estadísticas de un contenedor o de un stack Compose completo.
   </Card>
 </Cards>
 
 ## Cómo permanece en ejecución
 
-Dockerman usa **residencia en bandeja**: cerrar la ventana principal envía la aplicación a la bandeja del sistema, y las tareas en segundo plano siguen ejecutándose. Cuando cierras el icono de la bandeja, Dockerman te informa que las tareas en segundo plano se detendrán.
+Al cerrar la ventana principal, Dockerman **se queda en la bandeja del sistema** y las tareas en segundo plano siguen. Si cierras el icono de la bandeja, avisa de que esas tareas se detendrán.
 
-Un servicio de sistema completo (launchd / systemd / Windows Service) está planificado para una versión futura.
+Un servicio de sistema completo (launchd / systemd / Windows Service) está previsto para una versión posterior.

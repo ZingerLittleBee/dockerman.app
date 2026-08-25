@@ -3,11 +3,11 @@ title: "Avanzado y scripting"
 description: "Schema, escape hatch call, Cloudflare Quick Tunnels, motor WSL2 gestionado y consejos para automatización."
 ---
 
-Esta página recopila los comandos CLI menos frecuentes y los patrones que usamos al envolver `dockerman` desde shell scripts, pipelines de CI o herramientas LLM.
+Esta página reúne los comandos CLI menos frecuentes y los patrones que usamos al envolver `dockerman` desde scripts de shell, pipelines de CI o herramientas LLM.
 
 ## `schema` y `call`
 
-El schema describe la superficie soportada del daemon. `call` sólo invoca su lista fija de RPC unary; no es un escape hatch sin restricciones.
+El schema describe la superficie soportada del daemon. `call` solo invoca su lista fija de RPC unary; no es un escape hatch sin restricciones.
 
 ```bash
 dockerman schema
@@ -19,10 +19,10 @@ dockerman call hub_search '{"query":"alpine","pageSize":5}'
 dockerman call remove_container '{"name":"web","options":{"force":true}}' --yes
 ```
 
-`call` espera un objeto JSON de params. Los RPCs destructivos requieren `--yes` (o `-y`) igual que los subcomandos dedicados. **Los RPCs en streaming no se pueden invocar mediante `call`** — usa los comandos de streaming dedicados para obtener el envelope correcto.
+`call` espera un objeto JSON de params. Los RPCs destructivos requieren `--yes` (o `-y`) igual que los subcomandos dedicados. **Los RPCs en streaming no se pueden invocar con `call`**: usa los comandos de streaming dedicados para obtener el envelope correcto.
 
 <Callout type="info">
-  `schema --format mcp-tools` emite un registro de herramientas compatible con MCP. Conéctalo directamente a un agente LLM que ya hable Model Context Protocol.
+  `schema --format mcp-tools` emite un registro de herramientas compatible con MCP. Conéctalo a un agente LLM que ya hable Model Context Protocol.
 </Callout>
 
 ## Eventos
@@ -33,11 +33,11 @@ dockerman events --filter type=container --filter event=start
 dockerman events --since 2026-05-01T00:00:00Z --until 2026-05-01T01:00:00Z
 ```
 
-`events` es un comando en streaming y siempre emite [envelopes](/es/docs/cli/streaming) NDJSON en stdout — no hay flag `--json` porque no hay modo plano. Repite `--filter key=value` para filtros adicionales; el matching usa la semántica estándar de filtros de Docker. `--since` y `--until` aceptan timestamps Unix o datetimes RFC 3339.
+`events` es un comando en streaming y siempre emite [envelopes](/es/docs/cli/streaming) NDJSON en stdout; no hay flag `--json` porque no hay modo plano. Repite `--filter key=value` para filtros adicionales; la coincidencia usa la semántica estándar de filtros de Docker. `--since` y `--until` aceptan timestamps Unix o datetimes RFC 3339.
 
 ## Cloudflare Quick Tunnels
 
-Expón un puerto local de un contenedor mediante una URL pública `trycloudflare.com`. Los Quick Tunnels son ad-hoc y no autenticados; úsalos para desarrollo y demos en vivo, nunca como ingress de producción.
+Expón un puerto local de un contenedor mediante una URL pública `trycloudflare.com`. Los Quick Tunnels son ad hoc y no autenticados; úsalos para desarrollo y demos en vivo, nunca como ingress de producción.
 
 ```bash
 dockerman tunnel status --json
@@ -51,9 +51,9 @@ dockerman tunnel close web --host-port 8080 --host-ip 0.0.0.0
 dockerman tunnel close-container web
 ```
 
-`tunnel create` es destructivo en el sentido de que cambia la exposición de red, así que requiere `--yes`. Pasa `--install` si `cloudflared` aún no está instalado; la CLI transmite el progreso de instalación antes de abrir el túnel. Los hosts Docker remotos forwardeados por SSH no están soportados como destino de túneles.
+`tunnel create` es destructivo en el sentido de que cambia la exposición de red, así que requiere `--yes`. Pasa `--install` si `cloudflared` aún no está instalado; la CLI transmite el progreso de instalación antes de abrir el túnel. Los hosts Docker remotos reenviados por SSH no están soportados como destino de túneles.
 
-`--host-port` y `--all` son mutuamente excluyentes: o eliges puertos publicados específicos o expones cada puerto que el contenedor publica. `--host-ip` requiere al menos un `--host-port`; no puedes hacer bind por IP sin nombrar el puerto.
+`--host-port` y `--all` son mutuamente excluyentes: o eliges puertos publicados concretos o expones cada puerto que el contenedor publica. `--host-ip` requiere al menos un `--host-port`; no puedes hacer bind por IP sin nombrar el puerto.
 
 ## Motor WSL2 gestionado (Windows)
 
@@ -72,7 +72,7 @@ dockerman wsl unregister --yes
 
 `wsl setup` importa el rootfs Alpine empaquetado, instala Docker Engine y los plugins de Compose v2, y arranca `dockerd` detrás de un proxy TCP de localhost. Volver a ejecutar `setup` es idempotente y reanuda desde el estado actual.
 
-`wsl unregister --yes` borra la distro gestionada **y todos los contenedores, imágenes y volúmenes que contiene**. No hay vuelta atrás; úsalo sólo cuando estés seguro.
+`wsl unregister --yes` borra la distro gestionada **y todos los contenedores, imágenes y volúmenes que contiene**. No hay marcha atrás; úsalo solo cuando estés seguro.
 
 ## Consejos de scripting
 
@@ -93,7 +93,7 @@ if [[ "$ans" == "y" ]]; then
 fi
 ```
 
-La CLI siempre exige `--yes`, sin importar lo confiado que esté tu script. **No existe** `--force-yes` ni un bypass por variable de entorno; es intencional.
+La CLI siempre exige `--yes`, por muy confiado que esté el script. **No existe** `--force-yes` ni un bypass por variable de entorno; es intencional.
 
 ### Detectar fallo de descubrimiento del daemon
 
@@ -108,4 +108,4 @@ Los fallos de descubrimiento y handshake del daemon salen con código `3`, disti
 
 ### Streams largos en CI
 
-Los runners de CI suelen matar procesos que no producen salida durante unos minutos. El heartbeat de 15s del daemon garantiza que los comandos de streaming siempre produzcan *algo* por el cable, pero el modo plano oculta los heartbeats. Usa `--json` en CI para que los heartbeats salgan como líneas visibles, o canaliza por `ts` para añadir timestamps a cada línea.
+Los runners de CI suelen matar procesos que no producen salida durante unos minutos. El heartbeat de 15s del daemon hace que los comandos de streaming siempre emitan *algo* por el cable, pero el modo plano oculta los heartbeats. Usa `--json` en CI para que los heartbeats salgan como líneas visibles, o canaliza por `ts` para añadir marcas de tiempo a cada línea.

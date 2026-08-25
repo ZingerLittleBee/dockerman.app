@@ -1,9 +1,9 @@
 ---
 title: Paquete de diagnóstico
-description: Genera un zip de un clic con datos de inspect, eventos, logs y estadísticas para un contenedor o stack Compose.
+description: Genera un zip en un clic con inspect, eventos, logs y estadísticas de un contenedor o stack Compose.
 ---
 
-El paquete de diagnóstico empaqueta todo lo que necesitas para depurar un contenedor o stack Compose en un solo archivo `.zip`. Compártelo con un amigo, publícalo en un issue o guárdalo para tu propia referencia.
+El paquete de diagnóstico mete en un solo `.zip` inspect, eventos, logs y estadísticas de un contenedor o stack Compose. Compártelo con alguien, adjúntalo a un issue o guárdalo como referencia.
 
 ## Qué contiene el paquete
 
@@ -22,14 +22,14 @@ El paquete de diagnóstico empaqueta todo lo que necesitas para depurar un conte
 
 | Archivo | Contenido |
 | --- | --- |
-| `manifest.json` | Timestamp de generación, versión de Dockerman, tipo de host, inventario de archivos, conteo de redacción y cualquier error encontrado |
-| `system.json` | Versión de Docker e información del sistema. Se elimina el usuario del registro, pero no se aplica una limpieza general de secretos. |
-| `events.json` | Eventos de Docker filtrados por la ventana de tiempo seleccionada y contenedores objetivo |
-| `inspect.json` | Datos de inspect de contenedor, imagen, red y volumen. Por defecto solo se redactan los valores con nombre coincidente en la lista `Env` de la configuración del contenedor. Incluye `State.Health`. |
-| `logs.txt` | Logs de contenedor con timestamps dentro de la ventana de tiempo seleccionada |
-| `stats.json` | Muestras de uso de recursos del almacén de series temporales (muestras crudas de 5 segundos cuando están disponibles, fallback a agregados de 5 minutos para ventanas más largas, o un snapshot actual si no hay datos de series temporales disponibles) |
+| `manifest.json` | Marca de tiempo de generación, versión de Dockerman, tipo de host, inventario de archivos, conteo de redacción y cualquier error encontrado |
+| `system.json` | Versión de Docker e información del sistema. Se elimina el usuario del registro, pero no hay una limpieza general de secretos. |
+| `events.json` | Eventos de Docker filtrados por la ventana de tiempo seleccionada y los contenedores de destino |
+| `inspect.json` | Datos de inspect de contenedor, imagen, red y volumen. Por defecto solo se ocultan los valores cuyo nombre coincide con la lista `Env` de la configuración del contenedor. Incluye `State.Health`. |
+| `logs.txt` | Logs de contenedor con marcas de tiempo dentro de la ventana seleccionada |
+| `stats.json` | Muestras de uso de recursos del almacén de series temporales (muestras en crudo de 5 segundos si hay, si no agregados de 5 minutos en ventanas más largas, o un snapshot actual si no hay series temporales) |
 
-Cuando se apunta a un stack Compose, el paquete incluye un subdirectorio por contenedor en el stack.
+Si el destino es un stack Compose, el paquete incluye un subdirectorio por contenedor del stack.
 
 ## Generar un paquete
 
@@ -41,7 +41,7 @@ Cuando se apunta a un stack Compose, el paquete incluye un subdirectorio por con
     Abre el menú overflow del stack Compose y selecciona **Paquete de diagnóstico**.
   </Tab>
   <Tab>
-    Abre [Spotlight](/es/docs/advanced/spotlight) y busca "paquete de diagnóstico", luego selecciona el objetivo.
+    Abre [Spotlight](/es/docs/advanced/spotlight) y busca "paquete de diagnóstico", luego selecciona el destino.
   </Tab>
 </Tabs>
 
@@ -49,39 +49,39 @@ Cuando se apunta a un stack Compose, el paquete incluye un subdirectorio por con
   <Step>
     ### Elige la ventana de tiempo
 
-    Selecciona qué tan atrás incluir logs, eventos y estadísticas. Ventanas más largas producen paquetes más grandes.
+    Elige cuánto historial incluir de logs, eventos y estadísticas. Ventanas más largas producen paquetes más grandes.
   </Step>
   <Step>
     ### Revisa la configuración de redacción
 
-    Las variables de entorno que coinciden con `TOKEN`, `PASSWORD`, `SECRET`, `KEY`, `CREDENTIAL` o `AUTH` (sin distinguir mayúsculas/minúsculas) se reemplazan con `***REDACTED***` por defecto. Desactívalo si necesitas los valores sin procesar.
+    Las variables de entorno que coinciden con `TOKEN`, `PASSWORD`, `SECRET`, `KEY`, `CREDENTIAL` o `AUTH` (sin distinguir mayúsculas de minúsculas) se reemplazan por `***REDACTED***` por defecto. Desactívalo si necesitas los valores en claro.
   </Step>
   <Step>
     ### Elige una ubicación de guardado
 
-    Elige dónde guardar el archivo `.zip` en tu sistema de archivos local.
+    Elige dónde guardar el `.zip` en el sistema de archivos local.
   </Step>
   <Step>
     ### Espera la generación
 
-    Un indicador de progreso muestra el estado de empaquetado. La generación típicamente toma menos de 10 segundos para un solo contenedor.
+    Un indicador muestra el estado del empaquetado. Un solo contenedor suele tardar menos de 10 segundos.
   </Step>
   <Step>
     ### Abre el resultado
 
-    Después de la generación, haz clic en **Mostrar en Finder** (macOS) o el equivalente para ir al archivo guardado.
+    Al terminar, haz clic en **Mostrar en Finder** (macOS) o el equivalente para ir al archivo guardado.
   </Step>
 </Steps>
 
 ## Redacción de datos sensibles
 
-Por defecto, los valores de variables de entorno que coinciden con el siguiente patrón se reemplazan con `***REDACTED***`:
+Por defecto, los valores de variables de entorno que coinciden con este patrón se reemplazan por `***REDACTED***`:
 
 ```
 (?i)(TOKEN|PASSWORD|SECRET|KEY|CREDENTIAL|AUTH)
 ```
 
-Esto se aplica a los archivos `inspect.json` en el paquete. Puedes deshabilitar la redacción en el diálogo del paquete cuando necesites los valores sin procesar para tu propia depuración.
+Esto se aplica a los `inspect.json` del paquete. Puedes desactivar la redacción en el diálogo si necesitas los valores en claro para depurar por tu cuenta.
 
 <Callout type="warn">
   La redacción es limitada. El entorno de la imagen, las etiquetas, los comandos, las rutas de montaje, el inspect de redes y volúmenes y los logs todavía pueden contener secretos o rutas privadas. Revisa todos los archivos antes de compartir el paquete.
@@ -89,6 +89,6 @@ Esto se aplica a los archivos `inspect.json` en el paquete. Puedes deshabilitar 
 
 ## Consejos
 
-- Usa paquetes de diagnóstico cuando pidas ayuda en issues de GitHub o foros de la comunidad. El formato estructurado facilita que otros entiendan tu configuración.
-- Los datos de estadísticas en el paquete dependen de que el [programador de tareas en segundo plano](/es/docs/homelab/scheduler) haya recolectado datos de series temporales. Si el programador fue habilitado recientemente, la sección de estadísticas puede contener solo un snapshot actual.
-- Para stacks Compose con muchos contenedores, los paquetes pueden crecer. Usa una ventana de tiempo más corta para mantener el tamaño del archivo manejable.
+- Adjunta un paquete cuando pidas ayuda en issues de GitHub o foros. El zip estructurado ayuda a quien revise la configuración.
+- Las estadísticas del paquete dependen de que el [programador de tareas en segundo plano](/es/docs/homelab/scheduler) haya recogido series temporales. Si lo habilitaste hace poco, la sección de estadísticas puede ser solo un snapshot actual.
+- En stacks Compose con muchos contenedores el paquete crece. Acorta la ventana de tiempo para mantener un tamaño razonable.

@@ -3,17 +3,17 @@ title: "Tareas en segundo plano"
 description: "Inspecciona tareas y ejecuciones recientes."
 ---
 
-La página muestra registros, horario, siguiente ejecución, último resultado, configuración y runs recientes.
+La página muestra registros, horario, siguiente ejecución, último resultado, configuración y ejecuciones recientes.
 
 | Tipo | Intervalo predeterminado |
 | --- | --- |
 | `stats_aggregation` | 5 minutos |
 | `stats_retention_prune` | 60 minutos |
 
-También pueden aparecer tareas de image watch.
+También pueden aparecer tareas de seguimiento de imágenes.
 
 ## Limitaciones actuales
 
-**Crear tarea** está deshabilitado y marcado Próximamente. Las tareas integradas están bloqueadas: no ofrecen toggle, edición de horario ni Run now. Esos controles sólo pueden aparecer para registros no integrados ya existentes.
+**Crear tarea** está deshabilitado y marcado como Próximamente. Las tareas integradas están bloqueadas: no ofrecen interruptor, edición de horario ni Run now. Esos controles solo pueden aparecer en registros no integrados que ya existan.
 
-El scheduler funciona mientras viva el proceso de la app; un cierre completo lo detiene.
+El programador funciona mientras viva el proceso de la app; un cierre completo lo detiene.

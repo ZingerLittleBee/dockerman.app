@@ -3,7 +3,7 @@ title: "Clúster"
 description: "Inicia un clúster local k3d o importa un kubeconfig existente para gestionar cualquier entorno Kubernetes."
 ---
 
-Inicia un clúster local con k3d o importa un kubeconfig existente, luego gestiona el clúster desde la misma sección de Kubernetes.
+Inicia un clúster local con k3d o importa un kubeconfig existente y gestiona el clúster desde la misma sección de Kubernetes.
 
 ## Inicia un clúster local con k3d
 
@@ -13,7 +13,7 @@ Usa k3d cuando quieras un clúster local desechable para desarrollo y pruebas.
   <Step>
     ### Abre la sección de Kubernetes
 
-    Si no hay ningún clúster configurado, Dockerman muestra un botón de Iniciar un clúster.
+    Si no hay ningún clúster configurado, Dockerman muestra un botón para iniciar uno.
   </Step>
   <Step>
     ### Haz clic en Iniciar un clúster
@@ -23,17 +23,17 @@ Usa k3d cuando quieras un clúster local desechable para desarrollo y pruebas.
   <Step>
     ### Espera a que el clúster se levante
 
-    El clúster local suele iniciarse en unos 10 segundos en una máquina moderna.
+    En una máquina actual el clúster local suele estar listo en unos 10 segundos.
   </Step>
   <Step>
     ### Comienza a usar Kubernetes
 
-    El selector de namespaces se completa y las listas de cargas de trabajo se vuelven disponibles.
+    El selector de namespaces se rellena y las listas de cargas de trabajo quedan disponibles.
   </Step>
 </Steps>
 
 <Callout type="warn">
-  Dockerman descarga el binario de k3d en el primer uso. Permite HTTPS saliente o instala el binario tú mismo antes de comenzar.
+  Dockerman descarga el binario de k3d en el primer uso. Permite HTTPS saliente o instala el binario tú mismo antes de empezar.
 </Callout>
 
 ## Importa un clúster existente
@@ -49,12 +49,12 @@ Importa un kubeconfig cuando ya tienes un clúster y quieres que Dockerman lo ge
   <Step>
     ### Selecciona un archivo kubeconfig
 
-    Dockerman analiza el fichero y lista sus contextos. El flujo actual no promete campos separados precompletados para URL del servidor y binding de usuario.
+    Dockerman analiza el fichero y lista sus contextos. El flujo actual no promete campos separados ya rellenados para la URL del servidor y el binding de usuario.
   </Step>
   <Step>
     ### Verifica la conexión
 
-    Dockerman sondea el servidor de API antes de guardar el clúster.
+    Dockerman comprueba el servidor de API antes de guardar el clúster.
   </Step>
 </Steps>
 
@@ -62,16 +62,16 @@ Importa un kubeconfig cuando ya tienes un clúster y quieres que Dockerman lo ge
 
 Usa el conmutador de clúster en la parte superior de la sección de Kubernetes para moverte entre clústeres importados y cualquier clúster local de k3d.
 
-- La selección de clúster es **independiente del host de Docker activo**. Cambiar a otro contexto de K8s no afecta tu conexión de Docker, y viceversa.
+- La selección de clúster es **independiente del host Docker activo**. Cambiar a otro contexto de K8s no afecta tu conexión de Docker, ni al revés.
 - **Tu página actual de Kubernetes se conserva** al cambiar entre clústeres en los que existe el mismo recurso; el selector de namespace se sincroniza con el nuevo clúster.
-- Tras reiniciar la aplicación, Dockerman **se reconecta al último clúster** y restaura páginas profundas como el editor YAML o la instancia de un CRD que estabas viendo.
+- Tras reiniciar la aplicación, Dockerman **se reconecta al último clúster** y restaura páginas profundas como el editor YAML o la instancia de un CRD que estuvieras viendo.
 
 ## Elimina un clúster
 
 Usa la acción que coincida con el tipo de clúster.
 
-- Eliminar de Dockerman para olvidar un kubeconfig importado mientras dejas el clúster remoto en ejecución.
-- Desmantelar el clúster local de k3d para eliminar el clúster y sus datos.
+- Eliminar de Dockerman para olvidar un kubeconfig importado y dejar el clúster remoto en ejecución.
+- Desmantelar el clúster local de k3d para borrar el clúster y sus datos.
 
 <Callout type="warn">
   Desmantelar un clúster de k3d es irreversible. Pierdes todas las cargas de trabajo y volúmenes persistentes creados dentro de él.
@@ -79,16 +79,16 @@ Usa la acción que coincida con el tipo de clúster.
 
 ## Versión y estado del clúster
 
-La página muestra la versión del API server, conexión y nodos. Los objetos Node exponen kubelet y runtime, no una versión de kube-proxy por nodo.
+La página muestra la versión del API server, la conexión y los nodos. Los objetos Node exponen kubelet y runtime, no una versión de kube-proxy por nodo.
 
 ## Nodos, PersistentVolumes y Namespaces
 
-Cada uno de estos tiene una página dedicada en la aplicación dentro de la sección de Kubernetes. Accede a ellas desde la barra lateral de K8s:
+Cada uno tiene una página propia en la sección de Kubernetes. Accede desde la barra lateral de K8s:
 
 - **Nodos** — condiciones, capacidad, recursos asignables, etiquetas, versión de kubelet, runtime y Pods programados.
-- **PersistentVolumes** — lista de PV con ámbito de clúster, con fase, vinculación de claim, política de reclamación y capacidad. Consulta [Configuración y Almacenamiento → PersistentVolumes](/es/docs/kubernetes/config-storage#persistentvolumes) para la referencia completa.
-- **Namespaces** — crea, elimina e inspecciona namespaces directamente. El selector de namespace de la barra lateral se sincroniza con esta página.
+- **PersistentVolumes** — lista de PV con ámbito de clúster, con fase, vinculación de claim, política de reclamación y capacidad. Consulta [Configuración y almacenamiento → PersistentVolumes](/es/docs/kubernetes/config-storage#persistentvolumes) para la referencia completa.
+- **Namespaces** — crea, elimina e inspecciona namespaces. El selector de namespace de la barra lateral se sincroniza con esta página.
 
 ## Eventos del clúster
 
-Abre el navegador dedicado de [Eventos](/es/docs/kubernetes/events) para filtrar por namespace, tipo (Normal/Warning), razón y objeto involucrado. Útil para triar problemas sin tener que limitarte primero a un recurso específico.
+Abre el navegador dedicado de [Eventos](/es/docs/kubernetes/events) para filtrar por namespace, tipo (Normal/Warning), razón y objeto involucrado. Sirve para clasificar problemas sin limitarte primero a un recurso concreto.

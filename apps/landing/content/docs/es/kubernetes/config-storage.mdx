@@ -1,35 +1,35 @@
 ---
-title: "Configuración y Almacenamiento"
+title: "Configuración y almacenamiento"
 description: "Gestiona ConfigMaps, Secrets, PersistentVolumeClaims y StorageClasses sin saltar entre comandos kubectl."
 ---
 
-Usa Configuración y Almacenamiento para inspeccionar las fuentes de datos y los almacenes de respaldo de los que dependen las cargas de trabajo.
+Configuración y almacenamiento agrupa las fuentes de datos y los almacenes de los que dependen las cargas de trabajo.
 
 ## ConfigMaps
 
-Abre un ConfigMap para revisar sus claves, valores y YAML. Edita el objeto cuando necesites cambiar la configuración de una aplicación. Dockerman verifica la versión del recurso antes de guardar, de modo que recibes una advertencia de conflicto si alguien más editó el mismo ConfigMap mientras trabajabas en él. Elimina un ConfigMap desde la lista cuando ya no sea necesario.
+Abre un ConfigMap para revisar claves, valores y YAML. Edítalo cuando tengas que cambiar la configuración de una aplicación. Dockerman comprueba la versión del recurso antes de guardar, así que avisa si alguien más editó el mismo ConfigMap mientras trabajabas. Elimina un ConfigMap desde la lista cuando ya no haga falta.
 
 <Callout type="info">
-  Editar un ConfigMap no reinicia los pods que lo montan. Actualiza el Deployment o StatefulSet propietario si necesitas que los nuevos datos surtan efecto.
+  Editar un ConfigMap no reinicia los pods que lo montan. Actualiza el Deployment o StatefulSet propietario si necesitas que los datos nuevos surtan efecto.
 </Callout>
 
 ## Secrets
 
-Abre un Secret para inspeccionar su tipo, claves y valores. La lista muestra tipos comunes como `Opaque`, `kubernetes.io/tls` y `kubernetes.io/dockerconfigjson`. La misma detección de conflictos por versión de recurso que en ConfigMaps se aplica al editar.
+Abre un Secret para inspeccionar tipo, claves y valores. La lista muestra tipos habituales como `Opaque`, `kubernetes.io/tls` y `kubernetes.io/dockerconfigjson`. Al editar se aplica la misma detección de conflictos por versión de recurso que en ConfigMaps.
 
-Los valores binarios de secretos se pueden descargar a un archivo local. Elimina un Secret desde la lista cuando ya no sea necesario.
+Los valores binarios se pueden descargar a un archivo local. Elimina un Secret desde la lista cuando ya no haga falta.
 
 <Callout type="warn">
-  Revelar muestra los valores del secreto en texto plano. Cualquiera que pueda ver la pantalla en ese momento puede leerlos.
+  Revelar muestra los valores del secreto en texto plano. Quien vea la pantalla en ese momento puede leerlos.
 </Callout>
 
 ## PersistentVolumeClaims
 
-Usa PersistentVolumeClaims para ver la fase, el PersistentVolume vinculado, la clase de almacenamiento, los modos de acceso y la capacidad de cada reclamación. Elimina un PVC desde la lista cuando la reclamación esté liberada y ya no sea necesaria.
+Fase, PersistentVolume vinculado, clase de almacenamiento, modos de acceso y capacidad de cada reclamación. Elimina un PVC desde la lista cuando la reclamación esté liberada y ya no haga falta.
 
 ## PersistentVolumes
 
-Los PersistentVolumes tienen su propia página dedicada además de la vista por reclamación anterior. Úsala cuando necesites revisar el almacenamiento con ámbito de clúster de forma independiente de cualquier namespace.
+Los PersistentVolumes tienen su propia página, además de la vista por reclamación. Úsala para revisar el almacenamiento con ámbito de clúster, con independencia de cualquier namespace.
 
 | Columna | Descripción |
 | --- | --- |
@@ -41,14 +41,14 @@ Los PersistentVolumes tienen su propia página dedicada además de la vista por 
 | Claim | El PVC `namespace/name` vinculado, si existe |
 | StorageClass | La clase que provisionó el volumen |
 
-Abre un PV para ver su especificación completa, incluyendo la fuente de volumen subyacente (driver CSI, hostPath, NFS, etc.).
+Abre un PV para ver la especificación completa, incluida la fuente de volumen (driver CSI, hostPath, NFS, etc.).
 
 ## StorageClasses
 
-Usa StorageClasses para inspeccionar las opciones de almacenamiento del clúster, incluyendo el provisionador, la política de reclamación, el modo de vinculación de volúmenes y el marcador de clase predeterminada.
+Opciones de almacenamiento del clúster: provisionador, política de reclamación, modo de vinculación de volúmenes y marcador de clase predeterminada.
 
 ## Namespaces
 
 También hay páginas para LimitRange, ResourceQuota y PodDisruptionBudget.
 
-La página permite listar, crear y eliminar namespaces. Eliminar uno puede borrar recursos namespaced; la UI no promete reproducir cada aviso de cascada devuelto por la API.
+La página permite listar, crear y eliminar namespaces. Eliminar uno puede borrar recursos namespaced; la UI no promete reproducir cada aviso de cascada que devuelve la API.

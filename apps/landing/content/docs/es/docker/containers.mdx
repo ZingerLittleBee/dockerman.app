@@ -3,7 +3,7 @@ title: "Contenedores"
 description: "Crea, inspecciona, gestiona, respalda y restaura contenedores."
 ---
 
-Usa la página Contenedores para buscar, inspeccionar y gestionar contenedores del runtime seleccionado.
+En la página Contenedores puedes buscar, inspeccionar y gestionar contenedores del runtime seleccionado.
 
 ## Ciclo de vida
 
@@ -15,21 +15,21 @@ Las acciones dependen del estado y del runtime. Cuando están soportadas aparece
 
 ## Crear
 
-El diálogo crea una configuración desde la imagen local y las opciones elegidas. Crear no promete descargar una imagen ausente ni iniciar el contenedor. Descarga primero cuando haga falta y arráncalo explícitamente después.
+El diálogo arma una configuración a partir de la imagen local y las opciones elegidas. Crear no promete descargar una imagen ausente ni iniciar el contenedor. Descarga primero si hace falta y arráncalo después, de forma explícita.
 
 Revisa puertos, mounts, variables de entorno, límites, política de reinicio y red. La UI oculta opciones que el backend seleccionado no soporta.
 
 ## Inspeccionar, clonar y commit
 
-- **Inspeccionar** muestra los datos devueltos por el runtime.
-- **Clonar** copia la configuración soportada a un nuevo flujo, no los datos de volúmenes.
+- **Inspeccionar** muestra los datos que devuelve el runtime.
+- **Clonar** copia la configuración soportada a un flujo nuevo; no copia los datos de volúmenes.
 - **Commit** guarda la capa editable como imagen y no incluye datos montados.
 
 ## Backup y restore
 
-El backup crea un archivo Dockerman con manifest y los datos seleccionados de contenedor, volúmenes y bind mounts. Previsualízalo antes de restaurar y revisa cada bind mount: Dockerman no clasifica rutas arbitrarias como seguras.
+El backup crea un archivo Dockerman con un manifest y los datos seleccionados de contenedor, volúmenes y bind mounts. Previsualízalo antes de restaurar y revisa cada bind mount: Dockerman no clasifica rutas arbitrarias como seguras.
 
-Restore recrea recursos soportados, pero no garantiza que existan las redes originales ni que el contenedor arranque automáticamente. Revisa nombre, puertos, volúmenes, redes e imagen y luego inícialo si corresponde.
+Restore recrea los recursos soportados, pero no garantiza que existan las redes originales ni que el contenedor arranque solo. Revisa nombre, puertos, volúmenes, redes e imagen y luego inícialo si corresponde.
 
 <Callout type="warn">
   El archivo puede contener datos del sistema de archivos, valores de entorno y contenido de bind mounts. Trátalo como sensible.
@@ -37,4 +37,4 @@ Restore recrea recursos soportados, pero no garantiza que existan las redes orig
 
 ## Acciones por lotes
 
-Activa el modo batch de la página para seleccionar varias filas. Sólo están soportadas las acciones visibles en la barra actual; Ctrl/Cmd+Clic y los atajos de una letra no son un contrato.
+Activa el modo batch de la página para seleccionar varias filas. Solo están soportadas las acciones visibles en la barra actual; Ctrl/Cmd+Clic y los atajos de una letra no son un contrato.

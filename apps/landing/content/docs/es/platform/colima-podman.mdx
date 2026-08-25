@@ -21,7 +21,7 @@ brew install podman
 
 ## Primer arranque (ejecútalo en tu terminal)
 
-El motor crea su máquina virtual en el primer arranque, y ese paso descarga una imagen del sistema invitado desde internet. Ejecútalo tú mismo en una terminal para ver el progreso:
+El motor crea su máquina virtual en el primer arranque, y ese paso descarga una imagen del sistema invitado desde internet. Ejecútalo tú en una terminal para ver el progreso:
 
 ```bash
 # Colima — descarga una imagen de ~330 MB en el primer arranque
@@ -33,14 +33,14 @@ podman machine start
 ```
 
 <Callout type="info">
-  El primer arranque puede tardar varios minutos según tu conexión. Los siguientes arranques reutilizan la imagen descargada y terminan en segundos.
+  El primer arranque puede tardar varios minutos según la conexión. Los siguientes reutilizan la imagen descargada y terminan en segundos.
 </Callout>
 
 Elige valores de CPU y memoria acordes a tu máquina: la mitad de tus núcleos de CPU y 4–8 GB de memoria es un buen punto de partida. El valor predeterminado de 2 GB es demasiado pequeño para la mayoría de las compilaciones de imágenes.
 
 ### Detrás de un proxy
 
-La descarga de la imagen se ejecuta dentro del propio proceso del motor, así que define las variables de proxy en la misma sesión de terminal antes del primer arranque:
+La descarga de la imagen corre dentro del propio proceso del motor, así que define las variables de proxy en la misma sesión de terminal antes del primer arranque:
 
 ```bash
 export HTTPS_PROXY=http://127.0.0.1:7890
@@ -52,13 +52,13 @@ colima start   # o: podman machine init
 
 Cuando la máquina virtual esté en ejecución, abre Ajustes → Docker, selecciona una conexión por socket local e introduce la ruta del motor.
 
-- Colima normalmente usa `$HOME/.colima/default/docker.sock`.
+- Colima suele usar `$HOME/.colima/default/docker.sock`.
 - Para Podman machine, ejecuta `podman machine inspect` y usa `ConnectionInfo.PodmanSocket.Path`.
 
-Dockerman no administra actualmente el ciclo de vida, la CPU, la memoria ni el disco de Colima o Podman machine. El comando de verificación de Podman puede detectar el socket, pero la conexión normal todavía necesita una ruta de socket válida explícita.
+Dockerman no administra ahora el ciclo de vida, la CPU, la memoria ni el disco de Colima o Podman machine. El comando de verificación de Podman puede detectar el socket, pero la conexión normal sigue necesitando una ruta de socket válida explícita.
 
 ## Solución de problemas
 
 - «Socket not found» significa que la máquina virtual no está en ejecución o que la ruta configurada es incorrecta. Ejecuta `colima start` / `podman machine start` y revisa la ruta en Ajustes.
-- Si la descarga se atasca en redes restringidas, configura las variables de proxy indicadas arriba y reintenta.
+- Si la descarga se atasca en redes restringidas, configura las variables de proxy de arriba y reintenta.
 - El uso de memoria de la máquina virtual en el host solo crece mientras se ejecuta; reinicia el motor para recuperarla.

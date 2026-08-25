@@ -1,34 +1,34 @@
 ---
-title: "Hosts Remotos (SSH)"
-description: "Gestiona hosts Docker remotos mediante túneles SSH y cambia entre ellos desde el selector de hosts."
+title: "Hosts remotos (SSH)"
+description: "Gestiona hosts Docker remotos por túneles SSH y cámbiate entre ellos desde el selector de hosts."
 ---
 
-Dockerman reenvía mediante SSH el socket Unix de un daemon de Docker remoto. Las operaciones principales de Docker, los registros y los terminales funcionan a través de la API reenviada, pero las funciones que dependen del runtime o del host pueden diferir de las disponibles en `localhost`. Por ejemplo, Dockerman no admite Compose en destinos Podman.
+Dockerman reenvía por SSH el socket Unix de un daemon Docker remoto. Las operaciones principales de Docker, los registros y las terminales pasan por la API reenviada; las funciones que dependen del runtime o del host pueden diferir de las de `localhost`. Por ejemplo, Dockerman no admite Compose en destinos Podman.
 
 ## Añade un host remoto
 
-Después de añadir un host, puedes cambiar a él como a cualquier otro destino Docker.
+Después de añadirlo, puedes cambiar a él como a cualquier otro destino Docker.
 
 <Steps>
   <Step>
     ### Abre Hosts
 
-    Abre la vista Hosts o utiliza el selector de hosts de la ventana principal.
+    Abre la vista Hosts o el selector de hosts de la ventana principal.
   </Step>
   <Step>
     ### Haz clic en Añadir Host
 
-    Haz clic en **Añadir Host** para abrir el cuadro de diálogo de conexión.
+    Se abre el cuadro de diálogo de conexión.
   </Step>
   <Step>
     ### Completa los detalles SSH
 
-    Introduce los datos de conexión solicitados.
+    Introduce los datos de conexión que pide el formulario.
   </Step>
   <Step>
     ### Elige una preferencia de runtime
 
-    Selecciona Auto, Docker o Podman. Auto busca sockets de runtime en el host remoto y se conecta al primero que encuentra. El modo Podman detecta automáticamente los sockets rootless (`$XDG_RUNTIME_DIR/podman/podman.sock`) y rootful (`/run/podman/podman.sock`).
+    Selecciona Auto, Docker o Podman. Auto busca sockets de runtime en el host remoto y se conecta al primero que encuentra. El modo Podman detecta los sockets rootless (`$XDG_RUNTIME_DIR/podman/podman.sock`) y rootful (`/run/podman/podman.sock`).
   </Step>
   <Step>
     ### Prueba y guarda
@@ -39,18 +39,18 @@ Después de añadir un host, puedes cambiar a él como a cualquier otro destino 
 
 ## Cambia entre hosts
 
-Usa el selector de hosts de la barra superior para cambiar entre `localhost` y cualquier host remoto configurado. Al cambiar de host, se vuelven a cargar los datos del destino seleccionado.
+Usa el selector de hosts de la barra superior para pasar de `localhost` a cualquier host remoto configurado. Al cambiar, se vuelven a cargar los datos del destino seleccionado.
 
 ## Reconexión automática
 
-Dockerman supervisa el túnel SSH y vuelve a intentarlo después de 3, 5 y 10 segundos. Si fallan todos los intentos, se abre el cuadro de diálogo de error de conexión.
+Dockerman vigila el túnel SSH y reintenta a los 3, 5 y 10 segundos. Si fallan todos los intentos, se abre el cuadro de diálogo de error de conexión.
 
 ## Cómo funciona el túnel SSH
 
-Dockerman abre una sesión SSH y reenvía un socket Unix local al socket del runtime remoto. El tráfico de la API de Docker destinado a ese host pasa por el túnel. El registro, las actualizaciones, los análisis y el resto del tráfico de la aplicación utilizan conexiones independientes y no pasan por SSH.
+Dockerman abre una sesión SSH y reenvía un socket Unix local al socket del runtime remoto. El tráfico de la API de Docker de ese host pasa por el túnel. El registro, las actualizaciones, los análisis y el resto del tráfico de la aplicación usan conexiones propias y no pasan por SSH.
 
 ## Notas de seguridad
 
 <Callout type="warn">
-  Configura únicamente hosts remotos de confianza y conéctate a ellos solo desde redes de confianza.
+  Configura solo hosts remotos de confianza y conéctate a ellos solo desde redes de confianza.
 </Callout>

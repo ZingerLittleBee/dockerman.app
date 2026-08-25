@@ -24,7 +24,7 @@ El daemon envía normalmente heartbeat cada 15 segundos y el CLI sale con códig
 
 - `events` siempre escribe envelopes NDJSON y no tiene modo de líneas de log.
 - Trivy `--json` escribe sus propios payloads de progress/result, no un `StreamFrameEnvelope` externo.
-- El progreso de imágenes se escribe actualmente en stdout.
+- El progreso de imágenes se escribe ahora en stdout.
 - La salida de texto depende del comando; el progreso no siempre va a stderr.
 
 ## Cancelación y códigos

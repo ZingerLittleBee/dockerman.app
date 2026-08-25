@@ -1,67 +1,67 @@
 ---
-title: Monitoreo de actualizaciones de imágenes
-description: Monitorea registros de imágenes de contenedores en segundo plano y recibe notificaciones cuando hay una nueva versión disponible.
+title: Seguimiento de actualizaciones de imágenes
+description: Consulta registros de imágenes en segundo plano y recibe un aviso cuando hay una versión nueva.
 ---
 
-Los monitoreos de actualización de imágenes permiten que Dockerman sondee registros en segundo plano y envíe una notificación cuando hay una nueva versión de imagen disponible. Por defecto **solo notifica y nunca activa una actualización automática**, por lo que tú mantienes el control.
+El seguimiento de actualizaciones hace que Dockerman consulte registros en segundo plano y envíe un aviso cuando hay una versión nueva. Por defecto **solo notifica y nunca dispara una actualización automática**; tú decides cuándo aplicar el cambio.
 
 ## Cómo funciona
 
 1. Te suscribes a las imágenes que te importan (por host, por referencia de imagen).
 2. El [programador en segundo plano](/es/docs/homelab/scheduler) ejecuta la tarea `image_upgrade_check` en un intervalo configurable (por defecto: cada 6 horas).
-3. Para cada imagen suscrita, Dockerman resuelve una credencial de registro a través del **resolutor de credenciales** y luego compara el digest local con el digest del registro remoto. Las credenciales ambiguas **fallan de forma cerrada** — la verificación da error en lugar de adivinar.
-4. Cuando se encuentran nuevos digests, Dockerman envía una única notificación agrupada a través de tus [canales de notificación](/es/docs/homelab/notifications) configurados y escribe un cursor de historial para que la próxima ejecución continúe donde esta lo dejó.
+3. Para cada imagen suscrita, Dockerman resuelve una credencial de registro con el **resolutor de credenciales** y compara el digest local con el del registro remoto. Si las credenciales son ambiguas, **la comprobación falla** en lugar de adivinar.
+4. Cuando hay digests nuevos, Dockerman envía una sola notificación agrupada por tus [canales de notificación](/es/docs/homelab/notifications) configurados y escribe un cursor de historial para que la siguiente ejecución continúe donde esta lo dejó.
 
 ## Suscribirse a una imagen
 
 <Tabs items={['Desde un contenedor', 'Desde un stack Compose']}>
   <Tab>
-    Abre el menú de acciones del contenedor (el mismo dropdown que tiene **Verificar actualización** y **Actualizar**) y haz clic en **Monitorear actualizaciones**.
+    Abre el menú de acciones del contenedor (el mismo que tiene **Verificar actualización** y **Actualizar**) y haz clic en **Monitorear actualizaciones**.
 
-    La suscripción está vinculada al host y referencia de imagen, por lo que sobrevive a reconstrucciones de contenedores.
+    La suscripción está ligada al host y a la referencia de imagen, así que sobrevive a reconstrucciones del contenedor.
   </Tab>
   <Tab>
     Abre el menú overflow del stack Compose y haz clic en **Monitorear todas las imágenes para actualizaciones**. Esto suscribe todas las imágenes del stack de una vez.
 
-    Para cancelar la suscripción de imágenes individuales más tarde, usa la página dedicada de monitoreos.
+    Para dar de baja imágenes sueltas más tarde, usa la página dedicada de seguimientos.
   </Tab>
 </Tabs>
 
-## La página de Monitoreo de actualizaciones de imágenes
+## La página de seguimiento de actualizaciones
 
-La página dedicada muestra todas tus suscripciones en un solo lugar.
+La página dedicada muestra todas las suscripciones juntas.
 
 **Barra superior:**
-- **Intervalo de verificación** dropdown — establece cada cuánto se ejecuta el programador (escribe directamente en la tarea del programador, por lo que hay una sola fuente de verdad)
-- **Canales por defecto** — elige qué [canales de notificación](/es/docs/homelab/notifications) reciben notificaciones de actualización
-- **Verificar todas ahora** — activa una verificación inmediata para todas las suscripciones
+- **Intervalo de verificación** — cada cuánto corre el programador (se escribe en la tarea del programador; no hay otro ajuste paralelo)
+- **Canales por defecto** — elige qué [canales de notificación](/es/docs/homelab/notifications) reciben avisos de actualización
+- **Verificar todas ahora** — lanza una comprobación inmediata de todas las suscripciones
 
 **Tabla principal:**
 
 | Columna | Descripción |
 | --- | --- |
-| Imagen | La referencia de imagen (ej. `jellyfin/jellyfin:latest`) |
+| Imagen | La referencia de imagen (p. ej. `jellyfin/jellyfin:latest`) |
 | Contenedores | Qué contenedores usan esta imagen en este host |
-| Estado | Estado actual de verificación (ver abajo) |
-| Última verificación | Cuándo se ejecutó la última verificación y qué encontró |
-| Acciones | Eliminar suscripción, activar verificación manual |
+| Estado | Estado actual de la comprobación (ver abajo) |
+| Última verificación | Cuándo se ejecutó la última comprobación y qué encontró |
+| Acciones | Eliminar suscripción, lanzar comprobación manual |
 
 La tabla muestra última comprobación, última notificación, digest remoto, estado, reintento, host y contenedores. No hay un panel por fila con todo el historial.
 
-## Estados de estado
+## Estados
 
 | Estado | Significado |
 | --- | --- |
-| `unknown` | No se ha ejecutado ninguna verificación aún |
+| `unknown` | Aún no se ha ejecutado ninguna comprobación |
 | `up_to_date` | Los digests local y remoto coinciden |
-| `upgrade_available` | Se encontró un digest más nuevo en el registro |
-| `watchtower_managed` | Todos los contenedores con esta imagen tienen la etiqueta `enable=true` de Watchtower, por lo que Dockerman delega a Watchtower |
-| `orphaned` | Ningún contenedor en ejecución usa esta imagen en este host (ej. el stack fue eliminado) |
-| `error` | La verificación falló (registro inalcanzable, error de autenticación, límite de tasa, etc.) |
+| `upgrade_available` | Hay un digest más nuevo en el registro |
+| `watchtower_managed` | Todos los contenedores con esta imagen tienen la etiqueta `enable=true` de Watchtower, así que Dockerman cede a Watchtower |
+| `orphaned` | Ningún contenedor en ejecución usa esta imagen en este host (p. ej. se eliminó el stack) |
+| `error` | La comprobación falló (registro inalcanzable, error de autenticación, límite de tasa, etc.) |
 
 ## Mensajes de notificación
 
-Cuando se encuentra una o más actualizaciones en una sola ejecución de verificación, Dockerman envía un solo mensaje agregado:
+Cuando una misma ejecución encuentra una o más actualizaciones, Dockerman envía un solo mensaje agregado:
 
 ```
 Título: 3 actualizaciones de imagen disponibles en prod-nas
@@ -74,35 +74,35 @@ Cuerpo:
 Abrir Dockerman: dockerman://
 ```
 
-Hacer clic en el enlace profundo abre la ventana principal de Dockerman.
+El enlace profundo abre la ventana principal de Dockerman.
 
 ### Cooldown de notificaciones
 
-Las notificaciones están basadas en digest: Dockerman registra el último digest sobre el cual te notificó. Solo envía una nueva notificación cuando el digest remoto cambia de nuevo. Una vez que todos tus contenedores se actualizan al digest notificado, el cooldown se reinicia para que la próxima actualización del registro active una notificación fresca.
+Las notificaciones van por digest: Dockerman recuerda el último digest del que te avisó. Solo envía otro aviso cuando el digest remoto vuelve a cambiar. Cuando todos tus contenedores alcanzan el digest notificado, el cooldown se reinicia para que la siguiente actualización del registro dispare un aviso nuevo.
 
 ## Coexistencia con Watchtower
 
-Si ya ejecutas Watchtower, Dockerman detecta la etiqueta `com.centurylinklabs.watchtower.enable=true` en los contenedores y los maneja en consecuencia:
+Si ya ejecutas Watchtower, Dockerman detecta la etiqueta `com.centurylinklabs.watchtower.enable=true` en los contenedores y actúa así:
 
-- **Todos los contenedores etiquetados:** La suscripción muestra estado `watchtower_managed` y permanece silenciosa.
-- **Mixto (algunos etiquetados, otros no):** Dockerman filtra los contenedores gestionados por Watchtower y solo notifica sobre los restantes.
-- **Sin etiquetas:** Dockerman trata todos los contenedores normalmente.
+- **Todos los contenedores etiquetados:** la suscripción muestra estado `watchtower_managed` y no avisa.
+- **Mixto (algunos etiquetados, otros no):** Dockerman ignora los contenedores gestionados por Watchtower y solo avisa del resto.
+- **Sin etiquetas:** Dockerman trata todos los contenedores con normalidad.
 
 <Callout type="info">
-  Dockerman solo reconoce la etiqueta explícita `enable=true`. Si tu Watchtower se ejecuta en modo por defecto (monitorea todo sin etiquetas), Dockerman no lo detecta. En ese caso puedes recibir notificaciones duplicadas de ambas herramientas.
+  Dockerman solo reconoce la etiqueta explícita `enable=true`. Si Watchtower corre en modo por defecto (vigila todo sin etiquetas), Dockerman no lo detecta. En ese caso puedes recibir avisos duplicados de las dos herramientas.
 </Callout>
 
-## Límites de tasa de registro
+## Límites de tasa del registro
 
-Dockerman deduplica verificaciones por referencia de imagen dentro de una sola ejecución, por lo que la misma imagen solo se consulta una vez independientemente de cuántos contenedores la usen. Cuando un registro devuelve un header `Retry-After`, Dockerman lo respeta. Sin el header, aplica un backoff por defecto de 15 minutos. Las suscripciones en backoff muestran el estado `error` con una nota sobre cuándo ocurrirá el próximo reintento.
+Dentro de una misma ejecución, Dockerman deduplica por referencia de imagen: la misma imagen se consulta una vez, da igual cuántos contenedores la usen. Si un registro devuelve una cabecera `Retry-After`, Dockerman la respeta. Sin esa cabecera, aplica un backoff de 15 minutos. Las suscripciones en backoff muestran el estado `error` con una nota de cuándo será el siguiente reintento.
 
 ## Cancelar suscripción
 
-Elimina una suscripción desde la página de Monitoreo de actualizaciones de imágenes. Una vez eliminada, no se envían más verificaciones ni notificaciones para esa imagen en ese host.
+Elimina una suscripción desde la página de seguimiento. A partir de ahí no hay más comprobaciones ni avisos para esa imagen en ese host.
 
 ## Consejos
 
-- Comienza suscribiéndote a las 3-5 imágenes que más te importan (ej. tu servidor de medios, base de datos, proxy inverso).
-- Mantén el intervalo por defecto de 6 horas a menos que tengas una razón específica para sondear más frecuentemente. Intervalos más cortos aumentan el uso de la API del registro.
-- Usa el botón **Verificar todas ahora** después de agregar nuevas suscripciones para obtener un estado inmediato sin esperar la próxima ejecución programada.
-- La notificación de actualización te dice que existe una nueva versión. Para actualizar realmente, usa las acciones existentes **Verificar actualización** y **Actualizar** en el menú del contenedor.
+- Empieza por las 3-5 imágenes que más te importan (p. ej. el servidor de medios, la base de datos, el proxy inverso).
+- Deja el intervalo de 6 horas salvo que tengas un motivo concreto para sondear más a menudo. Intervalos más cortos aumentan el uso de la API del registro.
+- Usa **Verificar todas ahora** tras añadir suscripciones para ver el estado sin esperar a la siguiente ejecución programada.
+- El aviso te dice que existe una versión nueva. Para aplicarla, usa **Verificar actualización** y **Actualizar** en el menú del contenedor.
