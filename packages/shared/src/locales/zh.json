@@ -505,10 +505,10 @@
   "about": {
     "badge": "关于",
     "title": "打造我们一直想要的 Docker 管理工具",
-    "description": "我们是一群开发者和设计师，认为管理 Docker 容器应该简单、高效。",
+    "description": "我们是一群开发者和设计师，认为管理 Docker 容器应该容易上手、用起来高效。",
     "mission": {
       "title": "我们的使命",
-      "p1": "Dockerman 源于我们对现有 Docker 管理工具的不满。我们想要的是快速、跨平台、专注于开发者生产力。",
+      "p1": "Dockerman 源于我们对现有 Docker 管理工具的不满。我们想要一个快速、跨平台的工具，贴合开发者的日常工作。",
       "p2": "我们希望个人开发者和大型团队都能上手容器管理，同时不丢掉 Docker 能做的事。"
     },
     "team": {
@@ -520,15 +520,15 @@
       "title": "我们的价值观",
       "performanceFirst": {
         "title": "性能优先",
-        "description": "基于 Rust 和 Tauri 构建，用极少资源保持速度。"
+        "description": "基于 Rust 和 Tauri 构建，速度快、系统资源占用低。"
       },
       "developerExperience": {
         "title": "开发者体验",
-        "description": "由每天都在用它的开发者设计的界面。"
+        "description": "由开发者为开发者设计的界面。"
       },
       "privacyFocused": {
         "title": "隐私至上",
-        "description": "您的数据留在本地。分析匿名，可关闭。"
+        "description": "您的数据留在本地。我们对用户隐私保持透明：分析匿名，可随时关闭。"
       }
     },
     "connect": {

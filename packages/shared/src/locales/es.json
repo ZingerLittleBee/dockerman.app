@@ -354,7 +354,7 @@
     "compare": {
       "titleLead": "Lo que obtienes,",
       "titleAccent": "función por función.",
-      "description": "Todos los planes incluyen todas las funciones locales, Kubernetes y Cloudflared incluidos. Los planes de pago añaden conexiones a hosts remotos.",
+      "description": "Todos los planes tienen el conjunto completo de funciones locales, con Kubernetes y Cloudflared. Los planes de pago añaden conexiones a hosts remotos.",
       "columns": {
         "feature": "Función",
         "free": "Free",
@@ -505,10 +505,10 @@
   "about": {
     "badge": "acerca de",
     "title": "Construyendo la herramienta de gestión Docker que siempre quisimos",
-    "description": "Somos un equipo de desarrolladores y diseñadores que pensamos que gestionar contenedores Docker debe ser simple y eficiente.",
+    "description": "Somos un equipo de desarrolladores y diseñadores que pensamos que gestionar contenedores Docker debe ser sencillo de aprender y eficiente de usar.",
     "mission": {
       "title": "Nuestra Misión",
-      "p1": "Dockerman nació de nuestra propia frustración con las herramientas existentes de gestión Docker. Queríamos algo rápido, multiplataforma y enfocado en la productividad del desarrollador.",
+      "p1": "Dockerman nació de nuestra propia frustración con las herramientas existentes de gestión Docker. Queríamos algo rápido y multiplataforma, centrado en el trabajo diario del desarrollador.",
       "p2": "Queremos que gestionar contenedores sea sencillo tanto para desarrolladores individuales como para equipos grandes, sin renunciar a lo que Docker puede hacer."
     },
     "team": {
@@ -520,15 +520,15 @@
       "title": "Nuestros Valores",
       "performanceFirst": {
         "title": "Rendimiento Primero",
-        "description": "Construida con Rust y Tauri para mantenerse rápida con un uso mínimo de recursos."
+        "description": "Construida con Rust y Tauri para ser rápida y ligera en recursos del sistema."
       },
       "developerExperience": {
         "title": "Experiencia del Desarrollador",
-        "description": "Una interfaz diseñada por los desarrolladores que la usan a diario."
+        "description": "Una interfaz diseñada por desarrolladores, para desarrolladores."
       },
       "privacyFocused": {
         "title": "Enfocados en Privacidad",
-        "description": "Tus datos permanecen locales. La analítica es anónima y opcional."
+        "description": "Tus datos permanecen locales. Somos transparentes con la privacidad: la analítica es anónima y puedes desactivarla en cualquier momento."
       }
     },
     "connect": {
