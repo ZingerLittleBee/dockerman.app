@@ -1,25 +1,25 @@
 ---
 title: "統計"
-description: "Container の live および historical resource chart。"
+description: "コンテナのライブおよび履歴リソースチャート。"
 ---
 
-container から Stats を開き、CPU、memory、network、disk、process data を表示します。通常の Stats route は container 選択が必要で、host-wide overview dashboard ではありません。
+コンテナから Stats を開き、CPU、メモリ、ネットワーク、ディスク、プロセスのデータを表示します。通常の Stats ルートはコンテナの選択が必要で、ホスト全体の概要ダッシュボードではありません。
 
-## Time range
+## 時間範囲
 
 - Live: 1m、5m、15m。
 - Historical: 1h、6h、24h、7d。
 
-historical data は stats aggregation と retention task に依存します。raw sample は 1 hour、5-minute aggregate は 7 days 保持されます。
+履歴データは、統計の集計タスクと保持タスクに依存します。生サンプルは 1 時間、5 分集計は 7 日間保持されます。
 
-## Chart
+## チャート
 
-CPU と memory は ring gauge と history chart、network と disk は rate と expandable detail を表示します。ring color は表示上の表現で、alert threshold の契約ではありません。
+CPU とメモリはリングゲージと履歴チャート、ネットワークとディスクはレートと展開できる詳細を表示します。リングの色は表示上の表現で、アラート閾値の契約ではありません。
 
-## Compare
+## 比較
 
-Compare では最大 6 host/container pair を選択できます。historical aggregate を使い、live mode は無効になります。選択は local に保存されます。
+Compare では最大 6 組のホスト / コンテナを選べます。履歴集計を使い、ライブモードは無効になります。選択はローカルに保存されます。
 
 <Callout type="info">
-  historical range が空なら、その期間の sample が記録されていません。Docker から後で再構築されることはありません。
+  履歴範囲が空なら、その期間のサンプルは記録されていません。あとから Docker で再構築されることはありません。
 </Callout>

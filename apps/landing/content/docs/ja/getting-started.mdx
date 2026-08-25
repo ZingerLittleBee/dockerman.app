@@ -3,12 +3,12 @@ title: "はじめに"
 description: "数分で Dockerman をインストールし、最初の Docker または Podman ランタイムに接続します。"
 ---
 
-このページではDockermanをインストールし、最初の接続を行います。Windowsをご使用でDocker Desktopを避けたい場合は、Windowsプラットフォームガイドの組み込みWSL2パスをご利用ください：[Windows](/ja/docs/platform/windows)。
+Dockerman をインストールし、最初の接続まで進めます。Windows で Docker Desktop を使いたくない場合は、Windows プラットフォームガイドの組み込み WSL2 パスを使ってください：[Windows](/ja/docs/platform/windows)。
 
 ## 前提条件
 
 <Callout type="info">
-  コンテナを管理するには、DockerまたはPodmanランタイムが事前に利用可能である必要があります。Dockermanは起動時にランタイムを自動検出します。Windowsでは、[Windowsプラットフォームガイド](/ja/docs/platform/windows)の組み込みWSL2 Docker Engineパスを通じて、DockermanがDocker daemonをプロビジョニングできます。
+  コンテナを管理するには、先に Docker または Podman ランタイムが必要です。Dockerman は起動時にランタイムを自動検出し、UI を合わせます。Windows では、[Windows プラットフォームガイド](/ja/docs/platform/windows) の組み込み WSL2 Docker Engine パス経由で、Dockerman が Docker デーモンを用意できます。
 </Callout>
 
 ## インストール
@@ -48,7 +48,7 @@ description: "数分で Dockerman をインストールし、最初の Docker �
       <Step>
         ### Dockermanの起動
 
-        Dockermanを起動し、初回起動時に組み込みDocker Engineパスをご希望の場合はWSL2セットアップウィザードをご利用ください。詳細は[Windowsプラットフォームガイド](/ja/docs/platform/windows)をご覧ください。
+        Dockermanを起動し、初回起動で組み込み Docker Engine パスを使う場合は、WSL2 セットアップウィザードを進めてください。詳細は[Windowsプラットフォームガイド](/ja/docs/platform/windows)をご覧ください。
       </Step>
     </Steps>
   </Tab>
@@ -57,7 +57,7 @@ description: "数分で Dockerman をインストールし、最初の Docker �
       <Step>
         ### パッケージのインストール
 
-        お使いのディストリビューションに合ったパッケージをインストールしてください。`.deb`、`.rpm`、またはAppImageビルドをご利用いただけます。その後、[Linuxプラットフォームガイド](/ja/docs/platform/linux)に従ってください。
+        お使いのディストリビューションに合ったパッケージをインストールしてください。`.deb`、`.rpm`、またはAppImageビルドがあります。その後、[Linuxプラットフォームガイド](/ja/docs/platform/linux)に従ってください。
       </Step>
       <Step>
         ### dockerグループへのユーザー追加
@@ -73,7 +73,7 @@ description: "数分で Dockerman をインストールし、最初の Docker �
       <Step>
         ### Dockermanの起動
 
-        desktop menu から Dockerman を起動してください。published package は `PATH` 上の `dockerman` GUI executable を保証しません。
+        デスクトップメニューから Dockerman を起動してください。公開パッケージは、`PATH` 上に `dockerman` という GUI 実行ファイルがあることを保証しません。
       </Step>
     </Steps>
   </Tab>
@@ -91,7 +91,7 @@ description: "数分で Dockerman をインストールし、最初の Docker �
   <Step>
     ### ランタイムソースの選択
 
-    ランタイム設定（Auto / Docker / Podman）を選択し、ローカルソケット、TCPエンドポイント、またはSSHホストを指定してください。
+    ローカルソケット、TCP エンドポイント、または SSH ホストを指定してください。ランタイム設定は Auto / Docker / Podman から選びます。Auto は利用できるランタイムを検出し、先に Docker、次に Podman を試します。
   </Step>
   <Step>
     ### データの初期化
@@ -128,7 +128,7 @@ description: "数分で Dockerman をインストールし、最初の Docker �
 | プラットフォーム | 最低バージョン | アーキテクチャ |
 | --- | --- | --- |
 | macOS | 11 (Big Sur) | Intel、Apple Silicon、Universal |
-| Windows | サポート対象の Windows 10 / 11 build | x86_64 |
-| Linux | modern desktop distribution | x86_64 |
+| Windows | サポート対象の Windows 10 / 11 ビルド | x86_64 |
+| Linux | 現行のデスクトップ向けディストリビューション | x86_64 |
 
-container 管理には compatible Docker または Podman endpoint が必要です。project は separately tested minimum engine-version matrix を公開していません。Windows では optional WSL2 path を利用できます。
+コンテナ管理には、対応する Docker または Podman エンドポイントが必要です。プロジェクトは、別途検証したエンジン最低バージョンの一覧を公開していません。Windows では任意の WSL2 パスで Docker を用意できます。

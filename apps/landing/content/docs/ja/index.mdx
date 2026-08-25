@@ -1,13 +1,13 @@
 ---
 title: "ようこそ"
-description: "Dockerman へようこそ — Tauri と Rust で構築されたクロスプラットフォームの Docker、Podman、Kubernetes 用 UI。"
+description: "Tauri と Rust で作られた、Docker、Podman、Kubernetes 向けのクロスプラットフォーム UI。"
 ---
 
-DockermanはデスクトップからDocker、Podman、Kubernetesを管理する統合的な場所を提供します。コンテナ作業、イメージ作業、クラスタ作業を一つの流れで行えるネイティブアプリを求める開発者や運用者の方にご利用いただけます。ローカルおよびリモートホスト操作のためのDockerとPodman、ワークロードの閲覧やデバッグのためのKubernetes、すべての柱をカバーしています。
+Dockerman は、デスクトップから Docker、Podman、Kubernetes を管理する場所です。コンテナ、イメージ、クラスターの作業を一つの流れで進めたい開発者や運用者向けのネイティブアプリです。ローカルとリモートホストの操作は Docker と Podman、ワークロードの閲覧とデバッグは Kubernetes で行います。
 
 ## Dockermanがカバーする範囲
 
-DockermanはDockerとKubernetesの間で体験を分割し、ツールを切り替えることなくローカルコンテナタスクからクラスタ作業へ移行できるようにします。Dockerホスト、イメージ、ボリューム、Composeプロジェクトを手近に保ち、ワークロード、サービス、設定、Helm、またはポッドデバッグが必要なときにKubernetesに切り替えてください。以下のカードから始めてください。
+Dockerman は Docker と Kubernetes で画面を分けているので、ツールを切り替えずに、ローカルのコンテナ作業からクラスター作業へ移れます。Docker ホスト、イメージ、ボリューム、Compose プロジェクトを手元に置き、ワークロード、サービス、設定、Helm、ポッドのデバッグが必要になったら Kubernetes に切り替えてください。下のカードから始めてください。
 
 ## ここから始める
 
@@ -22,7 +22,7 @@ DockermanはDockerとKubernetesの間で体験を分割し、ツールを切り�
     ワークロード、ネットワーク、設定、Helmを閲覧し、ポッドをデバッグします。
   </Card>
   <Card title="Homelab" href="/ja/docs/homelab">
-    バックグラウンド監視、アラート、イメージ更新通知を設定します。
+    バックグラウンドタスク、通知、アラート、イメージ監視、診断。
   </Card>
   <Card title="高度な機能" href="/ja/docs/advanced/spotlight">
     Spotlightコマンドパレットとリモートホスト。
@@ -48,12 +48,12 @@ DockermanはDockerとKubernetesの間で体験を分割し、ツールを切り�
     Docker DesktopなしでWindows上でDockerを実行。DockermanがAlpine WSL2ディストリビューションをセットアップし、Dockerを自動インストールします（v4.3.0で追加）。
   </Card>
   <Card title="リモートホスト">
-    SSHトンネル経由でリモートDockerデーモンに接続し、ホスト間を即座に切り替えます。
+    SSHトンネル経由でリモートDockerデーモンに接続し、ホスト間をその場で切り替えます。
   </Card>
   <Card title="Podmanランタイムサポート">
-    DockerのドロップインとしてPodmanを使用。Dockermanはランタイムを自動検出しUIを適応（v5.1.0で追加）。
+    DockerのドロップインとしてPodmanを使用。Dockermanはランタイムを自動検出し、UIを合わせます（v5.1.0で追加）。
   </Card>
   <Card title="Homelab 自動化">
-    バックグラウンドタスクスケジューラ、アラートルール、通知チャンネル、イメージアップグレード監視でセルフホストサービスを監視します。
+    バックグラウンドタスクスケジューラ、複数チャンネルの通知（Telegram、ntfy、Gotify、Discord、Webhook）、アラートルール、イメージアップグレード監視、ワンクリックの診断バンドル。
   </Card>
 </Cards>

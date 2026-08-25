@@ -1,16 +1,16 @@
 ---
 title: "イベント"
-description: "Kubernetes event の browse と export。"
+description: "Kubernetes イベントの閲覧とエクスポート。"
 ---
 
-Events page は current cluster と namespace scope の event snapshot を取得します。scope change または手動 refresh で再取得し、continuous watch stream ではありません。
+イベントページは、現在のクラスターとネームスペース範囲のイベントスナップショットを取得します。範囲の変更または手動更新で再取得します。継続的な watch ストリームではありません。
 
-row は type、namespace、involved kind/object、count、reason、message、timestamp を表示します。Dockerman に対象 kind の route がある場合だけ link できます。
+行にはタイプ、ネームスペース、関連 kind / オブジェクト、回数、理由、メッセージ、タイムスタンプが表示されます。Dockerman に対象 kind のルートがある場合だけリンクできます。
 
-## Filter
+## フィルタ
 
-current/all namespace、Normal/Warning、object kind、all/5m/15m/1h、free text で絞り込みます。dynamic Reason selector はありません。
+現在 / すべてのネームスペース、Normal / Warning、オブジェクト kind、all / 5m / 15m / 1h、自由テキストで絞り込みます。動的な Reason セレクタはありません。
 
-## Export
+## エクスポート
 
-filtered rows を CSV または JSON で export できます。Kubernetes Event は cluster policy で expire するため、durable audit log ではありません。
+絞り込んだ行を CSV または JSON でエクスポートできます。Kubernetes の Event はクラスターポリシーで期限切れになるため、耐久性のある監査ログではありません。

@@ -1,6 +1,6 @@
 ---
 title: "CLI 概要"
-description: "Daemon-first の dockerman CLI で、ターミナルから Docker、Kubernetes、Compose、Trivy のワークフローをスクリプト化できます。"
+description: "デーモン起点の dockerman CLI で、ターミナルから Docker、Kubernetes、Compose、Trivy の作業をスクリプト化します。"
 ---
 
 `dockerman` は、認証付きの IPC ソケット経由でローカルの **dockerman-daemon** と通信する軽量なコマンドラインクライアントです。CLI が公開するのは明示的に許可された操作だけで、GUI の全機能と同一ではありません。
@@ -74,14 +74,14 @@ dockerman schema --format mcp-tools
 dockerman schema fetch_logs
 ```
 
-現在の schema バージョンは `2`。unary 呼び出しとストリーミング呼び出しの違いは [ストリーミング契約](/ja/docs/cli/streaming) を参照してください。
+現在の schema バージョンは `2`。unary 呼び出しとストリーミング呼び出しの違いは [ストリーミング契約](/ja/docs/cli/streaming) を見てください。
 
 ## 終了コード
 
 | コード | 意味 |
 | --- | --- |
-| `0` | 成功、または stream が自然終了 |
-| `1` | 一般的な失敗（バリデーション、RPC エラー、stream 本体エラー） |
+| `0` | 成功、またはストリームが自然終了 |
+| `1` | 一般的な失敗（バリデーション、RPC エラー、ストリーム本体エラー） |
 | `2` | コマンドライン引数の解析エラー |
 | `3` | 発見またはハンドシェイク失敗（daemon に到達不能） |
 | `4` | ストリーミングのハートビートタイムアウト（30 秒間フレームなし） |
@@ -90,7 +90,7 @@ dockerman schema fetch_logs
 
 ## Claude Code から使う
 
-Claude Code から `dockerman` を駆動するなら、公式 plugin をインストールしてアシスタントにコマンドマップ、出力形状、破壊的操作のルールを教えると、毎回試行錯誤せずに済みます：
+Claude Code から `dockerman` を動かすなら、公式 plugin を入れてアシスタントにコマンドマップ、出力形状、破壊的操作のルールを教えると、毎回試行錯誤せずに済みます。
 
 ```text
 /plugin marketplace add mandocker/skills

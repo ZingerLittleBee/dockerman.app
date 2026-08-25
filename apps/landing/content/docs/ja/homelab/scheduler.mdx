@@ -1,19 +1,21 @@
 ---
 title: "バックグラウンドタスク"
-description: "Scheduler task と recent run を確認します。"
+description: "スケジューラのタスクと直近の実行を確認します。"
 ---
 
-Tasks page は task record、schedule、next run、last result、config、recent run を表示します。
+タスクページには、タスク記録、スケジュール、次回実行、直近の結果、設定、直近の実行が表示されます。
+
+組み込みの統計タスクは、有効な状態であらかじめ登録されています。
 
 | Kind | Default interval |
 | --- | --- |
 | `stats_aggregation` | 5 minutes |
 | `stats_retention_prune` | 60 minutes |
 
-image watch を設定すると関連 task が現れる場合があります。
+イメージ監視を設定すると、関連タスクが現れる場合があります。
 
-## Current limitations
+## 現在の制限
 
-**Create task** は disabled で Coming Soon です。seeded built-in task は UI で locked 扱いとなり、enable switch、schedule edit、Run now は使えません。既存の non-built-in record がある場合だけ操作が表示されます。
+**Create task** は無効で、Coming Soon です。あらかじめ登録された組み込みタスクは UI 上ロック扱いとなり、有効化スイッチ、スケジュール編集、Run now は使えません。組み込みでない既存レコードがある場合だけ、それらの操作が表示されます。
 
-scheduler は app process が alive の間だけ動きます。full quit すると停止します。
+スケジューラは、アプリプロセスが生きている間だけ動きます。ウィンドウやトレイの閉じ方で挙動は変わります。完全に終了すると停止します。

@@ -3,20 +3,20 @@ title: "RBAC"
 description: "ServiceAccounts、Roles、ClusterRoles とそのバインディングを参照して、誰が何をできるかを理解。"
 ---
 
-RBACページを使用して、このクラスターで誰が何をできるかという問いにすばやく答えましょう。
+このクラスターで、誰が何をできるかを確認します。
 
 ## ServiceAccounts
 
-ServiceAccounts page は current namespace の identity を表示します。API が返す image pull secret などを表示しますが、modern cluster が generated token Secret を作成するとは限りません。
+ServiceAccount ページは、現在のネームスペースの identity を表示します。API が返す image pull secret なども出ますが、新しいクラスターが generated token Secret を作るとは限りません。
 
 ## Roles and ClusterRoles
 
-RolesおよびClusterRolesを使用して、それらのIDに付与された権限を確認します。詳細ビューでは、`rules`配列をapiGroups、resources、verbs、およびresourceNamesを含む読みやすいテーブルに展開して表示します。
+Role と ClusterRole で、それらの ID に付いた権限を確認します。詳細では `rules` 配列を、apiGroups、resources、verbs、resourceNames を含む読みやすい表に展開します。
 
 ## RoleBindings and ClusterRoleBindings
 
-RoleBindingsおよびClusterRoleBindingsを使用して、各ロールを指しているサブジェクトを確認します。リストにはロール参照と、ユーザー、グループ、ServiceAccountを含むサブジェクトが表示されます。
+RoleBinding と ClusterRoleBinding で、各ロールを指しているサブジェクトを確認します。リストにはロール参照と、ユーザー、グループ、ServiceAccount を含むサブジェクトが出ます。
 
 ## Troubleshooting permissions
 
-Roles page の **Can I** は verb、resource、namespace、group、subresource、optional name で SelfSubjectAccessReview を行います。対象は current kubeconfig identity であり、任意の Pod ServiceAccount ではありません。
+Roles ページの **Can I** は、verb、resource、namespace、group、subresource、任意の name で SelfSubjectAccessReview を行います。対象は現在の kubeconfig の identity で、任意の Pod ServiceAccount ではありません。

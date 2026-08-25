@@ -3,11 +3,11 @@ title: "高度な機能とスクリプト化"
 description: "Schema、call エスケープハッチ、Cloudflare Quick Tunnels、管理対象 WSL2 エンジン、自動化のヒント。"
 ---
 
-このページは使用頻度の低い CLI コマンドと、シェルスクリプト、CI パイプライン、LLM ツールチェーンから `dockerman` をラップする際によく使うパターンをまとめます。
+使用頻度の低い CLI コマンドと、シェルスクリプト、CI パイプライン、LLM ツールチェーンから `dockerman` をラップするときに使うパターンをまとめます。
 
 ## `schema` と `call`
 
-schema は対応する daemon surface を記述します。`call` が呼べるのは hard-coded allowlist の unary RPC だけで、無制限の escape hatch ではありません。
+schema は対応するデーモン側の API 面を記述します。`call` が呼べるのは、ハードコードされた許可リスト上の unary RPC だけです。無制限のエスケープハッチではありません。
 
 ```bash
 dockerman schema
@@ -19,10 +19,10 @@ dockerman call hub_search '{"query":"alpine","pageSize":5}'
 dockerman call remove_container '{"name":"web","options":{"force":true}}' --yes
 ```
 
-`call` は params の JSON オブジェクトを受け取ります。破壊的 RPC は専用サブコマンドと同じく `--yes`（または `-y`）が必要です。**ストリーミング RPC は `call` で呼べません**——正しいエンベロープを得るには専用のストリーミングコマンドを使ってください。
+`call` は JSON 形式のパラメータオブジェクトを受け取ります。破壊的 RPC は専用サブコマンドと同じく `--yes`（または `-y`）が必要です。**ストリーミング RPC は `call` で呼べません**——正しいエンベロープを得るには専用のストリーミングコマンドを使ってください。
 
 <Callout type="info">
-  `schema --format mcp-tools` は MCP 互換のツールレジストリを出力します。Model Context Protocol を喋る LLM agent にそのまま接続できます。
+  `schema --format mcp-tools` は MCP 互換のツールレジストリを出力します。Model Context Protocol を話す LLM エージェントにそのまま渡せます。
 </Callout>
 
 ## イベント
@@ -37,7 +37,7 @@ dockerman events --since 2026-05-01T00:00:00Z --until 2026-05-01T01:00:00Z
 
 ## Cloudflare Quick Tunnels
 
-ローカルコンテナのポートを公開 `trycloudflare.com` URL で公開します。Quick Tunnels はその場限りで認証なし——開発やライブデモ用途に限り、本番 ingress には絶対使わないでください。
+ローカルコンテナのポートをトンネル経由で公開し、一時的な `trycloudflare.com` URL を発行します。Quick Tunnels はその場限りで認証なし——開発やライブデモ用途に限り、本番の公開入口としては使わないでください。
 
 ```bash
 dockerman tunnel status --json
@@ -51,13 +51,13 @@ dockerman tunnel close web --host-port 8080 --host-ip 0.0.0.0
 dockerman tunnel close-container web
 ```
 
-`tunnel create` はネットワーク露出面を変えるので破壊的扱い、`--yes` が必須です。`cloudflared` が未インストールなら `--install` を付けてください；CLI はインストール進捗をストリーミングしてからトンネルを開きます。SSH 転送のリモート Docker ホストはトンネルターゲットとしてサポートされません。
+`tunnel create` はネットワークの公開範囲が変わるため、破壊的な操作として扱われ、`--yes` が必須です。`cloudflared` が未インストールなら `--install` を付けてください；CLI はインストール進捗をストリーミングしてからトンネルを開きます。SSH 転送のリモート Docker ホストはトンネルターゲットとしてサポートされません。
 
 `--host-port` と `--all` は互いに排他的です：特定の公開ポートを選ぶか、コンテナが公開しているすべてのポートを露出するかのどちらか。`--host-ip` は最低 1 つの `--host-port` と組み合わせる必要があります；ポートを指定せず IP だけでバインドすることはできません。
 
 ## 管理対象 WSL2 エンジン（Windows）
 
-Windows では、daemon が `dockerman-backend` という専用 WSL2 ディストリを管理し、その中で Docker Engine を動かして Linux コンテナを実行できます。CLI と GUI は同一エンジンを共有します。
+Windows では、デーモンが `dockerman-backend` という専用 WSL2 ディストリを管理し、その中で Docker Engine を動かして Linux コンテナを実行できます。CLI と GUI は同一エンジンを共有します。
 
 ```bash
 dockerman wsl status
@@ -95,7 +95,7 @@ fi
 
 CLI はスクリプトがどれほど自信を持っていても常に `--yes` を要求します。**`--force-yes` も環境変数によるバイパスも存在しません**——これは意図的な設計です。
 
-## daemon 発見失敗の検知
+## デーモン発見失敗の検知
 
 ```bash
 if ! dockerman system info >/dev/null 2>&1; then
@@ -104,8 +104,8 @@ if ! dockerman system info >/dev/null 2>&1; then
 fi
 ```
 
-daemon 発見とハンドシェイク失敗の終了コードは `3` で、RPC レベルの失敗（`1`）や stream 失敗（`4`）とは別です。
+デーモン発見とハンドシェイク失敗の終了コードは `3` で、RPC レベルの失敗（`1`）やストリーム失敗（`4`）とは別です。
 
 ### CI での長時間ストリーム
 
-CI ランナーは数分間出力がないプロセスを kill しがちです。daemon の 15 秒ハートビートはストリーミングコマンドが*何かしら*ワイヤに流すことを保証しますが、平文モードではハートビートは隠れます。CI では `--json` を使ってハートビートを可視行として現すか、`ts` にパイプして各行にタイムスタンプを付けてください。
+CI ランナーは数分間出力がないプロセスを強制終了しがちです。デーモンの 15 秒ハートビートは、ストリーミングコマンドが通信路上に何らかの出力を流すことを保証しますが、平文モードではハートビートは隠れます。CI では `--json` を使ってハートビートを可視行として現すか、`ts` にパイプして各行にタイムスタンプを付けてください。

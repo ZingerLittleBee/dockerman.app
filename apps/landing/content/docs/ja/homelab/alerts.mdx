@@ -1,19 +1,19 @@
 ---
 title: "アラートルール"
-description: "Preset alert の有効化、channel 選択、recent firing の確認。"
+description: "プリセットアラートの有効化、チャンネル選択、直近の発火の確認。"
 ---
 
-Alerts page は現在 2 つの built-in preset を管理します。
+アラートページは、現在 2 つの組み込みプリセットを管理します。
 
-- **Restart loop**: restart burst で trigger。
-- **Container crash**: non-zero exit で trigger。
+- **Restart loop**: 再起動バーストで発火します。
+- **Container crash**: 非ゼロ終了で発火します。
 
-preset ごとに enable/disable、追加 notification channel、reset to defaults を操作できます。system channel は常に残ります。
+プリセットごとに有効 / 無効、追加の通知チャンネル、デフォルトへのリセットができます。システムチャンネルは常に残ります。
 
-## Current limitation
+## 現在の制限
 
-**Create rule** button は disabled で Coming Soon です。custom-rule editor、target selector、severity、silence window、generic cooldown form はありません。health/resource-threshold rule を UI から作成できるという説明は現行 release には当てはまりません。
+**Create rule** ボタンは無効で、Coming Soon です。カスタムルールエディタ、ターゲット選択、重要度、サイレンスウィンドウ、汎用クールダウンフォームはありません。ヘルスやリソース閾値のルールを UI から作れる、という説明は現行リリースには当てはまりません。
 
-## Recent alerts
+## 直近のアラート
 
-rule name、短い context、time の compact feed です。searchable column-persistent data table ではありません。
+下部パネルは、ルール名、短いコンテキスト、時刻のコンパクトなフィードです。検索できて列を保持するデータテーブルではありません。

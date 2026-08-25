@@ -1,22 +1,22 @@
 ---
 title: "イベント"
-description: "Docker daemon event の stream、filter、保存、export。"
+description: "Docker daemon イベントのストリーム、フィルタ、保存、エクスポート。"
 ---
 
-Events page は選択中の Docker host から event を受信し、search、filter、detail、export を提供します。
+イベントページは、選択中の Docker ホストからイベントを受け取り、検索、フィルタ、詳細、エクスポートができます。
 
-## Pause
+## 一時停止
 
-pause 中の新しい event は visible list と永続化 queue に入りません。後で replay するための buffer ではなく、drop されます。
+一時停止中の新しいイベントは、表示中の一覧にも永続化キューにも入りません。あとで再生するためのバッファではなく、破棄されます。
 
-## Local history
+## ローカル履歴
 
-Dockerman は app data directory に host ごとの JSONL を保存します。1 file は 5 MiB で rotate し、current file に加えて最大 20 rotated file を保持します。時間ベースの retention setting はありません。
+Dockerman はアプリデータディレクトリに、ホストごとの JSONL を保存します。1 ファイルは 5 MiB でローテーションし、現在のファイルに加えて最大 20 個のローテーション済みファイルを保持します。時間ベースの保持設定はありません。
 
-## Filter と export
+## フィルタとエクスポート
 
-page に実際に表示される control で resource type、action、time、text を絞り込みます。利用可能な場合は JSON または CSV で export できます。
+ページに実際に出ているコントロールで、リソースタイプ、アクション、時刻、テキストを絞り込みます。利用できる場合は JSON または CSV でエクスポートできます。
 
 <Callout type="warn">
-  Docker event は state transition であり、すべての command error や操作した人物を記録する audit log ではありません。
+  Docker イベントは状態遷移です。すべてのコマンドエラーや、操作した人物を記録する監査ログではありません。
 </Callout>

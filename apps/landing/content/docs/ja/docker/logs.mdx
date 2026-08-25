@@ -1,18 +1,18 @@
 ---
 title: "ログ"
-description: "Container log の stream、search、filter、copy、export。"
+description: "コンテナログのストリーム、検索、フィルタ、コピー、エクスポート。"
 ---
 
-container から Logs を開くと output を follow します。pause は最新行への follow を止めるだけです。
+コンテナから Logs を開くと、出力を追従します。一時停止は最新行への追従を止めるだけで、コンテナ自体は変えません。
 
-## Fetch controls
+## 取得コントロール
 
-time preset または custom range、最大 10,000 の tail、stdout/stderr filter を選べます。text、case-sensitive、regex search は load 済み row に対して行われ、server-side Docker query ではありません。
+時刻のプリセットまたはカスタム範囲、最大 10,000 の tail、stdout / stderr フィルタを選べます。テキスト、大文字小文字の区別、正規表現の検索は、読み込み済みの行に対して行われます。サーバー側の Docker クエリではありません。
 
-## Keyboard controls
+## キーボード操作
 
-実装済み shortcut は `/` または Ctrl/Cmd+F、match 用の Ctrl/Cmd+G と Shift+Ctrl/Cmd+G、follow/pause の `P`、Alt+C、Alt+R、newest/oldest の `g`/`G`、search clear の Escape です。`n`、`N`、Enter、Shift+Enter は契約ではありません。
+実装済みのショートカットは、検索の `/` または Ctrl/Cmd+F、一致用の Ctrl/Cmd+G と Shift+Ctrl/Cmd+G、追従 / 一時停止の `P`、Alt+C、Alt+R、最新 / 最古の `g` / `G`、検索クリアの Escape です。`n`、`N`、Enter、Shift+Enter は契約ではありません。
 
-## Export
+## エクスポート
 
-toolbar から text/JSON を copy または export できます。relative/UTC/local timestamp format switch はありません。
+ツールバーからテキスト / JSON をコピーまたはエクスポートできます。タイムスタンプの表示は読み込んだ Docker ログに従います。相対 / UTC / ローカルの切り替えはありません。

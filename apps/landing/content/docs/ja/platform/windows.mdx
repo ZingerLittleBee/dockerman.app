@@ -1,9 +1,9 @@
 ---
 title: "Windows"
-description: "Docker Desktop または内蔵 WSL2 Docker Engine を使用して Windows で Dockerman を実行。"
+description: "Docker Desktop または内蔵 WSL2 Docker Engine で、Windows 上の Dockerman を動かす。"
 ---
 
-Windows には2つのサポートされているDockerパスがあります：Docker Desktopまたは内蔵WSL2 Docker Engineです。
+Windows で使える Docker パスは 2 つです。Docker Desktop か、内蔵 WSL2 Docker Engine です。
 
 ## クイック比較
 
@@ -39,7 +39,7 @@ Windows には2つのサポートされているDockerパスがあります：Do
 
 v4.3.0 で追加されました。
 
-DockermanはWSL2パスをバンドルしているため、Docker Desktopや手動のWSLセットアップは必要ありません。
+Dockerman は WSL2 パスを同梱しているので、Docker Desktop や手動の WSL セットアップは不要です。
 
 ### 前提条件
 
@@ -81,7 +81,7 @@ DockermanはWSL2パスをバンドルしているため、Docker Desktopや手�
 
 ### ウィザードの処理内容
 
-ウィザードは、DockermanがDockerを実行するために使用するAlpineディストリビューションファイルを作成します。
+ウィザードは、Dockerman が Docker を動かすために使う Alpine ディストリビューションのファイルを作ります。
 
 <Files>
   <Folder name="(Alpine WSL2 distro)" defaultOpen>
@@ -97,7 +97,7 @@ DockermanはWSL2パスをバンドルしているため、Docker Desktopや手�
 
 ### daemon.jsonの編集
 
-設定→Daemon設定パネルを使用して、`/etc/docker/daemon.json`を編集してください。一般的なフィールドはフォームビューで、それ以外は raw JSON ビューで編集できます。保存するとAlpineディストリビューション内のDockerが再起動します。
+設定 → Daemon 設定パネルで `/etc/docker/daemon.json` を編集してください。よく使うフィールドはフォーム、それ以外は raw JSON ビューです。保存すると Alpine ディストリビューション内の Docker が再起動します。
 
 ### デーモンクラッシュからの復旧
 
@@ -113,13 +113,13 @@ v5.3.0 で追加。Alpine ディストロが不安定な状態になった場合
 
 ### エンジンソースの切り替え
 
-v5.3.0 で追加。Windows の WSL ページには **Engine source** セレクタがあり、OS ネイティブ Docker ソケット（Docker Desktop または OS にインストールされた任意の Docker）と、同梱の Dockerman WSL2 Docker Engine の 2 枚のカードが表示されます。カードを選択すると、Dockerman はトーストや手動保存なしに、ローカルホストを新しいソースに静かに再接続します。以前の Docker 接続タイプ（`socket`、`tcp`、`npipe`）は記憶されているため、OS ネイティブ Docker に戻すと前回の設定が復元されます。
+v5.3.0 で追加。Windows の WSL ページには **Engine source** セレクタがあり、OS ネイティブの Docker ソケット（Docker Desktop または OS にインストールされた任意の Docker）と、同梱の Dockerman WSL2 Docker Engine の 2 枚のカードが表示されます。カードを選択すると、トーストや手動保存なしに、ローカルホストを新しいソースへ再接続します。以前の Docker 接続タイプ（`socket`、`tcp`、`npipe`）は記憶されているため、OS ネイティブ Docker に戻すと前回の設定が復元されます。
 
 旧来のフローを使いたい場合は、**設定 → Docker 設定** から接続タイプを切り替えて手動で再接続することもできます。
 
 ## WSL2のリソース監視
 
-[Stats](/ja/docs/docker/stats)を使用して、WSL2 Engineを他のDockerデーモンと同様に監視してください。Windowsのメモリ使用量が多く見える場合は、タスクマネージャーでWSL2 VMのバルーニングを確認してください。
+[Stats](/ja/docs/docker/stats) で、WSL2 Engine を他の Docker デーモンと同じように監視してください。Windows のメモリ使用量が多く見えるときは、タスクマネージャーで WSL2 VM のバルーニングを確認してください。
 
 ## トラブルシューティング
 
@@ -134,6 +134,6 @@ v5.3.0 で追加。Windows の WSL ページには **Engine source** セレク�
     空きディスク容量を確認し、古いWSLまたはDockerプロセスを終了して、アプリログで正確なインポートエラーを確認してください。
   </Accordion>
   <Accordion title="再起動後にデーモンが起動しない">
-    [デーモンクラッシュからの復旧](/ja/docs/platform/windows#デーモンクラッシュからの復旧)と[daemonjsonの編集](/ja/docs/platform/windows#daemonjsonの編集)を参照してください。両方のセクションで一般的な起動障害をカバーしています。
+    [デーモンクラッシュからの復旧](/ja/docs/platform/windows#デーモンクラッシュからの復旧)と[daemonjsonの編集](/ja/docs/platform/windows#daemonjsonの編集)を参照してください。よくある起動障害は両方のセクションにあります。
   </Accordion>
 </Accordions>

@@ -3,11 +3,11 @@ title: "ネットワーキング"
 description: "すべてのネームスペースで Services、Ingresses、Endpoints、NetworkPolicies を検査。"
 ---
 
-ネットワーキングページを使用して、クラスタ内のトラフィックの流れを検査します。`kubectl`に戻ることなく、Services、Ingresses、Endpoints、NetworkPoliciesを確認できます。
+クラスター内のトラフィックの流れを確認します。`kubectl` に戻らず、Service、Ingress、Endpoint、NetworkPolicy を見られます。
 
 ## Services
 
-Servicesを使用して、ワークロードの安定したフロントドアを確認します。リストにはサービスタイプ、ClusterIP、ポートが表示されます。
+Service で、ワークロードの安定した入り口を確認します。リストにはサービスタイプ、ClusterIP、ポートが出ます。
 
 - `ClusterIP`：クラスタ内の内部トラフィック用
 - `NodePort`：クイックアクセス用のノードレベルポートが必要な場合
@@ -20,22 +20,22 @@ Servicesを使用して、ワークロードの安定したフロントドアを
 
 ## Ingresses
 
-Ingressesを使用して、クラスタへのHTTPルーティングを検査します。リストにはホスト、パス、バックエンドServicesが表示され、詳細ビューにはTLSシークレット、アノテーション、ルールテーブルが表示されます。
+Ingress で、クラスターへの HTTP ルーティングを確認します。リストにはホスト、パス、バックエンド Service が出て、詳細には TLS シークレット、アノテーション、ルール表が出ます。
 
 ## Endpoints
 
-Serviceの背後にある生のバックエンドアドレスが必要な場合は、Endpointsを使用します。このビューは、Serviceに健全なバックエンドがない場合に最も役立ちます。
+Service の背後にある生のバックエンドアドレスが必要な場合は、Endpoint を開きます。このビューは、Service に健全なバックエンドがない場合に最も役立ちます。
 
 ## EndpointSlices
 
-EndpointSlice は Kubernetes が Service の背後で管理する現在の discovery object です。Dockerman は legacy Endpoints と別に list/detail route を提供します。
+EndpointSlice は、Kubernetes が Service の背後で管理する現在のディスカバリオブジェクトです。Dockerman はレガシー Endpoints とは別に、一覧 / 詳細ルートを出します。
 
 ## NetworkPolicies
 
-NetworkPoliciesを使用して、どのPodが相互に通信できるかを理解します。
+NetworkPolicy で、どの Pod が互いに通信できるかを確認します。
 
 <Callout type="info">
-  作成は YAML のみです — YAMLエディタを使用して新しい NetworkPolicy を作成してください。
+  作成は YAML のみです。YAML エディタで新しい NetworkPolicy を作ってください。
 </Callout>
 
 ## 削除

@@ -7,14 +7,14 @@ description: "一般的な問題とその解決方法 — 接続、権限、パ�
 
 ## Dockerデーモンに接続できない
 
-ご利用のプラットフォームに合わせて、以下のタブをご使用ください。
+お使いのプラットフォームに合わせて、次のタブを使ってください。
 
 <Tabs items={['macOS', 'Windows', 'Linux']}>
   <Tab>
-    Docker Desktopが実行中であることを確認し、[設定 → Docker設定](/ja/docs/reference/settings#docker設定)でDockermanが使用すべきソケットパスを確認してください。
+    Docker Desktop が実行中であることを確認し、[設定 → Docker設定](/ja/docs/reference/settings#docker設定)で Dockerman が使うソケットパスを確認してください。
   </Tab>
   <Tab>
-    [Windows](/ja/docs/platform/windows)でDocker DesktopとWSL2エンジンのどちらを使用するか選択してください。Dockermanが誤ったバックエンドを指している場合は、[設定 → Docker設定](/ja/docs/reference/settings#docker設定)で切り替えてください。
+    [Windows](/ja/docs/platform/windows) で Docker Desktop と WSL2 エンジンのどちらを使うか選んでください。Dockerman が誤ったバックエンドを指している場合は、[設定 → Docker設定](/ja/docs/reference/settings#docker設定)で切り替えてください。
   </Tab>
   <Tab>
     ユーザーをdockerグループに追加し、[Linuxの権限](/ja/docs/platform/linux#docker-グループへのユーザ追加)に従ってください。
@@ -27,7 +27,7 @@ Dockermanが`/var/run/docker.sock`にアクセスできない場合は、ユー�
 
 ## WSL2セットアップウィザードが失敗する
 
-WSL2のパスについては、Windowsのトラブルシューティングセクションをご使用ください：[Windowsプラットフォームのトラブルシューティング](/ja/docs/platform/windows#docker-desktopとwsl2-engineの切り替え)。
+WSL2 のパスは、Windows のトラブルシューティングを見てください：[Windowsプラットフォームのトラブルシューティング](/ja/docs/platform/windows#docker-desktopとwsl2-engineの切り替え)。
 
 ## SSHホスト接続が失敗する
 
@@ -37,7 +37,7 @@ WSL2のパスについては、Windowsのトラブルシューティングセク
 
 - アイドル時のCPU使用率が高い場合、通常はLogsタブが大量のファイルセットをストリーミングしていることを意味します。使用していないタブは一時停止してください。
 - 数百のコンテナでリストの読み込みが遅い場合、通常はまずステータスまたはComposeプロジェクトでフィルタリングする必要があることを意味します。
-- Stats が遅い場合は、6h や 24h から 1h など、実際に提供される短い range に変更してください。
+- Stats が遅い場合は、6h や 24h から 1h など、実際に出ている短い範囲に変えてください。
 
 ## Kubernetes：k3dが起動に失敗する
 
@@ -61,8 +61,8 @@ WSL2のパスについては、Windowsのトラブルシューティングセク
 
 ## ログの収集
 
-まずApp Logページを開いてください。問題を報告する必要がある場合は、App Logをエクスポートし、Dockermanのバージョンとともに添付してください。
+まず App Log ページを開いてください。問題を報告する場合は、App Log を書き出し、Dockerman のバージョンと一緒に添付してください。
 
 ## サポートを受ける
 
-GitHub repository に App Log export と install package または release の version を添付してください。設定 → About page はありません。
+GitHub リポジトリへ、App Log の書き出しと、インストールパッケージまたはリリースのバージョンを添付してください。設定 → About ページはありません。
