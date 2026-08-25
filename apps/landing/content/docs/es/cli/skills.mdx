@@ -31,7 +31,7 @@ El plugin contiene un único skill, `dockerman-cli`, que cubre:
 - Una descripción de SKILL pensada para dispararse en prompts de Docker / Compose / Kubernetes / kubectl aunque el usuario no diga «dockerman».
 - El mapa de comandos (`container`, `image`, `compose`, `network`, `volume`, `host`, `system`, `hub`, `k8s`, `tunnel`, `trivy`, `wsl`, `events`, `schema`, `call`).
 - Notas sobre la forma de la salida: por ejemplo, `dockerman k8s pod list` devuelve `{ forbidden, items, truncated }` con campos **aplanados** (`.name`, `.namespace`, `.restarts`, `.status`), no el árbol `metadata.*` de kubectl.
-- Las dos reglas de ámbito de k8s que más se tropiezan al principio: `--cluster` es obligatorio si no hay cluster seleccionado, y `pod list` sin `--namespace` solo devuelve el namespace `default` (omite en silencio `kube-system`).
+- Las dos reglas de ámbito de k8s con las que más se tropieza al principio: `--cluster` es obligatorio si no hay cluster seleccionado, y `pod list` sin `--namespace` solo devuelve el namespace `default` (omite en silencio `kube-system`).
 - Advertencias para operaciones destructivas como `container restore -y`. Un backup no siempre exige `-y`.
 - Un cookbook de `jq` (`references/output-parsing.md`) para proyectar la salida JSON sin llenar el contexto.
 

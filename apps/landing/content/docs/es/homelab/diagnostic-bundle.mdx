@@ -22,7 +22,7 @@ El paquete de diagnóstico mete en un solo `.zip` inspect, eventos, logs y estad
 
 | Archivo | Contenido |
 | --- | --- |
-| `manifest.json` | Marca de tiempo de generación, versión de Dockerman, tipo de host, inventario de archivos, conteo de redacción y cualquier error encontrado |
+| `manifest.json` | Marca de tiempo de generación, versión de Dockerman, tipo de host, inventario de archivos, número de valores ocultados y cualquier error encontrado |
 | `system.json` | Versión de Docker e información del sistema. Se elimina el usuario del registro, pero no hay una limpieza general de secretos. |
 | `events.json` | Eventos de Docker filtrados por la ventana de tiempo seleccionada y los contenedores de destino |
 | `inspect.json` | Datos de inspect de contenedor, imagen, red y volumen. Por defecto solo se ocultan los valores cuyo nombre coincide con la lista `Env` de la configuración del contenedor. Incluye `State.Health`. |
