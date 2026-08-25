@@ -13,7 +13,7 @@ dockerman container list --pretty
 dockerman container inspect web
 ```
 
-`list` devuelve la misma estructura que la GUI: id, nombre, imagen, estado, mapeo de puertos, fecha de creación. Añade `--pretty` para obtener una tabla alineada por columnas.
+`list` devuelve la misma estructura que la GUI: id, nombre, imagen, estado, mapeo de puertos, fecha de creación. Añade `--pretty` para una tabla alineada por columnas.
 
 ## Ciclo de vida
 
@@ -36,7 +36,7 @@ dockerman container create web nginx:latest --config '{"Env":["NODE_ENV=producti
 dockerman container commit web --repo myrepo --tag snapshot --pause
 ```
 
-`--config` acepta un objeto JSON inline, no una ruta de fichero. `commit` crea una imagen desde el contenedor.
+`--config` acepta un objeto JSON en línea, no una ruta de fichero. `commit` crea una imagen desde el contenedor.
 
 ## Eliminar
 
@@ -55,7 +55,7 @@ dockerman container logs web --since 2026-05-01T00:00:00Z --timestamps
 dockerman container logs web --follow --json
 ```
 
-Sin `--json`, stdout sólo contiene líneas de log; los errores van a stderr. Con `--json`, la CLI emite un [envelope de streaming](/es/docs/cli/streaming) por frame. `--follow` corre hasta que pulses Ctrl+C (salida `130`) o el stream termine de forma natural (salida `0`).
+Sin `--json`, stdout solo contiene líneas de log; los errores van a stderr. Con `--json`, la CLI emite un [envelope de streaming](/es/docs/cli/streaming) por frame. `--follow` corre hasta que pulses Ctrl+C (salida `130`) o el stream termine por sí solo (salida `0`).
 
 <Callout type="warn">
   `--until` es incompatible con `--follow`; la CLI rechaza esa combinación antes de abrir el stream. Usa `--since`/`--until` para descargas históricas y `--follow`/`--since` para seguimiento en vivo.
@@ -68,7 +68,7 @@ dockerman container stats web
 dockerman container stats web --pretty
 ```
 
-`stats` siempre se transmite en streaming. Cada frame es una línea NDJSON con contadores de CPU, memoria, red y E/S de bloque. Pulsa Ctrl+C para detener (salida `130`).
+`stats` siempre va en streaming. Cada frame es una línea NDJSON con contadores de CPU, memoria, red y E/S de bloque. Pulsa Ctrl+C para detener (salida `130`).
 
 ## Terminal
 
@@ -81,7 +81,7 @@ Asigna un PTY mediante `docker exec` y lo conecta a tu terminal. La CLI rechaza 
 
 ## Backup y restore
 
-Backup empaqueta el sistema de ficheros del contenedor (y los bind mounts opcionales) en un único archivo. Restore crea un nuevo contenedor a partir de ese archivo.
+Backup empaqueta el sistema de ficheros del contenedor (y los bind mounts opcionales) en un único archivo. Restore crea un contenedor nuevo a partir de ese archivo.
 
 <Steps>
   <Step>
@@ -103,7 +103,7 @@ Backup empaqueta el sistema de ficheros del contenedor (y los bind mounts opcion
       --include-all-safe-bind-mounts
     ```
 
-    Usa `--include-bind-mount <índice>` para elegir mounts y `--no-pause` para saltarte pause/unpause. `--force` sólo sobrescribe un archivo de salida existente.
+    Usa `--include-bind-mount <índice>` para elegir mounts y `--no-pause` para saltarte pause/unpause. `--force` solo sobrescribe un archivo de salida existente.
   </Step>
   <Step>
     ### Previsualizar un archivo
@@ -125,7 +125,7 @@ Backup empaqueta el sistema de ficheros del contenedor (y los bind mounts opcion
       --yes
     ```
 
-    Restore es destructivo (crea un contenedor que puede chocar con nombres/volúmenes existentes), por lo que `--yes` es obligatorio. `--volume-strategy` admite `rename`, `skip` u `overwrite`.
+    Restore es destructivo (crea un contenedor que puede chocar con nombres o volúmenes existentes), por lo que `--yes` es obligatorio. `--volume-strategy` admite `rename`, `skip` u `overwrite`.
   </Step>
 </Steps>
 

@@ -3,20 +3,20 @@ title: "Compose"
 description: "Gestiona proyectos Compose y edita su YAML."
 ---
 
-La página descubre proyectos por labels Docker Compose y ofrece acciones soportadas por el runtime Docker. No está disponible para targets Podman.
+La página descubre proyectos por labels de Docker Compose y ofrece las acciones que soporta el runtime Docker. No está disponible en destinos Podman.
 
 ## Ciclo de vida
 
-Según el estado puedes iniciar, detener, reiniciar, pull, up o eliminar. La opción de volúmenes se reenvía a Compose; Dockerman no enumera previamente todos los volúmenes nombrados ni otros consumidores.
+Según el estado puedes iniciar, detener, reiniciar, hacer pull, up o eliminar. La opción de volúmenes se reenvía a Compose; Dockerman no enumera de antemano todos los volúmenes con nombre ni otros consumidores.
 
 ## Editar YAML
 
-Abre el fichero, guarda y aplica cuando proceda. Guardar no ejecuta `docker compose config` y el editor no promete validación/autocomplete completo del schema. Valida aparte los cambios importantes.
+Abre el fichero, guarda y aplica cuando proceda. Guardar no ejecuta `docker compose config` y el editor no promete validación ni autocompletado completo del schema. Valida aparte los cambios importantes.
 
 ## Convertir `docker run`
 
-Run to Compose transforma flags comunes en una vista YAML. Revisa flags no soportados antes de guardar y desplegar.
+Run to Compose transforma flags habituales en una vista YAML. Revisa los flags no soportados antes de guardar y desplegar.
 
 ## Límites actuales
 
-No hay visor combinado de logs de proyecto. Las plantillas curadas viven en **Apps**, no en un editor Compose, y esta página no guarda ficheros existentes como plantillas reutilizables.
+No hay visor combinado de logs del proyecto. Las plantillas curadas viven en **Apps**, no en un editor Compose, y esta página no guarda ficheros existentes como plantillas reutilizables.

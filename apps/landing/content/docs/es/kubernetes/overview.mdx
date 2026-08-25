@@ -1,19 +1,19 @@
 ---
 title: "Resumen"
-description: "Soporte nativo de Kubernetes en Dockerman: cargas de trabajo, redes, configuración, almacenamiento, RBAC, CRDs, Helm y depuración."
+description: "Kubernetes nativo en Dockerman: cargas de trabajo, redes, configuración, almacenamiento, RBAC, CRDs, Helm y depuración."
 ---
 
-El soporte de Kubernetes de Dockerman es una forma ligera y primero-GUI de ejecutar e inspeccionar un clúster Kubernetes real sin cambiar de herramientas o aprender un nuevo panel.
+El Kubernetes de Dockerman es una interfaz ligera, pensada para usarse desde la GUI, con la que puedes ejecutar e inspeccionar un clúster real sin cambiar de herramienta ni aprender otro panel.
 
 ## Por qué Kubernetes en Dockerman
 
-Usa Dockerman cuando quieras Kubernetes en la misma aplicación que ya usas para Docker. Mantén la interfaz local y rápida, trae k3d para la configuración de clúster con un clic, y permanece dentro de una aplicación de escritorio nativa Rust y Tauri en lugar de saltar a otro panel. Es más ligero que la ruta Kubernetes integrada de Docker Desktop y se adapta al desarrollo local, clústeres pequeños y verificaciones de cordura de CI.
+Úsalo cuando quieras Kubernetes en la misma aplicación que ya usas para Docker. La interfaz es local y rápida; k3d cubre el alta de clúster en un clic y trabajas en una app de escritorio nativa en Rust y Tauri en lugar de saltar a otro panel. Es más ligero que Kubernetes integrado en Docker Desktop y encaja en desarrollo local, clústeres pequeños y comprobaciones rápidas de CI.
 
 ## Qué se incluye
 
 <Cards>
   <Card title="Clúster" href="/es/docs/kubernetes/cluster">
-    Inicia clústeres k3d locales, importa kubeconfigs existentes y cambia entre clústeres de forma independiente de tus hosts de Docker.
+    Inicia clústeres k3d locales, importa kubeconfigs existentes y cambia de clúster independientemente de tus hosts Docker.
   </Card>
   <Card title="Cargas de trabajo" href="/es/docs/kubernetes/workloads">
     Explora Pods, Deployments, StatefulSets, DaemonSets, Jobs, CronJobs y ReplicaSets.
@@ -25,18 +25,18 @@ Usa Dockerman cuando quieras Kubernetes en la misma aplicación que ya usas para
     Trabaja con ConfigMaps, Secrets, PVCs, PersistentVolumes, StorageClasses y Namespaces.
   </Card>
   <Card title="RBAC" href="/es/docs/kubernetes/rbac">
-    Ve quién puede hacer qué entre cuentas, roles y bindings.
+    Quién puede hacer qué entre cuentas, roles y bindings.
   </Card>
   <Card title="Helm" href="/es/docs/kubernetes/helm">
     Gestiona repositorios y releases de Helm desde la interfaz.
   </Card>
   <Card title="Port Forward y DNS" href="/es/docs/kubernetes/port-forward">
-    Redirige puertos y registra entradas DNS locales automáticas.
+    Reenvía puertos y registra entradas DNS locales automáticas.
   </Card>
   <Card title="Asistente de depuración" href="/es/docs/kubernetes/debug">
     Reenvía el puerto de debug de un proceso existente y genera una configuración attach.
   </Card>
-  <Card title="Recursos Personalizados" href="/es/docs/kubernetes/custom-resources">
+  <Card title="Recursos personalizados" href="/es/docs/kubernetes/custom-resources">
     Descubre CRDs y explora o edita sus instancias como YAML.
   </Card>
   <Card title="Eventos" href="/es/docs/kubernetes/events">
@@ -46,18 +46,18 @@ Usa Dockerman cuando quieras Kubernetes en la misma aplicación que ya usas para
 
 ## Panel de resumen del clúster
 
-Abre el resumen de Kubernetes para ver un resumen en vivo del clúster.
+Abre el resumen de Kubernetes para ver el estado en vivo del clúster.
 
-- **Tarjetas de CPU y memoria** — uso a través del clúster destacado como tarjetas principales. Requiere `metrics-server` en el clúster objetivo.
-- **Conteos de cargas de trabajo** — Pods en ejecución y pendientes, Deployments, Services y otros recursos contados a través de **todos los namespaces**, no solo del activo.
-- **Estado de los nodos** — número de nodos y estado de listo de un vistazo.
-- **Eventos recientes** — los eventos más recientes del clúster, con un enlace al navegador completo de [Eventos](/es/docs/kubernetes/events).
+- **Tarjetas de CPU y memoria** — uso del clúster, destacado como tarjetas principales. Requiere `metrics-server` en el clúster de destino.
+- **Conteos de cargas de trabajo** — Pods en ejecución y pendientes, Deployments, Services y otros recursos contados en **todos los namespaces**, no solo el activo.
+- **Estado de los nodos** — número de nodos y estado Ready de un vistazo.
+- **Eventos recientes** — los más recientes del clúster, con un enlace al navegador completo de [Eventos](/es/docs/kubernetes/events).
 
-Usa el panel como punto de partida antes de profundizar en recursos específicos.
+Empieza por el panel y luego entra en recursos concretos.
 
 ## Cambio entre múltiples clústeres
 
-Dockerman rastrea el clúster Kubernetes activo **de forma independiente del host de Docker activo**. Cambiar de clúster mantiene tu página K8s actual cuando es posible, restaura páginas profundas (instancias de CRD, editor YAML) tras reiniciar la aplicación y refresca el selector de namespace para que coincida con el nuevo clúster. Reconectar a un clúster después de un reinicio restaura el último recurso visitado para que no pierdas el contexto.
+Dockerman mantiene el clúster Kubernetes activo **independiente del host Docker activo**. Al cambiar de clúster conserva la página K8s actual cuando puede, restaura páginas profundas (instancias de CRD, editor YAML) tras reiniciar la aplicación y actualiza el selector de namespace al nuevo clúster. Al reconectar después de un reinicio, vuelve al último recurso visitado.
 
 ## Dos formas de empezar
 
@@ -72,28 +72,28 @@ Dockerman rastrea el clúster Kubernetes activo **de forma independiente del hos
 
 ## Namespaces
 
-Usa el selector de namespaces en la barra superior para filtrar cada lista de Kubernetes. Cambia de namespace sin desconectarte del clúster, luego sigue explorando cargas de trabajo, redes, configuración y RBAC en el nuevo namespace.
+Usa el selector de namespaces de la barra superior para filtrar cada lista de Kubernetes. Cambia de namespace sin desconectarte del clúster y sigue explorando cargas de trabajo, redes, configuración y RBAC en el nuevo namespace.
 
 ## Personalización de la barra lateral
 
 La barra lateral tiene siete grupos: Clúster, Workloads, Service & Network, Config & Storage, Access Control, Helm y Tools.
 
-- **Estado de expansión por defecto por grupo** — elige qué grupos se abren automáticamente al conectarte a un clúster, desacoplado del estado de colapso en tiempo de ejecución.
-- **Visibilidad por elemento** — oculta entradas individuales de recursos que nunca usas; el expandir/colapsar en tiempo de ejecución retoma donde lo dejaste en la próxima sesión.
+- **Estado de expansión por defecto por grupo** — elige qué grupos se abren al conectarte a un clúster, independiente del estado de colapso en tiempo de ejecución.
+- **Visibilidad por elemento** — oculta entradas de recursos que no uses; el expandir/colapsar en tiempo de ejecución retoma donde lo dejaste en la siguiente sesión.
 
 Edita ambos desde [Configuración → Barra lateral](/es/docs/reference/settings#controles-de-visibilidad-de-la-barra-lateral).
 
 ## Errores de permisos
 
-Las listas devuelven `K8sListResult<T>` tipado, por lo que un `403 Forbidden` se muestra **en la propia lista** en lugar de hacer fallar toda la página. Ves exactamente a qué recurso le falta acceso tu contexto y puedes seguir usando el resto del clúster mientras corriges RBAC.
+Las listas devuelven `K8sListResult<T>` tipado, así que un `403 Forbidden` se muestra **en la propia lista** y no tumba toda la página. Ves a qué recurso le falta acceso tu contexto y puedes seguir usando el resto del clúster mientras corriges RBAC.
 
 ## Qué aún no está soportado
 
 <Callout type="info">
-  Estos flujos de trabajo aún no están en el alcance:
+  Estos flujos aún no entran en el alcance:
 
-  - Creación de clústeres fuera de k3d, como kubeadm o aprovisionamiento de servicios gestionados.
+  - Creación de clústeres fuera de k3d, como kubeadm o el aprovisionamiento de servicios gestionados.
   - Gateway API más allá de Ingress.
-  - Editores visuales de CRDs — usa edición YAML en su lugar.
-  - Editor visual de NetworkPolicy — autorízalo con YAML.
+  - Editores visuales de CRDs — usa edición YAML.
+  - Editor visual de NetworkPolicy — escríbelo en YAML.
 </Callout>

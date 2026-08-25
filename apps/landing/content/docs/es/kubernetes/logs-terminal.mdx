@@ -1,15 +1,15 @@
 ---
-title: "Logs y Terminal de Pod"
+title: "Logs y terminal de Pod"
 description: "Consulta logs y abre una sesión exec en un contenedor en ejecución."
 ---
 
-Abre Logs desde un Pod y elige uno de sus contenedores normales. El visor usa los mismos controles implementados que [logs de contenedor](/es/docs/docker/logs).
+Abre Logs desde un Pod y elige uno de sus contenedores normales. El visor usa los mismos controles que [logs de contenedor](/es/docs/docker/logs).
 
-El selector actual no promete logs de init containers. Usa `kubectl logs --init-container` si no aparece.
+El selector actual no promete logs de init containers. Usa `kubectl logs --init-container` si no aparecen.
 
 ## Terminal
 
-Abre Terminal, elige un contenedor y un comando shell. Dockerman ejecuta ese comando directamente; no prueba automáticamente `bash`, `sh` y `zsh`.
+Abre Terminal, elige un contenedor y un comando de shell. Dockerman ejecuta ese comando tal cual; no prueba `bash`, `sh` y `zsh` por su cuenta.
 
 <Callout type="warn">
   Reiniciar o borrar el contenedor termina la sesión. El historial no se restaura al reiniciar la app.

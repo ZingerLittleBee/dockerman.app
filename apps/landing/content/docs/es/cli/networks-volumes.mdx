@@ -1,9 +1,9 @@
 ---
 title: "Redes y volúmenes"
-description: "Gestiona redes y volúmenes Docker desde la CLI — crear, inspeccionar, conectar, purgar."
+description: "Gestiona redes y volúmenes Docker desde la CLI: crear, inspeccionar, conectar, purgar."
 ---
 
-Los grupos `network` y `volume` exponen todas las operaciones que la GUI ofrece para estos dos tipos de recursos. Ambos siguen los mismos patrones que `container` e `image`: `list`, `inspect`, `create`, `remove`/`prune`, más comandos de relación para redes.
+Los grupos `network` y `volume` exponen las operaciones que la GUI ofrece para estos dos tipos de recursos. Ambos siguen los mismos patrones que `container` e `image`: `list`, `inspect`, `create`, `remove`/`prune`, más comandos de relación para redes.
 
 ## Redes
 
@@ -30,7 +30,7 @@ dockerman network create my-net \
 | --- | --- |
 | `--driver <name>` | Driver de red (`bridge`, `overlay`, `macvlan`, etc.) |
 | `--internal` | Restringe la conectividad externa |
-| `--attachable` | Permite que contenedores standalone se conecten (sólo overlay) |
+| `--attachable` | Permite que contenedores standalone se conecten (solo overlay) |
 | `--ingress` | Crea la red ingress de swarm |
 | `--enable-ipv6` | Activa IPv6 en la red |
 | `--option <k=v>` | Opción específica del driver (repetible) |
@@ -90,4 +90,4 @@ dockerman volume remove data --force --yes
 dockerman volume prune --filter "label=temp=true" --yes
 ```
 
-`prune` borra todos los volúmenes huérfanos (sin referencias) que coincidan con el conjunto de filtros. `--filter` es repetible y usa la sintaxis estándar de filtros de Docker (`label=`, `label!=`, etc.). Combina siempre con filtros explícitos en scripts — un `volume prune --yes` sin filtros borra todos los volúmenes huérfanos del host.
+`prune` borra todos los volúmenes huérfanos (sin referencias) que coincidan con el conjunto de filtros. `--filter` es repetible y usa la sintaxis estándar de filtros de Docker (`label=`, `label!=`, etc.). Combina siempre con filtros explícitos en scripts: un `volume prune --yes` sin filtros borra todos los volúmenes huérfanos del host.

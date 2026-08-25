@@ -3,22 +3,22 @@ title: "Estadísticas"
 description: "Gráficas de recursos en tiempo real e históricas por contenedor."
 ---
 
-Abre Estadísticas desde un contenedor para ver CPU, memoria, red, disco y procesos. La ruta normal requiere un contenedor seleccionado; no es un dashboard general del host.
+Abre Estadísticas desde un contenedor para ver CPU, memoria, red, disco y procesos. La ruta habitual exige un contenedor seleccionado; no es un dashboard general del host.
 
 ## Rangos
 
 - En vivo: 1, 5 o 15 minutos.
 - Históricos: 1, 6 o 24 horas, o 7 días.
 
-Los datos históricos dependen de las tareas de agregación y retención. Las muestras raw se conservan 1 hora y los agregados de cinco minutos, 7 días.
+Los datos históricos dependen de las tareas de agregación y retención. Las muestras en crudo se conservan 1 hora y los agregados de cinco minutos, 7 días.
 
 ## Gráficas
 
-CPU y memoria usan anillos e historia; red y disco muestran tasas y detalles. Los colores del anillo son presentación visual, no umbrales de alerta documentados.
+CPU y memoria usan anillos e historial; red y disco muestran tasas y detalles. Los colores del anillo son presentación visual, no umbrales de alerta documentados.
 
 ## Comparar
 
-Comparar admite hasta seis pares host/contenedor, usa agregados históricos y desactiva el modo en vivo. La selección se guarda localmente.
+Comparar admite hasta seis pares host/contenedor, usa agregados históricos y desactiva el modo en vivo. La selección se guarda en local.
 
 <Callout type="info">
   Un rango vacío significa que no hubo muestras grabadas; Dockerman no las reconstruye después desde Docker.

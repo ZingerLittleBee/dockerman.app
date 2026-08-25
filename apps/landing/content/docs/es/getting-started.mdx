@@ -1,14 +1,14 @@
 ---
-title: "Primeros Pasos"
-description: "Instala Dockerman y conéctate a tu primer runtime de Docker o Podman en minutos."
+title: "Primeros pasos"
+description: "Instala Dockerman y conéctate al primer runtime de Docker o Podman."
 ---
 
-Usa esta página para instalar Dockerman y hacer tu primera conexión. Si estás en Windows y quieres evitar Docker Desktop, usa la ruta WSL2 integrada en la guía de la plataforma Windows: [Windows](/es/docs/platform/windows).
+Usa esta página para instalar Dockerman y hacer la primera conexión. En Windows, si quieres evitar Docker Desktop, sigue la ruta WSL2 de la guía [Windows](/es/docs/platform/windows).
 
 ## Requisitos previos
 
 <Callout type="info">
-  Un runtime de Docker o Podman debe estar disponible antes de que puedas gestionar contenedores. Dockerman detecta automáticamente qué runtime está en ejecución y adapta la interfaz en consecuencia. En Windows, Dockerman puede aprovisionar un Docker Engine para ti a través de la ruta integrada de WSL2 en la [guía de la plataforma Windows](/es/docs/platform/windows).
+  Tiene que haber un runtime de Docker o Podman antes de gestionar contenedores. Dockerman detecta cuál está en ejecución y adapta la interfaz. En Windows puede aprovisionar un Docker Engine con la ruta WSL2 integrada; ver la [guía de la plataforma Windows](/es/docs/platform/windows).
 </Callout>
 
 ## Instalación
@@ -24,7 +24,7 @@ Usa esta página para instalar Dockerman y hacer tu primera conexión. Si estás
       <Step>
         ### Abre y arrastra a Aplicaciones
 
-        Abre el DMG, luego arrastra Dockerman a Aplicaciones.
+        Abre el DMG y arrastra Dockerman a Aplicaciones.
       </Step>
       <Step>
         ### Inicia Dockerman
@@ -48,7 +48,7 @@ Usa esta página para instalar Dockerman y hacer tu primera conexión. Si estás
       <Step>
         ### Inicia Dockerman
 
-        Inicia Dockerman, luego usa el Asistente de Configuración WSL2 en el primer inicio si quieres la ruta integrada del Docker Engine. Consulta la [guía de la plataforma Windows](/es/docs/platform/windows).
+        Inicia Dockerman y, si quieres la ruta integrada del Docker Engine, usa el Asistente de configuración WSL2 en el primer inicio. Consulta la [guía de la plataforma Windows](/es/docs/platform/windows).
       </Step>
     </Steps>
   </Tab>
@@ -57,7 +57,7 @@ Usa esta página para instalar Dockerman y hacer tu primera conexión. Si estás
       <Step>
         ### Instala el paquete
 
-        Instala el paquete que coincida con tu distribución. Usa el build `.deb`, `.rpm`, o AppImage, luego sigue la [guía de la plataforma Linux](/es/docs/platform/linux).
+        Instala el paquete que coincida con tu distribución. Usa el build `.deb`, `.rpm` o AppImage y sigue la [guía de la plataforma Linux](/es/docs/platform/linux).
       </Step>
       <Step>
         ### Añade tu usuario al grupo docker
@@ -68,7 +68,7 @@ Usa esta página para instalar Dockerman y hacer tu primera conexión. Si estás
         sudo usermod -aG docker $USER
         ```
 
-        Cierra sesión y vuelve a iniciarla para que la nueva membresía del grupo surta efecto.
+        Cierra sesión y vuelve a iniciarla para que la membresía del grupo surta efecto.
       </Step>
       <Step>
         ### Inicia Dockerman
@@ -85,13 +85,13 @@ Usa esta página para instalar Dockerman y hacer tu primera conexión. Si estás
   <Step>
     ### El diálogo de conexión
 
-    Dockerman intenta conectarse automáticamente al Docker local y muestra el progreso o errores.
+    Dockerman intenta conectarse al Docker local y muestra el progreso o los errores.
 
   </Step>
   <Step>
     ### Elige una fuente de runtime
 
-    Selecciona el socket local, un endpoint TCP, o un host SSH. Establece la preferencia de runtime a Auto, Docker o Podman. Auto detecta el runtime disponible, intentando Docker primero y luego Podman.
+    Selecciona el socket local, un endpoint TCP o un host SSH. Fija la preferencia de runtime en Auto, Docker o Podman. Auto detecta el runtime disponible: primero Docker y, si no hay, Podman.
   </Step>
   <Step>
     ### Inicialización de datos
@@ -110,16 +110,16 @@ Usa esta página para instalar Dockerman y hacer tu primera conexión. Si estás
 
 <Cards>
   <Card title="Contenedores" href="/es/docs/docker/containers">
-    Aprende la gestión del ciclo de vida de contenedores.
+    Ciclo de vida de contenedores.
   </Card>
   <Card title="Kubernetes" href="/es/docs/kubernetes/overview">
-    Adéntrate en cargas de trabajo, servicios, configuración y depuración.
+    Cargas de trabajo, servicios, configuración y depuración.
   </Card>
   <Card title="Guías de plataforma" href="/es/docs/platform/windows">
     Configura la ruta WSL2 de Windows.
   </Card>
   <Card title="Solución de problemas" href="/es/docs/reference/troubleshooting">
-    Resuelve problemas de configuración y conexión.
+    Configuración y conexión.
   </Card>
 </Cards>
 
@@ -131,4 +131,4 @@ Usa esta página para instalar Dockerman y hacer tu primera conexión. Si estás
 | Windows | Builds soportadas de Windows 10 / 11 | x86_64 |
 | Linux | Distribución de escritorio moderna | x86_64 |
 
-Necesitas un endpoint compatible de Docker o Podman. El proyecto no publica una matriz de versiones mínimas probadas. Windows puede aprovisionar Docker con la ruta WSL2 opcional.
+Necesitas un endpoint compatible de Docker o Podman. El proyecto no publica una matriz de versiones mínimas de motor probadas por separado. Windows puede aprovisionar Docker con la ruta WSL2 opcional.

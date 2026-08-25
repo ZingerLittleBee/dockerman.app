@@ -5,7 +5,7 @@ description: "Descubre CRD y consulta o edita instancias de recursos personaliza
 
 Dockerman descubre CustomResourceDefinition en el clúster conectado y muestra API group, Kind, scope, served versions y age.
 
-Selecciona un CRD para consultar sus instancias. La tabla muestra nombre, namespace cuando corresponde y acciones disponibles. Puedes inspeccionar el objeto y editar YAML con el mismo server dry-run y control de conflictos de otros recursos compatibles.
+Selecciona un CRD para consultar sus instancias. La tabla muestra nombre, namespace cuando corresponde y acciones disponibles. Puedes inspeccionar el objeto y editar YAML con el mismo dry-run de servidor y control de conflictos que otros recursos compatibles.
 
 ## Limitaciones actuales
 
@@ -14,4 +14,4 @@ Selecciona un CRD para consultar sus instancias. La tabla muestra nombre, namesp
 - El editor no carga el esquema OpenAPI del CRD para validar o completar en el cliente.
 - La aceptación y validación finales corresponden al API server de Kubernetes.
 
-Estas limitaciones también se aplican cuando el CRD publica columnas adicionales o un esquema estructural.
+Estas limitaciones también aplican cuando el CRD publica columnas adicionales o un esquema estructural.

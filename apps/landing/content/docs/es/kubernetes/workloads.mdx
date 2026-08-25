@@ -1,29 +1,27 @@
 ---
 title: "Cargas de trabajo"
-description: "Gestiona Pods, Deployments, StatefulSets, DaemonSets, Jobs, CronJobs y ReplicaSets en un solo lugar."
+description: "Gestiona Pods, Deployments, StatefulSets, DaemonSets, Jobs, CronJobs y ReplicaSets en un solo sitio."
 ---
 
-Gestiona todos los tipos de recursos de carga de trabajo desde una sola página. Usa la vista de lista para revisar el estado, abre la vista de detalle para las acciones, y accede al editor YAML cuando necesites editar el objeto directamente.
+Gestiona todos los tipos de carga de trabajo desde una sola página. La lista muestra el estado; el detalle, las acciones; el editor YAML, el objeto en crudo.
 
 ## Pods
 
-Abre un Pod para ver estado y detalles. Usa [Logs y Terminal](/es/docs/kubernetes/logs-terminal) para una shell; el [Asistente de Depuración](/es/docs/kubernetes/debug) sólo reenvía un puerto que un proceso existente ya escucha.
+Abre un Pod para ver estado y detalles. Usa [Logs y Terminal](/es/docs/kubernetes/logs-terminal) para un shell; el [Asistente de Depuración](/es/docs/kubernetes/debug) solo reenvía un puerto que un proceso existente ya escucha.
 
-Elimina un Pod desde la vista de lista cuando necesites forzar un reinicio o eliminar un pod atascado.
+Elimina un Pod desde la lista cuando necesites forzar un reinicio o quitar un pod atascado.
 
 ### Eliminación forzada
 
 **Eliminación forzada** envía `gracePeriodSeconds: 0`, pero no elimina finalizers. Un Pod bloqueado por finalizer puede seguir en Terminating.
 
 <Callout type="warn">
-  La eliminación forzada quita el Pod de la API inmediatamente sin esperar la confirmación de kubelet. Si el contenedor subyacente sigue ejecutándose en el nodo, puedes acabar con procesos huérfanos — úsalo solo cuando la eliminación normal esté bloqueada.
+  La eliminación forzada quita el Pod de la API al momento, sin esperar la confirmación de kubelet. Si el contenedor sigue en el nodo, puedes acabar con procesos huérfanos; úsalo solo cuando la eliminación normal esté bloqueada.
 </Callout>
 
 ## Deployments
 
-Usa Deployments cuando quieras gestión de réplicas en un solo lugar.
-
-La lista muestra réplicas listas, actualizadas y disponibles para que puedas ver el estado del despliegue de un vistazo.
+La lista muestra réplicas listas, actualizadas y disponibles para ver el estado del despliegue de un vistazo.
 
 <Steps>
   <Step>
@@ -34,45 +32,45 @@ La lista muestra réplicas listas, actualizadas y disponibles para que puedas ve
   <Step>
     ### Reiniciar
 
-    Activa un reinicio progresivo para aplicar nuevos valores de ConfigMap o forzar una descarga nueva de la misma etiqueta de imagen.
+    Lanza un reinicio progresivo para aplicar valores nuevos de ConfigMap o forzar una descarga nueva de la misma etiqueta de imagen.
   </Step>
 </Steps>
 
 ## StatefulSets
 
-Usa StatefulSets para nombres de pods ordenados, identidades estables y plantillas de almacenamiento persistente. La vista de detalle muestra las réplicas actuales y los pods asociados. Escalar y reiniciar funcionan de la misma forma que en Deployments.
+StatefulSets dan nombres de pods ordenados, identidades estables y plantillas de almacenamiento persistente. El detalle muestra las réplicas actuales y los pods asociados. Escalar y reiniciar funcionan igual que en Deployments.
 
 ## DaemonSets
 
-Usa DaemonSets cuando necesites un pod por nodo coincidente, como recolectores de logs, agentes de monitoreo o componentes de red a nivel de nodo.
+Usa DaemonSets cuando necesites un pod por nodo coincidente, como recolectores de logs, agentes de supervisión o componentes de red a nivel de nodo.
 
 ## Jobs
 
-Usa Jobs para trabajos de ejecución hasta completarse. Rastrea las finalizaciones, límites de espera y plazos activos desde la lista y la vista de detalle. Elimina un Job desde la lista cuando la ejecución haya finalizado y ya no sea necesario.
+Los Jobs corren hasta terminar. Consulta finalizaciones, límites de espera y plazos activos desde la lista y el detalle. Elimina un Job de la lista cuando la ejecución haya acabado y ya no lo necesites.
 
 ## CronJobs
 
-Usa CronJobs cuando necesites Jobs programados. Revisa la expresión cron, el estado de suspensión, la última ejecución y los controles de activación manual desde la vista de detalle.
+Los CronJobs son Jobs programados. Revisa la expresión cron, el estado de suspensión, la última ejecución y los controles de activación manual en el detalle.
 
 ## ReplicaSets
 
-Los ReplicaSets suelen estar bajo un Deployment. Ábrelo cuando necesites inspeccionar el estado del controlador, pero edita el Deployment en lugar de cambiar el ReplicaSet directamente.
+Los ReplicaSets suelen estar bajo un Deployment. Ábrelo para inspeccionar el estado del controlador, pero edita el Deployment en lugar de cambiar el ReplicaSet a mano.
 
 <Callout type="info">
-  Los Deployments gestionan sus propios ReplicaSets. Cambia el Deployment a menos que estés depurando el comportamiento del controlador.
+  Los Deployments gestionan sus propios ReplicaSets. Cambia el Deployment salvo que estés depurando el controlador.
 </Callout>
 
 ## HorizontalPodAutoscalers
 
-La página HPA lista recursos autoscaling/v2, target, límites, réplicas actuales/deseadas, condiciones y antigüedad. Permite ajustar mínimo/máximo, inspeccionar YAML o eliminar.
+La página HPA lista recursos autoscaling/v2, destino, límites, réplicas actuales/deseadas, condiciones y antigüedad. Permite ajustar mínimo/máximo, inspeccionar YAML o eliminar.
 
 ## Editar cargas de trabajo con YAML
 
-Edita el objeto con YAML. Dockerman ejecuta un **dry-run server-side** antes de aplicar, pero no promete autocomplete o validación client-side con el schema Kubernetes.
+Edita el objeto en YAML. Dockerman ejecuta un **dry-run server-side** antes de aplicar, pero no promete autocompletado ni validación client-side con el schema de Kubernetes.
 
 ### Vista previa con dry-run
 
-Haz clic en **Vista previa de cambios** en el editor YAML para ejecutar un dry-run en el servidor y mostrar un diff entre el objeto renderizado y el actual. El diff resalta adiciones, eliminaciones y modificaciones de campos para que puedas detectar ediciones no deseadas antes de aplicarlas.
+Haz clic en **Vista previa de cambios** en el editor YAML para ejecutar un dry-run en el servidor y mostrar un diff entre el objeto renderizado y el actual. El diff marca altas, bajas y cambios de campos para detectar ediciones no deseadas antes de aplicar.
 
 ## Acciones de eliminación
 
