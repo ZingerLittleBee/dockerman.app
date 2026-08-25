@@ -1,9 +1,9 @@
 ---
 title: AI 助手 Plugin
-description: 安装 Dockerman 官方 plugin，让 Claude Code 或 Codex 安全、准确地调用 dockerman CLI。
+description: 安装 Dockerman 官方 plugin，让 Claude Code 或 Codex 安全准确地驱动 dockerman CLI。
 ---
 
-Dockerman 提供官方 plugin，里面打包了 `dockerman-cli` skill。它是使用说明，不是 API 合同；可能落后于已安装的 CLI，助手应以当前的 `dockerman --help`、`dockerman schema` 和实际 JSON 输出为准。
+Dockerman 提供官方 plugin，里面打包了 `dockerman-cli` skill，说明如何使用 `dockerman` CLI：命令地图、输出形状、流式规则、k8s scoping 陷阱，以及破坏性操作的安全规则。装一次后，用户问到 Docker、Compose、Kubernetes 相关问题时，助手会优先调用 `dockerman`，即使没有明确说 "use dockerman"。
 
 ## Claude Code 安装
 
@@ -47,11 +47,11 @@ codex plugin marketplace add mandocker/skills
 这个仓库提供一个 skill：`dockerman-cli`，覆盖：
 
 - 一个偏主动的 SKILL 描述：即便用户没说 "dockerman"，只要话题是 Docker / Compose / Kubernetes / kubectl，也会触发。
-- 主要命令组的说明（`container`、`image`、`compose`、`k8s`、`tunnel`、`trivy`、`wsl`、`events`、`schema`、`call`）。已安装 CLI 的顶层地图还包含 `network`、`volume`、`host`、`system`、`hub`，以 `dockerman --help` 为准。
+- 完整的顶层命令地图（`container`、`image`、`compose`、`k8s`、`tunnel`、`trivy`、`wsl`、`events`、`schema`、`call`）。
 - 关键的输出形状提醒 —— 例如 `dockerman k8s pod list` 返回 `{ forbidden, items, truncated }`，且字段是 **扁平化** 的（`.name`、`.namespace`、`.restarts`、`.status`），不是 kubectl 的 `metadata.*` 嵌套结构。
 - 两条最常出错的 k8s scoping 规则：未选中 cluster 时必须传 `--cluster`；`pod list` 不加 `--namespace` 时只返回 `default` 命名空间（会静默漏掉 `kube-system`）。
 - 针对 `container restore -y` 等破坏性操作的警告。backup 本身并不始终要求 `-y`。
-- 一个 `jq` cookbook（`references/output-parsing.md`），用来投影 JSON 输出、避免撑满上下文。不要照抄其中的 `jq` 表达式或流式假设，字段名以当前输出为准；Trivy JSON 也不是外层 daemon stream envelope。
+- 一个 `jq` cookbook（`references/output-parsing.md`），用来投影 JSON 输出，避免撑满上下文。
 
 ## 更新或移除
 
@@ -62,7 +62,7 @@ Claude Code：
 /plugin uninstall dockerman
 ```
 
-更新会拉取 `plugin.json` 中最新的 `version`。Plugin 安装在 `~/.claude/plugins/` 下，卸载会把它删掉。
+更新会拉取 `plugin.json` 中最新的 `version`。Plugin 安装在 `~/.claude/plugins/` 下，卸载会把它移除。
 
 Codex：
 
@@ -91,7 +91,7 @@ Codex 在 marketplace source 后追加 `@<git-ref>`：
 codex plugin marketplace add mandocker/skills@v1.0.0
 ```
 
-适合团队固定版本：在你改 pin 之前，每个人拿到的都是同一份。
+适合给团队固定版本：在你改 pin 之前，每个成员拿到的都是同一个版本。
 
 ## Claude Code 团队接入
 

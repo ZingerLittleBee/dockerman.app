@@ -114,5 +114,5 @@ dockerman k8s resource yaml secrets.core/v1 app-secret --json
 `resource yaml` 输出脱敏后的 manifest。secret 的 `data` 字段在离开 daemon 之前已替换为 `<REDACTED>` —— **CLI 无法读取 secret 明文**。
 
 <Callout type="warn">
-  所有 k8s 命令按设计只读。需要修改资源时请直接使用 `kubectl`。Dockerman 的 k8s 接口给自动化和 GUI 里的安全只读场景用。
+  所有 k8s 命令按设计只读。需要修改资源时请直接使用 `kubectl`。Dockerman 的 k8s 接口面向自动化和 GUI 中的安全只读场景。
 </Callout>
