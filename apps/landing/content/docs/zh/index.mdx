@@ -1,13 +1,13 @@
 ---
 title: "欢迎"
-description: "欢迎使用 Dockerman — 基于 Tauri 和 Rust 构建的跨平台 Docker 与 Kubernetes UI。"
+description: "基于 Tauri 和 Rust 的跨平台 Docker 与 Kubernetes UI。"
 ---
 
-Dockerman 让你在桌面上统一管理 Docker、Podman 和 Kubernetes。如果你是开发者或运维人员，想要一款原生应用来整合容器、镜像和集群操作，那么它就是你的理想选择。它涵盖 Docker 和 Podman 用于本地和远程主机操作，以及 Kubernetes 用于浏览和调试工作负载。
+Dockerman 在桌面上集中管理 Docker、Podman 和 Kubernetes。如果你是开发者或运维人员，希望用原生应用把容器、镜像和集群操作放在同一流程里，可以用它。它覆盖 Docker 和 Podman 的本地与远程主机操作，以及 Kubernetes 的工作负载浏览和调试。
 
 ## Dockerman 涵盖的内容
 
-Dockerman 将 Docker 和 Kubernetes 的体验分开，让你无需切换工具就能从本地容器任务过渡到集群工作。管理你的 Docker 主机、镜像、卷和 Compose 项目，然后在需要工作负载、服务、配置、Helm 或 Pod 调试时切换到 Kubernetes。从下方的卡片开始探索。
+Docker 和 Kubernetes 分开展示，本地容器任务和集群工作不必换工具。Docker 主机、镜像、卷和 Compose 项目放在一侧，需要工作负载、服务、配置、Helm 或 Pod 调试时再切到 Kubernetes。从下面的卡片开始。
 
 ## 从这里开始
 
@@ -42,13 +42,13 @@ Dockerman 将 Docker 和 Kubernetes 的体验分开，让你无需切换工具�
     将容器的配置、文件系统和卷快照打包为单个 tar.gz 文件，并在任何地方恢复（v4.8.0 新增）。
   </Card>
   <Card title="镜像安全">
-    使用 Trivy 扫描镜像，无需离开应用即可浏览 Docker Hub（v4.6.0 新增）。
+    用 Trivy 扫描镜像，浏览 Docker Hub 不必离开应用（v4.6.0 新增）。
   </Card>
   <Card title="WSL2 Docker 引擎">
-    在 Windows 上无需 Docker Desktop 即可运行 Docker。Dockerman 会自动设置 Alpine WSL2 发行版并安装 Docker（v4.3.0 新增）。
+    在 Windows 上不必安装 Docker Desktop 也能运行 Docker。Dockerman 会自动设置 Alpine WSL2 发行版并安装 Docker（v4.3.0 新增）。
   </Card>
   <Card title="远程主机">
-    通过 SSH 隧道连接远程 Docker 守护进程，并在主机之间快速切换。
+    通过 SSH 隧道连接远程 Docker 守护进程，并在主机之间切换。
   </Card>
   <Card title="Podman 运行时支持">
     使用 Podman 作为 Docker 的替代运行时。Dockerman 自动检测运行时并相应调整 UI（v5.1.0 新增）。

@@ -1,9 +1,9 @@
 ---
 title: "工作负载"
-description: "一站式管理 Pods、Deployments、StatefulSets、DaemonSets、Jobs、CronJobs 和 ReplicaSets。"
+description: "在同一页管理 Pods、Deployments、StatefulSets、DaemonSets、Jobs、CronJobs 和 ReplicaSets。"
 ---
 
-在一个页面中管理所有工作负载资源类型。使用列表视图扫描状态，打开详情视图执行操作，需要直接编辑对象时进入 YAML 编辑器。
+所有工作负载资源类型都在这一页。用列表查看状态，打开详情执行操作，要直接改对象时进入 YAML 编辑器。
 
 ## Pods
 
@@ -21,9 +21,9 @@ description: "一站式管理 Pods、Deployments、StatefulSets、DaemonSets、J
 
 ## Deployments
 
-当你需要在一个地方管理副本时，使用 Deployments。
+用 Deployments 管理副本。
 
-列表显示就绪、已更新和可用的副本数量，让你可以一目了然地查看健康状况。
+列表显示就绪、已更新和可用的副本数量，用来查看健康状况。
 
 <Steps>
   <Step>
@@ -40,23 +40,23 @@ description: "一站式管理 Pods、Deployments、StatefulSets、DaemonSets、J
 
 ## StatefulSets
 
-使用 StatefulSets 来获得有序的 Pod 名称、稳定的标识和持久化存储模板。详情视图显示当前副本数量和关联的 Pod。扩展和重启操作与 Deployments 相同。
+StatefulSets 提供有序的 Pod 名称、稳定的标识和持久化存储模板。详情视图显示当前副本数量和关联的 Pod。扩展和重启操作与 Deployments 相同。
 
 ## DaemonSets
 
-当你需要在每个匹配的节点上运行一个 Pod 时使用 DaemonSets，例如日志收集器、监控代理或节点级网络组件。
+要在每个匹配节点上跑一个 Pod 时用 DaemonSets，例如日志收集器、监控代理或节点级网络组件。
 
 ## Jobs
 
-使用 Jobs 来执行运行到完成的工作。在列表和详情视图中跟踪完成数量、退避限制和活跃期限。当运行结束且不再需要时，可以从列表中删除 Job。
+Jobs 用来跑一次性完成的任务。在列表和详情视图中跟踪完成数量、退避限制和活跃期限。运行结束且不再需要时，可以从列表中删除 Job。
 
 ## CronJobs
 
-当你需要定时执行 Jobs 时使用 CronJobs。在详情视图中查看 cron 表达式、暂停状态、上次运行时间和手动触发控件。
+要定时跑 Jobs 时用 CronJobs。在详情视图中查看 cron 表达式、暂停状态、上次运行时间和手动触发控件。
 
 ## ReplicaSets
 
-ReplicaSets 通常位于 Deployment 之下。当你需要检查控制器状态时打开它，但应该编辑 Deployment 而不是直接修改 ReplicaSet。
+ReplicaSets 通常位于 Deployment 之下。检查控制器状态时打开它，但应该编辑 Deployment 而不是直接修改 ReplicaSet。
 
 <Callout type="info">
   Deployments 管理它们自己的 ReplicaSets。除非你在调试控制器行为，否则请修改 Deployment。
@@ -72,7 +72,7 @@ HPA 页面列出 autoscaling/v2 资源，并显示目标、副本上下限、当
 
 ### Dry-run 预览
 
-在 YAML 编辑器中点击**预览变更**可执行服务端 dry-run，并将渲染后的对象与线上对象进行差异比较。差异会高亮字段的新增、删除和修改，便于你在应用前发现意外编辑。
+在 YAML 编辑器中点击**预览变更**可执行服务端 dry-run，并将渲染后的对象与线上对象进行差异比较。差异会高亮字段的新增、删除和修改，应用前可以据此发现意外编辑。
 
 ## 删除操作
 

@@ -3,28 +3,28 @@ title: "网络"
 description: "跨命名空间检查 Services、Ingresses、Endpoints 和 NetworkPolicies。"
 ---
 
-使用网络页面检查流量如何在集群中流动。无需返回 `kubectl`，即可读取 Service、Ingress、Endpoint 和 NetworkPolicy。
+用网络页查看集群里的流量路径。Service、Ingress、Endpoint 和 NetworkPolicy 都可以在这里读，不必回到 `kubectl`。
 
 ## Services
 
-使用 Service 查看工作负载的稳定入口。列表显示服务类型、ClusterIP 和端口。
+Service 是工作负载的稳定入口。列表显示服务类型、ClusterIP 和端口。
 
 - `ClusterIP` 用于集群内部流量。
-- `NodePort` 当你需要节点级端口进行快速访问时。
+- `NodePort` 需要节点级端口进行快速访问时。
 - `LoadBalancer` 当集群暴露外部负载均衡器时。
 - `ExternalName` 当 Service 指向 DNS 名称而非选择器时。
 
-有选择器的 Service 还会在列表中显示 Forward 按钮，可快速启动到就绪后端 Pod 的[端口转发](/zh/docs/kubernetes/port-forward)。
+有选择器的 Service 还会在列表中显示 Forward 按钮，用来启动到就绪后端 Pod 的[端口转发](/zh/docs/kubernetes/port-forward)。
 
 详情视图显示完整的 Service 规格和 YAML。
 
 ## Ingresses
 
-使用 Ingress 检查进入集群的 HTTP 路由。列表显示主机、路径和后端 Service，详情视图显示 TLS 密钥、注解和规则表格。
+Ingress 用来查看进入集群的 HTTP 路由。列表显示主机、路径和后端 Service，详情视图显示 TLS 密钥、注解和规则表格。
 
 ## Endpoints
 
-当你需要 Service 背后的原始后端地址时，使用 Endpoint。当 Service 没有健康后端时，此视图最有用。
+要看 Service 背后的原始后端地址时用 Endpoint。Service 没有健康后端时这个视图最有用。
 
 ## EndpointSlices
 
@@ -32,7 +32,7 @@ EndpointSlice 是 Kubernetes 当前为 Service 维护的服务发现对象。Doc
 
 ## NetworkPolicies
 
-使用 NetworkPolicy 了解哪些 Pod 可以相互通信。
+NetworkPolicy 用来看哪些 Pod 可以相互通信。
 
 <Callout type="info">
   创建仅支持 YAML — 使用 YAML 编辑器编写新的 NetworkPolicy。

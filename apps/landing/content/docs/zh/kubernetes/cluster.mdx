@@ -7,7 +7,7 @@ description: "启动本地 k3d 集群或导入已有 kubeconfig 来管理任何 
 
 ## 使用 k3d 启动本地集群
 
-当你需要一个可丢弃的本地集群用于开发和测试时，使用 k3d。
+开发和测试用的一次性本地集群，用 k3d。
 
 <Steps>
   <Step>
@@ -38,7 +38,7 @@ description: "启动本地 k3d 集群或导入已有 kubeconfig 来管理任何 
 
 ## 导入已有集群
 
-当你已有集群并希望 Dockerman 直接管理它时，导入 kubeconfig。
+已有集群、要让 Dockerman 直接管理时，导入 kubeconfig。
 
 <Steps>
   <Step>
@@ -91,4 +91,4 @@ description: "启动本地 k3d 集群或导入已有 kubeconfig 来管理任何 
 
 ## 集群事件
 
-打开专门的[事件](/zh/docs/kubernetes/events)浏览器，按命名空间、类型（Normal/Warning）、原因和涉及对象进行筛选。在无需先定位到具体资源的情况下排查问题非常有用。
+打开专门的[事件](/zh/docs/kubernetes/events)浏览器，按命名空间、类型（Normal/Warning）、原因和涉及对象进行筛选。排查问题时不必先定位到某个资源。

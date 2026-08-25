@@ -3,7 +3,7 @@ title: 诊断包
 description: 为容器或 Compose 技术栈生成一键 zip 文件，包含 inspect 数据、events、logs 和 stats。
 ---
 
-诊断包将调试容器或 Compose 技术栈所需的一切打包到一个 `.zip` 文件中。与朋友分享、发布到 issue 中，或保留供你自己参考。
+诊断包把调试容器或 Compose 技术栈要用的数据打进一个 `.zip`。可以发给别人、贴到 issue 里，或自己留底。
 
 ## 包中包含的内容
 
@@ -81,7 +81,7 @@ description: 为容器或 Compose 技术栈生成一键 zip 文件，包含 insp
 (?i)(TOKEN|PASSWORD|SECRET|KEY|CREDENTIAL|AUTH)
 ```
 
-这适用于包中的 `inspect.json` 文件。当你需要原始值进行自己的调试时，可以在包对话框中禁用脱敏。
+这适用于包中的 `inspect.json` 文件。自己调试需要原始值时，可以在包对话框中禁用脱敏。
 
 <Callout type="warn">
   脱敏范围有意保持窄小。镜像环境变量、标签、命令、挂载路径、网络和卷 inspect 数据以及容器日志仍可能包含 secret 或私有路径。分享前请逐个检查文件。
@@ -89,6 +89,6 @@ description: 为容器或 Compose 技术栈生成一键 zip 文件，包含 insp
 
 ## 提示
 
-- 在 GitHub issues 或社区论坛寻求帮助时使用诊断包。结构化格式使他人更容易理解你的设置。
+- 在 GitHub issues 或社区论坛求助时带上诊断包。结构化格式方便别人看清你的环境。
 - 包中的 stats 数据取决于[后台任务调度器](/zh/docs/homelab/scheduler)是否已收集时间序列数据。如果调度器最近才启用，stats 部分可能只包含当前快照。
 - 对于包含许多容器的 Compose 技术栈，包可能会变得很大。使用较短的时间窗口来保持文件大小可管理。

@@ -3,13 +3,13 @@ title: "Helm"
 description: "添加 chart 仓库并从 GUI 安装、升级、回滚和卸载 Helm releases。"
 ---
 
-使用 Helm 管理 chart 仓库和 releases，无需离开 Dockerman。
+在 Dockerman 里管理 chart 仓库和 releases。
 
-Dockerman 在首次使用时自动下载和管理 Helm 二进制文件，并进行 SHA-256 校验验证。你无需单独安装 Helm。
+Dockerman 在首次使用时自动下载和管理 Helm 二进制文件，并进行 SHA-256 校验验证。不必单独安装 Helm。
 
 ## 仓库
 
-添加你最常用的仓库，然后在需要最新 chart 索引时刷新它们。
+添加常用仓库，需要最新 chart 索引时再刷新。
 
 <Steps>
   <Step>
@@ -25,7 +25,7 @@ Dockerman 在首次使用时自动下载和管理 Helm 二进制文件，并进�
   <Step>
     ### 移除仓库
 
-    当你不再需要某个仓库时，将其从 Dockerman 中移除。
+    不再需要某个仓库时，把它从 Dockerman 里移除。
   </Step>
 </Steps>
 
@@ -49,7 +49,7 @@ Dockerman 在首次使用时自动下载和管理 Helm 二进制文件，并进�
   <Step>
     ### 编辑 values.yaml
 
-    Dockerman 将 chart 的默认值加载到 Monaco 中，然后你只需覆盖需要的值。
+    Dockerman 将 chart 的默认值加载到 Monaco 中，再覆盖需要改的值。
   </Step>
   <Step>
     ### 安装
@@ -80,7 +80,7 @@ Dockerman 在首次使用时自动下载和管理 Helm 二进制文件，并进�
 
 ## 卸载 release
 
-当你不再需要集群中的某个 release 时，将其移除。
+不再需要集群里的某个 release 时，把它移除。
 
 <Callout type="warn">
   卸载会删除 Helm 创建的 Kubernetes 资源，但并不总是会移除 chart 安装的 PersistentVolumeClaims 或 CRD。在移除生产 release 之前，请查看 chart 文档了解 `--keep-history` 或 `keepCRDs` 的行为。
