@@ -1,6 +1,6 @@
 ---
 title: Windows
-description: Run Dockerman on Windows with either Docker Desktop or the built-in WSL2 Docker Engine.
+description: Run Dockerman on Windows with Docker Desktop or the built-in WSL2 Docker Engine.
 ---
 
 Windows has two supported Docker paths: Docker Desktop or the built-in WSL2 Docker Engine.
@@ -39,7 +39,7 @@ Windows has two supported Docker paths: Docker Desktop or the built-in WSL2 Dock
 
 Added in v4.3.0.
 
-Dockerman bundles the WSL2 path for you, so you do not need Docker Desktop or manual WSL setup.
+Dockerman bundles WSL2 Docker Engine setup, so you do not need Docker Desktop or manual WSL configuration.
 
 ### Prerequisites
 
@@ -81,7 +81,7 @@ The Setup Wizard runs automatically on first launch when Docker Desktop is not d
 
 ### What the wizard does
 
-The wizard creates the Alpine distro files that Dockerman uses to run Docker.
+The wizard creates the Alpine distro files Dockerman uses to run Docker.
 
 <Files>
   <Folder name="(Alpine WSL2 distro)" defaultOpen>
@@ -101,7 +101,7 @@ Use Settings → Daemon config panel to edit `/etc/docker/daemon.json` in either
 
 ### Recovery from daemon crash
 
-If the Docker daemon crashes, Dockerman shows a banner with a Restart button and streams the crash logs so you can diagnose the failure.
+If the Docker daemon crashes, Dockerman shows a banner with a Restart button and streams the crash logs.
 
 ### Reinstall the WSL2 distro
 
@@ -113,13 +113,13 @@ Added in v5.3.0. If the Alpine distro gets into a bad state, open the WSL setup 
 
 ### Switch the engine source
 
-Added in v5.3.0. The WSL page on Windows shows an **Engine source** selector with two cards: the OS-native Docker socket (Docker Desktop or any system-installed Docker) and the bundled Dockerman WSL2 Docker Engine. Pick a card and Dockerman silently reconnects the local host to the new source — no toast, no manual save. The previous Docker connection type (`socket`, `tcp`, `npipe`) is remembered, so toggling back to OS-native Docker restores your last setup.
+Added in v5.3.0. The WSL page on Windows shows an **Engine source** selector with two cards: the OS-native Docker socket (Docker Desktop or any system-installed Docker) and the bundled Dockerman WSL2 Docker Engine. Pick a card and Dockerman reconnects the local host to the new source without a toast or a manual save. The previous Docker connection type (`socket`, `tcp`, `npipe`) is remembered, so toggling back to OS-native Docker restores your last setup.
 
-If you prefer the older flow, you can also flip the connection type from **Settings → Docker settings** and reconnect manually.
+You can also change the connection type from **Settings → Docker settings** and reconnect manually.
 
 ## Resource monitoring for WSL2
 
-Use [Stats](/en/docs/docker/stats) to monitor the WSL2 Engine like any other Docker daemon. If Windows looks memory-heavy, check the WSL2 VM's ballooning in Task Manager.
+Use [Stats](/en/docs/docker/stats) to monitor the WSL2 Engine like any other Docker daemon. If Windows memory use looks high, check WSL2 VM ballooning in Task Manager.
 
 ## Troubleshooting
 
@@ -134,6 +134,6 @@ Use [Stats](/en/docs/docker/stats) to monitor the WSL2 Engine like any other Doc
     Check free disk space, close any stale WSL or Docker processes, and review the App Log for the exact import error.
   </Accordion>
   <Accordion title="Daemon won't start after reboot">
-    Jump to [Recovery from daemon crash](/en/docs/platform/windows#recovery-from-daemon-crash) and [Edit daemon.json](/en/docs/platform/windows#edit-daemonjson). Both sections cover the usual startup failures.
+    See [Recovery from daemon crash](/en/docs/platform/windows#recovery-from-daemon-crash) and [Edit daemon.json](/en/docs/platform/windows#edit-daemonjson) for the usual startup failures.
   </Accordion>
 </Accordions>

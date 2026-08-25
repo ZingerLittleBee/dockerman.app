@@ -1,13 +1,13 @@
 ---
-title: Welcome to Dockerman
-description: A fast, cross-platform UI for Docker and Kubernetes built with Tauri and Rust.
+title: Dockerman
+description: Cross-platform Docker and Kubernetes UI built with Tauri and Rust.
 ---
 
-Dockerman gives you a single place to manage Docker, Podman, and Kubernetes from the desktop. Use it if you are a developer or operator who wants a native app that keeps container work, image work, and cluster work in one flow. It covers Docker and Podman for local and remote host operations, and Kubernetes for browsing and debugging workloads.
+Dockerman is a native desktop app for Docker, Podman, and Kubernetes. It covers Docker and Podman on local and remote hosts, and Kubernetes for browsing and debugging workloads.
 
 ## What Dockerman covers
 
-Dockerman splits the experience between Docker and Kubernetes so you can move from local container tasks to cluster work without changing tools. Keep your Docker hosts, images, volumes, and Compose projects close, then switch to Kubernetes when you need workloads, services, configuration, Helm, or pod debugging. Start with the cards below.
+Docker covers hosts, images, volumes, and Compose projects. Kubernetes covers workloads, services, configuration, Helm, and pod debugging.
 
 ## Start here
 
@@ -29,11 +29,11 @@ Dockerman splits the experience between Docker and Kubernetes so you can move fr
   </Card>
 </Cards>
 
-## Key capabilities
+## Capabilities
 
 <Cards>
   <Card title="Full Docker lifecycle">
-    Create, run, inspect, log, and terminal into containers; manage images, networks, volumes, and Compose projects from one place.
+    Create, run, inspect, log, and terminal into containers; manage images, networks, volumes, and Compose projects.
   </Card>
   <Card title="Native Kubernetes (Phase 1)">
     k3d in one click or bring your own kubeconfig; browse workloads, Services, ConfigMaps, RBAC, CRDs, and Helm releases.
@@ -42,16 +42,16 @@ Dockerman splits the experience between Docker and Kubernetes so you can move fr
     Snapshot a container's config, filesystem, and volumes to a single tar.gz and restore it anywhere (Added in v4.8.0).
   </Card>
   <Card title="Image security">
-    Scan images with Trivy and browse Docker Hub without leaving the app (Added in v4.6.0).
+    Scan images with Trivy and browse Docker Hub (Added in v4.6.0).
   </Card>
   <Card title="WSL2 Docker Engine">
     Run Docker on Windows without Docker Desktop. Dockerman sets up an Alpine WSL2 distro and installs Docker automatically (Added in v4.3.0).
   </Card>
   <Card title="Remote hosts">
-    Connect to remote Docker daemons over SSH tunnels and switch between hosts on the fly.
+    Connect to remote Docker daemons over SSH tunnels and switch between hosts.
   </Card>
   <Card title="Podman runtime support">
-    Use Podman as a drop-in alternative to Docker. Dockerman auto-detects the runtime and adapts the UI accordingly (Added in v5.1.0).
+    Use Podman as an alternative to Docker. Dockerman detects the runtime and adjusts the UI (Added in v5.1.0).
   </Card>
   <Card title="Homelab automation">
     Background task scheduler, multi-channel notifications (Telegram, ntfy, Gotify, Discord, Webhook), alert rules, image upgrade monitoring, and one-click diagnostic bundles.

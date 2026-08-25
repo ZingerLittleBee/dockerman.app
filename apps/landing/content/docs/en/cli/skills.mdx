@@ -1,6 +1,6 @@
 ---
 title: AI Assistant Plugins
-description: Install Dockerman's official plugin so Claude Code or Codex can drive the dockerman CLI safely and accurately.
+description: Install Dockerman's official plugin so Claude Code or Codex can drive the dockerman CLI.
 ---
 
 Dockerman publishes a plugin that bundles the `dockerman-cli` skill. The plugin is a convenience guide, not an authoritative API contract. It may lag the installed CLI; assistants must prefer live `dockerman --help`, `dockerman schema`, and observed JSON output.
@@ -14,7 +14,7 @@ In Claude Code:
 /plugin install dockerman
 ```
 
-That registers the marketplace at [github.com/mandocker/skills](https://github.com/mandocker/skills) and installs the `dockerman` plugin into your user scope. Claude Code picks up the skill on the next session — no restart, no config edit. The skill is namespaced as `dockerman:dockerman-cli`.
+That registers the marketplace at [github.com/mandocker/skills](https://github.com/mandocker/skills) and installs the `dockerman` plugin into your user scope. Claude Code loads the skill on the next session; no restart or config edit. The skill is namespaced as `dockerman:dockerman-cli`.
 
 To verify:
 
@@ -42,11 +42,11 @@ In the plugin UI, open the **Dockerman** marketplace, then install and enable th
 
 If your Codex version does not expose the plugin UI yet, upgrade Codex first; this page only documents the plugin marketplace install path.
 
-## What you get
+## Skill contents
 
-This repository provides a single skill, `dockerman-cli`, which covers:
+The plugin ships a single skill, `dockerman-cli`, which covers:
 
-- A pushy SKILL description so the assistant triggers it on Docker / Compose / Kubernetes / kubectl prompts even when the user does not say "dockerman".
+- A SKILL description written to trigger on Docker / Compose / Kubernetes / kubectl prompts even when the user does not say "dockerman".
 - Guidance for the main command groups. The installed CLI's top-level map also includes `network`, `volume`, `host`, `system`, and `hub`; `dockerman --help` is authoritative.
 - Critical output-shape notes — for example that `dockerman k8s pod list` returns `{ forbidden, items, truncated }` with **flattened** fields (`.name`, `.namespace`, `.restarts`, `.status`), not the kubectl-shaped `metadata.*` tree.
 - The two k8s scoping rules that catch every first attempt: `--cluster` is required when no cluster is selected, and `pod list` without `--namespace` returns *only* the `default` namespace (silently misses `kube-system`).
@@ -66,7 +66,7 @@ Claude Code:
 /plugin uninstall dockerman
 ```
 
-Updates pull the latest `version` from the marketplace's `plugin.json`. The plugin lives at `~/.claude/plugins/` — uninstalling removes it cleanly.
+Updates pull the latest `version` from the marketplace's `plugin.json`. The plugin lives at `~/.claude/plugins/`. Uninstalling removes it.
 
 Codex:
 
@@ -95,7 +95,7 @@ For Codex, append `@<git-ref>` to the marketplace source:
 codex plugin marketplace add mandocker/skills@v1.0.0
 ```
 
-Use this when you want a reproducible setup for a team — every member gets the same revision until you bump the pin.
+Pin a revision for a reproducible team setup. Everyone stays on that revision until you bump it.
 
 ## Claude Code team setup
 

@@ -3,7 +3,7 @@ title: macOS
 description: Run Dockerman on macOS with Docker Desktop, a compatible socket, or Apple Container.
 ---
 
-Dockerman publishes one Universal DMG for macOS. Verify the current release asset and its signature on the release page before installation.
+Dockerman ships as one Universal DMG for macOS. Verify the current release asset and its signature on the release page before you install.
 
 ## Install
 
@@ -21,7 +21,7 @@ Dockerman publishes one Universal DMG for macOS. Verify the current release asse
   <Step>
     ### Launch Dockerman
 
-    Start Dockerman from Applications or Spotlight, then approve the first-launch prompt if macOS asks for it.
+    Start Dockerman from Applications or Spotlight, then approve the first-launch prompt if macOS asks.
   </Step>
 </Steps>
 
@@ -33,17 +33,17 @@ Dockerman can connect to Docker Desktop or another Docker-compatible socket. Set
   Docker-compatible sockets such as `/var/run/docker.sock` and `~/.docker/run/docker.sock` also work. If Dockerman does not detect your socket automatically, set the path in Settings → Docker settings.
 </Callout>
 
-On Apple Silicon with macOS 26 or later, Dockerman also exposes the Apple Container backend. Select **Apple Container** during engine onboarding or in Settings. It runs Linux containers in lightweight virtual machines and is not available on Intel Macs or older macOS versions.
+On Apple Silicon with macOS 26 or later, Dockerman also provides the Apple Container backend. Select **Apple Container** during engine onboarding or in Settings. It runs Linux containers in lightweight virtual machines and is not available on Intel Macs or older macOS versions.
 
 ## Menu bar and tray
 
-Dockerman adds a menu bar icon for common application actions. In Settings → General, you can choose between the standard icon and the CPU/memory status style.
+Dockerman adds a menu bar icon for common actions. In Settings → General, choose the standard icon or the CPU/memory status style.
 
 ## Apple Silicon notes
 
-On Apple Silicon, check the image platform before running a container. Many public images default to `amd64`, so use the `arm64` variant when available or set `--platform=linux/arm64` explicitly.
+On Apple Silicon, check the image platform before you run a container. Many public images default to `amd64`, so use the `arm64` variant when available or set `--platform=linux/arm64` explicitly.
 
 ## Troubleshooting
 
-- “Socket not found” means that Docker Desktop is not running or that Dockerman is using the wrong socket path.
+- “Socket not found” means Docker Desktop is not running or Dockerman is using the wrong socket path.
 - If Gatekeeper blocks Dockerman, right-click the app and choose **Open** the first time you launch it.

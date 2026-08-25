@@ -7,7 +7,7 @@ Use the Containers page to search, inspect, and manage containers on the selecte
 
 ## Lifecycle
 
-Available actions depend on the container state and runtime. Start, stop, restart, pause, unpause, rename, remove, inspect, logs, terminal, stats, clone, commit, backup, and restore are exposed where supported.
+Available actions depend on the container state and runtime. Start, stop, restart, pause, unpause, rename, remove, inspect, logs, terminal, stats, clone, commit, backup, and restore appear where the runtime supports them.
 
 <Callout type="info">
   Pause uses the runtime's pause API; it is not documented as sending `SIGSTOP`. Removal can use the force option when the UI offers it, so a container does not always need to be stopped first.
@@ -37,4 +37,4 @@ Restore recreates supported resources from the archive. It does not guarantee th
 
 ## Batch actions
 
-Enable the page's batch mode to select multiple rows. Only the actions shown in the current toolbar are supported; ordinary Ctrl/Cmd+Click and single-letter shortcuts are not a documented contract.
+Enable the page's batch mode to select multiple rows. Only the actions shown in the current toolbar are supported. Ordinary Ctrl/Cmd+Click and single-letter shortcuts are not documented for batch selection.

@@ -1,13 +1,13 @@
 ---
 title: Image Upgrade Watches
-description: Monitor container image registries in the background and get notified when a new version is available.
+description: Poll container image registries in the background and notify when a new digest is available.
 ---
 
-Image upgrade watches let Dockerman poll registries in the background and push a notification when a new image version is available. By default it **only notifies and never triggers an automatic upgrade**, so you stay in control.
+Image upgrade watches poll registries in the background and notify you when a new image digest is available. By default Dockerman **only notifies; it never runs an automatic upgrade**.
 
 ## How it works
 
-1. You subscribe to images you care about (per host, per image reference).
+1. You subscribe to images by host and image reference.
 2. The [background scheduler](/en/docs/homelab/scheduler) runs the `image_upgrade_check` task at a configurable interval (default: every 6 hours).
 3. For each subscribed image, Dockerman resolves a registry credential through the **credential resolver**, then compares the local digest with the remote registry digest. Ambiguous credentials **fail closed** — the check errors instead of guessing.
 4. When new digests are found, Dockerman sends a single batched notification through your configured [notification channels](/en/docs/homelab/notifications) and writes a history cursor so the next run picks up where this one left off.
@@ -28,8 +28,6 @@ Image upgrade watches let Dockerman poll registries in the background and push a
 </Tabs>
 
 ## The Image Upgrade Watches page
-
-The dedicated page shows all your subscriptions in one place.
 
 **Top bar:**
 - **Check interval** dropdown — sets how often the scheduler runs (writes directly to the scheduler task, so there is one source of truth)
@@ -102,7 +100,7 @@ Delete a subscription from the Image Upgrade Watches page. Once deleted, no furt
 
 ## Tips
 
-- Start by subscribing to the 3-5 images you care about most (e.g. your media server, database, reverse proxy).
-- Keep the default 6-hour interval unless you have a specific reason to poll more frequently. Shorter intervals increase registry API usage.
-- Use the **Check all now** button after adding new subscriptions to get an immediate status without waiting for the next scheduled run.
-- The upgrade notification tells you a new version exists. To actually upgrade, use the existing **Check for update** and **Upgrade** actions in the container menu.
+- Subscribe to a small set of images first (for example your media server, database, or reverse proxy).
+- Keep the default 6-hour interval unless you need to poll more often. Shorter intervals increase registry API usage.
+- Use **Check all now** after adding subscriptions to get status without waiting for the next scheduled run.
+- The upgrade notification tells you a new version exists. To upgrade, use **Check for update** and **Upgrade** in the container menu.

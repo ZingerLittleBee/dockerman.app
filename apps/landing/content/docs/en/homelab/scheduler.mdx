@@ -3,7 +3,7 @@ title: Background Tasks
 description: Inspect scheduler tasks and their recent runs.
 ---
 
-The Tasks page shows scheduler records, schedule, next run, last result, configuration, and recent runs.
+The Tasks page lists each scheduler record with its schedule, next run, last result, configuration, and recent runs.
 
 Built-in stats tasks are seeded enabled:
 
@@ -16,6 +16,6 @@ Image-watch tasks may also appear when that feature is configured.
 
 ## Current limitations
 
-**Create task** is disabled and marked Coming Soon. Seeded built-in tasks are treated as locked in the current UI: their enable switch, schedule editor, and Run now action are not available. Existing non-built-in records, if present, can expose those controls.
+**Create task** is disabled and marked Coming Soon. Seeded built-in tasks are treated as locked in the current UI: their enable switch, schedule editor, and Run now action are not available. If any non-built-in records exist, those controls may still appear for them.
 
 The scheduler runs only while the application process is alive. Closing behavior depends on the desktop window/tray behavior; a full application quit stops scheduling.

@@ -1,9 +1,9 @@
 ---
 title: Advanced and Scripting
-description: Schema, call escape hatch, Cloudflare Quick Tunnels, managed WSL2 engine, and tips for automation.
+description: Schema, call allowlist, Cloudflare Quick Tunnels, managed WSL2 engine, and scripting patterns.
 ---
 
-This page collects the less-frequent CLI commands and the patterns we use when wrapping `dockerman` from shell scripts, CI pipelines, or LLM tools.
+This page covers less-common commands and patterns for wrapping `dockerman` in shell scripts, CI, or LLM tools.
 
 ## `schema` and `call`
 
@@ -19,10 +19,10 @@ dockerman call hub_search '{"query":"alpine","pageSize":5}'
 dockerman call remove_container '{"name":"web","options":{"force":true}}' --yes
 ```
 
-`call` expects a JSON params object. Destructive RPCs require `--yes` (or `-y`) just like the dedicated subcommands. Streaming RPCs cannot be invoked through `call` — use the dedicated streaming commands so you get the proper envelope.
+`call` expects a JSON params object. Destructive RPCs require `--yes` (or `-y`), same as the dedicated subcommands. Streaming RPCs cannot be invoked through `call`; use the dedicated streaming commands for the proper envelope.
 
 <Callout type="info">
-  `schema --format mcp-tools` emits an MCP-compatible tool registry. Wire it directly into an LLM agent that already speaks Model Context Protocol.
+  `schema --format mcp-tools` emits an MCP-compatible tool registry. Feed it to an LLM agent that supports Model Context Protocol.
 </Callout>
 
 ## Events
@@ -33,7 +33,7 @@ dockerman events --filter type=container --filter event=start
 dockerman events --since 2026-05-01T00:00:00Z --until 2026-05-01T01:00:00Z
 ```
 
-`events` is a streaming command and always emits NDJSON [envelopes](/en/docs/cli/streaming) on stdout — there is no `--json` flag because there is no plain mode. Repeat `--filter key=value` for additional filters; matching uses Docker's standard filter semantics. `--since` and `--until` accept Unix timestamps or RFC 3339 datetimes.
+`events` is a streaming command and always emits NDJSON [envelopes](/en/docs/cli/streaming) on stdout. There is no `--json` flag because there is no plain mode. Repeat `--filter key=value` for additional filters; matching uses Docker's standard filter semantics. `--since` and `--until` accept Unix timestamps or RFC 3339 datetimes.
 
 ## Cloudflare Quick Tunnels
 
@@ -51,7 +51,7 @@ dockerman tunnel close web --host-port 8080 --host-ip 0.0.0.0
 dockerman tunnel close-container web
 ```
 
-`tunnel create` is destructive in the sense that it changes network exposure, so it requires `--yes`. Pass `--install` if `cloudflared` is not yet installed; the CLI streams installation progress before opening the tunnel. SSH-forwarded remote Docker hosts are not supported as tunnel targets.
+`tunnel create` changes network exposure, so it requires `--yes`. Pass `--install` if `cloudflared` is not yet installed; the CLI streams installation progress before opening the tunnel. SSH-forwarded remote Docker hosts are not supported as tunnel targets.
 
 `--host-port` and `--all` are mutually exclusive: pick specific published ports or expose every port the container publishes. `--host-ip` requires at least one `--host-port`; you cannot bind by IP without naming the port.
 

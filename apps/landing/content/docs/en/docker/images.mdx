@@ -1,20 +1,20 @@
 ---
 title: Images
-description: Pull, build, push, analyze, and scan Docker images with a built-in Docker Hub browser and Trivy scanner.
+description: Pull, build, push, analyze, and scan Docker images.
 ---
 
-Pull, build, push, analyze, and scan images from here, and browse Docker Hub without leaving the app.
+Pull, build, push, analyze, and scan images from this page. Browse Docker Hub from the same place.
 
-## The image list
+## Image list
 
-Use the image list to sort by size or created time, and switch between all images and dangling images when you want to clean up old layers.
+Sort by size or created time, and switch between all images and dangling images when cleaning up old layers.
 
 <Tabs items={['All', 'Dangling']}>
   <Tab>
-    All images include every tag that is available locally. Use this view when you want to inspect, retag, build from, push, or scan an image.
+    All images include every tag available locally. Use this view to inspect, retag, build from, push, or scan an image.
   </Tab>
   <Tab>
-    Dangling images are untagged layers left behind by builds. Use this view when you want to delete unused intermediates.
+    Dangling images are untagged layers left behind by builds. Use this view to delete unused intermediates.
   </Tab>
 </Tabs>
 
@@ -44,7 +44,7 @@ Dockerman suggests registries, image names, and tags as you type in the pull com
 
 Added in v4.6.0.
 
-Use the built-in Hub browser to search, inspect, and pull public images without switching to the web UI.
+Use the Hub browser to search, inspect, and pull public images.
 
 <Steps>
   <Step>
@@ -126,26 +126,26 @@ Push a tagged image after selecting a registry configured in Dockerman's registr
 </Steps>
 
 <Callout type="info">
-  Public registries and private registries both work here, including Docker Hub, GHCR, Harbor, AWS ECR, Nexus, and GitLab Container Registry.
+  Public and private registries both work here, including Docker Hub, GHCR, Harbor, AWS ECR, Nexus, and GitLab Container Registry.
 </Callout>
 
 ## Analyze image size
 
-Open the Image Size view to see the layer tree and the places where the image spends its space.
+Open the Image Size view to see the layer tree and where the image spends its space. Watch for:
 
-- Look for oversized package caches that were left in the final layer.
-- Look for build artifacts that should have been copied into a smaller runtime image.
-- Look for redundant `COPY` layers that duplicate the same files.
+- Oversized package caches left in the final layer
+- Build artifacts that belong in a smaller runtime image
+- Redundant `COPY` layers that duplicate the same files
 
 ## Tag operations
 
-Use tag operations to tag, untag, or retag an image for another repository or registry. Retagging changes the reference only, so the underlying layers stay where they are.
+Use tag operations to tag, untag, or retag an image for another repository or registry. Retagging changes the reference only; the underlying layers stay where they are.
 
 ## Scan with Trivy
 
 Added in v4.6.0.
 
-Scan an image to find known vulnerabilities in its installed layers.
+Scan an image for known vulnerabilities in its installed layers.
 
 ### First-time install
 
@@ -177,11 +177,11 @@ If the managed Trivy binary is missing, Dockerman prompts you to install it. Tri
 
 ### Read the report
 
-Dockerman groups findings by severity, then lets you expand each finding to see the CVE ID, description, affected versions, and fix versions when available. Export the raw report as JSON when you want to feed it into CI or archive the result.
+Dockerman groups findings by severity. Expand each finding for the CVE ID, description, affected versions, and fix versions when available. Export the raw report as JSON to feed into CI or archive the result.
 
 
 ## Cleanup
 
-- Remove dangling images from the Dangling tab when you want to clear build leftovers quickly.
+- Remove dangling images from the Dangling tab to clear build leftovers.
 - Delete old versions with multi-select when you no longer need a tag.
 - Use **Prune** on the Images page to ask the selected runtime to remove unused images.

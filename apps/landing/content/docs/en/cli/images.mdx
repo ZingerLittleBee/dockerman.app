@@ -3,7 +3,7 @@ title: Images, Hub, and Trivy
 description: Pull, build, push, scan, and search Docker images from the CLI.
 ---
 
-The `image`, `hub`, and `trivy` command groups together cover the full image lifecycle: discover on Docker Hub, pull, scan for CVEs, build, push, and clean up.
+`image`, `hub`, and `trivy` cover Hub discovery, pull/push, build, CVE scanning, and cleanup.
 
 ## List, inspect, and tag
 
@@ -16,7 +16,7 @@ dockerman image history nginx:latest
 dockerman image search nginx --pretty
 ```
 
-`image search` queries the Docker Engine's `/images/search` endpoint via the connected daemon. For richer results (descriptions, official badges, tag listings), use [`hub search`](#search-docker-hub) below — the two commands talk to different APIs.
+`image search` queries the Docker Engine's `/images/search` endpoint via the connected daemon. For descriptions, official badges, and tag listings, use [`hub search`](#search-docker-hub) below. The two commands talk to different APIs.
 
 ## Pull and push
 

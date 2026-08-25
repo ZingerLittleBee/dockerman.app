@@ -3,11 +3,11 @@ title: Overview
 description: Native Kubernetes support in Dockerman — workloads, networking, config, storage, RBAC, CRDs, Helm, and debug.
 ---
 
-Dockerman's Kubernetes support is a lightweight, GUI-first way to run and inspect a real Kubernetes cluster without switching tools or learning a new dashboard.
+Dockerman's Kubernetes section runs and inspects a real cluster in the same desktop app you use for Docker.
 
 ## Why Kubernetes in Dockerman
 
-Use Dockerman when you want Kubernetes in the same app you already use for Docker. Keep the interface local and fast, bring k3d along for one-click cluster setup, and stay inside a native Rust and Tauri desktop app instead of jumping to another dashboard. It is lighter than Docker Desktop's built-in Kubernetes path and fits local development, small clusters, and CI sanity checks.
+Use Dockerman when you want Kubernetes next to Docker in one app. It includes k3d for one-click local cluster setup, keeps the active Kubernetes cluster separate from the active Docker host, and targets local development, small clusters, and CI sanity checks. It is lighter than Docker Desktop's built-in Kubernetes path.
 
 ## What's included
 
@@ -37,7 +37,7 @@ Use Dockerman when you want Kubernetes in the same app you already use for Docke
     Forward an existing process's debug port and generate an editor attach configuration.
   </Card>
   <Card title="Custom Resources" href="/en/docs/kubernetes/custom-resources">
-    Discover CRDs and browse or edit their instances as YAML.
+    List CRDs and browse or edit their instances as YAML.
   </Card>
   <Card title="Events" href="/en/docs/kubernetes/events">
     Browse cluster events with filters by type, reason, object, and namespace.
@@ -48,16 +48,14 @@ Use Dockerman when you want Kubernetes in the same app you already use for Docke
 
 Open the Kubernetes overview to see a live summary of the cluster.
 
-- **CPU and memory cards** — usage across the cluster surfaced as headline cards. Requires `metrics-server` in the target cluster.
+- **CPU and memory cards** — cluster usage as headline cards. Requires `metrics-server` in the target cluster.
 - **Workload counts** — running and pending Pods, Deployments, Services, and other resources counted across **all namespaces**, not just the active one.
-- **Node status** — node count and ready state at a glance.
+- **Node status** — node count and ready state.
 - **Recent events** — the most recent cluster events, with a link to the full [Events](/en/docs/kubernetes/events) browser.
-
-Use the dashboard as a starting point before drilling into specific resources.
 
 ## Multi-cluster switching
 
-Dockerman tracks the active Kubernetes cluster **independently of the active Docker host**. Switching clusters keeps your current K8s page where possible, restores deep pages (CRD instances, YAML editor) after an app restart, and refreshes the namespace selector to match the new cluster. Reconnecting to a cluster after a restart restores the last visited resource so you do not lose context.
+Dockerman tracks the active Kubernetes cluster **independently of the active Docker host**. Switching clusters keeps your current K8s page where possible, restores deep pages (CRD instances, YAML editor) after an app restart, and refreshes the namespace selector to match the new cluster. Reconnecting to a cluster after a restart restores the last visited resource.
 
 ## Two ways to start
 
@@ -72,7 +70,7 @@ Dockerman tracks the active Kubernetes cluster **independently of the active Doc
 
 ## Namespaces
 
-Use the namespace switcher in the top bar to scope every Kubernetes list. Switch namespaces without disconnecting from the cluster, then keep browsing workloads, networking, config, and RBAC in the new namespace.
+Use the namespace switcher in the top bar to scope every Kubernetes list. Switching namespaces does not disconnect from the cluster; workloads, networking, config, and RBAC lists update to the new namespace.
 
 ## Sidebar customization
 
@@ -85,7 +83,7 @@ Edit both from [Settings → Sidebar](/en/docs/reference/settings#sidebar-visibi
 
 ## Permission errors
 
-Lists return typed `K8sListResult<T>` so a `403 Forbidden` is surfaced **at the list itself** instead of failing the whole page. You see exactly which resource your context is missing access to and can keep using the rest of the cluster while you fix RBAC.
+Lists return typed `K8sListResult<T>` so a `403 Forbidden` appears **on that list** instead of failing the whole page. You see which resource your context cannot access and can keep using the rest of the cluster while you fix RBAC.
 
 ## What's not yet supported
 

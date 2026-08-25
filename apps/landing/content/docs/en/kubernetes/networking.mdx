@@ -3,11 +3,11 @@ title: Networking
 description: Inspect Services, Ingresses, Endpoints, and NetworkPolicies across every namespace.
 ---
 
-Use the Networking page to inspect how traffic moves through the cluster. Read Services, Ingresses, Endpoints, and NetworkPolicies without jumping back to `kubectl`.
+The Networking page lists Services, Ingresses, Endpoints, and NetworkPolicies for the current cluster and namespace scope. Use it to inspect how traffic moves through the cluster without jumping back to `kubectl`.
 
 ## Services
 
-Use Services to see the stable front door for a workload. The list shows the service type, ClusterIP, and ports.
+The list shows the service type, ClusterIP, and ports.
 
 - `ClusterIP` for internal traffic inside the cluster.
 - `NodePort` when you need a node-level port for quick access.
@@ -20,19 +20,19 @@ The detail view shows the full Service spec and YAML.
 
 ## Ingresses
 
-Use Ingresses to inspect HTTP routing into the cluster. The list shows hosts, paths, and backend Services, while the detail view shows TLS secrets, annotations, and the rules table.
+The list shows hosts, paths, and backend Services. The detail view shows TLS secrets, annotations, and the rules table.
 
 ## Endpoints
 
-Use Endpoints when you need the raw backend addresses behind a Service. This view is most useful when a Service has no healthy backends.
+Endpoints list the raw backend addresses behind a Service. This view is most useful when a Service has no healthy backends.
 
 ## EndpointSlices
 
-Use EndpointSlices for the discovery objects Kubernetes currently maintains behind Services. Dockerman provides a dedicated list and detail route alongside legacy Endpoints.
+EndpointSlices are the discovery objects Kubernetes currently maintains behind Services. Dockerman provides a dedicated list and detail route alongside legacy Endpoints.
 
 ## NetworkPolicies
 
-Use NetworkPolicies to understand which pods can talk to each other.
+NetworkPolicies describe which pods can talk to each other.
 
 <Callout type="info">
   Creation is YAML-only — use the YAML editor to author new NetworkPolicies.

@@ -1,9 +1,9 @@
 ---
 title: Config & Storage
-description: Manage ConfigMaps, Secrets, PersistentVolumeClaims, and StorageClasses without the kubectl juggling.
+description: Manage ConfigMaps, Secrets, PersistentVolumeClaims, and StorageClasses.
 ---
 
-Use Config & Storage to inspect the data sources and backing stores that workloads depend on.
+Config & Storage covers the data sources and backing stores that workloads depend on.
 
 ## ConfigMaps
 
@@ -25,11 +25,11 @@ Binary secret values can be downloaded to a local file. Delete a Secret from the
 
 ## PersistentVolumeClaims
 
-Use PersistentVolumeClaims to see the phase, bound PersistentVolume, storage class, access modes, and capacity for each claim. Delete a PVC from the list when the claim is released and no longer needed.
+Each claim shows phase, bound PersistentVolume, storage class, access modes, and capacity. Delete a PVC from the list when the claim is released and no longer needed.
 
 ## PersistentVolumes
 
-PersistentVolumes get their own dedicated page in addition to the per-claim view above. Use it when you need to look at cluster-scoped storage independently of any namespace.
+PersistentVolumes get their own dedicated page in addition to the per-claim view above. Use it for cluster-scoped storage independently of any namespace.
 
 | Column | Description |
 | --- | --- |
@@ -45,7 +45,7 @@ Open a PV to view its full spec including the underlying volume source (CSI driv
 
 ## StorageClasses
 
-Use StorageClasses to inspect the cluster's storage options, including the provisioner, reclaim policy, volume binding mode, and the default class marker.
+StorageClasses list the cluster's storage options: provisioner, reclaim policy, volume binding mode, and the default class marker.
 
 ## Namespaces
 

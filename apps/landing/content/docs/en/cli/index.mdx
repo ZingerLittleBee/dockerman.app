@@ -3,7 +3,7 @@ title: CLI Overview
 description: Daemon-first dockerman CLI for scripting Docker, Kubernetes, Compose, and Trivy workflows from the terminal.
 ---
 
-`dockerman` is a thin command-line client that talks to the local **dockerman-daemon** over an authenticated IPC socket. It covers a substantial, explicitly allowlisted subset of Docker, Compose, read-only Kubernetes, Trivy, Docker Hub, tunnels, and WSL workflows. It does not mirror every GUI feature. Added in v5.3.0.
+`dockerman` is a thin command-line client that talks to the local **dockerman-daemon** over an authenticated IPC socket. It covers an explicitly allowlisted subset of Docker, Compose, read-only Kubernetes, Trivy, Docker Hub, tunnels, and WSL workflows. It does not mirror every GUI feature. Added in v5.3.0.
 
 <Callout type="info">
   The CLI auto-starts `dockerman-daemon` on demand. You do not need to launch the GUI to use it.
@@ -11,7 +11,7 @@ description: Daemon-first dockerman CLI for scripting Docker, Kubernetes, Compos
 
 ## Install
 
-The CLI ships **bundled inside the Dockerman desktop app** — there is no separate `dockerman-cli` package to download.
+The CLI ships **bundled inside the Dockerman desktop app**. There is no separate `dockerman-cli` package to download.
 
 <Steps>
   <Step>

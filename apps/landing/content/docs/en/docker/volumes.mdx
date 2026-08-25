@@ -1,13 +1,13 @@
 ---
 title: Volumes
-description: Manage Docker volumes — create, inspect, and prune persistent storage used by your containers.
+description: Create, inspect, and prune Docker volumes.
 ---
 
-Use this page to list, create, inspect, and prune volumes. When you need to browse volume contents, jump to [Files](/en/docs/docker/files).
+Use this page to list, create, inspect, and prune volumes. To browse volume contents, open [Files](/en/docs/docker/files).
 
-## The volume list
+## Volume list
 
-The volume list shows the name, driver, mountpoint, size, and created time. Sort and filter to find the volume you want.
+Each row shows the name, driver, mountpoint, size, and created time. Sort and filter to find a volume.
 
 ## Create a volume
 
@@ -25,13 +25,13 @@ The volume list shows the name, driver, mountpoint, size, and created time. Sort
   <Step>
     ### Labels (optional)
 
-    Add labels when you want to group or query the volume later.
+    Add labels to group or query the volume later.
   </Step>
 </Steps>
 
 ## Browse volume files
 
-Use [Files](/en/docs/docker/files) to browse a volume's contents, preview files, edit text files, upload files, download files, and handle multi-select actions.
+Use [Files](/en/docs/docker/files) to browse a volume's contents, preview files, edit text files, upload, download, and run multi-select actions.
 
 ## Inspect a volume
 
@@ -42,5 +42,5 @@ Open Inspect to review the volume JSON, including the mountpoint, driver options
 Prune forwards the operation to the selected runtime, which decides which volumes are unused. Review the confirmation before continuing.
 
 <Callout type="warn">
-  Prune removes all unused volumes, including named volumes you might want to keep. Use Delete instead when you want to be explicit.
+  Prune removes all unused volumes, including named volumes you might want to keep. Use Delete instead when you need to target a specific volume.
 </Callout>
