@@ -1,8 +1,6 @@
 <ChangelogEntry version="v6.1.0" date="16 de agosto de 2026">
 ## Dominios locales para servicios Docker
 
-Da a los servicios Docker locales direcciones `*.dockerman.localhost` memorables, sin números de puerto. La configuración se guía en el diálogo de alta, los dominios sobreviven a la recreación del contenedor, y desaparecen varios fallos de actualización y navegación.
-
 ### ✨ Funciones
 
 - 🌐 <Bold>Dominios locales:</Bold> da a los servicios Docker locales direcciones `*.dockerman.localhost` memorables, sin números de puerto — en macOS tras una aprobación explícita de administrador, en Windows sin configuración alguna, y en Linux a través del broker del sistema incluido en los paquetes .deb/.rpm. Dockerman enruta el tráfico HTTP y WebSocket por el loopback IPv4 e IPv6 y arranca el listener solo mientras existan dominios.
@@ -24,8 +22,6 @@ Da a los servicios Docker locales direcciones `*.dockerman.localhost` memorables
 
 <ChangelogEntry version="v6.0.0" date="2 de agosto de 2026">
 ## Vistas de contenedor enlazables, cabeceras en la barra de título y motores gestionados
-
-La interfaz se reconstruyó en torno a dos ideas: cada forma de mirar un contenedor es su propia página, y la banda superior de la ventana es donde viven el título y las acciones de la página. Además, macOS gana motores gestionados: Dockerman ahora puede ejecutar y alternar entre máquinas Colima y Podman, no solo hablar con un socket.
 
 ### ✨ Funciones
 
@@ -61,8 +57,6 @@ La interfaz se reconstruyó en torno a dos ideas: cada forma de mirar un contene
 <ChangelogEntry version="v5.6.1" date="12 de julio de 2026">
 ## Animaciones pulidas y gráficos del panel más fluidos
 
-Esta versión renueva las animaciones de toda la app, reconstruye los gráficos de CPU y memoria del panel sobre un motor liveline ligero, acelera las tablas, unifica el núcleo de streaming y corrige problemas de resaltado de navegación y tooltips.
-
 ### ✨ Funciones
 
 - 🎬 <Bold>Animaciones pulidas:</Bold> Renovación de animaciones en toda la app — tooltips instantáneos, popovers que escalan desde su disparador, sutil retroalimentación al pulsar botones y compatibilidad completa con movimiento reducido
@@ -86,8 +80,6 @@ Esta versión renueva las animaciones de toda la app, reconstruye los gráficos 
 <ChangelogEntry version="v5.6.0" date="6 de julio de 2026">
 ## Compatibilidad con Apple Container y configuración guiada del motor
 
-Esta versión lleva el motor de contenedores de Apple a Dockerman como un runtime de primera clase en macOS, con configuración y cambio de motor guiados, vistas grandes más fluidas, filtros consistentes y una columna de puertos más ordenada.
-
 ### ✨ Funciones
 
 - 🍎 <Bold>Compatibilidad con Apple Container:</Bold> Conéctate al motor de contenedores de Apple en macOS y gestiona contenedores, imágenes, volúmenes, redes, logs, estadísticas, builds, pulls y terminales interactivas desde Dockerman
@@ -110,8 +102,6 @@ Esta versión lleva el motor de contenedores de Apple a Dockerman como un runtim
 
 <ChangelogEntry version="v5.5.0" date="30 de junio de 2026">
 ## Gestión de Kubernetes de extremo a extremo, triaje de contenedores en vivo y búsqueda más precisa
-
-Esta versión convierte a Kubernetes en una carga de trabajo de primera clase — muchos más recursos, operaciones de carga protegidas, YAML en todas partes, mayor detalle de Pods, port-forwarding, Helm, RBAC, eventos y auto-refresco. También añade triaje de contenedores en vivo, copia con un clic en toda la app, búsqueda más precisa y más herramientas de mantenimiento.
 
 ### ✨ Funciones
 
@@ -155,8 +145,6 @@ Esta versión convierte a Kubernetes en una carga de trabajo de primera clase �
 <ChangelogEntry version="v5.4.0" date="13 de junio de 2026">
 ## Marketplace de apps, despliegues en hosts SSH y edición de puertos en línea
 
-Esta versión presenta un Marketplace de apps completo para explorar e instalar plantillas de un clic, permite desplegar y gestionar apps en hosts remotos accesibles solo por SSH y añade la edición en línea de los mapeos de puertos de un contenedor en ejecución, además de descargas de plantillas más seguras y estadísticas de contenedor en streaming.
-
 ### ✨ Funcionalidades
 
 - 🛍️ <Bold>Marketplace de apps:</Bold> Explora e instala apps desde un catálogo de plantillas de un clic y gestiona después todo lo que has instalado
@@ -190,8 +178,6 @@ Esta versión presenta un Marketplace de apps completo para explorar e instalar 
 <ChangelogEntry version="v5.3.1" date="12 de mayo de 2026">
 ## Comando de copia CLI más seguro en Windows
 
-Un parche puntual que evita que «Ajustes → CLI → Copiar comando» toque el PATH del usuario; las actualizaciones del PATH quedan a cargo exclusivamente del botón «Instalar para este usuario» de la GUI.
-
 ### 🐛 Corrección de errores
 
 - 🪟 <Bold>Seguridad del PATH en el comando de copia CLI en Windows:</Bold> «Ajustes → CLI → Copiar comando» ya no modifica el PATH del usuario. El PowerShell anterior podía reducir el PATH del usuario únicamente al directorio bin de Dockerman en casos límite. Las actualizaciones del PATH se gestionan ahora exclusivamente desde el botón «Instalar para este usuario» de la GUI, que utiliza acceso directo y seguro al registro. El comando copiado también escribe el marcador de propiedad para que las instalaciones manuales se reconozcan correctamente como gestionadas por Dockerman en lugar de aparecer como `Unsupported`.
@@ -200,8 +186,6 @@ Un parche puntual que evita que «Ajustes → CLI → Copiar comando» toque el 
 
 <ChangelogEntry version="v5.3.0" date="5 de mayo de 2026">
 ## CLI incluido, plugins de asistentes IA y conmutador de motor en Windows
-
-Esta versión incluye el CLI Dockerman junto con la aplicación de escritorio, añade un panel de Ajustes para instalar plugins de Claude Code, Codex y Gemini CLI, permite a los usuarios de Windows alternar entre el motor WSL2 administrado y Docker nativo del sistema, y pule las reconexiones, la configuración de WSL, las actualizaciones de Trivy y la página de Build.
 
 ### ✨ Funcionalidades
 
@@ -230,8 +214,6 @@ Esta versión incluye el CLI Dockerman junto con la aplicación de escritorio, a
 
 <ChangelogEntry version="v5.2.0" date="26 de abril de 2026">
 ## Kubernetes Multi-Cluster, Vigilancia de Imágenes y Bases del Homelab
-
-Esta versión amplía la gestión de Kubernetes con cambio multi-cluster, dry-run de YAML y páginas dedicadas para nodos, PV y namespaces; añade búsqueda de logs, un servicio de vigilancia de actualizaciones de imagen con notificaciones, backup/restore de bind mounts y la primera fase del roadmap Homelab; además aterriza un workspace de configuración, cobertura completa de i18n y un patrón estandarizado de tablas de datos.
 
 ### ✨ Funcionalidades
 
@@ -311,8 +293,6 @@ Esta versión amplía la gestión de Kubernetes con cambio multi-cluster, dry-ru
 <ChangelogEntry version="v5.1.0" date="8 de abril de 2026">
 ## Soporte del Runtime Podman
 
-Esta versión introduce soporte de primera clase para el runtime Podman junto con Docker, con detección automática de runtime, selector de preferencia por host y un sistema extensible de capabilities para el gating de funciones.
-
 ### ✨ Funcionalidades
 
 - 🐙 <Bold>Soporte Podman:</Bold> soporte de primera clase para el runtime Podman junto con Docker
@@ -338,8 +318,6 @@ Esta versión introduce soporte de primera clase para el runtime Podman junto co
 
 <ChangelogEntry version="v5.0.0" date="7 de abril de 2026">
 ## Soporte de Kubernetes y Túneles en la Nube
-
-Esta versión principal introduce gestión completa de Kubernetes, túneles Cloudflared para exposición a internet con un clic, detección automática de actualizaciones de imágenes con rollback, un panel de información de contenedores renovado y dos nuevos idiomas.
 
 ### ✨ Características
 
@@ -400,8 +378,6 @@ Esta versión principal introduce gestión completa de Kubernetes, túneles Clou
 <ChangelogEntry version="v4.8.0" date="31 de marzo de 2026">
 ## Respaldo y Restauración de Contenedores
 
-Esta versión introduce funcionalidad completa de respaldo y restauración de contenedores con seguimiento de progreso, vista previa y comandos Spotlight para acceso rápido.
-
 ### ✨ Características
 
 - 💾 <Bold>Respaldo de Contenedores:</Bold> Respaldo y restauración completa de contenedores con seguimiento de progreso
@@ -415,8 +391,6 @@ Esta versión introduce funcionalidad completa de respaldo y restauración de co
 
 <ChangelogEntry version="v4.7.0" date="29 de marzo de 2026">
 ## Combobox de Imágenes y Búsqueda por Puerto
-
-Esta versión agrega un combobox de imágenes con búsqueda para la creación de contenedores y búsqueda por número de puerto.
 
 ### ✨ Características
 
@@ -433,8 +407,6 @@ Esta versión agrega un combobox de imágenes con búsqueda para la creación de
 <ChangelogEntry version="v4.6.0" date="26 de marzo de 2026">
 ## Navegador de Docker Hub y Escaneo de Seguridad
 
-Esta versión agrega operaciones de pausa/reanudación, commit y clonación de contenedores, push de imágenes a registros, navegador integrado de Docker Hub y escaneo de seguridad Trivy.
-
 ### ✨ Características
 
 - ⏸️ <Bold>Pausa/Reanudación de Contenedores:</Bold> Pausa y reanuda contenedores en ejecución con soporte de menú de tres estados
@@ -449,8 +421,6 @@ Esta versión agrega operaciones de pausa/reanudación, commit y clonación de c
 <ChangelogEntry version="v4.0.0" date="17 de febrero de 2026">
 ## Paleta de Comandos y Bandeja del Sistema
 
-Esta versión introduce una paleta de comandos global para acceso instantáneo a recursos, integración con la bandeja del sistema con estadísticas en tiempo real, y auto-ocultamiento del ícono del Dock en macOS.
-
 ### ✨ Características
 
 - 🔍 <Bold>Paleta de Comandos:</Bold> Paleta de comandos global (Cmd+; / Ctrl+;) para acceso rápido a contenedores, imágenes, proyectos Compose, redes y volúmenes con acciones instantáneas
@@ -464,8 +434,6 @@ Esta versión introduce una paleta de comandos global para acceso instantáneo a
 
 <ChangelogEntry version="v3.0.0" date="8 de diciembre de 2025">
 ## Eventos de Docker y Explorador de Archivos de Contenedores
-
-Esta versión introduce monitoreo de eventos de Docker en tiempo real y un explorador de archivos completo para contenedores Docker.
 
 ### ✨ Características
 
@@ -482,8 +450,6 @@ Esta versión introduce monitoreo de eventos de Docker en tiempo real y un explo
 
 <ChangelogEntry version="v1.0.0" date="4 de febrero de 2025">
 ## Primera Versión Oficial
-
-Nos complace anunciar la primera versión oficial de Dockerman: una UI moderna y ligera para gestión Docker que brinda potente rendimiento y simplicidad para la gestión de contenedores.
 
 ### Características Principales
 

@@ -1,207 +1,193 @@
 <ChangelogEntry version="v6.1.0" date="Aug 16, 2026">
 ## Local Domains for Docker Services
 
-Give local Docker services memorable `*.dockerman.localhost` addresses without port numbers. Setup is guided in the add dialog, domains survive container recreation, and a handful of upgrade and navigation papercuts are gone.
-
 ### ✨ Features
 
-- 🌐 <Bold>Local Domains:</Bold> give local Docker services memorable `*.dockerman.localhost` addresses without port numbers — on macOS after one explicit administrator approval, on Windows with no setup at all, and on Linux through the system broker shipped with the .deb/.rpm packages. Dockerman routes HTTP and WebSocket traffic over IPv4 and IPv6 loopback and starts the listener only while domains exist.
+- 🌐 <Bold>Local Domains:</Bold> Give Docker services `*.dockerman.localhost` addresses without port numbers. macOS requires one administrator approval, Windows needs no setup, and Linux uses the broker in the .deb/.rpm packages. HTTP and WebSocket traffic use IPv4 and IPv6 loopback, and the listener runs only while domains exist.
 
 ### 🔧 Improvements
 
-- 🧭 <Bold>Guided Local Domains setup:</Bold> the add dialog surfaces the service state before you save — it explains what the port-80 listener does and offers the enable, approval and repair actions in place, instead of saving a name that fails afterwards.
-- 🔁 <Bold>Domains survive container recreation:</Bold> a local domain binds to the container's name and container-side port, so recreating the container with a different published host port keeps the address working without reconfiguration.
-- 🪜 <Bold>Steadier upgrade dialog:</Bold> the container image upgrade dialog keeps its size and frame through every phase, shows progress in a contained bar, and marks per-container status with icons and tooltips instead of shifting text badges.
-- 🖱️ <Bold>Deliberate row clicks:</Bold> a container row opens its detail only from the id and name cells, so clicking near other controls no longer navigates away.
+- 🧭 <Bold>Local Domains setup:</Bold> Before saving, the add dialog explains the port-80 listener, shows its state, and offers enable, approval, and repair actions.
+- 🔁 <Bold>Domains survive container recreation:</Bold> Domains bind to the container name and internal port, so changed published ports need no reconfiguration.
+- 🪜 <Bold>Stable upgrade dialog:</Bold> The image upgrade dialog keeps its frame across phases and shows progress and per-container status without shifting.
+- 🖱️ <Bold>Container row navigation:</Bold> Only the ID and name cells open container details.
 
 ### 🐛 Bug Fixes
 
-- 🔎 <Bold>No more phantom image updates:</Bold> update checks compare every local repo digest against the registry instead of only the first one, so a stale digest entry can no longer produce an endless "update available" loop — and scheduled notifications only fire for images that are genuinely stale.
-- 🧯 <Bold>Upgrade failures explain themselves:</Bold> a failed image pull keeps the dialog in an explicit error state with the full registry error, and Retry returns to confirmation instead of auto-submitting; a successful upgrade hands the detail view over to the new container exactly once, without flicker or duplicate containers.
-- 🚢 <Bold>Dock icon follows the window on macOS:</Bold> closing the main window hides the Dock icon again instead of leaving a dead entry.
+- 🔎 <Bold>Image update checks:</Bold> Checks compare every local repo digest with the registry, preventing stale digests from causing repeated update notices. Scheduled notifications now include only stale images.
+- 🧯 <Bold>Image upgrade errors:</Bold> Failed pulls keep the full registry error visible, and Retry returns to confirmation. Successful upgrades switch to the new container once, without flicker or duplicates.
+- 🚢 <Bold>macOS Dock icon:</Bold> Closing the main window hides the Dock icon.
 
 </ChangelogEntry>
 
 <ChangelogEntry version="v6.0.0" date="Aug 2, 2026">
 ## Linkable Container Views, Titlebar Page Headers & Managed Engines
 
-The interface was rebuilt around two ideas: every way of looking at a container is its own page, and the window's top band is where a page's title and actions live. Alongside that, macOS gains managed engines — Dockerman can now run and switch between Colima and Podman machines, not just talk to a socket.
+Container views now have their own routes, page titles and actions live in the titlebar, and macOS can manage Colima and Podman machines.
 
 ### ✨ Features
 
-- 🧭 <Bold>Every container view has its own URL:</Bold> Detail, Stats, Logs, Terminal, Process and Files became nested tabs under `/container/:id`, so they can be linked, gone back to, and reloaded into. Switching containers keeps the view you were on, and stopped, unsupported or deleted containers each explain themselves in place instead of showing a dead panel.
-- 🪟 <Bold>Page headers moved into the titlebar:</Bold> Every list page hands its title and actions to the window's top band, which buys a row of table height per page and gives the actions the full width. The band also carries the sidebar toggle and back/forward navigation, with shortcut hints in the tooltips.
-- 🖥️ <Bold>Managed engines on macOS:</Bold> Detect, start, stop, repair and switch between Colima and Podman machines from onboarding, Settings and the host switcher, with VM CPU/memory/disk configurable in-app. Dockerman never installs or updates the engine binaries — it guides you to them.
-- 🐳 <Bold>Compose on Podman:</Bold> The Compose gate now opens for Podman when the toolchain is there, with the environment Podman needs injected automatically and Podman-specific hints when a deploy fails.
-- ⌨️ <Bold>Terminal keep-alive:</Bold> Leaving a container's Terminal view keeps the shell alive for five minutes, with scrollback intact when you come back.
+- 🧭 <Bold>Routable container views:</Bold> Detail, Stats, Logs, Terminal, Process, and Files are nested under `/container/:id`. Links, reloads, and back navigation preserve the view, including stopped, unsupported, and deleted states.
+- 🪟 <Bold>Page actions in the titlebar:</Bold> List titles and actions moved into the top band with sidebar, back, and forward controls and shortcut hints.
+- 🖥️ <Bold>Managed engines on macOS:</Bold> Detect, start, stop, repair, configure, and switch Colima and Podman machines from onboarding, Settings, or the Host switcher. Dockerman guides installation and updates but does not perform them.
+- 🐳 <Bold>Compose on Podman:</Bold> Compose works when the Podman toolchain is available, with automatic environment setup and Podman-specific deployment errors.
+- ⌨️ <Bold>Terminal keep-alive:</Bold> Container shells and scrollback remain available for five minutes after leaving Terminal.
 
 ### 🔧 Improvements
 
-- 🔄 <Bold>One refresh control everywhere:</Bold> Every refresh, retry and reconnect button is the same control now, and its icon morphs through the action's states instead of swapping abruptly.
-- 📋 <Bold>Copy confirms in place:</Bold> Copy buttons show an inline check mark rather than raising a toast.
-- 🗂️ <Bold>Roomier Files and Logs:</Bold> Both views run full bleed, previewability is decided from a file's content instead of its name (so dotfiles preview as text), and a failed preview shows the reason.
-- 🎛️ <Bold>Clearer Settings:</Bold> The engine picker is a full radio card and the license panel became a proper card.
-- 🧮 <Bold>Consistent count badges:</Bold> The sidebar, image, volume, network and storage tables share one badge — filled while something holds the resource, outlined once nothing does.
-- 🪟 <Bold>Better window controls on Windows and Linux:</Bold> The caption buttons are keyboard- and screen-reader-reachable, follow the theme, and swap maximize for restore while the window is maximized.
+- 🔄 <Bold>Shared refresh control:</Bold> Refresh, retry, and reconnect use one control with continuous state transitions.
+- 📋 <Bold>Inline copy confirmation:</Bold> Copy buttons show a check mark instead of a toast.
+- 🗂️ <Bold>Files and Logs layout:</Bold> Both views use the full width. File previews use content detection, including for dotfiles, and show preview errors.
+- 🎛️ <Bold>Settings layout:</Bold> The Engine picker and license panel now use cards.
+- 🧮 <Bold>Count badges:</Bold> Sidebar and resource tables use filled badges for in-use resources and outlined badges otherwise.
+- 🪟 <Bold>Windows and Linux controls:</Bold> Caption buttons support keyboard and screen readers, follow the theme, and show restore when maximized.
 
 ### 🐛 Bug Fixes
 
-- 📈 <Bold>Accurate CPU% in history and alerts:</Bold> Container CPU history (and the alerts built on it) now measures real per-interval usage instead of a lifetime average, and Podman no longer over-reports CPU — existing CPU alert thresholds may start firing where they previously never did.
-- 🍎 <Bold>Steady macOS window controls:</Bold> The traffic lights sit centred in the band and no longer jitter while the window is resized.
-- 🐧 <Bold>Round corners on Linux:</Bold> The window's rounded corners survive the new titlebar instead of being painted over square.
-- 🏷️ <Bold>No title flicker:</Bold> The titlebar hands its title over across a route change without an empty or doubled frame.
+- 📈 <Bold>CPU history and alerts:</Bold> CPU history now uses per-interval instead of lifetime usage, and Podman no longer over-reports CPU. Existing alert thresholds may now fire correctly.
+- 🍎 <Bold>macOS window controls:</Bold> Traffic lights stay centered while resizing.
+- 🐧 <Bold>Linux window corners:</Bold> The titlebar no longer paints over rounded corners.
+- 🏷️ <Bold>Title transitions:</Bold> Route changes no longer show empty or duplicate titles.
 
-### ⚠️ Breaking Changes
+### ⚠️ Breaking
 
-- <Bold>Container selection lives only in the URL:</Bold> The old flat container routes redirect, but the app no longer restores the container you had selected when it last closed.
-- <Bold>The sidebar's Actions section is gone:</Bold> Container actions live on the row menu and in the container's own toolbar, and lifecycle actions (start, stop, restart) moved into that actions menu rather than sitting as standalone buttons.
+- Container selection now lives only in the URL. The old flat container routes redirect, but the app no longer restores the container you had selected when it last closed.
+- The sidebar's 操作 / Actions section is gone. Container actions, including start, stop, and restart, now live in row menus and the container toolbar.
 
 </ChangelogEntry>
 
 <ChangelogEntry version="v5.6.1" date="Jul 12, 2026">
 ## Polished Motion & Smoother Dashboard Charts
 
-This release refreshes animations across the app, rebuilds the dashboard CPU and memory charts on a lightweight liveline engine, makes tables faster, unifies the streaming core, and fixes navigation highlighting and tooltip issues.
-
 ### ✨ Features
 
-- 🎬 <Bold>Polished motion:</Bold> App-wide animation refresh — instant tooltips, popovers that scale from their trigger, subtle button press feedback, and full reduced-motion support
-- 📈 <Bold>Smoother dashboard charts:</Bold> CPU and memory charts now render on a lightweight liveline engine with hover scrubbing, plus a proper y-axis
+- 🎬 <Bold>Motion:</Bold> Instant tooltips, trigger-based popover scaling, button press feedback, and reduced-motion support.
+- 📈 <Bold>Dashboard charts:</Bold> CPU and memory charts use a lightweight liveline renderer with hover scrubbing and a y-axis.
 
 ### 🔧 Improvements
 
-- ⚡ <Bold>Faster tables:</Bold> Virtualized rows no longer re-render on every scrolled pixel, and container views subscribe only to the state they need
-- 🎞️ <Bold>Cheaper animations:</Bold> Expanded-row and sidebar animations were flattened and tokenized for lower CPU cost
-- 📡 <Bold>Unified streaming core:</Bold> Logs, stats, builds, pulls, and terminals now share one stream lifecycle, improving cleanup and reconnect behavior
+- ⚡ <Bold>Table rendering:</Bold> Virtualized rows no longer re-render on every scrolled pixel, and container views subscribe only to needed state.
+- 🎞️ <Bold>Animation cost:</Bold> Expanded-row and sidebar animations use less CPU.
+- 📡 <Bold>Streaming lifecycle:</Bold> Logs, stats, builds, pulls, and terminals share cleanup and reconnect handling.
 
 ### 🐛 Bug Fixes
 
-- 🧭 <Bold>Navigation highlighting:</Bold> Sidebar items and breadcrumbs now resolve correctly on subroutes with shared prefixes
-- 📊 <Bold>Dashboard tooltips:</Bold> Fixed NaN time labels and bare-zero values in I/O tooltips; charts pause while scrubbing
-- 🧱 <Bold>Process view:</Bold> Dataless columns are hidden and headers no longer wrap
-- 🗄️ <Bold>Storage detail:</Bold> The detail table now follows the selected tab
+- 🧭 <Bold>Navigation highlighting:</Bold> Sidebar items and breadcrumbs now resolve correctly on subroutes with shared prefixes.
+- 📊 <Bold>Dashboard tooltips:</Bold> Fixed NaN time labels and bare-zero values in I/O tooltips; charts pause while scrubbing.
+- 🧱 <Bold>Process view:</Bold> Dataless columns are hidden and headers no longer wrap.
+- 🗄️ <Bold>Storage detail:</Bold> The detail table now follows the selected tab.
 
 </ChangelogEntry>
 
 <ChangelogEntry version="v5.6.0" date="Jul 6, 2026">
 ## Apple Container Support & Guided Engine Setup
 
-This release brings Apple's container engine to Dockerman as a first-class runtime on macOS, with guided engine setup and switching, smoother large views, consistent filters, and a tidier ports column.
-
 ### ✨ Features
 
-- 🍎 <Bold>Apple Container support:</Bold> Connect to Apple's container engine on macOS, manage containers, images, volumes, networks, logs, stats, builds, pulls, and interactive terminals from Dockerman
-- 🧭 <Bold>Guided engine setup:</Bold> macOS users can detect, start, stop, and switch engines from onboarding and Settings
+- 🍎 <Bold>Apple Container support:</Bold> Manage Apple containers, images, volumes, networks, logs, stats, builds, pulls, and terminals on macOS.
+- 🧭 <Bold>Guided engine setup:</Bold> macOS users can detect, start, stop, and switch engines from onboarding and Settings.
 
 ### 🔧 Improvements
 
-- ⚡ <Bold>Smoother large views:</Bold> Faster image filtering, table resizing, route switching, and dialog-heavy action menus
-- 🎛️ <Bold>Consistent filters:</Bold> Image, volume, and log filters now use the same segmented control style
-- 🔌 <Bold>Tidier ports column:</Bold> Port mappings hide the redundant 0.0.0.0 host, the "+N" badge stays visible next to long labels, and every port — including those inside "+N" — can be copied with one click
-- 🧩 <Bold>Cleaner interface:</Bold> Many large pages and dialogs were split and simplified, making the app easier to navigate and maintain
+- ⚡ <Bold>Large-view performance:</Bold> Faster image filtering, table resizing, route switching, and action menus.
+- 🎛️ <Bold>Consistent filters:</Bold> Image, volume, and log filters now use the same segmented control style.
+- 🔌 <Bold>Ports column:</Bold> Hide redundant `0.0.0.0` hosts, keep the `+N` badge visible, and allow every port to be copied.
+- 🧩 <Bold>Page structure:</Bold> Large pages and dialogs were split into smaller components.
 
 ### 🐛 Bug Fixes
 
-- 🔌 <Bold>More reliable engine switching:</Bold> Fixed connection, capability, polling, and selection edge cases across Docker and Apple Container
-- 📡 <Bold>Better streaming:</Bold> Improved logs, stats, build output, pulls, and terminal behavior for Apple Container
-- 🧪 <Bold>Stability fixes:</Bold> Fixed chart rendering, persisted store recovery, compose editor saves, container selection after reconnect, and log stream completion states
+- 🔌 <Bold>Engine switching:</Bold> Fixed connection, capability, polling, and selection edge cases across Docker and Apple Container.
+- 📡 <Bold>Apple Container streaming:</Bold> Fixed logs, stats, build output, pulls, and terminals.
+- 🧪 <Bold>Stability fixes:</Bold> Fixed chart rendering, persisted store recovery, compose editor saves, container selection after reconnect, and log stream completion states.
 
 </ChangelogEntry>
 
 <ChangelogEntry version="v5.5.0" date="Jun 30, 2026">
 ## End-to-End Kubernetes Management, Live Container Triage & Sharper Search
 
-This release makes Kubernetes a first-class workload — many more resources, guarded workload operations, YAML everywhere, deeper Pod insight, port-forwarding, Helm, RBAC, events, and auto-refresh. It also adds live container triage, one-click copy across the app, sharper search, and more maintenance tools.
-
 ### ✨ Features
 
-- ☸️ <Bold>Kubernetes management, end to end:</Bold> Dockerman now drives clusters as a first-class workload, not just an add-on
-  - 🧭 Many more resources: Adds HorizontalPodAutoscalers, ResourceQuotas, LimitRanges, PodDisruptionBudgets, EndpointSlices, and arbitrary CustomResourceDefinitions and instances alongside the core resources
-  - 🚀 Workload operations: Roll back, pause/resume, restart, and update images on Deployments; rerun Jobs; trigger CronJobs; tune HPA replicas; and drain, cordon, or act on Nodes — each guarded by a typed confirmation
-  - 📄 YAML everywhere: Open or link almost any resource to its YAML, copy the matching `kubectl` command, and apply changes by pasting YAML
-  - 🔭 Pod insight: Richer pod details with container state reasons, resource metrics, exit diagnostics, missing-request flags, and one-click links to logs, nodes, owners, and images
-  - 🛰️ Port-forwarding: Auto-pick a local port, disambiguate targets, open forwarded URLs, and copy ready-to-run `kubectl port-forward` commands
-  - ⎈ Helm: Pick chart versions, view release manifests, validate and copy repository URLs, and roll back releases with confirmation
-  - 🔐 RBAC: Run can-i checks, search bindings by subject, and review rule summaries
-  - 🔔 Events: Filter by time window and resource, export, link messages to the resources they reference, and highlight repeated warnings
-  - 🔎 Search & navigation: Per-resource search and filters, all-namespace scopes, keyboard row expansion, Kubernetes search hotkeys, and a Spotlight mirror of the Kubernetes sidebar with persistent groups
-  - 🔄 Auto-refresh: Kubernetes lists refresh on their own and pause while the window is hidden
-- 🐳 <Bold>Live container triage:</Bold> Open recent logs and triage views for failing containers, see healthcheck failure output and exit diagnostics, and surface abnormal Docker events
-- 📋 <Bold>Copy what you need:</Bold> One-click copy for container IDs, names, and image references, published port URLs, network IDs, volume mountpoints, inspect mount paths, and `docker logs`/inspect commands
-- 🔍 <Bold>Sharper search:</Bold> Search containers by command, mount, label, network, and status with live filter counts; search image, volume, and network metadata; and group and search container stacks
-- 🧹 <Bold>More maintenance tools:</Bold> Prune the Docker build cache, create a container straight from an image, and start stopped Compose projects
+- ☸️ <Bold>Kubernetes management:</Bold>
+  - 🧭 <Bold>Resources:</Bold> Manage HorizontalPodAutoscalers, ResourceQuotas, LimitRanges, PodDisruptionBudgets, EndpointSlices, and custom resources.
+  - 🚀 <Bold>Workloads:</Bold> Roll back, pause, resume, restart, and update Deployments; rerun Jobs; trigger CronJobs; tune HPAs; and run Node actions such as drain and cordon, with typed confirmations.
+  - 📄 <Bold>YAML:</Bold> Open resource YAML, copy its `kubectl` command, or apply pasted YAML.
+  - 🔭 <Bold>Pods:</Bold> See state reasons, metrics, exit details, missing requests, and links to logs, Nodes, owners, and images.
+  - 🛰️ <Bold>Port forwarding:</Bold> Pick a local port automatically, choose a target, open its URL, or copy the `kubectl port-forward` command.
+  - ⎈ <Bold>Helm:</Bold> Select chart versions, inspect manifests, validate or copy repository URLs, and roll back releases with confirmation.
+  - 🔐 <Bold>RBAC:</Bold> Run can-i checks, find bindings by subject, and inspect rule summaries.
+  - 🔔 <Bold>Events:</Bold> Filter by time and resource, export results, follow resource links, and highlight repeated warnings.
+  - 🔎 <Bold>Search and navigation:</Bold> Search and filter each resource, use all-namespace scopes, keyboard row expansion, search shortcuts, and persistent Spotlight groups.
+  - 🔄 <Bold>Auto-refresh:</Bold> Lists refresh automatically and pause while the window is hidden.
+- 🐳 <Bold>Container triage:</Bold> Open recent logs for failing containers and see healthcheck failures, exit details, and abnormal Docker events.
+- 📋 <Bold>Copy actions:</Bold> Copy container IDs, names, images, port URLs, network IDs, volume mountpoints, inspect paths, and `docker logs` or inspect commands.
+- 🔍 <Bold>Search:</Bold> Search container commands, mounts, labels, networks, and status with live counts; search image, volume, and network metadata; and group or search container stacks.
+- 🧹 <Bold>Maintenance:</Bold> Prune build cache, create containers from images, and start stopped Compose projects.
 
 ### 🔧 Improvements
 
-- 📁 <Bold>File explorer & logs:</Bold> Keyboard-accessible navigation, focusable search with shortcuts and empty-state resets, stream filtering, copyable file paths, and sanitized export filenames
-- ⌨️ <Bold>Accessibility & naming:</Bold> Hundreds of buttons, inputs, and menus across the app gained accessible names and keyboard support
-- 🌐 <Bold>Localization:</Bold> Localized status labels, timestamps, time ranges, and search controls across Docker and Kubernetes views in zh/ja/es
-- 🧩 <Bold>Clearer disabled states:</Bold> Disabled actions — image push, stack deploy, network and volume delete, alert and task creation, and more — now explain why
-- 🗂️ <Bold>Backups:</Bold> Remember the backup directory, reveal completed backups, and review recent backups per container
-- 🪟 <Bold>macOS polish:</Bold> Restore the main window on reopen, keep the Dock icon visible after close, and default builds to universal binaries
+- 📁 <Bold>Files and logs:</Bold> Added keyboard navigation, search shortcuts, filter resets, stream filtering, copyable paths, and safe export filenames.
+- ⌨️ <Bold>Accessibility:</Bold> Added names and keyboard support to buttons, inputs, and menus.
+- 🌐 <Bold>Localization:</Bold> Localized Docker and Kubernetes statuses, times, ranges, and search controls in zh/ja/es.
+- 🧩 <Bold>Disabled actions:</Bold> Image push, stack deploy, resource delete, alert creation, and task creation now explain why they are unavailable.
+- 🗂️ <Bold>Backups:</Bold> Remember the backup directory, reveal completed backups, and list recent backups per container.
+- 🪟 <Bold>macOS:</Bold> Restore the window on reopen, keep the Dock icon after close, and build universal binaries by default.
 
 ### 🐛 Bug Fixes
 
-- 🔒 <Bold>Secret redaction:</Bold> Redact sensitive Docker labels, image label secrets, Docker options, and Secret YAML by default, and stop matching searches on redacted values
-- 🔁 <Bold>Refresh correctness:</Bold> Wait for refreshes before reporting success, and refresh lists after lifecycle, batch, import, and row actions
-- 🗑️ <Bold>Safer deletes:</Bold> Require typed confirmation before removing containers and Compose projects, skip in-use volume batch deletes, and hide delete for managed networks
-- 🔌 <Bold>Ports & registries:</Bold> Preserve host IPs and registry ports across push, tag, and link, and keep restored port bindings intact
-- 🖥️ <Bold>Terminal:</Bold> Reconnect dropped Docker and Kubernetes terminal sessions, and stop terminal and log selections from hijacking the clipboard
-- 🧮 <Bold>Sorting & rates:</Bold> Sort capacity, size, and ref-count columns numerically, and calculate dashboard I/O rates per second
-- 🍎 <Bold>Builds:</Bold> Default macOS builds to universal binaries and sign sidecar binaries correctly
+- 🔒 <Bold>Secret redaction:</Bold> Redact sensitive Docker labels, image labels, options, and Secret YAML, and exclude redacted values from search.
+- 🔁 <Bold>Refreshes:</Bold> Wait for completion before reporting success and refresh lists after lifecycle, batch, import, and row actions.
+- 🗑️ <Bold>Deletes:</Bold> Require typed confirmation for containers and Compose projects, skip in-use volumes in batches, and hide delete for managed networks.
+- 🔌 <Bold>Ports and registries:</Bold> Preserve Host IPs, registry ports, and restored port bindings.
+- 🖥️ <Bold>Terminals:</Bold> Reconnect dropped Docker and Kubernetes sessions and prevent terminal or log selection from replacing the clipboard.
+- 🧮 <Bold>Sorting and rates:</Bold> Sort capacity, size, and reference counts numerically and calculate dashboard I/O per second.
+- 🍎 <Bold>macOS builds:</Bold> Build universal binaries by default and sign sidecars correctly.
 
 </ChangelogEntry>
 
 <ChangelogEntry version="v5.4.0" date="Jun 13, 2026">
 ## App Marketplace, SSH Host Deploys & Inline Port Editing
 
-This release introduces a full App Marketplace for browsing and installing one-click app templates, lets you deploy and manage apps on SSH-only remote hosts, and adds inline editing of a running container's port mappings — plus safer template downloads and streaming container stats.
-
 ### ✨ Features
 
-- 🛍️ <Bold>App Marketplace:</Bold> Browse and install apps from a catalog of one-click templates, then manage everything you've installed
-  - 🌐 Open-Source App Sources: Comes with the Portainer Community Templates (auto-synced) and CasaOS App Store (synced on demand) sources, and you can add your own
-  - 🗃️ Import From Existing Stores: Install apps from docker-compose repos (Dockge-style), CasaOS, and Portainer templates — deployed using their original compose files
-  - 🛡️ Safety Checks Before Deploy: Apps that need elevated access (privileged mode, the Docker socket, host networking, and similar) are flagged and ask you to confirm before installing
-  - 🧩 Configure Before You Install: Edit a template's variables, environment variables, ports, and data location — and add your own environment variables when a template doesn't include one
-  - 🗂️ Rich Details: See an app's image, ports, volumes, network, restart policy, source, and a link to its repository before installing, and inspect installed apps down to their compose files
-- 🔐 <Bold>Deploy to SSH Hosts:</Bold> Install and manage apps on remote hosts reachable only over SSH
-- 🔌 <Bold>Edit Container Ports:</Bold> Add, change, and remove a running container's port mappings inline
+- 🛍️ <Bold>App Marketplace:</Bold> Browse, install, and manage app templates.
+  - 🌐 <Bold>Sources:</Bold> Includes auto-synced Portainer Community Templates and on-demand CasaOS App Store sync, with custom source support.
+  - 🗃️ <Bold>Imports:</Bold> Install from docker-compose repositories, CasaOS, or Portainer templates using their original Compose files.
+  - 🛡️ <Bold>Safety checks:</Bold> Privileged mode, Docker socket access, Host networking, and similar permissions require confirmation.
+  - 🧩 <Bold>Configuration:</Bold> Edit variables, environment, ports, and data paths before installation, including custom environment variables missing from the template.
+  - 🗂️ <Bold>Details:</Bold> Review images, ports, volumes, networks, restart policy, source, repository, and Compose files.
+- 🔐 <Bold>Deploy to SSH hosts:</Bold> Install and manage apps on remote hosts reachable only over SSH
+- 🔌 <Bold>Edit container ports:</Bold> Add, change, and remove a running container's port mappings inline
 
 ### 🔧 Improvements
 
-- 🔒 <Bold>Safer Template Downloads:</Bold> Template sources can't be used to reach internal or private network addresses, and downloads are size-limited
-- 📡 <Bold>Live Sync Progress:</Bold> Watch download and import progress while a template source syncs
-- 📍 <Bold>Smarter Deploy Defaults:</Bold> The data location is prefilled per host, and the page jumps to your installed apps once a deploy finishes
-- 📊 <Bold>Streaming Stats:</Bold> Container stats stream over a persistent connection for lower overhead
+- 🔒 <Bold>Template downloads:</Bold> Block internal and private network addresses and limit download size.
+- 📡 <Bold>Live sync progress:</Bold> Watch download and import progress while a template source syncs
+- 📍 <Bold>Deploy defaults:</Bold> Prefill the data path per Host and open installed apps after deployment.
+- 📊 <Bold>Streaming stats:</Bold> Use a persistent connection for container stats.
 
 ### 🐛 Bug Fixes
 
-- 🪟 <Bold>Windows & Linux CLI Bundling:</Bold> Fixed the bundled `dockerman` CLI paths in the Windows installer and the Linux package
-- 🔐 <Bold>SSH Trust Handling:</Bold> Fixed how SSH host-key trust is passed through, and closed untrusted forwarding paths
-- 🧹 <Bold>App Reliability:</Bold> Handle host-switching races, keep records when cleanup fails, and correctly identify managed volumes
+- 🪟 <Bold>Windows & Linux CLI bundling:</Bold> Fixed the bundled `dockerman` CLI paths in the Windows installer and the Linux package
+- 🔐 <Bold>SSH trust handling:</Bold> Fixed how SSH host-key trust is passed through, and closed untrusted forwarding paths
+- 🧹 <Bold>App state:</Bold> Fixed Host-switch races, retained records after cleanup failures, and identified managed volumes correctly.
 
 ### ⚠️ Notes
 
-- 🔁 <Bold>Portainer Apps From Earlier Test Builds:</Bold> Portainer templates now use name-based IDs instead of position-based ones. If you installed a Portainer app from a pre-release build, it won't match the new catalog — uninstall and reinstall it to restore updates and redeploys.
+- 🔁 <Bold>Portainer test-build apps:</Bold> Template IDs now use names instead of positions. Reinstall apps from pre-release builds to restore updates and redeploys.
 
 </ChangelogEntry>
 
 <ChangelogEntry version="v5.3.1" date="May 12, 2026">
 ## Safer Windows CLI Copy Command
 
-A targeted patch that keeps the Settings → CLI "Copy command" install path from ever touching User PATH, so the GUI's "Install for this user" button remains the single source of PATH updates.
-
 ### 🐛 Bug Fixes
 
-- 🪟 <Bold>Windows CLI Copy Command PATH Safety:</Bold> Settings → CLI "Copy command" no longer touches User PATH. The previous PowerShell could collapse User PATH down to just the Dockerman bin directory in edge cases. PATH updates are now handled exclusively by the GUI "Install for this user" button, which uses safe direct registry access. The copied command also writes the ownership marker so manual installs are correctly recognized as Dockerman-managed instead of `Unsupported`.
+- 🪟 <Bold>Windows CLI PATH safety:</Bold> Settings → CLI → "Copy command" no longer changes User PATH, which could previously collapse to the Dockerman bin directory. Only "Install for this user" updates PATH through direct registry access. Copied commands write the ownership marker so manual installs appear as Dockerman-managed instead of `Unsupported`.
 
 </ChangelogEntry>
 
 <ChangelogEntry version="v5.3.0" date="May 5, 2026">
 ## Bundled CLI, AI Assistant Plugins & Windows Engine Switcher
-
-This release ships the Dockerman CLI alongside the desktop app, adds a Settings panel for installing Claude Code, Codex, and Gemini CLI plugins, lets Windows users switch between the managed WSL2 engine and OS-native Docker, and brings polish to reconnects, WSL setup, Trivy updates, and the Build page.
 
 ### ✨ Features
 
@@ -211,7 +197,7 @@ This release ships the Dockerman CLI alongside the desktop app, adds a Settings 
 - 🔄 <Bold>Engine-Aware Reconnect:</Bold> Local host automatically reconnects when the engine source changes from the WSL page
 - 🔁 <Bold>WSL Reinstall:</Bold> Added a reinstall option to the WSL setup flow
 - 🛡️ <Bold>Trivy Update Check:</Bold> Check for and apply Trivy CLI updates from within Settings
-- 🕒 <Bold>Build Page Polish:</Bold> Image build page now shows formatted timestamps and truncates long fields with tooltips
+- 🕒 <Bold>Build page:</Bold> Show formatted timestamps and truncate long fields with tooltips.
 
 ### 🔧 Improvements
 
@@ -231,39 +217,33 @@ This release ships the Dockerman CLI alongside the desktop app, adds a Settings 
 <ChangelogEntry version="v5.2.0" date="Apr 26, 2026">
 ## Multi-Cluster Kubernetes, Image Watch & Homelab Foundations
 
-This release broadens Kubernetes management with multi-cluster switching, YAML dry-run, and dedicated pages for nodes, PVs, and namespaces; adds log search, an image upgrade watch service with notifications, bind-mount backup/restore, and the Homelab roadmap foundation; and lands a settings workspace, full i18n coverage, and a standardized data-table pattern.
-
 ### ✨ Features
 
-- ☸️ <Bold>Kubernetes Enhancements:</Bold> Broadened cluster management surface
-  - 🔀 Multi-Cluster Switching: Switch between Kubernetes clusters independently from Docker hosts
-  - 🧪 YAML Dry-Run Preview: Compare changes before applying via server-side dry-run
-  - 📣 Events Browser: Filterable cluster events page with endpoint filters
-  - 🖥️ Node / PV / Namespace Pages: Dedicated management pages for nodes, persistent volumes, and namespaces
-  - 🔍 Kubeconfig Context Discovery: Auto-detect contexts in the import dialog
-  - 🛡️ Typed 403 Handling: `K8sListResult<T>` surfaces permission errors on list views
-  - 🗑️ Delete Buttons: Added for Services, Ingresses, CronJobs, DaemonSets, Deployments, StatefulSets, and NetworkPolicies
+- ☸️ <Bold>Kubernetes:</Bold>
+  - 🔀 <Bold>Cluster switching:</Bold> Switch Kubernetes clusters independently from Docker Hosts.
+  - 🧪 <Bold>YAML dry run:</Bold> Preview server-side changes before applying them.
+  - 📣 <Bold>Events:</Bold> Filter cluster events, including by endpoint.
+  - 🖥️ <Bold>Resource pages:</Bold> Manage Nodes, persistent volumes, and namespaces.
+  - 🔍 <Bold>Kubeconfig contexts:</Bold> Detect contexts in the import dialog.
+  - 🛡️ <Bold>Permission errors:</Bold> `K8sListResult<T>` surfaces 403 errors in lists.
+  - 🗑️ <Bold>Delete actions:</Bold> Delete Services, Ingresses, CronJobs, DaemonSets, Deployments, StatefulSets, and NetworkPolicies.
 - 🔍 <Bold>Log Search:</Bold> Search logs with keyword highlight, regex, case-sensitive toggle, and match navigation
 - 🎛️ <Bold>Unified Log Controls:</Bold> Time range presets, tail count selector, and query filters consolidated into a single toolbar
 - 📈 <Bold>Historical Stats Chart:</Bold> CPU/memory history with a 7-tier time range selector
 - 📝 <Bold>Compose YAML Editor:</Bold> Monaco-backed editor with backend Tauri commands for editing and applying Compose files
 - 🔄 <Bold>Docker Run → Compose Converter:</Bold> Dedicated page and menu entries that translate `docker run` commands into Compose YAML
-- 🔔 <Bold>Image Upgrade Watch:</Bold> Background subscription service for image update detection
-  - 📬 Subscription page + settings UI with per-channel controls
-  - 🔐 Registry credential resolver with fail-closed handling on ambiguity
-  - 🕒 Scheduler with history cursor tracking and batched notifications
-  - 🔗 `dockerman://` deep link handler
+- 🔔 <Bold>Image update watch:</Bold> Background checks with subscription settings, per-channel controls, fail-closed registry credential lookup, history-cursor scheduling, batched notifications, and `dockerman://` links.
 - 💾 <Bold>Bind Mount Backup & Restore:</Bold> Include supported bind mount data in backups and remap or restore it per mount during restore
-- 🏡 <Bold>Homelab Roadmap (Phase 1–3 partial):</Bold> Foundation plus selected non-MVP items
-  - 🧰 Diagnostic Bundle: One-click packaging of logs, inspect, and host state for support
-  - 🚨 Preset Alert Rules: Built-in restart-loop and container-crash rules with delete-guard and reset-to-defaults
-  - 📝 .env Visual Editor: `/env-editor?path=...` page with key/value editing, comment/blank-line preservation, and atomic Save & Apply
-  - 📊 Multi-Container Stats Compare: Side-by-side CPU/memory charts for up to 6 containers with persisted selections
-  - 📂 Container-File Editor Hardening: Mode-preserving save, 1 MB edit cap, and NUL-byte binary detection
-- 🌐 <Bold>Full i18n Coverage:</Bold> Replaced remaining hardcoded strings with i18n calls and shipped translations for Spanish, Japanese, and Chinese
-- ⚙️ <Bold>Settings Workspace Dialog:</Bold> Settings moved into a workspace-style dialog with flattened panels, refined sidebar chrome, and a simplified activated-license footer
+- 🏡 <Bold>Homelab tools:</Bold>
+  - 🧰 <Bold>Diagnostic bundle:</Bold> Package logs, inspect data, and Host state for support.
+  - 🚨 <Bold>Preset alerts:</Bold> Built-in restart-loop and crash rules with delete protection and reset.
+  - 📝 <Bold>.env editor:</Bold> Edit key/value pairs at `/env-editor?path=...`, preserve comments and blank lines, and use atomic Save & Apply.
+  - 📊 <Bold>Stats comparison:</Bold> Compare CPU and memory for up to six containers with saved selections.
+  - 📂 <Bold>File editor safety:</Bold> Preserve modes, limit edits to 1 MB, and detect NUL-byte binary files.
+- 🌐 <Bold>i18n coverage:</Bold> Replaced remaining hardcoded text and added Spanish, Japanese, and Chinese translations.
+- ⚙️ <Bold>Settings dialog:</Bold> Moved Settings into a workspace dialog with flat panels, a simpler sidebar, and a smaller activated-license footer.
 - 👁️ <Bold>Sidebar Visibility Controls:</Bold> Per-item show/hide for the main sidebar plus per-group default expand state and visibility controls for the Kubernetes sidebar
-- 🧱 <Bold>Standardized Data Table Pattern:</Bold> TanStack Table v8 baseline with column resizing/sorting, persisted column widths, global search, truncate tooltips, and viewport-centered empty state — applied to K8s `event`, `pod`, `deployment`, `daemon-set`, `stateful-set`, `job`, `cron-job`, `service`, `ingress`, `config-map`, `pv`, `namespace`, and `port-forward`
+- 🧱 <Bold>Kubernetes tables:</Bold> Standardized TanStack Table v8 resizing, sorting, saved widths, search, truncation tooltips, and empty states across `event`, `pod`, `deployment`, `daemon-set`, `stateful-set`, `job`, `cron-job`, `service`, `ingress`, `config-map`, `pv`, `namespace`, and `port-forward`.
 - 📊 <Bold>K8s Cluster Overview Cards:</Bold> CPU and memory usage cards on the cluster overview page
 - 💥 <Bold>Pod Force Delete:</Bold> Skip graceful shutdown (grace period 0) for Pods stuck terminating
 - 🗄️ <Bold>System Task Management:</Bold> Scheduler task-run snapshots and a built-in task management UI with locked controls for built-in tasks
@@ -277,7 +257,7 @@ This release broadens Kubernetes management with multi-cluster switching, YAML d
 - ↩️ <Bold>Run Converter Back Navigation:</Bold> Added a back button to the converter page
 - 🧹 <Bold>Biome Lint Cleanup:</Bold> Resolved all 71 outstanding lint errors across the codebase
 - 🗂️ <Bold>K8s Sidebar Reorg:</Bold> Top group aligned with mainstream tools, icons refreshed, and per-group default expand state decoupled from runtime collapse
-- 🎚️ <Bold>Container Toolbar:</Bold> Show-all and batch-mode toggles consolidated into the search row using a new Shadcn Toggle component; view-mode toggle refined
+- 🎚️ <Bold>Container toolbar:</Bold> Moved show-all, batch-mode, and view-mode toggles into the search row using Shadcn Toggle.
 - 🧰 <Bold>Alerts Layout:</Bold> Selector + detail layout for alerts; preset rule reused in legacy notification migration
 - 🧪 <Bold>Native WDIO E2E Runner:</Bold> Enabled with documented progress and a refreshed Dockerman 5.2.0 manual test plan
 
@@ -285,7 +265,7 @@ This release broadens Kubernetes management with multi-cluster switching, YAML d
 
 - 🔁 <Bold>K8s Sidebar Flicker:</Bold> Prevented flicker when switching clusters
 - 🧭 <Bold>K8s Route Restore:</Bold> Route returns to last resource when re-entering a cluster
-- 🧾 <Bold>K3d Log Dialog Scrolling:</Bold> Refined scroll behavior in the k3d log dialog
+- 🧾 <Bold>K3d log dialog:</Bold> Fixed scrolling.
 - 🧱 <Bold>YAML Resource Selection:</Bold> Prevented stale resource selection in the YAML editor
 - 🛠️ <Bold>Make History Recording:</Bold> Hardened make history write path
 - 🕰️ <Bold>Relative Time Defaults:</Bold> Fixed missing default relative-time translations and switched to `Intl.RelativeTimeFormat`
@@ -311,26 +291,20 @@ This release broadens Kubernetes management with multi-cluster switching, YAML d
 <ChangelogEntry version="v5.1.0" date="Apr 8, 2026">
 ## Podman Runtime Support
 
-This release introduces first-class Podman runtime support alongside Docker, with automatic runtime detection, per-host preference selection, and an extensible capabilities system for feature gating.
-
 ### ✨ Features
 
-- 🐙 <Bold>Podman Support:</Bold> First-class Podman runtime support alongside Docker
-  - 🔍 Runtime Detection: Automatic detection of Docker, Podman, or compatible runtimes via API probing
-  - ⚙️ Runtime Preference: Per-host and global runtime preference selector (Auto / Docker / Podman)
-  - 🔌 Socket Resolution: Auto-discovery of Podman rootless/rootful sockets on Linux and macOS
-  - 🌐 Remote SSH Probing: Runtime-aware socket resolution for remote SSH hosts
-  - 🏷️ Runtime Badge: Sidebar host switcher shows detected runtime type with color-coded badge
-  - 📊 Dashboard Integration: Runtime kind displayed in the system info card
-  - 🔧 Connection Feedback: Detected runtime shown in connection success terminal output
-  - 🚫 Compose Gate: Stack templates and Compose actions automatically hidden for Podman runtime
-  - 🔎 Spotlight Awareness: Command palette skips Compose data when connected to Podman
-  - 🧩 Capabilities Layer: Extensible runtime capabilities system for future feature gating
+- 🐙 <Bold>Podman support:</Bold>
+  - 🔍 Detect Docker, Podman, and compatible runtimes through API probes.
+  - ⚙️ Set Auto, Docker, or Podman globally or per Host.
+  - 🔌 Find rootless and rootful Podman sockets on Linux and macOS, including over SSH.
+  - 🏷️ Show the detected runtime in a color-coded Host badge, the Dashboard system card, and connection output.
+  - 🚫 Hide Compose templates, actions, and Spotlight data when Podman does not support them.
+  - 🧩 Gate features through runtime capabilities.
 
 ### 🔧 Improvements
 
-- 🔄 <Bold>Runtime Switch Handling:</Bold> Template page dynamically updates when switching between Docker and Podman hosts
-- 🛡️ <Bold>Spotlight Isolation:</Bold> Spotlight window runtime checks use direct Tauri commands without store side effects
+- 🔄 <Bold>Runtime switching:</Bold> Update templates when switching between Docker and Podman Hosts.
+- 🛡️ <Bold>Spotlight isolation:</Bold> Runtime checks use direct Tauri commands without store side effects.
 
 <ChangelogImage src="/screenshots/podman.png" alt="Podman Runtime Dashboard" />
 
@@ -339,59 +313,46 @@ This release introduces first-class Podman runtime support alongside Docker, wit
 <ChangelogEntry version="v5.0.0" date="Apr 7, 2026">
 ## Kubernetes Support & Cloud Tunnels
 
-This major release introduces full Kubernetes management, Cloudflared tunnels for one-click internet exposure, automatic image upgrade detection with rollback, a rebuilt container info dashboard, and two new languages.
-
 ### ✨ Features
 
-- ☸️ <Bold>Kubernetes Support:</Bold> Full Kubernetes management alongside Docker
-  - 🚀 Cluster Management: Connect via kubeconfig or create local clusters with k3d
-  - 📦 Workloads: Manage Deployments, StatefulSets, DaemonSets, Jobs, CronJobs, ReplicaSets, and Pods
-  - 🌐 Networking: Services, Ingresses, Endpoints, and NetworkPolicies
-  - 🔧 Config & Storage: ConfigMaps, Secrets, PersistentVolumeClaims, and StorageClasses
-  - 🔐 RBAC: Roles, ClusterRoles, RoleBindings, ClusterRoleBindings, and ServiceAccounts
-  - 🧩 Custom Resources: Browse CRDs and manage their instances
-  - 📝 YAML Editor: Edit any resource with deep-link support
-  - ⎈ Helm Support: Browse releases, add repos, search charts, and install
-  - 🔗 Port Forwarding: Forward ports for Pods, Services, and Deployments
-  - 🌍 Auto DNS: Local DNS registration for forwarded services
-  - 🛠️ Debug Assistant: Troubleshooting page for Pod and cluster issues
-- ☁️ <Bold>Cloudflared Tunnels:</Bold> Expose local container ports to the internet with one click
-  - 🔘 One-click tunnel button in container port info table
-  - 📋 Dedicated tunnel list in sidebar with batch operations
-  - 🔄 Automatic cleanup on container stop/die/destroy
-  - 💾 Persistent tunnel recovery after crashes
-- 🔄 <Bold>Image Upgrade Detection:</Bold> Automatically detect when container images have updates
-  - 🏷️ Upgrade badges on container list with digest comparison
-  - 🖱️ One-click upgrade with image pull and container recreation
-  - 🔁 One-click rollback from action menu
-  - ⚡ Automatic checks on page load, refresh, and host switch
-- 📊 <Bold>Container Info Dashboard:</Bold> Rebuilt container info page with dashboard layout
-  - 🎯 Env vars, mounts, and resource limits in dedicated panels
-  - ❤️ Healthcheck status alongside CPU and memory
-- 🌐 <Bold>Japanese & Spanish:</Bold> Full localization for ja and es (4 languages total)
-- 🔌 <Bold>Container Ports Column:</Bold> New ports column with popover dropdown
-- 📋 <Bold>Unified Log Viewer:</Bold> Shared LogViewer for Docker and Kubernetes logs
-- 📜 <Bold>Table Horizontal Scrolling:</Bold> All major tables support horizontal scrolling
-- 🧭 <Bold>K8s Breadcrumb Navigation:</Bold> Clickable breadcrumbs for resource hierarchy
+- ☸️ <Bold>Kubernetes:</Bold>
+  - 🚀 Connect through kubeconfig or create local k3d clusters with managed installation and updates.
+  - 📦 Manage Deployments, StatefulSets, DaemonSets, Jobs, CronJobs, ReplicaSets, and Pods with logs, terminals, and inspect views.
+  - 🌐 Manage Services, Ingresses, Endpoints, and NetworkPolicies.
+  - 🔧 Manage ConfigMaps, masked Secrets, PersistentVolumeClaims, and StorageClasses.
+  - 🔐 View and edit RBAC resources and ServiceAccounts.
+  - 🧩 Browse CRDs and manage their instances.
+  - 📝 Edit resources as YAML through deep links.
+  - ⎈ Manage Helm repositories, charts, installations, and releases.
+  - 🔗 Forward Pod, Service, and Deployment ports with optional local domains and DNS.
+  - 🛠️ Diagnose Pod and cluster problems from the debug page.
+- ☁️ <Bold>Cloudflared tunnels:</Bold> Open container ports through quick tunnels, manage them from the sidebar, clean them up with container events, and recover them after crashes.
+- 🔄 <Bold>Image updates:</Bold> Compare digests on load, refresh, and Host switch; show update badges; recreate containers after pulling; and back up before upgrades for one-click rollback.
+- 📊 <Bold>Container info:</Bold> Show environment variables, mounts, limits, health, CPU, and memory in dedicated panels.
+- 🌐 <Bold>Japanese and Spanish:</Bold> Added ja and es, bringing the app to four languages.
+- 🔌 <Bold>Container ports:</Bold> Added a ports column with a popover for multiple mappings.
+- 📋 <Bold>Log viewer:</Bold> Docker containers and Kubernetes Pods share one viewer and backend batching.
+- 📜 <Bold>Horizontal tables:</Bold> Containers, images, volumes, networks, and image layers can scroll horizontally.
+- 🧭 <Bold>Kubernetes breadcrumbs:</Bold> Resource hierarchy links are clickable.
 
 ### 🔧 Improvements
 
-- 📌 <Bold>Sticky Expanded Rows:</Bold> Expanded container rows stay pinned while scrolling
-- 📏 <Bold>Column Width Persistence:</Bold> Resizable column widths remembered across sessions
-- 🔍 <Bold>Auto Show All on Search:</Bold> Searching now includes stopped containers
-- 📋 <Bold>Inspect Page:</Bold> Sticky section headers and improved layouts
-- 🔁 <Bold>Tunnel Reliability:</Bold> Startup timeout, cancel button, and crash recovery
-- 🔀 <Bold>Host/K8s Switcher Redesign:</Bold> Consolidated icons with animated tabs
-- 🔘 <Bold>Unified Toggle Button:</Bold> Merged Show All / Hide All toggle
-- 🎨 <Bold>K8s UI Polish:</Bold> Compacted overview, unified badges, streamlined detail pages
+- 📌 <Bold>Expanded rows:</Bold> Keep expanded container rows pinned while scrolling.
+- 📏 <Bold>Column widths:</Bold> Remember resized widths across sessions.
+- 🔍 <Bold>Search:</Bold> Include stopped containers automatically.
+- 📋 <Bold>Inspect page:</Bold> Added sticky section headers and consistent tables.
+- 🔁 <Bold>Tunnels:</Bold> Added startup timeout, cancellation, crash recovery, and error details.
+- 🔀 <Bold>Host and Kubernetes switchers:</Bold> Moved actions into the title row and added tab transitions.
+- 🔘 <Bold>Show all:</Bold> Merged Show All and Hide All into one toggle.
+- 🎨 <Bold>Kubernetes UI:</Bold> Removed detail-page cards, compacted overview stats, standardized Pod badges, and limited detail navigation to name cells.
 
 ### 🐛 Bug Fixes
 
-- 📝 <Bold>KeyValueTable Editing:</Bold> Fixed inability to edit values when adding new keys
-- 🐳 <Bold>K3d Container Filtering:</Bold> Hidden k3d containers from sidebar
-- ⚙️ <Bold>K8s Terminal:</Bold> Hardened terminal availability checks
-- 🔍 <Bold>Host Switcher Highlight:</Bold> Scoped active highlight to current mode
-- 🗑️ <Bold>K3d Cluster Cleanup:</Bold> Removed invalid flag from cluster delete
+- 📝 <Bold>KeyValueTable Editing:</Bold> Fixed inability to edit values when adding new keys, and vertically centered cell content
+- 🐳 <Bold>K3d Container Filtering:</Bold> Hidden k3d infrastructure containers from the sidebar
+- ⚙️ <Bold>K8s Terminal:</Bold> Hardened terminal availability checks for Kubernetes pods
+- 🔍 <Bold>Host Switcher Highlight:</Bold> Scoped active highlight to current sidebar mode
+- 🗑️ <Bold>K3d Cluster Cleanup:</Bold> Removed invalid `--registry-delete` flag from k3d cluster delete
 
 <ChangelogImage src="/screenshots/kubernetes.png" alt="Kubernetes Cluster Overview" />
 
@@ -400,23 +361,14 @@ This major release introduces full Kubernetes management, Cloudflared tunnels fo
 <ChangelogEntry version="v4.8.0" date="Mar 31, 2026">
 ## Container Backup & Restore
 
-This release introduces full container backup and restore functionality with progress tracking, preview, and Spotlight commands for quick access.
-
 ### ✨ Features
 
-- 💾 <Bold>Container Backup:</Bold> Full container backup and restore with progress tracking
-- 📦 <Bold>Archive Everything:</Bold> Back up container configuration, filesystem, and volumes to a single archive
-- 🔄 <Bold>Smart Restore:</Bold> Restore containers from backup with preview, port editing, name conflict resolution, and image retag
-- 🔍 <Bold>Backup Preview:</Bold> Shows configuration details before restoring
-- ⚡ <Bold>Streaming Progress:</Bold> Real-time progress tracking with cancel support
-- 🔎 <Bold>Spotlight Commands:</Bold> Quick access to backup and restore operations
+- 💾 <Bold>Container backup and restore:</Bold> Archive configuration, files, and volumes together. Preview restores, edit ports, resolve name conflicts, retag images, track or cancel progress, and start from Spotlight.
 
 </ChangelogEntry>
 
 <ChangelogEntry version="v4.7.0" date="Mar 29, 2026">
 ## Image Combobox & Port Search
-
-This release adds a searchable image combobox for container creation and port number search for containers.
 
 ### ✨ Features
 
@@ -425,15 +377,13 @@ This release adds a searchable image combobox for container creation and port nu
 
 ### 🔧 Improvements
 
-- 🔌 <Bold>EndpointsConfig:</Bold> Add missing EndpointsConfig field in docker run command parser
-- ⚠️ <Bold>Error Messages:</Bold> Show actual error message when container creation fails
+- 🔌 Add missing EndpointsConfig field in docker run command parser
+- ⚠️ Show actual error message when container creation fails
 
 </ChangelogEntry>
 
 <ChangelogEntry version="v4.6.0" date="Mar 26, 2026">
 ## Docker Hub Browser & Security Scanning
-
-This release adds container pause/unpause, commit, and clone operations, image push to registries, a built-in Docker Hub browser, and Trivy security scanning.
 
 ### ✨ Features
 
@@ -446,12 +396,12 @@ This release adds container pause/unpause, commit, and clone operations, image p
 
 ### 🔧 Improvements
 
-- 🎨 <Bold>Syntax Highlighting:</Bold> Docker command syntax highlighting
-- 📋 <Bold>Code Block Copy:</Bold> Copy button on Markdown code blocks in Hub detail page
-- 🎞️ <Bold>Animated Tab Indicator:</Bold> Animated tab indicator with spring transition
-- 📌 <Bold>Sticky Table Headers:</Bold> Sticky table headers for Hub search results
-- 🔄 <Bold>Circular Progress Ring:</Bold> Circular progress ring for Hub pull button
-- 📊 <Bold>Virtualized Table:</Bold> Virtualized vulnerability table for scan results
+- 🎨 Docker command syntax highlighting
+- 📋 Copy button on Markdown code blocks in Hub detail page
+- 🎞️ Animated tab indicator with spring transition
+- 📌 Sticky table headers for Hub search results
+- 🔄 Circular progress ring for Hub pull button
+- 📊 Virtualized vulnerability table for scan results
 
 <ChangelogImage src="/screenshots/readme/dockerhub.png" alt="Docker Hub Browser" />
 <ChangelogImage src="/screenshots/readme/image-security.png" alt="Image Security Scan" />
@@ -461,16 +411,9 @@ This release adds container pause/unpause, commit, and clone operations, image p
 <ChangelogEntry version="v4.5.0" date="Mar 21, 2026">
 ## Stats Page Redesign
 
-This release rebuilds the container resource monitoring dashboard with ring gauges, sparkline charts, time range controls, and collapsible detail panels.
-
 ### ✨ Features
 
-- 📊 <Bold>Stats Page Redesign:</Bold> Rebuilt container resource monitoring dashboard
-- 🔘 <Bold>Ring Gauges:</Bold> CPU and memory usage at a glance
-- 📈 <Bold>Sparkline Charts:</Bold> CPU, memory, network I/O, and disk I/O
-- ⏱️ <Bold>Time Range Selector:</Bold> Control chart history window
-- 📋 <Bold>Collapsible Detail Panels:</Bold> Network interfaces and disk devices
-- 💡 <Bold>Chart Tooltips:</Bold> Formatted values on hover
+- 📊 <Bold>Stats page:</Bold> Added CPU and memory gauges, resource sparklines, history ranges, collapsible network and disk details, and formatted tooltips.
 
 <ChangelogImage src="/screenshots/stats.png" alt="Stats Page Redesign" />
 
@@ -478,8 +421,6 @@ This release rebuilds the container resource monitoring dashboard with ring gaug
 
 <ChangelogEntry version="v4.4.0" date="Mar 11, 2026">
 ## File Preview & Multi-Select
-
-This release adds file preview with in-place editing, file deletion, and multi-select with batch operations in the container file browser.
 
 ### ✨ Features
 
@@ -495,26 +436,24 @@ This release adds file preview with in-place editing, file deletion, and multi-s
 <ChangelogEntry version="v4.3.0" date="Mar 8, 2026">
 ## WSL2 Docker Engine & Performance Boost
 
-This release lets Windows users run Docker Engine directly inside a managed WSL2 distro, adds non-blocking connection and concurrent data loading, and improves SSH tunnel reliability.
-
 ### ✨ Features
 
-- 🪟 <Bold>WSL2 Docker Engine:</Bold> Windows users can now run Docker Engine directly inside a managed WSL2 distro — no Docker Desktop required
-- 🧙 <Bold>Setup Wizard:</Bold> Guided one-click setup that imports a lightweight Alpine distro, installs Docker, and starts the daemon
-- 🔄 <Bold>Crash Recovery:</Bold> Automatic daemon restart with backoff on unexpected shutdown or VM reboot
-- 📊 <Bold>Resource Monitor:</Bold> View CPU, memory, and disk usage of the WSL2 distro
-- ⚙️ <Bold>Daemon Configuration:</Bold> Edit `daemon.json` with a form editor or raw JSON, including registry mirrors, with validation and one-click apply
-- 🔀 <Bold>Engine Switching:</Bold> Switch between Docker Desktop and WSL2 Engine from the connection failed dialog
+- 🪟 <Bold>WSL2 Docker Engine:</Bold> Run Docker in a managed WSL2 distribution without Docker Desktop.
+- 🧙 <Bold>Setup wizard:</Bold> Import Alpine, install Docker, and start the daemon.
+- 🔄 <Bold>Crash recovery:</Bold> Restart the daemon with backoff after shutdowns or VM reboots.
+- 📊 <Bold>Resource monitor:</Bold> View WSL2 CPU, memory, and disk use.
+- ⚙️ <Bold>Daemon configuration:</Bold> Edit and validate `daemon.json`, including registry mirrors, as a form or raw JSON.
+- 🔀 <Bold>Engine switching:</Bold> Switch between Docker Desktop and WSL2 from the connection-failed dialog.
 
 ### ⚡ Performance
 
-- 🔌 <Bold>Non-blocking Connection:</Bold> Connect dialog no longer blocks while syncing data — closes immediately after forwarding succeeds
-- 🚀 <Bold>Concurrent Data Loading:</Bold> Docker state (containers, images, compose, stats, info) now loads in parallel instead of sequentially
+- 🔌 <Bold>Connections:</Bold> Close the dialog after forwarding succeeds instead of waiting for data sync.
+- 🚀 <Bold>Data loading:</Bold> Load containers, images, Compose, stats, and system info in parallel.
 
 ### 🐛 Bug Fixes
 
-- 🔁 <Bold>Auto-Reconnect:</Bold> SSH tunnel failures are now detected via heartbeat and silently reconnected — no more manual reload needed
-- 🔗 <Bold>Host Status:</Bold> Host switcher no longer shows loading state after a successful connection
+- 🔁 <Bold>SSH reconnect:</Bold> Detect tunnel failures by heartbeat and reconnect without a manual reload.
+- 🔗 <Bold>Host status:</Bold> Stop showing loading after a successful connection.
 
 ### 🎨 Improvements
 
@@ -525,23 +464,20 @@ This release lets Windows users run Docker Engine directly inside a managed WSL2
 <ChangelogEntry version="v4.2.2" date="Feb 24, 2026">
 ## License Self-Service & Management
 
-This release adds self-service license reset, a dedicated license management page, and improved activation security with email verification.
-
 ### ✨ Features
 
-- 🔑 <Bold>License Self-Service Reset:</Bold> Reset all activated devices via email confirmation — no need to contact support
-- 🌐 <Bold>License Management Page:</Bold> Access `license.dockerman.app/manage` directly from Settings to manage your license
+- 🔑 <Bold>License reset:</Bold> Reset activated devices by email confirmation.
+- 🌐 <Bold>License management:</Bold> Open `license.dockerman.app/manage` from Settings.
 
 ### 🎨 Improvements
 
-- 📧 <Bold>Email Verification on Activation:</Bold> Your email is now verified during license activation for better account security
+- 📧 <Bold>Activation verification:</Bold> Verify email during license activation.
+- 🛡️ <Bold>Activation errors:</Bold> Show specific license error messages.
 
 </ChangelogEntry>
 
 <ChangelogEntry version="v4.2.1" date="Feb 24, 2026">
 ## Tray Icons & Click Behavior
-
-This release adds dedicated tray icons for Windows and Linux, and improves tray click behavior on macOS and Windows.
 
 ### ✨ Features
 
@@ -558,8 +494,6 @@ This release adds dedicated tray icons for Windows and Linux, and improves tray 
 <ChangelogEntry version="v4.2.0" date="Feb 23, 2026">
 ## Single Instance & Wayland Shortcuts
 
-This release introduces single-instance support on Linux/Windows and global keyboard shortcuts on Wayland, along with window and UI bug fixes.
-
 ### ✨ Features
 
 - 🖥️ <Bold>Single Instance (Linux/Windows):</Bold> Launching a second instance now activates the existing window instead of opening a duplicate
@@ -567,16 +501,14 @@ This release introduces single-instance support on Linux/Windows and global keyb
 
 ### 🐛 Bug Fixes
 
-- 🪟 <Bold>Linux Rounded Corners:</Bold> Fixed Linux window missing rounded corners when native decorations are disabled, now matches GNOME/libadwaita style
-- 🌗 <Bold>Dark Mode Controls:</Bold> Improved window control button hover visibility in dark mode
-- 🔍 <Bold>Spotlight Drag:</Bold> Fixed spotlight window hiding during drag operations on Linux/Wayland
+- 🪟 Fixed Linux window missing rounded corners when native decorations are disabled, now matches GNOME/libadwaita style
+- 🌗 Increased window-control hover contrast in dark mode.
+- 🔍 Fixed spotlight window hiding during drag operations on Linux/Wayland
 
 </ChangelogEntry>
 
 <ChangelogEntry version="v4.1.0" date="Feb 20, 2026">
 ## License, Latency & Host Management
-
-This release introduces license management, remote host latency display, and host removal, along with bug fixes and SSH stability improvements.
 
 ### ✨ Features
 
@@ -586,29 +518,27 @@ This release introduces license management, remote host latency display, and hos
 
 ### 🐛 Bug Fixes
 
-- 🏷️ <Bold>Host Edit:</Bold> Fixed host label and icon not updating after editing
-- 🔌 <Bold>SSH Disconnect:</Bold> Fixed SSH disconnect triggered by closing dialog after successful connection
-- 🔄 <Bold>SSH Cancel:</Bold> Fixed in-progress SSH connection not cancelled when closing connect dialog
+- 🏷️ Fixed host label and icon not updating after editing
+- 🔌 Fixed SSH disconnect triggered by closing dialog after successful connection
+- 🔄 Fixed in-progress SSH connection not cancelled when closing connect dialog
 
 ### ⚡ Performance
 
-- 🔗 <Bold>SSH Forwarding:</Bold> Improved connection stability, lifecycle management, and reconnection handling
+- 🔗 <Bold>SSH forwarding:</Bold> Stabilized connection lifecycle and reconnects.
 
 </ChangelogEntry>
 
 <ChangelogEntry version="v4.0.0" date="Feb 17, 2026">
 ## Command Palette & System Tray
 
-This release introduces a global command palette for instant resource access, system tray integration with real-time stats, and macOS dock auto-hide.
-
 ### ✨ Features
 
-- 🔍 <Bold>Command Palette:</Bold> Global command palette (Cmd+; / Ctrl+;) for quick access to containers, images, compose projects, networks, and volumes with instant actions
-- 🖥️ <Bold>System Tray:</Bold> Menu bar tray icon with connection status, resource stats, and quick actions (show/hide window, spotlight, settings, quit)
-- 📊 <Bold>Menu Bar Stats:</Bold> Optional real-time CPU & memory stats displayed directly in the macOS menu bar, configurable in Settings
-- 🙈 <Bold>Auto-hide Dock Icon:</Bold> Dock icon automatically hides when the main window is closed on macOS
-- ⌨️ <Bold>Custom Shortcut:</Bold> Configurable global keyboard shortcut for the command palette
-- 🌐 <Bold>i18n:</Bold> Full Chinese and English localization for command palette and tray settings
+- 🔍 <Bold>Command palette:</Bold> Use Cmd+; / Ctrl+; to find and act on containers, images, Compose projects, networks, and volumes.
+- 🖥️ <Bold>System tray:</Bold> See connection status and resource stats or show, hide, open Spotlight, open Settings, and quit.
+- 📊 <Bold>Menu bar stats:</Bold> Optionally show CPU and memory on macOS.
+- 🙈 <Bold>Dock icon:</Bold> Hide it when the main window closes on macOS.
+- ⌨️ <Bold>Shortcut:</Bold> Configure the command palette shortcut.
+- 🌐 <Bold>i18n:</Bold> Added Chinese and English for the command palette and tray settings.
 
 <ChangelogImage src="/screenshots/readme/cmd.png" alt="Command Palette" />
 <ChangelogImage src="/screenshots/4.0.0/tray.png" alt="Menu Bar Stats" />
@@ -617,8 +547,6 @@ This release introduces a global command palette for instant resource access, sy
 
 <ChangelogEntry version="v3.12.1" date="Feb 13, 2026">
 ## Navigation Polish & Storage Performance
-
-This release improves sidebar navigation animations and fixes performance issues on the storage page.
 
 ### 🎨 Improvements
 
@@ -633,8 +561,6 @@ This release improves sidebar navigation animations and fixes performance issues
 <ChangelogEntry version="v3.12.0" date="Feb 12, 2026">
 ## Container Notifications & Log Shortcuts
 
-This release adds desktop notifications for abnormal container events, keyboard shortcuts for log and event pages, and newest-first log ordering.
-
 ### ✨ Features
 
 - 🔔 <Bold>Container Event Notifications:</Bold> Desktop notifications for abnormal container events — non-zero exit, OOM killed, and health check failure
@@ -646,47 +572,45 @@ This release adds desktop notifications for abnormal container events, keyboard 
 <ChangelogEntry version="v3.11.0" date="Feb 10, 2026">
 ## Storage Overview & Private Registry
 
-This release adds Docker disk usage visualization with one-click cleanup and private registry credential management with auto-matching.
-
 ### ✨ Features
 
-- 💾 <Bold>Storage Page:</Bold> View Docker disk usage breakdown (images, containers, volumes, build cache) with interactive chart
-  and one-click system prune
-- 🔐 <Bold>Private Registry:</Bold> Configure private registry credentials with auto-matching on image pull, inline connection
-  test, and credential visibility toggle
+- 💾 <Bold>Storage page:</Bold> View image, container, volume, and build-cache use in a chart and run system prune.
+- 🔐 <Bold>Private registries:</Bold> Save credentials, match them during pulls, test connections, and toggle visibility.
 
 </ChangelogEntry>
 
 <ChangelogEntry version="v3.10.0" date="Feb 08, 2026">
 ## Image Layers, Build Rebuild & Error Handling
 
-This release adds image layer export, build rebuild/retry capabilities, and numerous bug fixes and performance improvements.
-
 ### ✨ Features
 
 - 📤 <Bold>Image Layer Export:</Bold> Export image layer analysis as JSON file or copy to clipboard
-- 🎬 <Bold>Image Switch Transitions:</Bold> Smooth fade animations when switching between images in layer analysis, with staggered row entry effects
+- 🎬 <Bold>Image transitions:</Bold> Fade between layer analyses and stagger row entry.
+- 🛡️ <Bold>Error Boundary:</Bold> App no longer white-screens on unexpected component errors; shows a recovery UI instead
 - 🔄 <Bold>Build Rebuild:</Bold> Rebuild any previous build directly from build history with pre-filled parameters
 - 🔁 <Bold>Build Retry:</Bold> Retry failed builds without re-entering configuration
 
 ### 🐛 Bug Fixes
 
-- 🔨 <Bold>Build Error Detection:</Bold> Fixed build failures not being properly detected, causing subsequent builds to immediately fail with stale errors
-- 🔍 <Bold>Build Error Details:</Bold> Extracted detailed error messages from Docker stream errors instead of showing generic "Docker stream error"
-- 📺 <Bold>Build Error Display:</Bold> Build errors now display directly in the terminal log with a separator, instead of only showing a toast notification
+- 🔨 <Bold>Build failure state:</Bold> Clear stale failures before later builds.
+- 🔍 <Bold>Build error details:</Bold> Show Docker stream errors instead of a generic message.
+- 📺 <Bold>Build error display:</Bold> Show failures in the terminal log, not only in a toast.
 - 📁 <Bold>Dockerfile Validation:</Bold> Rebuild now validates Dockerfile existence and shows a warning when the file is missing
+- 🌗 <Bold>Dark mode contrast:</Bold> Increased delete-button hover contrast.
 - 🔄 <Bold>Stale Layer Data:</Bold> Fixed stale layer data displaying briefly when switching images
 - 🛡️ <Bold>Inspect Isolation:</Bold> Image inspect failure no longer blocks layer history loading
+- 🌐 <Bold>ConnectDialog i18n:</Bold> Fixed hardcoded English strings ("Close", "Connecting...", "Try Reconnect") not translating
+- 📊 <Bold>Stats Monitor:</Bold> Fixed `stop_stats` command not registered, causing runtime error when leaving stats page
 - 🐳 <Bold>Image Import:</Bold> File read errors are now properly reported instead of being silently ignored
 
 ### ⚡ Performance
 
-- 🐳 <Bold>Image Export/Import:</Bold> Streaming I/O for large image export and import, significantly reducing memory usage
-- 📊 <Bold>Dashboard Stats:</Bold> Parallelized container stats queries, dramatically faster with many running containers
+- 🐳 <Bold>Image export and import:</Bold> Stream large files to reduce memory use.
+- 📊 <Bold>Dashboard stats:</Bold> Query container stats in parallel.
 
 ### 🎨 Improvements
 
-- 🔔 <Bold>Updater Notification:</Bold> Streamlined update flow and refined notification styling with i18n support
+- 🔔 <Bold>Updater:</Bold> Shortened the update flow and localized notification styles.
 - 📭 <Bold>Empty States:</Bold> Container, image, network, and volume tables now show domain-specific icons when empty
 - 📱 <Bold>Responsive Layout:</Bold> Template stats grid adapts to smaller window sizes
 
@@ -695,16 +619,9 @@ This release adds image layer export, build rebuild/retry capabilities, and nume
 <ChangelogEntry version="v3.9.2" date="Feb 07, 2026">
 ## App Log Viewer Revamp
 
-This release replaces the xterm.js terminal with a custom HTML-based log viewer, adding powerful filtering and export capabilities.
-
 ### ✨ Features
 
-- 📋 <Bold>App Log Viewer Revamp:</Bold> Replaced xterm.js terminal with a custom HTML-based log viewer
-  - 🔍 Keyword search with debounced filtering
-  - 🏷️ Level filter toolbar (All/Trace/Debug/Info/Warn/Error) for quick log isolation
-  - 📄 Log detail dialog with full message view and copy support
-  - 📤 Export filtered logs to `.log` file
-  - 🎚️ Runtime log level control with persistent settings
+- 📋 <Bold>App log viewer:</Bold> Replaced xterm.js with an HTML viewer that supports search, level filters, full-message details, copy, filtered `.log` export, and saved runtime log levels.
 
 ### 🐛 Bug Fixes
 
@@ -717,316 +634,208 @@ This release replaces the xterm.js terminal with a custom HTML-based log viewer,
 <ChangelogEntry version="v3.9.1" date="Feb 05, 2026">
 ## Quick Search for Lists
 
-This release adds instant search across containers, networks, and volumes for faster filtering.
-
 ### ✨ Features
 
-- <Bold>Quick Search:</Bold> Instantly filter containers, networks, and volumes by name, ID, image, status, driver, and more
-- <Bold>Real-time Filtering:</Bold> Results update as you type with a clear button for quick reset
+- 🔍 <Bold>List search:</Bold> Filter Containers, Networks, and Volumes by name, ID, image, status, driver, and other fields, with a clear button.
 
 </ChangelogEntry>
 
 <ChangelogEntry version="v3.9.0" date="Feb 03, 2026">
 ## Terminal Settings & Volume File Browser
 
-This release introduces terminal customization options and a powerful file browser for Docker volumes.
-
 ### ✨ Features
 
-- <Bold>Terminal Settings:</Bold> Configure default shell (`sh`, `bash`, `zsh`) and user for container terminals
-- <Bold>Unified Settings Dialog:</Bold> Combined terminal command and theme settings into a single tabbed dialog
-- <Bold>Volume File Browser:</Bold> Browse, upload, and download files directly inside any Docker volume
-  - 🔍 Click "Browse Files" in the Volume actions menu to explore volume contents
-  - 📤 Upload files or folders to any directory within the volume
-  - 📥 Download files or entire folders from the volume
-  - 🖱️ Right-click on empty space to access upload/download actions for current directory
+- 🖥️ <Bold>Terminal Settings:</Bold> Configure default shell (`sh`, `bash`, `zsh`) and user for container terminals
+- ⚙️ <Bold>Unified Settings Dialog:</Bold> Combined terminal command and theme settings into a single tabbed dialog
+- 📂 <Bold>Volume file browser:</Bold> Browse volumes, upload or download files and folders, and open directory actions from the context menu.
 
 </ChangelogEntry>
 
 <ChangelogEntry version="v3.7.0" date="Jan 30, 2026">
 ## Event History & Virtualization
 
-This release introduces persistent event history, a unified toolbar, and performance improvements for the Events page.
-
 ### ✨ Features
 
-- <Bold>Event History Persistence:</Bold> Docker events are now automatically saved to local file and persist across app restarts
-- <Bold>Unified Event Toolbar:</Bold> All filters consolidated into a single toolbar with search, custom type/action filters, and time range selection
-- <Bold>Enhanced Export:</Bold> Export events as TXT or JSON with dedicated dropdown menu
+- 🔔 <Bold>Event history:</Bold> Save Docker events locally across restarts.
+- 🎛️ <Bold>Event toolbar:</Bold> Search and filter by type, action, and time range in one toolbar.
+- 📤 <Bold>Event export:</Bold> Export TXT or JSON from a dropdown.
 
 ### 🎨 Improvements
 
-- <Bold>Virtualized Event List:</Bold> Rebuilt Events page with virtualization for smooth handling of thousands of events with infinite scroll
-- <Bold>Connection Status:</Bold> Real-time Docker event stream connection indicator with pause/resume support
-- <Bold>Animated Sidebar:</Bold> Smoother expand/collapse animations for sidebar navigation items
+- ⚡ <Bold>Virtualized events:</Bold> Handle thousands of events with infinite scroll.
+- 📱 <Bold>Connection status:</Bold> Show Docker event-stream state with pause and resume.
+- 🎬 <Bold>Sidebar motion:</Bold> Animate navigation expansion and collapse.
 
 </ChangelogEntry>
 
 <ChangelogEntry version="v3.6.0" date="Jan 26, 2026">
 ## Templates, Docker Run & Batch Operations
 
-This release introduces stack templates, Docker Run command parsing, and comprehensive batch operations for resource management.
-
 ### ✨ Features
 
-- <Bold>Template Management:</Bold> Added stack templates support with
-  migrations, UI, and API integration
-- <Bold>Docker Run Parsing:</Bold> Import and parse Docker Run commands with
-  enhanced UI integration
-- <Bold>Remote Host Support:</Bold> Dynamic `DOCKER_HOST` management and Docker
-  CLI availability checks for Compose features
-- <Bold>Batch Operations:</Bold> Multi-select batch delete for Images, Networks,
-  and Volumes with unified batch toolbar
+- 🧩 <Bold>Templates:</Bold> Added stack template migrations, UI, and API support.
+- 🐳 <Bold>Docker Run import:</Bold> Parse Docker Run commands into the UI.
+- 🌐 <Bold>Remote Hosts:</Bold> Manage `DOCKER_HOST` and check Docker CLI availability for Compose.
+- ✅ <Bold>Batch delete:</Bold> Remove selected Images, Networks, and Volumes from one toolbar.
 
 ### 🎨 Improvements
 
-- <Bold>Logs Viewer Revamp:</Bold> Virtualized log list with follow/pause,
-  load-more history, new-log indicator, and status bar
-- <Bold>Logs Filtering:</Bold> Keyword/regex filtering with highlight and quick
-  clear/reset shortcuts
-- <Bold>Logs Export & Copy:</Bold> Export logs as TXT/JSON and copy filtered
-  results with large-selection confirmation
+- 📜 <Bold>Logs viewer:</Bold> Virtualized list with follow, pause, history loading, new-log status, and a status bar.
+- 🔎 <Bold>Log filters:</Bold> Filter and highlight keywords or regex, with clear and reset shortcuts.
+- 📤 <Bold>Log export and copy:</Bold> Export TXT/JSON or copy filtered results, with confirmation for large selections.
 
 </ChangelogEntry>
 
 <ChangelogEntry version="v3.5.1" date="Jan 18, 2026">
 ## Remote Docker Connectivity
 
-This release enhances remote Docker connectivity with TCP support and improved connection configuration.
-
 ### ✨ Features
 
-- <Bold>Custom Docker Socket Paths:</Bold> Support custom Docker socket paths
-  (optional) and remote connections via SSH socket forwarding
-- <Bold>TCP Connection Support:</Bold> Connect to Docker daemon via TCP address
+- 🔌 <Bold>Remote Docker:</Bold> Connect through custom socket paths or SSH forwarding.
+- 🌐 <Bold>TCP connections:</Bold> Connect to a Docker daemon by TCP address.
 
 ### 🎨 Improvements
 
-- <Bold>Connection & Settings UX:</Bold> Improved connection-related
-  configuration and persistence, with refined i18n copy
-- <Bold>UI & Performance:</Bold> Optimized rendering and interactions across
-  Containers, Dashboard, and Events pages
+- ⚙️ <Bold>Connection settings:</Bold> Updated configuration, persistence, and i18n copy.
+- 🧩 <Bold>Rendering:</Bold> Reduced work in Containers, Dashboard, and Events.
 
 </ChangelogEntry>
 
 <ChangelogEntry version="v3.5.0" date="Jan 13, 2026">
 ## Settings & Remote Host Improvements
 
-This release introduces a dedicated settings page for Docker configuration and enhances remote host management.
-
 ### ✨ Features
 
-- <Bold>Settings Page:</Bold> Docker socket path configuration with browse,
-  validation, and reset options
-- <Bold>Sidebar Enhancement:</Bold> Collapsed sidebar dropdown menu with theme,
-  language, and settings access
-- <Bold>Remote Host Support:</Bold> Hide unsupported compose commands (Up, Stop,
-  Restart, Pull) for remote connections
+- ⚙️ <Bold>Settings Page:</Bold> Docker socket path configuration with browse, validation, and reset options
+- 🎛️ <Bold>Sidebar Enhancement:</Bold> Collapsed sidebar dropdown menu with theme, language, and settings access
+- 🐳 <Bold>Remote Host Support:</Bold> Hide unsupported compose commands (Up, Stop, Restart, Pull) for remote connections
 
 ### 🎨 Improvements
 
-- <Bold>Connection Failed Dialog:</Bold> Dedicated localhost connection error
-  dialog
-- <Bold>Sidebar Containers:</Bold> Show only running containers in navigation
-- <Bold>Connection Verification:</Bold> Clear cached client on connection
-  failure
+- 🔗 <Bold>Connection Failed Dialog:</Bold> Dedicated localhost connection error dialog
+- 📋 <Bold>Sidebar Containers:</Bold> Show only running containers in navigation
+- 🔄 <Bold>Connection Verification:</Bold> Clear cached client on connection failure
 
 ### 🐛 Bug Fixes
 
-- <Bold>Image Operations:</Bold> Respect custom socket path
-- <Bold>Navigation:</Bold> Fix disabled state logic for running container count
+- 🖼️ <Bold>Image Operations:</Bold> Respect custom socket path
+- 🧭 <Bold>Navigation:</Bold> Fix disabled state logic for running container count
 
 </ChangelogEntry>
 
 <ChangelogEntry version="v3.4.0" date="Jan 5, 2026">
 ## Docker Compose View
 
-This release introduces comprehensive Docker Compose project management with grouped container views and full lifecycle control.
-
 ### ✨ Features
 
-- <Bold>Docker Compose View:</Bold> Added grouped container view with Docker
-  Compose project support
-  - 📦 Toggle between flat list view and grouped view by Compose projects
-  - 🎯 Compose project cards with status indicators and running container counts
-  - 📂 Collapsible Standalone Containers section for non-Compose containers
-- <Bold>Compose Project Actions:</Bold> Full Docker Compose lifecycle management
-  - ▶️ Up: Start Compose projects with detached mode
-  - ⏹️ Stop: Stop running Compose projects
-  - 🔄 Restart: Restart Compose projects
-  - 📥 Pull: Pull latest images for Compose projects
-  - 🗑️ Remove: Remove Compose projects with confirmation dialog
-- <Bold>Compose Global Options:</Bold> Support for all Docker Compose CLI
-  options
-  - `-f, --file`: Custom compose configuration files
-  - `--env-file`: Environment variable files
-  - `--profile`: Compose profiles
-  - `--progress`: Progress output type (auto/tty/plain/json/quiet)
-  - `--dry-run`: Dry run mode
-- <Bold>Compose Remove Dialog:</Bold> Confirmation dialog with severity warnings
-  - ⚠️ Warning display for irreversible operations
-  - 📊 Container count indicator
-  - 🗃️ Option to remove associated volumes
+- 🐳 <Bold>Docker Compose view:</Bold> Switch between flat containers and project groups with status, running counts, and a collapsible standalone section.
+- 🔧 <Bold>Compose actions:</Bold> Start, stop, restart, pull, and remove projects.
+- ⚙️ <Bold>Compose options:</Bold> Supports `-f, --file`, `--env-file`, `--profile`, `--progress`, and `--dry-run`.
+- 🗑️ <Bold>Compose removal:</Bold> Confirm irreversible removal, see the container count, and optionally remove volumes.
 
 ### 🎨 Improvements
 
-- <Bold>Refresh Button:</Bold> Fixed refresh to update both containers and
-  Compose projects
-- <Bold>Loading States:</Bold> Added loading indicators for all Compose
-  operations with toast notifications
-- <Bold>Orphaned Compose Projects:</Bold> Support for removing Compose projects
-  even when compose file is deleted
+- 🔄 <Bold>Refresh:</Bold> Update containers and Compose projects together.
+- ⏳ <Bold>Loading state:</Bold> Show progress and notifications for Compose operations.
+- 🎯 <Bold>Orphaned projects:</Bold> Remove projects after their Compose file is deleted.
 
 </ChangelogEntry>
 
 <ChangelogEntry version="v3.3.0" date="Jan 4, 2026">
 ## Image Size Analysis
 
-This release introduces a comprehensive image layer size analysis feature for deeper Docker image inspection.
-
 ### ✨ Features
 
-- <Bold>Image Size Analysis:</Bold> Added image layer size analysis page with
-  detailed breakdown of layer sizes
-- <Bold>Visual Size Distribution:</Bold> Interactive size distribution bar
-  showing layer proportions with color-coded blocks for easy visualization
-- <Bold>Layer Details Table:</Bold> Detailed layer table with expand/collapse
-  functionality for viewing full Dockerfile commands
-- <Bold>Collapsible Distribution Panel:</Bold> Distribution panel that
-  transforms to a vertical bar when collapsed for a compact view
+- 📊 Image Size Analysis: Added image layer size analysis page
+- 🎨 Visual size distribution bar showing layer proportions with color-coded blocks
+- 📋 Detailed layer table with expand/collapse for viewing full Dockerfile commands
+- 🔄 Collapsible distribution panel that transforms to vertical bar when collapsed
 
 </ChangelogEntry>
 
 <ChangelogEntry version="v3.2.0" date="Jan 1, 2026">
 ## Terminal, Dark Mode & i18n Enhancements
 
-This release introduces terminal customization, comprehensive dark mode support, and internationalization improvements.
-
 ### ✨ Features
 
-- <Bold>Terminal Theme Picker:</Bold> Enhanced terminal settings dialog with
-  organized layout, color theme section title, and hidden cursor in theme
-  previews
+- 🖥️ <Bold>Terminal themes:</Bold> Reorganized settings and hide the cursor in previews.
 
 ### 🎨 Improvements
 
-- <Bold>Dark Mode Support:</Bold> Added comprehensive dark mode support across
-  the entire application for better visual comfort
+- 🌙 <Bold>Dark mode:</Bold> Added app-wide dark colors.
 
-### 🌐 Internationalization
+### 🌐 Internationalization (i18n)
 
-- <Bold>i18n Support:</Bold> Implemented comprehensive internationalization for
-  image building, host management, connection status messages, and all table
-  columns
+- 🌍 <Bold>i18n:</Bold> Localized image builds, Host management, connection status, and table columns.
 
 </ChangelogEntry>
 
 <ChangelogEntry version="v3.1.0" date="Dec 30, 2025">
 ## Container Creation & UI Enhancements
 
-This release introduces comprehensive container creation capabilities and significant UI improvements across the application.
-
 ### ✨ Features
 
-- <Bold>Container Creation:</Bold> Added comprehensive container creation dialog
-  with dual input modes: - 📝 Form-based configuration for guided container
-  setup - 💻 Docker command input mode with parsing and generation support
-- <Bold>Dashboard System Info:</Bold> Added system information component
-  displaying Docker version, OS, architecture, and resource limits
-- <Bold>Sidebar Collapsible Sections:</Bold> Implemented collapsible navigation
-  sections with: - 🔢 Container count badges with transition animations - 🎬
-  Smooth expand/collapse animations using Motion - 📌 Selected items remain
-  visible when collapsed
-- <Bold>Docker Build Command:</Bold> Added Docker build command generation and
-  parsing functionality
-- <Bold>Container Refresh:</Bold> Added dedicated refresh button to container
-  list header
+- 🐳 <Bold>Container creation:</Bold> Configure containers with a form or parse and generate Docker commands.
+- 📊 <Bold>System info:</Bold> Show Docker version, OS, architecture, and resource limits on the Dashboard.
+- 📁 <Bold>Collapsible sidebar:</Bold> Added animated sections with container counts that keep selected items visible.
+- 🔧 <Bold>Docker build commands:</Bold> Generate and parse build commands.
+- 🔄 <Bold>Container refresh:</Bold> Added a refresh button to the list header.
 
 ### 🎨 Improvements
 
-- <Bold>Table Scrolling & Sticky Headers:</Bold> Improved table layouts across
-  all pages (Image, Container, Network, Volume, Events) with: - 📌 Fixed sticky
-  table headers during scroll - 📏 Proper height calculations to prevent
-  page-level scrolling - 🎯 Consistent border rendering
-- <Bold>Sidebar Navigation:</Bold> Enhanced sidebar styling with Motion
-  animations for item transitions
-- <Bold>Resource Charts:</Bold> Refactored CPU usage and resource charts with
-  improved component structure
-- <Bold>Dashboard Layout:</Bold> Improved card layout and number formatting
-- <Bold>Build Dialog:</Bold> Enhanced form layout with better padding and
-  spacing
-- <Bold>Network Mode:</Bold> Replaced text input with select component for
-  network mode selection
-- <Bold>Docker Command UX:</Bold> Improved docker command input styling and user
-  experience
+- 📋 <Bold>Tables:</Bold> Added sticky headers, contained scrolling, correct heights, and consistent borders to Image, Container, Network, Volume, and Events.
+- 🎨 <Bold>Sidebar navigation:</Bold> Added Motion transitions.
+- 📈 <Bold>Resource charts:</Bold> Split CPU and resource charts into smaller components.
+- 🏠 <Bold>Dashboard:</Bold> Updated card layout and number formatting.
+- 🔨 <Bold>Build dialog:</Bold> Adjusted form spacing.
+- 🌐 <Bold>Network mode:</Bold> Replaced text input with a select.
+- 🐳 <Bold>Docker commands:</Bold> Updated input styling.
 
 ### 🐛 Bug Fixes
 
-- <Bold>Stats Data Handling:</Bold> Fixed NaN and undefined values in Network
-  and Disk widgets to display as 0
-- <Bold>Volume Dialog:</Bold> Fixed volume name overflow in removal confirmation
-  dialog
-- <Bold>Events Row Expand:</Bold> Fixed expanded row jumping to new data when
-  events update by using stable row IDs
-- <Bold>Events Monitor Cleanup:</Bold> Fixed stale pending events and timeout
-  not being cleared when stopping event monitor
+- 📊 <Bold>Stats Data Handling:</Bold> Fixed NaN and undefined values in Network and Disk widgets to display as 0
+- 📝 <Bold>Volume Dialog:</Bold> Fixed volume name overflow in removal confirmation dialog
+- 🔔 <Bold>Events Row Expand:</Bold> Fixed expanded row jumping to new data when events update by using stable row IDs
+- 🧹 <Bold>Events Monitor Cleanup:</Bold> Fixed stale pending events and timeout not being cleared when stopping event monitor
 
 ### ⚡ Performance
 
-- <Bold>Events Page:</Bold> Optimized event updates with batched throttling
-  (200ms) and reduced max events from 5000 to 500
+- 🔔 <Bold>Events:</Bold> Batch updates every 200 ms and keep up to 500 events instead of 5,000.
 
 </ChangelogEntry>
 
 <ChangelogEntry version="v3.0.1" date="Dec 10, 2025">
 ## Event Table Enhancements
 
-This release improves the Docker events table with new action buttons and better UI consistency.
-
 ### ✨ Features
 
-- <Bold>Event Table Actions:</Bold> Added action buttons to event table with
-  Copy JSON and Remove event options
+- ⚡ <Bold>Event Table Actions:</Bold> Added action buttons to event table with Copy JSON and Remove event options
 
 ### 🎨 Improvements
 
-- <Bold>Badge Truncation:</Bold> Improved Badge component display - text inside
-  Badge now truncates with ellipsis instead of Badge being clipped
-- <Bold>Event Table UI:</Bold> Refactored event table structure with pinned
-  action column for consistent layout
+- 🏷️ <Bold>Badge truncation:</Bold> Badge text now truncates with an ellipsis instead of clipping the component.
+- 📊 <Bold>Event Table UI:</Bold> Refactored event table structure with pinned action column for consistent layout
 
 </ChangelogEntry>
 
 <ChangelogEntry version="v3.0.0" date="Dec 8, 2025">
 ## Docker Events & Container File Browser
 
-This release introduces real-time Docker event monitoring and a comprehensive file browser for Docker containers.
-
 ### ✨ Features
 
-- <Bold>Docker Events Monitoring:</Bold> Added real-time Docker event listening
-  with comprehensive event filtering, search, and JSON details dialog for
-  inspecting event data
-- <Bold>Container File Browser:</Bold> Implemented file system explorer for
-  Docker containers with: - 🌳 File tree navigation with dynamic loading - 📂
-  Folder upload and download support (tar-based) - 📄 Single file upload and
-  download with mode preservation - 🔗 Symlink support for file listings - 📄
-  Pagination for large directories - 📋 Context menus for file/folder operations
-  (Download, Copy Path, View Properties)
+- 🔔 <Bold>Docker events:</Bold> Listen in real time with filters, search, and a JSON details dialog.
+- 📁 <Bold>Container files:</Bold> Browse lazily loaded trees, upload or download files and tarred folders, preserve file modes, list symlinks, paginate large directories, and use context-menu actions for Download, Copy Path, and View Properties.
 
 ### 🐛 Bug Fixes
 
-- <Bold>Build Log Host Switch:</Bold> Fixed build records to properly associate
-  with SSH connections, enabling correct host switching for build logs
+- 🔧 <Bold>Build Log Host Switch:</Bold> Fixed build records to properly associate with SSH connections, enabling correct host
+  switching for build logs
 
 ### 🎨 Improvements
 
-- <Bold>SSH Docker Socket Forwarding:</Bold> Enhanced Docker socket forwarding
-  with improved connection status tracking
-- <Bold>Events Table UI:</Bold> Improved event filtering, table layout, column
-  sizing, and action badge styling
-- <Bold>Code Block Selection:</Bold> Enhanced code block selection and styling
-  for better readability
+- 🔌 <Bold>SSH forwarding:</Bold> Track Docker socket connection state.
+- 📊 <Bold>Events table:</Bold> Updated filters, layout, column sizes, and action badges.
+- 🎯 <Bold>Code blocks:</Bold> Updated selection and styling.
 
 <ChangelogImage
   src="/screenshots/readme/file.png"
@@ -1038,12 +847,10 @@ This release introduces real-time Docker event monitoring and a comprehensive fi
 <ChangelogEntry version="v2.4.0" date="Dec 1, 2025">
 ## Docker Image Build & Logs
 
-This release introduces Docker image building capabilities and detailed build log playback.
+### ✨ Features
 
-### ✨ Features:
-
-- <Bold>Image Build:</Bold> Added Docker image build capability
-- <Bold>Build Logs:</Bold> Implemented build logs playback functionality
+- 🏗️ <Bold>Image Build:</Bold> Added Docker image build capability
+- 📜 <Bold>Build Logs:</Bold> Implemented build logs playback functionality
 
 <ChangelogImage src="/screenshots/readme/build-log.png" alt="Build Log" />
 <ChangelogImage
@@ -1056,83 +863,58 @@ This release introduces Docker image building capabilities and detailed build lo
 <ChangelogEntry version="v2.3.0" date="Nov 9, 2025">
 ## Docker Network & Volume Management
 
-This release introduces comprehensive Docker network and volume management capabilities, along with enhanced image management features.
+### ✨ Features
 
-### ✨ Features:
+- 🌐 <Bold>Networks:</Bold> List, inspect, create, remove, and connect Docker networks.
+- 📦 <Bold>Volumes:</Bold> List, inspect, create, remove, and prune Docker volumes.
+- 🖼️ <Bold>Images:</Bold> Delete, inspect, search, build, and prune images.
+- 🏷️ <Bold>Image tags:</Bold> Add, remove, and import tags.
+- 📤 <Bold>Image files:</Bold> Import and export through file dialogs.
+- 🔗 <Bold>Registry links:</Bold> Open Docker Hub, GHCR, GCR, and Quay.
 
-- <Bold>Docker Network Management:</Bold> Added comprehensive Docker network
-  management functionality, including list, inspect, create, remove, and connect
-  networks
-- <Bold>Docker Volume Management:</Bold> Implemented complete Docker volume
-  lifecycle management with support for list, inspect, create, remove, and prune
-  operations
-- <Bold>Docker Image Management:</Bold> Added comprehensive image management
-  functionality including delete, inspect, search, build, and prune operations
-- <Bold>Image Tag Management:</Bold> Support for adding, removing, and importing
-  image tags to enhance image management flexibility
-- <Bold>Image Import and Export:</Bold> Implemented image file import and export
-  functionality with file dialog support
-- <Bold>Image Registry Links:</Bold> Support for opening Docker Hub, GHCR, GCR,
-  and Quay registry links directly
+### 🎨 Improvements
 
-### 🎨 Improvements:
-
-- <Bold>Enhanced Table Features:</Bold> Added column sorting, column resizing,
-  and column pinning for network and volume tables
-- <Bold>Table Performance Optimization:</Bold> Optimized network table rendering
-  performance through column memoization to reduce unnecessary re-renders
-- <Bold>UI Style Improvements:</Bold> Improved container status badge styling
-  with enhanced visual differentiation, optimized table cell vertical spacing
-  for better readability, enhanced pinned column styles and hover states, and
-  improved table header background color for better visual hierarchy
-- <Bold>Enhanced Search Input:</Bold> Added loading state indicator for image
-  search input with improved user feedback
-- <Bold>Image Actions Menu:</Bold> Added loading state to image actions menu
-  button for better async operation UX
-- <Bold>Navigation Improvements:</Bold> Updated navigation icons and breadcrumb
-  route configuration
-- <Bold>Table Column Layout:</Bold> Improved network and volume table column
-  layouts for better usability and visual consistency
+- 📊 <Bold>Tables:</Bold> Added sorting, resizing, and pinned columns to Networks and Volumes.
+- 🎯 <Bold>Network rendering:</Bold> Memoized columns to reduce re-renders.
+- 🎨 <Bold>Table styles:</Bold> Updated status badges, cell spacing, pinned columns, hover states, and header colors.
+- 🔍 <Bold>Image search:</Bold> Added a loading indicator.
+- 🎯 <Bold>Image actions:</Bold> Added a loading state.
+- 🔄 <Bold>Navigation:</Bold> Updated icons and breadcrumb routes.
+- 📐 <Bold>Columns:</Bold> Updated Network and Volume layouts.
 
 </ChangelogEntry>
 
 <ChangelogEntry version="v2.2.0" date="Oct 12, 2025">
 ## Auto-Update & Code Signing
 
-This update introduces automatic update functionality and enhances security with code signing for macOS.
+### ✨ Features
 
-### New Features:
-
-- <Bold>Auto-Update:</Bold> Added automatic update functionality to keep
-  Dockerman up-to-date with the latest features and improvements.
-
-### Improvements:
-
-- <Bold>macOS Code Signing:</Bold> macOS installation packages are now
-  code-signed for enhanced security and trust.
+- 📝 App log
+- 📝 App updater
 
 </ChangelogEntry>
 
 <ChangelogEntry version="v2.1.1" date="May 5, 2025">
 ## Container Animation Enhancement
 
-- <Bold>Transition Optimization:</Bold> Improved expand/collapse transition animations for containers, resulting in smoother UI interactions and better visual feedback.
+### 🎨 Styling
+
+- 📝 Added animated table rows
+
 </ChangelogEntry>
 
 <ChangelogEntry version="v2.0.1" date="Apr 19, 2025">
 ## Performance Monitoring Improvement
 
-This update addresses an issue with CPU usage display in the monitoring interface.
+### 🐛 Bug Fixes
 
-### Bug Fixes:
+- 📊 Fixed CPU usage calculation method
+- 💾 Restored last selected container state from store
 
-- <Bold>CPU Monitoring Fix:</Bold> Resolved an issue with abnormal CPU usage percentage display in the performance monitoring dashboard.
 </ChangelogEntry>
 
 <ChangelogEntry version="v2.0.0" date="Apr 13, 2025">
 ## Remote Management & Host Support
-
-This release introduces SSH functionality for managing remote Docker instances and adds a host management page.
 
 ### New Features:
 
@@ -1148,8 +930,6 @@ This release introduces SSH functionality for managing remote Docker instances a
 <ChangelogEntry version="v1.0.2" date="Feb 8, 2025">
 ## Container Management Enhancement
 
-This update introduces a new manual refresh capability for container management:
-
 ### Updates:
 
 - <Bold>Manual Refresh:</Bold> Added a refresh button for Containers section
@@ -1159,8 +939,6 @@ This update introduces a new manual refresh capability for container management:
 
 <ChangelogEntry version="v1.0.1" date="Feb 5, 2025">
 ## Windows Platform Improvements
-
-This update focuses on several optimizations and fixes for the Windows platform:
 
 ### Updates:
 
@@ -1175,8 +953,6 @@ This update focuses on several optimizations and fixes for the Windows platform:
 
 <ChangelogEntry version="v1.0.0" date="Feb 4, 2025">
 ## First Official Release
-
-We're excited to announce the first official release of Dockerman - a modern, lightweight Docker management UI that brings powerful performance and simplicity to container management.
 
 <ChangelogImage src="/changelog/1.0.0.png" alt="Dockerman 1.0.0" />
 
