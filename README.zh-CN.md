@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文 | [🇯🇵 日本語](./README.ja.md) | [🇪🇸 Español](./README.es.md)
 
-[![Version](https://img.shields.io/badge/version-v6.1.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.1.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Aug%2016%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.1.0)
+[![Version](https://img.shields.io/badge/version-v6.2.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Sep%206%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.0)
 
 一个原生桌面端 Docker **与** Kubernetes 管理工具，基于 Tauri + Rust。启动快、占用低、完全本地运行——数据不出本机。
 
@@ -21,6 +21,7 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文 | [🇯🇵 �
 - 🪟 **标题栏页面头部** — 页面标题与操作位于窗口顶部条，与侧边栏开关、前进/后退导航并列
 - 🎬 **动效全面打磨** — 应用级动画刷新：即时工具提示、从触发位置缩放的弹出层、按钮按压反馈，并完整支持减弱动态效果
 - 📈 **更流畅的仪表盘图表** — CPU/内存图表基于轻量级 liveline 引擎渲染，支持悬停查看历史并新增 y 轴
+- 🌐 **Fleet 仪表盘** — 把已观察的主机放在一起查看：引擎状态、容器健康、镜像数量、CPU、内存、磁盘占用与快照新旧
 - 🔔 **镜像升级监控** — 后台订阅服务，更新时桌面通知
 - 🌐 **本地域名** — 为本地 Docker 服务提供无需端口号、好记的 `*.dockerman.localhost` 地址
 - ☁️ **Cloudflared 隧道** — 一键生成公网 URL，自动清理
@@ -66,6 +67,7 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文 | [🇯🇵 �
 - **Windows WSL2 引擎** — 无需 Docker Desktop；Alpine 一键安装、崩溃恢复、镜像源、重新安装，并可在设置中切换 WSL2 引擎与系统原生 Docker
 - **远程守护进程** — 自定义 socket、TCP 或 SSH 转发，心跳重连与每主机延迟显示
 - **部署到 SSH 主机** — 在仅能通过 SSH 访问的远程主机上安装与管理应用
+- **Fleet 仪表盘** — 把已观察的主机放在一起查看：引擎状态、容器健康、镜像数量、CPU、内存、磁盘占用与快照新旧
 
 ## 运维与体验
 
@@ -73,6 +75,7 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文 | [🇯🇵 �
 - 🧰 一键诊断包（日志、inspect、主机状态），便于上报排障
 - 📝 可视化 `.env` 编辑器，保留注释并原子化应用
 - 🔍 全局命令面板（Cmd/Ctrl+;）与系统托盘实时显示 CPU/内存
+- 🪟 Windows 11 Snap Layouts — 将鼠标悬停在最大化按钮上即可选择窗口布局
 - 🔐 私有仓库凭证管理，拉取时自动匹配
 - 🔑 远程主机功能的许可证激活
 - 📦 内置 `dockerman` CLI，可在设置中安装、更新与卸载

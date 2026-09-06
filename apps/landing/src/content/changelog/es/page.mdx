@@ -1,3 +1,26 @@
+<ChangelogEntry version="v6.2.0" date="6 de septiembre de 2026">
+## Fleet Dashboard y Snap Layouts de Windows
+
+### ✨ Funciones
+
+- 🌐 <Bold>Fleet Dashboard:</Bold> comprueba los Hosts observados juntos. Muestra el estado del Engine, la salud de los contenedores, el recuento de imágenes, CPU, memoria, uso de disco y la antigüedad del snapshot.
+- 🪟 <Bold>Snap Layouts de Windows 11:</Bold> pasa el cursor por el botón de maximizar para elegir un diseño de ventana.
+
+### 🔧 Mejoras
+
+- 📡 <Bold>Observación de Hosts:</Bold> desactiva la observación de un Host remoto para detener las comprobaciones de Fleet, el muestreo de métricas, los flujos de eventos y las alertas. Las comprobaciones no arrancan Engines detenidos.
+- 🧭 <Bold>Estado de Fleet:</Bold> distingue snapshots recientes y en caché, Engines detenidos, tiempos de espera, requisitos de confianza SSH y Hosts inalcanzables. Verás qué Hosts se comprobaron y cuáles necesitan atención.
+
+### 🐛 Correcciones
+
+- 🔌 <Bold>Cambio de Engine:</Bold> actualiza las listas de recursos tras cambiar de Engine local y descarta las respuestas del Engine anterior.
+- 📦 <Bold>Creación de contenedores:</Bold> arranca los contenedores recién creados y verifica que están en ejecución antes de informar el éxito. Un arranque fallido dispara la limpieza y reporta cualquier error de limpieza.
+- 📜 <Bold>Logs de Podman:</Bold> muestra y exporta la salida de consola que antes dejaba vacía la vista de logs.
+- ☸️ <Bold>Kubernetes:</Bold> actualiza el estado de StatefulSet y DaemonSet tras las acciones de rollout, conserva los nombres de recursos YAML mientras carga y aclara los estados de carga y error.
+- 🖥️ <Bold>Diálogos de Host:</Bold> mantiene accesibles los diálogos de alta y edición en ventanas bajas y restablece los formularios al reabrirlos.
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v6.1.0" date="16 de agosto de 2026">
 ## Dominios locales para servicios Docker
 

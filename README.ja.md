@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | [🇨🇳 简体中文](./README.zh-CN.md) | 🇯🇵 日本語 | [🇪🇸 Español](./README.es.md)
 
-[![Version](https://img.shields.io/badge/version-v6.1.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.1.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Aug%2016%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.1.0)
+[![Version](https://img.shields.io/badge/version-v6.2.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Sep%206%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.0)
 
 Docker **と** Kubernetes をまとめて管理できるネイティブデスクトップ UI。Tauri + Rust 製で、起動が速く、軽量、完全ローカル動作――データはマシンの外に出ません。
 
@@ -21,6 +21,7 @@ Docker **と** Kubernetes をまとめて管理できるネイティブデスク
 - 🪟 **タイトルバーのページヘッダー** — ページのタイトルとアクションがウィンドウ上部のバーに配置され、サイドバー開閉と進む/戻るナビゲーションも同居
 - 🎬 **洗練されたモーション** — アプリ全体のアニメーション刷新：即時ツールチップ、トリガーから広がるポップオーバー、ボタン押下フィードバック、視差効果を減らす設定に完全対応
 - 📈 **より滑らかなダッシュボードチャート** — CPU/メモリチャートを軽量な liveline エンジンで描画、ホバースクラブと適切な y 軸に対応
+- 🌐 **Fleet ダッシュボード** — 観測中のホストをまとめて確認。エンジン状態、コンテナの健全性、イメージ数、CPU、メモリ、ディスク使用量、スナップショットの新しさ
 - 🔔 **イメージ更新監視** — バックグラウンド購読サービスでアップデートを通知
 - 🌐 **ローカルドメイン** — ポート番号なしで覚えやすい `*.dockerman.localhost` アドレスをローカル Docker サービスに付与
 - ☁️ **Cloudflared トンネル** — ワンクリックで公開 URL、自動クリーンアップ
@@ -66,6 +67,7 @@ Docker **と** Kubernetes をまとめて管理できるネイティブデスク
 - **Windows の WSL2 エンジン** — Docker Desktop 不要、Alpine をワンクリックでセットアップ、クラッシュ自動復旧、レジストリミラー、再インストールに対応。設定から WSL2 エンジンと OS ネイティブ Docker を切替可能
 - **リモートデーモン** — カスタム socket、TCP、SSH 転送、ハートビート再接続とホスト別レイテンシ表示
 - **SSH ホストへのデプロイ** — SSH 経由でのみ到達できるリモートホスト上でアプリをインストール・管理
+- **Fleet ダッシュボード** — 観測中のホストをまとめて確認。エンジン状態、コンテナの健全性、イメージ数、CPU、メモリ、ディスク使用量、スナップショットの新しさ
 
 ## 運用と使い心地
 
@@ -73,6 +75,7 @@ Docker **と** Kubernetes をまとめて管理できるネイティブデスク
 - 🧰 ワンクリックの診断バンドル（ログ、inspect、ホスト状態）でサポート対応がスムーズ
 - 📝 コメント保持＋アトミック適用のビジュアル `.env` エディタ
 - 🔍 グローバルコマンドパレット（Cmd/Ctrl+;）、システムトレイのリアルタイム CPU/メモリ
+- 🪟 Windows 11 Snap Layouts — 最大化ボタンにホバーしてウィンドウレイアウトを選択
 - 🔐 プライベートレジストリ資格情報の管理、pull 時に自動マッチ
 - 🔑 リモートホスト機能のためのライセンス認証
 - 📦 同梱の `dockerman` CLI を設定からインストール／更新／アンインストール

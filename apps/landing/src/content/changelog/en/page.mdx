@@ -1,3 +1,26 @@
+<ChangelogEntry version="v6.2.0" date="Sep 6, 2026">
+## Fleet Dashboard & Windows Snap Layouts
+
+### ✨ Features
+
+- 🌐 <Bold>Fleet Dashboard:</Bold> Check observed Hosts together. View Engine status, container health, image counts, CPU, memory, disk usage, and snapshot age.
+- 🪟 <Bold>Windows 11 Snap Layouts:</Bold> Hover over the maximize button to choose a window layout.
+
+### 🔧 Improvements
+
+- 📡 <Bold>Host observation:</Bold> Turn observation off for a remote Host to stop Fleet checks, metric sampling, event streams, and alerts. Checks do not start stopped Engines.
+- 🧭 <Bold>Fleet status:</Bold> Distinguish fresh and cached snapshots, stopped Engines, timeouts, SSH trust requirements, and unreachable Hosts. See which Hosts were checked and which need attention.
+
+### 🐛 Bug Fixes
+
+- 🔌 <Bold>Engine switching:</Bold> Refresh resource lists after switching local Engines and discard responses from the previous Engine.
+- 📦 <Bold>Container creation:</Bold> Start newly created containers and verify that they are running before reporting success. Failed starts trigger cleanup and report any cleanup errors.
+- 📜 <Bold>Podman logs:</Bold> Show and export console output that previously left the log view empty.
+- ☸️ <Bold>Kubernetes:</Bold> Refresh StatefulSet and DaemonSet status after rollout actions, preserve YAML resource names while loading, and clarify loading and error states.
+- 🖥️ <Bold>Host dialogs:</Bold> Keep add and edit dialogs accessible in short windows and reset forms when reopened.
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v6.1.0" date="Aug 16, 2026">
 ## Local Domains for Docker Services
 

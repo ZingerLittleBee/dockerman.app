@@ -2,8 +2,8 @@
 
 Language: 🇺🇸 English | [🇨🇳 简体中文](./README.zh-CN.md) | [🇯🇵 日本語](./README.ja.md) | [🇪🇸 Español](./README.es.md)
 
-[![Version](https://img.shields.io/badge/version-v6.1.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.1.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Aug%2016%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.1.0)
+[![Version](https://img.shields.io/badge/version-v6.2.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Sep%206%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.0)
 
 A native desktop UI for managing Docker **and** Kubernetes — built with Tauri + Rust. Fast to launch, light on resources, and entirely local: nothing leaves your machine.
 
@@ -21,6 +21,7 @@ A native desktop UI for managing Docker **and** Kubernetes — built with Tauri 
 - 🪟 **Titlebar page headers** — page titles and actions live in the window's top band, alongside the sidebar toggle and back/forward navigation
 - 🎬 **Polished motion** — app-wide animation refresh with instant tooltips, popover scaling, button press feedback, and reduced-motion support
 - 📈 **Smoother dashboard charts** — CPU/memory charts on a lightweight liveline engine with hover scrubbing and a proper y-axis
+- 🌐 **Fleet Dashboard** — check observed Hosts together: Engine status, container health, image counts, CPU, memory, disk, and snapshot age
 - 🔔 **Image upgrade watch** — background service with desktop notifications when updates land
 - 🌐 **Local Domains** — memorable `*.dockerman.localhost` addresses for local Docker services, no port numbers
 - ☁️ **Cloudflared tunnels** — one-click public URLs with auto cleanup
@@ -66,6 +67,7 @@ Cluster management on par with `kubectl`, but visual:
 - **WSL2 Engine on Windows** — no Docker Desktop required; one-click Alpine setup with crash recovery, registry mirrors, reinstall, and a Settings switch between WSL2 engine and OS-native Docker
 - **Remote daemons** — custom socket, TCP, or SSH forwarding with heartbeat reconnect and per-host latency display
 - **Deploy to SSH hosts** — install and manage apps on remote hosts reachable only over SSH
+- **Fleet Dashboard** — check observed Hosts together: Engine status, container health, image counts, CPU, memory, disk usage, and snapshot age
 
 ## Operations & Quality of Life
 
@@ -73,6 +75,7 @@ Cluster management on par with `kubectl`, but visual:
 - 🧰 One-click diagnostic bundle (logs, inspect, host state) for support escalations
 - 📝 Visual `.env` editor that preserves comments and applies atomically
 - 🔍 Global command palette (Cmd/Ctrl+;) and a system tray with live CPU/memory stats
+- 🪟 Windows 11 Snap Layouts — hover the maximize button to choose a window layout
 - 🔐 Private registry credential management with auto-matching on pull
 - 🔑 License activation for remote-host features
 - 📦 Bundled `dockerman` CLI with install, update, and uninstall from Settings
