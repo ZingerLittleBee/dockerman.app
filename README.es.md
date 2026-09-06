@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | [🇨🇳 简体中文](./README.zh-CN.md) | [🇯🇵 日本語](./README.ja.md) | 🇪🇸 Español
 
-[![Version](https://img.shields.io/badge/version-v6.1.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.1.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Aug%2016%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.1.0)
+[![Version](https://img.shields.io/badge/version-v6.2.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Sep%206%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.0)
 
 Una UI de escritorio nativa para gestionar Docker **y** Kubernetes — construida con Tauri + Rust. Arranque rápido, ligera en recursos y completamente local: nada sale de tu máquina.
 
@@ -21,6 +21,7 @@ Una UI de escritorio nativa para gestionar Docker **y** Kubernetes — construid
 - 🪟 **Cabeceras de página en la barra de título** — el título y las acciones de la página viven en la banda superior de la ventana, junto al conmutador de la barra lateral y la navegación atrás/adelante
 - 🎬 **Animaciones pulidas** — renovación de animaciones en toda la app: tooltips instantáneos, popovers que escalan desde su disparador, retroalimentación al pulsar y compatibilidad con movimiento reducido
 - 📈 **Gráficos del panel más fluidos** — gráficos de CPU/memoria con un motor liveline ligero, exploración al pasar el cursor y un eje y adecuado
+- 🌐 **Fleet Dashboard** — comprueba los Hosts observados juntos: estado del Engine, salud de contenedores, recuento de imágenes, CPU, memoria, disco y antigüedad del snapshot
 - 🔔 **Vigilancia de actualizaciones de imagen** — servicio en segundo plano con notificaciones de escritorio
 - 🌐 **Dominios locales** — direcciones `*.dockerman.localhost` memorables para servicios Docker locales, sin números de puerto
 - ☁️ **Túneles Cloudflared** — URLs públicas en un clic con limpieza automática
@@ -66,6 +67,7 @@ Gestión de cluster equivalente a `kubectl`, pero visual:
 - **Motor WSL2 en Windows** — sin Docker Desktop; setup Alpine en un clic con recuperación ante caídas, mirrors de registry, reinstalación y un conmutador en Ajustes entre el motor WSL2 y Docker nativo del sistema
 - **Daemons remotos** — socket personalizado, TCP o SSH forwarding con reconexión por heartbeat y latencia por host
 - **Despliegue en hosts SSH** — instala y gestiona apps en hosts remotos accesibles solo por SSH
+- **Fleet Dashboard** — comprueba los Hosts observados juntos: estado del Engine, salud de contenedores, recuento de imágenes, CPU, memoria, disco y antigüedad del snapshot
 
 ## Operación y experiencia
 
@@ -73,6 +75,7 @@ Gestión de cluster equivalente a `kubectl`, pero visual:
 - 🧰 Bundle de diagnóstico en un clic (logs, inspect, estado del host) para escalaciones de soporte
 - 📝 Editor visual de `.env` que conserva comentarios y aplica de forma atómica
 - 🔍 Paleta de comandos global (Cmd/Ctrl+;) y bandeja del sistema con CPU/memoria en vivo
+- 🪟 Snap Layouts de Windows 11 — pasa el cursor por el botón de maximizar para elegir un diseño de ventana
 - 🔐 Gestión de credenciales de registry privado con auto-match al hacer pull
 - 🔑 Activación de licencia para funciones de hosts remotos
 - 📦 CLI `dockerman` incluido, instalable, actualizable y desinstalable desde Ajustes

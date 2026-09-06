@@ -14,7 +14,7 @@
     "skipToContent": "コンテンツへスキップ"
   },
   "hero": {
-    "eyebrow": "覚えやすい *.dockerman.localhost アドレス、ガイド付き Local Domains セットアップ、再作成後も残るドメイン",
+    "eyebrow": "観測中ホストの Fleet ダッシュボード、Windows 11 Snap Layouts、オフにできるリモートホスト観測",
     "eyebrowTag": "NEW",
     "headline1Lead": "Docker を",
     "headline1Accent": "ローカルに",

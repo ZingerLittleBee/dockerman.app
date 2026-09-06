@@ -1,3 +1,26 @@
+<ChangelogEntry version="v6.2.0" date="2026 年 9 月 6 日">
+## Fleet 仪表盘与 Windows Snap Layouts
+
+### ✨ 新功能
+
+- 🌐 <Bold>Fleet 仪表盘：</Bold>把已观察的主机放在一起查看。可看引擎状态、容器健康、镜像数量、CPU、内存、磁盘占用以及快照新旧。
+- 🪟 <Bold>Windows 11 Snap Layouts：</Bold>将鼠标悬停在最大化按钮上即可选择窗口布局。
+
+### 🔧 改进
+
+- 📡 <Bold>主机观察：</Bold>关闭远程主机的观察后，会停止 Fleet 检查、指标采样、事件流和告警。检查不会启动已停止的引擎。
+- 🧭 <Bold>Fleet 状态：</Bold>区分新鲜与缓存快照、已停止的引擎、超时、需要 SSH 信任的主机以及不可达主机。可看出哪些主机已检查、哪些需要关注。
+
+### 🐛 问题修复
+
+- 🔌 <Bold>引擎切换：</Bold>切换本地引擎后刷新资源列表，并丢弃来自上一引擎的响应。
+- 📦 <Bold>容器创建：</Bold>新创建的容器会先启动，并在确认正在运行后再报告成功。启动失败会触发清理，并报告清理过程中的错误。
+- 📜 <Bold>Podman 日志：</Bold>显示并导出此前会让日志视图空白的控制台输出。
+- ☸️ <Bold>Kubernetes：</Bold>滚动操作后刷新 StatefulSet 与 DaemonSet 状态，加载时保留 YAML 资源名称，并澄清加载与错误状态。
+- 🖥️ <Bold>主机对话框：</Bold>在较矮的窗口中保持添加与编辑对话框可访问，重新打开时重置表单。
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v6.1.0" date="2026 年 8 月 16 日">
 ## 本地 Docker 服务的本地域名
 
