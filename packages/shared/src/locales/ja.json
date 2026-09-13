@@ -14,7 +14,7 @@
     "skipToContent": "コンテンツへスキップ"
   },
   "hero": {
-    "eyebrow": "観測中ホストの Fleet ダッシュボード、Windows 11 Snap Layouts、オフにできるリモートホスト観測",
+    "eyebrow": "Dock から Homebrew エンジンを起動、ターミナル離脱後も安定",
     "eyebrowTag": "NEW",
     "headline1Lead": "Docker を",
     "headline1Accent": "ローカルに",

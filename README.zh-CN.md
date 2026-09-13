@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文 | [🇯🇵 日本語](./README.ja.md) | [🇪🇸 Español](./README.es.md)
 
-[![Version](https://img.shields.io/badge/version-v6.2.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Sep%206%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.0)
+[![Version](https://img.shields.io/badge/version-v6.2.1-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.1)
+[![Release Date](https://img.shields.io/badge/release%20date-Sep%2014%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.1)
 
 一个原生桌面端 Docker **与** Kubernetes 管理工具，基于 Tauri + Rust。启动快、占用低、完全本地运行——数据不出本机。
 
@@ -35,7 +35,7 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文 | [🇯🇵 �
 - 按 Compose 项目分组或平铺浏览容器；按名称、端口、状态快速过滤
 - 用引导式表单创建，或粘贴 `docker run` 命令——并在内置编辑器中转换为 Compose YAML
 - 实时日志，支持关键词/正则搜索与大小写切换；CPU/内存历史曲线，最多 6 容器并列对比
-- 可定制主题的终端（离开视图后仍保活五分钟）、进程列表，文件浏览器支持就地编辑、预览（文本/代码/图片/PDF/视频）以及文件夹上传下载
+- 可定制主题的终端（离开视图后仍保活五分钟，且不会残留渲染器错误）、进程列表，文件浏览器支持就地编辑、预览（文本/代码/图片/PDF/视频）以及文件夹上传下载
 - 整体备份与恢复——配置、文件系统、卷以及支持的绑定挂载
 - 镜像构建（Dockerfile 或解析命令）、推送到私有仓库、Docker Hub 搜索、Trivy 安全扫描、按层大小分析
 - 就地编辑运行中容器的端口映射——无需重新创建即可添加、修改和移除已发布端口
@@ -63,7 +63,7 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文 | [🇯🇵 �
 - **Cloudflared 隧道** — 一键暴露任意容器端口；容器停止/销毁自动清理，崩溃后可恢复
 - **Podman** — 自动检测运行时，支持按主机偏好；工具链就绪时同样支持 Compose
 - **Apple Container** — 在 macOS 上连接 Apple 的容器引擎：容器、镜像、卷、网络、日志、统计、构建、拉取与交互式终端
-- **macOS 托管引擎** — 在引导流程、设置与主机切换器中检测、启动、停止、修复并切换 Colima 与 Podman 虚拟机，虚拟机 CPU/内存/磁盘均可在应用内配置（Dockerman 只引导你获取引擎二进制文件，不会安装或更新它们）
+- **macOS 托管引擎** — 在引导流程、设置与主机切换器中检测、启动、停止、修复并切换 Colima 与 Podman 虚拟机，从程序坞或 Finder 打开时也能启动 Homebrew 安装的引擎，虚拟机 CPU/内存/磁盘均可在应用内配置（Dockerman 只引导你获取引擎二进制文件，不会安装或更新它们）
 - **Windows WSL2 引擎** — 无需 Docker Desktop；Alpine 一键安装、崩溃恢复、镜像源、重新安装，并可在设置中切换 WSL2 引擎与系统原生 Docker
 - **远程守护进程** — 自定义 socket、TCP 或 SSH 转发，心跳重连与每主机延迟显示
 - **部署到 SSH 主机** — 在仅能通过 SSH 访问的远程主机上安装与管理应用

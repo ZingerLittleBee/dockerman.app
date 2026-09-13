@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | [🇨🇳 简体中文](./README.zh-CN.md) | [🇯🇵 日本語](./README.ja.md) | 🇪🇸 Español
 
-[![Version](https://img.shields.io/badge/version-v6.2.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Sep%206%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.0)
+[![Version](https://img.shields.io/badge/version-v6.2.1-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.1)
+[![Release Date](https://img.shields.io/badge/release%20date-Sep%2014%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.1)
 
 Una UI de escritorio nativa para gestionar Docker **y** Kubernetes — construida con Tauri + Rust. Arranque rápido, ligera en recursos y completamente local: nada sale de tu máquina.
 
@@ -35,7 +35,7 @@ Gestiona todo desde un solo lugar sin tener que recurrir a la terminal:
 - Agrupa contenedores por proyecto Compose o navega en lista plana; filtros rápidos por nombre, puerto o estado
 - Crea desde un formulario guiado o pega un comando `docker run` — y conviértelo a YAML Compose en el editor integrado
 - Logs en vivo con búsqueda por palabra clave/regex y alternancia de mayúsculas; historial de CPU/memoria con comparativa multi-contenedor (hasta 6)
-- Terminal con temas que sigue viva cinco minutos tras salir de la vista, lista de procesos y un navegador de archivos con edición in situ, vistas previas (texto/código/imágenes/PDF/vídeo) y subida/descarga de carpetas
+- Terminal con temas que sigue viva cinco minutos tras salir de la vista sin errores residuales del renderer, lista de procesos y un navegador de archivos con edición in situ, vistas previas (texto/código/imágenes/PDF/vídeo) y subida/descarga de carpetas
 - Backup y restore del contenedor completo — configuración, sistema de archivos, volúmenes y bind mounts soportados
 - Build de imágenes (Dockerfile o comando parseado), push a registries privados, búsqueda en Docker Hub, escaneo de seguridad Trivy y análisis por capas
 - Edita en línea los mapeos de puertos de un contenedor en ejecución: añade, cambia y elimina puertos publicados sin recrearlo desde cero
@@ -63,7 +63,7 @@ Gestión de cluster equivalente a `kubectl`, pero visual:
 - **Túneles Cloudflared** — expón cualquier puerto de un contenedor en un clic; los túneles se limpian automáticamente al parar/destruir y sobreviven a caídas
 - **Podman** — runtime detectado automáticamente con preferencia por host y soporte de Compose cuando el toolchain está presente
 - **Apple Container** — conéctate al motor de contenedores de Apple en macOS: contenedores, imágenes, volúmenes, redes, logs, estadísticas, builds, pulls y terminales interactivas
-- **Motores gestionados en macOS** — detecta, inicia, detén, repara y alterna entre máquinas Colima y Podman desde el onboarding, los Ajustes y el selector de host, con CPU, memoria y disco de la VM configurables desde la app (Dockerman te guía hasta los binarios del motor; nunca los instala ni actualiza)
+- **Motores gestionados en macOS** — detecta, inicia, detén, repara y alterna entre máquinas Colima y Podman desde el onboarding, los Ajustes y el selector de host, incluidos los motores de Homebrew al abrir desde el Dock o Finder, con CPU, memoria y disco de la VM configurables desde la app (Dockerman te guía hasta los binarios del motor; nunca los instala ni actualiza)
 - **Motor WSL2 en Windows** — sin Docker Desktop; setup Alpine en un clic con recuperación ante caídas, mirrors de registry, reinstalación y un conmutador en Ajustes entre el motor WSL2 y Docker nativo del sistema
 - **Daemons remotos** — socket personalizado, TCP o SSH forwarding con reconexión por heartbeat y latencia por host
 - **Despliegue en hosts SSH** — instala y gestiona apps en hosts remotos accesibles solo por SSH
