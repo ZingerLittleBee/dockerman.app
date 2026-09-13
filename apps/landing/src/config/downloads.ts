@@ -30,7 +30,7 @@ export interface DownloadsHistoryEntry {
 }
 
 const VERSION = siteConfig.latestVersion
-const RELEASE_DATE = '2026-09-06'
+const RELEASE_DATE = '2026-09-14'
 
 export const downloadsConfig: {
   asOf: string
@@ -104,7 +104,8 @@ export const downloadsConfig: {
     }
   },
   history: [
-    { version: VERSION, date: RELEASE_DATE, summarySlug: 'release-6-2-0' },
+    { version: VERSION, date: RELEASE_DATE, summarySlug: 'release-6-2-1' },
+    { version: '6.2.0', date: '2026-09-06', summarySlug: 'release-6-2-0' },
     { version: '6.1.0', date: '2026-08-16', summarySlug: 'release-6-1-0' },
     { version: '6.0.0', date: '2026-08-02', summarySlug: 'release-6-0-0' },
     { version: '5.6.1', date: '2026-07-12', summarySlug: 'release-5-6-1' },

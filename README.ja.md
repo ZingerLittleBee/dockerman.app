@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | [🇨🇳 简体中文](./README.zh-CN.md) | 🇯🇵 日本語 | [🇪🇸 Español](./README.es.md)
 
-[![Version](https://img.shields.io/badge/version-v6.2.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Sep%206%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.0)
+[![Version](https://img.shields.io/badge/version-v6.2.1-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.1)
+[![Release Date](https://img.shields.io/badge/release%20date-Sep%2014%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.1)
 
 Docker **と** Kubernetes をまとめて管理できるネイティブデスクトップ UI。Tauri + Rust 製で、起動が速く、軽量、完全ローカル動作――データはマシンの外に出ません。
 
@@ -35,7 +35,7 @@ Docker **と** Kubernetes をまとめて管理できるネイティブデスク
 - Compose プロジェクト単位でグループ化、または平坦リストで閲覧。名前・ポート・ステータスでクイックフィルタ
 - ガイド付きフォームから作成、または `docker run` コマンドを貼り付け――内蔵エディタで Compose YAML に変換
 - リアルタイムログ、キーワード／正規表現検索、大文字小文字切替；CPU/メモリ履歴、最大 6 コンテナの並列比較
-- テーマ可能なターミナル（ビューを離れても 5 分間セッションを維持）、プロセス一覧、ファイルブラウザ（インライン編集、テキスト/コード/画像/PDF/動画プレビュー、フォルダ アップロード/ダウンロード）
+- テーマ可能なターミナル（ビューを離れても 5 分間セッションを維持し、遅延更新のレンダラーエラーも残らない）、プロセス一覧、ファイルブラウザ（インライン編集、テキスト/コード/画像/PDF/動画プレビュー、フォルダ アップロード/ダウンロード）
 - 設定、ファイルシステム、ボリューム、対応する bind マウントまでまとめてバックアップ・リストア
 - イメージビルド（Dockerfile またはコマンド解析）、プライベートレジストリへの push、Docker Hub 検索、Trivy セキュリティスキャン、レイヤサイズ分析
 - 実行中コンテナのポートマッピングをインライン編集——再作成せずに公開ポートを追加・変更・削除
@@ -63,7 +63,7 @@ Docker **と** Kubernetes をまとめて管理できるネイティブデスク
 - **Cloudflared トンネル** — 任意のコンテナポートをワンクリックで公開、停止／削除で自動クリーンアップ、クラッシュ後も復旧
 - **Podman** — ランタイム自動検出、ホスト単位の優先設定、ツールチェーンが揃っていれば Compose にも対応
 - **Apple Container** — macOS 上で Apple のコンテナエンジンに接続：コンテナ、イメージ、ボリューム、ネットワーク、ログ、統計、ビルド、プル、対話型ターミナル
-- **macOS のマネージドエンジン** — オンボーディング、設定、ホストスイッチャーから Colima と Podman のマシンを検出、起動、停止、修復、切り替え。VM の CPU/メモリ/ディスクもアプリ内で設定可能（エンジンのバイナリは Dockerman がインストールも更新もせず、入手方法を案内します）
+- **macOS のマネージドエンジン** — オンボーディング、設定、ホストスイッチャーから Colima と Podman のマシンを検出、起動、停止、修復、切り替え。Dock や Finder から開いても Homebrew 製エンジンを起動でき、VM の CPU/メモリ/ディスクもアプリ内で設定可能（エンジンのバイナリは Dockerman がインストールも更新もせず、入手方法を案内します）
 - **Windows の WSL2 エンジン** — Docker Desktop 不要、Alpine をワンクリックでセットアップ、クラッシュ自動復旧、レジストリミラー、再インストールに対応。設定から WSL2 エンジンと OS ネイティブ Docker を切替可能
 - **リモートデーモン** — カスタム socket、TCP、SSH 転送、ハートビート再接続とホスト別レイテンシ表示
 - **SSH ホストへのデプロイ** — SSH 経由でのみ到達できるリモートホスト上でアプリをインストール・管理
