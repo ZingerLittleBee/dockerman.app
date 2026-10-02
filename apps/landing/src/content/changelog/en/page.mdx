@@ -1,3 +1,30 @@
+<ChangelogEntry version="v6.2.2" date="Oct 3, 2026">
+## Localization, Notifications & Reliability
+
+Improved localization and notification feedback, with fixes for editing, file timestamps, live updates, and CLI streams.
+
+### 🔧 Improvements
+
+- 🌐 <Bold>Localization and accessibility:</Bold> More controls and notification names use the app language, times follow the selected language, and filter tabs have screen reader labels.
+- 🔔 <Bold>Test notifications:</Bold> Show whether a test notification was sent and explain failures.
+- ⌨️ <Bold>CLI notifications:</Bold> Manage notification channels and send test notifications with `dockerman call`.
+
+### 🐛 Bug Fixes
+
+- 📝 <Bold>Compose editing:</Bold> Open Stack files outside the home folder and leave the editor after saving or discarding changes. Long paths no longer push action buttons off screen.
+- 📁 <Bold>File timestamps:</Bold> Saved and uploaded files no longer show modification dates in 1970. Uploads preserve the original modification time.
+- 📦 <Bold>Images:</Bold> Export images as `.tar` files and show short IDs for untagged images. Failed operations show readable error messages.
+- 🗂️ <Bold>Backup restore:</Bold> Preserve existing image tags when a backup contains a different image with the same name.
+- 🔄 <Bold>Live updates:</Bold> Refresh Compose projects and image lists when containers change, keep container status times current, and show volume names in events.
+- 🚨 <Bold>Restart alerts:</Bold> Count automatic restarts toward restart alerts without double-counting or confusing reload signals with deliberate stops.
+- ☸️ <Bold>Kubernetes navigation:</Bold> Keep the selected namespace scope when leaving and returning to custom resources.
+- 🌐 <Bold>Tunnels:</Bold> Fix tunnels remaining in the starting state after becoming active.
+- 🖥️ <Bold>Layout and stats:</Bold> Keep long editor lines from widening the page, prevent focus outlines from being clipped, and display unlimited process limits as infinity.
+- ⌨️ <Bold>CLI streams:</Bold> Exit terminal sessions without another keypress and return a failure exit code when stats or event streams fail.
+- 📊 <Bold>Overview stats:</Bold> Handle statistics request timeouts without unhandled errors.
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v6.2.1" date="Sep 14, 2026">
 ## macOS Engine Startup & Terminal Stability
 

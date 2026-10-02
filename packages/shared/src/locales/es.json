@@ -14,7 +14,7 @@
     "skipToContent": "Saltar al contenido"
   },
   "hero": {
-    "eyebrow": "Motores Homebrew arrancan desde el Dock, terminal más estable al salir",
+    "eyebrow": "Mejor localización, notificaciones por CLI, fechas de archivo correctas",
     "eyebrowTag": "NUEVO",
     "headline1Lead": "Docker que se siente",
     "headline1Accent": "local",

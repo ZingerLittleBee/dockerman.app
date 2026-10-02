@@ -14,7 +14,7 @@
     "skipToContent": "コンテンツへスキップ"
   },
   "hero": {
-    "eyebrow": "Dock から Homebrew エンジンを起動、ターミナル離脱後も安定",
+    "eyebrow": "ローカライズ改善、CLI 通知、正確なファイル日時",
     "eyebrowTag": "NEW",
     "headline1Lead": "Docker を",
     "headline1Accent": "ローカルに",
