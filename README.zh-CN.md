@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文 | [🇯🇵 日本語](./README.ja.md) | [🇪🇸 Español](./README.es.md)
 
-[![Version](https://img.shields.io/badge/version-v6.2.1-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.1)
-[![Release Date](https://img.shields.io/badge/release%20date-Sep%2014%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.1)
+[![Version](https://img.shields.io/badge/version-v6.2.2-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.2)
+[![Release Date](https://img.shields.io/badge/release%20date-Oct%203%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.2)
 
 一个原生桌面端 Docker **与** Kubernetes 管理工具，基于 Tauri + Rust。启动快、占用低、完全本地运行——数据不出本机。
 
@@ -79,6 +79,7 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文 | [🇯🇵 �
 - 🔐 私有仓库凭证管理，拉取时自动匹配
 - 🔑 远程主机功能的许可证激活
 - 📦 内置 `dockerman` CLI，可在设置中安装、更新与卸载
+- 🔔 通过 `dockerman call` 管理通知渠道并发送测试通知
 - 🤖 一键安装 Claude Code、Codex 与 Gemini CLI 插件
 - 🛡️ 在设置中检查并应用 Trivy CLI 升级
 

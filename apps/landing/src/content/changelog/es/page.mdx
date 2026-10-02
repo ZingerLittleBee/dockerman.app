@@ -1,3 +1,30 @@
+<ChangelogEntry version="v6.2.2" date="3 de octubre de 2026">
+## Localización, notificaciones y fiabilidad
+
+Mejoras en la localización y en la información sobre el envío de notificaciones, con correcciones en la edición, las fechas de archivo, las actualizaciones en vivo y los flujos del CLI.
+
+### 🔧 Mejoras
+
+- 🌐 <Bold>Localización y accesibilidad:</Bold> más controles y nombres de notificaciones usan el idioma de la app, las horas siguen el idioma seleccionado y las pestañas de filtro tienen etiquetas para lectores de pantalla.
+- 🔔 <Bold>Notificaciones de prueba:</Bold> muestra si se ha enviado una notificación de prueba y explica los fallos.
+- ⌨️ <Bold>Notificaciones por CLI:</Bold> gestiona los canales de notificación y envía notificaciones de prueba con `dockerman call`.
+
+### 🐛 Correcciones
+
+- 📝 <Bold>Edición de Compose:</Bold> permite abrir archivos de Stack fuera de la carpeta de inicio y salir del editor después de guardar o descartar los cambios. Las rutas largas ya no desplazan los botones de acción fuera de la pantalla.
+- 📁 <Bold>Fechas de archivo:</Bold> los archivos guardados y subidos ya no muestran fechas de modificación de 1970. Las subidas conservan la fecha de modificación original.
+- 📦 <Bold>Imágenes:</Bold> exporta imágenes como archivos `.tar` y muestra IDs cortos para las imágenes sin etiqueta. Las operaciones fallidas muestran mensajes de error legibles.
+- 🗂️ <Bold>Restauración de copias de seguridad:</Bold> conserva las etiquetas de las imágenes existentes cuando una copia contiene una imagen diferente con el mismo nombre.
+- 🔄 <Bold>Actualizaciones en vivo:</Bold> actualiza los proyectos Compose y las listas de imágenes cuando cambian los contenedores, mantiene al día las horas de estado de los contenedores y muestra los nombres de los volúmenes en los eventos.
+- 🚨 <Bold>Alertas de reinicio:</Bold> incluye los reinicios automáticos en las alertas de reinicio sin contarlos dos veces ni confundir las señales de recarga con las paradas deliberadas.
+- ☸️ <Bold>Navegación en Kubernetes:</Bold> conserva el ámbito de namespaces seleccionado al salir de los recursos personalizados y volver a ellos.
+- 🌐 <Bold>Túneles:</Bold> corrige que los túneles sigan apareciendo como en proceso de inicio después de activarse.
+- 🖥️ <Bold>Diseño y estadísticas:</Bold> evita que las líneas largas del editor ensanchen la página o que se recorten los contornos de foco, y muestra como infinito los límites de procesos sin restricción.
+- ⌨️ <Bold>Flujos del CLI:</Bold> termina las sesiones de terminal sin otra pulsación de tecla y devuelve un código de salida de fallo cuando fallan los flujos de estadísticas o eventos.
+- 📊 <Bold>Estadísticas del resumen:</Bold> gestiona los tiempos de espera de las solicitudes de estadísticas sin errores sin manejar.
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v6.2.1" date="14 de septiembre de 2026">
 ## Arranque del motor en macOS y estabilidad del terminal
 

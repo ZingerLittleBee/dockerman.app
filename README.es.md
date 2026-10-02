@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | [🇨🇳 简体中文](./README.zh-CN.md) | [🇯🇵 日本語](./README.ja.md) | 🇪🇸 Español
 
-[![Version](https://img.shields.io/badge/version-v6.2.1-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.1)
-[![Release Date](https://img.shields.io/badge/release%20date-Sep%2014%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.1)
+[![Version](https://img.shields.io/badge/version-v6.2.2-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.2)
+[![Release Date](https://img.shields.io/badge/release%20date-Oct%203%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.2)
 
 Una UI de escritorio nativa para gestionar Docker **y** Kubernetes — construida con Tauri + Rust. Arranque rápido, ligera en recursos y completamente local: nada sale de tu máquina.
 
@@ -79,6 +79,7 @@ Gestión de cluster equivalente a `kubectl`, pero visual:
 - 🔐 Gestión de credenciales de registry privado con auto-match al hacer pull
 - 🔑 Activación de licencia para funciones de hosts remotos
 - 📦 CLI `dockerman` incluido, instalable, actualizable y desinstalable desde Ajustes
+- 🔔 Gestiona los canales de notificación y envía notificaciones de prueba con `dockerman call`
 - 🤖 Instalador en un clic para plugins de Claude Code, Codex y Gemini CLI
 - 🛡️ Comprobación de actualizaciones del CLI Trivy desde Ajustes
 

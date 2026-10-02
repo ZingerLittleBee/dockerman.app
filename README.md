@@ -2,8 +2,8 @@
 
 Language: 🇺🇸 English | [🇨🇳 简体中文](./README.zh-CN.md) | [🇯🇵 日本語](./README.ja.md) | [🇪🇸 Español](./README.es.md)
 
-[![Version](https://img.shields.io/badge/version-v6.2.1-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.1)
-[![Release Date](https://img.shields.io/badge/release%20date-Sep%2014%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.1)
+[![Version](https://img.shields.io/badge/version-v6.2.2-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.2)
+[![Release Date](https://img.shields.io/badge/release%20date-Oct%203%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.2)
 
 A native desktop UI for managing Docker **and** Kubernetes — built with Tauri + Rust. Fast to launch, light on resources, and entirely local: nothing leaves your machine.
 
@@ -79,6 +79,7 @@ Cluster management on par with `kubectl`, but visual:
 - 🔐 Private registry credential management with auto-matching on pull
 - 🔑 License activation for remote-host features
 - 📦 Bundled `dockerman` CLI with install, update, and uninstall from Settings
+- 🔔 Manage notification channels and send test notifications with `dockerman call`
 - 🤖 One-click installer for Claude Code, Codex, and Gemini CLI plugins
 - 🛡️ Trivy CLI update checks from Settings
 

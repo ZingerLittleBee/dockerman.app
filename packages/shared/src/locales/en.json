@@ -14,7 +14,7 @@
     "skipToContent": "Skip to content"
   },
   "hero": {
-    "eyebrow": "Homebrew engines start from the Dock, more stable terminal after leaving views",
+    "eyebrow": "Better localization, CLI notifications, accurate file timestamps",
     "eyebrowTag": "NEW",
     "headline1Lead": "Docker that feels",
     "headline1Accent": "local",

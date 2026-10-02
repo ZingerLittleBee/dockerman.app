@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | [🇨🇳 简体中文](./README.zh-CN.md) | 🇯🇵 日本語 | [🇪🇸 Español](./README.es.md)
 
-[![Version](https://img.shields.io/badge/version-v6.2.1-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.1)
-[![Release Date](https://img.shields.io/badge/release%20date-Sep%2014%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.1)
+[![Version](https://img.shields.io/badge/version-v6.2.2-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.2)
+[![Release Date](https://img.shields.io/badge/release%20date-Oct%203%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.2)
 
 Docker **と** Kubernetes をまとめて管理できるネイティブデスクトップ UI。Tauri + Rust 製で、起動が速く、軽量、完全ローカル動作――データはマシンの外に出ません。
 
@@ -79,6 +79,7 @@ Docker **と** Kubernetes をまとめて管理できるネイティブデスク
 - 🔐 プライベートレジストリ資格情報の管理、pull 時に自動マッチ
 - 🔑 リモートホスト機能のためのライセンス認証
 - 📦 同梱の `dockerman` CLI を設定からインストール／更新／アンインストール
+- 🔔 `dockerman call` で通知チャンネルを管理し、テスト通知を送信
 - 🤖 Claude Code、Codex、Gemini CLI プラグインをワンクリックでインストール
 - 🛡️ 設定から Trivy CLI の更新を確認・適用
 
