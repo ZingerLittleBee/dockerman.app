@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文 | [🇯🇵 日本語](./README.ja.md) | [🇪🇸 Español](./README.es.md)
 
-[![Version](https://img.shields.io/badge/version-v6.2.2-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.2)
-[![Release Date](https://img.shields.io/badge/release%20date-Oct%203%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.2)
+[![Version](https://img.shields.io/badge/version-v6.3.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.3.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Oct%2014%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.3.0)
 
 一个原生桌面端 Docker **与** Kubernetes 管理工具，基于 Tauri + Rust。启动快、占用低、完全本地运行——数据不出本机。
 
@@ -71,7 +71,11 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文 | [🇯🇵 �
 
 ## 运维与体验
 
-- 🚨 预置告警规则（restart loop、容器崩溃）以及包含容器/时间/规则名称的近期告警列表
+- 🚨 针对意外重启、重启循环和服务无响应的容器事件（Incident），持续期间可提醒，告警页面实时更新
+- 🩺 为没有健康检查的容器添加 TCP/HTTP 服务探测
+- 🔕 按容器静音通知，按规则设置每日静默时段
+- ⚙️ 可调整告警规则的阈值、冷却时间、严重级别与通知渠道
+- 📣 在设置中管理 Telegram、ntfy、Gotify、Discord 与 Webhook 通知渠道
 - 🧰 一键诊断包（日志、inspect、主机状态），便于上报排障
 - 📝 可视化 `.env` 编辑器，保留注释并原子化应用
 - 🔍 全局命令面板（Cmd/Ctrl+;）与系统托盘实时显示 CPU/内存

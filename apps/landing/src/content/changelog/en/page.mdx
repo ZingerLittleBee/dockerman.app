@@ -1,3 +1,29 @@
+<ChangelogEntry version="v6.3.0" date="Oct 14, 2026">
+## Container Incidents & Alert Controls
+
+Track container failures as Incidents that stay open until they are resolved, add Service Probes for containers without a health check, and control when and where alerts are sent.
+
+### ✨ Features
+
+- 🚨 <Bold>Container incidents:</Bold> Unexpected restarts, restart loops, and unresponsive services open an Incident that stays open until the container is stable again, stopped, or removed, with reminders while it lasts. The Alerts page shows active Incidents and recent alerts as they happen, and affected containers are marked in the container list.
+- 🩺 <Bold>Service Probes:</Bold> Add a TCP or HTTP check, run from this computer, for containers without a health check so Dockerman can tell when their service stops responding.
+- 🔕 <Bold>Mute and Silence Windows:</Bold> Mute notifications for one container until a chosen time or until you unmute it, or give a rule daily Silence Windows. Incidents are still tracked while notifications are held back.
+- ⚙️ <Bold>Alert rule settings:</Bold> Adjust each rule's thresholds, cooldown, severity, Silence Windows, and notification channels, and see which Hosts and Engines are monitored.
+- 📣 <Bold>Notification channels:</Bold> Add and delete Telegram, ntfy, Gotify, Discord, and webhook channels in Settings.
+
+### 🔧 Improvements
+
+- 🔔 <Bold>System notifications:</Bold> Notifications use the app language, and on macOS clicking one reopens a window that was closed to the tray.
+- 🆕 <Bold>Alert defaults:</Bold> New installs start with every alert rule turned off. Existing notification settings are kept.
+- 📋 <Bold>Remove confirmations:</Bold> Copy the container or Compose project name with a button beside the confirmation input when removing it.
+
+### 🐛 Bug Fixes
+
+- 🛑 <Bold>Stop and restart:</Bold> When the container no longer exists, refresh the list and explain why instead of failing silently. Other failures show their error.
+- 📁 <Bold>Compose actions:</Bold> Show a clear message when a Compose project's folder was moved or deleted instead of a raw system error.
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v6.2.2" date="Oct 3, 2026">
 ## Localization, Notifications & Reliability
 

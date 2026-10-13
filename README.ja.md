@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | [🇨🇳 简体中文](./README.zh-CN.md) | 🇯🇵 日本語 | [🇪🇸 Español](./README.es.md)
 
-[![Version](https://img.shields.io/badge/version-v6.2.2-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.2)
-[![Release Date](https://img.shields.io/badge/release%20date-Oct%203%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.2)
+[![Version](https://img.shields.io/badge/version-v6.3.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.3.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Oct%2014%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.3.0)
 
 Docker **と** Kubernetes をまとめて管理できるネイティブデスクトップ UI。Tauri + Rust 製で、起動が速く、軽量、完全ローカル動作――データはマシンの外に出ません。
 
@@ -71,7 +71,11 @@ Docker **と** Kubernetes をまとめて管理できるネイティブデスク
 
 ## 運用と使い心地
 
-- 🚨 プリセットアラート（restart loop、コンテナクラッシュ）と、コンテナ／時刻／ルール名付きの最近のアラート一覧
+- 🚨 予期しない再起動、再起動ループ、サービス応答なしをコンテナのインシデントとして追跡し、継続中はリマインダー、アラートページはリアルタイム更新
+- 🩺 ヘルスチェックのないコンテナに TCP/HTTP のサービスプローブを追加
+- 🔕 コンテナごとのミュートと、ルールごとの毎日のサイレント時間帯
+- ⚙️ アラートルールのしきい値、クールダウン、重要度、通知チャンネルを調整可能
+- 📣 Telegram、ntfy、Gotify、Discord、Webhook の通知チャンネルを設定で管理
 - 🧰 ワンクリックの診断バンドル（ログ、inspect、ホスト状態）でサポート対応がスムーズ
 - 📝 コメント保持＋アトミック適用のビジュアル `.env` エディタ
 - 🔍 グローバルコマンドパレット（Cmd/Ctrl+;）、システムトレイのリアルタイム CPU/メモリ

@@ -14,7 +14,7 @@
     "skipToContent": "跳到正文"
   },
   "hero": {
-    "eyebrow": "本地化改进、CLI 通知、准确的文件时间",
+    "eyebrow": "容器事件、服务探测、通知渠道",
     "eyebrowTag": "新",
     "headline1Lead": "Docker，\n用起来像",
     "headline1Accent": "本地",
