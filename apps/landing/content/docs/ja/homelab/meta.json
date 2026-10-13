@@ -1,5 +1,5 @@
 {
   "title": "Homelab",
-  "pages": ["index", "scheduler", "notifications", "alerts", "image-watches", "diagnostic-bundle"],
+  "pages": ["index", "scheduler", "notifications", "alerts", "alert-coverage", "image-watches", "diagnostic-bundle"],
   "defaultOpen": true
 }

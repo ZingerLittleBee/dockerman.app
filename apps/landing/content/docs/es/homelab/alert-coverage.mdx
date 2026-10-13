@@ -1,0 +1,166 @@
+---
+title: Cobertura de supervisión de alertas
+description: Cuándo vigilan las alertas de contenedor, qué admite cada motor y qué sabe Dockerman sobre una notificación.
+---
+
+Esta página explica cuándo vigilan las alertas de contenedor de Dockerman, qué pueden detectar en cada motor y qué puede y qué no puede saber Dockerman sobre una notificación.
+
+Las reglas de alerta las evalúa el servicio en segundo plano de Dockerman (el daemon) en este equipo, no la ventana de Dockerman. Un fallo en curso de un contenedor en un Host es un **incidente**: se abre y avisa una vez, puede recordártelo mientras siga abierto, y termina solo cuando el contenedor se observa estable de nuevo, se detiene a propósito, se elimina o se desactiva su regla. Un hecho puntual, como una salida con código distinto de cero, es un **evento de alerta**.
+
+Las reglas integradas están todas desactivadas hasta que las actives. La única excepción es una actualización desde una versión con los ajustes de notificación anteriores: si allí las notificaciones de escritorio estaban activadas, **Salida inesperada de contenedor** activa Fallo de contenedor y **Fallo de la comprobación de estado del contenedor** activa Servicio sin respuesta.
+
+| Regla | Produce | Detecta |
+| --- | --- | --- |
+| Reinicio inesperado | Incidente | Un contenedor que vuelve a arrancar tras un fallo |
+| Bucle de reinicio | Incidente | Reinicios inesperados repetidos dentro de una ventana, o un contenedor atascado en un ciclo de reinicios |
+| Fallo de contenedor (salida no cero) | Evento de alerta | Un contenedor que termina con un código distinto de cero |
+| Servicio sin respuesta | Incidente | Una comprobación de estado del motor que informa de mal estado, o una sonda de servicio que falla |
+
+## De un vistazo
+
+| Situación | Supervisado | Qué ocurre |
+| --- | --- | --- |
+| Dockerman abierto, o con su ventana cerrada en la bandeja | Sí | Los incidentes se abren y terminan; las notificaciones del sistema se entregan al sistema |
+| Dockerman cerrado mientras el daemon sigue en ejecución | Sí | Los incidentes se abren y terminan; se envía a los canales externos; las notificaciones del sistema se registran como «no entregada: la app no estaba abierta» |
+| Daemon no en ejecución (detenido, tras un reinicio, tras cerrar sesión) | No | No se observa nada; los incidentes abiertos pasan a sin observar cuando el daemon vuelve a arrancar |
+| Equipo en reposo | No | Los incidentes abiertos pasan a sin observar al despertar |
+| Host inaccesible | No, para ese Host | Sus incidentes abiertos pasan a sin observar; no se genera ninguna alerta por la interrupción |
+| Host no observado | Nunca | Sin alertas para ese Host |
+| Host de Apple Container | Nunca | Las alertas no son compatibles con este motor |
+
+Perder la observación nunca cuenta como recuperación. Un incidente sin observar sigue abierto, sus recordatorios continúan, y cuando Dockerman vuelve a ver el contenedor, este debe mantenerse estable durante el intervalo estable completo de la regla antes de que el incidente se recupere.
+
+## Qué hosts se supervisan
+
+El daemon vigila todos los contenedores de:
+
+- `LOCALHOST`, el equipo en el que se ejecuta Dockerman;
+- cada Host guardado cuyo interruptor **Observar este Host** (en la página Flota) esté activado.
+
+Un Host SSH guardado solo se supervisa si además tiene una credencial guardada y una clave de host fijada (de confianza), de modo que el daemon pueda conectarse sin preguntarte nada. Un Host TCP simple no necesita ninguna de las dos. El daemon llega a estos Hosts por sí solo; no hace falta tener abierta ninguna ventana de Dockerman.
+
+Cualquier otro Host no tiene ninguna supervisión. La lista **Cobertura por host** de la página Alertas muestra cada Host como Supervisado, Supervisado con límites, No compatible o No supervisado, con el motivo.
+
+## La ventana de Dockerman y el daemon
+
+### Ventana cerrada en la bandeja
+
+Al cerrar la ventana principal, Dockerman se oculta en la barra de menús o en la bandeja del sistema. La app sigue en ejecución, así que la supervisión y las notificaciones del sistema funcionan con normalidad. Al hacer clic en una notificación, Dockerman pasa al primer plano.
+
+En un escritorio sin bandeja (algunos escritorios Linux), cerrar la ventana cierra la app. Consulta la sección siguiente.
+
+### Dockerman cerrado mientras el daemon sigue en ejecución
+
+El daemon es un proceso aparte. Cerrar Dockerman (**Salir de Dockerman** en el menú de la bandeja, o el comando Salir de la app) no lo detiene, así que sigue observando, abriendo y terminando incidentes, y enviando notificaciones a los canales externos (Telegram, Ntfy, Gotify, Discord, Webhook).
+
+Las notificaciones del sistema necesitan la app. Mientras está cerrada, cada una se registra como **no entregada: la app no estaba abierta** en el estado de entrega del incidente o del evento de alerta. Cuando vuelves a abrir Dockerman, las notificaciones del sistema perdidas no se reenvían; los incidentes abiertos se muestran en la página Alertas, en la lista de contenedores y en la página de detalle del contenedor.
+
+Para enterarte de los fallos mientras Dockerman está cerrado, añade un canal externo a la regla.
+
+### Daemon detenido, reinicio o cierre de sesión
+
+Abrir Dockerman inicia el daemon (también lo hace la herramienta de línea de comandos `dockerman`). Dockerman no se inicia al iniciar sesión. Tras reiniciar el equipo, tras cerrar sesión o tras detener el daemon, no se supervisa nada hasta que vuelvas a abrir Dockerman. Un fallo que empieza y termina en ese intervalo nunca se notifica.
+
+Cuando el daemon arranca:
+
+- todos los incidentes que siguen abiertos se marcan como sin observar desde su última observación;
+- el daemon lista una vez todos los contenedores de cada Host, en cualquier estado, e inspecciona los que están en ejecución, como nueva línea base;
+- un incidente abierto cuyo contenedor ya no está en su Host termina como eliminado, sin notificación (un contenedor detenido sigue en su Host y conserva su incidente);
+- un contenedor que sigue en bucle de fallos se detecta de nuevo (en Docker, por el ciclo de reinicio sostenido; consulta [Compatibilidad por motor](#compatibilidad-por-motor)) sin inventar marcas de tiempo para reinicios que no vio.
+
+## Reposo
+
+Mientras el equipo está en reposo, el daemon queda en pausa y no observa nada.
+
+Al despertar, el daemon detecta que el reloj de pared avanzó más que su reloj monotónico, en más de un intervalo de muestreo (5 segundos). Entonces trata cada Host como perdido y luego restaurado: los incidentes abiertos se marcan como sin observar desde la última observación antes del reposo, y la recuperación exige un intervalo estable completo tras despertar. Cambiar la hora del sistema a mano tiene el mismo efecto.
+
+Esta detección depende de que el reloj monotónico se detenga durante el reposo, que es el comportamiento en macOS y Linux. No está verificado en Windows.
+
+## Desconexión del host
+
+Cuando el daemon pierde el flujo de eventos de un Host, o no puede muestrearlo:
+
+- los incidentes abiertos de ese Host se marcan como sin observar (el banner de detalle muestra «Sin observar desde …»);
+- la interrupción nunca se trata como recuperación;
+- no se genera ninguna alerta a nivel de Host ni se abre ningún incidente de contenedor por la propia interrupción. Dockerman no tiene alertas de conectividad de Host.
+
+Cuando vuelve el flujo de eventos, la misma línea base que al arrancar el daemon termina como eliminados los incidentes de los contenedores eliminados durante el intervalo.
+
+Los reinicios ocurridos durante el intervalo solo se conocen por el contador de reinicios del contenedor, leído cuando el daemon vuelve a inspeccionarlo. Cuentan para la regla Bucle de reinicio solo si el tiempo entre las dos inspecciones cabe en la ventana de la regla. De lo contrario se muestran como «N reinicios sin observar» y nunca activan la regla.
+
+Los recordatorios continúan mientras un incidente está sin observar.
+
+## Compatibilidad por motor
+
+| Motor | Compatibilidad | Diferencias |
+| --- | --- | --- |
+| Docker | Completa | Ninguna |
+| Podman | Supervisado con límites | Sin disparador de ciclo de reinicio sostenido; todo kill cuenta como deliberado; `podman stop` termina un incidente como detenido solo con la política de reinicio `always` o `unless-stopped`; la salud se lee por inspección |
+| Apple Container | No compatible | Sin flujo de eventos, así que el daemon no supervisa estos Hosts |
+
+Los clústeres de Kubernetes no están cubiertos por las alertas.
+
+### Docker
+
+Un Bucle de reinicio se abre con cualquiera de estos dos tipos de evidencia:
+
+- **Reinicios contados.** El número configurado de reinicios dentro de la ventana, demostrado por eventos con marca de tiempo o por un aumento del contador de reinicios entre dos inspecciones separadas por no más que la ventana.
+- **Ciclo de reinicio sostenido.** Se ve el contenedor reiniciándose durante al menos el periodo configurado (120 segundos por defecto) sin mantenerse arriba durante el intervalo estable. Esto también detecta un contenedor que ya estaba en bucle de fallos cuando empezó la supervisión.
+
+Una señal de recarga como `SIGHUP` no oculta el siguiente fallo real.
+
+### Podman
+
+- **Sin disparador de ciclo de reinicio sostenido.** El inspect compatible con Docker de Podman nunca informa del estado restarting. Los bucles de reinicio se detectan solo a partir de reinicios contados.
+- **Todo kill cuenta como deliberado.** Los eventos kill de Podman no incluyen la señal, así que la salida tras cualquier `podman kill` se trata como una detención deliberada, y la garantía de señal de recarga indicada arriba es exclusiva de Docker.
+- **`podman stop` termina un incidente como detenido solo con la política de reinicio `always` o `unless-stopped`.** Podman informa de una detención como una salida seguida de una limpieza, sin evento stop. Con esas políticas el motor reinicia cada salida, así que una limpieza en lugar de un reinicio significa que el contenedor se detuvo. Con `on-failure` o `no`, los mismos eventos pueden seguir a un fallo que el motor no está reiniciando, por lo que el incidente sigue abierto hasta que el contenedor vuelva a funcionar de forma estable, se elimine o se desactive la regla.
+- **La salud se lee por inspección.** Podman informa de cada ejecución de la comprobación de estado sin su resultado, así que el daemon inspecciona el contenedor para conocer el estado de salud. Los informes repetidos del mismo estado cuentan como un solo cambio.
+
+### Apple Container
+
+Apple Container no tiene flujo de eventos. El daemon no supervisa los Hosts de Apple Container, y la página Alertas los muestra como No compatible.
+
+## Qué cuenta como fallo
+
+- **Las acciones deliberadas nunca cuentan como reinicios inesperados:** reiniciar un contenedor desde Dockerman, la CLI de Docker o un script; detenerlo y arrancarlo más tarde; arrancar un contenedor que falló y no tiene política de reinicio.
+- **Una detención deliberada termina un incidente abierto como detenido**, sin notificación de recuperación. En Docker, `docker restart` empieza con una detención deliberada, así que termina como detenido el incidente abierto de ese contenedor.
+- **`docker rm -f` sobre un contenedor en ejecución termina su incidente como detenido, no como eliminado**, porque el kill forzado se ve antes de la eliminación.
+- **Un contenedor recreado es una instancia nueva.** Un contenedor recreado con el mismo nombre empieza sin historial de incidentes ni de espera.
+- **Inactivo no es colgado.** Una CPU baja o unos logs silenciosos nunca cuentan como falta de respuesta. La capacidad de respuesta solo proviene de la comprobación de estado del motor o de una sonda de servicio; un contenedor sin ninguna de las dos muestra «Respuesta desconocida» en su página de detalle, con formas de activar la supervisión.
+- **Servicio sin respuesta** usa los reintentos y el periodo de inicio de la propia comprobación de estado del motor como periodo de gracia. El mínimo opcional de tiempo en mal estado sostenido (ninguno por defecto) se mide solo sobre observación continua: tras reiniciar el daemon, una desconexión del Host o el reposo, vuelve a empezar.
+- **Un incidente de Servicio sin respuesta se recupera solo con un informe de buen estado.** El contenedor debe seguir en ejecución con su comprobación de estado informando de buen estado, o con su sonda de servicio superándose, durante el intervalo estable (60 segundos por defecto). En ejecución pero aún en mal estado, o aún iniciándose, no es estable. Un contenedor que se queda sin ninguna de las dos (se quitó su sonda de servicio) solo necesita seguir en ejecución.
+
+## Las sondas de servicio se ejecutan desde este equipo
+
+Una sonda de servicio es una conexión TCP o un HTTP GET (que espera una respuesta 2xx o 3xx) para un contenedor sin comprobación de estado del motor. Se configura en la página de detalle del contenedor. El daemon la ejecuta desde este equipo, tanto para Hosts locales como remotos. No se ejecuta dentro del contenedor ni en el Host remoto por SSH.
+
+- En un Host remoto, un fallo puede significar que el servicio no responde, o que este equipo no puede alcanzarlo (ruta de red, firewall, VPN).
+- Una sonda de servicio HTTP es solo una comprobación de accesibilidad: lee únicamente el código de estado. Omite el proxy del sistema (así prueba la propia ruta de este equipo hasta el servicio), no sigue redirecciones (un 3xx se considera correcto) y acepta certificados autofirmados.
+- Se ejecuta solo mientras el contenedor está en ejecución. Una vez por intervalo de comprobación, antes de la comprobación, el daemon busca el contenedor por nombre en su Host para saber si está en ejecución y cuándo arrancó (para el periodo de gracia). Si no se puede alcanzar el Host, no se ejecuta ninguna comprobación.
+- Los fallos durante el periodo de gracia tras el inicio del contenedor no cuentan.
+- Los fallos mientras Dockerman ha perdido el Host (su flujo de eventos o su muestreador no lo alcanzan) no cuentan. Eso es una desconexión del Host, no un servicio colgado. El contador de fallos consecutivos vuelve a empezar cuando el Host regresa.
+- El número configurado de fallos consecutivos abre un incidente de «Servicio sin respuesta», el mismo que abre una comprobación de estado del motor en mal estado. Una comprobación correcta reinicia el contador. El incidente se recupera cuando las comprobaciones siguen superándose durante el intervalo estable de la regla.
+- Valores por defecto: cada 30 segundos, 5 segundos de tiempo de espera, 3 fallos consecutivos, 60 segundos de gracia tras el inicio. Todos se pueden cambiar.
+- Su configuración pertenece al Host y al nombre del contenedor, así que sobrevive a la recreación del contenedor. Un contenedor recreado cuenta sus propios fallos desde cero.
+- Quitar una sonda de servicio descarta sus resultados, también cuando se quita mientras el daemon no está en ejecución. Un incidente abierto se recupera entonces cuando el contenedor sigue en ejecución durante el intervalo estable de la regla, salvo que su comprobación de estado del motor informe de mal estado.
+- Como todo lo demás aquí, solo se ejecuta mientras el daemon está en ejecución y el equipo está despierto.
+
+## Notificaciones
+
+Cada notificación nombra el Host, el contenedor, el motivo, el número de reinicios observados y la ventana o la duración del fallo, y el código de salida cuando se conoce. Nunca incluye texto de logs ni valores de entorno. Las notificaciones del sistema usan el idioma de Dockerman; los canales externos reciben texto en inglés.
+
+Cada incidente y cada evento de alerta registra lo que ocurrió con cada canal:
+
+| Estado | Significado |
+| --- | --- |
+| entregada al sistema | Dockerman pasó la notificación al sistema operativo. Es todo lo que puede saber; el sistema aún podría no mostrarla |
+| no entregada: la app no estaba abierta | Dockerman estaba cerrado, así que no se pudo mostrar ninguna notificación del sistema. No se reenvía más tarde |
+| no entregada: falló el reenvío | Dockerman estaba abierto pero no pudo pasar la notificación |
+| entregada | El servicio externo aceptó la notificación |
+| fallida | El servicio externo la rechazó o no se pudo alcanzar |
+| no enviada: contenedor silenciado | El contenedor está silenciado en ese Host |
+| no enviada: ventana de silencio | La regla estaba dentro de una de sus ventanas de silencio |
+
+Silenciar un contenedor o una ventana de silencio solo suprime la entrega: los incidentes se siguen abriendo y terminando, y las notificaciones suprimidas no se reenvían.
+
+Si las notificaciones del sistema no aparecen aunque el estado diga «entregada al sistema», lo habitual es que las notificaciones estén desactivadas para Dockerman en los ajustes de notificaciones del sistema (en macOS, Ajustes del Sistema > Notificaciones > Dockerman), o que un modo de Concentración o No molestar las esté ocultando. Dockerman no puede leer este permiso. Hacer clic en una notificación solo pasa Dockerman al primer plano.

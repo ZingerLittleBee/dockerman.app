@@ -18,9 +18,9 @@ Dockerman delivers alerts through configured channels. Each channel uses a **Sho
 
 System notifications are always available and enabled by default. They do not count as an "external" channel.
 
-## Current desktop support
+## Managing channels
 
-The Notifications page can list configured channels and send a test notification. The current desktop UI does not provide a complete add, edit, disable, or delete workflow. The underlying notification adapters are not a supported substitute for that missing UI.
+In **Settings > Notifications**, **Add Channel** asks for a name and a channel URL. Dockerman checks the URL when you add the channel and lists it with its secret part hidden. Each external channel can send a test notification or be deleted; deleting a channel also removes its stored credentials. Editing or disabling a channel is not available in the desktop UI yet.
 
 ## Credential security
 

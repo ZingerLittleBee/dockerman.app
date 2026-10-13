@@ -5,6 +5,7 @@
     "scheduler",
     "notifications",
     "alerts",
+    "alert-coverage",
     "image-watches",
     "diagnostic-bundle"
   ],
