@@ -1,3 +1,29 @@
+<ChangelogEntry version="v6.3.0" date="14 de octubre de 2026">
+## Incidentes de contenedores y control de alertas
+
+Sigue los fallos de los contenedores como incidentes que permanecen abiertos hasta que se resuelven, añade sondas de servicio a los contenedores sin comprobación de estado y controla cuándo y por dónde se envían las alertas.
+
+### ✨ Novedades
+
+- 🚨 <Bold>Incidentes de contenedores:</Bold> los reinicios inesperados, los bucles de reinicio y los servicios sin respuesta abren un incidente que sigue abierto hasta que el contenedor vuelve a estar estable, se detiene o se elimina, con recordatorios mientras dura. La página Alertas muestra al momento los incidentes activos y las alertas recientes, y los contenedores afectados se marcan en la lista de contenedores.
+- 🩺 <Bold>Sondas de servicio:</Bold> añade una comprobación TCP o HTTP, ejecutada desde este equipo, a los contenedores sin comprobación de estado para que Dockerman detecte cuándo su servicio deja de responder.
+- 🔕 <Bold>Silenciar y ventanas de silencio:</Bold> silencia las notificaciones de un contenedor hasta una hora elegida o hasta que lo reactives, o asigna a una regla ventanas de silencio diarias. Los incidentes se siguen registrando mientras las notificaciones están en pausa.
+- ⚙️ <Bold>Ajustes de las reglas de alerta:</Bold> ajusta los umbrales, el tiempo de espera, la gravedad, las ventanas de silencio y los canales de notificación de cada regla, y consulta qué Hosts y Engines se supervisan.
+- 📣 <Bold>Canales de notificación:</Bold> añade y elimina canales de Telegram, ntfy, Gotify, Discord y webhook en Ajustes.
+
+### 🔧 Mejoras
+
+- 🔔 <Bold>Notificaciones del sistema:</Bold> las notificaciones usan el idioma de la app y, en macOS, al hacer clic en una se vuelve a abrir la ventana cerrada en la bandeja.
+- 🆕 <Bold>Alertas predeterminadas:</Bold> las instalaciones nuevas empiezan con todas las reglas de alerta desactivadas. Se conservan los ajustes de notificación existentes.
+- 📋 <Bold>Confirmaciones de eliminación:</Bold> copia el nombre del contenedor o del proyecto Compose con un botón junto al campo de confirmación al eliminarlo.
+
+### 🐛 Correcciones
+
+- 🛑 <Bold>Detener y reiniciar:</Bold> cuando el contenedor ya no existe, actualiza la lista y explica el motivo en lugar de fallar sin avisar. Los demás fallos muestran su error.
+- 📁 <Bold>Acciones de Compose:</Bold> muestra un mensaje claro cuando la carpeta de un proyecto Compose se ha movido o eliminado, en lugar de un error del sistema sin procesar.
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v6.2.2" date="3 de octubre de 2026">
 ## Localización, notificaciones y fiabilidad
 

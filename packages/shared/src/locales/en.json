@@ -14,7 +14,7 @@
     "skipToContent": "Skip to content"
   },
   "hero": {
-    "eyebrow": "Better localization, CLI notifications, accurate file timestamps",
+    "eyebrow": "Container incidents, service probes, notification channels",
     "eyebrowTag": "NEW",
     "headline1Lead": "Docker that feels",
     "headline1Accent": "local",

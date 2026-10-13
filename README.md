@@ -2,8 +2,8 @@
 
 Language: 🇺🇸 English | [🇨🇳 简体中文](./README.zh-CN.md) | [🇯🇵 日本語](./README.ja.md) | [🇪🇸 Español](./README.es.md)
 
-[![Version](https://img.shields.io/badge/version-v6.2.2-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.2)
-[![Release Date](https://img.shields.io/badge/release%20date-Oct%203%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.2.2)
+[![Version](https://img.shields.io/badge/version-v6.3.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.3.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Oct%2014%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.3.0)
 
 A native desktop UI for managing Docker **and** Kubernetes — built with Tauri + Rust. Fast to launch, light on resources, and entirely local: nothing leaves your machine.
 
@@ -71,7 +71,11 @@ Cluster management on par with `kubectl`, but visual:
 
 ## Operations & Quality of Life
 
-- 🚨 Preset alert rules (restart loop, container crash) and a recent-alerts feed with container, time, and rule
+- 🚨 Container Incidents for unexpected restarts, restart loops, and unresponsive services, with reminders and a live Alerts page
+- 🩺 TCP/HTTP Service Probes for containers without a health check
+- 🔕 Per-container mute and per-rule daily Silence Windows
+- ⚙️ Adjustable alert rules: thresholds, cooldown, severity, and notification channels
+- 📣 Telegram, ntfy, Gotify, Discord, and webhook notification channels managed in Settings
 - 🧰 One-click diagnostic bundle (logs, inspect, host state) for support escalations
 - 📝 Visual `.env` editor that preserves comments and applies atomically
 - 🔍 Global command palette (Cmd/Ctrl+;) and a system tray with live CPU/memory stats
