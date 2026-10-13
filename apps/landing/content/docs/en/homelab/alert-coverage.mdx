@@ -1,0 +1,166 @@
+---
+title: Alert monitoring coverage
+description: When container alerts are watching, what each Engine supports, and what Dockerman knows about a notification.
+---
+
+This page explains when Dockerman's container alerts are watching, what they can detect on each Engine, and what Dockerman can and cannot know about a notification.
+
+Alert Rules are evaluated by Dockerman's background service (the daemon) on this computer, not by the Dockerman window. An ongoing failure of one container on one Host is an **Incident**: it opens and notifies once, can remind you while it stays open, and ends only when the container is observed stable again, is deliberately stopped, is removed, or its rule is turned off. A one-off fact, such as a non-zero exit, is an **Alert Event**.
+
+The built-in rules are all off until you turn them on. The one exception is an upgrade from a version with the older notification settings: if desktop notifications were on there, **Container Unexpected Exit** turns on Container crash and **Container Health Check Failed** turns on Unresponsive service.
+
+| Rule | Produces | Detects |
+| --- | --- | --- |
+| Unexpected restart | Incident | A container coming back up after it crashed |
+| Restart loop | Incident | Repeated Unexpected Restarts within a window, or a container stuck cycling through restarts |
+| Container crash | Alert Event | A container exiting with a non-zero code |
+| Unresponsive service | Incident | An engine health check reporting unhealthy, or a failing Service Probe |
+
+## At a glance
+
+| Situation | Monitored | What happens |
+| --- | --- | --- |
+| Dockerman open, or its window closed to the tray | Yes | Incidents open and end; system notifications are handed to the system |
+| Dockerman quit while the daemon keeps running | Yes | Incidents open and end; external channels are sent; system notifications are recorded as "not delivered: app not running" |
+| Daemon not running (stopped, after a restart, after logging out) | No | Nothing is observed; open Incidents become unobserved when the daemon starts again |
+| Computer asleep | No | Open Incidents become unobserved on wake |
+| Host unreachable | No, for that Host | Its open Incidents become unobserved; no alert is raised for the outage |
+| Host not observed | Never | No alerts for that Host |
+| Apple Container Host | Never | Alerts are not supported for this Engine |
+
+Losing observation never counts as recovery. An unobserved Incident stays open, its reminders continue, and once Dockerman can see the container again it must stay stable for the rule's full stable interval before the Incident recovers.
+
+## Which Hosts are monitored
+
+The daemon watches every container on:
+
+- `LOCALHOST`, the computer Dockerman runs on;
+- every saved Host whose **Observe this Host** switch (on the Fleet page) is on.
+
+A saved SSH Host is monitored only when it also has a stored Credential and a pinned (trusted) host key, so the daemon can connect without asking you anything. A plain TCP Host needs neither. The daemon reaches these Hosts on its own; no Dockerman window needs to be open.
+
+Every other Host gets no monitoring at all. The **Host coverage** list on the Alerts page shows each Host as Monitored, Monitored with limits, Not supported, or Not monitored, with the reason.
+
+## The Dockerman window and the daemon
+
+### Window closed to the tray
+
+Closing the main window hides Dockerman to the menu bar or system tray. The app is still running, so monitoring and system notifications work as usual. Clicking a notification brings Dockerman forward.
+
+On a desktop without a tray (some Linux desktops), closing the window quits the app. See the next section.
+
+### Dockerman quit while the daemon keeps running
+
+The daemon is a separate process. Quitting Dockerman (**Quit Dockerman** in the tray menu, or the app's Quit command) leaves it running, so it keeps observing, opening and ending Incidents, and sending notifications to external channels (Telegram, Ntfy, Gotify, Discord, Webhook).
+
+System notifications need the app. While it is quit, each one is recorded as **not delivered: app not running** in the delivery status of the Incident or Alert Event. When you open Dockerman again, missed system notifications are not replayed; open Incidents are shown on the Alerts page, in the container list, and on the container's detail page.
+
+To be told about failures while Dockerman is quit, add an external channel to the rule.
+
+### Daemon stopped, restart, or logout
+
+Opening Dockerman starts the daemon (so does the `dockerman` command line tool). Dockerman does not start at login. After the computer restarts, after you log out, or after the daemon is stopped, nothing is monitored until you open Dockerman again. A failure that starts and ends in that gap is never reported.
+
+When the daemon starts:
+
+- every Incident that is still open is marked unobserved from its last observation;
+- the daemon lists every container on each Host once, in every state, and inspects the running ones, as a new baseline;
+- an open Incident whose container is no longer on its Host ends as removed, without a notification (a stopped container is still on its Host and keeps its Incident);
+- a container that is still crash-looping is detected again (on Docker by the sustained restart cycle, see [Engine support](#engine-support)) without inventing timestamps for restarts it did not see.
+
+## Sleep
+
+While the computer sleeps, the daemon is paused and observes nothing.
+
+On wake, the daemon notices that the wall clock moved further than its monotonic clock, by more than one sampling interval (5 seconds). It then treats every Host as lost and then restored: open Incidents are marked unobserved from the last observation before sleep, and recovery needs a full stable interval after wake. Setting the system clock by hand has the same effect.
+
+This detection relies on the monotonic clock standing still during sleep, which is the behaviour on macOS and Linux. It is not verified on Windows.
+
+## Host disconnect
+
+When the daemon loses a Host's event stream, or cannot sample the Host:
+
+- that Host's open Incidents are marked unobserved (the detail banner shows "Unobserved since …");
+- the outage is never treated as recovery;
+- no Host-level alert is raised, and no container Incident is opened for the outage itself. Dockerman has no Host connectivity alerts.
+
+When the event stream is back, the same baseline as at daemon start ends the Incidents of containers removed during the gap as removed.
+
+Restarts that happened during the gap are known only from the container's restart count, read when the daemon inspects it again. They count toward the Restart loop rule only when the time between the two inspections fits within the rule's window. Otherwise they are shown as "N restarts while unobserved" and never fire the rule.
+
+Reminders continue while an Incident is unobserved.
+
+## Engine support
+
+| Engine | Support | Differences |
+| --- | --- | --- |
+| Docker | Full | None |
+| Podman | Monitored with limits | No sustained restart cycle trigger; every kill counts as deliberate; `podman stop` ends an Incident as stopped only with restart policy `always` or `unless-stopped`; health is read by inspection |
+| Apple Container | Not supported | No event stream, so the daemon does not monitor these Hosts |
+
+Kubernetes clusters are not covered by alerts.
+
+### Docker
+
+A Restart loop opens on either of two kinds of evidence:
+
+- **Counted restarts.** The configured number of restarts within the window, proven by timestamped events or by a restart-count increase between two inspections no further apart than the window.
+- **Sustained restart cycle.** The container is seen restarting for at least the configured span (default 120 seconds) without ever staying up for the stable interval. This also catches a container that was already crash-looping when monitoring started.
+
+A reload signal such as `SIGHUP` does not hide the next real crash.
+
+### Podman
+
+- **No sustained restart cycle trigger.** Podman's Docker-compatible inspect never reports a restarting state. Restart loops are detected from counted restarts only.
+- **Every kill counts as deliberate.** Podman's kill events carry no signal, so the exit after any `podman kill` is treated as a deliberate stop, and the reload-signal guarantee above is Docker-only.
+- **`podman stop` ends an Incident as stopped only with restart policy `always` or `unless-stopped`.** Podman reports a stop as an exit followed by cleanup, with no stop event. With those policies the engine restarts every exit, so a cleanup instead of a restart means the container was stopped. With `on-failure` or `no`, the same events can follow a crash the engine is not restarting, so the Incident stays open until the container runs stably again, is removed, or the rule is turned off.
+- **Health is read by inspection.** Podman reports every health check run without its result, so the daemon inspects the container to learn the health status. Repeated reports of the same status count as one change.
+
+### Apple Container
+
+Apple Container has no event stream. The daemon does not monitor Apple Container Hosts, and the Alerts page shows them as Not supported.
+
+## What counts as a failure
+
+- **Deliberate actions never count as Unexpected Restarts:** restarting a container from Dockerman, the Docker CLI, or a script; stopping and later starting it; starting a crashed container that has no restart policy.
+- **A deliberate stop ends an open Incident as stopped**, without a recovery notification. On Docker, `docker restart` begins with a deliberate stop, so it ends that container's open Incident as stopped.
+- **`docker rm -f` on a running container ends its Incident as stopped, not removed**, because the forced kill is seen before the removal.
+- **A recreated container is a new instance.** A container recreated with the same name starts with no Incident or cooldown history.
+- **Idle is not hung.** Low CPU or quiet logs never count as unresponsive. Responsiveness comes only from the engine's health check or a Service Probe; a container with neither shows "responsiveness unknown" on its detail page, with ways to enable monitoring.
+- **Unresponsive service** uses the engine's own health-check retries and start period as the grace period. The optional sustained-unhealthy minimum (none by default) is measured only over continuous observation: after a daemon restart, a Host disconnect, or sleep, it starts over.
+- **An Unresponsive service Incident recovers only on a healthy report.** The container must stay running with its health check reporting healthy, or its Service Probe passing, for the stable interval (default 60 seconds). Running but still unhealthy, or still starting, is not stable. A container left with neither (its Service Probe was removed) only has to stay running.
+
+## Service Probes run from this computer
+
+A Service Probe is a TCP connect or HTTP GET (expecting a 2xx or 3xx response) for a container without an engine health check. It is configured on the container's detail page. The daemon runs it from this computer, for local and remote Hosts alike. It is not run inside the container or on the remote Host over SSH.
+
+- For a remote Host, a failure can mean the service is not answering, or that this computer cannot reach it (network path, firewall, VPN).
+- An HTTP Service Probe is a reachability check only: it reads just the status code. It bypasses the system proxy (so it tests this computer's own path to the service), does not follow redirects (a 3xx passes), and accepts self-signed certificates.
+- It runs only while the container is running. Once per check interval, before the check, the daemon looks the container up by name on its Host to learn whether it is running and when it started (for the grace period). When the Host cannot be reached, no check runs.
+- Failures during the grace period after the container starts do not count.
+- Failures while Dockerman has lost the Host (its events stream or sampler cannot reach it) do not count. That is a Host disconnect, not a hung service. The consecutive count starts over once the Host is back.
+- The configured number of consecutive failures opens an "Unresponsive service" Incident, the same one an unhealthy engine health check opens. A passing check resets the count. The Incident recovers once checks keep passing for the rule's stable interval.
+- Defaults: every 30 seconds, 5 second timeout, 3 consecutive failures, 60 second grace after start. All can be changed.
+- Its configuration belongs to the Host and container name, so it survives recreating the container. A recreated container counts its own failures from zero.
+- Removing a Service Probe discards its results, also when it is removed while the daemon is not running. An open Incident then recovers once the container stays running for the rule's stable interval, unless its engine health check reports unhealthy.
+- Like everything else here, it runs only while the daemon is running and the computer is awake.
+
+## Notifications
+
+Each notification names the Host, the container, the reason, the observed restart count and window or failure duration, and the exit code when known. It never includes log text or environment values. System notifications use Dockerman's language; external channels receive English text.
+
+Each Incident and Alert Event records what happened to each channel:
+
+| Status | Meaning |
+| --- | --- |
+| handed to the system | Dockerman passed the notification to the operating system. That is all it can know; the system may still not show it |
+| not delivered: app not running | Dockerman was quit, so no system notification could be shown. It is not replayed later |
+| not delivered: relay failed | Dockerman was running but could not pass the notification on |
+| delivered | The external service accepted the notification |
+| failed | The external service rejected it or could not be reached |
+| not sent: container muted | The container is muted on that Host |
+| not sent: in a Silence Window | The rule was in one of its Silence Windows |
+
+Muting a container or a Silence Window suppresses delivery only: Incidents still open and end, and suppressed notifications are not replayed.
+
+If system notifications do not appear although the status says "handed to the system", notifications are usually turned off for Dockerman in the system notification settings (on macOS, System Settings > Notifications > Dockerman), or a Focus or Do Not Disturb mode is hiding them. Dockerman cannot read this permission. Clicking a notification only brings Dockerman forward.
