@@ -14,7 +14,7 @@
     "skipToContent": "Skip to content"
   },
   "hero": {
-    "eyebrow": "Container incidents, service probes, notification channels",
+    "eyebrow": "Stricter Compose risk checks, image entrypoints kept on create, 30-second notification timeout",
     "eyebrowTag": "NEW",
     "headline1Lead": "Docker that feels",
     "headline1Accent": "local",
