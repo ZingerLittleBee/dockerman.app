@@ -1,3 +1,26 @@
+<ChangelogEntry version="v6.3.1" date="Nov 15, 2026">
+## Deployment Safety, Notifications & Container Fixes
+
+Stricter checks for Apps deployment, registry credentials, and diagnostic bundles, with fixes for notifications, container creation and cloning, and Docker command handling.
+
+### 🐛 Bug Fixes
+
+- 🛡️ <Bold>Apps deployment:</Bold> Require the same risk confirmation for quoted, inline, and merged Compose settings, and reject settings that cannot be checked safely.
+- 🔕 <Bold>Notifications:</Bold> Prevent disabled external channels from receiving newly prepared notifications or test messages.
+- 🔒 <Bold>Diagnostic bundles:</Bold> Redact sensitive environment values in both container and image inspection data when environment redaction is enabled.
+- 🔐 <Bold>Image update checks:</Bold> Send saved registry credentials only to their intended registry.
+- ⏱️ <Bold>Notifications:</Bold> Limit each external notification to 30 seconds so stalled receivers cannot hold up later channels and Host events indefinitely.
+- 📦 <Bold>Container creation:</Bold> Containers created or cloned from the form keep the image's entrypoint, matching `docker run`, so images such as MySQL start correctly.
+- 🧬 <Bold>Container cloning:</Bold> A clone no longer takes over the source container's automatically assigned hostname, and cloning a container that shares another container's network no longer fails.
+- ⌨️ <Bold>Command Palette shortcut:</Bold> Show a warning when the global shortcut cannot be registered, for example because another app already uses it, instead of failing silently. Registering the same shortcut again no longer counts as a conflict.
+- 🔑 <Bold>SSH connections:</Bold> Report an authentication failure when the server rejects the password instead of treating the sign-in as successful.
+- 🌐 <Bold>Kubernetes DNS:</Bold> Keep the saved settings, records, and running listener unchanged when new settings cannot be applied because the port is in use. Applying unchanged settings retries a listener that failed to start.
+- 🗂️ <Bold>Events:</Bold> Keep a Host's event history, statistics, clearing, and rotation separate from another engine's events on the same machine.
+- 📋 <Bold>Docker commands:</Bold> Preserve quoted spaces, escaped quotes, empty arguments, backslashes, and explicit boolean flag values when importing a `docker run` command or copying a generated `docker run` or `docker build` command.
+- 📉 <Bold>Statistics:</Bold> Show rates and sizes below one byte with a valid unit.
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v6.3.0" date="Oct 14, 2026">
 ## Container Incidents & Alert Controls
 

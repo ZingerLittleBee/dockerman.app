@@ -14,7 +14,7 @@
     "skipToContent": "コンテンツへスキップ"
   },
   "hero": {
-    "eyebrow": "コンテナのインシデント、サービスプローブ、通知チャンネル",
+    "eyebrow": "Compose のリスク確認を厳格化、作成時にイメージのエントリポイントを保持、通知は 30 秒でタイムアウト",
     "eyebrowTag": "NEW",
     "headline1Lead": "Docker を",
     "headline1Accent": "ローカルに",

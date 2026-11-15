@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | [🇨🇳 简体中文](./README.zh-CN.md) | 🇯🇵 日本語 | [🇪🇸 Español](./README.es.md)
 
-[![Version](https://img.shields.io/badge/version-v6.3.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.3.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Oct%2014%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.3.0)
+[![Version](https://img.shields.io/badge/version-v6.3.1-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.3.1)
+[![Release Date](https://img.shields.io/badge/release%20date-Nov%2015%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.3.1)
 
 Docker **と** Kubernetes をまとめて管理できるネイティブデスクトップ UI。Tauri + Rust 製で、起動が速く、軽量、完全ローカル動作――データはマシンの外に出ません。
 

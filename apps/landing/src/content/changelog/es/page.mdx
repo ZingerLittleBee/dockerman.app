@@ -1,3 +1,26 @@
+<ChangelogEntry version="v6.3.1" date="15 de noviembre de 2026">
+## Despliegues más seguros, notificaciones y correcciones de contenedores
+
+Comprobaciones más estrictas en el despliegue de apps, las credenciales de registro y los paquetes de diagnóstico, con correcciones en las notificaciones, la creación y clonación de contenedores y el manejo de comandos de Docker.
+
+### 🐛 Correcciones
+
+- 🛡️ <Bold>Despliegue de apps:</Bold> exige la misma confirmación de riesgo para los ajustes de Compose entre comillas, en línea y fusionados, y rechaza los ajustes que no se pueden comprobar con seguridad.
+- 🔕 <Bold>Notificaciones:</Bold> evita que los canales externos desactivados reciban notificaciones recién preparadas o mensajes de prueba.
+- 🔒 <Bold>Paquetes de diagnóstico:</Bold> oculta los valores de entorno sensibles en los datos de inspect tanto del contenedor como de la imagen cuando la redacción de variables de entorno está activada.
+- 🔐 <Bold>Comprobación de actualizaciones de imágenes:</Bold> envía las credenciales de registro guardadas solo al registro al que corresponden.
+- ⏱️ <Bold>Notificaciones:</Bold> limita cada notificación externa a 30 segundos para que los receptores bloqueados no retengan indefinidamente los canales posteriores ni los eventos del Host.
+- 📦 <Bold>Creación de contenedores:</Bold> los contenedores creados o clonados desde el formulario conservan el entrypoint de la imagen, igual que `docker run`, de modo que imágenes como MySQL arrancan correctamente.
+- 🧬 <Bold>Clonación de contenedores:</Bold> un clon ya no hereda el nombre de host asignado automáticamente al contenedor de origen, y clonar un contenedor que comparte la red de otro contenedor ya no falla.
+- ⌨️ <Bold>Atajo de la paleta de comandos:</Bold> muestra un aviso cuando no se puede registrar el atajo global, por ejemplo porque otra app ya lo usa, en lugar de fallar sin avisar. Volver a registrar el mismo atajo ya no cuenta como conflicto.
+- 🔑 <Bold>Conexiones SSH:</Bold> informa de un fallo de autenticación cuando el servidor rechaza la contraseña, en lugar de dar el inicio de sesión por correcto.
+- 🌐 <Bold>Kubernetes DNS:</Bold> mantiene sin cambios los ajustes guardados, los registros y el listener en ejecución cuando no se pueden aplicar los nuevos ajustes porque el puerto está en uso. Aplicar ajustes sin cambios reintenta un listener que no pudo iniciarse.
+- 🗂️ <Bold>Eventos:</Bold> mantiene el historial de eventos, las estadísticas, el borrado y la rotación de un Host separados de los eventos de otro motor en el mismo equipo.
+- 📋 <Bold>Comandos de Docker:</Bold> conserva los espacios entre comillas, las comillas escapadas, los argumentos vacíos, las barras invertidas y los valores explícitos de las opciones booleanas al importar un comando `docker run` o al copiar un comando `docker run` o `docker build` generado.
+- 📉 <Bold>Estadísticas:</Bold> muestra con una unidad válida las tasas y los tamaños inferiores a un byte.
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v6.3.0" date="14 de octubre de 2026">
 ## Incidentes de contenedores y control de alertas
 
