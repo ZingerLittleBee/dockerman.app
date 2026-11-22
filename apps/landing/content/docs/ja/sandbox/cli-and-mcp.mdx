@@ -1,0 +1,114 @@
+---
+title: CLI・Agent Skill・MCP
+description: dockerman CLI から Agent Sandbox を操作し、内蔵 Agent Skill の導入や MCP サーバー連携を行います。
+---
+
+シェルを実行できるコーディングエージェント（Claude Code、Codex、Cursor など）では、`dockerman sandbox` CLI と内蔵 Agent Skill の組み合わせが主要なインターフェースです。シェルを持たない制限付きクライアント向けには、`--allowed-root` で厳格に隔離されたオプションの MCP サーバーも提供します。
+
+## クイックスタート
+
+```bash
+# 1. 標準 OCI イメージから copy-in サンドボックスを作成
+dockerman sandbox create python:3.12-slim \
+  --name py-agent \
+  --workspace ./my-project \
+  --egress public-only
+
+# 2. microVM 内で時間制限付きコマンドを実行
+dockerman sandbox exec <sandbox-id> -- pytest -q
+
+# 3. ホスト側マニフェスト検証済みの差分を確認
+dockerman sandbox diff <sandbox-id>
+
+# 4. 変更を確認してホストへ適用（対話型 TTY 確認）
+dockerman sandbox apply <sandbox-id>
+
+# 5. 作業完了後に停止して破棄
+dockerman sandbox stop <sandbox-id>
+dockerman sandbox destroy <sandbox-id> -y
+```
+
+## 主な CLI コマンド
+
+### ライフサイクル
+
+```bash
+dockerman sandbox create <image> [options]
+dockerman sandbox list [--all]
+dockerman sandbox inspect <id>
+dockerman sandbox start <id>
+dockerman sandbox stop <id>
+dockerman sandbox pause <id>      # 対応バックエンドのみ（Firecracker）
+dockerman sandbox resume <id>     # 対応バックエンドのみ（Firecracker）
+dockerman sandbox destroy <id> -y
+```
+
+よく使う `create` オプション：
+
+| オプション | 説明 |
+| --- | --- |
+| `--name <name>` | サンドボックスの表示名 |
+| `--host <host-id>` | 対象 Host（既定は `LOCALHOST`、またはリモート KVM Host） |
+| `--vcpu <n>`, `--memory-mib <n>`, `--disk-gib <n>` | リソース上限（既定: `2`, `1024`, `4`） |
+| `--egress <public-only\|allowlist\|offline>` | ゼロ NIC 外向きポリシー |
+| `--egress-allowlist <domain>` | `--egress allowlist` 時の許可ドメイン（複数指定可） |
+| `--workspace <path>` | 接続するホスト側プロジェクトディレクトリ |
+| `--mount-mode <copy-in\|direct>` | `copy-in`（既定）または macOS 専用の `direct` |
+| `--idle-ttl <seconds>`, `--retention <seconds>`, `--persistent` | アイドル期限・停止時保持設定 |
+| `--secret <ENV=REF@DOMAINS>` | ドメイン限定シークレット注入（複数指定可） |
+
+### 実行・PTY・バックグラウンドサービス
+
+```bash
+# 時間制限付きコマンド実行（既定 60 秒、最大 600 秒）
+dockerman sandbox exec <id> --timeout 120 --cwd /workspace -- python3 main.py
+
+# 独立した対話型 PTY シェル（エージェント exec を中断しない）
+dockerman sandbox shell <id> --shell /bin/sh --cwd /workspace
+
+# バックグラウンド常駐プロセス（exec タイムアウトなし）
+dockerman sandbox process start <id> --id web --cwd /workspace -- python3 -m http.server 8000
+dockerman sandbox process list <id>
+dockerman sandbox process stop <id> web
+
+# ループバック 127.0.0.1 限定のポートプレビュー転送
+dockerman sandbox port expose <id> 8000 --host-port 18080
+dockerman sandbox port list <id>
+dockerman sandbox port close <id> 8000
+```
+
+### ワークスペース Diff と適用
+
+```bash
+dockerman sandbox diff <id>
+dockerman sandbox apply <id>                        # 対話型 TTY 確認
+dockerman sandbox apply <id> --path src/main.py     # 指定パスのみ適用
+dockerman sandbox apply <id> -y                     # ホスト側自動化スクリプト専用
+```
+
+## 内蔵 Agent Skill のインストール
+
+Dockerman 内蔵の `dockerman-sandbox` スキルを導入すると、Claude Code や Codex などのエージェントが安全なサンドボックス実行手順を自動で参照できます。
+
+```bash
+# ~/.claude/skills/ と ~/.agents/skills/ の両方にインストール
+dockerman sandbox skill install
+
+# インストール先を指定、または書き込まずに出力のみ確認
+dockerman sandbox skill install --target claude
+dockerman sandbox skill install --target agents
+dockerman sandbox skill install --print-only
+```
+
+## オプションの MCP サーバー
+
+シェルを持たない MCP クライアント向けに、ワークスペースルートを制限した MCP サーバーを起動できます。
+
+```bash
+dockerman mcp serve --allowed-root /Users/you/projects/demo
+```
+
+- `--allowed-root <dir>` は**必須**（複数指定可）で、`realpath` による正規化とパスコンポーネント単位の厳密なプレフィックス検証を行います。
+- 既定では `sandbox_diff` を読み取り専用で公開し、ホスト書き換え操作（`sandbox_apply` および `mountMode: "direct"`）を**禁止**します。
+- ホストへの書き戻しを明示的に許可する場合のみ `--mcp-allow-host-write` を指定してください。
+- 信頼できない MCP クライアントによるホスト環境変数の流出を防ぐため、MCP 経由では `--secret` および `includeEnv` が無効化されます。

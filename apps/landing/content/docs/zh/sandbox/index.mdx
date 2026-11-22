@@ -1,0 +1,81 @@
+---
+title: Agent 沙箱
+description: 在 macOS Apple Silicon 与 Linux KVM 上运行硬件隔离 microVM，安全执行不可信代码与 AI Agent 生成代码。
+---
+
+Agent 沙箱为 AI 编程 Agent 和开发者提供独立的硬件隔离 Linux microVM 执行环境。与共享宿主机内核的普通容器不同，每个沙箱都运行在独立 microVM 内，采用零虚拟网卡架构，并由宿主机强制执行工作区与出站网络边界。
+
+<Callout type="info">
+  Agent 沙箱是与 Docker、Kubernetes 并列的独立顶层功能面。当目标主机不具备硬件虚拟化条件时，Dockerman 会明确报错并 fail closed，绝不会静默降级为共享内核容器。
+</Callout>
+
+## 平台支持矩阵
+
+底层 VMM 按宿主机操作系统划分，但统一运行同一个静态编译的 Linux Guest Agent（`dockerman-guestd`）并通过 `virtio-vsock` 通信：
+
+| 平台 | 本地 microVM | 远程 Linux KVM Host（SSH） | 说明 |
+| --- | --- | --- | --- |
+| **macOS Apple Silicon (ARM64)** | 支持（`libkrun` / HVF，通过 `dockerman-vm-helper`） | 支持 | 支持 `--mount-mode copy-in`（默认）与显式开启的 `direct` |
+| **Linux（x86_64 / ARM64，需 `/dev/kvm`）** | 支持（Firecracker，通过本地 `dockerman-sandboxd`） | 支持 | 支持暂停/恢复与内存快照/Fork |
+| **macOS Intel (x86_64)** | 不支持（fail closed） | 支持 | 通过 SSH 使用远程 Linux KVM 主机 |
+| **Windows** | 不支持（fail closed） | 支持 | 通过 SSH 使用远程 Linux KVM 主机 |
+
+## 桌面端精密工作台
+
+从左侧边栏进入 **沙箱**（`/sandboxes`）即可集中管理本地与远程沙箱：
+
+- **Fleet 顶部 KPI 条**：常驻展示 **运行中**、**本机槽位**（`活跃数 / 4`）、**沙箱总数** 与 **已停止 / 暂停** 计数，空列表状态下也会清晰展示 `0 / 4`。
+- **快捷模板创建**：提供 **Python Agent**、**Node / Bun**、**Rust 工具链** 与 **自定义 OCI** 四个模板，原生拉取标准 OCI 镜像（如 `python:3.12-slim`、`node:22-slim`）并按 digest 缓存。
+- **沙箱详情工作台**（`/sandbox/:id/:view`）：左侧配备紧凑沙箱切换栏，切换沙箱时保留当前页签不跳转：
+  - **概览（Overview）**：展示硬件隔离边界（`MicroVM · HVF` / `MicroVM · Firecracker`）、资源配额、工作区挂载模式、能力支持与空闲 TTL 倒计时。
+  - **活动（Activity）**：实时流式展示 Agent（CLI / MCP）或界面触发的受限 `exec` 命令执行审计，支持展开 `stdout` / `stderr` 与查看退出码和耗时。
+  - **终端（Terminal）**：通过 `virtio-vsock` 打开独立人工 PTY 接管终端，不会中断正在进行的 Agent `exec` 流。
+  - **文件（Files）**：浏览 Guest 文件系统与预览内容，对比基于宿主机清单校验的工作区 Diff，并在确认弹窗中安全执行 **应用到宿主机（Apply to Host）**。
+  - **网络（Network）**：查看当前出站策略、已放行/已拦截计数与审计日志、只读密钥注入绑定元数据（永不显示真实密钥值）、后台常驻进程以及 `127.0.0.1:<port>` 本地端口预览。
+
+## 生命周期与空闲语义
+
+每个沙箱遵循明确的 7 状态机：
+
+```text
+Creating ──► Running ◄──► Paused（按后端能力开启）
+   │          │   ▲          │
+   │          ▼   │          ▼
+   │       Stopping ◄────────┘
+   │          │
+   │          ▼
+   │       Stopped ──► Destroyed
+   │          │
+   ▼          ▼
+ Failed ──► Destroyed
+```
+
+- **空闲判定**：当沙箱在空闲 TTL 内既没有运行中的受限 `exec`，也没有打开的 PTY 会话，且没有活跃的 `127.0.0.1:<port>` 端口转发连接时，即视为空闲。
+- **保护未写回的工作成果**：挂载了 copy-in 工作区（或开启 `--persistent`）的沙箱在空闲到期后会进入 **已停止（Stopped）** 状态，并默认保留可写磁盘 `7 天`，避免静默丢失未应用的修改；未挂载工作区的临时沙箱会在空闲到期后自动销毁。
+- **进程归属与断线接管**：关闭桌面 GUI 不会终止运行中的沙箱。在 macOS 上，活跃本地沙箱会阻止 `dockerman-daemon` 空闲退出，并在 daemon 重启后通过 `control_sock` 鉴权握手安全重连；在 Linux 上由 `dockerman-sandboxd` 独立管理 Firecracker 生命周期与 TTL 回收。
+
+## 默认资源配额
+
+| 参数 | 默认值 | 说明 |
+| --- | --- | --- |
+| vCPU | `2` | 创建时可自定义 |
+| 内存 | `1024 MiB` | 创建时可自定义 |
+| 可写磁盘 | `4 GiB` | 稀疏写时复制（CoW）ext4 上层盘 |
+| 空闲 TTL | `30 分钟` | 配合 `--persistent` 可设为 `0` 禁用 |
+| 停止态保留期 | `7 天` | 适用于挂载工作区或持久化沙箱 |
+| 受限 `exec` 超时 | `60 秒` | 单次调用最高可覆盖至 `600 秒` |
+| 本机并发上限 | `4` 个活跃 | 单个远程 KVM Host 上限 `16` 个 |
+
+## 下一步
+
+<Cards>
+  <Card title="工作区、出站策略与密钥代理" href="/zh/docs/sandbox/workspaces-and-security">
+    了解 copy-in 工作区安全防护、零网卡出站控制与域名级密钥注入。
+  </Card>
+  <Card title="CLI、Agent Skill 与 MCP" href="/zh/docs/sandbox/cli-and-mcp">
+    通过命令行驱动沙箱、安装内置 Agent Skill 或接入 MCP 客户端。
+  </Card>
+  <Card title="Linux KVM 与快照克隆" href="/zh/docs/sandbox/remote-kvm-hosts">
+    初始化本地或远程 Firecracker 主机，使用暂停、恢复、快照与秒级 Fork。
+  </Card>
+</Cards>

@@ -1,0 +1,60 @@
+---
+title: 工作区、出站策略与密钥代理
+description: 宿主机清单校验的 copy-in 工作区、零网卡 virtio-vsock 出站代理与域名作用域密钥注入。
+---
+
+一旦 Guest 内开始执行代码，Agent 沙箱即将 microVM 内的一切（包括 Guest Agent 本身）视为不可信边界。所有文件写回校验、网络策略拦截与密钥替换均在宿主机侧完成。
+
+## 沙箱工作区（默认 copy-in 模式）
+
+为沙箱附加宿主机项目目录时，Dockerman 默认使用 **copy-in** 隔离副本模式（`--mount-mode copy-in`）：
+
+- **安全过滤**：遵循 `.gitignore`，默认排除 `.env*` 与私钥文件，并**完全省略 `.git/` 目录**，防止 Git hooks、配置或凭据进入 Guest。
+- **防符号链接偷渡**：copy-in 永不跟随指向工作区外的符号链接；仅保留目标仍在工作区内的相对符号链接（如 `CLAUDE.md -> AGENTS.md`），越界链接会被自动跳过。
+- **宿主机 SHA-256 基线清单**：在 copy-in 时由宿主机记录所有复制文件的 SHA-256 清单。后续 `sandbox diff` 与 **应用到宿主机** 均以宿主机清单为准，绝不轻信 Guest 返回的元数据。
+
+### 应用到宿主机（Apply to Host）硬性防护
+
+将变更写回宿主机目录前，Dockerman 会强制执行以下 4 项安全校验：
+
+1. **`.git` 路径拦截**：对每一级路径组件做 Unicode 规范化、ASCII 大小写折叠与 HFS+/NTFS 短名规范化后，拒绝任何包含 `.git` 组件的写入（防护 CVE-2014-9390，覆盖嵌套仓库与子模块）。
+2. **防符号链接越界写入**：逐级目录打开并禁止跟随宿主机符号链接（`O_NOFOLLOW`），彻底拦截利用宿主机已有符号链接向工作区外写文件的攻击。
+3. **宿主机并发冲突检测**：写回前比对宿主机当前文件哈希与 copy-in 基线；若宿主机文件在期间被修改，Apply 会直接报错中止，不会静默覆盖你的改动。
+4. **显式人工确认**：写回宿主机需在桌面端确认弹窗或交互式 CLI TTY 中确认（`--yes` 仅用于宿主机自动化脚本）。
+
+<Callout type="warn">
+  在 macOS Apple Silicon 上，可显式指定 `--mount-mode direct` 进行直接挂载。直接挂载会绕过 copy-in 的 Diff/Apply 审查并降低隔离强度（`libkrun` 共享挂载）。Linux Firecracker 主机不支持直接挂载。
+</Callout>
+
+## 零网卡出站策略
+
+沙箱内**没有任何虚拟网卡**（macOS 禁用 `libkrun` TSI；Linux Firecracker 不挂载 `virtio-net` TAP）。Guest 内的 TCP 与 DNS 流量经由 Guest 内 `TUN` 设备透明截获，再通过 `virtio-vsock` 隧道转发至宿主机用户态出站代理，因此不依赖 Guest 工具是否遵守 `HTTP_PROXY` 环境变量。
+
+| 策略 | 行为说明 |
+| --- | --- |
+| `public-only` *（默认）* | 放行公网 TCP/DNS，强制拦截 IPv4/IPv6 回环（`127.0.0.0/8`、`::1`）、私有内网（`10/8`、`172.16/12`、`192.168/16`）、链路本地与云元数据（`169.254.0.0/16`、`fe80::/10`）、CGNAT / Tailscale（`100.64.0.0/10`）、ULA（`fc00::/7`）以及 IPv4 映射 IPv6 地址。 |
+| `allowlist` | 仅放行 `--egress-allowlist` 中显式列出的域名 TCP/DNS，同时依然强制拦截私有 IP。 |
+| `offline` | 拦截所有出站 TCP 与 DNS 流量。 |
+
+- **防 DNS Rebinding**：宿主机代理统一拦截 Guest DNS 查询，校验解析出的全部 IP 均不在拒绝网段后，直接连接已校验 IP。
+- **协议范围**：仅处理 TCP 与 DNS；非 DNS UDP 与 ICMP 默认丢弃。
+- **审计可视化**：每条放行/拦截决策均记录在沙箱的 **网络（Network）** 页签中，可实时核查。
+
+<Callout type="info">
+  `public-only` 保护的是你的宿主机、本机服务与私有内网，并不能阻止不可信代码把已复制的工作区内容发送到公网服务器。处理敏感代码库时请使用 `offline` 或严格的 `allowlist` 策略。
+</Callout>
+
+## 域名级密钥注入代理（Secret Proxy）
+
+不要将真实 API Key 直接传入 microVM 环境变量，而是使用 `--secret` 注入仅限指定域名生效的占位变量：
+
+```bash
+dockerman sandbox create python:3.12-slim \
+  --egress allowlist \
+  --egress-allowlist api.openai.com \
+  --secret OPENAI_API_KEY=env:OPENAI_API_KEY@api.openai.com
+```
+
+- microVM 内部看到的 `OPENAI_API_KEY` 仅是宿主机生成的占位符。
+- 当 Guest 请求命中所允许的域名（如 `api.openai.com`）时，宿主机出站代理在传输途中动态替换为真实密钥，并在响应返回 Guest 前流式清洗任何回显的真实密钥字节。
+- 真实密钥值永远不会进入 microVM 文件系统、环境变量或桌面端 GUI（**网络** 页签仅展示占位变量名与允许域名）。

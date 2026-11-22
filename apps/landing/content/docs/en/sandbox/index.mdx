@@ -1,0 +1,81 @@
+---
+title: Agent Sandbox
+description: Hardware-isolated microVMs for running untrusted and AI agent-generated code safely on macOS Apple Silicon and Linux KVM.
+---
+
+Agent Sandbox gives coding agents and developers a dedicated, hardware-isolated Linux microVM execution environment. Unlike standard containers that share the host kernel, every Sandbox boots inside its own microVM with zero virtual network cards and host-enforced workspace and egress boundaries.
+
+<Callout type="info">
+  Agent Sandbox is a separate top-level surface alongside Docker and Kubernetes. Dockerman always fails closed when hardware virtualization is unavailable and never silently falls back to shared-kernel containers.
+</Callout>
+
+## Platform support
+
+VMM selection is aligned by host OS, unified by one static Linux Guest Agent (`dockerman-guestd`) over `virtio-vsock`:
+
+| Platform | Local MicroVM | Remote Linux KVM Host (SSH) | Notes |
+| --- | --- | --- | --- |
+| **macOS Apple Silicon (ARM64)** | Supported (`libkrun` / HVF via `dockerman-vm-helper`) | Supported | Supports `--mount-mode copy-in` (default) and opt-in `direct` |
+| **Linux (x86_64 / ARM64 with `/dev/kvm`)** | Supported (Firecracker via local `dockerman-sandboxd`) | Supported | Supports Pause/Resume and Memory Snapshots/Fork |
+| **macOS Intel (x86_64)** | Not supported (fail closed) | Supported | Target remote Linux KVM hosts over SSH |
+| **Windows** | Not supported (fail closed) | Supported | Target remote Linux KVM hosts over SSH |
+
+## Desktop workbench
+
+Open **Sandboxes** from the left sidebar (`/sandboxes`) to manage local and remote Sandboxes:
+
+- **Fleet KPI strip**: Always shows **Running**, **Local Slots** (`active / 4`), **Total Sandboxes**, and **Stopped / Paused** counts, even when the list is empty.
+- **Quick launch presets**: Create a Sandbox from presets (**Python Agent**, **Node / Bun**, **Rust Toolchain**, or **Custom OCI**). Standard OCI images (such as `python:3.12-slim` or `node:22-slim`) are pulled natively and cached by digest.
+- **Precision Workbench detail view** (`/sandbox/:id/:view`): Switch between Sandboxes from the compact left switcher rail without losing your active tab:
+  - **Overview**: Hardware isolation boundary (`MicroVM · HVF` or `MicroVM · Firecracker`), resource quotas, workspace mount mode, capabilities, and idle TTL countdown.
+  - **Activity**: Live streaming audit log of bounded `exec` commands run by agents or from the UI, with collapsible `stdout` / `stderr` and exit status.
+  - **Terminal**: Independent human PTY takeover over `virtio-vsock`. Opening a shell never interrupts concurrent agent `exec` streams.
+  - **Files**: Browse guest files, preview content, inspect host-verified workspace diffs, and review changes before confirming **Apply to Host**.
+  - **Network**: Active egress policy, allowed/blocked audit counters, secret injection metadata (values are never shown), detached background processes, and `127.0.0.1:<port>` loopback port previews.
+
+## Lifecycle & idle semantics
+
+Every Sandbox follows an explicit 7-state lifecycle:
+
+```text
+Creating ──► Running ◄──► Paused (capability-gated)
+   │          │   ▲          │
+   │          ▼   │          ▼
+   │       Stopping ◄────────┘
+   │          │
+   │          ▼
+   │       Stopped ──► Destroyed
+   │          │
+   ▼          ▼
+ Failed ──► Destroyed
+```
+
+- **Idle detection**: A Sandbox counts as idle when it has no active `exec`, no open PTY session, and no active `127.0.0.1:<port>` port-forward connection for its idle TTL.
+- **Unapplied work protection**: When a Sandbox with a copy-in workspace (or `--persistent`) hits its idle TTL, Dockerman transitions it to **Stopped** and preserves its writable disk for the retention window (`7 days` by default) instead of destroying unapplied edits. Ephemeral workspace-less Sandboxes are destroyed automatically on idle expiry.
+- **Process ownership**: Closing the Desktop GUI never kills running Sandboxes. On macOS, active local Sandboxes inhibit `dockerman-daemon` idle exit and survive daemon restarts via authenticated `control_sock` reattachment. On Linux, `dockerman-sandboxd` manages Firecracker lifecycles and TTL expiry autonomously.
+
+## Default resource quotas
+
+| Parameter | Default | Notes |
+| --- | --- | --- |
+| vCPU | `2` | Configurable per Sandbox |
+| Memory | `1024 MiB` | Configurable per Sandbox |
+| Writable disk | `4 GiB` | Sparse CoW ext4 upper layer |
+| Idle TTL | `30 min` | `0` disables expiry for `--persistent` |
+| Stopped retention | `7 days` | Applies to workspace-attached and persistent Sandboxes |
+| Bounded `exec` timeout | `60s` | Per-call override up to `600s` |
+| Localhost concurrency cap | `4` active | `16` active per remote KVM Host |
+
+## Next steps
+
+<Cards>
+  <Card title="Workspaces, Egress & Secrets" href="/en/docs/sandbox/workspaces-and-security">
+    Copy-in workspace safety, Apply to Host guards, zero-NIC egress policies, and Secret Proxy.
+  </Card>
+  <Card title="CLI, Agent Skill & MCP" href="/en/docs/sandbox/cli-and-mcp">
+    Drive Sandboxes from terminal agents, install the embedded skill, or connect MCP clients.
+  </Card>
+  <Card title="Linux KVM & Snapshots" href="/en/docs/sandbox/remote-kvm-hosts">
+    Onboard local or remote Firecracker hosts and use pause, resume, snapshot, and fork.
+  </Card>
+</Cards>

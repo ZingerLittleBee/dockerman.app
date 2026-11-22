@@ -1,0 +1,82 @@
+---
+title: Linux KVM & Snapshots
+description: Run Firecracker microVMs on local or remote Linux KVM hosts and use pause, resume, snapshots, and fast forks.
+---
+
+On Linux hosts with `/dev/kvm`, Dockerman runs **Firecracker** microVMs orchestrated by `dockerman-sandboxd`. The same backend serves both local Linux desktops (`LOCALHOST`, direct Unix socket without SSH) and remote Linux KVM servers over SSH.
+
+## Remote Linux KVM host onboarding
+
+Remote Sandbox hosts do **not** require Docker or Podman. Dockerman performs a preflight check, uploads SHA-256 verified Firecracker and guest kernel assets from your desktop over SSH (so air-gapped remote Linux hosts work cleanly), and starts `dockerman-sandboxd`.
+
+<Steps>
+  <Step>
+    ### Check host readiness
+
+    Probe `/dev/kvm` permissions, CPU architecture, and `systemd` user linger:
+
+    ```bash
+    dockerman sandbox host preflight ubuntu@kvm-box.example.com --key-file ~/.ssh/id_ed25519
+    ```
+  </Step>
+  <Step>
+    ### Initialize the Sandbox Host
+
+    Run one-time setup, upload verified assets, and register the saved Host profile:
+
+    ```bash
+    dockerman sandbox host init ubuntu@kvm-box.example.com \
+      --label kvm-prod \
+      --key-file ~/.ssh/id_ed25519
+    ```
+
+    Sandbox-only remote Hosts are created with `observed = false` so they never cause Docker Fleet sampling errors. Remote Sandboxes require a Dockerman Pro license (`LicenseGate` is enforced in both GUI and CLI).
+  </Step>
+  <Step>
+    ### Target the remote Host (or set default)
+
+    ```bash
+    # Target explicitly per command
+    dockerman --host kvm-prod sandbox create python:3.12-slim --name remote-py
+
+    # Or inspect / set the default Sandbox Host
+    dockerman sandbox host default
+    dockerman sandbox host default kvm-prod
+    ```
+  </Step>
+</Steps>
+
+<Callout type="info">
+  Dockerman never silently spills a local workspace onto a remote Host. Remote execution only happens when you pass `--host` or explicitly configure a remote default Sandbox Host.
+</Callout>
+
+## Autonomous lifecycle & zero-TAP networking
+
+- **Zero-TAP networking**: Firecracker launches with no `virtio-net` TAP device (no `CAP_NET_ADMIN` required). All control and outbound TCP/DNS traffic flows over `AF_VSOCK` through `dockerman-sandboxd`'s egress proxy.
+- **Autonomous TTL**: `dockerman-sandboxd` runs under user systemd linger (`loginctl enable-linger`) and reaps expired idle Sandboxes even when your desktop app is offline.
+- **Security hardening**: `dockerman-sandboxd` stores its runtime socket inside a `0700` user-owned directory (`$XDG_RUNTIME_DIR/dockerman-sandboxd` or `~/.local/state/dockerman-sandboxd`) with `0600` permissions and verifies peer UID ownership.
+
+## Pause, Resume, Snapshots & Fork
+
+Firecracker backends expose memory-preserving **Pause / Resume** and **Snapshot / Fork** capabilities:
+
+```bash
+# Pause and resume a running Firecracker Sandbox
+dockerman sandbox pause <id>
+dockerman sandbox resume <id>
+
+# Create a full memory + disk snapshot
+dockerman sandbox snapshot create <id> --name after-deps
+dockerman sandbox snapshot list <id>
+
+# Fork a new isolated microVM from an existing snapshot (sub-second restore)
+dockerman sandbox fork <id> --from <snapshot-id> --name experiment-a
+
+# Or fork directly from a live Sandbox (takes a point-in-time snapshot automatically)
+dockerman sandbox fork <id> --name experiment-b
+
+# Delete an unused snapshot
+dockerman sandbox snapshot delete <snapshot-id> -y
+```
+
+Each forked Sandbox gets its own independent CoW sparse writable disk clone and isolated network/process state while restoring memory directly from the snapshot.

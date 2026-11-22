@@ -1,0 +1,81 @@
+---
+title: Agent Sandbox
+description: MicroVMs aisladas por hardware para ejecutar código no confiable y generado por agentes de IA de forma segura en macOS Apple Silicon y Linux KVM.
+---
+
+Agent Sandbox ofrece a los agentes de programación y desarrolladores un entorno de ejecución Linux en microVM aislado por hardware. A diferencia de los contenedores estándar que comparten el kernel del host, cada Sandbox arranca dentro de su propia microVM sin tarjetas de red virtuales y con límites de workspace y salida aplicados en el host.
+
+<Callout type="info">
+  Agent Sandbox es una superficie principal independiente junto a Docker y Kubernetes. Dockerman falla de forma cerrada cuando no hay virtualización por hardware y nunca degrada silenciosamente a contenedores de kernel compartido.
+</Callout>
+
+## Soporte de plataformas
+
+La elección del VMM se divide según el sistema operativo del host y se unifica mediante un único Guest Agent estático de Linux (`dockerman-guestd`) sobre `virtio-vsock`:
+
+| Plataforma | MicroVM local | Host Linux KVM remoto (SSH) | Notas |
+| --- | --- | --- | --- |
+| **macOS Apple Silicon (ARM64)** | Compatible (`libkrun` / HVF mediante `dockerman-vm-helper`) | Compatible | Compatible con `--mount-mode copy-in` (predeterminado) y `direct` opcional |
+| **Linux (x86_64 / ARM64 con `/dev/kvm`)** | Compatible (Firecracker mediante `dockerman-sandboxd` local) | Compatible | Compatible con Pausa/Reanudación y Snapshots de memoria/Fork |
+| **macOS Intel (x86_64)** | No compatible (fallo cerrado) | Compatible | Usa hosts Linux KVM remotos por SSH |
+| **Windows** | No compatible (fallo cerrado) | Compatible | Usa hosts Linux KVM remotos por SSH |
+
+## Banco de trabajo de escritorio
+
+Abre **Sandboxes** en la barra lateral izquierda (`/sandboxes`) para gestionar Sandboxes locales y remotos:
+
+- **Franja KPI de la flota**: Muestra siempre **En ejecución**, **Ranuras locales** (`activas / 4`), **Total de Sandboxes** y **Detenidos / Pausados**, incluso con la lista vacía.
+- **Plantillas rápidas**: Crea un Sandbox con plantillas (**Agente Python**, **Node / Bun**, **Toolchain Rust** o **OCI personalizada**). Las imágenes OCI estándar (como `python:3.12-slim` o `node:22-slim`) se descargan de forma nativa y se almacenan en caché por digest.
+- **Vista de detalle Precision Workbench** (`/sandbox/:id/:view`): Cambia entre Sandboxes desde el raíl lateral izquierdo sin perder la pestaña activa:
+  - **Resumen (Overview)**: Límite de aislamiento por hardware (`MicroVM · HVF` o `MicroVM · Firecracker`), cuotas de recursos, modo de montaje del workspace, capacidades y cuenta atrás del TTL de inactividad.
+  - **Actividad (Activity)**: Registro en vivo de auditoría de los comandos `exec` acotados ejecutados por agentes o desde la interfaz, con `stdout` / `stderr` desplegables y código de salida.
+  - **Terminal**: Toma de control PTY humana independiente sobre `virtio-vsock`. Abrir una consola nunca interrumpe los flujos `exec` activos del agente.
+  - **Archivos (Files)**: Explora archivos del invitado, previsualiza contenido, revisa diferencias verificadas por el host y confirma **Aplicar al Host**.
+  - **Red (Network)**: Política de salida activa, contadores y eventos de auditoría permitidos/bloqueados, metadatos de inyección de secretos (los valores nunca se muestran), procesos en segundo plano y vistas previas locales `127.0.0.1:<port>`.
+
+## Ciclo de vida y semántica de inactividad
+
+Cada Sandbox sigue una máquina explícita de 7 estados:
+
+```text
+Creating ──► Running ◄──► Paused (según capacidades)
+   │          │   ▲          │
+   │          ▼   │          ▼
+   │       Stopping ◄────────┘
+   │          │
+   │          ▼
+   │       Stopped ──► Destroyed
+   │          │
+   ▼          ▼
+ Failed ──► Destroyed
+```
+
+- **Detección de inactividad**: Un Sandbox se considera inactivo cuando no tiene ningún `exec` activo, ninguna sesión PTY abierta ni conexiones activas en los puertos reenviados `127.0.0.1:<port>` durante el TTL configurado.
+- **Protección de trabajo sin aplicar**: Cuando un Sandbox con workspace copy-in (o `--persistent`) alcanza el TTL de inactividad, Dockerman pasa a **Detenido (Stopped)** y conserva el disco escribible durante el periodo de retención (`7 días` por defecto) en lugar de destruir cambios pendientes. Los Sandboxes efímeros sin workspace se destruyen automáticamente al expirar.
+- **Propiedad de procesos**: Cerrar la aplicación de escritorio nunca detiene los Sandboxes en ejecución. En macOS, los Sandboxes activos impiden la salida por inactividad de `dockerman-daemon` y sobreviven a reinicios del daemon mediante reconexión autenticada por `control_sock`. En Linux, `dockerman-sandboxd` gestiona Firecracker y los TTL de forma autónoma.
+
+## Cuotas de recursos predeterminadas
+
+| Parámetro | Predeterminado | Notas |
+| --- | --- | --- |
+| vCPU | `2` | Configurable por Sandbox |
+| Memoria | `1024 MiB` | Configurable por Sandbox |
+| Disco escribible | `4 GiB` | Capa superior ext4 dispersa CoW |
+| TTL de inactividad | `30 min` | `0` desactiva la expiración con `--persistent` |
+| Retención detenido | `7 días` | Aplica a Sandboxes con workspace y persistentes |
+| Tiempo límite de `exec` | `60s` | Ajustable por llamada hasta `600s` |
+| Límite de concurrencia local | `4` activos | `16` activos por Host KVM remoto |
+
+## Siguientes pasos
+
+<Cards>
+  <Card title="Workspaces, salida y secretos" href="/es/docs/sandbox/workspaces-and-security">
+    Seguridad del workspace copy-in, protecciones de Apply to Host, política de salida sin NIC y Secret Proxy.
+  </Card>
+  <Card title="CLI, Agent Skill y MCP" href="/es/docs/sandbox/cli-and-mcp">
+    Controla Sandboxes desde agentes de terminal, instala la skill integrada o conecta clientes MCP.
+  </Card>
+  <Card title="Linux KVM y Snapshots" href="/es/docs/sandbox/remote-kvm-hosts">
+    Configura hosts Firecracker locales o remotos y usa pausa, reanudación, snapshots y fork.
+  </Card>
+</Cards>
