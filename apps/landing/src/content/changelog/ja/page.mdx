@@ -1,3 +1,19 @@
+<ChangelogEntry version="v6.4.0" date="2026 年 11 月 23 日">
+## Agent Sandbox microVM
+
+macOS Apple Silicon と Linux KVM 上のハードウェア隔離 Linux microVM で、信頼できないコードや AI エージェント生成コードを安全に実行できます。ゼロ NIC 外向き制御、ホスト側検証付き copy-in ワークスペース、デスクトップ Precision Workbench、CLI / Skill、オプションの MCP サーバーを備えています。
+
+### ✨ 新機能
+
+- 🛡️ <Bold>ハードウェア隔離 Agent Sandbox:</Bold> 標準 OCI イメージ（`python:3.12-slim`、`node:22-slim`、`rust:1.85-slim` やカスタムイメージ）を macOS Apple Silicon（`libkrun` / HVF）およびローカル／リモート Linux KVM（Firecracker）の専用 microVM で起動し、単一の `virtio-vsock` Guest Agent（`dockerman-guestd`）で統一制御します。
+- 🧭 <Bold>デスクトップ Precision Workbench:</Bold> `/sandboxes` に常時表示の 4 枠 KPI バー（実行中・ローカル枠 `X / 4`・総数・停止/一時停止）とクイックテンプレートを用意。詳細画面では左切替レール、ライブ `Activity` 監査ストリーム、独立した対話 `Terminal` PTY、`Files` と Diff/Apply 確認、`Network` 外向き監査および `127.0.0.1` ポートプレビューを利用できます。
+- 📁 <Bold>ホスト側マニフェスト検証付き copy-in ワークスペース:</Bold> コピー時に `.gitignore`・`.env*`・秘密鍵および `.git/` を除外し、ホスト側 SHA-256 マニフェスト照合・`.git` 正規化ブロック・`O_NOFOLLOW` シンボリックリンク保護・競合検知・明示的確認を経て安全に書き戻します。
+- 🌐 <Bold>ゼロ NIC 外向き制御とシークレット注入プロキシ:</Bold> `virtio-vsock` 経由で `public-only`・`allowlist`・`offline` の TCP/DNS ポリシーと DNS リバインディング対策を強制し、`--secret` によるドメイン限定プレースホルダー置換で実値を microVM へ入れません。
+- ⌨️ <Bold>CLI・Agent Skill・オプションの MCP:</Bold> `dockerman sandbox ...` CLI、`dockerman sandbox skill install` による内蔵スキル導入、`--allowed-root` 隔離付きの `dockerman mcp serve` を提供します。
+- 📸 <Bold>Linux KVM Firecracker スナップショットと Fork:</Bold> Docker 不要で SSH 経由のリモート Linux KVM ホストを初期化（`dockerman sandbox host preflight/init`）でき、オフライン自律 TTL 回収や一時停止/再開・サブ秒スナップショット/Fork に対応します。
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v6.3.1" date="2026 年 11 月 15 日">
 ## デプロイの安全性、通知、コンテナの修正
 

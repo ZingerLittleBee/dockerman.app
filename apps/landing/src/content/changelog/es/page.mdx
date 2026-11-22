@@ -1,3 +1,19 @@
+<ChangelogEntry version="v6.4.0" date="23 de noviembre de 2026">
+## MicroVMs Agent Sandbox
+
+Ejecuta código no confiable y generado por agentes de IA dentro de microVMs Linux aisladas por hardware en macOS Apple Silicon y Linux KVM, con políticas de salida sin NIC, workspaces copy-in verificados por el host, interfaz de escritorio Precision Workbench, CLI/Skill y soporte opcional de MCP.
+
+### ✨ Novedades
+
+- 🛡️ <Bold>Agent Sandboxes con aislamiento por hardware:</Bold> Lanza imágenes OCI estándar (`python:3.12-slim`, `node:22-slim`, `rust:1.85-slim` o personalizadas) en microVMs dedicadas `libkrun` / HVF en macOS Apple Silicon y Firecracker en hosts Linux KVM locales o remotos, unificadas mediante un único Guest Agent `virtio-vsock` (`dockerman-guestd`).
+- 🧭 <Bold>Precision Workbench de escritorio:</Bold> Gestiona Sandboxes desde `/sandboxes` con una franja KPI siempre visible (`En ejecución`, `Ranuras locales X / 4`, `Total`, `Detenidos / Pausados`), plantillas rápidas, raíl lateral de cambio, flujo en vivo `Activity`, consola humana independiente `Terminal` PTY, revisión `Files` con Diff/Apply y auditoría `Network` con vistas previas `127.0.0.1`.
+- 📁 <Bold>Workspaces copy-in verificados por el host:</Bold> Filtra `.gitignore`, `.env*`, claves privadas y omite `.git/` al copiar; verifica los cambios contra un manifiesto SHA-256 del host antes de aplicar con protección `.git`, `O_NOFOLLOW`, detección de conflictos y confirmación explícita.
+- 🌐 <Bold>Salida sin NIC y proxy de inyección de secretos:</Bold> Aplica políticas TCP/DNS `public-only`, `allowlist` y `offline` por `virtio-vsock` con protección anti-DNS-rebinding y sustitución `--secret` limitada por dominio para que las claves reales nunca entren en la microVM.
+- ⌨️ <Bold>CLI, Agent Skill y MCP opcional:</Bold> Controla Sandboxes mediante `dockerman sandbox ...`, instala la skill integrada con `dockerman sandbox skill install` o conecta clientes MCP restringidos con `dockerman mcp serve --allowed-root`.
+- 📸 <Bold>Snapshots y Fork en Linux KVM Firecracker:</Bold> Incorpora hosts Linux KVM remotos por SSH sin Docker (`dockerman sandbox host preflight/init`), con expiración TTL autónoma sin conexión, Pausa/Reanudación y Snapshot/Fork sub-segundo.
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v6.3.1" date="15 de noviembre de 2026">
 ## Despliegues más seguros, notificaciones y correcciones de contenedores
 

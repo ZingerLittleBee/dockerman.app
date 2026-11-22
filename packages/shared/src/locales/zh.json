@@ -14,7 +14,7 @@
     "skipToContent": "跳到正文"
   },
   "hero": {
-    "eyebrow": "更严格的 Compose 风险确认、创建容器保留镜像 entrypoint、通知 30 秒超时",
+    "eyebrow": "硬件隔离 Agent 沙箱 microVM、零网卡出站代理、copy-in 工作区 Diff 与写回",
     "eyebrowTag": "新",
     "headline1Lead": "Docker，\n用起来像",
     "headline1Accent": "本地",

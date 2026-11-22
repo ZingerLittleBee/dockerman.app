@@ -1,3 +1,19 @@
+<ChangelogEntry version="v6.4.0" date="2026 年 11 月 23 日">
+## Agent 沙箱 microVM
+
+在 macOS Apple Silicon 与 Linux KVM 上通过硬件隔离的 Linux microVM 安全运行不可信与 AI Agent 生成代码，提供零网卡出站控制、宿主机清单校验的 copy-in 工作区、桌面端精密工作台 UI、CLI / 内置 Skill 以及可选 MCP Server。
+
+### ✨ 新功能
+
+- 🛡️ <Bold>硬件隔离 Agent 沙箱:</Bold> 基于标准 OCI 镜像（`python:3.12-slim`、`node:22-slim`、`rust:1.85-slim` 或自定义镜像）在 macOS Apple Silicon（`libkrun` / HVF）和本地/远程 Linux KVM（Firecracker）上启动独立 microVM，统一通过 `virtio-vsock` Guest Agent（`dockerman-guestd`）驱动。
+- 🧭 <Bold>桌面端精密工作台:</Bold> 在 `/sandboxes` 常驻展示 4 格 KPI 条（运行中、本机槽位 `X / 4`、总数、已停止/暂停）与快捷镜像模板；详情页提供左侧沙箱切换栏、实时 `Activity` 命令审计流、独立人工 `Terminal` PTY 接管、`Files` 浏览与 Diff/Apply 写回确认，以及 `Network` 出站审计与 `127.0.0.1` 端口预览。
+- 📁 <Bold>宿主机清单校验的 copy-in 工作区:</Bold> 复制时自动过滤 `.gitignore`、`.env*`、私钥并完整省略 `.git/`；写回宿主机前基于宿主机 SHA-256 清单核验，强制执行 `.git` 规范化拦截、`O_NOFOLLOW` 符号链接防越界、宿主机冲突检测与显式人工确认。
+- 🌐 <Bold>零网卡出站与域名级密钥代理:</Bold> 通过 `virtio-vsock` 透明强制执行 `public-only`、`allowlist` 与 `offline` TCP/DNS 策略并防护 DNS Rebinding；支持 `--secret` 域名作用域占位替换，真实密钥永不进入 microVM。
+- ⌨️ <Bold>CLI、内置 Agent Skill 与可选 MCP:</Bold> 提供完整 `dockerman sandbox ...` 命令行工具、一键 `dockerman sandbox skill install` 技能安装，以及带 `--allowed-root` 目录限制的 `dockerman mcp serve`。
+- 📸 <Bold>Linux KVM Firecracker 快照与克隆:</Bold> 支持免 Docker 通过 SSH 初始化远程 Linux KVM 主机（`dockerman sandbox host preflight/init`）、离线自治 TTL 回收以及暂停/恢复和亚秒级快照/Fork。
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v6.3.1" date="2026 年 11 月 15 日">
 ## 部署安全、通知与容器修复
 

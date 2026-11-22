@@ -1,3 +1,19 @@
+<ChangelogEntry version="v6.4.0" date="Nov 23, 2026">
+## Agent Sandbox MicroVMs
+
+Run untrusted and AI agent-generated code inside hardware-isolated Linux microVMs on macOS Apple Silicon and Linux KVM, with zero-NIC egress enforcement, host-verified copy-in workspaces, a desktop Precision Workbench UI, CLI/Skill integration, and optional MCP support.
+
+### ✨ Features
+
+- 🛡️ <Bold>Hardware-isolated Agent Sandboxes:</Bold> Launch standard OCI images (`python:3.12-slim`, `node:22-slim`, `rust:1.85-slim`, or custom images) inside dedicated `libkrun` / HVF microVMs on macOS Apple Silicon and Firecracker microVMs on local or remote Linux KVM hosts, unified by one `virtio-vsock` Guest Agent (`dockerman-guestd`).
+- 🧭 <Bold>Desktop Precision Workbench:</Bold> Manage Sandboxes from `/sandboxes` with an always-visible 4-cell KPI strip (`Running`, `Local Slots X / 4`, `Total`, `Stopped / Paused`), quick-launch image presets, a left switcher rail, live `Activity` exec audit stream, independent human `Terminal` PTY takeover, `Files` & Diff/Apply review, and `Network` egress audit & `127.0.0.1` port previews.
+- 📁 <Bold>Host-verified Copy-in Workspaces:</Bold> Filter out `.gitignore`, `.env*`, private keys, and `.git/` on copy-in; verify changes against a host-side SHA-256 manifest before applying back with `.git` normalization guards, `O_NOFOLLOW` symlink-escape protection, conflict detection, and explicit confirmation.
+- 🌐 <Bold>Zero-NIC Egress & Secret Injection Proxy:</Bold> Enforce `public-only`, `allowlist`, and `offline` TCP/DNS policies over `virtio-vsock` with anti-DNS-rebinding protection and domain-scoped `--secret` placeholder substitution so real secrets never enter the microVM.
+- ⌨️ <Bold>CLI, Agent Skill & Optional MCP:</Bold> Control Sandboxes via `dockerman sandbox ...`, install the built-in skill with `dockerman sandbox skill install`, or connect restricted MCP clients via `dockerman mcp serve --allowed-root`.
+- 📸 <Bold>Linux KVM Firecracker Snapshots & Fork:</Bold> Onboard remote Linux KVM hosts over SSH without Docker (`dockerman sandbox host preflight/init`), run autonomous offline TTL reaping, and use Pause/Resume and sub-second Snapshot/Fork.
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v6.3.1" date="Nov 15, 2026">
 ## Deployment Safety, Notifications & Container Fixes
 

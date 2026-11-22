@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | [🇨🇳 简体中文](./README.zh-CN.md) | 🇯🇵 日本語 | [🇪🇸 Español](./README.es.md)
 
-[![Version](https://img.shields.io/badge/version-v6.3.1-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.3.1)
-[![Release Date](https://img.shields.io/badge/release%20date-Nov%2015%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.3.1)
+[![Version](https://img.shields.io/badge/version-v6.4.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.4.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Nov%2023%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.4.0)
 
 Docker **と** Kubernetes をまとめて管理できるネイティブデスクトップ UI。Tauri + Rust 製で、起動が速く、軽量、完全ローカル動作――データはマシンの外に出ません。
 
@@ -12,6 +12,7 @@ Docker **と** Kubernetes をまとめて管理できるネイティブデスク
 
 ## ハイライト
 
+- 🛡️ **Agent Sandbox microVM** — macOS Apple Silicon（`libkrun`）と Linux KVM（Firecracker）のハードウェア隔離 microVM で AI エージェントコードを安全実行、ゼロ NIC 外向き制御・copy-in Diff/Apply・CLI/Skill・MCP 対応
 - 🛍️ **アプリマーケット** — Portainer・CasaOS ソースからワンクリックでアプリテンプレートをインストール、安全チェックとインストール前の設定付き
 - 🐳 **コンテナ・イメージ** — フルライフサイクル、Compose 対応、バックアップ／リストア（bind マウント含む）、アップグレード検出
 - ☸️ **エンドツーエンドの Kubernetes** — マルチクラスタ、HPA/クォータ/CRD と主要リソース、確認付きのワークロード操作、Helm、ポートフォワード、RBAC、イベント、あらゆる場所の YAML

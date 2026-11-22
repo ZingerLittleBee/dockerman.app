@@ -14,7 +14,7 @@
     "skipToContent": "Skip to content"
   },
   "hero": {
-    "eyebrow": "Stricter Compose risk checks, image entrypoints kept on create, 30-second notification timeout",
+    "eyebrow": "Hardware-isolated Agent Sandbox microVMs, zero-NIC egress proxy, copy-in Diff & Apply",
     "eyebrowTag": "NEW",
     "headline1Lead": "Docker that feels",
     "headline1Accent": "local",
