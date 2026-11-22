@@ -1,0 +1,114 @@
+---
+title: CLI, Agent Skill & MCP
+description: Drive Agent Sandboxes from the dockerman CLI, install the built-in Agent Skill, or expose Sandboxes over MCP.
+---
+
+For shell-capable coding agents (such as Claude Code, Codex, and Cursor), the `dockerman sandbox` CLI paired with Dockerman's embedded Agent Skill is the primary interface. For restricted or non-shell clients, Dockerman also ships an optional `--allowed-root`-jailed MCP server.
+
+## Quickstart workflow
+
+```bash
+# 1. Create a copy-in Sandbox from a standard OCI image
+dockerman sandbox create python:3.12-slim \
+  --name py-agent \
+  --workspace ./my-project \
+  --egress public-only
+
+# 2. Run a bounded command inside the microVM
+dockerman sandbox exec <sandbox-id> -- pytest -q
+
+# 3. Inspect host-verified workspace changes
+dockerman sandbox diff <sandbox-id>
+
+# 4. Review and apply verified changes back to the host (interactive TTY prompt)
+dockerman sandbox apply <sandbox-id>
+
+# 5. Stop and destroy when finished
+dockerman sandbox stop <sandbox-id>
+dockerman sandbox destroy <sandbox-id> -y
+```
+
+## Core CLI commands
+
+### Lifecycle
+
+```bash
+dockerman sandbox create <image> [options]
+dockerman sandbox list [--all]
+dockerman sandbox inspect <id>
+dockerman sandbox start <id>
+dockerman sandbox stop <id>
+dockerman sandbox pause <id>      # Capability-gated (Firecracker)
+dockerman sandbox resume <id>     # Capability-gated (Firecracker)
+dockerman sandbox destroy <id> -y
+```
+
+Common `create` options:
+
+| Flag | Description |
+| --- | --- |
+| `--name <name>` | Human-readable Sandbox name |
+| `--host <host-id>` | Target Host (`LOCALHOST` by default, or a remote KVM Host) |
+| `--vcpu <n>`, `--memory-mib <n>`, `--disk-gib <n>` | Resource quotas (default: `2`, `1024`, `4`) |
+| `--egress <public-only\|allowlist\|offline>` | Zero-NIC egress policy |
+| `--egress-allowlist <domain>` | Allowed domain when `--egress allowlist` is set (repeatable) |
+| `--workspace <path>` | Host project directory to attach |
+| `--mount-mode <copy-in\|direct>` | `copy-in` (default) or macOS-only `direct` |
+| `--idle-ttl <seconds>`, `--retention <seconds>`, `--persistent` | Idle expiry and stopped retention controls |
+| `--secret <ENV=REF@DOMAINS>` | Domain-scoped host secret injection (repeatable) |
+
+### Execution, PTY & background services
+
+```bash
+# Bounded command execution (default 60s timeout, max 600s)
+dockerman sandbox exec <id> --timeout 120 --cwd /workspace -- python3 main.py
+
+# Interactive PTY shell (independent of agent exec streams)
+dockerman sandbox shell <id> --shell /bin/sh --cwd /workspace
+
+# Detached background processes (no exec timeout)
+dockerman sandbox process start <id> --id web --cwd /workspace -- python3 -m http.server 8000
+dockerman sandbox process list <id>
+dockerman sandbox process stop <id> web
+
+# Loopback-only 127.0.0.1 preview port forwarding
+dockerman sandbox port expose <id> 8000 --host-port 18080
+dockerman sandbox port list <id>
+dockerman sandbox port close <id> 8000
+```
+
+### Workspace diff & apply
+
+```bash
+dockerman sandbox diff <id>
+dockerman sandbox apply <id>                        # Interactive TTY confirmation
+dockerman sandbox apply <id> --path src/main.py     # Apply specific paths only
+dockerman sandbox apply <id> -y                     # Host automation scripts only
+```
+
+## Install the embedded Agent Skill
+
+Install Dockerman's built-in `dockerman-sandbox` skill so Claude Code, Codex, and other agent harnesses know when and how to isolate untrusted execution:
+
+```bash
+# Install into both ~/.claude/skills/ and ~/.agents/skills/
+dockerman sandbox skill install
+
+# Or target a specific directory / print without writing
+dockerman sandbox skill install --target claude
+dockerman sandbox skill install --target agents
+dockerman sandbox skill install --print-only
+```
+
+## Optional MCP Server
+
+For non-shell or restricted MCP clients, start Dockerman's Streamable HTTP / stdio MCP server with explicit workspace root jails:
+
+```bash
+dockerman mcp serve --allowed-root /Users/you/projects/demo
+```
+
+- `--allowed-root <dir>` is **required** (repeatable) and canonicalized via `realpath` with strict path-component prefix checks.
+- By default, MCP exposes `sandbox_diff` read-only and **forbids** host-mutating operations (`sandbox_apply` and `mountMode: "direct"`).
+- Pass `--mcp-allow-host-write` only when you explicitly want the MCP client to apply changes to allowed roots.
+- Host-side `--secret` and `includeEnv` flags are disabled on the MCP surface to prevent untrusted MCP callers from exfiltrating host environment variables.

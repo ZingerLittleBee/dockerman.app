@@ -1,0 +1,60 @@
+---
+title: Workspaces, Egress & Secrets
+description: Host-verified copy-in workspaces, zero-NIC virtio-vsock egress policies, and domain-scoped secret injection.
+---
+
+Agent Sandbox treats everything inside the microVM — including the Guest Agent — as untrusted once guest code runs. All filesystem write-backs, network policies, and secret substitutions are enforced on the host side.
+
+## Sandbox Workspaces (copy-in by default)
+
+When you attach a host project directory to a Sandbox, Dockerman defaults to **copy-in** mode (`--mount-mode copy-in`):
+
+- **Safe filtering on copy-in**: Respects `.gitignore`, excludes `.env*` and private key files by default, and **omits `.git/` completely** so hooks, credentials, and repository config never enter the guest.
+- **No symlink smuggling**: Copy-in never follows symlinks outside the workspace root. Relative symlinks staying inside the workspace (such as `CLAUDE.md -> AGENTS.md`) are preserved; links pointing outside the root are skipped.
+- **Host-side SHA-256 manifest**: At copy-in time, the host records a baseline SHA-256 manifest of every copied path. `sandbox diff` and **Apply to Host** verify guest files against this host manifest rather than trusting guest metadata.
+
+### Hard guards on Apply to Host
+
+Before writing any change back to your host directory, Dockerman enforces:
+
+1. **`.git` write protection**: Rejects any path containing a `.git` component after Unicode normalization, ASCII case folding, and HFS+/NTFS short-name normalization (CVE-2014-9390), including nested repos and submodules.
+2. **Symlink escape prevention**: Opens and writes paths component-by-component without following host symlinks (`O_NOFOLLOW`), blocking writes through pre-existing symlinks outside the workspace root.
+3. **Host conflict detection**: Compares the current host file hash against the copy-in baseline. If a file was edited on the host after copy-in, Apply aborts with a conflict error instead of silently overwriting your work.
+4. **Explicit confirmation**: Host writes require confirmation in the Desktop GUI dialog or an interactive CLI TTY prompt (`--yes` is strictly for host-side automation scripts).
+
+<Callout type="warn">
+  On macOS Apple Silicon, `--mount-mode direct` is available as an opt-in override for direct host sharing. Direct mounts bypass copy-in Diff/Apply review and carry a weaker isolation boundary (`libkrun` direct sharing). Direct mount is unavailable on Linux Firecracker hosts.
+</Callout>
+
+## Zero-NIC Egress Policies
+
+Sandboxes have **no virtual network interface** (`libkrun` TSI is disabled; Firecracker runs without `virtio-net` TAP). Guest TCP and DNS traffic is captured transparently inside the guest via a guest `TUN` device and forwarded over `virtio-vsock` to the host-side Egress Proxy. Enforcement does not depend on guest programs honoring `HTTP_PROXY`.
+
+| Policy | Behavior |
+| --- | --- |
+| `public-only` *(default)* | Allows public internet TCP/DNS while blocking IPv4/IPv6 loopback (`127.0.0.0/8`, `::1`), RFC1918 private LAN (`10/8`, `172.16/12`, `192.168/16`), link-local & cloud metadata (`169.254.0.0/16`, `fe80::/10`), CGNAT / Tailscale (`100.64.0.0/10`), ULA (`fc00::/7`), and IPv4-mapped IPv6 addresses. |
+| `allowlist` | Allows TCP and DNS only to explicitly listed domains (`--egress-allowlist`), with private IP blocking still enforced. |
+| `offline` | Drops all outbound TCP and DNS traffic. |
+
+- **Anti-DNS-rebinding**: The host resolves guest DNS queries, validates every returned IP against the deny ranges, and connects directly to the validated IP.
+- **Protocol scope**: TCP and DNS only. Non-DNS UDP and ICMP are dropped by default.
+- **Audit visibility**: Every allowed and blocked DNS/TCP decision is recorded and visible in the Sandbox **Network** tab (`sandbox_egress_events`).
+
+<Callout type="info">
+  `public-only` protects your host machine, local services, and private LAN — it does not prevent untrusted code from sending copied workspace files to public internet hosts. Use `offline` or a strict `allowlist` for sensitive repositories.
+</Callout>
+
+## Domain-scoped Secret Injection Proxy
+
+Instead of passing real API keys into a microVM environment, use `--secret` to bind a placeholder variable scoped to specific domains:
+
+```bash
+dockerman sandbox create python:3.12-slim \
+  --egress allowlist \
+  --egress-allowlist api.openai.com \
+  --secret OPENAI_API_KEY=env:OPENAI_API_KEY@api.openai.com
+```
+
+- Inside the microVM, `OPENAI_API_KEY` contains only a host-generated placeholder token.
+- When guest outbound requests hit an allowed domain (`api.openai.com`), the host Egress Proxy substitutes the real secret value in flight and scrubs any echoed secret bytes from responses before they return to the guest.
+- Real secret values never enter the microVM filesystem, environment, or Desktop GUI (the **Network** tab shows only the placeholder variable name and allowed domains).

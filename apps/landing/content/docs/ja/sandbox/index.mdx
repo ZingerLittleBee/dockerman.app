@@ -1,0 +1,81 @@
+---
+title: Agent Sandbox
+description: macOS Apple Silicon および Linux KVM 上で、信頼できないコードや AI エージェント生成コードを安全に実行するハードウェア隔離 microVM。
+---
+
+Agent Sandbox は、コーディングエージェントや開発者向けにハードウェア隔離された Linux microVM 実行環境を提供します。ホストカーネルを共有する標準コンテナとは異なり、各サンドボックスは専用の microVM 内で仮想 NIC ゼロの構成で起動し、ワークスペースや外向き通信の境界はすべてホスト側で強制されます。
+
+<Callout type="info">
+  Agent Sandbox は Docker や Kubernetes と並ぶ独立したトップレベル機能です。ハードウェア仮想化が利用できない環境では安全側にフェイルクローズし、共有カーネルコンテナへ暗黙にフォールバックすることはありません。
+</Callout>
+
+## プラットフォーム対応
+
+VMM はホスト OS に応じて使い分けつつ、内部では単一の静的 Linux Guest Agent（`dockerman-guestd`）を `virtio-vsock` 経由で統一的に制御します。
+
+| プラットフォーム | ローカル microVM | リモート Linux KVM Host (SSH) | 備考 |
+| --- | --- | --- | --- |
+| **macOS Apple Silicon (ARM64)** | 対応（`dockerman-vm-helper` 経由の `libkrun` / HVF） | 対応 | `--mount-mode copy-in`（既定）およびオプトインの `direct` に対応 |
+| **Linux（`/dev/kvm` 対応 x86_64 / ARM64）** | 対応（ローカル `dockerman-sandboxd` 経由の Firecracker） | 対応 | 一時停止/再開、メモリスナップショット/Fork に対応 |
+| **macOS Intel (x86_64)** | 非対応（フェイルクローズ） | 対応 | SSH 経由でリモート Linux KVM ホストを利用 |
+| **Windows** | 非対応（フェイルクローズ） | 対応 | SSH 経由でリモート Linux KVM ホストを利用 |
+
+## デスクトップ Precision Workbench
+
+左サイドバーの **サンドボックス**（`/sandboxes`）からローカル・リモートのサンドボックスを一元管理できます。
+
+- **Fleet KPI バー**：空リスト時も含め、**実行中**・**ローカル枠**（`稼働数 / 4`）・**サンドボックス総数**・**停止 / 一時停止** を常時表示します。
+- **クイック作成テンプレート**：**Python Agent**、**Node / Bun**、**Rust ツールチェーン**、**カスタム OCI** の 4 テンプレートを用意。標準 OCI イメージ（`python:3.12-slim`、`node:22-slim` など）をネイティブ取得し、ダイジェスト単位でキャッシュします。
+- **詳細ワークベンチ**（`/sandbox/:id/:view`）：左側のコンパクトな切替レールから、アクティブなタブを保ったままサンドボックスを切り替えられます。
+  - **概要（Overview）**：ハードウェア隔離境界（`MicroVM · HVF` / `MicroVM · Firecracker`）、リソース上限、マウントモード、対応機能、アイドル TTL カウントダウンを表示。
+  - **アクティビティ（Activity）**：エージェント（CLI / MCP）や UI から実行された時間制限付き `exec` の監査ログをリアルタイム表示し、`stdout` / `stderr` や終了コードを確認可能。
+  - **ターミナル（Terminal）**：`virtio-vsock` 上の独立した対話 PTY セッション。エージェントの `exec` ストリームを中断せずに人間が介入できます。
+  - **ファイル（Files）**：ゲストファイルの閲覧・プレビュー、ホスト側マニフェスト検証済みのワークスペース Diff 確認、確認ダイアログ付きの **ホストへ適用（Apply to Host）** を提供。
+  - **ネットワーク（Network）**：外向きポリシー、許可/遮断カウントと監査ログ、シークレット注入メタデータ（実値は非公開）、バックグラウンドプロセス、`127.0.0.1:<port>` ループバックプレビューを表示。
+
+## ライフサイクルとアイドル動作
+
+すべてのサンドボックスは明示的な 7 状態マシンに従います。
+
+```text
+Creating ──► Running ◄──► Paused（機能対応バックエンドのみ）
+   │          │   ▲          │
+   │          ▼   │          ▼
+   │       Stopping ◄────────┘
+   │          │
+   │          ▼
+   │       Stopped ──► Destroyed
+   │          │
+   ▼          ▼
+ Failed ──► Destroyed
+```
+
+- **アイドル判定**：設定されたアイドル TTL の間、実行中の `exec`・開いている PTY・アクティブな `127.0.0.1:<port>` 転送接続がいずれも存在しない場合にアイドルとみなされます。
+- **未適用作業の保護**：copy-in ワークスペース付き（または `--persistent`）のサンドボックスは、アイドル期限到達時に自動破棄せず **停止済み（Stopped）** へ遷移し、書き込みディスクを既定 `7 日間` 保持します。ワークスペースなしの一時サンドボックスは期限切れ時に自動破棄されます。
+- **プロセス所有権**：デスクトップ GUI を閉じても稼働中のサンドボックスは終了しません。macOS ではローカル稼働中のサンドボックスが `dockerman-daemon` のアイドル終了を抑止し、再起動時も認証付き `control_sock` で再接続します。Linux では `dockerman-sandboxd` が Firecracker のライフサイクルと TTL 回収を自律管理します。
+
+## 既定のリソース上限
+
+| 項目 | 既定値 | 備考 |
+| --- | --- | --- |
+| vCPU | `2` | サンドボックス単位で変更可能 |
+| メモリ | `1024 MiB` | サンドボックス単位で変更可能 |
+| 書き込みディスク | `4 GiB` | スパース CoW ext4 アッパーディスク |
+| アイドル TTL | `30 分` | `--persistent` 時は `0` で無期限化可能 |
+| 停止時保持期間 | `7 日間` | ワークスペース付き・永続サンドボックスに適用 |
+| `exec` タイムアウト | `60 秒` | 呼び出し単位で最大 `600 秒` まで指定可能 |
+| ローカル同時稼働上限 | `4` 件 | リモート KVM Host あたり `16` 件 |
+
+## 次のステップ
+
+<Cards>
+  <Card title="ワークスペース・外向き制御・シークレット" href="/ja/docs/sandbox/workspaces-and-security">
+    copy-in ワークスペース保護、Apply to Host ガード、ゼロ NIC 外向きポリシー、シークレットプロキシ。
+  </Card>
+  <Card title="CLI・Agent Skill・MCP" href="/ja/docs/sandbox/cli-and-mcp">
+    CLI からのサンドボックス操作、内蔵 Agent Skill の導入、MCP クライアント連携。
+  </Card>
+  <Card title="Linux KVM とスナップショット" href="/ja/docs/sandbox/remote-kvm-hosts">
+    ローカル・リモート Firecracker ホストの導入と一時停止・再開・スナップショット・Fork。
+  </Card>
+</Cards>

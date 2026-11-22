@@ -1,0 +1,10 @@
+{
+  "title": "Agent Sandbox",
+  "pages": [
+    "index",
+    "workspaces-and-security",
+    "cli-and-mcp",
+    "remote-kvm-hosts"
+  ],
+  "defaultOpen": false
+}

@@ -1,0 +1,114 @@
+---
+title: CLI、Agent Skill 与 MCP
+description: 通过 dockerman CLI 驱动 Agent 沙箱、安装内置 Agent Skill 或接入 MCP 客户端。
+---
+
+对于具备终端能力的 AI 编程 Agent（如 Claude Code、Codex、Cursor），**`dockerman sandbox` CLI + 内置 Agent Skill** 是首选集成方式。对于无 Shell 权限的受限客户端，Dockerman 同时提供带 `--allowed-root` 目录限制的 MCP Server。
+
+## 快速上手流程
+
+```bash
+# 1. 基于标准 OCI 镜像创建 copy-in 沙箱
+dockerman sandbox create python:3.12-slim \
+  --name py-agent \
+  --workspace ./my-project \
+  --egress public-only
+
+# 2. 在 microVM 内执行受限命令
+dockerman sandbox exec <sandbox-id> -- pytest -q
+
+# 3. 查看经宿主机清单校验的工作区变更
+dockerman sandbox diff <sandbox-id>
+
+# 4. 核对并将变更写回宿主机（交互式 TTY 确认）
+dockerman sandbox apply <sandbox-id>
+
+# 5. 使用完毕后停止并销毁
+dockerman sandbox stop <sandbox-id>
+dockerman sandbox destroy <sandbox-id> -y
+```
+
+## 核心 CLI 命令
+
+### 生命周期管理
+
+```bash
+dockerman sandbox create <image> [options]
+dockerman sandbox list [--all]
+dockerman sandbox inspect <id>
+dockerman sandbox start <id>
+dockerman sandbox stop <id>
+dockerman sandbox pause <id>      # 按后端能力支持（Firecracker）
+dockerman sandbox resume <id>     # 按后端能力支持（Firecracker）
+dockerman sandbox destroy <id> -y
+```
+
+常用 `create` 参数：
+
+| 参数 | 说明 |
+| --- | --- |
+| `--name <name>` | 沙箱名称 |
+| `--host <host-id>` | 目标 Host（默认为 `LOCALHOST`，也可指定远程 KVM Host） |
+| `--vcpu <n>`、`--memory-mib <n>`、`--disk-gib <n>` | 资源配额（默认 `2`、`1024`、`4`） |
+| `--egress <public-only\|allowlist\|offline>` | 零网卡出站策略 |
+| `--egress-allowlist <domain>` | `allowlist` 模式下的允许域名（可重复传入） |
+| `--workspace <path>` | 附加的宿主机项目目录 |
+| `--mount-mode <copy-in\|direct>` | `copy-in`（默认）或仅限 macOS 的 `direct` |
+| `--idle-ttl <seconds>`、`--retention <seconds>`、`--persistent` | 空闲超时与停止态保留期控制 |
+| `--secret <ENV=REF@DOMAINS>` | 域名作用域宿主机密钥注入（可重复传入） |
+
+### 命令执行、PTY 与后台服务
+
+```bash
+# 受限命令执行（默认 60 秒超时，最高 600 秒）
+dockerman sandbox exec <id> --timeout 120 --cwd /workspace -- python3 main.py
+
+# 独立人工 PTY 终端（不会中断 Agent exec 流）
+dockerman sandbox shell <id> --shell /bin/sh --cwd /workspace
+
+# 后台常驻进程（无 exec 超时限制）
+dockerman sandbox process start <id> --id web --cwd /workspace -- python3 -m http.server 8000
+dockerman sandbox process list <id>
+dockerman sandbox process stop <id> web
+
+# 仅限本地回环 127.0.0.1 的端口预览转发
+dockerman sandbox port expose <id> 8000 --host-port 18080
+dockerman sandbox port list <id>
+dockerman sandbox port close <id> 8000
+```
+
+### 工作区 Diff 与写回
+
+```bash
+dockerman sandbox diff <id>
+dockerman sandbox apply <id>                        # 交互式 TTY 确认
+dockerman sandbox apply <id> --path src/main.py     # 仅应用指定路径
+dockerman sandbox apply <id> -y                     # 仅限宿主机自动化脚本
+```
+
+## 安装内置 Agent Skill
+
+一键安装 Dockerman 内置的 `dockerman-sandbox` 技能文件，让 Claude Code、Codex 等 Agent 自动学会在沙箱中隔离运行不可信任务：
+
+```bash
+# 同时安装到 ~/.claude/skills/ 与 ~/.agents/skills/
+dockerman sandbox skill install
+
+# 或指定目标目录 / 仅打印内容不写入
+dockerman sandbox skill install --target claude
+dockerman sandbox skill install --target agents
+dockerman sandbox skill install --print-only
+```
+
+## 可选 MCP Server
+
+对于无终端的受限 MCP 客户端，可通过 `--allowed-root` 启动带路径隔离的 MCP 服务：
+
+```bash
+dockerman mcp serve --allowed-root /Users/you/projects/demo
+```
+
+- `--allowed-root <dir>` 为**必填项**（可重复），经 `realpath` 规范化并按路径组件严格校验前缀。
+- 默认情况下，MCP 仅以只读方式暴露 `sandbox_diff`，**禁止**写宿主机的操作（`sandbox_apply` 与 `mountMode: "direct"`）。
+- 仅当你明确允许该 MCP 客户端写回受限目录时，才传入 `--mcp-allow-host-write`。
+- 为防止不可信 MCP 调用方窃取宿主机环境变量，MCP 接口默认禁用 `--secret` 与 `includeEnv`。

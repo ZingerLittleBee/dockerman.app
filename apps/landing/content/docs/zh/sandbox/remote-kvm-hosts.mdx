@@ -1,0 +1,82 @@
+---
+title: Linux KVM 与快照克隆
+description: 在本地或远程 Linux KVM 主机上运行 Firecracker microVM，并使用暂停、恢复、快照与快速 Fork。
+---
+
+在具备 `/dev/kvm` 的 Linux 主机上，Dockerman 通过 `dockerman-sandboxd` 编排 **Firecracker** microVM。同一后端同时支持本地 Linux 桌面（`LOCALHOST`，直接 Unix socket 通信，无需 SSH）以及通过 SSH 连接的远程 Linux KVM 服务器。
+
+## 远程 Linux KVM 主机初始化
+
+远程沙箱主机**无需安装 Docker 或 Podman**。Dockerman 会执行环境预检，从你的桌面端通过 SSH 上传经 SHA-256 校验的 Firecracker 与 Guest 内核资产（即使远程主机无公网也能完成部署），并拉起 `dockerman-sandboxd`。
+
+<Steps>
+  <Step>
+    ### 环境预检（Preflight）
+
+    检查远程主机的 `/dev/kvm` 权限、CPU 架构以及 `systemd` 用户 linger 状态：
+
+    ```bash
+    dockerman sandbox host preflight ubuntu@kvm-box.example.com --key-file ~/.ssh/id_ed25519
+    ```
+  </Step>
+  <Step>
+    ### 初始化远程沙箱主机
+
+    完成一次性环境准备、校验上传资产并保存 Host 配置：
+
+    ```bash
+    dockerman sandbox host init ubuntu@kvm-box.example.com \
+      --label kvm-prod \
+      --key-file ~/.ssh/id_ed25519
+    ```
+
+    纯沙箱远程主机默认创建为 `observed = false`，不会干扰现有 Docker Fleet 采样。远程沙箱功能受 Dockerman Pro 许可保护（GUI 与 CLI 均统一校验 `LicenseGate`）。
+  </Step>
+  <Step>
+    ### 指定远程主机或设为默认
+
+    ```bash
+    # 单次命令指定远程主机
+    dockerman --host kvm-prod sandbox create python:3.12-slim --name remote-py
+
+    # 或查看 / 设置默认沙箱 Host
+    dockerman sandbox host default
+    dockerman sandbox host default kvm-prod
+    ```
+  </Step>
+</Steps>
+
+<Callout type="info">
+  Dockerman 绝不会静默把本地工作区溢出到远程主机上执行。仅当你显式传入 `--host` 或将默认沙箱 Host 设为远程主机时，才会调度至远程 KVM 主机。
+</Callout>
+
+## 自治生命周期与零 TAP 网络
+
+- **零 TAP 网络**：Firecracker 启动时不创建 `virtio-net` TAP 设备（无需 `CAP_NET_ADMIN` 权限）。所有控制面与出站 TCP/DNS 流量均通过 `AF_VSOCK` 进入 `dockerman-sandboxd` 的出站代理。
+- **离线自治 TTL**：`dockerman-sandboxd` 在用户态 systemd linger（`loginctl enable-linger`）下常驻运行，即使桌面端关闭或离线，空闲沙箱也会按 TTL 自动回收。
+- **本地权限加固**：`dockerman-sandboxd` 将运行时 Socket 置于 `0700` 权限的用户私有目录（`$XDG_RUNTIME_DIR/dockerman-sandboxd` 或 `~/.local/state/dockerman-sandboxd`）中，Socket 权限为 `0600` 并校验对端 UID。
+
+## 暂停、恢复、快照与秒级 Fork
+
+Firecracker 后端支持保留完整内存状态的 **暂停 / 恢复** 与 **快照 / Fork** 能力：
+
+```bash
+# 暂停与恢复运行中的 Firecracker 沙箱
+dockerman sandbox pause <id>
+dockerman sandbox resume <id>
+
+# 创建完整内存 + 磁盘快照
+dockerman sandbox snapshot create <id> --name after-deps
+dockerman sandbox snapshot list <id>
+
+# 从已有快照亚秒级 Fork 出全新隔离 microVM
+dockerman sandbox fork <id> --from <snapshot-id> --name experiment-a
+
+# 或直接从运行中沙箱 Fork（自动创建即时快照）
+dockerman sandbox fork <id> --name experiment-b
+
+# 删除不再需要的快照
+dockerman sandbox snapshot delete <snapshot-id> -y
+```
+
+每次 Fork 出的新沙箱都会获得独立的稀疏写时复制（CoW）可写磁盘克隆，以及完全隔离的网络与进程状态，并直接从快照恢复内存。

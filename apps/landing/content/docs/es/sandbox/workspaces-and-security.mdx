@@ -1,0 +1,60 @@
+---
+title: Workspaces, salida y secretos
+description: Workspaces copy-in verificados por el host, políticas de salida virtio-vsock sin NIC e inyección de secretos por dominio.
+---
+
+Agent Sandbox trata todo lo que ocurre dentro de la microVM — incluido el Guest Agent — como no confiable en cuanto se ejecuta código del invitado. Todas las escrituras al host, reglas de red y sustituciones de secretos se aplican desde el host.
+
+## Workspaces del Sandbox (copy-in por defecto)
+
+Al adjuntar un directorio de proyecto del host, Dockerman usa por defecto el modo **copy-in** (`--mount-mode copy-in`):
+
+- **Filtrado seguro al copiar**: Respeta `.gitignore`, excluye `.env*` y archivos de claves privadas por defecto y **omite `.git/` por completo** para que hooks, credenciales y configuración del repositorio nunca entren en el invitado.
+- **Sin contrabando por enlaces simbólicos**: Copy-in nunca sigue enlaces simbólicos fuera de la raíz del workspace. Los enlaces relativos internos (como `CLAUDE.md -> AGENTS.md`) se conservan; los que apuntan fuera se omiten.
+- **Manifiesto SHA-256 en el host**: Al copiar, el host registra un manifiesto SHA-256 de referencia de cada ruta. `sandbox diff` y **Aplicar al Host** verifican los archivos del invitado frente a este manifiesto sin confiar en los metadatos del invitado.
+
+### Protecciones estrictas en Aplicar al Host
+
+Antes de escribir cambios de vuelta al directorio del host, Dockerman aplica:
+
+1. **Bloqueo de rutas `.git`**: Rechaza cualquier ruta que contenga un componente `.git` tras normalización Unicode, plegado de mayúsculas ASCII y normalización de nombres cortos HFS+/NTFS (CVE-2014-9390), incluidos submódulos y repositorios anidados.
+2. **Prevención de escape por enlaces simbólicos**: Abre y escribe componente por componente sin seguir enlaces del host (`O_NOFOLLOW`), bloqueando escrituras fuera de la raíz del workspace.
+3. **Detección de conflictos en el host**: Compara el hash actual del archivo en el host contra la línea base de copy-in y cancela con error de conflicto si el host fue modificado después.
+4. **Confirmación explícita**: Toda escritura requiere confirmación en el diálogo de escritorio o en un prompt interactivo TTY (`--yes` es solo para scripts de automatización del host).
+
+<Callout type="warn">
+  En macOS Apple Silicon, `--mount-mode direct` está disponible como opción explícita de montaje compartido directo. Omite la revisión Diff/Apply y reduce la frontera de aislamiento. El montaje directo no está disponible en hosts Linux Firecracker.
+</Callout>
+
+## Políticas de salida sin NIC
+
+Los Sandboxes **no tienen tarjeta de red virtual** (`libkrun` TSI deshabilitado; Firecracker sin TAP `virtio-net`). El tráfico TCP y DNS del invitado se captura de forma transparente mediante un dispositivo `TUN` interno y viaja por `virtio-vsock` hasta el proxy de salida del host, sin depender de que las herramientas respeten `HTTP_PROXY`.
+
+| Política | Comportamiento |
+| --- | --- |
+| `public-only` *(predeterminada)* | Permite TCP/DNS hacia internet público y bloquea loopback IPv4/IPv6 (`127.0.0.0/8`, `::1`), redes privadas RFC1918 (`10/8`, `172.16/12`, `192.168/16`), enlace local y metadatos en la nube (`169.254.0.0/16`, `fe80::/10`), CGNAT / Tailscale (`100.64.0.0/10`), ULA (`fc00::/7`) y direcciones IPv6 mapeadas a IPv4. |
+| `allowlist` | Permite TCP y DNS solo a los dominios listados en `--egress-allowlist`, manteniendo el bloqueo de IPs privadas. |
+| `offline` | Descarta todo el tráfico saliente TCP y DNS. |
+
+- **Protección contra DNS rebinding**: El host resuelve las consultas DNS del invitado, valida todas las IPs devueltas contra las listas de bloqueo y se conecta directamente a la IP validada.
+- **Alcance de protocolos**: Solo TCP y DNS. El tráfico UDP no DNS e ICMP se descarta por defecto.
+- **Auditoría visible**: Cada decisión permitida o bloqueada queda registrada en la pestaña **Red (Network)**.
+
+<Callout type="info">
+  `public-only` protege tu equipo host, servicios locales y red privada, pero no impide que código no confiable envíe archivos copiados del workspace a servidores públicos. Usa `offline` o una `allowlist` estricta para repositorios sensibles.
+</Callout>
+
+## Proxy de inyección de secretos por dominio
+
+En lugar de pasar claves API reales al entorno de la microVM, usa `--secret` para inyectar un marcador limitado a dominios específicos:
+
+```bash
+dockerman sandbox create python:3.12-slim \
+  --egress allowlist \
+  --egress-allowlist api.openai.com \
+  --secret OPENAI_API_KEY=env:OPENAI_API_KEY@api.openai.com
+```
+
+- Dentro de la microVM, `OPENAI_API_KEY` solo contiene un token marcador generado por el host.
+- Cuando las solicitudes salientes se dirigen a un dominio autorizado (`api.openai.com`), el proxy del host sustituye el valor real en tránsito y limpia en streaming cualquier eco del secreto antes de devolver la respuesta al invitado.
+- Los valores reales nunca entran en el sistema de archivos de la microVM, ni en su entorno ni en la interfaz de escritorio.

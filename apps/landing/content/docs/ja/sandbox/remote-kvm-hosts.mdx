@@ -1,0 +1,82 @@
+---
+title: Linux KVM とスナップショット
+description: ローカルまたはリモートの Linux KVM ホスト上で Firecracker microVM を稼働させ、一時停止・再開・スナップショット・高速 Fork を活用します。
+---
+
+`/dev/kvm` を備えた Linux ホストでは、`dockerman-sandboxd` が **Firecracker** microVM をオーケストレーションします。ローカル Linux デスクトップ（`LOCALHOST`、SSH 不要の Unix ソケット直結）と SSH 経由のリモート Linux KVM サーバーの両方に同一のバックエンドを使用します。
+
+## リモート Linux KVM ホストの導入
+
+リモートサンドボックスホストに **Docker や Podman は不要**です。Dockerman が事前チェックを実行し、SHA-256 検証済みの Firecracker およびゲストカーネルをデスクトップから SSH 経由でアップロード（外部ネットワークのない環境にも対応）して `dockerman-sandboxd` を起動します。
+
+<Steps>
+  <Step>
+    ### ホストの事前チェック（Preflight）
+
+    `/dev/kvm` 権限、CPU アーキテクチャ、`systemd` ユーザー linger を確認します。
+
+    ```bash
+    dockerman sandbox host preflight ubuntu@kvm-box.example.com --key-file ~/.ssh/id_ed25519
+    ```
+  </Step>
+  <Step>
+    ### Sandbox Host の初期化
+
+    初回セットアップ・検証済みアセットのアップロード・Host プロファイル登録を行います。
+
+    ```bash
+    dockerman sandbox host init ubuntu@kvm-box.example.com \
+      --label kvm-prod \
+      --key-file ~/.ssh/id_ed25519
+    ```
+
+    サンドボックス専用リモートホストは `observed = false` で登録され、既存の Docker Fleet 監視に影響しません。リモートサンドボックスの利用には Dockerman Pro ライセンスが必要です（GUI・CLI 双方で `LicenseGate` を検証）。
+  </Step>
+  <Step>
+    ### リモート Host の指定（または既定設定）
+
+    ```bash
+    # コマンド単位で明示指定
+    dockerman --host kvm-prod sandbox create python:3.12-slim --name remote-py
+
+    # 既定の Sandbox Host を確認・設定
+    dockerman sandbox host default
+    dockerman sandbox host default kvm-prod
+    ```
+  </Step>
+</Steps>
+
+<Callout type="info">
+  Dockerman がローカルのワークスペースを暗黙にリモート Host へ送ることはありません。`--host` を指定するか、既定の Sandbox Host を明示的にリモートへ設定した場合にのみリモート実行されます。
+</Callout>
+
+## 自律ライフサイクルとゼロ TAP ネットワーク
+
+- **ゼロ TAP ネットワーク**：Firecracker は `virtio-net` TAP デバイスなしで起動します（`CAP_NET_ADMIN` 不要）。制御通信および外向き TCP / DNS はすべて `AF_VSOCK` 経由で `dockerman-sandboxd` の外向きプロキシを通過します。
+- **自律 TTL 回収**：`dockerman-sandboxd` はユーザー systemd linger（`loginctl enable-linger`）下で常駐し、デスクトップアプリがオフラインでも期限切れのアイドルサンドボックスを自動回収します。
+- **権限ハードニング**：`dockerman-sandboxd` は `0700` のユーザー専用ディレクトリ（`$XDG_RUNTIME_DIR/dockerman-sandboxd` または `~/.local/state/dockerman-sandboxd`）内に `0600` 権限のソケットを配置し、接続元 UID を検証します。
+
+## 一時停止・再開・スナップショット・Fork
+
+Firecracker バックエンドでは、メモリ状態を保持した **一時停止 / 再開** と **スナップショット / Fork** が利用できます。
+
+```bash
+# 稼働中の Firecracker サンドボックスを一時停止・再開
+dockerman sandbox pause <id>
+dockerman sandbox resume <id>
+
+# メモリ + ディスクの完全スナップショットを作成
+dockerman sandbox snapshot create <id> --name after-deps
+dockerman sandbox snapshot list <id>
+
+# 既存スナップショットから新しい隔離 microVM をサブ秒で Fork
+dockerman sandbox fork <id> --from <snapshot-id> --name experiment-a
+
+# または稼働中サンドボックスから直接 Fork（自動で即時スナップショットを作成）
+dockerman sandbox fork <id> --name experiment-b
+
+# 不要になったスナップショットを削除
+dockerman sandbox snapshot delete <snapshot-id> -y
+```
+
+Fork された各サンドボックスには独立したスパース CoW 書き込みディスククローンと隔離されたネットワーク・プロセス状態が割り当てられ、スナップショットからメモリを直接復元します。
