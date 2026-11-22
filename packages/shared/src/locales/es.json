@@ -14,7 +14,7 @@
     "skipToContent": "Saltar al contenido"
   },
   "hero": {
-    "eyebrow": "Confirmación de riesgo de Compose más estricta, entrypoint de la imagen conservado al crear, límite de 30 segundos por notificación",
+    "eyebrow": "MicroVMs Agent Sandbox aisladas por hardware, proxy de salida sin NIC y Diff/Apply copy-in",
     "eyebrowTag": "NUEVO",
     "headline1Lead": "Docker que se siente",
     "headline1Accent": "local",

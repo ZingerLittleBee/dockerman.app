@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | [🇨🇳 简体中文](./README.zh-CN.md) | [🇯🇵 日本語](./README.ja.md) | 🇪🇸 Español
 
-[![Version](https://img.shields.io/badge/version-v6.3.1-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.3.1)
-[![Release Date](https://img.shields.io/badge/release%20date-Nov%2015%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.3.1)
+[![Version](https://img.shields.io/badge/version-v6.4.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.4.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Nov%2023%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.4.0)
 
 Una UI de escritorio nativa para gestionar Docker **y** Kubernetes — construida con Tauri + Rust. Arranque rápido, ligera en recursos y completamente local: nada sale de tu máquina.
 
@@ -12,6 +12,7 @@ Una UI de escritorio nativa para gestionar Docker **y** Kubernetes — construid
 
 ## Lo más destacado
 
+- 🛡️ **MicroVMs Agent Sandbox** — ejecuta código no confiable y generado por agentes de IA en microVMs aisladas por hardware con `libkrun` (macOS Apple Silicon) y Firecracker (Linux KVM), salida sin NIC, Diff/Apply copy-in, CLI/Skill y MCP
 - 🛍️ **Marketplace de apps** — instala plantillas de un clic desde fuentes Portainer y CasaOS, con comprobaciones de seguridad y configuración previa
 - 🐳 **Contenedores e Imágenes** — ciclo de vida completo, soporte Compose, backup/restore (incl. bind mounts), detección de actualizaciones
 - ☸️ **Kubernetes de extremo a extremo** — multi-cluster, HPAs/cuotas/CRDs y recursos principales, operaciones de carga protegidas, Helm, port forwarding, RBAC, eventos y YAML en todas partes

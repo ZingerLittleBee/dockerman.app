@@ -2,8 +2,8 @@
 
 Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文 | [🇯🇵 日本語](./README.ja.md) | [🇪🇸 Español](./README.es.md)
 
-[![Version](https://img.shields.io/badge/version-v6.3.1-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.3.1)
-[![Release Date](https://img.shields.io/badge/release%20date-Nov%2015%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.3.1)
+[![Version](https://img.shields.io/badge/version-v6.4.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.4.0)
+[![Release Date](https://img.shields.io/badge/release%20date-Nov%2023%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.4.0)
 
 一个原生桌面端 Docker **与** Kubernetes 管理工具，基于 Tauri + Rust。启动快、占用低、完全本地运行——数据不出本机。
 
@@ -12,6 +12,7 @@ Language: [🇺🇸 English](./README.md) | 🇨🇳 简体中文 | [🇯🇵 �
 
 ## 亮点
 
+- 🛡️ **Agent 沙箱 microVM** — 在 macOS Apple Silicon（`libkrun`）与 Linux KVM（Firecracker）上以硬件隔离 microVM 安全运行不可信与 AI Agent 代码，支持零网卡出站代理、copy-in 工作区 Diff/Apply、CLI/Skill 与 MCP
 - 🛍️ **应用市场** — 从 Portainer 与 CasaOS 源一键安装应用模板，附带安全检查与安装前配置
 - 🐳 **容器与镜像** — 全生命周期、Compose 支持、备份与恢复（含绑定挂载）、镜像升级检测
 - ☸️ **端到端 Kubernetes** — 多集群、HPA/配额/CRD 及核心资源、带确认的工作负载操作、Helm、端口转发、RBAC、事件，以及随处可用的 YAML
