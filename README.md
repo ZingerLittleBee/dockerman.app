@@ -2,8 +2,8 @@
 
 Language: 🇺🇸 English | [🇨🇳 简体中文](./README.zh-CN.md) | [🇯🇵 日本語](./README.ja.md) | [🇪🇸 Español](./README.es.md)
 
-[![Version](https://img.shields.io/badge/version-v6.4.0-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.4.0)
-[![Release Date](https://img.shields.io/badge/release%20date-Nov%2023%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.4.0)
+[![Version](https://img.shields.io/badge/version-v6.4.1-blue.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.4.1)
+[![Release Date](https://img.shields.io/badge/release%20date-Nov%2023%2C%202026-green.svg?style=flat-square)](https://github.com/dockerman/dockerman/releases/tag/v6.4.1)
 
 A native desktop UI for managing Docker **and** Kubernetes — built with Tauri + Rust. Fast to launch, light on resources, and entirely local: nothing leaves your machine.
 

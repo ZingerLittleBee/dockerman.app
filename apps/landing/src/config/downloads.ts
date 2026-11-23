@@ -104,7 +104,8 @@ export const downloadsConfig: {
     }
   },
   history: [
-    { version: VERSION, date: RELEASE_DATE, summarySlug: 'release-6-4-0' },
+    { version: VERSION, date: RELEASE_DATE, summarySlug: 'release-6-4-1' },
+    { version: '6.4.0', date: '2026-11-23', summarySlug: 'release-6-4-0' },
     { version: '6.3.1', date: '2026-11-15', summarySlug: 'release-6-3-1' },
     { version: '6.3.0', date: '2026-10-14', summarySlug: 'release-6-3-0' },
     { version: '6.2.2', date: '2026-10-03', summarySlug: 'release-6-2-2' },
