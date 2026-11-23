@@ -1,3 +1,29 @@
+<ChangelogEntry version="v6.4.1" date="2026 年 11 月 23 日">
+## AI Agent 沙箱接入引导、液态玻璃图标与稳定性修复
+
+新增面向 AI 编程助手的三步引导卡片、按工具分流的「接入 AI Agent」弹窗（Claude Code / Codex CLI / Cursor / MCP）以及详情页「交给 AI 使用」交接浮层；适配与原版留白像素级一致的 macOS Liquid Glass 图标；并修复沙箱重启持久化、OCI 镜像拉取兼容、升级后旧 Daemon 自动切换与逐文件选择性写回等问题。
+
+### ✨ 新功能
+
+- 🤖 <Bold>AI Agent 沙箱接入引导与交接闭环:</Bold> 将沙箱空状态升级为交互式 3 步接入卡片（CLI 就绪检测与一键安装/更新、Claude Code 与 Codex/Cursor/OpenCode 一键安装 `dockerman-sandbox` Agent Skill、带可执行检测命令的示例提示词，以及后台静默监听自动刷新）。顶部新增按工具分流的「接入 AI Agent」弹窗（支持持久化 `--allowed-root` 目录选择与 `--allow-host-write` 安全开关），并在沙箱详情页工具栏新增「交给 AI 使用」浮层，自动绑定当前沙箱 ID 与 `--cwd /workspace`。
+
+### 🔧 改进
+
+- 🎨 <Bold>macOS Liquid Glass 应用图标:</Bold> 适配 Apple Icon Composer 原生分层图标（`Assets.car`），完整支持浅色、深色、透明（Clear）与着色（Tinted）模式并与原版留白比例精确一致，同时更新 `.icns` 兜底图标，解决 macOS 深色图标模式下图标发黑的问题。
+- 🧩 <Bold>沙箱文件差异与逐文件写回:</Bold> 支持按单个文件勾选写回宿主机，并在部分写回后保留用户对剩余文件的取消勾选状态；展开差异时直接展示带颜色高亮的修改前后 Unified Diff 对比。
+- 🌐 <Bold>新建沙箱表单提示:</Bold> 在出站策略下拉框下方实时展示当前策略（`public-only`、`allowlist`、`offline`）的行为说明，启动前即可明确外网访问权限。
+
+### 🐛 修复
+
+- 🧭 <Bold>过期 CLI 自动回退与 Activity 长命令布局:</Bold> 检测到本机 PATH 中的 CLI 版本过期时，复制出的 MCP、提示词与交接命令自动回退至可用的内置新版 CLI 路径并给出版本提示；修复 Activity 卡片在 Agent 执行超长命令时横向撑宽的问题。
+
+- 📦 <Bold>沙箱 OCI 镜像拉取兼容与自动兜底:</Bold> 为直连 OCI 镜像拉取启用 SOCKS5 代理与系统根证书信任，透出完整底层网络/TLS 错误原因链，并在直连失败且本地缺少镜像时自动回退执行 `docker pull --platform` 再 `docker save`（直接复用本机 Docker 镜像源或引擎代理）。
+- 🔄 <Bold>升级后自动切换后台 Daemon 与回环代理绕过:</Bold> 启动新版应用或 CLI 时自动检测并替换仍在后台运行的旧版 `dockerman-daemon`（避免新沙箱接口出现 `Daemon unavailable: HTTP 404`），并让本机 `127.0.0.1` IPC 通信自动绕过系统 HTTP 代理。
+- 💾 <Bold>沙箱重启工作区持久化:</Bold> 在 `stop` 与 `start` 之间保留沙箱可写覆盖盘（`upper.ext4`），优雅关机时刷新 Guest 文件系统缓冲并清理残留的 OverlayFS `work/` 目录，重启后不再丢失 `/workspace` 或误报整批文件删除。
+- 🗑️ <Bold>容器详情页操作弹窗:</Bold> 在容器详情布局中挂载删除、更新与克隆对话框，在详情页点击「更多操作 → 删除」时立即弹出确认框，无需切回容器列表。
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v6.4.0" date="2026 年 11 月 23 日">
 ## Agent 沙箱 microVM
 

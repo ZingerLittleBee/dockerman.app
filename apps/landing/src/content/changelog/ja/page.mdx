@@ -1,3 +1,29 @@
+<ChangelogEntry version="v6.4.1" date="2026 年 11 月 23 日">
+## AI Agent サンドボックス導入ガイド、Liquid Glass アイコンと安定性修正
+
+AI コーディングエージェント向けの 3 ステップ導入ガイド、ツール別「AI Agent を接続」ダイアログ（Claude Code / Codex CLI / Cursor / MCP）、詳細画面の「AI に渡す」引き継ぎポップオーバーを追加し、macOS Liquid Glass アイコン対応およびサンドボックス再起動永続化・OCI 取得・選択適用の修正を行いました。
+
+### ✨ 新機能
+
+- 🤖 <Bold>AI Agent サンドボックス導入ガイドと引き継ぎフロー:</Bold> サンドボックスの空状態を対話型 3 ステップ導入カードへ刷新（CLI 状態チェックとワンクリック導入、Claude Code および Codex/Cursor/OpenCode 向け `dockerman-sandbox` Agent Skill のワンクリック導入、実行確認付きプロンプト、エージェント作成サンドボックスの自動検出）。ツール別の「AI Agent を接続」モーダル（`--allowed-root` 永続化・`--allow-host-write` ガードレール対応）と、稼働中サンドボックスの ID と `--cwd /workspace` を自動バインドする「AI に渡す」ポップオーバーを追加しました。
+
+### 🔧 改善
+
+- 🎨 <Bold>macOS Liquid Glass アプリアイコン:</Bold> Apple Icon Composer のネイティブレイヤーアイコン（`Assets.car`）を従来の余白比率に厳密一致させて同梱し、ライト・ダーク・クリア・ティント各モードに対応するとともにフォールバック `.icns` を刷新しました。
+- 🧩 <Bold>サンドボックスファイルの差分表示と選択適用:</Bold> 変更ファイルを個別にチェックしてホストへ書き戻せるようになり、部分適用後も除外チェックを維持します。展開時に色分けされた変更前後の Unified Diff を直接確認できます。
+- 🌐 <Bold>サンドボックス作成ダイアログ:</Bold> 選択中の外向きポリシー（`public-only`・`allowlist`・`offline`）の説明をセレクタ直下に表示し、起動前に外向き通信の挙動を確認できるようにしました。
+
+### 🐛 バグ修正
+
+- 🧭 <Bold>古い CLI へのフォールバックと Activity 長文コマンド表示:</Bold> PATH 上の古い CLI を検知した場合、コピーされる MCP・プロンプト・引き継ぎコマンドを同梱の新しい CLI パスへ自動フォールバックし、Activity カード内で長いコマンドを適切に折り返して横溢れを防止しました。
+
+- 📦 <Bold>サンドボックス OCI イメージ取得の耐障害性向上:</Bold> 直接レジストリ取得で SOCKS5 プロキシとシステムルート CA を有効化し、詳細なネットワーク／TLS エラー原因を表示するとともに、直接取得に失敗してローカルにイメージが無い場合は自動的に `docker pull --platform` 後に `docker save` へフォールバックするようにしました。
+- 🔄 <Bold>アップデート後のデーモン自動切替とローカルプロキシ回避:</Bold> 新バージョンのアプリや CLI 起動時に古い `dockerman-daemon` を自動検知・再起動して Sandbox API での `Daemon unavailable: HTTP 404` を防止し、`127.0.0.1` のローカル IPC 通信が HTTP プロキシを経由しないようにしました。
+- 💾 <Bold>サンドボックス再起動時のワークスペース永続化:</Bold> `stop` と `start` の間で書き込み可能なオーバーレイディスク（`upper.ext4`）を保持し、終了時にゲストのファイルシステムバッファを同期して再マウント時に OverlayFS `work/` を整理することで、再起動後に `/workspace` が消失したり削除扱いになったりする問題を解消しました。
+- 🗑️ <Bold>コンテナ詳細画面の操作ダイアログ:</Bold> コンテナ詳細レイアウトに削除・更新・クローンダイアログをマウントし、詳細画面から削除を実行した際に一覧へ戻らなくても即座に確認ダイアログが開くようにしました。
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v6.4.0" date="2026 年 11 月 23 日">
 ## Agent Sandbox microVM
 

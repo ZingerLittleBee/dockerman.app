@@ -1,3 +1,29 @@
+<ChangelogEntry version="v6.4.1" date="Nov 23, 2026">
+## AI Agent Sandbox Onboarding, Liquid Glass Icon & Reliability Fixes
+
+Adds a guided 3-step AI Agent onboarding flow, a brand-segmented Connect AI Agent modal (Claude Code, Codex CLI, Cursor, MCP), and per-sandbox "Use with AI" handoff snippets; ships a pixel-matched macOS Liquid Glass app icon; fixes copy-in workspace persistence across sandbox restarts, OCI pull resilience, stale daemon replacement, and selective per-file apply.
+
+### ✨ Features
+
+- 🤖 <Bold>AI Agent Sandbox onboarding & handoff:</Bold> Replace the bare Sandboxes empty state with an interactive 3-step AI Agent onboarding guide (CLI readiness check + one-click install/update, one-click `dockerman-sandbox` Agent Skill installation for Claude Code and Codex/Cursor/OpenCode, starter prompt with runnable check, and live listening for agent-created sandboxes). Add a brand-segmented **Connect AI Agent** dialog (`Claude Code`, `Codex CLI`, `Cursor / Windsurf`, `MCP Server`) with persisted `--allowed-root` folder picker and `--allow-host-write` guardrail, plus a per-sandbox **Use with AI** popover in the Sandbox Detail toolbar pre-bound to the active sandbox ID with `--cwd /workspace`.
+
+### 🔧 Improvements
+
+- 🎨 <Bold>macOS Liquid Glass app icon:</Bold> Ship a native Apple Icon Composer (`Assets.car`) layered app icon supporting Light, Dark, Clear, and Tinted macOS appearances matched to the original icon proportions alongside a clean fallback `.icns`, fixing black-on-black Dock rendering in macOS Dark icon mode.
+- 🧩 <Bold>Sandbox Files diff & selective apply:</Bold> Select individual workspace files to apply back to the host while preserving unchecked exclusions after partial applies, and inspect color-coded before/after unified diffs directly in the Files tab.
+- 🌐 <Bold>Sandbox Create dialog:</Bold> Show the selected egress policy description (`public-only`, `allowlist`, or `offline`) inline below the selector so outbound network behavior is clear before launch.
+
+### 🐛 Bug Fixes
+
+- 🧭 <Bold>Sandbox CLI fallback & Activity layout:</Bold> Fall back to the bundled CLI binary path in copied MCP, prompt, and handoff snippets when an outdated PATH CLI is detected, and wrap long agent commands inside Sandbox Activity cards so command output and status controls remain readable without horizontal overflow.
+
+- 📦 <Bold>Sandbox OCI image pull resilience:</Bold> Enable SOCKS5 proxy support and native system root CA certificates for direct OCI registry pulls, surface full underlying network/TLS error causes, and automatically fall back to `docker pull --platform` before `docker save` when direct registry access fails on hosts with a configured Docker Engine mirror or proxy.
+- 🔄 <Bold>Daemon upgrade handoff & loopback proxy bypass:</Bold> Automatically detect and replace an older running `dockerman-daemon` when launching an upgraded app or CLI (preventing `Daemon unavailable: HTTP 404` errors on newly added Sandbox routes), and bypass HTTP proxies for local `127.0.0.1` daemon IPC traffic.
+- 💾 <Bold>Sandbox restart workspace persistence:</Bold> Preserve each sandbox's writable overlay disk (`upper.ext4`) across `stop` and `start`, flush guest filesystem buffers on graceful shutdown, and clear stale OverlayFS workdir state on remount so copy-in `/workspace` files are no longer lost or reported as deleted after restarting a sandbox.
+- 🗑️ <Bold>Container detail actions:</Bold> Mount the container remove, update, and clone dialogs in the container detail layout so triggering **More Actions → Delete** (or Update / Clone) opens its confirmation dialog immediately instead of waiting until navigating back to the container list.
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v6.4.0" date="Nov 23, 2026">
 ## Agent Sandbox MicroVMs
 

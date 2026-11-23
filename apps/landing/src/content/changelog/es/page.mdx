@@ -1,3 +1,29 @@
+<ChangelogEntry version="v6.4.1" date="23 de noviembre de 2026">
+## Guía de conexión para agentes IA, icono Liquid Glass y mejoras de fiabilidad
+
+Añade una guía interactiva de 3 pasos para agentes IA, un diálogo por herramienta «Conectar agente IA» (Claude Code, Codex CLI, Cursor y MCP) y un menú «Usar con IA» por sandbox; incorpora el icono macOS Liquid Glass con proporciones idénticas al original y corrige la persistencia al reiniciar, descarga OCI, relevo de daemon y aplicación selectiva.
+
+### ✨ Novedades
+
+- 🤖 <Bold>Guía de conexión y entrega de Sandbox para agentes IA:</Bold> Reemplaza el estado vacío de Sandboxes por una tarjeta guiada de 3 pasos (comprobación e instalación en un clic de CLI, instalación en un clic de la skill `dockerman-sandbox` para Claude Code y Codex/Cursor/OpenCode, prompt inicial con comprobación ejecutable y escucha en vivo). Añade el diálogo **Conectar agente IA** por herramienta (con selector persistente de `--allowed-root` y control `--allow-host-write`) y el popover **Usar con IA** en el detalle de cada sandbox vinculado a su ID y `--cwd /workspace`.
+
+### 🔧 Mejoras
+
+- 🎨 <Bold>Icono Liquid Glass para macOS:</Bold> Añade un icono nativo por capas de Apple Icon Composer (`Assets.car`) compatible con los modos Claro, Oscuro, Transparente (Clear) y Teñido (Tinted) con el mismo margen proporcional del icono original, junto con un `.icns` de respaldo actualizado.
+- 🧩 <Bold>Diff de archivos del Sandbox y aplicación selectiva:</Bold> Selecciona archivos individuales para aplicar al host conservando desmarcados los archivos excluidos tras aplicaciones parciales, e inspecciona diffs unificados antes/después con resaltado en color.
+- 🌐 <Bold>Diálogo de creación de Sandbox:</Bold> Muestra en línea la descripción de la política de salida seleccionada (`public-only`, `allowlist` u `offline`) debajo del selector antes de iniciar.
+
+### 🐛 Correcciones
+
+- 🧭 <Bold>Respaldo ante CLI desactualizada y diseño de Activity:</Bold> Cuando se detecta una CLI antigua en PATH, los comandos MCP, prompts y entregas copiados usan automáticamente el binario integrado compatible, y los comandos largos en Activity se ajustan dentro de la tarjeta sin desbordamiento horizontal.
+
+- 📦 <Bold>Resiliencia al descargar imágenes OCI de Sandbox:</Bold> Habilita soporte para proxy SOCKS5 y certificados CA raíz del sistema en descargas OCI directas, muestra la cadena completa de errores de red/TLS y ejecuta automáticamente `docker pull --platform` antes de `docker save` cuando falla el acceso directo al registro.
+- 🔄 <Bold>Relevo de daemon tras actualizar y omisión de proxy local:</Bold> Detecta y reemplaza automáticamente un `dockerman-daemon` de versión anterior al abrir la app o el CLI actualizados (evitando errores `Daemon unavailable: HTTP 404` en las rutas de Sandbox) y omite proxies HTTP para el tráfico IPC local en `127.0.0.1`.
+- 💾 <Bold>Persistencia del workspace al reiniciar el Sandbox:</Bold> Conserva el disco overlay escribible (`upper.ext4`) entre `stop` y `start`, sincroniza los buffers del sistema de archivos invitado al apagar y limpia el directorio `work/` de OverlayFS al volver a montar para no perder `/workspace` ni marcar archivos como eliminados.
+- 🗑️ <Bold>Acciones en detalle de contenedor:</Bold> Monta los diálogos de eliminación, actualización y clonación en el layout de detalle del contenedor para que **Más acciones → Eliminar** abra la confirmación de inmediato.
+
+</ChangelogEntry>
+
 <ChangelogEntry version="v6.4.0" date="23 de noviembre de 2026">
 ## MicroVMs Agent Sandbox
 
