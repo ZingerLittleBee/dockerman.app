@@ -2,12 +2,19 @@ import type { Locale } from '@repo/shared/i18n'
 import { getTranslation } from '@repo/shared/i18n/server'
 import type { Metadata } from 'next'
 import { siteConfig } from '@/app/siteConfig'
-import { CtaFinal } from '@/components/landing/CtaFinal'
-import { FeaturesGrid } from '@/components/landing/FeaturesGrid'
-import { Hero } from '@/components/landing/Hero'
-import { LiveDashboard } from '@/components/landing/LiveDashboard'
-import { ModulesSection } from '@/components/landing/ModulesSection'
-import { RuntimeStrip } from '@/components/landing/RuntimeStrip'
+import { CommandPalette } from '@/components/home/CommandPalette'
+import { list, paletteLabels } from '@/components/home/copy'
+import { DetailsSection } from '@/components/home/DetailsSection'
+import { shotsFor } from '@/components/home/data'
+import { EngineMarquee, EnginesSection, StatsStrip } from '@/components/home/EnginesSection'
+import { FinalCta } from '@/components/home/FinalCta'
+import { FleetSection } from '@/components/home/FleetSection'
+import { HomeHero } from '@/components/home/HomeHero'
+import s from '@/components/home/home.module.css'
+import { cn, SectionTitle } from '@/components/home/primitives'
+import { ReleasesSection } from '@/components/home/ReleasesSection'
+import { SandboxSection } from '@/components/home/SandboxSection'
+import { Showcase } from '@/components/home/Showcase'
 import { JsonLd } from '@/components/seo/JsonLd'
 import { buildAlternates, SITE_URL } from '@/lib/seo'
 
@@ -18,6 +25,13 @@ const ORGANIZATION_LD = {
   url: SITE_URL,
   logo: `${SITE_URL}/opengraph-image.png`,
   sameAs: ['https://github.com/ZingerLittleBee', 'https://twitter.com/zinger_bee']
+}
+
+interface ShowcaseCopy {
+  name: string
+  description: string
+  chip: string
+  alt: string
 }
 
 export async function generateMetadata({
@@ -38,11 +52,12 @@ export async function generateMetadata({
   }
 }
 
-export default async function LandingPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   const l = locale as Locale
   const { t } = await getTranslation(l)
   const description = t('meta.home.description')
+  const shots = shotsFor(l)
 
   const websiteLd = {
     '@context': 'https://schema.org',
@@ -72,27 +87,41 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
     author: { '@type': 'Person', name: 'ZingerBee', url: 'https://github.com/ZingerLittleBee' }
   }
 
+  const showcaseImages = [shots.stats, shots.kubernetes, shots.logs, shots.images]
+  const showcaseTabs = list<ShowcaseCopy>(t, 'home.showcase.tabs').map((tab, i) => ({
+    ...tab,
+    image: showcaseImages[i]
+  }))
+
   return (
-    <main>
+    <main className={cn(s.pg, (l === 'zh' || l === 'ja') && s.cjk, s[l])}>
       <JsonLd data={[ORGANIZATION_LD, websiteLd, softwareLd]} />
-      <Hero locale={l} />
-      <div className="relative px-5 md:px-8">
-        <div
-          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 md:hidden"
-          style={{
-            background: 'linear-gradient(to left, var(--color-dm-bg), transparent)'
-          }}
-        />
-        <div className="overflow-x-auto overscroll-x-contain [-ms-overflow-style:none] [scrollbar-width:none] md:overflow-visible [&::-webkit-scrollbar]:hidden">
-          <div className="min-w-[880px] md:min-w-0">
-            <LiveDashboard locale={l} />
-          </div>
-        </div>
-      </div>
-      <RuntimeStrip locale={l} />
-      <FeaturesGrid locale={l} />
-      <ModulesSection locale={l} />
-      <CtaFinal locale={l} />
+      <HomeHero locale={l} t={t} />
+      <EngineMarquee t={t} />
+      <EnginesSection t={t} />
+      <StatsStrip t={t} />
+      <Showcase
+        heading={
+          <SectionTitle lead={t('home.showcase.titleLead')} trail={t('home.showcase.titleTrail')} />
+        }
+        tabs={showcaseTabs}
+      />
+      <CommandPalette
+        background={shots.palette}
+        heading={
+          <SectionTitle
+            centered
+            lead={t('home.palette.titleLead')}
+            trail={t('home.palette.titleTrail')}
+          />
+        }
+        labels={paletteLabels(t)}
+      />
+      <FleetSection t={t} />
+      <SandboxSection t={t} />
+      <DetailsSection t={t} />
+      <ReleasesSection locale={l} t={t} />
+      <FinalCta locale={l} t={t} />
     </main>
   )
 }

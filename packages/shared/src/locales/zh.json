@@ -13,32 +13,6 @@
     "closeMenu": "关闭菜单",
     "skipToContent": "跳到正文"
   },
-  "hero": {
-    "eyebrow": "硬件隔离 Agent 沙箱 microVM、零网卡出站代理、copy-in 工作区 Diff 与写回",
-    "eyebrowTag": "新",
-    "headline1Lead": "Docker，\n用起来像",
-    "headline1Accent": "本地",
-    "headline2Lead": "Kubernetes，\n变得",
-    "headline2Accent": "轻松",
-    "description": "为 Docker、Podman 和 Kubernetes 打造的轻量级桌面客户端 —— 基于 Rust 与 Tauri。毫秒级启动，内存占用不到 30 MB。",
-    "compareLink": "对比 Docker Desktop →",
-    "downloadFor": {
-      "mac": "下载 macOS 版",
-      "windows": "下载 Windows 版",
-      "linux": "下载 Linux 版"
-    },
-    "copyAria": "复制：{{cmd}}",
-    "copied": "已复制",
-    "metaPrivacy": "本地优先 · 可关闭的匿名分析",
-    "metaVersion": "v{{version}} · {{date}}",
-    "terminal": {
-      "tapping": "正在添加",
-      "downloading": "正在下载",
-      "installed": "安装完成",
-      "installedIn": "耗时 2.1s",
-      "launching": "· 正在启动 Dockerman…"
-    }
-  },
   "features": {
     "badge": "桌面应用",
     "title": "轻量级 Docker 管理",
@@ -109,165 +83,6 @@
   },
   "common": {
     "download": "下载"
-  },
-  "featuresSection": {
-    "kicker": "特性",
-    "titleLead": "你关心的每一个对象，",
-    "titleAccent": "只差一次击键。",
-    "description": "容器、镜像、卷、网络、Compose 项目、Kubernetes 工作负载、Cloudflared 隧道 —— 都在同一个低延迟界面里。",
-    "cards": {
-      "palette": {
-        "title": "命令面板即应用",
-        "body": "⌘; 唤起通用模糊检索，一次覆盖所有容器、镜像、Compose 项目、网络、卷、Pod、Service 与最近操作。无菜单、无标签页、无翻找。"
-      },
-      "imageUpgrade": {
-        "title": "镜像升级检测",
-        "body": "摘要级差异对比。一键升级，自动备份与回滚。"
-      },
-      "podman": {
-        "title": "Docker 与 Podman，同一界面",
-        "body": "自动检测运行时。Linux 与 macOS 上自动发现 Rootless socket。"
-      },
-      "kubernetes": {
-        "title": "Kubernetes，并排陈列",
-        "body": "加载 kubeconfig，或一键启动本地 k3d 集群。浏览 Deployment、Pod、CRD、Helm Release。任意端口转发附带本地 DNS。"
-      },
-      "events": {
-        "title": "事件，清晰可读",
-        "body": "非零退出、OOM 与健康检查失败都会弹出桌面通知。每条事件可复制、可过滤、可导出。"
-      },
-      "cloudflared": {
-        "title": "一键公网隧道",
-        "body": "通过 Cloudflared 将任意容器端口暴露到公网。容器停止时自动回收，崩溃后持久化恢复。"
-      },
-      "logs": {
-        "title": "不会卡顿的日志",
-        "bodyPre": "虚拟化查看器，支持跟随/暂停、正则高亮、TXT/JSON 导出。键盘优先 —— ",
-        "bodyMid": " 暂停，",
-        "bodyPost": " 搜索。"
-      },
-      "security": {
-        "title": "值得信任的镜像",
-        "body": "内置 Trivy CVE 扫描，支持严重级过滤与审阅。私有仓库凭证在 pull 时自动匹配。推送到任意仓库并流式展示进度。"
-      }
-    }
-  },
-  "modulesSection": {
-    "kicker": "模块",
-    "titleLead": "为你每天",
-    "titleAccent": "真正",
-    "titleTrail": "在做的事打造。",
-    "descriptionPre": "九年的 Docker UI，大多数仍像 Web 管理面板的翻版。Dockerman 是为那些反正都会去敲 ",
-    "descriptionPost": " 命令的人设计的。",
-    "modules": {
-      "containers": {
-        "chip": "最常用",
-        "title": "检查容器，",
-        "titleEm": "不被干扰。",
-        "body": "状态、日志、环境变量、挂载、进程、一个真正的终端和文件浏览器 —— 不离开当前行即可全部调用。一条命令即可提交为新镜像，或把配置克隆到创建对话框。",
-        "bullets": [
-          "CPU、内存、网络、磁盘的环形仪表与迷你折线",
-          "带数据卷与文件系统的容器备份/恢复",
-          "docker-run 解析器 —— 粘贴命令，生成对话框"
-        ]
-      },
-      "compose": {
-        "chip": "新",
-        "title": "Compose 项目，",
-        "titleEm": "按真实归属分组。",
-        "body": "在平铺列表与按项目分组视图之间切换。完整生命周期：up、stop、restart、pull、remove。Compose CLI 的所有参数均已暴露，包括 profile 与 dry-run。",
-        "bullets": [
-          "独立容器自动折叠到专属分区",
-          "支持 env-file、file 与 profile",
-          "项目状态一目了然"
-        ]
-      },
-      "images": {
-        "chip": "一键",
-        "title": "真正",
-        "titleEm": "管用的层浏览器。",
-        "body": "交互式大小分布、逐层 Dockerfile 命令、基于 Trivy 的 CVE 扫描，可推送到任意仓库并自动匹配凭证。分析结果可导出为 JSON。",
-        "bullets": [
-          "按颜色分层的条带，支持展开/折叠",
-          "内嵌 Docker Hub 搜索、Tag 与 README",
-          "摘要级升级，一键回滚"
-        ]
-      },
-      "system": {
-        "chip": "深度",
-        "title": "每一个运行时旋钮，",
-        "titleEm": "开放且安全。",
-        "body": "Windows 上无需 Docker Desktop 即可使用 WSL2 引擎。SSH socket 转发带心跳重连。私有仓库凭证在 pull 时自动匹配。全局快捷键在 Wayland 下也可用。",
-        "bullets": [
-          "菜单栏托盘实时显示 CPU / 内存",
-          "非零退出与 OOM 的实时事件通知",
-          "一键磁盘清理，附交互式占用分解"
-        ]
-      }
-    }
-  },
-  "runtimeStrip": {
-    "label": "支持运行时"
-  },
-  "liveDashboard": {
-    "host": {
-      "name": "本地主机",
-      "version": "docker · 28.5.2"
-    },
-    "sidebar": {
-      "main": {
-        "dashboard": "仪表盘",
-        "container": "容器",
-        "image": "镜像",
-        "build": "构建",
-        "network": "网络",
-        "volume": "数据卷",
-        "events": "事件",
-        "templates": "模板"
-      },
-      "actionsHeader": "操作",
-      "actions": {
-        "terminal": "终端",
-        "process": "进程",
-        "inspect": "详情",
-        "stats": "统计",
-        "logs": "日志",
-        "file": "文件"
-      },
-      "containersHeader": "容器",
-      "running": "运行中",
-      "idle": "空闲"
-    },
-    "main": {
-      "title": "仪表盘",
-      "chips": {
-        "autoRefresh": "自动刷新 · 2 秒",
-        "connected": "已连接"
-      },
-      "kpi": {
-        "containersTitle": "容器",
-        "containersSubtitle": "8 个运行中 · 4 个已停止",
-        "imagesTitle": "镜像",
-        "imagesSubtitle": "3 个可更新",
-        "totalSizeTitle": "镜像总大小",
-        "totalSizeSubtitle": "磁盘占用",
-        "imagesInUseTitle": "使用中的镜像",
-        "imagesInUseSubtitle": "共 47 个"
-      },
-      "system": {
-        "dockerVersionTitle": "Docker 版本",
-        "dockerVersionSubtitle": "稳定",
-        "storageDriverTitle": "存储驱动",
-        "resourcesTitle": "系统资源",
-        "osTitle": "操作系统"
-      },
-      "charts": {
-        "cpu": "CPU",
-        "memory": "内存",
-        "networkIo": "网络 I/O",
-        "diskIo": "磁盘 I/O"
-      }
-    }
   },
   "pricing": {
     "hero": {
@@ -1144,6 +959,245 @@
     "download": {
       "title": "下载 — Dockerman",
       "description": "为 macOS、Windows 和 Linux 下载 Dockerman。单个原生 18 MB 二进制文件。"
+    }
+  },
+  "home": {
+    "hero": {
+      "badge": "Agent 沙箱 microVM",
+      "badgeNew": "新",
+      "titleLead": "Docker 桌面，",
+      "titleAccent": "轻到没有存在感。",
+      "description": "Docker、Podman、Kubernetes，一个原生应用全搞定。内存占用不到 30 MB。",
+      "download": {
+        "mac": "下载 macOS 版",
+        "windows": "下载 Windows 版",
+        "linux": "下载 Linux 版"
+      },
+      "copy": "复制",
+      "copied": "已复制",
+      "copyAria": "复制 Homebrew 安装命令",
+      "freeLocal": "本地使用免费",
+      "runsOn": "支持引擎",
+      "windowAria": "Dockerman 容器列表界面演示"
+    },
+    "window": {
+      "nav": [
+        "仪表盘",
+        "容器",
+        "沙箱",
+        "镜像",
+        "构建",
+        "网络",
+        "存储卷",
+        "存储",
+        "应用"
+      ],
+      "pinned": "容器列表",
+      "title": "容器",
+      "search": "按名称、镜像、ID、状态、命令或端口搜索…",
+      "all": "全部",
+      "running": "运行中",
+      "attention": "需要关注",
+      "stopped": "已停止",
+      "showAll": "显示全部",
+      "columns": {
+        "name": "名称",
+        "image": "镜像",
+        "ports": "端口",
+        "status": "状态",
+        "created": "创建时间"
+      },
+      "status": {
+        "running": "运行中",
+        "exited": "已退出",
+        "paused": "已暂停",
+        "restarting": "重启中",
+        "created": "已创建"
+      },
+      "ago": [
+        "3 天前",
+        "12 小时前",
+        "6 天前",
+        "16 小时前",
+        "2 周前",
+        "2 天前",
+        "5 小时前",
+        "30 分钟前"
+      ],
+      "chips": {
+        "upgrade": "有新版本可升级",
+        "pods": "Pod 全部就绪",
+        "memory": "界面内存占用"
+      }
+    },
+    "engines": {
+      "titleLead": "任意引擎，",
+      "titleTrail": "一个界面全接管。",
+      "platformAria": "按平台筛选",
+      "all": "全部",
+      "connecting": "连接中…",
+      "connected": "已连接",
+      "hubFooter": "启动时自动检测，随时切换",
+      "items": [
+        {
+          "description": "Docker Desktop 或原生 Docker Engine，启动即连接。",
+          "tag": "自动检测"
+        },
+        {
+          "description": "已经在用 OrbStack？打开就能连上。",
+          "tag": "自动检测"
+        },
+        {
+          "description": "轻量 VM 里的原生 Docker Engine，应用内启停、调配资源。",
+          "tag": "托管"
+        },
+        {
+          "description": "自动发现 Rootless socket，macOS 上托管 Podman machine。",
+          "tag": "托管"
+        },
+        {
+          "description": "不装 Docker Desktop，也能在 Windows 上跑 Docker，一键装好。",
+          "tag": "一键安装"
+        },
+        {
+          "description": "Apple 自家的容器运行时，一等公民支持。",
+          "tag": "原生"
+        }
+      ],
+      "remoteTitle": "远程主机，SSH 或 TCP 直连",
+      "remoteBody": "心跳自动重连。唯一的付费功能。",
+      "k8sTitle": "Kubernetes 集群也一样",
+      "k8sBody": "接入 kubeconfig 或本地 k3d，免费。"
+    },
+    "stats": {
+      "memory": "界面内存占用",
+      "download": "macOS 安装包",
+      "engines": "支持的容器引擎",
+      "free": "本地功能，全部免费"
+    },
+    "showcase": {
+      "titleLead": "一个窗口，",
+      "titleTrail": "所有容器尽在掌握。",
+      "tabs": [
+        {
+          "name": "容器",
+          "description": "日志、监控、终端、文件，一键直达。",
+          "chip": "实时监控 · 每秒刷新",
+          "alt": "Dockerman 容器监控界面"
+        },
+        {
+          "name": "Kubernetes",
+          "description": "接入 kubeconfig 或本地 k3d，自带 Helm。",
+          "chip": "4 个节点 · 29 个 Pod",
+          "alt": "Dockerman Kubernetes 集群界面"
+        },
+        {
+          "name": "日志",
+          "description": "虚拟滚动，随搜随看，从不卡顿。",
+          "chip": "实时跟随 · stdout + stderr",
+          "alt": "Dockerman 日志查看器"
+        },
+        {
+          "name": "镜像",
+          "description": "逐层分析体积，内置 CVE 扫描。",
+          "chip": "20 层 · 845 MB",
+          "alt": "Dockerman 镜像分层分析"
+        }
+      ]
+    },
+    "palette": {
+      "titleLead": "搜索一切，",
+      "titleTrail": "即刻操作。",
+      "aria": "命令面板演示：搜索 redis，打开容器操作",
+      "placeholder": "输入命令或搜索...",
+      "pages": "页面",
+      "dashboard": "仪表盘",
+      "fleet": "舰队",
+      "containers": "容器",
+      "images": "镜像",
+      "networks": "网络",
+      "volumes": "存储卷",
+      "events": "事件",
+      "cluster": "集群概览",
+      "running": "运行中",
+      "actions": "容器操作",
+      "stop": "停止",
+      "restart": "重启",
+      "navigate": "导航",
+      "logs": "查看日志",
+      "terminal": "终端",
+      "stats": "统计",
+      "danger": "危险操作",
+      "remove": "删除"
+    },
+    "fleet": {
+      "titleLead": "一个应用，",
+      "titleTrail": "管遍所有主机。",
+      "chips": ["SSH", "TCP", "心跳重连", "多主机总览"],
+      "fleet": "多主机总览",
+      "hosts": "4 台主机",
+      "total": "41 个容器",
+      "containers": "容器",
+      "memory": "内存",
+      "local": "本机",
+      "reconnecting": "重连中…"
+    },
+    "sandbox": {
+      "titleLead": "让 Agent 放手去跑，",
+      "titleTrail": "就在 microVM 里。",
+      "aria": "Agent 沙箱演示：复制工作区、隔离运行、审阅 Diff 后写回",
+      "workspace": "主机工作区",
+      "filtered": "已过滤",
+      "added": "已安装 214 个包",
+      "blocked": "已拦截 · 私有地址",
+      "passed": "42 项测试通过",
+      "diff": "Diff",
+      "files": "2 个文件",
+      "apply": "写回",
+      "applied": "已写回"
+    },
+    "details": {
+      "titleLead": "小功能，",
+      "titleTrail": "大省心。",
+      "domainsTitle": "告别端口号",
+      "domainsBody": "每个容器都有好记的 *.dockerman.localhost 地址。",
+      "backupTitle": "整个容器一键备份",
+      "backupBody": "配置、文件系统、数据卷、绑定挂载。",
+      "tunnelTitle": "一键公网地址",
+      "tunnelBody": "Cloudflared 隧道，用完自动回收。",
+      "upgradeTitle": "升级有后路",
+      "upgradeBody": "自动备份，一键回滚。",
+      "backupReady": "已备份",
+      "alertExited": "已退出 · code 137",
+      "alertOom": "内存溢出被终止",
+      "alertsTitle": "出错立刻知道",
+      "alertsBody": "桌面通知，或推到 Telegram、ntfy、Discord。",
+      "composeTitle": "粘贴 docker run，得到 Compose",
+      "composeBody": "在内置 YAML 编辑器里接着改。",
+      "appsTitle": "一键装应用",
+      "appsBody": "模板来自 Portainer 与 CasaOS 源。",
+      "terminalTitle": "真正的终端",
+      "terminalBody": "切换页面，会话不断。",
+      "pruneTitle": "一键回收磁盘",
+      "pruneBody": "先看清谁占了空间。"
+    },
+    "releases": {
+      "titleLead": "持续交付，",
+      "titleTrail": "从不停歇。",
+      "count": "个版本 · 近 12 个月",
+      "gap": "天发一版",
+      "latest": "最新",
+      "major": "大版本",
+      "feature": "功能版本",
+      "fix": "修复版本",
+      "all": "完整更新日志"
+    },
+    "cta": {
+      "titleLead": "本地使用，",
+      "titleAccent": "永久免费。",
+      "description": "只有远程主机收费，一次买断，不是订阅。",
+      "local": "本地：永久免费",
+      "remote": "远程主机：一次买断"
     }
   }
 }
