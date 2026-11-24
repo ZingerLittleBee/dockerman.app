@@ -1,6 +1,6 @@
 import { cx } from '@repo/shared/utils'
 import Image from 'next/image'
-import type { LogoFit } from '@/components/home/data'
+import { ENGINES, type LogoFit } from '@/components/home/data'
 
 /** Image size per fit, matching the home page's light logo tiles. */
 const FIT_IMAGE: Record<LogoFit, string> = {
@@ -35,6 +35,22 @@ export function EngineLogo({
         unoptimized
         width={64}
       />
+    </span>
+  )
+}
+
+/** Overlapping logos of every engine Dockerman can drive; decorative, the text beside it names them. */
+export function EngineStack({ className }: { className?: string }) {
+  return (
+    <span aria-hidden="true" className={cx('flex -space-x-1.5', className)}>
+      {ENGINES.map((engine) => (
+        <EngineLogo
+          className="size-5 rounded-full ring-2 ring-dm-bg-elev sm:size-6"
+          fit={engine.fit}
+          key={engine.name}
+          src={engine.logo}
+        />
+      ))}
     </span>
   )
 }

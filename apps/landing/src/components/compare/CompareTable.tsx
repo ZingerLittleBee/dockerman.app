@@ -2,9 +2,8 @@ import type { Locale } from '@repo/shared/i18n'
 import { getTranslation } from '@repo/shared/i18n/server'
 import { cx } from '@repo/shared/utils'
 import { Fragment, type ReactNode } from 'react'
-import { ENGINES } from '@/components/home/data'
 import type { CompareVars } from '@/config/compare'
-import { EngineLogo } from './EngineLogo'
+import { EngineStack } from './EngineLogo'
 import { SectionHeading } from './SectionHeading'
 
 type Mark = 'yes' | 'partial' | 'no'
@@ -92,22 +91,6 @@ function Cell({ mark, text, children }: { mark?: Mark; text: string; children?: 
   )
 }
 
-/** Overlapping logos of every engine Dockerman can drive. */
-function EngineStack() {
-  return (
-    <span aria-hidden="true" className="mt-2 flex -space-x-1.5">
-      {ENGINES.map((engine) => (
-        <EngineLogo
-          className="size-5 rounded-full ring-2 ring-dm-bg-elev sm:size-6"
-          fit={engine.fit}
-          key={engine.name}
-          src={engine.logo}
-        />
-      ))}
-    </span>
-  )
-}
-
 export async function CompareTable({ locale, vars }: { locale: Locale; vars: CompareVars }) {
   const { t } = await getTranslation(locale)
   const cjk = locale === 'zh' || locale === 'ja'
@@ -182,7 +165,7 @@ export async function CompareTable({ locale, vars }: { locale: Locale; vars: Com
                         mark={row.dockerman}
                         text={t(`compare.table.rows.${row.key}.dockerman`, vars)}
                       >
-                        {row.key === 'engines' ? <EngineStack /> : null}
+                        {row.key === 'engines' ? <EngineStack className="mt-2" /> : null}
                       </Cell>
                     </td>
                     <td className="px-3 py-4 align-top text-dm-ink-3 max-sm:pt-2 sm:px-6">

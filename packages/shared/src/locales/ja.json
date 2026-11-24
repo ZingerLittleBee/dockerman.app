@@ -804,7 +804,8 @@
       "kicker": "Docker Desktop の代替",
       "titleLead": "より軽い Docker UI。",
       "titleAccent": "同じコンテナ。",
-      "description": "Docker、Podman、Kubernetes のためのローカルファーストなデスクトップ UI。エンジンは手持ちのものをそのまま使えます。有料なのはリモートホスト接続だけです。"
+      "description": "Docker、Podman、Kubernetes のためのローカルファーストなデスクトップ UI。エンジンは手持ちのものをそのまま使えます。有料なのはリモートホスト接続だけです。",
+      "shotAlt": "ローカルの Docker エンジンに接続した Dockerman のコンテナ一覧"
     },
     "stats": {
       "installer": {
@@ -936,6 +937,25 @@
           "answer": "ローカルサービスに覚えやすい *.dockerman.localhost のアドレスを付ける機能で、ポート番号は不要です。コンテナ名に結び付くため、再作成しても変わりません。macOS では設定時に一度だけ管理者の承認が必要です。"
         }
       ]
+    },
+    "close": {
+      "kicker": "乗り換え",
+      "titleLead": "移行は不要。",
+      "titleAccent": "コンテナはそのまま。",
+      "steps": {
+        "download": {
+          "title": "ダウンロード",
+          "body": "Windows {{windows}}、macOS {{macos}}"
+        },
+        "open": {
+          "title": "起動する",
+          "body": "起動時にエンジンを自動検出"
+        },
+        "done": {
+          "title": "そのまま使う",
+          "body": "コンテナ、イメージ、ボリュームはそのまま"
+        }
+      }
     },
     "cta": {
       "download": "Dockerman をダウンロード",

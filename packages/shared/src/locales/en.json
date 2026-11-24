@@ -807,7 +807,8 @@
       "kicker": "Docker Desktop alternative",
       "titleLead": "A lighter Docker UI.",
       "titleAccent": "Same containers.",
-      "description": "A local-first desktop UI for Docker, Podman, and Kubernetes. Bring your own engine. Only remote hosts are paid."
+      "description": "A local-first desktop UI for Docker, Podman, and Kubernetes. Bring your own engine. Only remote hosts are paid.",
+      "shotAlt": "Dockerman container list, connected to a local Docker engine"
     },
     "stats": {
       "installer": {
@@ -939,6 +940,25 @@
           "answer": "Memorable *.dockerman.localhost addresses for local services, with no port numbers. They bind to the container name, so they survive recreation. On macOS, setup asks for one administrator approval."
         }
       ]
+    },
+    "close": {
+      "kicker": "switching",
+      "titleLead": "Nothing to migrate.",
+      "titleAccent": "Your containers are already there.",
+      "steps": {
+        "download": {
+          "title": "Download",
+          "body": "{{windows}} on Windows, {{macos}} on macOS"
+        },
+        "open": {
+          "title": "Open it",
+          "body": "Your engine is detected on launch"
+        },
+        "done": {
+          "title": "Carry on",
+          "body": "Same containers, images, and volumes"
+        }
+      }
     },
     "cta": {
       "download": "Download Dockerman",

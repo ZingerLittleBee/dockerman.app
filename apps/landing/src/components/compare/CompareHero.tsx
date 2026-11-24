@@ -1,27 +1,35 @@
 import type { Locale } from '@repo/shared/i18n'
 import { getTranslation } from '@repo/shared/i18n/server'
 import { cx } from '@repo/shared/utils'
+import Image from 'next/image'
 import Link from 'next/link'
 import { siteConfig } from '@/app/siteConfig'
 import type { CompareVars } from '@/config/compare'
 
-const STAT_KEYS = ['installer', 'memory', 'local', 'remote'] as const
+/** Each figure pins to an edge of the screenshot on wide screens and joins a 2x2 grid below it otherwise. */
+const STATS = [
+  { key: 'installer', place: 'lg:top-[30%] lg:-left-6 xl:-left-14' },
+  { key: 'memory', place: 'lg:top-[9%] lg:-right-6 xl:-right-14' },
+  { key: 'local', place: 'lg:bottom-[8%] lg:-left-8 xl:-left-16' },
+  { key: 'remote', place: 'lg:bottom-[26%] lg:-right-8 xl:-right-16' }
+] as const
 
 export async function CompareHero({ locale, vars }: { locale: Locale; vars: CompareVars }) {
   const { t } = await getTranslation(locale)
   const cjk = locale === 'zh' || locale === 'ja'
+  const shot = `/compare/containers-${locale === 'zh' ? 'zh' : 'en'}.webp`
   return (
-    <section className="relative overflow-hidden px-5 pt-12 pb-10 sm:px-8 sm:pt-20 sm:pb-16">
+    <section className="relative overflow-hidden px-5 pt-14 pb-2 sm:px-8 sm:pt-20 sm:pb-4">
       <div
         aria-hidden
-        className="pointer-events-none absolute top-5 left-1/2 -z-[1] h-[420px] w-[900px] -translate-x-1/2 blur-[40px]"
+        className="pointer-events-none absolute top-5 left-1/2 -z-[1] h-[520px] w-[1000px] -translate-x-1/2 blur-[40px]"
         style={{
           background:
             'radial-gradient(ellipse at center top, color-mix(in srgb, var(--color-dm-accent-2) 22%, transparent), transparent 60%)'
         }}
       />
-      <div className="mx-auto grid max-w-[1140px] items-center gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:gap-14">
-        <div>
+      <div className="mx-auto max-w-[1140px]">
+        <div className="mx-auto flex max-w-[980px] flex-col items-center text-center">
           <span className="inline-flex items-center gap-[10px] rounded-full border border-dm-line-strong bg-dm-bg-elev px-[10px] py-[5px] font-[var(--font-dm-mono)] text-[12px] text-dm-ink-2">
             <span
               className="h-[6px] w-[6px] rounded-full"
@@ -38,8 +46,8 @@ export async function CompareHero({ locale, vars }: { locale: Locale; vars: Comp
 
           <h1
             className={cx(
-              'mt-[22px] text-balance font-bold text-[clamp(44px,5vw,64px)] text-dm-ink',
-              cjk ? 'leading-[1.08] tracking-normal' : 'leading-[0.98] tracking-[-0.04em]'
+              'mt-6 text-balance font-bold text-[clamp(42px,6.4vw,80px)] text-dm-ink',
+              cjk ? 'leading-[1.1] tracking-normal' : 'leading-[0.98] tracking-[-0.045em]'
             )}
           >
             {t('compare.hero.titleLead')}
@@ -64,11 +72,11 @@ export async function CompareHero({ locale, vars }: { locale: Locale; vars: Comp
             </em>
           </h1>
 
-          <p className="mt-[22px] max-w-[46ch] text-[17px] text-dm-ink-3 leading-[1.55]">
+          <p className="mt-6 mb-0 max-w-[52ch] text-pretty text-[17px] text-dm-ink-3 leading-[1.55]">
             {t('compare.hero.description')}
           </p>
 
-          <div className="mt-7 flex flex-wrap items-center gap-3">
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <Link
               className="inline-flex items-center gap-[10px] rounded-[10px] px-5 py-3 font-semibold text-[14px] text-white no-underline transition-transform hover:-translate-y-px active:translate-y-0 active:scale-[0.97]"
               href={`/${locale}/download`}
@@ -99,30 +107,57 @@ export async function CompareHero({ locale, vars }: { locale: Locale; vars: Comp
           </div>
         </div>
 
-        <dl className="m-0 grid grid-cols-2 overflow-hidden rounded-[18px] border border-dm-line bg-dm-bg-elev shadow-[0_30px_80px_-40px_color-mix(in_srgb,var(--color-dm-accent-2)_45%,transparent)]">
-          {STAT_KEYS.map((key, i) => (
-            <div
-              className={cx(
-                'flex flex-col-reverse justify-end gap-2 px-5 py-6 sm:px-7 sm:py-8',
-                i % 2 === 0 && 'border-dm-line border-r',
-                i < 2 && 'border-dm-line border-b'
-              )}
-              key={key}
-            >
-              <dt className="text-[13px] text-dm-ink-3 leading-[1.4] sm:text-[14px]">
-                {t(`compare.stats.${key}.label`)}
-              </dt>
-              <dd
-                className={cx(
-                  'm-0 font-[var(--font-dm-mono)] font-semibold text-[clamp(28px,3.4vw,44px)] leading-none tracking-[-0.04em]',
-                  key === 'local' ? 'text-dm-accent' : 'text-dm-ink'
-                )}
+        <div className="relative mt-14 sm:mt-16">
+          {/* The window fades out at the bottom, so it reads as rising out of the page. */}
+          <div className="relative overflow-hidden rounded-t-[14px] border border-dm-line-strong border-b-0 bg-[#0a0a0a] shadow-[0_-20px_80px_-30px_color-mix(in_srgb,var(--color-dm-accent-2)_45%,transparent)] [mask-image:linear-gradient(to_bottom,#000_72%,transparent)] max-sm:-mr-5 max-sm:rounded-tr-none max-sm:border-r-0">
+            {/* Phones show the left part of the shot at a readable scale. */}
+            <div className="relative max-sm:w-[170%]">
+              <Image
+                alt={t('compare.hero.shotAlt')}
+                className="block h-auto w-full"
+                height={832}
+                priority
+                sizes="(max-width: 639px) 170vw, (max-width: 1204px) 100vw, 1140px"
+                src={shot}
+                width={2048}
+              />
+              {/* macOS window controls, placed where the app leaves room for them (sized in % of the shot). */}
+              <span
+                aria-hidden="true"
+                className="absolute inset-x-0 top-[3%] flex gap-[0.5%] pl-[1.25%] [&>i]:block [&>i]:aspect-square [&>i]:w-[0.75%] [&>i]:rounded-full"
               >
-                {t(`compare.stats.${key}.value`, vars)}
-              </dd>
+                <i className="bg-[#ff5f57]" />
+                <i className="bg-[#febc2e]" />
+                <i className="bg-[#28c840]" />
+              </span>
             </div>
-          ))}
-        </dl>
+          </div>
+
+          <dl className="m-0 mt-5 grid grid-cols-2 gap-3 lg:mt-0 lg:block">
+            {STATS.map((stat, i) => (
+              <div
+                className={cx(
+                  'flex flex-col-reverse gap-1.5 rounded-[14px] border border-dm-line bg-dm-bg-elev/90 px-4 py-3 shadow-[0_18px_40px_-22px_rgb(0_0_0/0.45)] backdrop-blur-md motion-safe:animate-slide-up-fade lg:absolute lg:min-w-[170px] lg:px-5 lg:py-4',
+                  stat.place
+                )}
+                key={stat.key}
+                style={{ animationDelay: `${240 + i * 90}ms` }}
+              >
+                <dt className="text-[12.5px] text-dm-ink-3 leading-[1.35]">
+                  {t(`compare.stats.${stat.key}.label`)}
+                </dt>
+                <dd
+                  className={cx(
+                    'm-0 font-[var(--font-dm-mono)] font-semibold text-[22px] leading-none tracking-[-0.03em] sm:text-[26px]',
+                    stat.key === 'local' ? 'text-dm-accent' : 'text-dm-ink'
+                  )}
+                >
+                  {t(`compare.stats.${stat.key}.value`, vars)}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
       </div>
     </section>
   )

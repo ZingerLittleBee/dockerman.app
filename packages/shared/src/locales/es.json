@@ -804,7 +804,8 @@
       "kicker": "Alternativa a Docker Desktop",
       "titleLead": "Una UI Docker más ligera.",
       "titleAccent": "Los mismos contenedores.",
-      "description": "Una UI de escritorio local-first para Docker, Podman y Kubernetes. Usa tu propio motor. Solo los hosts remotos son de pago."
+      "description": "Una UI de escritorio local-first para Docker, Podman y Kubernetes. Usa tu propio motor. Solo los hosts remotos son de pago.",
+      "shotAlt": "Lista de contenedores de Dockerman conectada a un motor Docker local"
     },
     "stats": {
       "installer": {
@@ -936,6 +937,25 @@
           "answer": "Direcciones *.dockerman.localhost fáciles de recordar para servicios locales, sin números de puerto. Se vinculan al nombre del contenedor, así que sobreviven a su recreación. En macOS la configuración pide una aprobación de administrador."
         }
       ]
+    },
+    "close": {
+      "kicker": "el cambio",
+      "titleLead": "Nada que migrar.",
+      "titleAccent": "Tus contenedores ya están ahí.",
+      "steps": {
+        "download": {
+          "title": "Descarga",
+          "body": "{{windows}} en Windows, {{macos}} en macOS"
+        },
+        "open": {
+          "title": "Ábrelo",
+          "body": "Detecta tu motor al iniciar"
+        },
+        "done": {
+          "title": "Sigue trabajando",
+          "body": "Mismos contenedores, imágenes y volúmenes"
+        }
+      }
     },
     "cta": {
       "download": "Descargar Dockerman",

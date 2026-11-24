@@ -807,7 +807,8 @@
       "kicker": "Docker Desktop 替代方案",
       "titleLead": "更轻的界面。",
       "titleAccent": "同样的容器。",
-      "description": "面向 Docker、Podman 与 Kubernetes 的本地优先桌面客户端。引擎用你自己的，只有远程主机连接收费。"
+      "description": "面向 Docker、Podman 与 Kubernetes 的本地优先桌面客户端。引擎用你自己的，只有远程主机连接收费。",
+      "shotAlt": "Dockerman 容器列表，已连接本地 Docker 引擎"
     },
     "stats": {
       "installer": {
@@ -939,6 +940,25 @@
           "answer": "为本地服务提供好记的 *.dockerman.localhost 地址，不用记端口号。域名绑定容器名，容器重建后依然有效。macOS 上配置时需要一次管理员授权。"
         }
       ]
+    },
+    "close": {
+      "kicker": "切换",
+      "titleLead": "无需迁移。",
+      "titleAccent": "容器都还在。",
+      "steps": {
+        "download": {
+          "title": "下载",
+          "body": "Windows {{windows}}，macOS {{macos}}"
+        },
+        "open": {
+          "title": "打开",
+          "body": "启动时自动识别你的引擎"
+        },
+        "done": {
+          "title": "照常使用",
+          "body": "容器、镜像、数据卷原样都在"
+        }
+      }
     },
     "cta": {
       "download": "下载 Dockerman",
