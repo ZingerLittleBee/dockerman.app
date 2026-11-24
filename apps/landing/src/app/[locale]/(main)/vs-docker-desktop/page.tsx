@@ -2,13 +2,13 @@ import type { Locale } from '@repo/shared/i18n'
 import { getTranslation } from '@repo/shared/i18n/server'
 import type { Metadata } from 'next'
 import { siteConfig } from '@/app/siteConfig'
+import { CompareEngines } from '@/components/compare/CompareEngines'
 import { CompareFaq } from '@/components/compare/CompareFaq'
 import { CompareHero } from '@/components/compare/CompareHero'
 import { CompareTable } from '@/components/compare/CompareTable'
-import { CompareTopics } from '@/components/compare/CompareTopics'
 import { CtaFinal } from '@/components/landing/CtaFinal'
 import { JsonLd } from '@/components/seo/JsonLd'
-import { compareVars } from '@/config/compare'
+import { compareFaq, compareVars } from '@/config/compare'
 import { buildAlternates, SITE_URL } from '@/lib/seo'
 
 export const dynamic = 'error'
@@ -45,7 +45,7 @@ export default async function VsDockerDesktopPage({
   const description = t('meta.compare.description')
   const pageUrl = `${SITE_URL}/${l}${COMPARE_PATH}`
   const vars = compareVars()
-  const faqItems = asFaqItems(t('compare.faq.items', { returnObjects: true }))
+  const faqItems = compareFaq(t, vars)
 
   const webPageLd = {
     '@context': 'https://schema.org',
@@ -103,24 +103,11 @@ export default async function VsDockerDesktopPage({
   return (
     <main>
       <JsonLd data={[webPageLd, breadcrumbLd, faqLd, softwareLd]} />
-      <CompareHero locale={l} />
+      <CompareHero locale={l} vars={vars} />
       <CompareTable locale={l} vars={vars} />
-      <CompareTopics locale={l} vars={vars} />
-      <CompareFaq locale={l} />
+      <CompareEngines locale={l} />
+      <CompareFaq items={faqItems} locale={l} />
       <CtaFinal locale={l} />
     </main>
-  )
-}
-
-function asFaqItems(value: unknown): { question: string; answer: string }[] {
-  if (!Array.isArray(value)) {
-    return []
-  }
-  return value.filter(
-    (item): item is { question: string; answer: string } =>
-      typeof item === 'object' &&
-      item !== null &&
-      typeof (item as { question?: unknown }).question === 'string' &&
-      typeof (item as { answer?: unknown }).answer === 'string'
   )
 }

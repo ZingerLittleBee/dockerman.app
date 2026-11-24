@@ -807,103 +807,103 @@
       "kicker": "Docker Desktop 替代方案",
       "titleLead": "更轻的界面。",
       "titleAccent": "同样的容器。",
-      "description": "Dockerman 是面向 Docker、Podman 与 Kubernetes 的本地优先桌面客户端，也是 Docker Desktop 的轻量界面替代，不是 Docker Inc. 平台的复制品。后端由你选。使用本地 Docker，全部功能免费。唯一付费的是远程主机连接。"
+      "description": "面向 Docker、Podman 与 Kubernetes 的本地优先桌面客户端。引擎用你自己的，只有远程主机连接收费。"
+    },
+    "stats": {
+      "installer": {
+        "value": "{{windows}}",
+        "label": "Windows 安装包"
+      },
+      "memory": {
+        "value": "< 30 MB",
+        "label": "应用内存占用"
+      },
+      "local": {
+        "value": "$0",
+        "label": "全部本地功能"
+      },
+      "remote": {
+        "value": "${{solo}}",
+        "label": "一次性买断远程主机"
+      }
     },
     "table": {
       "kicker": "并排对比",
       "titleLead": "真正不同的",
       "titleAccent": "地方。",
-      "description": "Dockerman 的数字来自本站。Docker Desktop 是完整平台，因此我们只做定性描述，不编造对方的测量值。",
       "columns": {
         "topic": "项目",
         "dockerman": "Dockerman",
         "desktop": "Docker Desktop"
       },
+      "groups": {
+        "cost": "体积与价格",
+        "features": "功能"
+      },
       "rows": {
-        "install": {
-          "label": "安装包体积",
-          "dockerman": "Windows {{windows}} · macOS {{macos}}",
-          "desktop": "完整平台安装包（引擎、虚拟机与工具链）"
+        "installer": {
+          "label": "安装包",
+          "dockerman": "Win {{windows}} · Mac {{macos}}",
+          "desktop": "完整平台安装包"
         },
         "memory": {
           "label": "应用内存",
-          "dockerman": "界面占用不到 30 MB",
-          "desktop": "完整平台 —— 引擎、工具链，Mac/Windows 上还有虚拟机"
+          "dockerman": "30 MB 以内",
+          "desktop": "自带虚拟机"
         },
         "local": {
-          "label": "本地 Docker 与 Podman",
-          "dockerman": "使用本地 Docker，全部功能免费",
-          "desktop": "个人与符合条件的小企业免费；更大规模组织需订阅"
+          "label": "本地使用",
+          "dockerman": "免费，商用也免费",
+          "desktop": "个人与小企业免费"
         },
         "license": {
-          "label": "付费功能",
-          "dockerman": "仅远程主机 — 一次买断 Solo ${{solo}} / Team ${{team}}",
-          "desktop": "需要付费 Docker Desktop 的组织使用订阅方案"
+          "label": "付费方式",
+          "dockerman": "${{solo}} 一次性，仅远程",
+          "desktop": "订阅制"
         },
-        "windows": {
-          "label": "Windows 不用 Docker Desktop",
-          "dockerman": "由你选 — 包括由 Dockerman 管理的 WSL 来安装 Docker",
-          "desktop": "Desktop 仍可作为后端继续用"
-        },
-        "macos": {
-          "label": "macOS 引擎",
-          "dockerman": "后端自选 — Docker Desktop、OrbStack、Colima、Podman、Apple Container",
-          "desktop": "自带 Docker Engine 与虚拟机"
+        "engines": {
+          "label": "自选引擎",
+          "dockerman": "{{engines}} 种引擎",
+          "desktop": "内置引擎"
         },
         "domains": {
           "label": "本地域名",
-          "dockerman": "*.dockerman.localhost — 好记，容器重建后仍可用",
-          "desktop": "端口发布与 Desktop 网络"
+          "dockerman": "*.dockerman.localhost",
+          "desktop": "端口映射"
         },
         "remote": {
-          "label": "远程 SSH 与多主机",
-          "dockerman": "一次买断解锁",
-          "desktop": "以本地为主；也可以用 Docker context"
+          "label": "远程 SSH 主机",
+          "dockerman": "一次性解锁",
+          "desktop": "命令行 context"
         },
         "k8s": {
           "label": "Kubernetes",
-          "dockerman": "kubeconfig 或本地 k3d — 包含，不另收费",
-          "desktop": "可在 Desktop 内启用单节点 Kubernetes"
+          "dockerman": "kubeconfig 或 k3d",
+          "desktop": "单节点集群"
+        },
+        "extensions": {
+          "label": "扩展与 Scout",
+          "dockerman": "不提供",
+          "desktop": "内置"
+        },
+        "admin": {
+          "label": "组织管理",
+          "dockerman": "不提供",
+          "desktop": "Business 套餐"
         },
         "platforms": {
           "label": "平台",
-          "dockerman": "macOS、Windows、Linux",
-          "desktop": "macOS、Windows、Linux"
+          "dockerman": "macOS · Windows · Linux",
+          "desktop": "macOS · Windows · Linux"
         }
-      }
+      },
+      "note": "Dockerman 的数据来自本站。我们不发布 Docker Desktop 的数据。"
     },
-    "topics": {
-      "kicker": "细节",
-      "titleLead": "如实对比，",
-      "titleAccent": "不贬低对方。",
-      "footprint": {
-        "title": "安装体积与内存",
-        "body": "Dockerman 是 Rust + Tauri 界面。Windows 安装包 {{windows}}，macOS 通用 DMG {{macos}}。应用按不到 30 MB 内存来设计。Docker Desktop 是完整平台（引擎、工具链，Mac/Windows 上还有虚拟机），所以下载和空闲占用都会更大。我们不在此公布 Desktop 的具体数字。"
-      },
-      "license": {
-        "title": "本地免费 vs Desktop 许可",
-        "body": "使用本地 Docker，全部功能免费，含商业使用。唯一付费的是远程主机连接 —— 一次买断（Solo ${{solo}} / Team ${{team}}）。没有其他付费项。Docker Desktop 对个人及符合 Docker 条款的组织免费；更大规模组织需要 Desktop 订阅。这是两种不同形态的产品与许可。"
-      },
-      "engines": {
-        "title": "后端由你选",
-        "body": "Dockerman 是界面，后端由你选：Docker Desktop、OrbStack、Colima、Podman、Apple Silicon 且 macOS 26+ 上的 Apple Container；在 Windows 上也可以选由 Dockerman 管理的 WSL 来安装 Docker。选择权在用户，所以它可以当 Docker Desktop 的替代 —— Desktop 不是必须的。macOS 的 v6.0.0 能检测、启动、停止、修复 Colima 与 Podman 虚拟机，但不会安装这些二进制文件。"
-      },
-      "domains": {
-        "title": "本地域名",
-        "body": "v6.1.0 为本地 Docker 服务提供好记的 *.dockerman.localhost 地址，不用带端口号。设置有引导。域名绑定容器名与容器侧端口，因此重建后仍可用。macOS 需要一次管理员授权；Windows 无需额外设置；Linux 使用 .deb/.rpm 附带的系统 broker。"
-      },
-      "pricing": {
-        "title": "一次买断 vs 订阅",
-        "body": "Dockerman 不卖订阅。唯一付费的是远程主机连接：一次买断，含终身更新。使用本地 Docker，全部功能免费。Docker Desktop 的付费方案是 Docker Inc. 的订阅。"
-      }
-    },
-    "orbstack": {
-      "title": "那 OrbStack 呢？",
-      "body": "OrbStack 是你可以选的后端，不是和 Dockerman 对打的界面。在 Mac 上可以选 OrbStack、Docker Desktop、Colima、Podman 或 Apple Container。把 Dockerman 指到对应 socket，继续用你已经在跑的引擎。当 Docker Desktop 的替代，并不等于要换掉每一种引擎 —— 选择权在用户。"
-    },
-    "desktopWins": {
-      "title": "Docker Desktop 仍然更合适的时候",
-      "body": "Docker Desktop 是 Docker Inc. 的官方产品。如果你要官方平台 —— Engine、Compose、Buildx —— 以及 Extensions、Docker Scout、Build Cloud、组织管控这类能力，选它。Desktop 也可以启用本地 Kubernetes。需要官方一体化平台时，Desktop 是对的工具。你仍然可以把 Dockerman 连上去。"
+    "engines": {
+      "kicker": "自带引擎",
+      "titleLead": "引擎照旧，",
+      "titleAccent": "界面换新。",
+      "description": "Dockerman 是界面，不是运行时。连上你正在用的引擎即可，Docker Desktop 也行。"
     },
     "faq": {
       "kicker": "常见问题",
@@ -912,19 +912,31 @@
       "items": [
         {
           "question": "Dockerman 是 Docker Desktop 的替代吗？",
-          "answer": "作为轻量、本地优先的界面，是的。后端由你选。它管理 Docker、Podman 与 Kubernetes。使用本地 Docker 的功能（含 Kubernetes）免费。唯一付费的是远程主机连接。它并不替代 Docker Inc. 的每一款产品。"
+          "answer": "是的。它是面向 Docker、Podman 与 Kubernetes 的轻量、本地优先界面，底层引擎由你选。它并不替代 Docker Inc. 的每一款产品。"
         },
         {
           "question": "Windows 上还需要 Docker Desktop 吗？",
-          "answer": "不必须。可以继续用 Docker Desktop 并让 Dockerman 连接它，也可以选由 Dockerman 管理的 WSL 来安装 Docker。后端由你选。"
+          "answer": "不需要。可以保留 Docker Desktop 并让 Dockerman 连接它，也可以让 Dockerman 配置一个 WSL 引擎并在其中安装 Docker。"
         },
         {
-          "question": "本地使用免费吗？",
-          "answer": "是的。使用本地 Docker，全部功能免费。只有连接远程主机才需要付费。"
+          "question": "它有多轻？",
+          "answer": "Windows 安装包 {{windows}}，macOS 通用 DMG {{macos}}，应用内存占用控制在 30 MB 以内。Docker Desktop 自带引擎与虚拟机，体积更大；我们不发布它的数据。"
         },
         {
-          "question": "价格怎么比？",
-          "answer": "Dockerman 付费方案是一次买断：Solo $19，Team $29。Docker Desktop 对不符合免费条件的组织使用订阅。"
+          "question": "怎么收费？",
+          "answer": "全部本地功能免费，商用也免费。远程主机连接是一次性授权：Solo ${{solo}}，Team ${{team}}，终身更新。Docker Desktop 对不符合免费条件的组织采用订阅制。"
+        },
+        {
+          "question": "那 OrbStack 呢？",
+          "answer": "OrbStack 是你可以选用的引擎，不是竞争的界面。在 Mac 上可以选 OrbStack、Docker Desktop、Colima、Podman 或 Apple Container，继续用你已经在跑的引擎。"
+        },
+        {
+          "question": "什么时候更适合用 Docker Desktop？",
+          "answer": "当你需要 Docker 官方的一体化平台，以及 Extensions、Docker Scout、Build Cloud 和组织管理功能时。你仍然可以让 Dockerman 连接它。"
+        },
+        {
+          "question": "本地域名是什么？",
+          "answer": "为本地服务提供好记的 *.dockerman.localhost 地址，不用记端口号。域名绑定容器名，容器重建后依然有效。macOS 上配置时需要一次管理员授权。"
         }
       ]
     },
@@ -934,9 +946,7 @@
     },
     "links": {
       "windowsDocs": "Windows 安装",
-      "macosDocs": "macOS 安装",
-      "pricing": "定价",
-      "download": "下载"
+      "macosDocs": "macOS 安装"
     }
   },
   "meta": {
