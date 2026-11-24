@@ -2139,93 +2139,96 @@
   letter-spacing: 0.04em;
 }
 
-/* showcase: scroll-driven steps + pinned screen */
-.showG {
-  margin-top: 56px;
-  display: grid;
-  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
-  gap: 56px;
-  align-items: start;
+/* showcase: one pinned stage (step tabs over a large screen) driven by scrolling a tall track */
+.tour {
+  /* Roughly the stage height plus one 60svh scroll segment per step. */
+  height: calc(100svh - 97px + var(--n) * 60svh);
+  margin-top: 48px;
 }
-.steps {
+.tourStage {
+  position: sticky;
+  top: 81px;
+  /* Width follows the viewport height so the tabs and the whole screenshot fit under the navbar. */
+  width: min(100%, calc((100svh - 230px) * 1.5));
+  margin-inline: auto;
   display: flex;
   flex-direction: column;
+  gap: 20px;
 }
-.stp {
+.tourTabs {
+  display: grid;
+  grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+  gap: 20px;
+}
+.tt {
   all: unset;
   box-sizing: border-box;
-  cursor: pointer;
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  min-height: 400px;
-  padding: 0 8px 0 28px;
+  gap: 6px;
+  min-width: 0;
+  padding-top: 14px;
+  cursor: pointer;
 }
-.stp:focus-visible {
+.tt:focus-visible {
   outline: 2px solid var(--ac);
   outline-offset: 4px;
+  border-radius: 4px;
 }
-.stpBar {
+.ttBar {
   position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: var(--ln);
+  inset: 0 0 auto;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--ln2);
+  overflow: hidden;
 }
-.stpBar i {
+.ttBar i {
   display: block;
   height: 100%;
   background: var(--ac);
-  transform-origin: 50% 0;
+  transform-origin: 0 50%;
   transition: transform 0.2s linear;
 }
-.stpH {
+.ttH {
   display: flex;
   align-items: baseline;
-  gap: 12px;
-  font-size: 28px;
-  font-weight: 650;
-  letter-spacing: -0.025em;
+  gap: 10px;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   color: var(--ink3);
   transition: color 0.45s var(--e);
 }
-.cjk .stpH {
-  font-size: 25px;
+.ttD {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink3);
+  opacity: 0.6;
+  text-wrap: pretty;
+  transition:
+    color 0.45s var(--e),
+    opacity 0.45s var(--e);
+}
+.cjk .ttD {
+  line-height: 1.7;
   letter-spacing: 0.02em;
+}
+.tt:hover .ttH {
+  color: var(--ink2);
+}
+.tt.on .ttH {
+  color: var(--ink);
+}
+.tt.on .ttD {
+  color: var(--ink2);
+  opacity: 1;
 }
 .stpN {
   font-size: 12px;
   font-weight: 500;
   color: var(--ac);
-}
-.stpD {
-  display: block;
-  margin-top: 12px;
-  max-width: 22em;
-  font-size: 16px;
-  line-height: 1.6;
-  color: var(--ink3);
-  opacity: 0.5;
-  transition: opacity 0.45s var(--e);
-}
-.cjk .stpD {
-  line-height: 1.85;
-  letter-spacing: 0.02em;
-}
-.stp.on .stpH {
-  color: var(--ink);
-}
-.stp.on .stpD {
-  opacity: 1;
-}
-.stpImg {
-  display: none;
-}
-.showPin {
-  position: sticky;
-  top: 110px;
 }
 .screen {
   position: relative;
@@ -2235,6 +2238,69 @@
   background: #0b0c10;
   overflow: hidden;
   box-shadow: 0 40px 100px -40px color-mix(in srgb, var(--ac) 50%, transparent);
+}
+
+/* Narrow screens swap the pinned stage for a list of steps, each with its own image. */
+.tourList {
+  display: none;
+  margin: 36px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.stp {
+  padding: 28px 0 32px 22px;
+  border-left: 2px solid var(--ln);
+}
+.stpH {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  font-size: 24px;
+  font-weight: 650;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+.cjk .stpH {
+  letter-spacing: 0.02em;
+}
+.stpD {
+  display: block;
+  margin-top: 8px;
+  max-width: 22em;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink3);
+}
+.cjk .stpD {
+  line-height: 1.85;
+  letter-spacing: 0.02em;
+}
+.stpImg {
+  position: relative;
+  display: block;
+  margin-top: 18px;
+  aspect-ratio: 1600 / 1066;
+  border-radius: 12px;
+  border: 1px solid var(--ln2);
+  overflow: hidden;
+  background: #0b0c10;
+  box-shadow: 0 24px 60px -30px color-mix(in srgb, var(--ac) 50%, transparent);
+}
+.stpImg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top left;
+  display: block;
+}
+.stpImg .tag {
+  opacity: 1;
+  transform: none;
+  right: 10px;
+  bottom: 10px;
+  padding: 6px 10px;
+  font-size: 11.5px;
+  border-radius: 9px;
 }
 .shot {
   position: absolute;
@@ -2288,25 +2354,6 @@
 .shot.on .tag {
   opacity: 1;
   transform: none;
-}
-.sdots {
-  margin-top: 18px;
-  display: flex;
-  justify-content: center;
-  gap: 6px;
-}
-.sdots i {
-  width: 26px;
-  height: 3px;
-  border-radius: 2px;
-  background: var(--ln2);
-  transition:
-    background 0.4s,
-    width 0.4s var(--e);
-}
-.sdots i.on {
-  width: 44px;
-  background: var(--ac);
 }
 
 /* command palette (mirrors the app's Spotlight window) */
@@ -4544,57 +4591,11 @@
     border-left: 0;
     padding-left: 0;
   }
-  .showG {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0;
-    margin-top: 36px;
-  }
-  .showPin {
+  .tour {
     display: none;
   }
-  .stp {
-    min-height: 0;
-    padding: 28px 0 32px 22px;
-    cursor: default;
-  }
-  .stpBar i {
-    display: none;
-  }
-  .stp .stpH {
-    color: var(--ink);
-    font-size: 24px;
-  }
-  .stp .stpD {
-    opacity: 1;
-    margin-top: 8px;
-    font-size: 15px;
-  }
-  .stpImg {
-    position: relative;
+  .tourList {
     display: block;
-    margin-top: 18px;
-    aspect-ratio: 1600 / 1066;
-    border-radius: 12px;
-    border: 1px solid var(--ln2);
-    overflow: hidden;
-    background: #0b0c10;
-    box-shadow: 0 24px 60px -30px color-mix(in srgb, var(--ac) 50%, transparent);
-  }
-  .stpImg img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top left;
-    display: block;
-  }
-  .stpImg .tag {
-    opacity: 1;
-    transform: none;
-    right: 10px;
-    bottom: 10px;
-    padding: 6px 10px;
-    font-size: 11.5px;
-    border-radius: 9px;
   }
   .bento {
     grid-template-columns: repeat(2, minmax(0, 1fr));

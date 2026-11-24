@@ -233,6 +233,3 @@ export function shotsFor(locale: Locale): ShotSet {
     palette: `/home/shots/containers-bg-${lang}.webp`
   }
 }
-
-/** Screenshot pixel size, used for aspect ratio and next/image intrinsic size. */
-export const SHOT_SIZE = { width: 1600, height: 1066 }
