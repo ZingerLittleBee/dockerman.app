@@ -5,7 +5,6 @@ import { siteConfig } from '@/app/siteConfig'
 import { CompareCta } from '@/components/compare/CompareCta'
 import { CompareEngines } from '@/components/compare/CompareEngines'
 import { CompareFaq } from '@/components/compare/CompareFaq'
-import { CompareHero } from '@/components/compare/CompareHero'
 import { CompareTable } from '@/components/compare/CompareTable'
 import { JsonLd } from '@/components/seo/JsonLd'
 import { compareFaq, compareVars } from '@/config/compare'
@@ -103,7 +102,6 @@ export default async function VsDockerDesktopPage({
   return (
     <main>
       <JsonLd data={[webPageLd, breadcrumbLd, faqLd, softwareLd]} />
-      <CompareHero locale={l} />
       <CompareTable locale={l} vars={vars} />
       <CompareEngines locale={l} />
       <CompareFaq items={faqItems} locale={l} />

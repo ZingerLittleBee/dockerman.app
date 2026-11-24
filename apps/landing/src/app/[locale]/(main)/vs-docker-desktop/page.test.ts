@@ -17,7 +17,6 @@ function readJson(name: string) {
     pricing: { vsDesktop: { cta: string } }
     compare: {
       faq: { items: unknown[] }
-      hero: { description: string }
       table: { rows: { k8s: { dockerman: string } } }
     }
   }
@@ -56,13 +55,10 @@ describe('vs-docker-desktop page', () => {
       const pack = readJson(file)
       expect(pack.compare.table.rows.k8s.dockerman).not.toMatch(paidMarkers)
       expect(JSON.stringify(pack.compare)).not.toMatch(
-        /without paying|而不需要为|支払わなくても|sin pagar las/
+        /without paying|而不需要为|支払わなくても|sin pagar las|Local Docker and Podman stay free forever|本地 Docker 与 Podman 永久免费/
       )
       expect(pack.home.hero.description).not.toMatch(vagueLocalFree)
       expect(pack.meta.home.description).not.toMatch(vagueLocalFree)
-      expect(pack.compare.hero.description).not.toMatch(
-        /Local Docker and Podman stay free forever|本地 Docker 与 Podman 永久免费/
-      )
       expect(pack.cta.description).not.toMatch(/Kubernetes/)
     }
   })

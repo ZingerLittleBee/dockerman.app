@@ -95,10 +95,11 @@ export async function CompareTable({ locale, vars }: { locale: Locale; vars: Com
   const { t } = await getTranslation(locale)
   const cjk = locale === 'zh' || locale === 'ja'
   return (
-    <section className="px-5 py-10 sm:px-8 sm:py-16">
+    <section className="px-5 pt-12 pb-10 sm:px-8 sm:pt-20 sm:pb-16">
       <div className="mx-auto max-w-[1140px]">
         <SectionHeading
           accent={t('compare.table.titleAccent')}
+          as="h1"
           cjk={cjk}
           kicker={t('compare.table.kicker')}
           lead={t('compare.table.titleLead')}

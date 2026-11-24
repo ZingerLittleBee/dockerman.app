@@ -800,26 +800,8 @@
     }
   },
   "compare": {
-    "hero": {
-      "kicker": "Alternativa a Docker Desktop",
-      "titleLead": "Una UI Docker más ligera.",
-      "titleAccent": "Los mismos contenedores.",
-      "description": "Una UI de escritorio local-first para Docker, Podman y Kubernetes. Usa tu propio motor. Solo los hosts remotos son de pago.",
-      "diagram": {
-        "layers": {
-          "ui": "UI de escritorio",
-          "extensions": "Extensions y Scout",
-          "engine": "Docker Engine",
-          "vm": "VM de Linux"
-        },
-        "ui": "UI",
-        "uiSize": "< 30 MB",
-        "bundle": "Todo en uno",
-        "yourEngine": "Tu motor"
-      }
-    },
     "table": {
-      "kicker": "lado a lado",
+      "kicker": "Alternativa a Docker Desktop",
       "titleLead": "Lo que de verdad",
       "titleAccent": "cambia.",
       "columns": {
