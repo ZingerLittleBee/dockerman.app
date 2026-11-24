@@ -13,32 +13,6 @@
     "closeMenu": "Cerrar menú",
     "skipToContent": "Saltar al contenido"
   },
-  "hero": {
-    "eyebrow": "MicroVMs Agent Sandbox aisladas por hardware, proxy de salida sin NIC y Diff/Apply copy-in",
-    "eyebrowTag": "NUEVO",
-    "headline1Lead": "Docker que se siente",
-    "headline1Accent": "local",
-    "headline2Lead": "Kubernetes que se siente",
-    "headline2Accent": "fácil",
-    "description": "Una UI de escritorio ligera para Docker, Podman y Kubernetes — hecha con Rust y Tauri. Arranca en ~0 ms y usa menos de 30 MB de memoria.",
-    "compareLink": "Comparar con Docker Desktop →",
-    "downloadFor": {
-      "mac": "Descargar para macOS",
-      "windows": "Descargar para Windows",
-      "linux": "Descargar para Linux"
-    },
-    "copyAria": "Copiar: {{cmd}}",
-    "copied": "Copiado",
-    "metaPrivacy": "local-first · analítica opcional",
-    "metaVersion": "v{{version}} · {{date}}",
-    "terminal": {
-      "tapping": "Añadiendo tap",
-      "downloading": "Descargando",
-      "installed": "Instalado",
-      "installedIn": "en 2.1 s",
-      "launching": "· iniciando Dockerman…"
-    }
-  },
   "features": {
     "badge": "Aplicación de Escritorio",
     "title": "Gestión Docker Ligera",
@@ -109,165 +83,6 @@
   },
   "common": {
     "download": "Descargar"
-  },
-  "featuresSection": {
-    "kicker": "funciones",
-    "titleLead": "Todo lo que te importa,",
-    "titleAccent": "a una tecla de distancia.",
-    "description": "Contenedores, imágenes, volúmenes, redes, proyectos Compose, cargas de Kubernetes, túneles Cloudflared — todo en una sola interfaz de baja latencia.",
-    "cards": {
-      "palette": {
-        "title": "La paleta de comandos es la app",
-        "body": "⌘; abre un buscador difuso universal sobre cada contenedor, imagen, proyecto Compose, red, volumen, Pod, Service y acción reciente. Sin menús, sin pestañas, sin rebuscar."
-      },
-      "imageUpgrade": {
-        "title": "Detección de actualizaciones de imagen",
-        "body": "Diffs a nivel de digest. Actualización en un clic con copia de seguridad automática y rollback."
-      },
-      "podman": {
-        "title": "Docker y Podman, una misma UI",
-        "body": "Detección automática del runtime. Sockets rootless descubiertos en Linux y macOS."
-      },
-      "kubernetes": {
-        "title": "Kubernetes, lado a lado",
-        "body": "Carga kubeconfigs o levanta un clúster k3d local. Explora Deployments, Pods, CRDs y releases de Helm. Port-forward con DNS local automático."
-      },
-      "events": {
-        "title": "Eventos, claros y legibles",
-        "body": "Notificaciones de escritorio para salidas distintas de cero, OOM y health checks fallidos. Cada evento es copiable, filtrable y exportable."
-      },
-      "cloudflared": {
-        "title": "Túneles públicos en un clic",
-        "body": "Expone cualquier puerto de contenedor a Internet vía Cloudflared. Los túneles se recuperan al detener el contenedor y persisten ante caídas."
-      },
-      "logs": {
-        "title": "Logs que no se atascan",
-        "bodyPre": "Visor virtualizado con follow/pausa, highlight por regex y exportación TXT/JSON. Teclado primero — ",
-        "bodyMid": " pausa, ",
-        "bodyPost": " busca."
-      },
-      "security": {
-        "title": "Imágenes de confianza",
-        "body": "Escaneo CVE con Trivy integrado, con filtro por severidad y revisión. Credenciales de registro privado que coinciden al hacer pull. Push a cualquier registro con progreso en vivo."
-      }
-    }
-  },
-  "modulesSection": {
-    "kicker": "módulos",
-    "titleLead": "Construido para lo que",
-    "titleAccent": "realmente",
-    "titleTrail": "haces cada día.",
-    "descriptionPre": "Nueve años de UIs de Docker y la mayoría siguen pareciendo un port de un panel web. Dockerman está pensado para quien de todos modos iba a escribir el comando ",
-    "descriptionPost": ".",
-    "modules": {
-      "containers": {
-        "chip": "más usado",
-        "title": "Inspecciona sin el ",
-        "titleEm": "ruido.",
-        "body": "Stats, logs, env, mounts, procesos, un terminal real y un explorador de archivos — todo disponible sin salir de la fila. Commit a una nueva imagen o clona la config en un diálogo de creación con un solo comando.",
-        "bullets": [
-          "indicadores en anillo + sparklines para CPU, memoria, red y disco",
-          "backup/restore de contenedor con volúmenes y filesystem",
-          "parser de docker-run — pega un comando, obtén un diálogo"
-        ]
-      },
-      "compose": {
-        "chip": "nuevo",
-        "title": "Proyectos Compose, ",
-        "titleEm": "agrupados como viven.",
-        "body": "Alterna entre vista plana y agrupada por proyecto. Ciclo de vida completo: up, stop, restart, pull, remove. Todas las flags del CLI de Compose expuestas, incluidos profiles y dry-run.",
-        "bullets": [
-          "los contenedores independientes se pliegan en su propia sección",
-          "soporte de env-file + file + profile",
-          "estado del proyecto de un vistazo"
-        ]
-      },
-      "images": {
-        "chip": "1 clic",
-        "title": "Un explorador de capas que ",
-        "titleEm": "se gana su lugar.",
-        "body": "Distribución de tamaños interactiva, comandos Dockerfile por capa, escaneo CVE con Trivy y push a cualquier registro con auto-match de credenciales. Exporta el análisis a JSON.",
-        "bullets": [
-          "barra de capas por color con expandir/contraer",
-          "búsqueda de Docker Hub + tags + README en línea",
-          "actualización a nivel de digest con rollback en un clic"
-        ]
-      },
-      "system": {
-        "chip": "a fondo",
-        "title": "Cada ajuste del runtime, ",
-        "titleEm": "expuesto y seguro.",
-        "body": "Motor WSL2 en Windows sin Docker Desktop. Reenvío por SSH con reconexión por heartbeat. Credenciales privadas que coinciden al hacer pull. Atajos globales incluso en Wayland.",
-        "bullets": [
-          "bandeja con CPU / mem en vivo en la barra de menú",
-          "notificaciones en tiempo real de salidas distintas de cero y OOMs",
-          "limpieza de disco en un clic con desglose interactivo"
-        ]
-      }
-    }
-  },
-  "runtimeStrip": {
-    "label": "Compatible con"
-  },
-  "liveDashboard": {
-    "host": {
-      "name": "Localhost",
-      "version": "docker · 28.5.2"
-    },
-    "sidebar": {
-      "main": {
-        "dashboard": "Panel",
-        "container": "Contenedor",
-        "image": "Imagen",
-        "build": "Build",
-        "network": "Red",
-        "volume": "Volumen",
-        "events": "Eventos",
-        "templates": "Plantillas"
-      },
-      "actionsHeader": "Acciones",
-      "actions": {
-        "terminal": "Terminal",
-        "process": "Procesos",
-        "inspect": "Inspección",
-        "stats": "Stats",
-        "logs": "Logs",
-        "file": "Archivos"
-      },
-      "containersHeader": "Contenedores",
-      "running": "en ejecución",
-      "idle": "inactivo"
-    },
-    "main": {
-      "title": "Panel",
-      "chips": {
-        "autoRefresh": "auto-refresh · 2 s",
-        "connected": "conectado"
-      },
-      "kpi": {
-        "containersTitle": "Contenedores",
-        "containersSubtitle": "8 en ejecución · 4 detenidos",
-        "imagesTitle": "Imágenes",
-        "imagesSubtitle": "3 actualizaciones disponibles",
-        "totalSizeTitle": "Tamaño total de imágenes",
-        "totalSizeSubtitle": "en disco",
-        "imagesInUseTitle": "Imágenes en uso",
-        "imagesInUseSubtitle": "de 47"
-      },
-      "system": {
-        "dockerVersionTitle": "Versión de Docker",
-        "dockerVersionSubtitle": "Estable",
-        "storageDriverTitle": "Driver de almacenamiento",
-        "resourcesTitle": "Recursos del sistema",
-        "osTitle": "Sistema operativo"
-      },
-      "charts": {
-        "cpu": "CPU",
-        "memory": "Memoria",
-        "networkIo": "E/S de red",
-        "diskIo": "E/S de disco"
-      }
-    }
   },
   "pricing": {
     "hero": {
@@ -1141,6 +956,245 @@
     "download": {
       "title": "Descargar — Dockerman",
       "description": "Descarga Dockerman para macOS, Windows y Linux. Un único binario nativo de 18 MB."
+    }
+  },
+  "home": {
+    "hero": {
+      "badge": "microVMs de Agent Sandbox",
+      "badgeNew": "Nuevo",
+      "titleLead": "Docker en tu escritorio,",
+      "titleAccent": "sin el peso.",
+      "description": "Docker, Podman y Kubernetes en una app nativa. Menos de 30 MB de memoria.",
+      "download": {
+        "mac": "Descargar para macOS",
+        "windows": "Descargar para Windows",
+        "linux": "Descargar para Linux"
+      },
+      "copy": "Copiar",
+      "copied": "Copiado",
+      "copyAria": "Copiar el comando de instalación de Homebrew",
+      "freeLocal": "Gratis para uso local",
+      "runsOn": "Funciona con",
+      "windowAria": "Demostración de la lista de contenedores de Dockerman"
+    },
+    "window": {
+      "nav": [
+        "Panel",
+        "Contenedores",
+        "Sandboxes",
+        "Imágenes",
+        "Build",
+        "Redes",
+        "Volúmenes",
+        "Almacenamiento",
+        "Apps"
+      ],
+      "pinned": "Contenedores",
+      "title": "Contenedores",
+      "search": "Busca por nombre, imagen, ID, estado, comando, puertos…",
+      "all": "Todos",
+      "running": "En ejecución",
+      "attention": "Requieren atención",
+      "stopped": "Detenidos",
+      "showAll": "Ver todo",
+      "columns": {
+        "name": "Nombre",
+        "image": "Imagen",
+        "ports": "Puertos",
+        "status": "Estado",
+        "created": "Creado"
+      },
+      "status": {
+        "running": "En ejecución",
+        "exited": "Finalizado",
+        "paused": "En pausa",
+        "restarting": "Reiniciando",
+        "created": "Creado"
+      },
+      "ago": [
+        "hace 3 días",
+        "hace 12 horas",
+        "hace 6 días",
+        "hace 16 horas",
+        "hace 2 semanas",
+        "hace 2 días",
+        "hace 5 horas",
+        "hace 30 minutos"
+      ],
+      "chips": {
+        "upgrade": "Actualización lista",
+        "pods": "Todos los pods listos",
+        "memory": "Memoria de la UI"
+      }
+    },
+    "engines": {
+      "titleLead": "Trae cualquier motor.",
+      "titleTrail": "Dockerman lo maneja.",
+      "platformAria": "Filtrar por plataforma",
+      "all": "Todos",
+      "connecting": "Conectando…",
+      "connected": "Conectado",
+      "hubFooter": "Detectado al iniciar · cambia cuando quieras",
+      "items": [
+        {
+          "description": "Docker Desktop o Docker Engine. Conectado al iniciar.",
+          "tag": "Autodetectado"
+        },
+        {
+          "description": "¿Ya usas OrbStack? Aparece sin hacer nada.",
+          "tag": "Autodetectado"
+        },
+        {
+          "description": "Docker Engine real en una VM ligera. Inicia, detén y ajusta recursos desde la app.",
+          "tag": "Gestionado"
+        },
+        {
+          "description": "Sockets rootless detectados automáticamente. Podman machine gestionado en macOS.",
+          "tag": "Gestionado"
+        },
+        {
+          "description": "Docker en Windows sin Docker Desktop. Configuración en un clic.",
+          "tag": "Un clic"
+        },
+        {
+          "description": "El runtime de contenedores de Apple, con soporte de primera.",
+          "tag": "Nativo"
+        }
+      ],
+      "remoteTitle": "Hosts remotos por SSH o TCP",
+      "remoteBody": "Reconexión por heartbeat. La única función de pago.",
+      "k8sTitle": "Clústeres de Kubernetes, también",
+      "k8sBody": "kubeconfig o un clúster k3d local. Gratis."
+    },
+    "stats": {
+      "memory": "Memoria de la UI",
+      "download": "Descarga para macOS",
+      "engines": "Motores de contenedores",
+      "free": "Para cada función local"
+    },
+    "showcase": {
+      "titleLead": "Una ventana.",
+      "titleTrail": "Todos tus contenedores a mano.",
+      "tabs": [
+        {
+          "name": "Contenedores",
+          "description": "Logs, métricas, shell y archivos a un clic.",
+          "chip": "Métricas en vivo · cada segundo",
+          "alt": "Métricas de contenedores en Dockerman"
+        },
+        {
+          "name": "Kubernetes",
+          "description": "kubeconfig o un clúster k3d local. Helm incluido.",
+          "chip": "4 nodos · 29 pods",
+          "alt": "Vista de clúster de Kubernetes en Dockerman"
+        },
+        {
+          "name": "Logs",
+          "description": "Virtualizados, con búsqueda, nunca se atascan.",
+          "chip": "Seguimiento en vivo · stdout + stderr",
+          "alt": "Visor de logs de Dockerman"
+        },
+        {
+          "name": "Imágenes",
+          "description": "Tamaño capa por capa y escaneo de CVE integrado.",
+          "chip": "20 capas · 845 MB",
+          "alt": "Análisis de capas de imagen en Dockerman"
+        }
+      ]
+    },
+    "palette": {
+      "titleLead": "Busca cualquier cosa.",
+      "titleTrail": "Actúa al instante.",
+      "aria": "Demostración de la paleta de comandos: buscar redis y abrir las acciones del contenedor",
+      "placeholder": "Escribe un comando o busca...",
+      "pages": "Páginas",
+      "dashboard": "Panel",
+      "fleet": "Flota",
+      "containers": "Contenedores",
+      "images": "Imágenes",
+      "networks": "Redes",
+      "volumes": "Volúmenes",
+      "events": "Eventos",
+      "cluster": "Resumen del clúster",
+      "running": "en ejecución",
+      "actions": "Acciones del contenedor",
+      "stop": "Detener",
+      "restart": "Reiniciar",
+      "navigate": "Ir a",
+      "logs": "Ver logs",
+      "terminal": "Terminal",
+      "stats": "Métricas",
+      "danger": "Zona de peligro",
+      "remove": "Eliminar"
+    },
+    "fleet": {
+      "titleLead": "Una app.",
+      "titleTrail": "Todos tus hosts.",
+      "chips": ["SSH", "TCP", "Reconexión por heartbeat", "Panel de flota"],
+      "fleet": "Flota",
+      "hosts": "4 hosts",
+      "total": "41 contenedores",
+      "containers": "Contenedores",
+      "memory": "Memoria",
+      "local": "local",
+      "reconnecting": "reconectando…"
+    },
+    "sandbox": {
+      "titleLead": "Deja que los agentes corran libres.",
+      "titleTrail": "Dentro de una microVM.",
+      "aria": "Demostración de Agent Sandbox: copiar un workspace, ejecutar aislado, revisar el diff y aplicar",
+      "workspace": "Workspace del host",
+      "filtered": "filtrado",
+      "added": "214 paquetes añadidos",
+      "blocked": "bloqueado · IP privada",
+      "passed": "42 tests superados",
+      "diff": "Diff",
+      "files": "2 archivos",
+      "apply": "Aplicar",
+      "applied": "Aplicado"
+    },
+    "details": {
+      "titleLead": "Pequeños detalles.",
+      "titleTrail": "Gran alivio.",
+      "domainsTitle": "Olvídate de los puertos",
+      "domainsBody": "Cada contenedor recibe un nombre *.dockerman.localhost.",
+      "backupTitle": "Copia de seguridad del contenedor entero",
+      "backupBody": "Configuración, sistema de archivos, volúmenes y bind mounts.",
+      "tunnelTitle": "URL pública en un clic",
+      "tunnelBody": "Túneles de Cloudflared que se limpian solos.",
+      "upgradeTitle": "Actualizaciones con red de seguridad",
+      "upgradeBody": "Copia automática y vuelta atrás en un clic.",
+      "backupReady": "copia lista",
+      "alertExited": "finalizado · code 137",
+      "alertOom": "terminado por OOM",
+      "alertsTitle": "Entérate en cuanto algo falla",
+      "alertsBody": "Escritorio, Telegram, ntfy, Discord.",
+      "composeTitle": "Pega docker run. Obtén Compose.",
+      "composeBody": "Sigue editando en el editor YAML integrado.",
+      "appsTitle": "Apps en un clic",
+      "appsBody": "Plantillas de Portainer y CasaOS.",
+      "terminalTitle": "Una terminal de verdad",
+      "terminalBody": "Sobrevive al cambiar de vista.",
+      "pruneTitle": "Recupera disco en un clic",
+      "pruneBody": "Antes, mira qué ocupa el espacio."
+    },
+    "releases": {
+      "titleLead": "Publicando,",
+      "titleTrail": "sin parar.",
+      "count": "versiones en los últimos 12 meses",
+      "gap": "días entre versiones",
+      "latest": "Última",
+      "major": "Mayor",
+      "feature": "Funciones",
+      "fix": "Correcciones",
+      "all": "Changelog completo"
+    },
+    "cta": {
+      "titleLead": "Gratis en local.",
+      "titleAccent": "Para siempre.",
+      "description": "Solo los hosts remotos son de pago. Una vez, no cada mes.",
+      "local": "Local: gratis para siempre",
+      "remote": "Hosts remotos: pago único"
     }
   }
 }

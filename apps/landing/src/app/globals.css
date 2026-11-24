@@ -314,6 +314,14 @@ html[lang="zh"] body {
     sans-serif;
 }
 
+/* The home page is dark-only while <html> keeps the visitor's theme. Match the root's
+   overscroll area and scrollbars to it; #070808 is the dark --color-dm-bg. The important
+   flag beats the inline color-scheme that next-themes writes on <html>. */
+html:has(.dm-home) {
+  color-scheme: dark !important;
+  background: #070808;
+}
+
 .backdrop-blur {
   -webkit-backdrop-filter: blur(3px);
   backdrop-filter: blur(3px);

@@ -7,7 +7,7 @@ const localesRoot = join(process.cwd(), '../../packages/shared/src/locales')
 function readJson(name: string) {
   return JSON.parse(readFileSync(join(localesRoot, name), 'utf8')) as {
     meta: { home: { title: string; description: string }; compare: { title: string; description: string } }
-    hero: { compareLink: string; description: string }
+    home: { hero: { description: string } }
     cta: { description: string }
     nav: { compare: string }
     footer: { links: { compare: string } }
@@ -37,7 +37,6 @@ describe('vs-docker-desktop page', () => {
       expect(pack.meta.compare.title).toBeTruthy()
       expect(pack.meta.compare.description).toBeTruthy()
       expect(pack.meta.home.title.toLowerCase()).toContain('docker desktop')
-      expect(pack.hero.compareLink).toBeTruthy()
       expect(pack.nav.compare).toBeTruthy()
       expect(pack.footer.links.compare).toBeTruthy()
       expect(pack.pricing.vsDesktop.cta).toBeTruthy()
@@ -54,7 +53,7 @@ describe('vs-docker-desktop page', () => {
       const pack = readJson(file)
       expect(pack.compare.table.rows.k8s.dockerman).not.toMatch(paidMarkers)
       expect(pack.compare.desktopWins.body).not.toMatch(/without paying|而不需要为|支払わなくても|sin pagar las/)
-      expect(pack.hero.description).not.toMatch(vagueLocalFree)
+      expect(pack.home.hero.description).not.toMatch(vagueLocalFree)
       expect(pack.meta.home.description).not.toMatch(vagueLocalFree)
       expect(pack.compare.hero.description).not.toMatch(/Local Docker and Podman stay free forever|本地 Docker 与 Podman 永久免费/)
       expect(pack.cta.description).not.toMatch(/Kubernetes/)

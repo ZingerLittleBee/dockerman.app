@@ -13,32 +13,6 @@
     "closeMenu": "メニューを閉じる",
     "skipToContent": "コンテンツへスキップ"
   },
-  "hero": {
-    "eyebrow": "ハードウェア隔離 Agent Sandbox microVM、ゼロ NIC 外向きプロキシ、copy-in Diff & Apply",
-    "eyebrowTag": "NEW",
-    "headline1Lead": "Docker を",
-    "headline1Accent": "ローカルに",
-    "headline2Lead": "Kubernetes を",
-    "headline2Accent": "手軽に",
-    "description": "Docker、Podman、Kubernetes のための軽量デスクトップ UI。Rust と Tauri で構築。ほぼ瞬時に起動し、メモリ消費は 30 MB 未満。",
-    "compareLink": "Docker Desktop と比較 →",
-    "downloadFor": {
-      "mac": "macOS 版をダウンロード",
-      "windows": "Windows 版をダウンロード",
-      "linux": "Linux 版をダウンロード"
-    },
-    "copyAria": "コピー：{{cmd}}",
-    "copied": "コピーしました",
-    "metaPrivacy": "ローカル優先 · オプトアウト可能な分析",
-    "metaVersion": "v{{version}} · {{date}}",
-    "terminal": {
-      "tapping": "Tap 中",
-      "downloading": "ダウンロード中",
-      "installed": "インストール完了",
-      "installedIn": "2.1 秒",
-      "launching": "· Dockerman を起動中…"
-    }
-  },
   "features": {
     "badge": "デスクトップアプリ",
     "title": "軽量 Docker 管理",
@@ -109,165 +83,6 @@
   },
   "common": {
     "download": "ダウンロード"
-  },
-  "featuresSection": {
-    "kicker": "機能",
-    "titleLead": "気にかけるあらゆるもの、",
-    "titleAccent": "キー一打で。",
-    "description": "コンテナ、イメージ、ボリューム、ネットワーク、Compose プロジェクト、Kubernetes ワークロード、Cloudflared トンネル — すべてを低遅延の単一 UI に。",
-    "cards": {
-      "palette": {
-        "title": "コマンドパレットこそがアプリ",
-        "body": "⌘; で全コンテナ・イメージ・Compose プロジェクト・ネットワーク・ボリューム・Pod・Service・直近の操作を横断するあいまい検索が開きます。メニューもタブも不要。"
-      },
-      "imageUpgrade": {
-        "title": "イメージ更新の検出",
-        "body": "ダイジェスト単位の差分。自動バックアップとロールバック付きのワンクリック更新。"
-      },
-      "podman": {
-        "title": "Docker と Podman を同じ UI で",
-        "body": "ランタイムを自動判別。Linux と macOS の Rootless ソケットを自動検出。"
-      },
-      "kubernetes": {
-        "title": "Kubernetes を横並びで",
-        "body": "kubeconfig を読み込むか、ローカルに k3d クラスターを起動。Deployment、Pod、CRD、Helm リリースを閲覧。あらゆるポート転送にローカル DNS が自動付与。"
-      },
-      "events": {
-        "title": "明確で見やすいイベント",
-        "body": "非ゼロ終了、OOM、ヘルスチェック失敗をデスクトップ通知。すべてのイベントはコピー可能・フィルタ可能・エクスポート可能。"
-      },
-      "cloudflared": {
-        "title": "ワンクリック公開トンネル",
-        "body": "Cloudflared で任意のコンテナポートを公開。コンテナ停止時に自動削除、クラッシュ後も復元。"
-      },
-      "logs": {
-        "title": "詰まらないログ",
-        "bodyPre": "仮想化ビューア、フォロー/一時停止、正規表現ハイライト、TXT/JSON 書き出しに対応。キーボードファースト — ",
-        "bodyMid": " で一時停止、",
-        "bodyPost": " で検索。"
-      },
-      "security": {
-        "title": "信頼できるイメージ",
-        "body": "Trivy による CVE スキャンを内蔵し、重大度フィルタとレビューに対応。プルート時にプライベートレジストリ資格を自動マッチ。任意のレジストリへ進捗表示付きでプッシュ。"
-      }
-    }
-  },
-  "modulesSection": {
-    "kicker": "モジュール",
-    "titleLead": "あなたが",
-    "titleAccent": "実際に",
-    "titleTrail": "毎日やっていることのために。",
-    "descriptionPre": "この 9 年間の Docker UI は、多くが Web 管理画面の移植のよう。Dockerman は、どのみち ",
-    "descriptionPost": " コマンドを叩く人のために設計されています。",
-    "modules": {
-      "containers": {
-        "chip": "最も使う",
-        "title": "ノイズを外して",
-        "titleEm": "インスペクト。",
-        "body": "統計、ログ、環境変数、マウント、プロセス、本物のターミナル、ファイルブラウザ — 行を離れずすべて操作可能。新しいイメージにコミットしたり、設定を作成ダイアログに複製したりも一声で。",
-        "bullets": [
-          "CPU / メモリ / ネット / ディスクのリングゲージとスパークライン",
-          "ボリュームとファイルシステム込みの容器バックアップ/復元",
-          "docker-run パーサ — コマンドを貼ればダイアログに"
-        ]
-      },
-      "compose": {
-        "chip": "新",
-        "title": "Compose プロジェクトを、",
-        "titleEm": "実体に沿ってグルーピング。",
-        "body": "フラット表示とプロジェクト別表示を切替。up / stop / restart / pull / remove のフルライフサイクル。profiles と dry-run を含むすべての Compose CLI フラグに対応。",
-        "bullets": [
-          "スタンドアロンコンテナは専用セクションに集約",
-          "env-file + file + profile をサポート",
-          "プロジェクトの状態が一目で把握可能"
-        ]
-      },
-      "images": {
-        "chip": "ワンクリック",
-        "title": "存在意義のある",
-        "titleEm": "レイヤーエクスプローラ。",
-        "body": "インタラクティブなサイズ分布、レイヤー毎の Dockerfile コマンド、Trivy による CVE スキャン、資格自動マッチ付きの任意レジストリへのプッシュ。分析結果は JSON で出力可能。",
-        "bullets": [
-          "色分けされた展開/折り畳み可能なレイヤーバー",
-          "Docker Hub 検索・タグ・README をインライン表示",
-          "ダイジェスト単位の更新とワンクリックロールバック"
-        ]
-      },
-      "system": {
-        "chip": "徹底",
-        "title": "あらゆるランタイム設定を、",
-        "titleEm": "公開かつ安全に。",
-        "body": "Docker Desktop なしで Windows の WSL2 エンジンを利用。ハートビート再接続付き SSH ソケット転送。プル時に一致するプライベートレジストリ資格。Wayland でもグローバルショートカット可。",
-        "bullets": [
-          "メニューバーのトレイにリアルタイム CPU / メモリ",
-          "非ゼロ終了・OOM のリアルタイム通知",
-          "ワンクリックのディスクプルーンとインタラクティブ内訳"
-        ]
-      }
-    }
-  },
-  "runtimeStrip": {
-    "label": "対応ランタイム"
-  },
-  "liveDashboard": {
-    "host": {
-      "name": "ローカルホスト",
-      "version": "docker · 28.5.2"
-    },
-    "sidebar": {
-      "main": {
-        "dashboard": "ダッシュボード",
-        "container": "コンテナ",
-        "image": "イメージ",
-        "build": "ビルド",
-        "network": "ネットワーク",
-        "volume": "ボリューム",
-        "events": "イベント",
-        "templates": "テンプレート"
-      },
-      "actionsHeader": "アクション",
-      "actions": {
-        "terminal": "ターミナル",
-        "process": "プロセス",
-        "inspect": "インスペクト",
-        "stats": "統計",
-        "logs": "ログ",
-        "file": "ファイル"
-      },
-      "containersHeader": "コンテナ",
-      "running": "稼働中",
-      "idle": "待機"
-    },
-    "main": {
-      "title": "ダッシュボード",
-      "chips": {
-        "autoRefresh": "自動更新 · 2 秒",
-        "connected": "接続済み"
-      },
-      "kpi": {
-        "containersTitle": "コンテナ",
-        "containersSubtitle": "8 稼働中 · 4 停止",
-        "imagesTitle": "イメージ",
-        "imagesSubtitle": "更新可能 3 件",
-        "totalSizeTitle": "イメージ合計サイズ",
-        "totalSizeSubtitle": "ディスク上",
-        "imagesInUseTitle": "使用中のイメージ",
-        "imagesInUseSubtitle": "47 件中"
-      },
-      "system": {
-        "dockerVersionTitle": "Docker バージョン",
-        "dockerVersionSubtitle": "安定版",
-        "storageDriverTitle": "ストレージドライバ",
-        "resourcesTitle": "システムリソース",
-        "osTitle": "OS"
-      },
-      "charts": {
-        "cpu": "CPU",
-        "memory": "メモリ",
-        "networkIo": "ネットワーク I/O",
-        "diskIo": "ディスク I/O"
-      }
-    }
   },
   "pricing": {
     "hero": {
@@ -1141,6 +956,245 @@
     "download": {
       "title": "ダウンロード — Dockerman",
       "description": "macOS、Windows、Linux 用の Dockerman をダウンロード。ネイティブな 18 MB のシングルバイナリ。"
+    }
+  },
+  "home": {
+    "hero": {
+      "badge": "Agent サンドボックス microVM",
+      "badgeNew": "新機能",
+      "titleLead": "デスクトップの Docker を、",
+      "titleAccent": "驚くほど軽く。",
+      "description": "Docker、Podman、Kubernetes をひとつのネイティブアプリで。メモリ使用量は 30 MB 未満。",
+      "download": {
+        "mac": "macOS 版をダウンロード",
+        "windows": "Windows 版をダウンロード",
+        "linux": "Linux 版をダウンロード"
+      },
+      "copy": "コピー",
+      "copied": "コピー済み",
+      "copyAria": "Homebrew のインストールコマンドをコピー",
+      "freeLocal": "ローカル利用は無料",
+      "runsOn": "対応エンジン",
+      "windowAria": "Dockerman のコンテナ一覧画面のデモ"
+    },
+    "window": {
+      "nav": [
+        "ダッシュボード",
+        "コンテナ",
+        "サンドボックス",
+        "イメージ",
+        "ビルド",
+        "ネットワーク",
+        "ボリューム",
+        "ストレージ",
+        "アプリ"
+      ],
+      "pinned": "コンテナ",
+      "title": "コンテナ",
+      "search": "名前、イメージ、ID、状態、コマンド、ポートで検索…",
+      "all": "すべて",
+      "running": "実行中",
+      "attention": "要対応",
+      "stopped": "停止中",
+      "showAll": "すべて表示",
+      "columns": {
+        "name": "名前",
+        "image": "イメージ",
+        "ports": "ポート",
+        "status": "状態",
+        "created": "作成日時"
+      },
+      "status": {
+        "running": "実行中",
+        "exited": "終了",
+        "paused": "一時停止",
+        "restarting": "再起動中",
+        "created": "作成済み"
+      },
+      "ago": [
+        "3 日前",
+        "12 時間前",
+        "6 日前",
+        "16 時間前",
+        "2 週間前",
+        "2 日前",
+        "5 時間前",
+        "30 分前"
+      ],
+      "chips": {
+        "upgrade": "アップグレード可能",
+        "pods": "すべての Pod が準備完了",
+        "memory": "UI のメモリ使用量"
+      }
+    },
+    "engines": {
+      "titleLead": "どのエンジンでも。",
+      "titleTrail": "Dockerman がまとめて操る。",
+      "platformAria": "プラットフォームで絞り込む",
+      "all": "すべて",
+      "connecting": "接続中…",
+      "connected": "接続済み",
+      "hubFooter": "起動時に自動検出 · いつでも切り替え",
+      "items": [
+        {
+          "description": "Docker Desktop でも Docker Engine でも、起動するだけで接続。",
+          "tag": "自動検出"
+        },
+        {
+          "description": "OrbStack を使っているなら、そのまま表示されます。",
+          "tag": "自動検出"
+        },
+        {
+          "description": "軽量 VM で動く本物の Docker Engine。起動・停止・リソース調整もアプリ内で。",
+          "tag": "管理対象"
+        },
+        {
+          "description": "Rootless ソケットを自動で検出。macOS では Podman machine も管理。",
+          "tag": "管理対象"
+        },
+        {
+          "description": "Docker Desktop なしで Windows でも Docker を。ワンクリックでセットアップ。",
+          "tag": "ワンクリック"
+        },
+        {
+          "description": "Apple 純正のコンテナランタイムに正式対応。",
+          "tag": "ネイティブ"
+        }
+      ],
+      "remoteTitle": "SSH / TCP でリモートホストへ",
+      "remoteBody": "ハートビートで自動再接続。唯一の有料機能です。",
+      "k8sTitle": "Kubernetes クラスタにも対応",
+      "k8sBody": "kubeconfig またはローカルの k3d クラスタ。無料。"
+    },
+    "stats": {
+      "memory": "UI のメモリ使用量",
+      "download": "macOS 版のサイズ",
+      "engines": "対応コンテナエンジン",
+      "free": "ローカル機能はすべて無料"
+    },
+    "showcase": {
+      "titleLead": "ひとつのウィンドウで、",
+      "titleTrail": "すべてのコンテナに手が届く。",
+      "tabs": [
+        {
+          "name": "コンテナ",
+          "description": "ログ、統計、シェル、ファイルにワンクリックで。",
+          "chip": "ライブ統計 · 毎秒更新",
+          "alt": "Dockerman のコンテナ統計画面"
+        },
+        {
+          "name": "Kubernetes",
+          "description": "kubeconfig またはローカルの k3d クラスタ。Helm も搭載。",
+          "chip": "4 ノード · 29 Pod",
+          "alt": "Dockerman の Kubernetes クラスタ画面"
+        },
+        {
+          "name": "ログ",
+          "description": "仮想スクロールで検索も快適、止まらない。",
+          "chip": "ライブ追従 · stdout + stderr",
+          "alt": "Dockerman のログビューア"
+        },
+        {
+          "name": "イメージ",
+          "description": "レイヤーごとのサイズ分析、CVE スキャン内蔵。",
+          "chip": "20 レイヤー · 845 MB",
+          "alt": "Dockerman のイメージレイヤー分析"
+        }
+      ]
+    },
+    "palette": {
+      "titleLead": "何でも検索。",
+      "titleTrail": "すぐに操作。",
+      "aria": "コマンドパレットのデモ：redis を検索してコンテナ操作を開く",
+      "placeholder": "コマンドを入力または検索...",
+      "pages": "ページ",
+      "dashboard": "ダッシュボード",
+      "fleet": "フリート",
+      "containers": "コンテナ",
+      "images": "イメージ",
+      "networks": "ネットワーク",
+      "volumes": "ボリューム",
+      "events": "イベント",
+      "cluster": "クラスタ概要",
+      "running": "実行中",
+      "actions": "コンテナ操作",
+      "stop": "停止",
+      "restart": "再起動",
+      "navigate": "移動",
+      "logs": "ログを表示",
+      "terminal": "ターミナル",
+      "stats": "統計",
+      "danger": "危険な操作",
+      "remove": "削除"
+    },
+    "fleet": {
+      "titleLead": "ひとつのアプリで、",
+      "titleTrail": "すべてのホストを。",
+      "chips": ["SSH", "TCP", "ハートビート再接続", "フリートダッシュボード"],
+      "fleet": "フリート",
+      "hosts": "4 ホスト",
+      "total": "41 コンテナ",
+      "containers": "コンテナ",
+      "memory": "メモリ",
+      "local": "ローカル",
+      "reconnecting": "再接続中…"
+    },
+    "sandbox": {
+      "titleLead": "エージェントは自由に。",
+      "titleTrail": "ただし microVM の中で。",
+      "aria": "Agent サンドボックスのデモ：ワークスペースをコピーし、隔離して実行し、差分を確認してから反映",
+      "workspace": "ホストのワークスペース",
+      "filtered": "除外",
+      "added": "214 パッケージを追加",
+      "blocked": "ブロック · プライベート IP",
+      "passed": "42 件のテストに合格",
+      "diff": "差分",
+      "files": "2 ファイル",
+      "apply": "反映",
+      "applied": "反映済み"
+    },
+    "details": {
+      "titleLead": "小さな機能で、",
+      "titleTrail": "大きな安心を。",
+      "domainsTitle": "ポート番号はもう不要",
+      "domainsBody": "すべてのコンテナに *.dockerman.localhost の名前が付きます。",
+      "backupTitle": "コンテナを丸ごとバックアップ",
+      "backupBody": "設定、ファイルシステム、ボリューム、バインドマウントまで。",
+      "tunnelTitle": "ワンクリックで公開 URL",
+      "tunnelBody": "Cloudflared トンネルは使い終われば自動で片付きます。",
+      "upgradeTitle": "安心してアップグレード",
+      "upgradeBody": "自動バックアップ、ワンクリックでロールバック。",
+      "backupReady": "バックアップ済み",
+      "alertExited": "終了 · code 137",
+      "alertOom": "OOM で強制終了",
+      "alertsTitle": "異常をすぐに通知",
+      "alertsBody": "デスクトップ、Telegram、ntfy、Discord。",
+      "composeTitle": "docker run を貼れば Compose に",
+      "composeBody": "内蔵の YAML エディタでそのまま編集。",
+      "appsTitle": "ワンクリックでアプリ導入",
+      "appsBody": "Portainer と CasaOS のテンプレートに対応。",
+      "terminalTitle": "本物のターミナル",
+      "terminalBody": "画面を切り替えてもセッションは続きます。",
+      "pruneTitle": "ワンクリックでディスクを回収",
+      "pruneBody": "まず何が容量を使っているかを確認。"
+    },
+    "releases": {
+      "titleLead": "絶え間なく、",
+      "titleTrail": "リリースし続ける。",
+      "count": "リリース · 直近 12 か月",
+      "gap": "日ごとにリリース",
+      "latest": "最新",
+      "major": "メジャー",
+      "feature": "機能追加",
+      "fix": "修正",
+      "all": "すべての更新履歴"
+    },
+    "cta": {
+      "titleLead": "ローカルは、",
+      "titleAccent": "ずっと無料。",
+      "description": "有料なのはリモートホストだけ。サブスクではなく買い切りです。",
+      "local": "ローカル：ずっと無料",
+      "remote": "リモートホスト：買い切り"
     }
   }
 }

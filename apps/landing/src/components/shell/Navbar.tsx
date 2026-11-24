@@ -6,7 +6,7 @@ import { useTranslation } from '@repo/shared/i18n/client'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { siteConfig } from '@/app/siteConfig'
+import { BrandMark } from '@/components/shell/BrandMark'
 import { LocaleSwitch } from '@/components/shell/LocaleSwitch'
 import ThemeSwitch from '@/components/ThemeSwitch'
 
@@ -19,7 +19,14 @@ const LINKS: { href: string; labelKey: string; anchor?: boolean }[] = [
   { href: '/docs', labelKey: 'nav.docs' }
 ]
 
-export function Navbar({ locale }: { locale: Locale }) {
+export function Navbar({
+  locale,
+  themeSwitch = true
+}: {
+  locale: Locale
+  /** The home page is dark-only, so it hides the theme toggle. */
+  themeSwitch?: boolean
+}) {
   const pathname = usePathname()
   const { t } = useTranslation(locale)
   const [menu, setMenu] = useState({ open: false, pathname })
@@ -65,15 +72,10 @@ export function Navbar({ locale }: { locale: Locale }) {
       </a>
       <div className="mx-auto flex max-w-[1240px] items-center justify-between gap-1.5 px-3 py-[14px] sm:gap-2 sm:px-6 md:px-8">
         <Link
-          aria-label="Dockerman"
-          className="dm-focus-ring flex min-w-0 items-center gap-2 rounded-md font-bold text-[15px] text-dm-ink tracking-[-0.01em] sm:gap-[10px]"
+          className="dm-focus-ring flex min-w-0 items-center rounded-md text-[15px] text-dm-ink"
           href={hrefFor('/')}
         >
           <BrandMark />
-          <span className="max-[360px]:hidden">Dockerman</span>
-          <span className="ml-[2px] hidden rounded-full bg-dm-ink px-2 py-[2px] font-semibold text-[10px] text-dm-bg tracking-[0.04em] sm:inline">
-            v{siteConfig.latestVersion}
-          </span>
         </Link>
 
         <div className="hidden items-center gap-1 text-[13px] text-dm-ink-2 md:flex">
@@ -92,7 +94,7 @@ export function Navbar({ locale }: { locale: Locale }) {
 
         <div className="flex shrink-0 items-center gap-0.5 sm:gap-2">
           <LocaleSwitch locale={locale} />
-          <ThemeSwitch />
+          {themeSwitch ? <ThemeSwitch /> : null}
           <a
             aria-label={t('nav.github')}
             className="dm-focus-ring hidden h-9 w-9 place-items-center rounded-md text-dm-ink-2 fine-hover:hover:bg-dm-bg-soft fine-hover:hover:text-dm-ink sm:grid"
@@ -103,9 +105,23 @@ export function Navbar({ locale }: { locale: Locale }) {
             <RiGithubFill className="h-4 w-4" />
           </a>
           <Link
-            className="dm-focus-ring inline-flex h-9 shrink-0 items-center gap-2 whitespace-nowrap rounded-lg border border-dm-ink bg-dm-ink px-[12px] font-medium text-[12.5px] text-dm-bg transition-transform fine-hover:hover:-translate-y-px active:translate-y-0 active:scale-[0.96] sm:px-[14px] sm:text-[13px]"
+            className="dm-focus-ring inline-flex h-9 shrink-0 items-center gap-[7px] whitespace-nowrap rounded-[10px] bg-dm-ink pr-[12px] pl-[10px] font-semibold text-[12.5px] text-dm-bg shadow-[0_8px_24px_-12px_color-mix(in_srgb,var(--color-dm-accent)_90%,transparent)] transition-[transform,box-shadow] duration-200 ease-out-strong fine-hover:hover:-translate-y-px fine-hover:hover:shadow-[0_12px_28px_-12px_var(--color-dm-accent)] active:translate-y-0 active:scale-[0.97] sm:pr-[14px] sm:pl-[12px] sm:text-[13px]"
             href={hrefFor('/download')}
           >
+            <svg
+              aria-hidden="true"
+              className="h-[15px] w-[15px] shrink-0"
+              fill="none"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={1.8}
+              viewBox="0 0 24 24"
+            >
+              <path d="M12 4v11" />
+              <path d="m7 10 5 5 5-5" />
+              <path d="M5 20h14" />
+            </svg>
             {t('nav.download')}
           </Link>
           <button
@@ -207,28 +223,5 @@ export function Navbar({ locale }: { locale: Locale }) {
         </div>
       </div>
     </nav>
-  )
-}
-
-function BrandMark() {
-  return (
-    <span
-      className="relative grid h-[26px] w-[26px] place-items-center overflow-hidden rounded-[7px] bg-[#0a0a0a] text-[#fafaf9]"
-      style={{
-        boxShadow: 'inset 0 0 0 1px rgb(255 255 255 / 0.12), 0 4px 12px -4px rgb(0 0 0 / 0.35)'
-      }}
-    >
-      <svg
-        aria-hidden="true"
-        className="h-4 w-4"
-        fill="currentColor"
-        viewBox="0 0 32 32"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path d="M28,12H20V4h8Zm-6-2h4V6H22Z" />
-        <path d="M17,15V9H9V23H23V15Zm-6-4h4v4H11Zm4,10H11V17h4Zm6,0H17V17h4Z" />
-        <path d="M26,28H6a2,2,0,0,1-2-2V6A2,2,0,0,1,6,4H16V6H6V26H26V16h2V26A2,2,0,0,1,26,28Z" />
-      </svg>
-    </span>
   )
 }
