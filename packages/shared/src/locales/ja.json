@@ -805,24 +805,17 @@
       "titleLead": "より軽い Docker UI。",
       "titleAccent": "同じコンテナ。",
       "description": "Docker、Podman、Kubernetes のためのローカルファーストなデスクトップ UI。エンジンは手持ちのものをそのまま使えます。有料なのはリモートホスト接続だけです。",
-      "shotAlt": "ローカルの Docker エンジンに接続した Dockerman のコンテナ一覧"
-    },
-    "stats": {
-      "installer": {
-        "value": "{{windows}}",
-        "label": "Windows インストーラー"
-      },
-      "memory": {
-        "value": "< 30 MB",
-        "label": "アプリのメモリ"
-      },
-      "local": {
-        "value": "$0",
-        "label": "ローカル機能すべて"
-      },
-      "remote": {
-        "value": "${{solo}}",
-        "label": "リモートホスト、買い切り"
+      "diagram": {
+        "layers": {
+          "ui": "デスクトップ UI",
+          "extensions": "Extensions と Scout",
+          "engine": "Docker Engine",
+          "vm": "Linux VM"
+        },
+        "ui": "UI",
+        "uiSize": "< 30 MB",
+        "bundle": "すべて同梱",
+        "yourEngine": "手持ちのエンジン"
       }
     },
     "table": {

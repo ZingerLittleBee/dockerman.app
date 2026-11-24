@@ -808,24 +808,17 @@
       "titleLead": "A lighter Docker UI.",
       "titleAccent": "Same containers.",
       "description": "A local-first desktop UI for Docker, Podman, and Kubernetes. Bring your own engine. Only remote hosts are paid.",
-      "shotAlt": "Dockerman container list, connected to a local Docker engine"
-    },
-    "stats": {
-      "installer": {
-        "value": "{{windows}}",
-        "label": "Windows installer"
-      },
-      "memory": {
-        "value": "< 30 MB",
-        "label": "App memory"
-      },
-      "local": {
-        "value": "$0",
-        "label": "Every local feature"
-      },
-      "remote": {
-        "value": "${{solo}}",
-        "label": "Once, for remote hosts"
+      "diagram": {
+        "layers": {
+          "ui": "Desktop UI",
+          "extensions": "Extensions & Scout",
+          "engine": "Docker Engine",
+          "vm": "Linux VM"
+        },
+        "ui": "UI",
+        "uiSize": "< 30 MB",
+        "bundle": "One bundle",
+        "yourEngine": "Your engine"
       }
     },
     "table": {

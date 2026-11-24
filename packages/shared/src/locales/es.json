@@ -805,24 +805,17 @@
       "titleLead": "Una UI Docker más ligera.",
       "titleAccent": "Los mismos contenedores.",
       "description": "Una UI de escritorio local-first para Docker, Podman y Kubernetes. Usa tu propio motor. Solo los hosts remotos son de pago.",
-      "shotAlt": "Lista de contenedores de Dockerman conectada a un motor Docker local"
-    },
-    "stats": {
-      "installer": {
-        "value": "{{windows}}",
-        "label": "Instalador de Windows"
-      },
-      "memory": {
-        "value": "< 30 MB",
-        "label": "Memoria de la app"
-      },
-      "local": {
-        "value": "$0",
-        "label": "Todas las funciones locales"
-      },
-      "remote": {
-        "value": "${{solo}}",
-        "label": "Pago único, hosts remotos"
+      "diagram": {
+        "layers": {
+          "ui": "UI de escritorio",
+          "extensions": "Extensions y Scout",
+          "engine": "Docker Engine",
+          "vm": "VM de Linux"
+        },
+        "ui": "UI",
+        "uiSize": "< 30 MB",
+        "bundle": "Todo en uno",
+        "yourEngine": "Tu motor"
       }
     },
     "table": {

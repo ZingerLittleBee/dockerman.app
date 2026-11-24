@@ -103,7 +103,7 @@ export default async function VsDockerDesktopPage({
   return (
     <main>
       <JsonLd data={[webPageLd, breadcrumbLd, faqLd, softwareLd]} />
-      <CompareHero locale={l} vars={vars} />
+      <CompareHero locale={l} />
       <CompareTable locale={l} vars={vars} />
       <CompareEngines locale={l} />
       <CompareFaq items={faqItems} locale={l} />

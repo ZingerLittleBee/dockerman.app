@@ -808,24 +808,17 @@
       "titleLead": "更轻的界面。",
       "titleAccent": "同样的容器。",
       "description": "面向 Docker、Podman 与 Kubernetes 的本地优先桌面客户端。引擎用你自己的，只有远程主机连接收费。",
-      "shotAlt": "Dockerman 容器列表，已连接本地 Docker 引擎"
-    },
-    "stats": {
-      "installer": {
-        "value": "{{windows}}",
-        "label": "Windows 安装包"
-      },
-      "memory": {
-        "value": "< 30 MB",
-        "label": "应用内存占用"
-      },
-      "local": {
-        "value": "$0",
-        "label": "全部本地功能"
-      },
-      "remote": {
-        "value": "${{solo}}",
-        "label": "一次性买断远程主机"
+      "diagram": {
+        "layers": {
+          "ui": "桌面界面",
+          "extensions": "Extensions 与 Scout",
+          "engine": "Docker Engine",
+          "vm": "Linux 虚拟机"
+        },
+        "ui": "界面",
+        "uiSize": "< 30 MB",
+        "bundle": "整套打包",
+        "yourEngine": "你的引擎"
       }
     },
     "table": {
