@@ -1,58 +1,45 @@
 import type { Locale } from '@repo/shared/i18n'
 import { getTranslation } from '@repo/shared/i18n/server'
+import type { CompareFaqItem } from '@/config/compare'
+import s from './compare.module.css'
+import { SectionHeading } from './SectionHeading'
 
-export async function CompareFaq({ locale }: { locale: Locale }) {
+/** Collapsed questions; the answers stay in the HTML for readers who open them and for search. */
+export async function CompareFaq({ locale, items }: { locale: Locale; items: CompareFaqItem[] }) {
   const { t } = await getTranslation(locale)
-  const raw = t('compare.faq.items', { returnObjects: true })
-  const items = Array.isArray(raw)
-    ? raw.filter(
-        (item): item is { question: string; answer: string } =>
-          typeof item === 'object' &&
-          item !== null &&
-          typeof (item as { question?: unknown }).question === 'string' &&
-          typeof (item as { answer?: unknown }).answer === 'string'
-      )
-    : []
-
+  const cjk = locale === 'zh' || locale === 'ja'
   return (
-    <section className="px-5 pt-8 pb-4 sm:px-8 sm:pt-12">
-      <div className="mx-auto max-w-[820px]">
-        <div
-          className="font-[var(--font-dm-mono)] text-[12px] tracking-[0.04em]"
-          style={{ color: 'var(--color-dm-accent-2)' }}
-        >
-          <span aria-hidden="true" className="text-dm-ink-4 before:content-['//_']" />
-          {t('compare.faq.kicker')}
-        </div>
-        <h2
-          className={
-            locale === 'zh' || locale === 'ja'
-              ? 'mx-0 mt-[10px] mb-8 font-bold text-[clamp(28px,3.6vw,40px)] text-dm-ink leading-[1.2] tracking-normal'
-              : 'mx-0 mt-[10px] mb-8 font-bold text-[clamp(28px,3.6vw,40px)] text-dm-ink leading-[1.05] tracking-[-0.03em]'
-          }
-        >
-          {t('compare.faq.titleLead')}
-          {locale === 'zh' || locale === 'ja' ? '' : ' '}
-          <em
-            className={
-              locale === 'zh' || locale === 'ja'
-                ? 'font-normal text-dm-ink-2 not-italic'
-                : 'font-[var(--font-dm-display)] font-normal text-dm-ink-2 italic'
-            }
-          >
-            {t('compare.faq.titleAccent')}
-          </em>
-        </h2>
-        <dl className="m-0 flex flex-col gap-6">
+    <section className="px-5 py-10 sm:px-8 sm:py-16">
+      <div className="mx-auto grid max-w-[1140px] gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.7fr)] lg:gap-14">
+        <SectionHeading
+          accent={t('compare.faq.titleAccent')}
+          cjk={cjk}
+          kicker={t('compare.faq.kicker')}
+          lead={t('compare.faq.titleLead')}
+        />
+        <div className="border-dm-line border-t">
           {items.map((item) => (
-            <div className="border-dm-line border-t pt-6" key={item.question}>
-              <dt className="font-semibold text-[16px] text-dm-ink tracking-[-0.015em]">
+            <details className={`group border-dm-line border-b ${s.faq}`} key={item.question}>
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-5 font-semibold text-[16px] text-dm-ink tracking-[-0.01em] outline-none focus-visible:rounded-md focus-visible:outline-2 focus-visible:outline-dm-accent focus-visible:outline-offset-2 [&::-webkit-details-marker]:hidden">
                 {item.question}
-              </dt>
-              <dd className="mt-2 mb-0 text-[14.5px] text-dm-ink-3 leading-[1.6]">{item.answer}</dd>
-            </div>
+                <svg
+                  aria-hidden="true"
+                  className="size-4 shrink-0 text-dm-ink-4 transition-transform duration-300 ease-[var(--ease-out-strong)] group-open:rotate-45 motion-reduce:transition-none"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeWidth="2"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M8 3v10M3 8h10" />
+                </svg>
+              </summary>
+              <p className="mt-0 mb-0 max-w-[62ch] pr-10 pb-6 text-[15px] text-dm-ink-3 leading-[1.65]">
+                {item.answer}
+              </p>
+            </details>
           ))}
-        </dl>
+        </div>
       </div>
     </section>
   )

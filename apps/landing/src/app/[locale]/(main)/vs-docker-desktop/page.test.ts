@@ -6,7 +6,10 @@ const localesRoot = join(process.cwd(), '../../packages/shared/src/locales')
 
 function readJson(name: string) {
   return JSON.parse(readFileSync(join(localesRoot, name), 'utf8')) as {
-    meta: { home: { title: string; description: string }; compare: { title: string; description: string } }
+    meta: {
+      home: { title: string; description: string }
+      compare: { title: string; description: string }
+    }
     home: { hero: { description: string } }
     cta: { description: string }
     nav: { compare: string }
@@ -14,9 +17,7 @@ function readJson(name: string) {
     pricing: { vsDesktop: { cta: string } }
     compare: {
       faq: { items: unknown[] }
-      hero: { description: string }
       table: { rows: { k8s: { dockerman: string } } }
-      desktopWins: { body: string }
     }
   }
 }
@@ -47,15 +48,17 @@ describe('vs-docker-desktop page', () => {
 
   test('does not mark Kubernetes or local Docker as paid', () => {
     const paidMarkers = /Paid:|付费：|有料：|De pago:/i
-    const vagueLocalFree = /Local use is free forever|本地使用永久免费|ローカル利用は永久無料|el uso local es gratis para siempre/i
+    const vagueLocalFree =
+      /Local use is free forever|本地使用永久免费|ローカル利用は永久無料|el uso local es gratis para siempre/i
 
     for (const file of ['en.json', 'zh.json', 'ja.json', 'es.json']) {
       const pack = readJson(file)
       expect(pack.compare.table.rows.k8s.dockerman).not.toMatch(paidMarkers)
-      expect(pack.compare.desktopWins.body).not.toMatch(/without paying|而不需要为|支払わなくても|sin pagar las/)
+      expect(JSON.stringify(pack.compare)).not.toMatch(
+        /without paying|而不需要为|支払わなくても|sin pagar las|Local Docker and Podman stay free forever|本地 Docker 与 Podman 永久免费/
+      )
       expect(pack.home.hero.description).not.toMatch(vagueLocalFree)
       expect(pack.meta.home.description).not.toMatch(vagueLocalFree)
-      expect(pack.compare.hero.description).not.toMatch(/Local Docker and Podman stay free forever|本地 Docker 与 Podman 永久免费/)
       expect(pack.cta.description).not.toMatch(/Kubernetes/)
     }
   })

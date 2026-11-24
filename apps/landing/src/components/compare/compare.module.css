@@ -1,0 +1,22 @@
+/* FAQ accordion: animate the native <details> panel where the browser supports it. */
+.faq {
+  interpolate-size: allow-keywords;
+}
+
+.faq::details-content {
+  block-size: 0;
+  overflow-y: clip;
+  transition:
+    block-size 0.3s var(--ease-out-strong),
+    content-visibility 0.3s allow-discrete;
+}
+
+.faq[open]::details-content {
+  block-size: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq::details-content {
+    transition: none;
+  }
+}
