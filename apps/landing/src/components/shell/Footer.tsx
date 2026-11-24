@@ -1,6 +1,7 @@
 import type { Locale } from '@repo/shared/i18n'
 import { getTranslation } from '@repo/shared/i18n/server'
 import Link from 'next/link'
+import { BrandMark } from '@/components/shell/BrandMark'
 
 export async function Footer({ locale }: { locale: Locale }) {
   const { t } = await getTranslation(locale)
@@ -14,13 +15,10 @@ export async function Footer({ locale }: { locale: Locale }) {
           {/* Brand column */}
           <div className="flex max-w-[300px] flex-col gap-[10px]">
             <Link
-              className="dm-focus-ring flex items-center gap-[10px] rounded-md"
+              className="dm-focus-ring flex items-center self-start rounded-md text-[15px] text-dm-ink"
               href={prefix('/')}
             >
               <BrandMark />
-              <span className="font-bold text-[15px] text-dm-ink tracking-[-0.01em]">
-                Dockerman
-              </span>
             </Link>
             <p className="m-0 text-dm-ink-3">{t('footer.tagline')}</p>
           </div>
@@ -141,28 +139,5 @@ function FooterCol({ heading, children }: { heading: string; children: React.Rea
       <span className="mb-1 font-semibold text-[12px] text-dm-ink">{heading}</span>
       {children}
     </div>
-  )
-}
-
-function BrandMark() {
-  return (
-    <span
-      className="relative grid h-[26px] w-[26px] place-items-center overflow-hidden rounded-[7px] bg-[#0a0a0a] text-[#fafaf9]"
-      style={{
-        boxShadow: 'inset 0 0 0 1px rgb(255 255 255 / 0.12), 0 4px 12px -4px rgb(0 0 0 / 0.35)'
-      }}
-    >
-      <svg
-        aria-hidden="true"
-        className="h-4 w-4"
-        fill="currentColor"
-        viewBox="0 0 32 32"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path d="M28,12H20V4h8Zm-6-2h4V6H22Z" />
-        <path d="M17,15V9H9V23H23V15Zm-6-4h4v4H11Zm4,10H11V17h4Zm6,0H17V17h4Z" />
-        <path d="M26,28H6a2,2,0,0,1-2-2V6A2,2,0,0,1,6,4H16V6H6V26H26V16h2V26A2,2,0,0,1,26,28Z" />
-      </svg>
-    </span>
   )
 }
